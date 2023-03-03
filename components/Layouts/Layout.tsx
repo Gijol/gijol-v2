@@ -1,18 +1,10 @@
-import {
-  AppShell,
-  Aside,
-  MediaQuery,
-  Navbar,
-  useMantineTheme,
-  Text,
-  Footer,
-  Header,
-  Burger,
-} from '@mantine/core';
-import { useState } from 'react';
-import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
+import { AppShell, useMantineTheme } from '@mantine/core';
+import { ReactNode, useState } from 'react';
+import { LayoutNavbar } from './LayoutNavbar';
+import { LayoutFooter } from './LayoutFooter';
+import { LayoutHeader } from './LayoutHeader';
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: { children: ReactNode }) {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   return (
@@ -24,35 +16,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       }}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={
-        <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
-          <Text>Application navbar</Text>
-        </Navbar>
-      }
-      footer={
-        <Footer height={60} p="md">
-          Application footer
-        </Footer>
-      }
-      header={
-        <Header height={{ base: 50, md: 70 }} p="md">
-          <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-            <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-              <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
-
-            <Text>
-              <ColorSchemeToggle />
-            </Text>
-          </div>
-        </Header>
-      }
+      navbar={<LayoutNavbar opened={opened} />}
+      footer={<LayoutFooter />}
+      header={<LayoutHeader theme={theme} opened={opened} setOpened={setOpened} />}
     >
       {children}
     </AppShell>
