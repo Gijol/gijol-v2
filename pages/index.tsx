@@ -1,4 +1,5 @@
 import { Container, Text, Paper, RingProgress, Space } from '@mantine/core';
+import ModalLogin from '../components/Modal/ModalLogin';
 
 export default function HomePage() {
   return (

@@ -1,4 +1,4 @@
-import { Navbar, NavLink } from '@mantine/core';
+import { Modal, Navbar, NavLink } from '@mantine/core';
 import {
   IconSchool,
   IconHome,
@@ -10,6 +10,7 @@ import {
   IconHomeQuestion,
 } from '@tabler/icons-react';
 import Link from 'next/link';
+import ModalLogin from '../Modal/ModalLogin';
 
 export function LayoutNavbar({ opened }: { opened: boolean }) {
   return (
@@ -45,7 +46,9 @@ export function LayoutNavbar({ opened }: { opened: boolean }) {
         </NavLink>
       </Navbar.Section>
       <Navbar.Section>
-        <div>User section</div>
+        <div style={{ height: '30px' }}>
+          <ModalLogin />
+        </div>
       </Navbar.Section>
     </Navbar>
   );
