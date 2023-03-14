@@ -1,4 +1,4 @@
-import { Modal, Navbar, NavLink } from '@mantine/core';
+import { Button, Modal, Navbar, NavLink } from '@mantine/core';
 import {
   IconSchool,
   IconHome,
@@ -44,11 +44,6 @@ export function LayoutNavbar({ opened }: { opened: boolean }) {
             <NavLink label="유용한 정보" icon={<IconInfoCircle size="1rem" stroke={1.5} />} />
           </Link>
         </NavLink>
-      </Navbar.Section>
-      <Navbar.Section>
-        <div style={{ height: '30px' }}>
-          <ModalLogin />
-        </div>
       </Navbar.Section>
     </Navbar>
   );

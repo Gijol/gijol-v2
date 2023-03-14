@@ -19,6 +19,7 @@
     "storybook:build": "build-storybook"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^2.2.3",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@mantine/carousel": "6.0.0",

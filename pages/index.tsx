@@ -1,55 +1,67 @@
-import { Container, Text, Paper, RingProgress, Space } from '@mantine/core';
-import ModalLogin from '../components/Modal/ModalLogin';
+import { Badge, Button, Card, Container, Divider, Group, Paper, Space, Text } from '@mantine/core';
+import { homeContents } from '../lib/utils/contentData';
+import { useAuth0 } from '../lib/hooks/auth';
 
 export default function HomePage() {
+  const { authenticated: auth } = useAuth0();
+  const cntFeatures = homeContents.main.cntFeatures;
+  const futureFeatures = homeContents.main.betaFeatures;
   return (
-    <>
-      <Container>
-        <h1>요약</h1>
-      </Container>
-      <Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Paper p="md" radius="md">
-          <RingProgress
-            size={300}
-            thickness={16}
-            roundCaps
-            sections={[{ value: 40, color: 'cyan' }]}
-          />
-        </Paper>
-        <Container
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            gap: '16px',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              height: '100%',
-            }}
-          >
-            <Paper p="md" radius="md" w="274px">
-              <Text>학점</Text>
-              <Space h="md" />
-              <Text>총 학점 : 130</Text>
-            </Paper>
-            <Paper p="md" radius="md" w="274px">
-              <Text>학점</Text>
-              <Space h="md" />
-              <Text>총 학점 : 130</Text>
-            </Paper>
-          </div>
-          <Paper p="md" radius="md" h="100%">
-            <Text>학점</Text>
-            <Space h="md" />
-            <Text>총 학점 : 130</Text>
-          </Paper>
-        </Container>
-      </Container>
-    </>
+    <div>
+      <h1 style={{ textAlign: 'center' }}>🙌 Gijol v.2에 오신 것을 환영합니다! 🙌</h1>
+      <Space h={16} />
+      <h2 style={{ textAlign: 'start' }}>진행중인 서비스들</h2>
+      <Divider />
+      <Space h={16} />
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+        {cntFeatures.map((feat) => {
+          return (
+            <Card key={feat.title} shadow="xs" radius="md" p="lg" w={400} withBorder>
+              <Group>
+                <h3>{feat.title}</h3>
+                <Badge color="green" variant="light">
+                  이용가능
+                </Badge>
+              </Group>
+              <Text>{feat.description}</Text>
+              <Space h={16} />
+              <div style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
+                {!auth ? (
+                  <>
+                    <Button variant="subtle" fullWidth>
+                      로그인없이 바로 확인하기
+                    </Button>
+                    <Button fullWidth>로그인 하러가기</Button>
+                  </>
+                ) : (
+                  <Button fullWidth>기능 이용하러 가기</Button>
+                )}
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+      <Space h={40} />
+      <h2 style={{ textAlign: 'start' }}>개발중인 서비스들</h2>
+      <Divider />
+      <Space h={16} />
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+        {futureFeatures.map((feat) => {
+          return (
+            <Card key={feat.title} shadow="xs" radius="md" p="lg" w={400} withBorder>
+              <Group>
+                <h3>{feat.title}</h3>
+                <Badge color="red" variant="light">
+                  개발중
+                </Badge>
+              </Group>
+              <Text>{feat.description}</Text>
+              <Space h={16} />
+            </Card>
+          );
+        })}
+      </div>
+      <Space h={96} />
+    </div>
   );
 }

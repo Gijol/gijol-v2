@@ -9,15 +9,16 @@ export function Layout({ children }: { children: ReactNode }) {
   const [opened, setOpened] = useState(false);
   return (
     <AppShell
+      sx={{ paddingRight: '16px' }}
       styles={{
         main: {
-          background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+          background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
         },
       }}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       navbar={<LayoutNavbar opened={opened} />}
-      footer={<LayoutFooter />}
+      // footer={<LayoutFooter />}x
       header={<LayoutHeader theme={theme} opened={opened} setOpened={setOpened} />}
     >
       {children}

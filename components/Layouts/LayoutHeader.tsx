@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
-import { Burger, Header, MediaQuery, Text } from '@mantine/core';
+import { Burger, Container, Header, MediaQuery } from '@mantine/core';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import { MantineTheme } from '@mantine/core';
+import UserLoginPopover from '../UserLoginPopover';
 
 export function LayoutHeader({
   theme,
@@ -14,7 +15,7 @@ export function LayoutHeader({
 }) {
   return (
     <>
-      <Header height={{ base: 50, md: 70 }} p="md">
+      <Header height={{ base: 50, md: 60 }} p="sm">
         <div
           style={{
             display: 'flex',
@@ -33,8 +34,20 @@ export function LayoutHeader({
               mr="xl"
             />
           </MediaQuery>
-          <h2>🎓 Gijol_v2</h2>
-          <ColorSchemeToggle />
+          <h2>🎓 Gijol.v2</h2>
+          <Container
+            sx={{
+              margin: 0,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '20px',
+            }}
+          >
+            <UserLoginPopover />
+            <ColorSchemeToggle />
+          </Container>
         </div>
       </Header>
     </>
