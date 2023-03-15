@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, Group, Space, Stepper, Text } from '@mantine/core';
 import UserExcelFindHelp from './UserExcelFindHelp';
 import UserFileUploadZone from './DragAndDrop/UserFileUploadZone';
 import Lottie from 'react-lottie-player';
 import ThumbsUp from '../public/lottie/thumbs-up.json';
 import { FileWithPath } from '@mantine/dropzone';
+import postGradStatusFile from '../lib/utils/grad';
 
 function FileUpload() {
   const [cntStep, setCntStep] = useState<number>(0);
   const [fileInfo, setFileInfo] = useState<FileWithPath | undefined>(undefined);
+  const [major, setMajor] = useState<string | null>(null);
   const beforeBtn = cntStep <= 0;
-  const afterBtn = cntStep >= 2 ? true : cntStep === 1 && !fileInfo;
+  const afterBtn = cntStep >= 2 ? true : cntStep === 1 ? !(major && fileInfo) : false;
+  useEffect(() => {
+    console.log(major);
+  }, [major]);
   return (
     <>
       <h1>파일 업로드 순서</h1>
@@ -22,7 +27,9 @@ function FileUpload() {
       </Stepper>
       <Space h={48} />
       {cntStep === 0 && <UserExcelFindHelp />}
-      {cntStep === 1 && <UserFileUploadZone fileInfo={fileInfo} setFileInfo={setFileInfo} />}
+      {cntStep === 1 && (
+        <UserFileUploadZone fileInfo={fileInfo} setFileInfo={setFileInfo} setMajor={setMajor} />
+      )}
       {cntStep === 2 && (
         <Container
           sx={{
@@ -41,7 +48,15 @@ function FileUpload() {
           <Space h={16} />
           <Text align="center">✨ 이제 세팅이 끝났습니다! 그럼 결과를 확인하러 갈까요? ✨</Text>
           <Space h={32} />
-          <Button size="lg" radius="md">
+          <Button
+            size="lg"
+            radius="md"
+            onClick={() => {
+              postGradStatusFile(fileInfo as FileWithPath, major as string).then((res) => {
+                console.log(res);
+              });
+            }}
+          >
             결과 확인하러 가기
           </Button>
         </Container>

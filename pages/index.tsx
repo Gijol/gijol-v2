@@ -30,11 +30,12 @@ export default function HomePage() {
           return (
             <Card key={feat.title} shadow="xs" radius="md" p="lg" w={400} withBorder>
               <Group>
-                <h3>{feat.title}</h3>
+                <h3 style={{ marginTop: '8px', marginBottom: '8px' }}>{feat.title}</h3>
                 <Badge color="green" variant="light">
                   이용가능
                 </Badge>
               </Group>
+              <Space h={8} />
               <Text>{feat.description}</Text>
               <Space h={16} />
               <div style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
@@ -66,11 +67,12 @@ export default function HomePage() {
           return (
             <Card key={feat.title} shadow="xs" radius="md" p="lg" w={400} withBorder>
               <Group>
-                <h3>{feat.title}</h3>
+                <h3 style={{ marginTop: '8px', marginBottom: '8px' }}>{feat.title}</h3>
                 <Badge color="red" variant="light">
                   개발중
                 </Badge>
               </Group>
+              <Space h={8} />
               <Text>{feat.description}</Text>
               <Space h={16} />
             </Card>
