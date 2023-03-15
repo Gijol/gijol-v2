@@ -25,6 +25,7 @@
     "@mantine/carousel": "6.0.0",
     "@mantine/core": "6.0.0",
     "@mantine/dates": "6.0.0",
+    "@mantine/dropzone": "^6.0.1",
     "@mantine/form": "^6.0.0",
     "@mantine/hooks": "6.0.0",
     "@mantine/next": "6.0.0",
@@ -40,6 +41,7 @@
     "playwright-core": "^1.31.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-lottie-player": "^1.5.4",
     "react-query": "^3.39.3"
   },
   "devDependencies": {

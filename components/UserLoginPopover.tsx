@@ -33,11 +33,11 @@ export default function UserLoginPopover() {
           </Popover.Target>
           <Popover.Dropdown sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {!user ? (
-              <Link href="/api/auth/login">
+              <Link href="/api/auth/login" style={{ textDecoration: 'none' }}>
                 <Button>로그인</Button>
               </Link>
             ) : (
-              <Link href="/api/auth/logout">
+              <Link href="/api/auth/logout" style={{ textDecoration: 'none' }}>
                 <Button>로그아웃</Button>
               </Link>
             )}

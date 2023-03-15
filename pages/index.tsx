@@ -1,13 +1,25 @@
-import { Badge, Button, Card, Container, Divider, Group, Paper, Space, Text } from '@mantine/core';
+import {
+  Badge,
+  Button,
+  Card,
+  Container,
+  Divider,
+  Group,
+  Paper,
+  ScrollArea,
+  Space,
+  Text,
+} from '@mantine/core';
 import { homeContents } from '../lib/utils/contentData';
 import { useAuth0 } from '../lib/hooks/auth';
+import Link from 'next/link';
 
 export default function HomePage() {
   const { authenticated: auth } = useAuth0();
   const cntFeatures = homeContents.main.cntFeatures;
   const futureFeatures = homeContents.main.betaFeatures;
   return (
-    <div>
+    <ScrollArea h="fit-content">
       <h1 style={{ textAlign: 'center' }}>🙌 Gijol v.2에 오신 것을 환영합니다! 🙌</h1>
       <Space h={16} />
       <h2 style={{ textAlign: 'start' }}>진행중인 서비스들</h2>
@@ -28,10 +40,14 @@ export default function HomePage() {
               <div style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
                 {!auth ? (
                   <>
-                    <Button variant="subtle" fullWidth>
-                      로그인없이 바로 확인하기
-                    </Button>
-                    <Button fullWidth>로그인 하러가기</Button>
+                    <Link href="/course" style={{ textDecoration: 'none' }}>
+                      <Button variant="subtle" fullWidth>
+                        로그인 없이 바로 확인하기
+                      </Button>
+                    </Link>
+                    <Link href="/api/auth/login" style={{ textDecoration: 'none' }}>
+                      <Button fullWidth>로그인 하러가기</Button>
+                    </Link>
                   </>
                 ) : (
                   <Button fullWidth>기능 이용하러 가기</Button>
@@ -62,6 +78,6 @@ export default function HomePage() {
         })}
       </div>
       <Space h={96} />
-    </div>
+    </ScrollArea>
   );
 }
