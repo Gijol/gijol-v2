@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Container, Group, Space, Stepper, Text } from '@mantine/core';
 import UserExcelFindHelp from './UserExcelFindHelp';
-import UserFileUploadZone from './DragAndDrop/UserFileUploadZone';
+import UserFileUpload from './DragAndDrop/UserFileUpload';
 import Lottie from 'react-lottie-player';
 import ThumbsUp from '../public/lottie/thumbs-up.json';
 import { FileWithPath } from '@mantine/dropzone';
 import postGradStatusFile from '../lib/utils/grad';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
+import { gradStatus } from '../lib/atoms/gradStatus';
 
-function FileUpload() {
+function FileSubmit() {
   const [cntStep, setCntStep] = useState<number>(0);
   const [fileInfo, setFileInfo] = useState<FileWithPath | undefined>(undefined);
   const [major, setMajor] = useState<string | null>(null);
+  const setGradStatus = useSetRecoilState(gradStatus);
+  const router = useRouter();
+
   const beforeBtn = cntStep <= 0;
   const afterBtn = cntStep >= 2 ? true : cntStep === 1 ? !(major && fileInfo) : false;
-  useEffect(() => {
-    console.log(major);
-  }, [major]);
+
   return (
     <>
       <h1>파일 업로드 순서</h1>
@@ -28,7 +32,7 @@ function FileUpload() {
       <Space h={48} />
       {cntStep === 0 && <UserExcelFindHelp />}
       {cntStep === 1 && (
-        <UserFileUploadZone fileInfo={fileInfo} setFileInfo={setFileInfo} setMajor={setMajor} />
+        <UserFileUpload fileInfo={fileInfo} setFileInfo={setFileInfo} setMajor={setMajor} />
       )}
       {cntStep === 2 && (
         <Container
@@ -52,9 +56,14 @@ function FileUpload() {
             size="lg"
             radius="md"
             onClick={() => {
-              postGradStatusFile(fileInfo as FileWithPath, major as string).then((res) => {
-                console.log(res);
-              });
+              postGradStatusFile(fileInfo as FileWithPath, major as string)
+                .then((res) => {
+                  console.log(res);
+                  setGradStatus(res);
+                })
+                .then(() => {
+                  router.push('/course/result');
+                });
             }}
           >
             결과 확인하러 가기
@@ -77,4 +86,4 @@ function FileUpload() {
   );
 }
 
-export default FileUpload;
+export default FileSubmit;

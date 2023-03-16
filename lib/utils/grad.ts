@@ -11,7 +11,7 @@ export default async function postGradStatusFile(
   gradeStatusFile: File,
   majorType: string
 ): Promise<GradStatusType> {
-  const BASE_URL = 'https://api.gijol.im';
+  const BASE_URL = 'https://dev-api.gijol.im';
   const payload = new FormData();
 
   payload.append('majorType', majorType);

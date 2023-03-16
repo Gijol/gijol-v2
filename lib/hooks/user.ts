@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuth0 } from './auth';
+import { GradStatusType } from '../types/grad';
 
 export function useFileUploaded() {
   const { authenticated } = useAuth0();
@@ -8,8 +9,8 @@ export function useFileUploaded() {
   // 확인되면 uploaded -> true로 설정
   // 확인되지 않으면 uploaded
   if (authenticated) {
-    return { fileExists };
+    return { fileExists, setFileExists };
   } else {
-    return { fileExists: false };
+    return { fileExists: false, setFileExists };
   }
 }

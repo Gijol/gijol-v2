@@ -6,6 +6,7 @@ import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core
 import { Notifications } from '@mantine/notifications';
 import { Layout } from '../components/Layouts/Layout';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { RecoilRoot } from 'recoil';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -24,16 +25,18 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
-      <UserProvider>
-        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-          <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <Notifications />
-          </MantineProvider>
-        </ColorSchemeProvider>
-      </UserProvider>
+      <RecoilRoot>
+        <UserProvider>
+          <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+            <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+              <Notifications />
+            </MantineProvider>
+          </ColorSchemeProvider>
+        </UserProvider>
+      </RecoilRoot>
     </>
   );
 }
