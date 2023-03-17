@@ -58,7 +58,6 @@ function FileSubmit() {
             onClick={() => {
               postGradStatusFile(fileInfo as FileWithPath, major as string)
                 .then((res) => {
-                  console.log(res);
                   setGradStatus(res);
                 })
                 .then(() => {
