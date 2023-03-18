@@ -12,7 +12,7 @@ import {
 } from '@mantine/core';
 import { IconAlertCircle, IconCircleCheck } from '@tabler/icons-react';
 import { SingleCategoryType } from '../lib/types/grad';
-import { getDomainColor } from '../lib/utils/grad';
+import { createSpecificStatusMessage, getDomainColor } from '../lib/utils/grad';
 
 export default function GradSpecificDomainStatus({
   classes,
@@ -80,8 +80,17 @@ export default function GradSpecificDomainStatus({
                         },
                       ]}
                       label={
-                        <Text align="center" px="xs">
-                          {percentage}% 이수 완료
+                        <Text
+                          align="center"
+                          px={32}
+                          sx={{ whiteSpace: 'pre-wrap', wordBreak: 'keep-all' }}
+                        >
+                          {createSpecificStatusMessage(
+                            satisfied,
+                            percentage,
+                            minConditionCredits,
+                            totalCredits
+                          )}
                         </Text>
                       }
                     />

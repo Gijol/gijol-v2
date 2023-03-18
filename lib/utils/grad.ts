@@ -116,3 +116,33 @@ export function getDomainColor(name: string) {
       return 'indigo';
   }
 }
+
+export function getFeedbackNumbers(status: GradStatusType) {
+  const l1 = status.graduationCategory.languageBasic.messages.length;
+  const l2 = status.graduationCategory.scienceBasic.messages.length;
+  const l3 = status.graduationCategory.humanities.messages.length;
+  const l4 = status.graduationCategory.major.messages.length;
+  const l5 = status.graduationCategory.minor.messages.length;
+  const l6 = status.graduationCategory.etcMandatory.messages.length;
+  const l7 = status.graduationCategory.otherUncheckedClass.messages.length;
+  return l1 + l2 + l3 + l4 + l5 + l6 + l7;
+}
+
+export function createSpecificStatusMessage(
+  satisfied: boolean,
+  percentage: number,
+  total: number,
+  my: number
+) {
+  if (satisfied) {
+    return '전부 들으셨습니다!';
+  } else {
+    if (my > 0 && total - my <= 0) {
+      return '학점은 채우셨지만 필수과목은 부족하네요..';
+    } else if (my > 0 && total - my > 0) {
+      return `${percentage}% 들으셨네요!`;
+    } else {
+      return '수강하신 강의가 없네요...이제부터 들어보죠!';
+    }
+  }
+}

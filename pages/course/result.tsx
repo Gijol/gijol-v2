@@ -6,7 +6,7 @@ import { useScrollIntoView } from '@mantine/hooks';
 import GradSpecificDomainStatus from '../../components/GradSpecificDomainStatus';
 import GradOverallStatus from '../../components/GradOverallStatus';
 import GradRecommend from '../../components/GradRecommend';
-import { getOverallStatus } from '../../lib/utils/grad';
+import { getFeedbackNumbers, getOverallStatus } from '../../lib/utils/grad';
 import { GradStatusType } from '../../lib/types/grad';
 
 const useStyles = createStyles((theme) => ({
@@ -42,7 +42,8 @@ export default function Result() {
     minDomainPercentage,
     overall: domains,
   } = getOverallStatus(status as GradStatusType);
-
+  const numbers = getFeedbackNumbers(status as GradStatusType);
+  console.log(status);
   return (
     <Container>
       <h1>졸업요건 현황</h1>
@@ -55,7 +56,7 @@ export default function Result() {
         overallStatus={domains}
         minDomain={minDomain}
         minDomainPercentage={minDomainPercentage}
-        feedbackNumbers={10}
+        feedbackNumbers={numbers}
       />
       <Space h={40} />
       <h1>영역별 세부 현황</h1>
