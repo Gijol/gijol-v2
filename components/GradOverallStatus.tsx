@@ -1,8 +1,49 @@
-import React from 'react';
-import { Badge, Button, Grid, Group, Paper, Space, Table, Text, ThemeIcon } from '@mantine/core';
+import {
+  Badge,
+  Button,
+  Grid,
+  Group,
+  Paper,
+  Progress,
+  Space,
+  Table,
+  Text,
+  ThemeIcon,
+} from '@mantine/core';
 import { IconBolt, IconPresentationAnalytics, IconReportAnalytics } from '@tabler/icons-react';
 
-export default function GradOverallStatus({ classes, scrollIntoView, courseRows }: any) {
+export default function GradOverallStatus({
+  classes,
+  scrollIntoView,
+  totalCredits,
+  totalPercentage,
+  overallStatus,
+  minDomain,
+  minDomainPercentage,
+  feedbackNumbers,
+}: {
+  classes: { tableHead: string; background: string };
+  scrollIntoView: any;
+  totalCredits: number;
+  totalPercentage: number;
+  overallStatus: { title: string; percentage: number; satisfied: boolean }[];
+  minDomain: string;
+  minDomainPercentage: number;
+  feedbackNumbers: number;
+}) {
+  const courseRows = overallStatus.map((element) => (
+    <tr key={element.title}>
+      <td width={280}>{element.title}</td>
+      <td width={280}>
+        <Progress value={element.percentage} label={`${element.percentage}%`} size="xl" />
+      </td>
+      <td>
+        <Badge color={element.satisfied ? 'green' : element.title === '부전공' ? 'blue' : 'red'}>
+          {element.satisfied ? '충족됨' : element.title === '부전공' ? '필수 아님' : '미충족'}
+        </Badge>
+      </td>
+    </tr>
+  ));
   return (
     <>
       <Paper withBorder p={40} radius="md" shadow="xs">
@@ -18,13 +59,13 @@ export default function GradOverallStatus({ classes, scrollIntoView, courseRows 
                 </Text>
               </Group>
               <Text size="xl" align="start" p={8} pl={14}>
-                100 학점
+                {totalCredits} 학점
               </Text>
               <Group p={8}>
                 <Text size="sm" color="dimmed" weight={600}>
                   총 학점 : 130
                 </Text>
-                <Badge>80% 이수중</Badge>
+                <Badge>{totalPercentage}% 이수중</Badge>
               </Group>
             </Paper>
           </Grid.Col>
@@ -39,13 +80,10 @@ export default function GradOverallStatus({ classes, scrollIntoView, courseRows 
                 </Text>
               </Group>
               <Text size="xl" align="start" p={8} pl={14}>
-                연구 및 기타
+                {minDomain}
               </Text>
               <Group p={8}>
-                <Text size="sm" color="dimmed" weight={600}>
-                  총 학점 : 130
-                </Text>
-                <Badge color="orange">40% 이수중</Badge>
+                <Badge color="orange">{minDomainPercentage}% 이수중</Badge>
               </Group>
             </Paper>
           </Grid.Col>
@@ -60,7 +98,7 @@ export default function GradOverallStatus({ classes, scrollIntoView, courseRows 
                 </Text>
               </Group>
               <Text size="xl" align="start" p={8} pl={14}>
-                10 개
+                {feedbackNumbers} 개
               </Text>
               <Group p={8}>
                 <Button

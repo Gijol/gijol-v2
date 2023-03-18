@@ -7,6 +7,7 @@ import { Notifications } from '@mantine/notifications';
 import { Layout } from '../components/Layouts/Layout';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { RecoilRoot } from 'recoil';
+import { RecoilURLSyncJSON } from 'recoil-sync';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
