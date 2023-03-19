@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useRef } from 'react';
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
 import { Group, Button, Container, Text, Select, Space } from '@mantine/core';
 
-export default function UserFileUploadZone({
+export default function UserFileUpload({
   fileInfo,
   setFileInfo,
   setMajor,

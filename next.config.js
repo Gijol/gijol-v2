@@ -7,4 +7,13 @@ module.exports = withBundleAnalyzer({
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async redirects() {
+    return [
+      {
+        source: 'course/result',
+        destination: 'course',
+        permanent: true,
+      },
+    ];
+  },
 });
