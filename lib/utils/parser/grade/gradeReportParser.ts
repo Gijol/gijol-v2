@@ -1,6 +1,7 @@
 /* eslint-disable */
 import path from 'path';
 import {readFile, WorkSheet} from 'xlsx';
+import yargs from "yargs";
 
 const TYPE_CELL_INDEX = 'A';
 const CODE_CELL_INDEX = 'B';
@@ -22,20 +23,27 @@ export class GradeReportParser {
     while (index !== 100) {
       index += 1;
 
-      const type = this.accessValueOfWorkSheet(workSheet, address(TYPE_CELL_INDEX, index));
-      const code = this.accessValueOfWorkSheet(workSheet, address(CODE_CELL_INDEX, index));
-      const course = this.accessValueOfWorkSheet(workSheet, address(COURSE_NAME_CELL_INDEX, index));
-      const credit = this.accessValueOfWorkSheet(workSheet, address(CREDIT_CELL_INDEX, index));
-      const grade = this.accessValueOfWorkSheet(workSheet, address(GRADE_CELL_INDEX, index));
-      console.log(type, code, course, credit, grade);
+      let year, semester;
+      if (this.isSeparatedByYear(workSheet, address(COURSE_NAME_CELL_INDEX, index))) {
+        [year, semester] = this.parseYearAndSemester(workSheet, address(COURSE_NAME_CELL_INDEX, index));
+      }
 
-      if (this.notExistCodeRow(workSheet, index)) {
+      if (this.notExistCodeRow(workSheet, address(CODE_CELL_INDEX, index))) {
         continue;
       }
 
       if (this.isEndOfCode(workSheet, index)) {
         break;
       }
+
+
+      const type = this.accessValueOfWorkSheet(workSheet, address(TYPE_CELL_INDEX, index))
+      const code = this.accessValueOfWorkSheet(workSheet, address(CODE_CELL_INDEX, index))
+      const course = this.accessValueOfWorkSheet(workSheet, address(COURSE_NAME_CELL_INDEX, index))
+      const credit = this.accessValueOfWorkSheet(workSheet, address(CREDIT_CELL_INDEX, index))
+      const grade = this.accessValueOfWorkSheet(workSheet, address(GRADE_CELL_INDEX, index));
+      console.log(type, code, course, credit, grade);
+
     }
   }
 
@@ -45,10 +53,21 @@ export class GradeReportParser {
     return workSheetElement !== undefined && workSheetElement.includes('[학사]');
   }
 
-  private static notExistCodeRow(workSheet: WorkSheet, index: number) {
-    const workSheetIdx = CODE_CELL_INDEX + index.toString();
-    const workSheetElement = workSheet[workSheetIdx];
-    return workSheetElement === undefined || workSheetIdx === 'Code';
+  private static notExistCodeRow(workSheet: WorkSheet, excelAddress: string) {
+    const workSheetElement = this.accessValueOfWorkSheet(workSheet, excelAddress);
+    return !workSheetElement || workSheetElement === 'Code';
+  }
+
+  private static isSeparatedByYear(workSheet: WorkSheet, excelAddress: string) {
+    let workSheetElement = this.accessValueOfWorkSheet(workSheet, excelAddress);
+    return workSheetElement && workSheetElement.includes('학기>');
+  }
+
+  private static parseYearAndSemester(workSheet: WorkSheet, excelAddress: string) {
+    const workSheetElement = this.accessValueOfWorkSheet(workSheet, excelAddress);
+    const elementWithNoWhitespace = workSheetElement.trim();
+    const [year, semester] = elementWithNoWhitespace.substring(1, elementWithNoWhitespace.length - 1).split('/');
+    return [year, semester];
   }
 
   private static accessValueOfWorkSheet(workSheet: WorkSheet, excelAddress: string): string {
