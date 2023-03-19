@@ -1,6 +1,4 @@
 /* eslint-disable */
-import {is} from "@babel/types";
-
 export class TakenCourse {
   public readonly year: number;
   public readonly semester: string;
