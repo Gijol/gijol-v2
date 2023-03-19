@@ -26,7 +26,7 @@ export default function GradSpecificDomainStatus({
       {specificDomainStatusArr.map((category) => {
         const elements = category.status?.userTakenCoursesList.takenCourses;
         const rows = elements?.map((element) => (
-          <tr key={element.courseCode}>
+          <tr key={`${element.semester} ${element.courseName}`}>
             <td>
               {element.year} {element.semester}
             </td>
@@ -48,7 +48,13 @@ export default function GradSpecificDomainStatus({
 
         return (
           <>
-            <Accordion variant="contained" radius="md" defaultValue="customization" my={16}>
+            <Accordion
+              key={category.domain}
+              variant="contained"
+              radius="md"
+              defaultValue="customization"
+              my={16}
+            >
               <Accordion.Item value={domainName}>
                 <Accordion.Control>
                   <Group>
@@ -120,11 +126,7 @@ export default function GradSpecificDomainStatus({
                     </Container>
                   </Container>
                   <Space h={32} />
-                  <ScrollArea
-                    sx={{ width: '100%', backgroundColor: 'unset' }}
-                    mah={300}
-                    h="fit-content"
-                  >
+                  <ScrollArea sx={{ width: '100%', backgroundColor: 'unset' }} h={300}>
                     <Container
                       sx={{
                         margin: 0,

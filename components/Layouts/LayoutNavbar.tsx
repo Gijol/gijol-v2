@@ -8,9 +8,10 @@ import {
   IconBuildingCommunity,
   IconInfoCircle,
   IconHomeQuestion,
+  IconChartInfographic,
+  IconChalkboard,
 } from '@tabler/icons-react';
 import Link from 'next/link';
-import ModalLogin from '../Modal/ModalLogin';
 
 export function LayoutNavbar({ opened }: { opened: boolean }) {
   return (
@@ -21,7 +22,13 @@ export function LayoutNavbar({ opened }: { opened: boolean }) {
         </Link>
         <NavLink label="내 강의" icon={<IconSchool size="1rem" stroke={1.5} />} childrenOffset={28}>
           <Link href="/course" style={{ textDecoration: 'unset' }}>
-            <NavLink label="수강 현황" icon={<IconTimeline size="1rem" stroke={1.5} />} />
+            <NavLink
+              label="졸업요건 현황"
+              icon={<IconChartInfographic size="1rem" stroke={1.5} />}
+            />
+          </Link>
+          <Link href="/course/evaluation" style={{ textDecoration: 'unset' }}>
+            <NavLink label="강의평가" icon={<IconChalkboard size="1rem" stroke={1.5} />} />
           </Link>
           <Link href="/course/schedule" style={{ textDecoration: 'unset' }}>
             <NavLink label="시간표" icon={<IconCalendar size="1rem" stroke={1.5} />} />

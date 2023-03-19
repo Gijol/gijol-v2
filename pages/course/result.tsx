@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { gradStatus } from '../../lib/atoms/gradStatus';
 import { Container, Progress, Space, Badge, createStyles } from '@mantine/core';
 
@@ -8,6 +8,8 @@ import GradOverallStatus from '../../components/GradOverallStatus';
 import GradRecommend from '../../components/GradRecommend';
 import { getFeedbackNumbers, getOverallStatus } from '../../lib/utils/grad';
 import { GradStatusType } from '../../lib/types/grad';
+import { useEffect } from 'react';
+import { GetServerSideProps } from 'next';
 
 const useStyles = createStyles((theme) => ({
   tableHead: {
@@ -42,7 +44,13 @@ export default function Result() {
     minDomainPercentage,
     overall: domains,
   } = getOverallStatus(status as GradStatusType);
+
   const numbers = getFeedbackNumbers(status as GradStatusType);
+
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
+
   console.log(status);
   return (
     <Container>
@@ -63,7 +71,7 @@ export default function Result() {
       <Space h={16} />
       <GradSpecificDomainStatus classes={classes} specificDomainStatusArr={categoriesArr} />
       <Space h={16} />
-      <h1 ref={targetRef}>영역별 추천 목록</h1>
+      <h1 ref={targetRef}>영역별 피드백 모음</h1>
       <Space h={16} />
       <GradRecommend specificDomainStatusArr={categoriesArr} />
       <Space h={80} />
