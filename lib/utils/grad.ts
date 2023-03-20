@@ -74,6 +74,15 @@ export function getOverallStatus(status: GradStatusType) {
   const humanities = status.graduationCategory.humanities;
   const etcMandatory = status.graduationCategory.etcMandatory;
   const otherUncheckedClass = status.graduationCategory.otherUncheckedClass;
+  const categoriesArr = [
+    { domain: '언어와 기초', status: languageBasic },
+    { domain: '기초과학', status: scienceBasic },
+    { domain: '전공', status: major },
+    { domain: '부전공', status: minor },
+    { domain: '인문사회', status: humanities },
+    { domain: '연구 및 기타', status: etcMandatory },
+    { domain: '자유학점', status: otherUncheckedClass },
+  ];
   const arr = [
     {
       title: '언어와 기초',
@@ -110,7 +119,14 @@ export function getOverallStatus(status: GradStatusType) {
       minDomainPercentage = domain.percentage;
     }
   });
-  return { totalCredits, totalPercentage, minDomain, minDomainPercentage, overall: arr };
+  return {
+    categoriesArr,
+    totalCredits,
+    totalPercentage,
+    minDomain,
+    minDomainPercentage,
+    overall: arr,
+  };
 }
 
 export function getDomainColor(name: string) {
@@ -159,7 +175,7 @@ export function createSpecificStatusMessage(
     } else if (my > 0 && total - my > 0) {
       return `${percentage}% 들으셨네요!`;
     } else {
-      return '수강하신 강의가 없네요...이제부터 들어보죠!';
+      return '수강하신 강의가 없네요...';
     }
   }
 }
