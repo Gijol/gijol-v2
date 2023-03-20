@@ -8,8 +8,9 @@ import GradOverallStatus from '../../components/GradOverallStatus';
 import GradRecommend from '../../components/GradRecommend';
 import { getFeedbackNumbers, getOverallStatus } from '../../lib/utils/grad';
 import { GradStatusType } from '../../lib/types/grad';
-import { useEffect } from 'react';
-import { GetServerSideProps } from 'next';
+import { useEffect, useState } from 'react';
+import { useSessionStorageGradStatus } from '../../lib/hooks/grad';
+import { useRouter } from 'next/router';
 
 const useStyles = createStyles((theme) => ({
   tableHead: {
@@ -21,60 +22,55 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function Result() {
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
     offset: 60,
   });
   const { classes } = useStyles();
-  const status = useRecoilValue(gradStatus);
-
-  const categoriesArr = [
-    { domain: '언어와 기초', status: status?.graduationCategory.languageBasic },
-    { domain: '기초과학', status: status?.graduationCategory.scienceBasic },
-    { domain: '전공', status: status?.graduationCategory.major },
-    { domain: '부전공', status: status?.graduationCategory.minor },
-    { domain: '인문사회', status: status?.graduationCategory.humanities },
-    { domain: '연구 및 기타', status: status?.graduationCategory.etcMandatory },
-    { domain: '자유학점', status: status?.graduationCategory.otherUncheckedClass },
-  ];
-
+  const router = useRouter();
+  const { status } = useSessionStorageGradStatus();
   const {
+    categoriesArr,
     totalCredits,
     totalPercentage,
     minDomain,
     minDomainPercentage,
     overall: domains,
   } = getOverallStatus(status as GradStatusType);
-
   const numbers = getFeedbackNumbers(status as GradStatusType);
 
-  useEffect(() => {
-    console.log(status);
-  }, [status]);
-
-  console.log(status);
   return (
     <Container>
-      <h1>졸업요건 현황</h1>
-      <Space h={16} />
-      <GradOverallStatus
-        classes={classes}
-        scrollIntoView={scrollIntoView}
-        totalCredits={totalCredits}
-        totalPercentage={totalPercentage}
-        overallStatus={domains}
-        minDomain={minDomain}
-        minDomainPercentage={minDomainPercentage}
-        feedbackNumbers={numbers}
-      />
-      <Space h={40} />
-      <h1>영역별 세부 현황</h1>
-      <Space h={16} />
-      <GradSpecificDomainStatus classes={classes} specificDomainStatusArr={categoriesArr} />
-      <Space h={16} />
-      <h1 ref={targetRef}>영역별 피드백 모음</h1>
-      <Space h={16} />
-      <GradRecommend specificDomainStatusArr={categoriesArr} />
-      <Space h={80} />
+      {!hydrated && <></>}
+      {hydrated && (
+        <>
+          <h1>졸업요건 현황</h1>
+          <Space h={16} />
+          <GradOverallStatus
+            classes={classes}
+            scrollIntoView={scrollIntoView}
+            totalCredits={totalCredits}
+            totalPercentage={totalPercentage}
+            overallStatus={domains}
+            minDomain={minDomain}
+            minDomainPercentage={minDomainPercentage}
+            feedbackNumbers={numbers}
+          />
+          <Space h={40} />
+          <h1>영역별 세부 현황</h1>
+          <Space h={16} />
+          <GradSpecificDomainStatus classes={classes} specificDomainStatusArr={categoriesArr} />
+          <Space h={16} />
+          <h1 ref={targetRef}>영역별 피드백 모음</h1>
+          <Space h={16} />
+          <GradRecommend specificDomainStatusArr={categoriesArr} />
+          <Space h={80} />
+        </>
+      )}
     </Container>
   );
 }

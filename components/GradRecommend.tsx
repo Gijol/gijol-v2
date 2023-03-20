@@ -27,7 +27,11 @@ export default function GradRecommend({
           </Tabs.List>
           {specificDomainStatusArr.map((category) => {
             return (
-              <Tabs.Panel value={category.domain} pl="md">
+              <Tabs.Panel
+                key={`${category.domain} ${category.status}`}
+                value={category.domain}
+                pl="md"
+              >
                 <ScrollArea h={300}>
                   {category.status?.satisfied && (
                     <Alert icon={<IconCircleCheck size="1rem" />} title="완료!" color="green">
