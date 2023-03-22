@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Button, Container, Group, Space, Stepper, Text } from '@mantine/core';
 import UserExcelFindHelp from './UserExcelFindHelp';
 import UserFileUpload from './DragAndDrop/UserFileUpload';
@@ -16,7 +16,6 @@ function FileSubmit() {
   const [major, setMajor] = useState<string | null>(null);
   const setGradStatus = useSetRecoilState(gradStatus);
   const router = useRouter();
-
   const beforeBtn = cntStep <= 0;
   const afterBtn = cntStep >= 2 ? true : cntStep === 1 ? !(major && fileInfo) : false;
 
@@ -61,6 +60,7 @@ function FileSubmit() {
                   setGradStatus(res);
                 })
                 .then(() => {
+                  localStorage.setItem('fileUploaded', 'true');
                   router.push('/course/result');
                 });
             }}

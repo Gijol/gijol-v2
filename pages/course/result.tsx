@@ -1,6 +1,4 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { gradStatus } from '../../lib/atoms/gradStatus';
-import { Container, Progress, Space, Badge, createStyles } from '@mantine/core';
+import { Container, Space, Badge, createStyles } from '@mantine/core';
 
 import { useScrollIntoView } from '@mantine/hooks';
 import GradSpecificDomainStatus from '../../components/GradSpecificDomainStatus';
@@ -10,7 +8,6 @@ import { getFeedbackNumbers, getOverallStatus } from '../../lib/utils/grad';
 import { GradStatusType } from '../../lib/types/grad';
 import { useEffect, useState } from 'react';
 import { useSessionStorageGradStatus } from '../../lib/hooks/grad';
-import { useRouter } from 'next/router';
 
 const useStyles = createStyles((theme) => ({
   tableHead: {
@@ -31,7 +28,6 @@ export default function Result() {
     offset: 60,
   });
   const { classes } = useStyles();
-  const router = useRouter();
   const { status } = useSessionStorageGradStatus();
   const {
     categoriesArr,

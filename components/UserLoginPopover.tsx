@@ -1,18 +1,19 @@
 import { Avatar, Button, MediaQuery, Popover, Space, Sx, Text } from '@mantine/core';
-import Link from 'next/link';
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 export default function UserLoginPopover() {
-  const { user, isLoading } = useUser();
+  const { data, status } = useSession();
+  const user = data?.user;
   return (
     <>
       <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
         <Popover position="bottom" withArrow shadow="md">
           <Popover.Target>
             <Button sx={btnStyle} variant="default" p={4} pr={12}>
-              {!user ? <Avatar radius="xl" /> : <Avatar src={user.picture} radius="md" />}
+              {status === 'unauthenticated' && <Avatar radius="xl" />}
+              {status === 'authenticated' && <Avatar src={user?.image} radius="md" />}
               <Space w="10px" />
-              {isLoading && <Text>Loading...</Text>}
+              {status === 'loading' && <Text>Loading...</Text>}
               {!user ? (
                 <Text>로그인 하세요</Text>
               ) : (
@@ -33,13 +34,9 @@ export default function UserLoginPopover() {
           </Popover.Target>
           <Popover.Dropdown sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {!user ? (
-              <Link href="/api/auth/login" style={{ textDecoration: 'none' }}>
-                <Button>로그인</Button>
-              </Link>
+              <Button onClick={() => signIn()}>로그인</Button>
             ) : (
-              <Link href="/api/auth/logout" style={{ textDecoration: 'none' }}>
-                <Button>로그아웃</Button>
-              </Link>
+              <Button onClick={() => signOut()}>로그아웃</Button>
             )}
           </Popover.Dropdown>
         </Popover>

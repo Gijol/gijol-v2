@@ -5,10 +5,9 @@ import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { Layout } from '../components/Layouts/Layout';
-import { UserProvider } from '@auth0/nextjs-auth0/client';
-import { RecoilRoot } from 'recoil';
-import {} from 'recoil-sync';
-import { recoilPersist } from 'recoil-persist';
+import { SessionProvider } from 'next-auth/react';
+import { MutableSnapshot, RecoilRoot } from 'recoil';
+import { gradStatus } from '../lib/atoms/gradStatus';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -29,14 +28,14 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       </Head>
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-          <RecoilRoot>
-            <UserProvider>
+          <SessionProvider session={pageProps.session}>
+            <RecoilRoot>
               <Layout>
                 <Component {...pageProps} />
               </Layout>
               <Notifications />
-            </UserProvider>
-          </RecoilRoot>
+            </RecoilRoot>
+          </SessionProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </>

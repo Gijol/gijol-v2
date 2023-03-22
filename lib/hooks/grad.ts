@@ -15,5 +15,6 @@ export const useSessionStorageGradStatus = () => {
   useEffect(() => {
     getFromSession();
   }, []);
+
   return { status, isAtomDefault };
 };

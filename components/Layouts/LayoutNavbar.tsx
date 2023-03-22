@@ -1,9 +1,8 @@
-import { Button, Modal, Navbar, NavLink } from '@mantine/core';
+import { Navbar, NavLink } from '@mantine/core';
 import {
   IconSchool,
   IconHome,
   IconCalendar,
-  IconTimeline,
   IconUsers,
   IconBuildingCommunity,
   IconInfoCircle,
@@ -12,8 +11,10 @@ import {
   IconChalkboard,
 } from '@tabler/icons-react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export function LayoutNavbar({ opened }: { opened: boolean }) {
+  const router = useRouter();
   return (
     <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 240 }}>
       <Navbar.Section grow>

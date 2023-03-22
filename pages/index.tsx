@@ -1,21 +1,23 @@
-import {
-  Badge,
-  Button,
-  Card,
-  Container,
-  Divider,
-  Group,
-  Paper,
-  ScrollArea,
-  Space,
-  Text,
-} from '@mantine/core';
+import { Badge, Button, Card, Divider, Group, Paper, ScrollArea, Space, Text } from '@mantine/core';
 import { homeContents } from '../lib/utils/contentData';
-import { useAuth0 } from '../lib/hooks/auth';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { useSessionStorageGradStatus } from '../lib/hooks/grad';
 
 export default function HomePage() {
-  const { authenticated: auth } = useAuth0();
+  const router = useRouter();
+  const { status } = useSession();
+  const { isAtomDefault } = useSessionStorageGradStatus();
+  const onClickHandler = async (status: boolean) => {
+    // const uploaded = await localStorage.getItem('fileUploaded');
+    if (!status) {
+      await router.push('/course/result');
+    } else {
+      await router.push('/course');
+    }
+  };
+
   const cntFeatures = homeContents.main.cntFeatures;
   const futureFeatures = homeContents.main.betaFeatures;
   return (
@@ -39,7 +41,7 @@ export default function HomePage() {
               <Text>{feat.description}</Text>
               <Space h={16} />
               <div style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
-                {!auth ? (
+                {status === 'unauthenticated' ? (
                   <>
                     <Link href="/course" style={{ textDecoration: 'none' }}>
                       <Button variant="subtle" fullWidth>
@@ -51,7 +53,9 @@ export default function HomePage() {
                     </Link>
                   </>
                 ) : (
-                  <Button fullWidth>기능 이용하러 가기</Button>
+                  <Button onClick={() => onClickHandler(isAtomDefault)} fullWidth>
+                    기능 이용하러 가기
+                  </Button>
                 )}
               </div>
             </Card>
