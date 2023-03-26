@@ -1,13 +1,13 @@
 import { Container, Space, Badge, createStyles } from '@mantine/core';
 
 import { useScrollIntoView } from '@mantine/hooks';
-import GradSpecificDomainStatus from '../../components/GradSpecificDomainStatus';
-import GradOverallStatus from '../../components/GradOverallStatus';
-import GradRecommend from '../../components/GradRecommend';
-import { getFeedbackNumbers, getOverallStatus } from '../../lib/utils/grad';
-import { GradStatusType } from '../../lib/types/grad';
+import GradSpecificDomainStatus from '../../../components/GradSpecificDomainStatus';
+import GradOverallStatus from '../../../components/GradOverallStatus';
+import GradRecommend from '../../../components/GradRecommend';
+import { getFeedbackNumbers, getOverallStatus } from '../../../lib/utils/grad';
+import { GradStatusType } from '../../../lib/types/grad';
 import { useEffect, useState } from 'react';
-import { useSessionStorageGradStatus } from '../../lib/hooks/grad';
+import { useSessionStorageGradStatus } from '../../../lib/hooks/grad';
 
 const useStyles = createStyles((theme) => ({
   tableHead: {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ComponentType, useState } from 'react';
 import NextApp, { AppProps, AppContext } from 'next/app';
 import { getCookie, setCookie } from 'cookies-next';
 import Head from 'next/head';
@@ -6,8 +6,7 @@ import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core
 import { Notifications } from '@mantine/notifications';
 import { Layout } from '../components/Layouts/Layout';
 import { SessionProvider } from 'next-auth/react';
-import { MutableSnapshot, RecoilRoot } from 'recoil';
-import { gradStatus } from '../lib/atoms/gradStatus';
+import { RecoilRoot } from 'recoil';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;

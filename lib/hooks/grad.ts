@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilStateLoadable } from 'recoil';
 import { gradStatus } from '../atoms/gradStatus';
 
 export const useSessionStorageGradStatus = () => {

@@ -1,5 +1,6 @@
 import { GradeReportParser } from './parser/grade/gradeReportParser';
 import { GradStatusType, SingleCategoryType } from '../types/grad';
+import { TempGradResultType } from '../types';
 
 class HTTPError extends Error {
   constructor(messages?: string) {
@@ -8,8 +9,8 @@ class HTTPError extends Error {
   }
 }
 
-async function readFileAndParse(file: File) {
-  return new Promise(resolve => {
+export async function readFileAndParse(file: File) {
+  return new Promise((resolve) => {
     const fileReader = new FileReader();
     fileReader.onload = () => {
       const { result } = fileReader;
@@ -24,12 +25,12 @@ async function readFileAndParse(file: File) {
 export default async function postGradStatusFile(
   gradeStatusFile: File,
   majorType: string
-): Promise<GradStatusType> {
+): Promise<TempGradResultType> {
   const BASE_URL = 'https://dev-api.gijol.im';
   const payload = new FormData();
 
-  const gradeStatus = await readFileAndParse(gradeStatusFile);
-  console.log(gradeStatus);
+  const overallScoreStatus = await readFileAndParse(gradeStatusFile);
+  console.log(overallScoreStatus);
 
   payload.append('majorType', majorType);
   payload.append('multipartFile', gradeStatusFile);
@@ -46,7 +47,7 @@ export default async function postGradStatusFile(
   if (gradResultResponse.status === 500) {
     throw new HTTPError('파일 입력 오류.');
   }
-  return gradResultResponse;
+  return { gradResultResponse, overallScoreStatus };
 }
 
 export function getPercentage(status: SingleCategoryType) {

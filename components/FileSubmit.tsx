@@ -8,14 +8,16 @@ import { FileWithPath } from '@mantine/dropzone';
 import postGradStatusFile from '../lib/utils/grad';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
-import { gradStatus } from '../lib/atoms/gradStatus';
+import { gradStatus, overallScoreStatus } from '../lib/atoms/gradStatus';
+import { GradStatusType } from '../lib/types/grad';
 
 function FileSubmit() {
+  const router = useRouter();
   const [cntStep, setCntStep] = useState<number>(0);
   const [fileInfo, setFileInfo] = useState<FileWithPath | undefined>(undefined);
   const [major, setMajor] = useState<string | null>(null);
   const setGradStatus = useSetRecoilState(gradStatus);
-  const router = useRouter();
+  const setOverallScoreStatus = useSetRecoilState(overallScoreStatus);
   const beforeBtn = cntStep <= 0;
   const afterBtn = cntStep >= 2 ? true : cntStep === 1 ? !(major && fileInfo) : false;
 
@@ -57,11 +59,12 @@ function FileSubmit() {
             onClick={() => {
               postGradStatusFile(fileInfo as FileWithPath, major as string)
                 .then((res) => {
-                  setGradStatus(res);
+                  setOverallScoreStatus(res.overallScoreStatus);
+                  setGradStatus(res.gradResultResponse);
                 })
                 .then(() => {
                   localStorage.setItem('fileUploaded', 'true');
-                  router.push('/course/result');
+                  router.push('/dashboard/course/result');
                 });
             }}
           >
