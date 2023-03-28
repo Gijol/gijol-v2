@@ -1,5 +1,6 @@
 import { Avatar, Button, MediaQuery, Popover, Space, Sx, Text } from '@mantine/core';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { IconChevronRight } from '@tabler/icons-react';
 
 export default function UserLoginPopover() {
   const { data, status } = useSession();
@@ -30,6 +31,8 @@ export default function UserLoginPopover() {
                   <Text>{user.email}</Text>
                 </div>
               )}
+              <Space w={2} />
+              <IconChevronRight size={16} />
             </Button>
           </Popover.Target>
           <Popover.Dropdown sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

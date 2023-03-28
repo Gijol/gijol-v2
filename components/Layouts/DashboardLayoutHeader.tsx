@@ -1,10 +1,9 @@
-import { Dispatch, SetStateAction } from 'react';
-import { Burger, Container, Header, MediaQuery } from '@mantine/core';
+import { CSSProperties, Dispatch, SetStateAction } from 'react';
+import { Burger, Container, Header, MediaQuery, Sx } from '@mantine/core';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import { MantineTheme } from '@mantine/core';
-import UserLoginPopover from '../UserLoginPopover';
 
-export function LayoutHeader({
+export function DashboardLayoutHeader({
   theme,
   opened,
   setOpened,
@@ -16,15 +15,7 @@ export function LayoutHeader({
   return (
     <>
       <Header height={{ base: 50, md: 60 }} p="sm">
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            height: '100%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
+        <div style={headerContainer}>
           <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
             <Burger
               opened={opened}
@@ -35,17 +26,7 @@ export function LayoutHeader({
             />
           </MediaQuery>
           <h2>🎓 Gijol.v2</h2>
-          <Container
-            sx={{
-              margin: 0,
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '20px',
-            }}
-          >
-            <UserLoginPopover />
+          <Container sx={headerContents}>
             <ColorSchemeToggle />
           </Container>
         </div>
@@ -53,3 +34,20 @@ export function LayoutHeader({
     </>
   );
 }
+
+const headerContainer: CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  height: '100%',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+};
+
+const headerContents: Sx = {
+  margin: 0,
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '20px',
+};

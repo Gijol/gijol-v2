@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button, Container, Group, Space, Stepper, Text } from '@mantine/core';
 import UserExcelFindHelp from './UserExcelFindHelp';
 import UserFileUpload from './DragAndDrop/UserFileUpload';
@@ -9,7 +9,6 @@ import postGradStatusFile from '../lib/utils/grad';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import { gradStatus, overallScoreStatus } from '../lib/atoms/gradStatus';
-import { GradStatusType } from '../lib/types/grad';
 
 function FileSubmit() {
   const router = useRouter();
