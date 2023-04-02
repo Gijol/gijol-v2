@@ -1,6 +1,3 @@
-// import { handleAuth } from '@auth0/nextjs-auth0';
-
-// export default handleAuth();
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
@@ -12,4 +9,16 @@ export default NextAuth({
     }),
   ],
   secret: process.env.JWT_SECRET || '',
+  callbacks: {
+    async jwt({ token, user, account }) {
+      if (account) {
+        token.idToken = account.id_token || '';
+      }
+      return token;
+    },
+    async session({ session, token, user }) {
+      session.user.idToken = token.idToken;
+      return session;
+    },
+  },
 });

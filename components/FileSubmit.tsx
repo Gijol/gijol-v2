@@ -62,7 +62,6 @@ function FileSubmit() {
                   setGradStatus(res.gradResultResponse);
                 })
                 .then(() => {
-                  localStorage.setItem('fileUploaded', 'true');
                   router.push('/dashboard/course/result');
                 });
             }}
