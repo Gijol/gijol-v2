@@ -1,16 +1,19 @@
 import { Avatar, Button, MediaQuery, Popover, Space, Sx, Text } from '@mantine/core';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { IconChevronRight } from '@tabler/icons-react';
+import { useRouter } from 'next/router';
 
 export default function UserLoginPopover() {
   const { data, status } = useSession();
   const user = data?.user;
+  console.log(data);
+  const router = useRouter();
   return (
     <>
       <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
         <Popover position="bottom" withArrow shadow="md">
           <Popover.Target>
-            <Button sx={btnStyle} variant="default" p={4} pr={12}>
+            <Button sx={btnStyle} variant="default" p={4} pr={12} fullWidth>
               {status === 'unauthenticated' && <Avatar radius="xl" />}
               {status === 'authenticated' && <Avatar src={user?.image} radius="md" />}
               <Space w="10px" />
@@ -37,9 +40,13 @@ export default function UserLoginPopover() {
           </Popover.Target>
           <Popover.Dropdown sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {!user ? (
-              <Button onClick={() => signIn()}>로그인</Button>
+              <Button fullWidth onClick={() => router.push('/login')}>
+                로그인
+              </Button>
             ) : (
-              <Button onClick={() => signOut()}>로그아웃</Button>
+              <Button fullWidth onClick={() => signOut()}>
+                로그아웃
+              </Button>
             )}
           </Popover.Dropdown>
         </Popover>
