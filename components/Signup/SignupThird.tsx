@@ -1,36 +1,23 @@
-import React, { Dispatch, SetStateAction, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
+import UserFileUpload from '../DragAndDrop/UserFileUpload';
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
-import { Group, Button, Container, Text, Select, Space, Box } from '@mantine/core';
+import { Button, Center, Container, Group, Select, Space, Text } from '@mantine/core';
 
-export default function UserFileUpload({
+export default function SignupThird({
+  nextStep,
   fileInfo,
   setFileInfo,
-  setMajor,
 }: {
+  nextStep: () => void;
   fileInfo: FileWithPath | undefined;
   setFileInfo: Dispatch<SetStateAction<FileWithPath | undefined>>;
-  setMajor: Dispatch<SetStateAction<string | null>>;
 }) {
   const openRef = useRef<any>(null);
   return (
     <Container miw={600}>
-      <Group position="center">
-        <Select
-          allowDeselect={false}
-          label="전공을 선택해주세요"
-          placeholder="여기를 누르세요"
-          onChange={setMajor}
-          data={[
-            { value: 'EC', label: '전기전자컴퓨터공학전공' },
-            { value: 'MA', label: '신소재공학전공' },
-            { value: 'EV', label: '지구환경공학전공' },
-            { value: 'BS', label: '생명과학전공' },
-            { value: 'CH', label: '화학전공' },
-            { value: 'MC', label: '기계공학전공' },
-            { value: 'PS', label: '물리광과학전공' },
-          ]}
-        />
-      </Group>
+      <Text size="xl" weight={600} align="center" my={20}>
+        3. 다운 받은 엑셀 파일을 업로드 해주세요!
+      </Text>
       <Space h={32} />
       <Dropzone
         h={400}
@@ -70,6 +57,11 @@ export default function UserFileUpload({
           )}
         </Group>
       </Dropzone>
+      <Center my={20}>
+        <Button disabled={!fileInfo} size="lg" onClick={nextStep}>
+          회원가입 완료하기 👉
+        </Button>
+      </Center>
     </Container>
   );
 }

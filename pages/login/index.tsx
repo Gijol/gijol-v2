@@ -4,7 +4,6 @@ import { Text, Center, Paper, Stack, Input, Button, Divider, Group, Anchor } fro
 import { useViewportSize } from '@mantine/hooks';
 import TossCap from '/public/images/tossfaceCap.png';
 import GoogleIcon from '/public/images/googleIcon.svg';
-import KakaoIcon from '/public/images/kakaoIcon.svg';
 import { signIn } from 'next-auth/react';
 
 export default function Login() {

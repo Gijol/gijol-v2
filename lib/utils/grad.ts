@@ -1,6 +1,8 @@
 import { GradeReportParser } from './parser/grade/gradeReportParser';
 import { GradStatusType, SingleCategoryType } from '../types/grad';
-import { TempGradResultType } from '../types';
+import { TempGradResultType, UserStatusType, UserType } from '../types';
+import { Session } from '@auth0/nextjs-auth0';
+import { DefaultSession } from 'next-auth';
 
 class HTTPError extends Error {
   constructor(messages?: string) {
@@ -9,7 +11,7 @@ class HTTPError extends Error {
   }
 }
 
-export async function readFileAndParse(file: File) {
+export async function readFileAndParse(file: File): Promise<UserStatusType> {
   return new Promise((resolve) => {
     const fileReader = new FileReader();
     fileReader.onload = () => {
@@ -38,9 +40,7 @@ export default async function postGradStatusFile(
   const gradResultResponse = await fetch(`${BASE_URL}/graduation`, {
     method: 'POST',
     body: payload,
-  })
-    .then((res) => res.json())
-    .then((data) => data);
+  }).then((res) => res.json());
   if (gradResultResponse.status === 405) {
     throw new HTTPError('지원하지 않는 학번입니다.');
   }
@@ -48,6 +48,20 @@ export default async function postGradStatusFile(
     throw new HTTPError('파일 입력 오류.');
   }
   return { gradResultResponse, overallScoreStatus };
+}
+
+export async function storeStatusInfo(
+  gradeStatusFile: File,
+  sessionInfo: ({ idToken: string } & DefaultSession['user']) | undefined
+): Promise<UserType> {
+  const overallScoreStatus = await readFileAndParse(gradeStatusFile);
+  if (!sessionInfo) throw new Error('No session info');
+  return {
+    email: sessionInfo.email as string,
+    name: sessionInfo.name as string,
+    idToken: sessionInfo.idToken,
+    ...overallScoreStatus,
+  };
 }
 
 export function getPercentage(status: SingleCategoryType) {

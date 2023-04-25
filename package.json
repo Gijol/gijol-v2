@@ -50,7 +50,11 @@
     "recoil-sync": "^0.2.0",
     "ts-node": "^10.9.1",
     "tsparticles": "^2.9.3",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz",
+    "@react-buddy/ide-toolbox-next": "^2.4.0",
+    "@react-buddy/palette-mantine-core": "^6.0.0",
+    "@react-buddy/palette-mantine-form": "^6.0.0",
+    "@react-buddy/palette-mantine-dates": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",

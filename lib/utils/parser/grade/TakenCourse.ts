@@ -2,24 +2,35 @@
 export class TakenCourse {
   public readonly year: number;
   public readonly semester: string;
-  public readonly type: string;
-  public readonly code: string;
-  public readonly course: string;
+  public readonly courseType: string;
+  public readonly courseCode: string;
+  public readonly courseName: string;
   public readonly credit: number;
   public readonly grade: string;
 
-  constructor(year: number, semester: string, type: string, code: string, course: string, credit: number, grade: string) {
-    this.year = year;
-    this.semester = semester;
-    this.type = type;
-    this.code = code;
-    this.course = course;
+  constructor(
+    year: number,
+    semester: string,
+    type: string,
+    code: string,
+    course: string,
+    credit: number,
+    grade: string
+  ) {
+    this.courseCode = code;
+    this.courseName = course;
+    this.courseType = type;
     this.credit = credit;
     this.grade = grade;
+    this.semester = semester;
+    this.year = year;
   }
 
   public equals(takenCourse: TakenCourse) {
-    return this.course === takenCourse.course && this.credit === takenCourse.credit && this.code === takenCourse.code;
+    return (
+      this.courseName === takenCourse.courseName &&
+      this.credit === takenCourse.credit &&
+      this.courseCode === takenCourse.courseCode
+    );
   }
-
 }
