@@ -69,9 +69,9 @@ export class GradeReportParser {
           (course) => !course.equals(addedTakenCourse)
         );
       }
-
       userTakenCourseList.push(addedTakenCourse);
     }
+    console.log(userTakenCourseList);
 
     const studentId = this.parseStudentId(workSheet);
     return { studentId, userTakenCourseList };

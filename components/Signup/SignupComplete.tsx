@@ -41,7 +41,12 @@ export default function SignupComplete({ fileInfo }: { fileInfo: FileWithPath | 
               .then(async (res) => {
                 const BASE_URL = 'https://dev-api.gijol.im';
                 const userInfoStoreResponse = await fetch(
-                  `${BASE_URL}/api/v1/auth/google/sign-up`
+                  `${BASE_URL}/api/v1/auth/google/sign-up`,
+                  {
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(res),
+                    method: 'POST',
+                  }
                 ).then((res) => res.json());
                 if (userInfoStoreResponse.status === 405) {
                   throw new HTTPError('지원하지 않는 학번입니다.');

@@ -10,7 +10,6 @@ import {
   Tabs,
 } from '@mantine/core';
 import { IconPackages, IconSchool, IconExternalLink } from '@tabler/icons-react';
-import { Carousel } from '@mantine/carousel';
 import MainLayoutHeader from '../components/Layouts/MainLayoutHeader';
 import Image from 'next/image';
 import { CSSProperties } from 'react';

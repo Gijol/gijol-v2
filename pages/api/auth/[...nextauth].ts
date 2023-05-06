@@ -17,14 +17,15 @@ export default NextAuth({
     }),
   ],
   secret: process.env.JWT_SECRET || '',
+  jwt: {},
   callbacks: {
-    async jwt({ token, user, account }) {
+    jwt: async function ({ token, user, account }) {
       if (account) {
         token.idToken = account.id_token || '';
       }
       return token;
     },
-    async session({ session, token, user }) {
+    session: async function ({ session, token, user }) {
       session.user.idToken = token.idToken;
       return session;
     },

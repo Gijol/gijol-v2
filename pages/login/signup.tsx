@@ -36,7 +36,7 @@ export default function Signup() {
           }}
         >
           <Stepper.Step label="로그인 하기" description="소셜 계정으로 로그인 해주세요" />
-          <Stepper.Step label="개인 정보 수집 및 이용 동의" description="Get full access" />
+          <Stepper.Step label="개인 정보 수집 및 이용 동의" description="약관에 동의해주세요" />
           <Stepper.Step
             label="엑셀 업로드"
             description="강의 수강현황 엑셀 파일을 업로드 해주세요"

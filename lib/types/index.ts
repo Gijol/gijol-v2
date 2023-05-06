@@ -13,11 +13,13 @@ export interface TempGradResultType {
 export interface UserTakenCourse {
   courseCode: string;
   courseName: string;
-  courseType: string;
+  courseType: string | 'HUS' | 'PPE' | '필수';
   credit: number;
   grade: string;
   semester: string;
   year: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface UserStatusType {

@@ -19,7 +19,6 @@
     "storybook:build": "build-storybook"
   },
   "dependencies": {
-    "@auth0/nextjs-auth0": "^2.2.3",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@mantine/carousel": "6.0.0",
@@ -32,7 +31,6 @@
     "@mantine/notifications": "6.0.0",
     "@mantine/prism": "6.0.0",
     "@next/bundle-analyzer": "^13.1.6",
-    "@tabler/icons": "^1.107.0",
     "@tabler/icons-react": "^2.4.0",
     "cookies-next": "^2.1.1",
     "dayjs": "^1.11.6",
@@ -45,16 +43,13 @@
     "react-lottie-player": "^1.5.4",
     "react-particles": "^2.9.3",
     "react-query": "^3.39.3",
+    "recharts": "^2.5.0",
     "recoil": "^0.7.7",
     "recoil-persist": "^4.2.0",
     "recoil-sync": "^0.2.0",
     "ts-node": "^10.9.1",
     "tsparticles": "^2.9.3",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz",
-    "@react-buddy/ide-toolbox-next": "^2.4.0",
-    "@react-buddy/palette-mantine-core": "^6.0.0",
-    "@react-buddy/palette-mantine-form": "^6.0.0",
-    "@react-buddy/palette-mantine-dates": "^6.0.0"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",

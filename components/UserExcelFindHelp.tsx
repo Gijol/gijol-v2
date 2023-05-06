@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Timeline, Text, Image, Space, Paper } from '@mantine/core';
-import { IconLogin } from '@tabler/icons-react';
-import { IconFileDownload, IconListDetails } from '@tabler/icons';
+import { IconLogin, IconFileDownload, IconListDetails } from '@tabler/icons-react';
 
 export default function UserExcelFindHelp() {
   return (

@@ -20,7 +20,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function Result() {
+export default function Graduation() {
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
     setHydrated(true);

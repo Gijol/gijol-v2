@@ -1,7 +1,8 @@
 import { CSSProperties, Dispatch, SetStateAction } from 'react';
-import { Burger, Container, Header, MediaQuery, Sx } from '@mantine/core';
+import { Burger, Container, Group, Header, MediaQuery, Sx, Text } from '@mantine/core';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import { MantineTheme } from '@mantine/core';
+import UserLoginPopover from '../UserLoginPopover';
 
 export function DashboardLayoutHeader({
   theme,
@@ -25,10 +26,15 @@ export function DashboardLayoutHeader({
               mr="xl"
             />
           </MediaQuery>
-          <h2>🎓 Gijol.v2</h2>
-          <Container sx={headerContents}>
+          <MediaQuery smallerThan="sm" styles={{ fontSize: 16 }}>
+            <Text size={24} weight={700}>
+              🎓 Gijol.v2
+            </Text>
+          </MediaQuery>
+          <Group>
+            <UserLoginPopover />
             <ColorSchemeToggle />
-          </Container>
+          </Group>
         </div>
       </Header>
     </>
