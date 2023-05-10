@@ -5,8 +5,9 @@ import { useRouter } from 'next/router';
 import useAuthState from '../lib/hooks/auth';
 
 export default function UserLoginPopover() {
-  const { userData, expires, isAuthenticated, isLoading, isUnAuthenticated } = useAuthState();
+  const { userData, isAuthenticated, isLoading, isUnAuthenticated } = useAuthState();
   const router = useRouter();
+  console.log(userData?.email);
   return (
     <Box h="100%">
       <Popover withArrow shadow="md" position="bottom-end">

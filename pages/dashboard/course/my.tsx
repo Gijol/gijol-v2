@@ -13,8 +13,23 @@ import {
   Text,
 } from '@mantine/core';
 import { fakeUserData } from '../../../lib/const/fakeUserData';
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { getPeriodWithTakenCourse } from '../../../lib/utils/status';
+import {
+  Bar,
+  BarChart,
+  LineChart,
+  CartesianGrid,
+  LabelList,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+  Line,
+} from 'recharts';
+import {
+  getPeriodWithTakenCourse,
+  getUserScoreFromTakenCourseList,
+} from '../../../lib/utils/status';
+import { useSession } from 'next-auth/react';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -41,6 +56,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function My() {
+  const { data } = useSession();
   const { classes, cx } = useStyles();
   const [scrolled, setScrolled] = useState(false);
   /* 수강한 강의 선택 */
@@ -90,6 +106,16 @@ export default function My() {
       content: '18 학점',
     },
   ];
+  const dataForLineChart = courseListWithPeriod
+    .map((periodWithList) => {
+      const grade = getUserScoreFromTakenCourseList(periodWithList.userTakenCourseList);
+      return {
+        period: periodWithList.period,
+        학점: grade ? grade : 0,
+      };
+    })
+    .filter((item) => item.학점 !== 0);
+  console.log(dataForLineChart);
   const dataForTable = courseListWithPeriod.map((periodWithList) => {
     return {
       name: periodWithList.period,
@@ -116,15 +142,11 @@ export default function My() {
     );
   });
   return (
-    <Container size="lg">
-      <Text size={28} mt={24} mb={32} weight={700}>
-        개요
+    <Container size="md">
+      <Text size={32} mt={24} mb={32} weight={700}>
+        학기별 강의 이수 현황
       </Text>
-      <Box>{overall}</Box>
-      <Text size={28} my={32} weight={700}>
-        강의 이수 현황
-      </Text>
-      <Paper w="100%" h={400} my={40} pt={40} pr={40} pl={0} radius="md">
+      <Paper w="100%" h={400} my={40} pr={40} pl={0} radius="md">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart width={300} height={100} data={dataForTable}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -143,8 +165,35 @@ export default function My() {
               dataKey="수강학점"
               fill="#4593fc"
               onClick={(data) => setCntPeriod(data.name)}
-            />
+            >
+              <LabelList dataKey="수강학점" position="top" />
+            </Bar>
           </BarChart>
+        </ResponsiveContainer>
+      </Paper>
+
+      <Box>{overall}</Box>
+      <Text size={32} my={32} weight={700}>
+        학기별 성적 현황
+      </Text>
+      <Paper w="100%" h={400} my={40} pr={40} radius="md">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart width={300} height={100} data={dataForLineChart}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="period"
+              padding={{ left: 40, right: 40 }}
+              fontSize={12}
+              tick={{ width: 30 }}
+              tickSize={8}
+              interval={0}
+            />
+            <YAxis dataKey="학점" domain={[2.0, 4.5]} />
+            <Tooltip />
+            <Line type="monotone" dataKey="학점" stroke="#8884d8" dot={{ r: 6 }}>
+              <LabelList dataKey="학점" position="top" />
+            </Line>
+          </LineChart>
         </ResponsiveContainer>
       </Paper>
       <Box p={40} mb={100}>

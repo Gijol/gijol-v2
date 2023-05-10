@@ -1,8 +1,8 @@
 import { Text, createStyles, Divider, Navbar, NavLink, rem } from '@mantine/core';
-import { IconHome, IconCalendar, IconDeviceDesktopAnalytics } from '@tabler/icons-react';
 import Link from 'next/link';
-import { useState } from 'react';
 import { navLinks } from '../../lib/const/navLinks';
+import { useRouter } from 'next/router';
+import { getCntTab } from '../../lib/utils/status';
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -24,7 +24,8 @@ const useStyles = createStyles((theme) => ({
 
 export function LayoutNavbar({ opened }: { opened: boolean }) {
   const { classes } = useStyles();
-  const [active, setActive] = useState('');
+  const router = useRouter();
+  const active = getCntTab(router.route);
   const links = navLinks.map((link) => {
     return (
       <NavLink
@@ -34,7 +35,6 @@ export function LayoutNavbar({ opened }: { opened: boolean }) {
         label={link.label}
         href={link.href}
         icon={<link.icon size="1.25rem" stroke={1.5} />}
-        onClick={() => setActive(link.label)}
         sx={{ borderRadius: 8 }}
         my={4}
       />

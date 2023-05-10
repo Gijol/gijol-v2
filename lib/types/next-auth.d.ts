@@ -1,15 +1,23 @@
 import { DefaultSession } from 'next-auth';
+import { AuthStatusType } from './auth';
 
 declare module 'next-auth/jwt' {
   interface JWT {
-    idToken: string;
+    id_token?: string | null | undefined;
+    access_token?: string | undefined;
+    refresh_token?: string | undefined;
+    expires_at?: number;
   }
 }
 
 declare module 'next-auth' {
+  interface User extends AuthStatusType {}
   interface Session {
     user: {
-      idToken: string | undefined;
+      id_token?: string | null | undefined;
+      access_token?: string | null | undefined;
+      refresh_token?: string | null | undefined;
+      expires_at?: number;
     } & DefaultSession['user'];
   }
 }

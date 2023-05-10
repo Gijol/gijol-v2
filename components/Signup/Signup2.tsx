@@ -20,8 +20,12 @@ import {
   IconNumber3,
   IconNumber4,
 } from '@tabler/icons-react';
+import { getSession, useSession } from 'next-auth/react';
+import { parseFileToUserStatus } from '../../lib/utils/grad';
+import { DefaultSession } from 'next-auth';
+import { signupAndGetResponse } from '../../lib/utils/auth';
 
-export default function SignupThird({
+export default function Signup2({
   nextStep,
   fileInfo,
   setFileInfo,
@@ -32,10 +36,23 @@ export default function SignupThird({
 }) {
   const openRef = useRef<any>(null);
   const [opened, { open, close }] = useDisclosure(false);
+  const { data: session } = useSession();
+  const onClickHandler = async () => {
+    // const session = await getSession();
+    console.log(session);
+    const parsedUserStatus = await parseFileToUserStatus(
+      fileInfo as File,
+      session?.user as DefaultSession['user'] & { idToken: string }
+    );
+    const signupResponse = await signupAndGetResponse(parsedUserStatus);
+    if (signupResponse.status === 201 && signupResponse.text === 'created') {
+      nextStep();
+    }
+  };
   return (
     <Container miw={600}>
       <Text size="xl" weight={600} align="center" my={20}>
-        3. 다운 받은 엑셀 파일을 업로드 해주세요!
+        2. 다운 받은 엑셀 파일을 업로드 해주세요!
       </Text>
       <Modal
         opened={opened}
@@ -144,8 +161,8 @@ export default function SignupThird({
         </Group>
       </Dropzone>
       <Center my={20}>
-        <Button disabled={!fileInfo} size="lg" onClick={nextStep}>
-          회원가입 완료하기 👉
+        <Button disabled={!fileInfo} size="lg" onClick={onClickHandler}>
+          다음 과정으로
         </Button>
       </Center>
     </Container>

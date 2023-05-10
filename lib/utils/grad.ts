@@ -1,7 +1,6 @@
 import { GradeReportParser } from './parser/grade/gradeReportParser';
 import { GradStatusType, SingleCategoryType } from '../types/grad';
 import { TempGradResultType, UserStatusType, UserType } from '../types';
-import { Session } from '@auth0/nextjs-auth0';
 import { DefaultSession } from 'next-auth';
 
 class HTTPError extends Error {
@@ -50,7 +49,7 @@ export default async function postGradStatusFile(
   return { gradResultResponse, overallScoreStatus };
 }
 
-export async function storeStatusInfo(
+export async function parseFileToUserStatus(
   gradeStatusFile: File,
   sessionInfo: ({ idToken: string } & DefaultSession['user']) | undefined
 ): Promise<UserType> {

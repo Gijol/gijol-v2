@@ -8,7 +8,7 @@ import useAuthState from '../../lib/hooks/auth';
 
 export default function HomePage() {
   const router = useRouter();
-  const { isUnAuthenticated } = useAuthState();
+  const { isUnAuthenticated, userData } = useAuthState();
   const { isAtomDefault } = useSessionStorageGradStatus();
   const onClickHandler = async (status: boolean) => {
     if (!status) {
@@ -17,7 +17,7 @@ export default function HomePage() {
       await router.push('/dashboard/course');
     }
   };
-
+  console.log(userData);
   const cntFeatures = homeContents.main.cntFeatures;
   const futureFeatures = homeContents.main.betaFeatures;
   return (
