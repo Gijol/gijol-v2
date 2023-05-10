@@ -17,7 +17,6 @@ export default function HomePage() {
       await router.push('/dashboard/course');
     }
   };
-  console.log(userData);
   const cntFeatures = homeContents.main.cntFeatures;
   const futureFeatures = homeContents.main.betaFeatures;
   return (

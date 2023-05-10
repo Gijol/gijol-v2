@@ -21,9 +21,6 @@ export default NextAuth({
     }),
   ],
   secret: process.env.JWT_SECRET || '',
-  jwt: {
-    maxAge: 10,
-  },
   callbacks: {
     async jwt({ token, account }) {
       if (account && account.expires_at) {
@@ -50,7 +47,7 @@ export default NextAuth({
 
           const tokens: TokenSet = await response.json();
 
-          if (!response.ok) throw Error('Response on refresh token is not valid');
+          // if (!response.ok) throw Error('Response on refresh token is not valid');
           if (tokens.expires_at) {
             token.id_token = tokens.id_token;
             token.access_token = tokens.access_token;
@@ -59,7 +56,6 @@ export default NextAuth({
           }
           return token;
         } catch (error) {
-          console.error('Error refreshing access token', error);
           return { ...token, error: 'RefreshAccessTokenError' as const };
         }
       }
