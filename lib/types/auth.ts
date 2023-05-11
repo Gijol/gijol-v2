@@ -1,5 +1,5 @@
-export interface AuthTypeCheckResponseType {
-  authType: 'login' | 'signup' | null;
+export interface MembershipStatusResponseType {
+  authType: 'SIGN_IN' | 'SIGN_UP' | null;
 }
 
 export interface InternalTokenType {

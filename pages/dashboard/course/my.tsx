@@ -56,7 +56,6 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function My() {
-  const { data } = useSession();
   const { classes, cx } = useStyles();
   const [scrolled, setScrolled] = useState(false);
   /* 수강한 강의 선택 */
@@ -115,7 +114,6 @@ export default function My() {
       };
     })
     .filter((item) => item.학점 !== 0);
-  console.log(dataForLineChart);
   const dataForTable = courseListWithPeriod.map((periodWithList) => {
     return {
       name: periodWithList.period,

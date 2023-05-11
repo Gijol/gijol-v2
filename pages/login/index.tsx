@@ -31,13 +31,6 @@ export default function Login() {
               구글로 로그인하기
             </Button>
           </Stack>
-
-          <Group align="center">
-            <Text size="sm">처음이신가요?</Text>
-            <Anchor component="button" size="sm" onClick={() => router.push('/login/signup')}>
-              회원가입 하러가기
-            </Anchor>
-          </Group>
         </Stack>
       </Paper>
     </Center>

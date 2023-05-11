@@ -89,7 +89,9 @@ export default function UserLoginPopover() {
               </Button>
             ) : (
               <Group grow>
-                {/*<Button variant="light">마이페이지</Button>*/}
+                <Button variant="light" onClick={() => router.push('/dashboard/user')}>
+                  내 정보 수정
+                </Button>
                 <Button onClick={() => signOut()} variant="light" color="red">
                   로그아웃
                 </Button>

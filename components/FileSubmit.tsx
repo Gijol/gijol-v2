@@ -62,7 +62,7 @@ function FileSubmit() {
                   setGradStatus(res.gradResultResponse);
                 })
                 .then(() => {
-                  router.push('/dashboard/course/result');
+                  router.push('/dashboard/course/graduation');
                 });
             }}
           >

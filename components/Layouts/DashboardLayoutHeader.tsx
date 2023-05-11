@@ -3,6 +3,7 @@ import { Burger, Container, Group, Header, MediaQuery, Sx, Text } from '@mantine
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import { MantineTheme } from '@mantine/core';
 import UserLoginPopover from '../UserLoginPopover';
+import Link from 'next/link';
 
 export function DashboardLayoutHeader({
   theme,
@@ -27,9 +28,11 @@ export function DashboardLayoutHeader({
             />
           </MediaQuery>
           <MediaQuery smallerThan="sm" styles={{ fontSize: 16 }}>
-            <Text size={24} weight={700}>
-              🎓 Gijol.v2
-            </Text>
+            <Link href="/dashboard" style={{ color: 'black', textDecoration: 'none' }}>
+              <Text size={24} weight={700}>
+                🎓 Gijol.v2
+              </Text>
+            </Link>
           </MediaQuery>
           <Group>
             <UserLoginPopover />

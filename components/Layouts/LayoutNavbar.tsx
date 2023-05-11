@@ -25,13 +25,13 @@ const useStyles = createStyles((theme) => ({
 export function LayoutNavbar({ opened }: { opened: boolean }) {
   const { classes } = useStyles();
   const router = useRouter();
-  const active = getCntTab(router.route);
+  const cntRoute = getCntTab(router.route);
   const links = navLinks.map((link) => {
     return (
       <NavLink
         component={Link}
         key={link.label}
-        active={link.label === active}
+        active={link.label === cntRoute}
         label={link.label}
         href={link.href}
         icon={<link.icon size="1.25rem" stroke={1.5} />}

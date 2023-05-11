@@ -31,7 +31,7 @@ export const getCntTab = (href: string) => {
     case '/dashboard/course/search':
       return '강의 정보 확인하기';
     default:
-      return '홈';
+      return '';
   }
 };
 

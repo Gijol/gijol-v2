@@ -38,7 +38,6 @@ export default function Signup2({
   const [opened, { open, close }] = useDisclosure(false);
   const { data: session } = useSession();
   const onClickHandler = async () => {
-    // const session = await getSession();
     console.log(session);
     const parsedUserStatus = await parseFileToUserStatus(
       fileInfo as File,

@@ -1,5 +1,5 @@
 import { BASE_DEV_SERVER_URL } from '../const';
-import { AuthTypeCheckResponseType, InternalTokenType } from '../types/auth';
+import { MembershipStatusResponseType, InternalTokenType } from '../types/auth';
 import { UserTakenCourse, UserType } from '../types';
 import { Session } from 'next-auth';
 
@@ -18,14 +18,21 @@ export const getAuthTypeResponse = async (session: Session | any): Promise<strin
   return authTypeResponse.json();
 };
 
-export const getInternalToken = async (session: Session): Promise<InternalTokenType> => {
-  const { name, email, id_token } = await session.user;
-  const loginResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google/sign-in`, {
+export const getMembershipStatus = async (
+  id_token: string | undefined
+): Promise<'SIGN_IN' | 'SIGN_UP'> => {
+  if (!id_token) {
+    throw new Error('No Id token');
+  }
+  const loginResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google`, {
     method: 'POST',
-    body: JSON.stringify({ name, email, id_token: idToken }),
+    headers: {
+      Authorization: `Bearer ${id_token}`,
+      ContentType: 'application/json',
+    },
   });
   if (!loginResponse.ok) {
-    throw new Error('Failed to fetch internal token from gijol server');
+    throw new Error('Failed to fetch 회원여부 from gijol server');
   }
   return loginResponse.json();
 };

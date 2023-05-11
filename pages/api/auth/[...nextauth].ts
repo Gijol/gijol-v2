@@ -1,6 +1,9 @@
 import NextAuth, { TokenSet } from 'next-auth';
 import KakaoProvider from 'next-auth/providers/kakao';
 import GoogleProvider from 'next-auth/providers/google';
+import { getMembershipStatus } from '../../../lib/utils/auth';
+import { MembershipStatusResponseType } from '../../../lib/types/auth';
+import { BASE_DEV_URL } from '../../../lib/const';
 
 export default NextAuth({
   pages: {
@@ -19,6 +22,7 @@ export default NextAuth({
       clientSecret: process.env.KAKAO_SECRET || '',
     }),
   ],
+  secret: process.env.JWT_SECRET || '',
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60 * 24,
@@ -29,6 +33,15 @@ export default NextAuth({
     maxAge: 60 * 60 * 24,
   },
   callbacks: {
+    async signIn({ account }) {
+      const isMember: 'SIGN_IN' | 'SIGN_UP' = await getMembershipStatus(account?.id_token);
+      if (isMember === 'SIGN_IN') {
+        return true;
+      } else if (isMember === 'SIGN_UP') {
+        return `${BASE_DEV_URL}/login/signup`;
+      }
+      return true;
+    },
     async jwt({ token, account, trigger }) {
       if (account && account.expires_at) {
         token.id_token = account?.id_token;
@@ -49,10 +62,7 @@ export default NextAuth({
             }),
             method: 'POST',
           });
-
           const tokens: TokenSet = await response.json();
-
-          if (!response.ok) throw Error('Response on refresh token is not valid');
           if (tokens.expires_at) {
             token.id_token = tokens.id_token;
             token.access_token = tokens.access_token;

@@ -9,7 +9,7 @@ export default function CoursePage() {
   const { isAtomDefault } = useSessionStorageGradStatus();
   useEffect(() => {
     if (!isAtomDefault) {
-      router.push('/dashboard/course/result');
+      router.push('/dashboard/course/graduation');
     }
   }, [isAtomDefault]);
 
