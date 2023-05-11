@@ -8,7 +8,7 @@ import useAuthState from '../../lib/hooks/auth';
 
 export default function HomePage() {
   const router = useRouter();
-  const { isUnAuthenticated, userData } = useAuthState();
+  const { isUnAuthenticated, userData, expires } = useAuthState();
   const { isAtomDefault } = useSessionStorageGradStatus();
   const onClickHandler = async (status: boolean) => {
     if (!status) {

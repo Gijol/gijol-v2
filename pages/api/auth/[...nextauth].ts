@@ -13,27 +13,32 @@ export default NextAuth({
       authorization: {
         params: { access_type: 'offline', prompt: 'consent' },
       },
-      userinfo: {},
     }),
     KakaoProvider({
       clientId: process.env.KAKAO_ID || '',
       clientSecret: process.env.KAKAO_SECRET || '',
     }),
   ],
-  secret: process.env.JWT_SECRET || '',
+  session: {
+    strategy: 'jwt',
+    maxAge: 60 * 60 * 24,
+    updateAge: 60 * 60,
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    maxAge: 60 * 60 * 24,
+  },
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, trigger }) {
       if (account && account.expires_at) {
         token.id_token = account?.id_token;
         token.access_token = account?.access_token;
         token.refresh_token = account?.refresh_token;
         token.expires_at = account?.expires_at;
         return token;
-      } else if (token.expires_at && Date.now() < token.expires_at) {
-        return token;
-      } else {
+      }
+      if (trigger === 'update') {
         try {
-          // https://accounts.google.com/.well-known/openid-configuration
           const response = await fetch('https://oauth2.googleapis.com/token', {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({
@@ -47,7 +52,7 @@ export default NextAuth({
 
           const tokens: TokenSet = await response.json();
 
-          // if (!response.ok) throw Error('Response on refresh token is not valid');
+          if (!response.ok) throw Error('Response on refresh token is not valid');
           if (tokens.expires_at) {
             token.id_token = tokens.id_token;
             token.access_token = tokens.access_token;
@@ -56,8 +61,10 @@ export default NextAuth({
           }
           return token;
         } catch (error) {
-          return { ...token, error: 'RefreshAccessTokenError' as const };
+          throw new Error('Error refreshing token');
         }
+      } else {
+        return token;
       }
     },
     async session({ session, token }) {
@@ -67,8 +74,5 @@ export default NextAuth({
       session.user.expires_at = token.expires_at;
       return session;
     },
-  },
-  session: {
-    strategy: 'jwt',
   },
 });

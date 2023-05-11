@@ -1,13 +1,28 @@
 import { Avatar, Box, Button, Group, MediaQuery, Popover, Stack, Sx, Text } from '@mantine/core';
-import { signOut } from 'next-auth/react';
+import { getSession, signOut } from 'next-auth/react';
 import { IconAt, IconChevronDown, IconIdBadge2 } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
 import useAuthState from '../lib/hooks/auth';
+import { useEffect } from 'react';
 
 export default function UserLoginPopover() {
-  const { userData, isAuthenticated, isLoading, isUnAuthenticated } = useAuthState();
+  const { userData, isAuthenticated, isLoading, isUnAuthenticated, update, expires } =
+    useAuthState();
   const router = useRouter();
-  console.log(userData?.email);
+
+  // 1시간마다 next-auth의 세션 업데이트 -> 해당 과정에서 구글에서 토큰 재발급 받는 과정이 진행된다.
+  useEffect(() => {
+    const interval = setInterval(() => update(), 1000 * 60 * 60);
+    return () => clearInterval(interval);
+  }, [update]);
+
+  // 새 탭으로 이동할 때, 세션 업데이트 -> 해당 과정에서 구글서 토큰을 재발급 받는 과정이 진행된다.
+  useEffect(() => {
+    const visibilityHandler = () => document.visibilityState === 'visible' && update();
+    window.addEventListener('visibilitychange', visibilityHandler, false);
+    return () => window.removeEventListener('visibilitychange', visibilityHandler, false);
+  }, [update]);
+
   return (
     <Box h="100%">
       <Popover withArrow shadow="md" position="bottom-end">
