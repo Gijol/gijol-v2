@@ -7,8 +7,6 @@ export class TakenCourse {
   public readonly courseName: string;
   public readonly credit: number;
   public readonly grade: string;
-  public readonly createdAt: string;
-  public readonly updatedAt: string;
 
   constructor(
     year: number,
@@ -19,8 +17,6 @@ export class TakenCourse {
     credit: number,
     grade: string
   ) {
-    const temp = Date.now();
-    const isoDate = new Date(temp).toISOString();
     this.courseCode = code;
     this.courseName = course;
     this.courseType = type;
@@ -28,8 +24,6 @@ export class TakenCourse {
     this.grade = grade;
     this.semester = semester;
     this.year = year;
-    this.createdAt = isoDate;
-    this.updatedAt = isoDate;
   }
 
   public equals(takenCourse: TakenCourse) {

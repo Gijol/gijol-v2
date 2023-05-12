@@ -49,20 +49,6 @@ export default async function postGradStatusFile(
   return { gradResultResponse, overallScoreStatus };
 }
 
-export async function parseFileToUserStatus(
-  gradeStatusFile: File,
-  sessionInfo: ({ idToken: string } & DefaultSession['user']) | undefined
-): Promise<UserType> {
-  const overallScoreStatus = await readFileAndParse(gradeStatusFile);
-  if (!sessionInfo) throw new Error('No session info');
-  return {
-    email: sessionInfo.email as string,
-    name: sessionInfo.name as string,
-    idToken: sessionInfo.idToken,
-    ...overallScoreStatus,
-  };
-}
-
 export function getPercentage(status: SingleCategoryType) {
   const minCredit = status.minConditionCredits;
   const myCredit = status.totalCredits;

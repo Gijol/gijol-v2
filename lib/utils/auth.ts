@@ -1,6 +1,6 @@
 import { BASE_DEV_SERVER_URL } from '../const';
 import { MembershipStatusResponseType, InternalTokenType } from '../types/auth';
-import { UserTakenCourse, UserType } from '../types';
+import { UserStatusType, UserTakenCourse, UserType } from '../types';
 import { Session } from 'next-auth';
 
 export const getAuthTypeResponse = async (session: Session | any): Promise<string> => {
@@ -37,9 +37,16 @@ export const getMembershipStatus = async (
   return loginResponse.json();
 };
 
-export const signupAndGetResponse = async (userStatus: UserType) => {
+export const signupAndGetResponse = async (
+  userStatus: UserStatusType,
+  id_token: string | null | undefined
+) => {
   const signupResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google/sign-up`, {
     method: 'POST',
+    headers: {
+      Authorization: `Bearer ${id_token}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(userStatus),
   });
   return { status: signupResponse.status, text: signupResponse.statusText };

@@ -13,15 +13,15 @@ export default function Signup() {
   const { height } = useViewportSize();
   /* stepper active 상태 관리 */
   const [active, setActive] = useState(0);
-  const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
+  const nextStep = () => setActive((current) => (current < 2 ? current + 1 : current));
   /* file upload 상태 관리*/
   const [fileInfo, setFileInfo] = useState<FileWithPath | undefined>(undefined);
   return (
     <Group>
-      <Paper w={'30%'} miw={300} h={height} p={40} bg={'gray.0'}>
+      <Paper w="30%" miw={300} h={height} p={40} bg="gray.0">
         <Group mb={40}>
-          <Image src={TossCap} alt={'Gijol Icon'} width={32} height={32} />
-          <Text size={32} weight={'bolder'}>
+          <Image src={TossCap} alt="Gijol Icon" width={32} height={32} />
+          <Text size={32} weight="bolder">
             Gijol
           </Text>
         </Group>
@@ -40,15 +40,13 @@ export default function Signup() {
             label="엑셀 업로드"
             description="강의 수강현황 엑셀 파일을 업로드 해주세요"
           />
-          <Stepper.Step label="소셜 계정과 연동하기" description="구글 계정과 연동하기" />
         </Stepper>
       </Paper>
       {active === 0 && <Signup1 nextStep={nextStep} />}
       {active === 1 && (
         <Signup2 nextStep={nextStep} fileInfo={fileInfo} setFileInfo={setFileInfo} />
       )}
-      {active === 2 && <Signup3 nextStep={nextStep} />}
-      {active === 3 && <SignupComplete fileInfo={fileInfo} />}
+      {active === 2 && <SignupComplete />}
     </Group>
   );
 }

@@ -12,7 +12,7 @@ class HTTPError extends Error {
   }
 }
 
-export default function SignupComplete({ fileInfo }: { fileInfo: FileWithPath | undefined }) {
+export default function SignupComplete() {
   const router = useRouter();
   return (
     <Container

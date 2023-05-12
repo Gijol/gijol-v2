@@ -18,8 +18,6 @@ export interface UserTakenCourse {
   grade: string;
   semester: string;
   year: number;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface UserStatusType {

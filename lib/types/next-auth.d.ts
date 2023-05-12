@@ -15,8 +15,8 @@ declare module 'next-auth' {
   interface Session {
     user: {
       id_token?: string | null | undefined;
-      access_token?: string | null | undefined;
-      refresh_token?: string | null | undefined;
+      access_token?: string | undefined;
+      refresh_token?: string | undefined;
       expires_at?: number;
     } & DefaultSession['user'];
   }

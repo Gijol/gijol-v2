@@ -33,15 +33,6 @@ export default NextAuth({
     maxAge: 60 * 60 * 24,
   },
   callbacks: {
-    async signIn({ account }) {
-      const isMember: 'SIGN_IN' | 'SIGN_UP' = await getMembershipStatus(account?.id_token);
-      if (isMember === 'SIGN_IN') {
-        return true;
-      } else if (isMember === 'SIGN_UP') {
-        return `${BASE_DEV_URL}/login/signup`;
-      }
-      return true;
-    },
     async jwt({ token, account, trigger }) {
       if (account && account.expires_at) {
         token.id_token = account?.id_token;

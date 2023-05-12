@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
 import {
   Anchor,
@@ -20,10 +20,9 @@ import {
   IconNumber3,
   IconNumber4,
 } from '@tabler/icons-react';
-import { getSession, useSession } from 'next-auth/react';
-import { parseFileToUserStatus } from '../../lib/utils/grad';
-import { DefaultSession } from 'next-auth';
+import { readFileAndParse } from '../../lib/utils/grad';
 import { signupAndGetResponse } from '../../lib/utils/auth';
+import { getSession, useSession } from 'next-auth/react';
 
 export default function Signup2({
   nextStep,
@@ -36,15 +35,14 @@ export default function Signup2({
 }) {
   const openRef = useRef<any>(null);
   const [opened, { open, close }] = useDisclosure(false);
-  const { data: session } = useSession();
   const onClickHandler = async () => {
-    console.log(session);
-    const parsedUserStatus = await parseFileToUserStatus(
-      fileInfo as File,
-      session?.user as DefaultSession['user'] & { idToken: string }
-    );
-    const signupResponse = await signupAndGetResponse(parsedUserStatus);
-    if (signupResponse.status === 201 && signupResponse.text === 'created') {
+    const parsedUserStatus = await readFileAndParse(fileInfo as File);
+    const session = await getSession();
+    if (session?.user) {
+      console.log(session.user);
+      console.log(parsedUserStatus);
+      const signupResponse = await signupAndGetResponse(parsedUserStatus, session?.user.id_token);
+      await console.log(signupResponse.status);
       nextStep();
     }
   };
