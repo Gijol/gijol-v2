@@ -9,6 +9,7 @@ import {
   Image,
   Modal,
   Paper,
+  Select,
   Text,
   Timeline,
 } from '@mantine/core';
@@ -19,10 +20,13 @@ import {
   IconNumber2,
   IconNumber3,
   IconNumber4,
+  IconAlertCircle,
 } from '@tabler/icons-react';
 import { readFileAndParse } from '../../lib/utils/grad';
 import { signupAndGetResponse } from '../../lib/utils/auth';
 import { getSession, useSession } from 'next-auth/react';
+import { notifications } from '@mantine/notifications';
+import { UserStatusType } from '../../lib/types';
 
 export default function Signup2({
   nextStep,
@@ -35,15 +39,38 @@ export default function Signup2({
 }) {
   const openRef = useRef<any>(null);
   const [opened, { open, close }] = useDisclosure(false);
+  const [major, setMajor] = useState<string | null>(null);
   const onClickHandler = async () => {
-    const parsedUserStatus = await readFileAndParse(fileInfo as File);
     const session = await getSession();
-    if (session?.user) {
-      console.log(session.user);
-      console.log(parsedUserStatus);
-      const signupResponse = await signupAndGetResponse(parsedUserStatus, session?.user.id_token);
-      await console.log(signupResponse.status);
-      nextStep();
+    const parsedUserStatus: UserStatusType | null = await readFileAndParse(fileInfo as File);
+    if (!parsedUserStatus) {
+      notifications.show({
+        color: 'red',
+        title: '파일 업로드 오류',
+        message:
+          '업로드 해주신 파일에 문제가 있거나 미 업로드 상태입니다. 다시 한번 파일을 확인해주시길 바랍니다.',
+        withCloseButton: true,
+      });
+    }
+    if (!major) {
+      notifications.show({
+        color: 'red',
+        title: '전공 미선택',
+        message: '전공을 선택하시지 않으셨습니다. 만약 기초교육학부라면 희망 전공을 선택해주세요! ',
+        withCloseButton: true,
+      });
+    } else {
+      const res = await signupAndGetResponse(parsedUserStatus, session?.user.id_token, major);
+      if (res.status === 201) {
+        nextStep();
+      } else {
+        notifications.show({
+          title: '응답 오류',
+          message:
+            '업로드 해주신 파일과 전공 정보에 문제가 있거나 네트워크에 문제가 있을 수 있습니다. 다시 한번 시도해주시길 바랍니다.',
+          withCloseButton: true,
+        });
+      }
     }
   };
   return (
@@ -109,7 +136,7 @@ export default function Signup2({
             bullet={<IconNumber4 size={14} stroke={2.5} />}
           >
             <Text color="dimmed" size="sm">
-              다운받은 엑셀파일을 업로드 해주세요!
+              엑셀 파일을 다운받아 업로드 해주세요!
             </Text>
           </Timeline.Item>
         </Timeline>
@@ -119,8 +146,25 @@ export default function Signup2({
           어떤 파일을 업로드 하나요?
         </Button>
       </Center>
+      <Group position="center" my={32}>
+        <Select
+          allowDeselect={false}
+          label="전공을 선택해주세요"
+          placeholder="여기를 누르세요"
+          onChange={setMajor}
+          data={[
+            { value: 'EC', label: '전기전자컴퓨터공학전공' },
+            { value: 'MA', label: '신소재공학전공' },
+            { value: 'EV', label: '지구환경공학전공' },
+            { value: 'BS', label: '생명과학전공' },
+            { value: 'CH', label: '화학전공' },
+            { value: 'MC', label: '기계공학전공' },
+            { value: 'PS', label: '물리광과학전공' },
+          ]}
+        />
+      </Group>
       <Dropzone
-        h={400}
+        h={300}
         openRef={openRef}
         onDrop={(files) => {
           setFileInfo(files.at(0));
@@ -152,7 +196,14 @@ export default function Signup2({
           ) : (
             <>
               <Text>{fileInfo?.path}</Text>
-              <Button onClick={() => openRef.current()}>파일 바꾸기</Button>
+              <Group>
+                <Button variant="light" onClick={() => openRef.current()}>
+                  파일 바꾸기
+                </Button>
+                <Button color="red.6" variant="light" onClick={() => setFileInfo(undefined)}>
+                  파일 삭제하기
+                </Button>
+              </Group>
             </>
           )}
         </Group>

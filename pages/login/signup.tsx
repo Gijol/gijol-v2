@@ -1,9 +1,8 @@
-import { Button, Container, Group, Paper, rem, Space, Stack, Stepper, Text } from '@mantine/core';
+import { Group, Paper, rem, Stepper, Text } from '@mantine/core';
 import React, { useState } from 'react';
 import { useViewportSize } from '@mantine/hooks';
 import TossCap from '/public/images/tossfaceCap.png';
 import Image from 'next/image';
-import Signup3 from '../../components/Signup/Signup3';
 import Signup1 from '../../components/Signup/Signup1';
 import Signup2 from '../../components/Signup/Signup2';
 import SignupComplete from '../../components/Signup/SignupComplete';

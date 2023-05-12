@@ -1,22 +1,11 @@
-import { Badge, Button, Card, Divider, Group, Paper, ScrollArea, Space, Text } from '@mantine/core';
+import { Badge, Button, Card, Group, ScrollArea, Space, Text } from '@mantine/core';
 import { homeContents } from '../../lib/utils/contentData';
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useSessionStorageGradStatus } from '../../lib/hooks/grad';
 import useAuthState from '../../lib/hooks/auth';
 
 export default function HomePage() {
   const router = useRouter();
-  const { isUnAuthenticated, userData } = useAuthState();
-  const { isAtomDefault } = useSessionStorageGradStatus();
-  const onClickHandler = async (status: boolean) => {
-    if (!status) {
-      await router.push('/dashboard/course/result');
-    } else {
-      await router.push('/dashboard/course');
-    }
-  };
+  const { isUnAuthenticated } = useAuthState();
   const cntFeatures = homeContents.main.cntFeatures;
   const futureFeatures = homeContents.main.betaFeatures;
   return (
@@ -41,7 +30,7 @@ export default function HomePage() {
                   로그인 하러가기 👉
                 </Button>
               ) : (
-                <Button onClick={() => onClickHandler(isAtomDefault)} fullWidth>
+                <Button onClick={() => router.push(feat.route)} fullWidth>
                   기능 이용하러 가기
                 </Button>
               )}

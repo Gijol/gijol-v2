@@ -1,7 +1,8 @@
 import { GradeReportParser } from './parser/grade/gradeReportParser';
 import { GradStatusType, SingleCategoryType } from '../types/grad';
 import { TempGradResultType, UserStatusType, UserType } from '../types';
-import { DefaultSession } from 'next-auth';
+import { notifications } from '@mantine/notifications';
+import { IconAlertCircle } from '@tabler/icons-react';
 
 class HTTPError extends Error {
   constructor(messages?: string) {
@@ -14,9 +15,19 @@ export async function readFileAndParse(file: File): Promise<UserStatusType> {
   return new Promise((resolve) => {
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      const { result } = fileReader;
-      if (result) {
-        resolve(GradeReportParser.readXlsxFile(result as string));
+      try {
+        const { result } = fileReader;
+        if (result) {
+          resolve(GradeReportParser.readXlsxFile(result as string));
+        }
+      } catch (err) {
+        notifications.show({
+          color: 'red',
+          title: '파일 파싱 오류',
+          message:
+            '업로드 하신 파일에 문제가 있습니다. 상단에 업로드 해야 하는 파일에 대한 정보를 다시 한번 읽어보신 뒤 시도해주시길 바랍니다.',
+          withCloseButton: true,
+        });
       }
     };
     fileReader.readAsBinaryString(file);

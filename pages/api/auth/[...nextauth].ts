@@ -1,9 +1,6 @@
 import NextAuth, { TokenSet } from 'next-auth';
 import KakaoProvider from 'next-auth/providers/kakao';
 import GoogleProvider from 'next-auth/providers/google';
-import { getMembershipStatus } from '../../../lib/utils/auth';
-import { MembershipStatusResponseType } from '../../../lib/types/auth';
-import { BASE_DEV_URL } from '../../../lib/const';
 
 export default NextAuth({
   pages: {

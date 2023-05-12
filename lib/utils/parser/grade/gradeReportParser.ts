@@ -71,8 +71,6 @@ export class GradeReportParser {
       }
       userTakenCourseList.push(addedTakenCourse);
     }
-    console.log(userTakenCourseList);
-
     const studentId = this.parseStudentId(workSheet);
     return { studentId, userTakenCourseList };
   }
@@ -120,7 +118,7 @@ export class GradeReportParser {
   private static createSheet(file: string) {
     const workBook = read(file, { type: 'binary' });
     const sheetNames = workBook.SheetNames;
-    if (sheetNames.length > 1) throw Error('유효하지 않은 파일입니다.');
+    if (sheetNames.length > 1) throw new Error('유효하지 않은 파일입니다.');
     const sheetName = sheetNames[0];
     return workBook.Sheets[sheetName];
   }

@@ -2,12 +2,15 @@ import { Avatar, Box, Button, Group, MediaQuery, Popover, Stack, Sx, Text } from
 import { getSession, signOut } from 'next-auth/react';
 import { IconAt, IconChevronDown, IconIdBadge2 } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
-import useAuthState from '../lib/hooks/auth';
+import useAuthState, { useUserStatus } from '../lib/hooks/auth';
 import { useEffect } from 'react';
+import { modals } from '@mantine/modals';
 
 export default function UserLoginPopover() {
   const { userData, isAuthenticated, isLoading, isUnAuthenticated, update, expires } =
     useAuthState();
+  const isMember = useUserStatus();
+  console.log('isMember State in dashboard is ' + isMember);
   const router = useRouter();
 
   // 1시간마다 next-auth의 세션 업데이트 -> 해당 과정에서 구글에서 토큰 재발급 받는 과정이 진행된다.
@@ -22,6 +25,42 @@ export default function UserLoginPopover() {
     window.addEventListener('visibilitychange', visibilityHandler, false);
     return () => window.removeEventListener('visibilitychange', visibilityHandler, false);
   }, [update]);
+
+  // 구글로 로그인 한 이후이더라도, 우리 서버에 파일을 업로드 하지 않았다면, 업로드하도록 진행
+  useEffect(() => {
+    if (typeof isMember !== 'undefined' && isAuthenticated && !isMember) {
+      modals.open({
+        id: 'file-upload-warning',
+        title: '강의 이수 내역을 업로드 해주세요',
+        styles: {
+          title: { fontWeight: 700, fontSize: 20, lineHeight: 1.5 },
+        },
+        centered: true,
+        children: (
+          <>
+            <Text>
+              <Text color="red" pt={8} pb={24} align="center" weight={600}>
+                로그인 이후 강의 이수 내역 파일을 <br /> 업로드 하지 않으셨습니다
+              </Text>
+              이 경우, 서비스를 정상적으로 이용하시기 어려울 것입니다. 보다 나은 서비스 이용을
+              원하신다면, 해당 파일을 업로드 해주시면 감사하겠습니다!
+            </Text>
+            <Button
+              onClick={() => {
+                modals.closeAll();
+                router.push('/login/signup');
+              }}
+              mt={16}
+              fullWidth
+              color="red"
+            >
+              파일 업로드 하러 가기 👉
+            </Button>
+          </>
+        ),
+      });
+    }
+  }, [isMember, isAuthenticated]);
 
   return (
     <Box h="100%">

@@ -7,16 +7,12 @@ import ThumbsUp from '../public/lottie/thumbs-up.json';
 import { FileWithPath } from '@mantine/dropzone';
 import postGradStatusFile from '../lib/utils/grad';
 import { useRouter } from 'next/router';
-import { useSetRecoilState } from 'recoil';
-import { gradStatus, overallScoreStatus } from '../lib/atoms/gradStatus';
 
 function FileSubmit() {
   const router = useRouter();
   const [cntStep, setCntStep] = useState<number>(0);
   const [fileInfo, setFileInfo] = useState<FileWithPath | undefined>(undefined);
   const [major, setMajor] = useState<string | null>(null);
-  const setGradStatus = useSetRecoilState(gradStatus);
-  const setOverallScoreStatus = useSetRecoilState(overallScoreStatus);
   const beforeBtn = cntStep <= 0;
   const afterBtn = cntStep >= 2 ? true : cntStep === 1 ? !(major && fileInfo) : false;
 
@@ -57,10 +53,7 @@ function FileSubmit() {
             radius="md"
             onClick={() => {
               postGradStatusFile(fileInfo as FileWithPath, major as string)
-                .then((res) => {
-                  setOverallScoreStatus(res.overallScoreStatus);
-                  setGradStatus(res.gradResultResponse);
-                })
+                .then((res) => {})
                 .then(() => {
                   router.push('/dashboard/course/graduation');
                 });

@@ -2,19 +2,18 @@ import { BASE_DEV_SERVER_URL } from '../const';
 import { MembershipStatusResponseType, InternalTokenType } from '../types/auth';
 import { UserStatusType, UserTakenCourse, UserType } from '../types';
 import { Session } from 'next-auth';
+import { getSession } from 'next-auth/react';
+import { notifications } from '@mantine/notifications';
 
-export const getAuthTypeResponse = async (session: Session | any): Promise<string> => {
-  const { name, email, idToken } = await session.user;
+export const getAuthTypeResponse = async (): Promise<'SIGN_UP' | 'SIGN_IN'> => {
+  const session = await getSession();
   const authTypeResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google`, {
     method: 'POST',
     headers: {
+      Authorization: `Bearer ${session?.user.id_token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ name, email, idToken }),
   });
-  if (!authTypeResponse.ok) {
-    throw new Error('Failed to exchange Google token for internal token');
-  }
   return authTypeResponse.json();
 };
 
@@ -28,18 +27,22 @@ export const getMembershipStatus = async (
     method: 'POST',
     headers: {
       Authorization: `Bearer ${id_token}`,
-      ContentType: 'application/json',
+      'Content-Type': 'application/json',
     },
   });
   if (!loginResponse.ok) {
-    throw new Error('Failed to fetch 회원여부 from gijol server');
+    notifications.show({
+      title: 'Gijol 서버 통신 오류',
+      message: '로그인에 실패했습니다. 현재 탭을 끄고 다시 로그인을 진행해주시길 바랍니다.',
+    });
   }
   return loginResponse.json();
 };
 
 export const signupAndGetResponse = async (
   userStatus: UserStatusType,
-  id_token: string | null | undefined
+  id_token: string | null | undefined,
+  major_type: string
 ) => {
   const signupResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google/sign-up`, {
     method: 'POST',
