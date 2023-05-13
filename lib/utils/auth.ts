@@ -1,7 +1,5 @@
 import { BASE_DEV_SERVER_URL } from '../const';
-import { MembershipStatusResponseType, InternalTokenType } from '../types/auth';
-import { UserStatusType, UserTakenCourse, UserType } from '../types';
-import { Session } from 'next-auth';
+import { UserStatusType } from '../types';
 import { getSession } from 'next-auth/react';
 import { notifications } from '@mantine/notifications';
 

@@ -13,8 +13,6 @@ export const fakeUserData: UserType = {
       grade: 'S',
       semester: '1학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1011',
@@ -24,8 +22,6 @@ export const fakeUserData: UserType = {
       grade: 'B0',
       semester: '1학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1101',
@@ -35,8 +31,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '1학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1111',
@@ -46,8 +40,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '1학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1201',
@@ -57,8 +49,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '1학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1490',
@@ -68,8 +58,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '1학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1605',
@@ -79,8 +67,6 @@ export const fakeUserData: UserType = {
       grade: 'S',
       semester: '1학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1901',
@@ -90,8 +76,6 @@ export const fakeUserData: UserType = {
       grade: 'S',
       semester: '1학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS4010',
@@ -101,8 +85,6 @@ export const fakeUserData: UserType = {
       grade: 'B0',
       semester: '1학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS0101',
@@ -112,8 +94,6 @@ export const fakeUserData: UserType = {
       grade: 'S',
       semester: '2학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1102',
@@ -123,8 +103,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '2학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1112',
@@ -134,8 +112,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '2학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1302',
@@ -145,8 +121,6 @@ export const fakeUserData: UserType = {
       grade: 'B0',
       semester: '2학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1401',
@@ -156,8 +130,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '2학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1512',
@@ -167,8 +139,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '2학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS1601',
@@ -178,8 +148,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '2학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS2001',
@@ -189,8 +157,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '2학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'GS2004',
@@ -200,8 +166,6 @@ export const fakeUserData: UserType = {
       grade: 'B+',
       semester: '2학기',
       year: 2020,
-      createdAt: '2023-05-05T12:03:22.257Z',
-      updatedAt: '2023-05-05T12:03:22.257Z',
     },
     {
       courseCode: 'EC2105',
@@ -211,8 +175,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '1학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS0113',
@@ -222,8 +184,6 @@ export const fakeUserData: UserType = {
       grade: 'S',
       semester: '1학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS1211',
@@ -233,8 +193,6 @@ export const fakeUserData: UserType = {
       grade: 'B0',
       semester: '1학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS2002',
@@ -244,8 +202,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '1학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS2652',
@@ -255,8 +211,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '1학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS2701',
@@ -266,8 +220,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '1학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS2101',
@@ -277,8 +229,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '1학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS2102',
@@ -288,8 +238,6 @@ export const fakeUserData: UserType = {
       grade: 'B+',
       semester: '1학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS2201',
@@ -299,8 +247,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '1학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'EC2201',
@@ -310,8 +256,6 @@ export const fakeUserData: UserType = {
       grade: 'B+',
       semester: '2학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'EC2205',
@@ -321,8 +265,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '2학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS0213',
@@ -332,8 +274,6 @@ export const fakeUserData: UserType = {
       grade: 'S',
       semester: '2학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS1311',
@@ -343,8 +283,6 @@ export const fakeUserData: UserType = {
       grade: 'B+',
       semester: '2학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS2732',
@@ -354,8 +292,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '2학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS2103',
@@ -365,8 +301,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '2학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS3107',
@@ -376,8 +310,6 @@ export const fakeUserData: UserType = {
       grade: 'B+',
       semester: '2학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS4209',
@@ -387,8 +319,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '2학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'UC0901',
@@ -398,8 +328,6 @@ export const fakeUserData: UserType = {
       grade: 'S',
       semester: '2학기',
       year: 2021,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS0206',
@@ -409,8 +337,6 @@ export const fakeUserData: UserType = {
       grade: 'S',
       semester: '1학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS2602',
@@ -420,8 +346,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '1학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS2614',
@@ -431,8 +355,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '1학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS2730',
@@ -442,8 +364,6 @@ export const fakeUserData: UserType = {
       grade: 'B0',
       semester: '1학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'MM4002',
@@ -453,8 +373,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '1학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'MM4004',
@@ -464,8 +382,6 @@ export const fakeUserData: UserType = {
       grade: 'B0',
       semester: '1학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS3202',
@@ -475,8 +391,6 @@ export const fakeUserData: UserType = {
       grade: 'B+',
       semester: '1학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS3205',
@@ -486,8 +400,6 @@ export const fakeUserData: UserType = {
       grade: 'A+',
       semester: '1학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'UC9331',
@@ -497,8 +409,6 @@ export const fakeUserData: UserType = {
       grade: 'S',
       semester: '1학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS0700',
@@ -508,8 +418,6 @@ export const fakeUserData: UserType = {
       grade: 'B+',
       semester: '여름학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS3103',
@@ -519,8 +427,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '여름학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'EC3206',
@@ -530,8 +436,6 @@ export const fakeUserData: UserType = {
       grade: 'B+',
       semester: '2학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'GS0701',
@@ -541,8 +445,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '2학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'MA2101',
@@ -552,8 +454,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '2학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS3104',
@@ -563,8 +463,6 @@ export const fakeUserData: UserType = {
       grade: 'B0',
       semester: '2학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS3105',
@@ -574,8 +472,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '2학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
     {
       courseCode: 'PS3106',
@@ -585,8 +481,6 @@ export const fakeUserData: UserType = {
       grade: 'A0',
       semester: '2학기',
       year: 2022,
-      createdAt: '2023-05-05T12:03:22.258Z',
-      updatedAt: '2023-05-05T12:03:22.258Z',
     },
   ],
 };
