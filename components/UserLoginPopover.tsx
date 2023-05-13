@@ -12,7 +12,6 @@ export default function UserLoginPopover() {
   const isMember = useUserStatus();
   const { data: session } = useSession();
   const router = useRouter();
-  console.log(session);
 
   // 1시간마다 next-auth의 세션 업데이트 -> 해당 과정에서 구글에서 토큰 재발급 받는 과정이 진행된다.
   useEffect(() => {

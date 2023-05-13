@@ -2,6 +2,7 @@ import { BASE_DEV_SERVER_URL } from '../const';
 import { UserStatusType } from '../types';
 import { getSession } from 'next-auth/react';
 import { notifications } from '@mantine/notifications';
+import { MajorType } from '../types/grad';
 
 export const getAuthTypeResponse = async (): Promise<'SIGN_UP' | 'SIGN_IN'> => {
   const session = await getSession();
@@ -48,7 +49,7 @@ export const signupAndGetResponse = async (
       Authorization: `Bearer ${id_token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(userStatus),
+    body: JSON.stringify({ majorType: major_type, ...userStatus }),
   });
   return { status: signupResponse.status, text: signupResponse.statusText };
 };

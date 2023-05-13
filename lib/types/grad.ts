@@ -1,3 +1,5 @@
+import { EnumBody } from '@babel/types';
+
 export interface TakenCourseType {
   year: number;
   semester: string;
@@ -33,4 +35,14 @@ export interface GradStatusType {
   graduationCategory: GradCategoriesType;
   totalCredits: number;
   totalSatisfied: boolean;
+}
+
+export enum MajorType {
+  'BS',
+  'CH',
+  'EC',
+  'EV',
+  'MA',
+  'MC',
+  'PS',
 }

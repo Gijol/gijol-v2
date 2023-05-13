@@ -18,6 +18,7 @@ import MainPageFnTab from '../components/Tab/MainPageFnTab';
 import macImg from '/public/images/MacBookAir.png';
 import dashboardImg from '/public/images/Gijol_Dasboard.png';
 import UserReviews from '../components/Carousel/UserReviews';
+import router from 'next/router';
 
 export default function MainPage() {
   return (

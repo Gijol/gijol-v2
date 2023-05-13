@@ -40,11 +40,8 @@ export class GradeReportParser {
       const course = this.accessValueOfWorkSheet(workSheet, address(COURSE_NAME_CELL_INDEX, index));
       const credit = this.accessValueOfWorkSheet(workSheet, address(CREDIT_CELL_INDEX, index));
       const grade = this.accessValueOfWorkSheet(workSheet, address(GRADE_CELL_INDEX, index));
-      if (['F', 'U'].includes(grade)) {
-        continue;
-      }
 
-      const isLetterGrade: boolean = ['A', 'B', 'C', 'D'].some((letterGrade) =>
+      const isLetterGrade: boolean = ['A', 'B', 'C', 'D', 'F', 'U'].some((letterGrade) =>
         grade.includes(letterGrade)
       );
       const canBeDuplicated = ['GS01', 'GS02', 'UC9331'].some((duplicatableCode) =>
