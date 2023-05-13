@@ -8,7 +8,7 @@ import { useViewportSize } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { signIn } from 'next-auth/react';
 import { getMembershipStatus } from '../../lib/utils/auth';
-import useAuthState, { useUserStatus } from '../../lib/hooks/auth';
+import useAuthState from '../../lib/hooks/auth';
 
 export default function Login() {
   const { height } = useViewportSize();

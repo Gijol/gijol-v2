@@ -1,5 +1,4 @@
 import NextAuth, { TokenSet } from 'next-auth';
-import KakaoProvider from 'next-auth/providers/kakao';
 import GoogleProvider from 'next-auth/providers/google';
 
 export default NextAuth({
@@ -13,10 +12,6 @@ export default NextAuth({
       authorization: {
         params: { access_type: 'offline', prompt: 'consent' },
       },
-    }),
-    KakaoProvider({
-      clientId: process.env.KAKAO_ID || '',
-      clientSecret: process.env.KAKAO_SECRET || '',
     }),
   ],
   secret: process.env.JWT_SECRET || '',
@@ -36,6 +31,8 @@ export default NextAuth({
         token.access_token = account?.access_token;
         token.refresh_token = account?.refresh_token;
         token.expires_at = account?.expires_at;
+        return token;
+      } else if (!account && token && token.id_token) {
         return token;
       }
       if (trigger === 'update') {
