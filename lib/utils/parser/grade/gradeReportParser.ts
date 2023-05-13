@@ -1,6 +1,6 @@
 /* eslint-disable */
-import {read, WorkSheet} from 'xlsx';
-import {TakenCourse} from "./TakenCourse";
+import { read, WorkSheet } from 'xlsx';
+import { TakenCourse } from './TakenCourse';
 
 const TYPE_CELL_INDEX = 'A';
 const CODE_CELL_INDEX = 'B';
@@ -16,7 +16,7 @@ export class GradeReportParser {
     let index = START_INDEX;
     const address = (cell: string, row: number) => cell + row;
     let [year, semester] = ['', ''];
-    let takenCourses: TakenCourse[] = [];
+    let userTakenCourseList: TakenCourse[] = [];
 
     while (true) {
       index += 1;
@@ -25,39 +25,58 @@ export class GradeReportParser {
       }
 
       if (this.isSeparatedByYear(workSheet, address(COURSE_NAME_CELL_INDEX, index))) {
-        [year, semester] = this.setYearAndSemester(workSheet, address(COURSE_NAME_CELL_INDEX, index));
+        [year, semester] = this.setYearAndSemester(
+          workSheet,
+          address(COURSE_NAME_CELL_INDEX, index)
+        );
       }
 
       if (this.notExistCodeRow(workSheet, address(CODE_CELL_INDEX, index))) {
         continue;
       }
 
-      const type = this.accessValueOfWorkSheet(workSheet, address(TYPE_CELL_INDEX, index))
-      const code = this.accessValueOfWorkSheet(workSheet, address(CODE_CELL_INDEX, index))
-      const course = this.accessValueOfWorkSheet(workSheet, address(COURSE_NAME_CELL_INDEX, index))
-      const credit = this.accessValueOfWorkSheet(workSheet, address(CREDIT_CELL_INDEX, index))
+      const type = this.accessValueOfWorkSheet(workSheet, address(TYPE_CELL_INDEX, index));
+      const code = this.accessValueOfWorkSheet(workSheet, address(CODE_CELL_INDEX, index));
+      const course = this.accessValueOfWorkSheet(workSheet, address(COURSE_NAME_CELL_INDEX, index));
+      const credit = this.accessValueOfWorkSheet(workSheet, address(CREDIT_CELL_INDEX, index));
       const grade = this.accessValueOfWorkSheet(workSheet, address(GRADE_CELL_INDEX, index));
       if (['F', 'U'].includes(grade)) {
         continue;
       }
 
-      const isLetterGrade: boolean = ['A', 'B', 'C', 'D'].some(letterGrade => grade.includes(letterGrade))
-      const canBeDuplicated = ['GS01', 'GS02', 'UC9331'].some(duplicatableCode => code.includes(duplicatableCode));
-      const addedTakenCourse = new TakenCourse(parseInt(year), semester, type, code, course, parseInt(credit), grade);
+      const isLetterGrade: boolean = ['A', 'B', 'C', 'D'].some((letterGrade) =>
+        grade.includes(letterGrade)
+      );
+      const canBeDuplicated = ['GS01', 'GS02', 'UC9331'].some((duplicatableCode) =>
+        code.includes(duplicatableCode)
+      );
+      const addedTakenCourse = new TakenCourse(
+        parseInt(year),
+        semester,
+        type,
+        code,
+        course,
+        parseInt(credit),
+        grade
+      );
 
-      if (takenCourses.some(takenCourse => takenCourse.equals(addedTakenCourse) && isLetterGrade && !canBeDuplicated)) {
-        takenCourses = takenCourses.filter(course => !course.equals(addedTakenCourse))
+      if (
+        userTakenCourseList.some(
+          (takenCourse) => takenCourse.equals(addedTakenCourse) && isLetterGrade && !canBeDuplicated
+        )
+      ) {
+        userTakenCourseList = userTakenCourseList.filter(
+          (course) => !course.equals(addedTakenCourse)
+        );
       }
-
-      takenCourses.push(addedTakenCourse);
+      userTakenCourseList.push(addedTakenCourse);
     }
-
     const studentId = this.parseStudentId(workSheet);
-    return {studentId: studentId, takenCourses};
+    return { studentId, userTakenCourseList };
   }
 
   private static isEndOfCode(workSheet: WorkSheet, excelAddress: string) {
-    const workSheetElement: string = this.accessValueOfWorkSheet(workSheet, excelAddress)
+    const workSheetElement: string = this.accessValueOfWorkSheet(workSheet, excelAddress);
     return workSheetElement.includes('[학사]');
   }
 
@@ -74,7 +93,9 @@ export class GradeReportParser {
   private static setYearAndSemester(workSheet: WorkSheet, excelAddress: string) {
     const workSheetElement = this.accessValueOfWorkSheet(workSheet, excelAddress);
     const elementWithNoWhitespace = workSheetElement.trim();
-    const [year, semester] = elementWithNoWhitespace.substring(1, elementWithNoWhitespace.length - 1).split('/');
+    const [year, semester] = elementWithNoWhitespace
+      .substring(1, elementWithNoWhitespace.length - 1)
+      .split('/');
     return [year, semester];
   }
 
@@ -95,9 +116,9 @@ export class GradeReportParser {
   }
 
   private static createSheet(file: string) {
-    const workBook = read(file, {type: "binary"});
+    const workBook = read(file, { type: 'binary' });
     const sheetNames = workBook.SheetNames;
-    if (sheetNames.length > 1) throw Error('유효하지 않은 파일입니다.');
+    if (sheetNames.length > 1) throw new Error('유효하지 않은 파일입니다.');
     const sheetName = sheetNames[0];
     return workBook.Sheets[sheetName];
   }

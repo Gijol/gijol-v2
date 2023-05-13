@@ -6,6 +6,7 @@ export const homeContents = {
         title: '졸업요건 확인 기능',
         description:
           '개인 성적 엑셀 파일을 업로드하면 해당 정보들을 요약 및 졸업요건 충족 여부를 확인하여  그 결과와 강의 추천까지 해드립니다!',
+        route: `/dashboard/graduation`,
       },
     ],
     newFeatures: [

@@ -1,14 +1,31 @@
+import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { getAuthTypeResponse } from '../utils/auth';
 
-export function useAuth0() {
-  const [authenticated, setAuthenticated] = useState<boolean>(false);
-  const { user } = useUser();
+export default function useAuthState() {
+  const { data: session, status, update } = useSession();
+  const isAuthenticated = status === 'authenticated';
+  const isUnAuthenticated = status === 'unauthenticated';
+  const isLoading = status === 'loading';
+  const userData = session?.user;
+  const expires = session?.expires;
+  return { userData, expires, isAuthenticated, isUnAuthenticated, isLoading, update };
+}
+
+export function useUserStatus() {
+  const [isMember, setIsMember] = useState<boolean | undefined>(undefined);
+  console.log('isMember hook status is ' + isMember);
   useEffect(() => {
-    if (user) {
-      setAuthenticated(true);
-    }
-  }, [user]);
-
-  return { authenticated };
+    const getMemberStatus = async () => {
+      const status = await getAuthTypeResponse();
+      console.log(status);
+      if (status === 'SIGN_IN') {
+        setIsMember(true);
+      } else if (status === 'SIGN_UP') {
+        setIsMember(false);
+      }
+    };
+    getMemberStatus();
+  }, []);
+  return isMember;
 }

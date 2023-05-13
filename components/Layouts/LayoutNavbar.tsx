@@ -1,57 +1,54 @@
-import { Button, Modal, Navbar, NavLink } from '@mantine/core';
-import {
-  IconSchool,
-  IconHome,
-  IconCalendar,
-  IconTimeline,
-  IconUsers,
-  IconBuildingCommunity,
-  IconInfoCircle,
-  IconHomeQuestion,
-  IconChartInfographic,
-  IconChalkboard,
-} from '@tabler/icons-react';
+import { Text, createStyles, Divider, Navbar, NavLink, rem } from '@mantine/core';
 import Link from 'next/link';
+import { navLinks } from '../../lib/const/navLinks';
+import { useRouter } from 'next/router';
+import { getCntTab } from '../../lib/utils/status';
+
+const useStyles = createStyles((theme) => ({
+  navbar: {
+    paddingTop: 0,
+  },
+
+  section: {
+    marginLeft: `calc(${theme.spacing.md} * -1)`,
+    marginRight: `calc(${theme.spacing.md} * -1)`,
+    marginBottom: theme.spacing.md,
+
+    '&:not(:last-of-type)': {
+      borderBottom: `${rem(1)} solid ${
+        theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
+      }`,
+    },
+  },
+}));
 
 export function LayoutNavbar({ opened }: { opened: boolean }) {
+  const { classes } = useStyles();
+  const router = useRouter();
+  const cntRoute = getCntTab(router.route);
+  const links = navLinks.map((link) => {
+    return (
+      <NavLink
+        component={Link}
+        key={link.label}
+        active={link.label === cntRoute}
+        label={link.label}
+        href={link.href}
+        icon={<link.icon size="1.25rem" stroke={1.5} />}
+        sx={{ borderRadius: 8 }}
+        my={4}
+      />
+    );
+  });
   return (
-    <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 240 }}>
-      <Navbar.Section grow>
-        <Link href="/" style={{ textDecoration: 'unset' }}>
-          <NavLink label="홈" icon={<IconHome size="1rem" stroke={1.5} />} />
-        </Link>
-        <NavLink label="내 강의" icon={<IconSchool size="1rem" stroke={1.5} />} childrenOffset={28}>
-          <Link href="/course" style={{ textDecoration: 'unset' }}>
-            <NavLink
-              label="졸업요건 현황"
-              icon={<IconChartInfographic size="1rem" stroke={1.5} />}
-            />
-          </Link>
-          <Link href="/course/evaluation" style={{ textDecoration: 'unset' }}>
-            <NavLink label="강의평가" icon={<IconChalkboard size="1rem" stroke={1.5} />} />
-          </Link>
-          <Link href="/course/schedule" style={{ textDecoration: 'unset' }}>
-            <NavLink label="시간표" icon={<IconCalendar size="1rem" stroke={1.5} />} />
-          </Link>
-        </NavLink>
-
-        <NavLink
-          label="학교 생활"
-          icon={<IconBuildingCommunity size="1rem" stroke={1.5} />}
-          childrenOffset={28}
-          defaultOpened
-        >
-          <Link href="/school" style={{ textDecoration: 'unset' }}>
-            <NavLink label="내 모임" icon={<IconUsers size="1rem" stroke={1.5} />} />
-          </Link>
-          <Link href="/school/dorm" style={{ textDecoration: 'unset' }}>
-            <NavLink label="기숙사" icon={<IconHomeQuestion size="1rem" stroke={1.5} />} />
-          </Link>
-          <Link href="/school/info" style={{ textDecoration: 'unset' }}>
-            <NavLink label="유용한 정보" icon={<IconInfoCircle size="1rem" stroke={1.5} />} />
-          </Link>
-        </NavLink>
-      </Navbar.Section>
+    <Navbar
+      p="sm"
+      hiddenBreakpoint="sm"
+      hidden={!opened}
+      width={{ sm: 200, lg: 240 }}
+      className={classes.navbar}
+    >
+      <Navbar.Section>{links}</Navbar.Section>
     </Navbar>
   );
 }

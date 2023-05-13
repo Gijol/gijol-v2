@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useRef } from 'react';
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
-import { Group, Button, Container, Text, Select, Space } from '@mantine/core';
+import { Group, Button, Container, Text, Select, Space, Box } from '@mantine/core';
 
 export default function UserFileUpload({
   fileInfo,
@@ -12,9 +12,8 @@ export default function UserFileUpload({
   setMajor: Dispatch<SetStateAction<string | null>>;
 }) {
   const openRef = useRef<any>(null);
-
   return (
-    <Container>
+    <Container miw={600}>
       <Group position="center">
         <Select
           allowDeselect={false}
