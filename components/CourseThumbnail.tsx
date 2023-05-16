@@ -3,13 +3,19 @@ import { Group, Paper, Text, Badge, Button } from '@mantine/core';
 import { useHover } from '@mantine/hooks';
 import Link from 'next/link';
 
-export default function CourseThumbnail() {
+export default function CourseThumbnail({
+  code,
+  description,
+}: {
+  code: string;
+  description: string;
+}) {
   const { hovered, ref } = useHover();
   return (
     <Link href="/dashboard/course/search" style={{ textDecoration: 'none', color: 'black' }}>
-      <Paper withBorder p="md" radius="md" ref={ref} bg={hovered ? 'gray.0' : undefined}>
+      <Paper withBorder p="md" radius="md" ref={ref} bg={hovered ? 'gray.0' : undefined} my={20}>
         <Text size={14} mb={8}>
-          GS1234
+          {code}
         </Text>
         <Group position="apart">
           <Text size={24} weight={500} w="30rem">

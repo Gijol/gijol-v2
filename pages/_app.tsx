@@ -7,6 +7,7 @@ import { Notifications } from '@mantine/notifications';
 import { Layout } from '../components/Layouts/Layout';
 import { SessionProvider } from 'next-auth/react';
 import { ModalsProvider } from '@mantine/modals';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -39,6 +40,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           </SessionProvider>
         </MantineProvider>
       </ColorSchemeProvider>
+      <Analytics />
     </>
   );
 }
