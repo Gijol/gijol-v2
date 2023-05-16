@@ -41,6 +41,10 @@ export class GradeReportParser {
       const credit = this.accessValueOfWorkSheet(workSheet, address(CREDIT_CELL_INDEX, index));
       const grade = this.accessValueOfWorkSheet(workSheet, address(GRADE_CELL_INDEX, index));
 
+      if (grade.includes('U')) {
+        continue;
+      }
+
       const isLetterGrade: boolean = ['A', 'B', 'C', 'D', 'F'].some((letterGrade) =>
         grade.includes(letterGrade)
       );

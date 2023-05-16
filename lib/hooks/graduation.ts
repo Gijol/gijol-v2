@@ -8,6 +8,7 @@ export default function useGraduation() {
   const [status, setStatus] = useState<GradStatusResponseType>(initialValue);
   const getGradStatus = async () => {
     const session = await getSession();
+    console.log(session?.user.id_token);
     const id_token = session?.user.id_token;
     try {
       const gradStatus: GradStatusResponseType = await fetch(
