@@ -1,5 +1,10 @@
 import { GradeReportParser } from './parser/grade/gradeReportParser';
-import { GradStatusType, SingleCategoryType } from '../types/grad';
+import {
+  GradOverallStatusType,
+  GradStatusResponseType,
+  GraduationPropType,
+  SingleCategoryType,
+} from '../types/grad';
 import { TempGradResultType, UserStatusType, UserType } from '../types';
 import { notifications } from '@mantine/notifications';
 import { IconAlertCircle } from '@tabler/icons-react';
@@ -73,7 +78,7 @@ export function getPercentage(status: SingleCategoryType) {
   }
 }
 
-export function getOverallStatus(status: GradStatusType) {
+export function getOverallStatus(status: GradStatusResponseType) {
   const totalCredits = status.totalCredits;
   const percentage = Math.round((totalCredits * 100) / 130);
   const totalPercentage = percentage >= 100 ? 100 : percentage;
@@ -161,7 +166,7 @@ export function getDomainColor(name: string) {
   }
 }
 
-export function getFeedbackNumbers(status: GradStatusType) {
+export function getFeedbackNumbers(status: GradStatusResponseType) {
   const l1 = status.graduationCategory.languageBasic.messages.length;
   const l2 = status.graduationCategory.scienceBasic.messages.length;
   const l3 = status.graduationCategory.humanities.messages.length;

@@ -1,4 +1,4 @@
-import { GradStatusType } from './grad';
+import { GradStatusResponseType } from './grad';
 
 export interface LoginProps {
   id: string;
@@ -6,7 +6,7 @@ export interface LoginProps {
 }
 
 export interface TempGradResultType {
-  gradResultResponse: GradStatusType;
+  gradResultResponse: GradStatusResponseType;
   overallScoreStatus: unknown;
 }
 

@@ -48,7 +48,11 @@ export const signupAndGetResponse = async (
       Authorization: `Bearer ${id_token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(userStatus),
+    body: JSON.stringify({
+      majorType: major_type,
+      ...userStatus,
+      studentId: parseInt(userStatus.studentId),
+    }),
   });
   return { status: signupResponse.status, text: signupResponse.statusText };
 };

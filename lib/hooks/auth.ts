@@ -14,7 +14,6 @@ export default function useAuthState() {
 
 export function useUserStatus() {
   const [isMember, setIsMember] = useState<boolean | undefined>(undefined);
-  console.log('isMember hook status is ' + isMember);
   useEffect(() => {
     const getMemberStatus = async () => {
       const status = await getAuthTypeResponse();

@@ -1,6 +1,6 @@
-import { GradStatusType } from '../types/grad';
+import { GradStatusResponseType } from '../types/grad';
 
-export const initialValue: GradStatusType = {
+export const initialValue: GradStatusResponseType = {
   graduationCategory: {
     etcMandatory: {
       messages: ['string'],

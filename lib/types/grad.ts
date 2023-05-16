@@ -1,3 +1,5 @@
+import { EnumBody } from '@babel/types';
+
 export interface TakenCourseType {
   year: number;
   semester: string;
@@ -29,8 +31,21 @@ export interface GradCategoriesType {
   otherUncheckedClass: SingleCategoryType;
 }
 
-export interface GradStatusType {
+export interface GradStatusResponseType {
   graduationCategory: GradCategoriesType;
   totalCredits: number;
   totalSatisfied: boolean;
+}
+
+export interface GradOverallStatusType {
+  categoriesArr: { domain: string; status: SingleCategoryType }[];
+  totalCredits: number;
+  totalPercentage: number;
+  minDomain: string;
+  minDomainPercentage: number;
+  domains: { title: string; percentage: number; satisfied: boolean }[];
+}
+
+export interface GraduationPropType extends GradOverallStatusType {
+  numbers: number;
 }
