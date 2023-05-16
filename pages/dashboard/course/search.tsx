@@ -2,8 +2,18 @@ import React from 'react';
 import { Container, Text, Input, Select, Flex, Group, MediaQuery, Stack } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import CourseThumbnail from '../../../components/CourseThumbnail';
+import { fakeMajorData } from '../../../lib/const/course';
 
 export default function Search() {
+  const courses = fakeMajorData.map((item) => {
+    return (
+      <CourseThumbnail
+        key={item.courseCode + item.courseDescription.length}
+        code={item.courseCode}
+        description={item.courseDescription}
+      />
+    );
+  });
   return (
     <Container>
       <Text size={32} weight={700} my={32}>
@@ -24,7 +34,7 @@ export default function Search() {
             placeholder="전공 영역 선택"
             w="10rem"
             data={[
-              { value: 'react', label: 'React' },
+              { value: 'BS', label: 'React' },
               { value: 'ng', label: 'Angular' },
               { value: 'svelte', label: 'Svelte' },
               { value: 'vue', label: 'Vue' },
@@ -42,7 +52,7 @@ export default function Search() {
           />
         </Group>
       </Group>
-      <CourseThumbnail />
+      {courses}
     </Container>
   );
 }
