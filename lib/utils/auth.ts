@@ -51,7 +51,6 @@ export const signupAndGetResponse = async (
     body: JSON.stringify({
       majorType: major_type,
       ...userStatus,
-      studentId: parseInt(userStatus.studentId),
     }),
   });
   return { status: signupResponse.status, text: signupResponse.statusText };
