@@ -1,7 +1,7 @@
 import { Badge, Button, Card, Group, ScrollArea, Space, Text } from '@mantine/core';
 import { homeContents } from '../../lib/utils/contentData';
 import { useRouter } from 'next/router';
-import useAuthState from '../../lib/hooks/auth';
+import { useAuthState } from '../../lib/hooks/auth';
 
 export default function HomePage() {
   const router = useRouter();

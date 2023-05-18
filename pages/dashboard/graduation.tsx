@@ -1,17 +1,12 @@
 import { Container, Space, createStyles } from '@mantine/core';
-
 import { useScrollIntoView } from '@mantine/hooks';
 import GradSpecificDomainStatus from '../../components/GradSpecificDomainStatus';
 import GradOverallStatus from '../../components/GradOverallStatus';
 import GradRecommend from '../../components/GradRecommend';
 import useGraduation from '../../lib/hooks/graduation';
-import { useUserStatus } from '../../lib/hooks/auth';
-import router from 'next/router';
-import { useEffect, useState } from 'react';
-import { GradStatusResponseType, GraduationPropType } from '../../lib/types/grad';
-import { getSession } from 'next-auth/react';
-import { BASE_DEV_SERVER_URL } from '../../lib/const';
-import { getFeedbackNumbers, getOverallStatus } from '../../lib/utils/grad';
+import { notifications } from '@mantine/notifications';
+import { useEffect } from 'react';
+import { IconCheck } from '@tabler/icons-react';
 
 const useStyles = createStyles((theme) => ({
   tableHead: {
@@ -25,53 +20,56 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function Graduation() {
-  const [hydrated, setHydrated] = useState(false);
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
     offset: 60,
   });
   const { classes } = useStyles();
-  const { status } = useGraduation();
-  const {
-    categoriesArr,
-    totalCredits,
-    totalPercentage,
-    minDomain,
-    minDomainPercentage,
-    overall: domains,
-  } = getOverallStatus(status);
-  const numbers = getFeedbackNumbers(status);
+  const { status, isLoading, isError, isInitial } = useGraduation();
+  useEffect(() => {
+    if (isInitial) {
+      notifications.show({
+        id: 'grad-status',
+        title: '졸업요건 데이터 로딩중',
+        message: '졸업요건 데이터를 불러오는 중입니다.',
+        loading: isInitial,
+      });
+    } else {
+      notifications.update({
+        id: 'grad-status',
+        title: '졸업요건 받아오기 완료!',
+        message: '졸업요건 데이터를 받아오는데 성공했습니다!',
+        icon: <IconCheck />,
+        color: 'teal',
+        autoClose: 1000,
+      });
+    }
+  }, [isInitial]);
+
+  if (isLoading) return <Container>Loading</Container>;
+  if (isError) return <Container>Error</Container>;
   return (
     <Container>
-      {!hydrated && <></>}
-      {hydrated && (
-        <>
-          <h1>졸업요건 현황</h1>
-          <Space h={16} />
-          <GradOverallStatus
-            classes={classes}
-            scrollIntoView={scrollIntoView}
-            totalCredits={totalCredits}
-            totalPercentage={totalPercentage}
-            overallStatus={domains}
-            minDomain={minDomain}
-            minDomainPercentage={minDomainPercentage}
-            feedbackNumbers={numbers}
-          />
-          <Space h={40} />
-          <h1>영역별 세부 현황</h1>
-          <Space h={16} />
-          <GradSpecificDomainStatus classes={classes} specificDomainStatusArr={categoriesArr} />
-          <Space h={16} />
-          <h1 ref={targetRef}>영역별 피드백 모음</h1>
-          <Space h={16} />
-          <GradRecommend specificDomainStatusArr={categoriesArr} />
-          <Space h={80} />
-        </>
-      )}
+      <h1>졸업요건 현황</h1>
+      <Space h={16} />
+      <GradOverallStatus
+        classes={classes}
+        scrollIntoView={scrollIntoView}
+        totalCredits={status.totalCredits}
+        totalPercentage={status.totalPercentage}
+        overallStatus={status.domains}
+        minDomain={status.minDomain}
+        minDomainPercentage={status.minDomainPercentage}
+        feedbackNumbers={status.numbers}
+      />
+      <Space h={40} />
+      <h1>영역별 세부 현황</h1>
+      <Space h={16} />
+      <GradSpecificDomainStatus classes={classes} specificDomainStatusArr={status.categoriesArr} />
+      <Space h={16} />
+      <h1 ref={targetRef}>영역별 피드백 모음</h1>
+      <Space h={16} />
+      <GradRecommend specificDomainStatusArr={status.categoriesArr} />
+      <Space h={80} />
     </Container>
   );
 }

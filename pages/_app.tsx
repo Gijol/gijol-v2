@@ -1,4 +1,4 @@
-import { ComponentType, useState } from 'react';
+import { useState } from 'react';
 import NextApp, { AppProps, AppContext } from 'next/app';
 import { getCookie, setCookie } from 'cookies-next';
 import Head from 'next/head';
@@ -8,11 +8,13 @@ import { Layout } from '../components/Layouts/Layout';
 import { SessionProvider } from 'next-auth/react';
 import { ModalsProvider } from '@mantine/modals';
 import { Analytics } from '@vercel/analytics/react';
+import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/query-core';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
+  const [queryClient] = useState(() => new QueryClient());
   /* 라이트 모드, 다크 모드 설정하는 상태 로직 */
-
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
 
   const toggleColorScheme = (value?: ColorScheme) => {
@@ -30,14 +32,18 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       </Head>
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-          <SessionProvider session={pageProps.session}>
-            <ModalsProvider>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-              <Notifications />
-            </ModalsProvider>
-          </SessionProvider>
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={pageProps.dehydratedState}>
+              <SessionProvider session={pageProps.session}>
+                <ModalsProvider>
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                  <Notifications />
+                </ModalsProvider>
+              </SessionProvider>
+            </Hydrate>
+          </QueryClientProvider>
         </MantineProvider>
       </ColorSchemeProvider>
       <Analytics />

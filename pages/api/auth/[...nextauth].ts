@@ -17,12 +17,12 @@ export default NextAuth({
   secret: process.env.JWT_SECRET || '',
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 24,
+    maxAge: 60 * 60,
     updateAge: 60 * 60,
   },
   jwt: {
     secret: process.env.JWT_SECRET,
-    maxAge: 60 * 60 * 24,
+    maxAge: 60 * 60,
   },
   callbacks: {
     async jwt({ token, account, trigger }) {
