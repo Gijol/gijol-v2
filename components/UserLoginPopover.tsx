@@ -2,15 +2,13 @@ import { Avatar, Box, Button, Group, MediaQuery, Popover, Stack, Sx, Text } from
 import { getSession, signOut, useSession } from 'next-auth/react';
 import { IconAt, IconChevronDown, IconIdBadge2 } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
-import useAuthState, { useUserStatus } from '../lib/hooks/auth';
 import { useEffect } from 'react';
 import { modals } from '@mantine/modals';
+import { useAuthState, useUserStatus } from '../lib/hooks/auth';
 
 export default function UserLoginPopover() {
-  const { userData, isAuthenticated, isLoading, isUnAuthenticated, update, expires } =
-    useAuthState();
+  const { userData, isAuthenticated, isLoading, isUnAuthenticated, update } = useAuthState();
   const isMember = useUserStatus();
-  const { data: session } = useSession();
   const router = useRouter();
 
   // 1시간마다 next-auth의 세션 업데이트 -> 해당 과정에서 구글에서 토큰 재발급 받는 과정이 진행된다.

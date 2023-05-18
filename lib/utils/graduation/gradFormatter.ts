@@ -1,13 +1,7 @@
-import { GradeReportParser } from './parser/grade/gradeReportParser';
-import {
-  GradOverallStatusType,
-  GradStatusResponseType,
-  GraduationPropType,
-  SingleCategoryType,
-} from '../types/grad';
-import { TempGradResultType, UserStatusType, UserType } from '../types';
+import { GradeReportParser } from '../parser/grade/gradeReportParser';
+import { GradStatusResponseType, SingleCategoryType } from '../../types/grad';
+import { TempGradResultType, UserStatusType } from '../../types';
 import { notifications } from '@mantine/notifications';
-import { IconAlertCircle } from '@tabler/icons-react';
 
 class HTTPError extends Error {
   constructor(messages?: string) {
@@ -78,7 +72,7 @@ export function getPercentage(status: SingleCategoryType) {
   }
 }
 
-export function getOverallStatus(status: GradStatusResponseType) {
+export function extractOverallStatus(status: GradStatusResponseType) {
   const totalCredits = status.totalCredits;
   const percentage = Math.round((totalCredits * 100) / 130);
   const totalPercentage = percentage >= 100 ? 100 : percentage;
@@ -141,7 +135,7 @@ export function getOverallStatus(status: GradStatusResponseType) {
     totalPercentage,
     minDomain,
     minDomainPercentage,
-    overall: arr,
+    domains: arr,
   };
 }
 

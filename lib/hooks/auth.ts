@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { getAuthTypeResponse } from '../utils/auth';
 
-export default function useAuthState() {
+export function useAuthState() {
   const { data: session, status, update } = useSession();
   const isAuthenticated = status === 'authenticated';
   const isUnAuthenticated = status === 'unauthenticated';

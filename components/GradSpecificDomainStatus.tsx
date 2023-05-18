@@ -12,7 +12,7 @@ import {
 } from '@mantine/core';
 import { IconAlertCircle, IconCircleCheck } from '@tabler/icons-react';
 import { SingleCategoryType } from '../lib/types/grad';
-import { createSpecificStatusMessage, getDomainColor } from '../lib/utils/grad';
+import { createSpecificStatusMessage, getDomainColor } from '../lib/utils/graduation/gradFormatter';
 
 export default function GradSpecificDomainStatus({
   classes,
