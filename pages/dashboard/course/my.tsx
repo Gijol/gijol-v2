@@ -29,7 +29,8 @@ import {
   getPeriodWithTakenCourse,
   getUserScoreFromTakenCourseList,
 } from '../../../lib/utils/status';
-import { useSession } from 'next-auth/react';
+import { useAuthState } from '../../../lib/hooks/auth';
+import { useCourseStatus } from '../../../lib/hooks/course';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -56,6 +57,9 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function My() {
+  const { userData } = useAuthState();
+  // const { data, isLoading } = useCourseStatus();
+  // console.log(data);
   const { classes, cx } = useStyles();
   const [scrolled, setScrolled] = useState(false);
   /* 수강한 강의 선택 */

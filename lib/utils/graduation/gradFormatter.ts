@@ -1,6 +1,6 @@
-import { GradeReportParser } from './parser/grade/gradeReportParser';
-import { GradStatusResponseType, SingleCategoryType } from '../types/grad';
-import { TempGradResultType, UserStatusType } from '../types';
+import { GradeReportParser } from '../parser/grade/gradeReportParser';
+import { GradStatusResponseType, SingleCategoryType } from '../../types/grad';
+import { TempGradResultType, UserStatusType } from '../../types';
 import { notifications } from '@mantine/notifications';
 
 class HTTPError extends Error {

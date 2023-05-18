@@ -1,11 +1,11 @@
 import { Box, Container, Divider, Flex, Group, Text, Avatar, Button, Center } from '@mantine/core';
 import React, { useRef, useState } from 'react';
-import useAuthState from '../../lib/hooks/auth';
-import UserFileUpload from '../../components/DragAndDrop/UserFileUpload';
+import { useAuthState } from '../../lib/hooks/auth';
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
 
 export default function User() {
   const { userData } = useAuthState();
+  console.log(userData?.id_token);
   const openRef = useRef<any>(null);
   const [fileInfo, setFileInfo] = useState<FileWithPath | undefined>(undefined);
   return (

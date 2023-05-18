@@ -5,7 +5,7 @@ import UserFileUpload from './DragAndDrop/UserFileUpload';
 import Lottie from 'react-lottie-player';
 import ThumbsUp from '../public/lottie/thumbs-up.json';
 import { FileWithPath } from '@mantine/dropzone';
-import postGradStatusFile from '../lib/utils/grad';
+import postGradStatusFile from '../lib/utils/graduation/gradFormatter';
 import { useRouter } from 'next/router';
 
 function FileSubmit() {

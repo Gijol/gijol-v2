@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
 import { BASE_DEV_SERVER_URL } from '../const';
 import { GradStatusResponseType } from '../types/grad';
 import { initialValue } from '../const/grad';
 import { useQuery } from '@tanstack/react-query';
-import { notifications } from '@mantine/notifications';
-import { extractOverallStatus, getFeedbackNumbers } from '../utils/grad';
+import { extractOverallStatus, getFeedbackNumbers } from '../utils/graduation/gradFormatter';
 
-export default function useGraduation() {
+export function useGraduation() {
   const getGradStatus = async () => {
     const session = await getSession();
     const id_token = session?.user.id_token;

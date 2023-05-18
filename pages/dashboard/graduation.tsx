@@ -3,7 +3,7 @@ import { useScrollIntoView } from '@mantine/hooks';
 import GradSpecificDomainStatus from '../../components/GradSpecificDomainStatus';
 import GradOverallStatus from '../../components/GradOverallStatus';
 import GradRecommend from '../../components/GradRecommend';
-import useGraduation from '../../lib/hooks/graduation';
+import { useGraduation } from '../../lib/hooks/graduation';
 import { notifications } from '@mantine/notifications';
 import { useEffect } from 'react';
 import { IconCheck } from '@tabler/icons-react';

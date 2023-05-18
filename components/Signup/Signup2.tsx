@@ -22,7 +22,7 @@ import {
   IconNumber4,
   IconAlertCircle,
 } from '@tabler/icons-react';
-import { readFileAndParse } from '../../lib/utils/grad';
+import { readFileAndParse } from '../../lib/utils/graduation/gradFormatter';
 import { signupAndGetResponse } from '../../lib/utils/auth';
 import { getSession, useSession } from 'next-auth/react';
 import { notifications } from '@mantine/notifications';
