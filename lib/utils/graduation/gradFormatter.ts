@@ -3,13 +3,6 @@ import { GradStatusResponseType, SingleCategoryType } from '../../types/grad';
 import { TempGradResultType, UserStatusType } from '../../types';
 import { notifications } from '@mantine/notifications';
 
-class HTTPError extends Error {
-  constructor(messages?: string) {
-    super(messages);
-    this.name = 'HTTP Error';
-  }
-}
-
 export async function readFileAndParse(file: File): Promise<UserStatusType> {
   return new Promise((resolve) => {
     const fileReader = new FileReader();
@@ -33,36 +26,10 @@ export async function readFileAndParse(file: File): Promise<UserStatusType> {
   });
 }
 
-export default async function postGradStatusFile(
-  gradeStatusFile: File,
-  majorType: string
-): Promise<TempGradResultType> {
-  const BASE_URL = 'https://dev-api.gijol.im';
-  const payload = new FormData();
-
-  const overallScoreStatus = await readFileAndParse(gradeStatusFile);
-  console.log(overallScoreStatus);
-
-  payload.append('majorType', majorType);
-  payload.append('multipartFile', gradeStatusFile);
-
-  const gradResultResponse = await fetch(`${BASE_URL}/graduation`, {
-    method: 'POST',
-    body: payload,
-  }).then((res) => res.json());
-  if (gradResultResponse.status === 405) {
-    throw new HTTPError('지원하지 않는 학번입니다.');
-  }
-  if (gradResultResponse.status === 500) {
-    throw new HTTPError('파일 입력 오류.');
-  }
-  return { gradResultResponse, overallScoreStatus };
-}
-
-export function getPercentage(status: SingleCategoryType) {
-  const minCredit = status.minConditionCredits;
-  const myCredit = status.totalCredits;
-  const result = Math.round((myCredit * 100) / minCredit);
+export function getPercentage(status: SingleCategoryType | undefined) {
+  const minCredit = status?.minConditionCredits ?? 1;
+  const myCredit = status?.totalCredits;
+  const result = Math.round(((myCredit as number) * 100) / minCredit);
   if (result >= 100) {
     return 100;
   } else if (myCredit === 0) {
@@ -72,18 +39,18 @@ export function getPercentage(status: SingleCategoryType) {
   }
 }
 
-export function extractOverallStatus(status: GradStatusResponseType) {
-  const totalCredits = status.totalCredits;
-  const percentage = Math.round((totalCredits * 100) / 130);
+export function extractOverallStatus(status: GradStatusResponseType | undefined) {
+  const totalCredits = status?.totalCredits;
+  const percentage = Math.round(((totalCredits as number) * 100) / 130);
   const totalPercentage = percentage >= 100 ? 100 : percentage;
 
-  const languageBasic = status.graduationCategory.languageBasic;
-  const scienceBasic = status.graduationCategory.scienceBasic;
-  const major = status.graduationCategory.major;
-  const minor = status.graduationCategory.minor;
-  const humanities = status.graduationCategory.humanities;
-  const etcMandatory = status.graduationCategory.etcMandatory;
-  const otherUncheckedClass = status.graduationCategory.otherUncheckedClass;
+  const languageBasic = status?.graduationCategory.languageBasic;
+  const scienceBasic = status?.graduationCategory.scienceBasic;
+  const major = status?.graduationCategory.major;
+  const minor = status?.graduationCategory.minor;
+  const humanities = status?.graduationCategory.humanities;
+  const etcMandatory = status?.graduationCategory.etcMandatory;
+  const otherUncheckedClass = status?.graduationCategory.otherUncheckedClass;
   const categoriesArr = [
     { domain: '언어와 기초', status: languageBasic },
     { domain: '기초과학', status: scienceBasic },
@@ -97,25 +64,25 @@ export function extractOverallStatus(status: GradStatusResponseType) {
     {
       title: '언어와 기초',
       percentage: getPercentage(languageBasic),
-      satisfied: languageBasic.satisfied,
+      satisfied: languageBasic?.satisfied,
     },
     {
       title: '기초과학',
       percentage: getPercentage(scienceBasic),
-      satisfied: scienceBasic.satisfied,
+      satisfied: scienceBasic?.satisfied,
     },
-    { title: '전공', percentage: getPercentage(major), satisfied: major.satisfied },
-    { title: '부전공', percentage: getPercentage(minor), satisfied: minor.satisfied },
-    { title: '인문사회', percentage: getPercentage(humanities), satisfied: humanities.satisfied },
+    { title: '전공', percentage: getPercentage(major), satisfied: major?.satisfied },
+    { title: '부전공', percentage: getPercentage(minor), satisfied: minor?.satisfied },
+    { title: '인문사회', percentage: getPercentage(humanities), satisfied: humanities?.satisfied },
     {
       title: '연구 및 기타',
       percentage: getPercentage(etcMandatory),
-      satisfied: etcMandatory.satisfied,
+      satisfied: etcMandatory?.satisfied,
     },
     {
       title: '자유학점',
       percentage: getPercentage(otherUncheckedClass),
-      satisfied: otherUncheckedClass.satisfied,
+      satisfied: otherUncheckedClass?.satisfied,
     },
   ];
   let minDomainPercentage = getPercentage(languageBasic);

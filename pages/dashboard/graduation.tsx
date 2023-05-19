@@ -25,6 +25,7 @@ export default function Graduation() {
   });
   const { classes } = useStyles();
   const { status, isLoading, isError, isInitial } = useGraduation();
+  console.log({ status: status });
   useEffect(() => {
     if (isInitial) {
       notifications.show({
@@ -47,6 +48,8 @@ export default function Graduation() {
 
   if (isLoading) return <Container>Loading</Container>;
   if (isError) return <Container>Error</Container>;
+  if (typeof status === 'undefined') return <Container>Error</Container>;
+
   return (
     <Container>
       <h1>졸업요건 현황</h1>

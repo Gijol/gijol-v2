@@ -18,6 +18,7 @@ declare module 'next-auth' {
       access_token?: string | undefined;
       refresh_token?: string | undefined;
       expires_at?: number;
+      isExpired?: boolean;
     } & DefaultSession['user'];
   }
 }

@@ -24,9 +24,9 @@ export default function GradOverallStatus({
 }: {
   classes: { tableHead: string; background: string };
   scrollIntoView: any;
-  totalCredits: number;
+  totalCredits: number | undefined;
   totalPercentage: number;
-  overallStatus: { title: string; percentage: number; satisfied: boolean }[];
+  overallStatus: { title: string; percentage: number; satisfied: boolean | undefined }[];
   minDomain: string;
   minDomainPercentage: number;
   feedbackNumbers: number;

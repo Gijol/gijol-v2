@@ -5,7 +5,9 @@ import { useAuthState } from '../../lib/hooks/auth';
 
 export default function HomePage() {
   const router = useRouter();
-  const { isUnAuthenticated } = useAuthState();
+  const { isUnAuthenticated, userData } = useAuthState();
+  console.log(userData?.id_token);
+  console.log(userData?.access_token);
   const cntFeatures = homeContents.main.cntFeatures;
   const futureFeatures = homeContents.main.betaFeatures;
   return (

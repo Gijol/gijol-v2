@@ -31,8 +31,7 @@ export default NextAuth({
         token.access_token = account?.access_token;
         token.refresh_token = account?.refresh_token;
         token.expires_at = account?.expires_at;
-        return token;
-      } else if (!account && token && token.id_token) {
+        await console.log(token);
         return token;
       }
       if (trigger === 'update') {
@@ -54,6 +53,7 @@ export default NextAuth({
             token.expires_at = Math.floor(Date.now() / 1000 + tokens.expires_at);
             token.refresh_token = tokens.refresh_token ?? token.refresh_token;
           }
+          await console.log(token);
           return token;
         } catch (error) {
           throw new Error('Error refreshing token');
@@ -63,10 +63,12 @@ export default NextAuth({
       }
     },
     async session({ session, token }) {
+      const isExpired = token.expires_at ? token.expires_at * 1000 < Date.now() : false;
       session.user.id_token = token.id_token;
       session.user.refresh_token = token.refresh_token;
       session.user.access_token = token.access_token;
       session.user.expires_at = token.expires_at;
+      session.user.isExpired = isExpired;
       return session;
     },
   },
