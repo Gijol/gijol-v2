@@ -57,9 +57,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function My() {
-  const { userData } = useAuthState();
-  // const { data, isLoading } = useCourseStatus();
-  // console.log(data);
+  const { data } = useCourseStatus();
+  console.log(data);
   const { classes, cx } = useStyles();
   const [scrolled, setScrolled] = useState(false);
   /* 수강한 강의 선택 */

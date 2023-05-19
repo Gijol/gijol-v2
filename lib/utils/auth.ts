@@ -5,6 +5,7 @@ import { notifications } from '@mantine/notifications';
 
 export const getAuthTypeResponse = async (): Promise<'SIGN_UP' | 'SIGN_IN'> => {
   const session = await getSession();
+  // console.log(session?.user);
   const authTypeResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google`, {
     method: 'POST',
     headers: {
