@@ -10,6 +10,7 @@ import { ModalsProvider } from '@mantine/modals';
 import { Analytics } from '@vercel/analytics/react';
 import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
 import { QueryClient } from '@tanstack/query-core';
+import RefreshTokenHandler from '../components/RefreshTokenHandler';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -22,6 +23,8 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     setColorScheme(nextColorScheme);
     setCookie('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
   };
+  /* session refetch interval 설정 */
+  const [sessionRefetchInterval, setSessionRefetchInterval] = useState(10000);
 
   return (
     <>
@@ -34,13 +37,14 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
           <QueryClientProvider client={queryClient}>
             <Hydrate state={pageProps.dehydratedState}>
-              <SessionProvider session={pageProps.session}>
+              <SessionProvider session={pageProps.session} refetchInterval={sessionRefetchInterval}>
                 <ModalsProvider>
                   <Layout>
                     <Component {...pageProps} />
                   </Layout>
                   <Notifications />
                 </ModalsProvider>
+                <RefreshTokenHandler setSessionRefetchInterval={setSessionRefetchInterval} />
               </SessionProvider>
             </Hydrate>
           </QueryClientProvider>

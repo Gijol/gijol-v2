@@ -1,5 +1,6 @@
 import NextAuth, { TokenSet } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { refreshAccessToken } from '../../../lib/utils/auth';
 
 export default NextAuth({
   pages: {
@@ -31,36 +32,14 @@ export default NextAuth({
         token.access_token = account?.access_token;
         token.refresh_token = account?.refresh_token;
         token.expires_at = account?.expires_at;
-        await console.log(token);
         return token;
       }
-      if (trigger === 'update') {
-        try {
-          const response = await fetch('https://oauth2.googleapis.com/token', {
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-              client_id: process.env.GOOGLE_ID as string,
-              client_secret: process.env.GOOGLE_SECRET as string,
-              grant_type: 'refresh_token',
-              refresh_token: token.refresh_token as string,
-            }),
-            method: 'POST',
-          });
-          const tokens: TokenSet = await response.json();
-          if (tokens.expires_at) {
-            token.id_token = tokens.id_token;
-            token.access_token = tokens.access_token;
-            token.expires_at = Math.floor(Date.now() / 1000 + tokens.expires_at);
-            token.refresh_token = tokens.refresh_token ?? token.refresh_token;
-          }
-          await console.log(token);
-          return token;
-        } catch (error) {
-          throw new Error('Error refreshing token');
-        }
-      } else {
+      const nowTime = Math.round(Date.now() / 1000);
+      const shouldRefreshTime = (token.accessTokenExpires as number) - 10 * 60 - nowTime;
+      if (shouldRefreshTime > 0) {
         return token;
       }
+      return refreshAccessToken(token);
     },
     async session({ session, token }) {
       const isExpired = token.expires_at ? token.expires_at * 1000 < Date.now() : false;
