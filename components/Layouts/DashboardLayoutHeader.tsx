@@ -18,7 +18,7 @@ export function DashboardLayoutHeader({
   opened: boolean;
   setOpened: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { userData, isLoading, isAuthenticated } = useAuthState();
+  const { isAuthenticated } = useAuthState();
   const isMember = useUserStatus();
   const router = useRouter();
   // 구글로 로그인 한 이후이더라도, 우리 서버에 파일을 업로드 하지 않았다면, 업로드하도록 진행
@@ -79,7 +79,6 @@ export function DashboardLayoutHeader({
         </MediaQuery>
         <Group>
           <UserLoginPopover />
-          <ColorSchemeToggle />
         </Group>
       </div>
     </Header>

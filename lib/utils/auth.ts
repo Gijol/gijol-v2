@@ -2,10 +2,11 @@ import { BASE_DEV_SERVER_URL } from '../const';
 import { UserStatusType } from '../types';
 import { getSession } from 'next-auth/react';
 import { notifications } from '@mantine/notifications';
+import { JWT } from 'next-auth/jwt';
+import axios from 'axios';
 
 export const getAuthTypeResponse = async (): Promise<'SIGN_UP' | 'SIGN_IN'> => {
   const session = await getSession();
-  // console.log(session?.user);
   const authTypeResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google`, {
     method: 'POST',
     headers: {
@@ -56,3 +57,47 @@ export const signupAndGetResponse = async (
   });
   return { status: signupResponse.status, text: signupResponse.statusText };
 };
+
+export async function refreshAccessToken(token: JWT) {
+  try {
+    const url = 'https://oauth2.googleapis.com/token';
+    const params = {
+      client_id: process.env.CLIENT_ID,
+      client_secret: process.env.GOOGLE_SECRET,
+      grant_type: 'refresh_token',
+      refresh_token: token.refreshToken,
+    };
+
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+
+    const res = await axios.post(url, null, {
+      headers,
+      params,
+      auth: {
+        username: process.env.CLIENT_ID as string,
+        password: process.env.CLIENT_SECRET as string,
+      },
+    });
+
+    const refreshedTokens = await res.data;
+
+    if (res.status !== 200) {
+      throw refreshedTokens;
+    }
+
+    return {
+      ...token,
+      access_token: refreshedTokens.access_token,
+      expires_at: Math.round(Date.now() / 1000) + refreshedTokens.expires_in,
+      refresh_token: refreshedTokens.refresh_token ?? token.refreshToken,
+      id_token: refreshedTokens.id_token,
+    };
+  } catch (err) {
+    return {
+      ...token,
+      error: 'RefreshAccessTokenError',
+    };
+  }
+}
