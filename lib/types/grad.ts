@@ -1,5 +1,3 @@
-import { EnumBody } from '@babel/types';
-
 export interface TakenCourseType {
   year: number;
   semester: string;

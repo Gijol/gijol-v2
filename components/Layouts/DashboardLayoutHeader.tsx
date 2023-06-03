@@ -79,7 +79,6 @@ export function DashboardLayoutHeader({
         </MediaQuery>
         <Group>
           <UserLoginPopover />
-          {/*<ColorSchemeToggle />*/}
         </Group>
       </div>
     </Header>

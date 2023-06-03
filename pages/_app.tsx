@@ -16,7 +16,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
   const [queryClient] = useState(() => new QueryClient());
   /* 라이트 모드, 다크 모드 설정하는 상태 로직 */
-  const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
 
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
