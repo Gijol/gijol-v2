@@ -11,7 +11,7 @@ export default function RefreshTokenHandler({ setSessionRefetchInterval }: Props
     if (!!session) {
       const nowTime = Math.round(Date.now() / 1000);
       const timeRemaining = (session.user.expires_at as number) - 7 * 60 - nowTime;
-      setSessionRefetchInterval(timeRemaining > 0 ? timeRemaining : 0);
+      setSessionRefetchInterval(timeRemaining ?? 0);
     }
   }, [session, setSessionRefetchInterval]);
   return <></>;

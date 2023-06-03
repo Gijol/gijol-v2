@@ -25,10 +25,7 @@ import {
   YAxis,
   Line,
 } from 'recharts';
-import {
-  getPeriodWithTakenCourse,
-  getUserScoreFromTakenCourseList,
-} from '../../../lib/utils/status';
+import { getSortedCourseStatus, getUserScoreFromTakenCourseList } from '../../../lib/utils/status';
 import { useAuthState } from '../../../lib/hooks/auth';
 import { useCourseStatus } from '../../../lib/hooks/course';
 
@@ -58,19 +55,18 @@ const useStyles = createStyles((theme) => ({
 
 export default function My() {
   const { data } = useCourseStatus();
-  console.log(data);
   const { classes, cx } = useStyles();
   const [scrolled, setScrolled] = useState(false);
   /* 수강한 강의 선택 */
   const [cntPeriod, setCntPeriod] = useState('2020년도 1학기');
   /* 연도 및 학기별 수강한 강의 목록*/
-  const courseListWithPeriod = getPeriodWithTakenCourse(fakeUserData);
+  const courseListWithPeriod = getSortedCourseStatus(data);
   const list = courseListWithPeriod
-    .filter((periodList) => cntPeriod === periodList.period)
-    .at(0)
-    ?.userTakenCourseList.map((course) => {
+    ?.filter((periodList) => cntPeriod === periodList.period)
+    ?.at(0)
+    ?.userTakenCourseList?.map((course) => {
       return (
-        <tr key={`${course.courseCode} + ${course.year} + ${course.semester}`}>
+        <tr key={`${course.courseCode} + ${course.grade}`}>
           <td>{course.courseCode}</td>
           <td>{course.courseName}</td>
           <td>{course.courseType}</td>
@@ -81,48 +77,40 @@ export default function My() {
     });
 
   /* 학기 시작과 끝 조사하기 */
-  const dateStartYear = fakeUserData.userTakenCourseList.at(0)?.year;
-  const dateStartSemester = fakeUserData.userTakenCourseList.at(0)?.semester;
-  const dateEndYear = fakeUserData.userTakenCourseList.at(-1)?.year;
-  const dateEndSemester = fakeUserData.userTakenCourseList.at(-1)?.semester;
+  const dateStart = courseListWithPeriod.at(0)?.period;
+  const dateEnd = courseListWithPeriod.at(-1)?.period;
 
-  const init = 0;
   const dataSet = [
     {
       label: '총 이수 학점',
-      content: `${fakeUserData.userTakenCourseList.reduce(
-        (acc, cnt) => acc + cnt.credit,
-        init
-      )} 학점 / 130 학점`,
+      content: `${fakeUserData.totalCredit} 학점 / 130 학점`,
     },
     {
       label: '이수 학기',
-      content: `${dateStartYear}년 ${dateStartSemester} ~ ${dateEndYear}년 ${dateEndSemester}`,
-    },
-    {
-      label: '이수한 강의 수',
-      content: `${fakeUserData.userTakenCourseList.reduce((acc) => acc + 1, init)} 개`,
+      content: `${dateStart} ~ ${dateEnd}`,
     },
     {
       label: '학기별 평균 학점',
-      content: '18 학점',
+      content: `${fakeUserData.averageGrade}`,
     },
   ];
-  const dataForLineChart = courseListWithPeriod
-    .map((periodWithList) => {
-      const grade = getUserScoreFromTakenCourseList(periodWithList.userTakenCourseList);
-      return {
-        period: periodWithList.period,
-        학점: grade ? grade : 0,
-      };
-    })
-    .filter((item) => item.학점 !== 0);
+
   const dataForTable = courseListWithPeriod.map((periodWithList) => {
     return {
       name: periodWithList.period,
-      수강학점: periodWithList.userTakenCourseList.reduce((acc, cnt) => acc + cnt.credit, 0),
+      수강학점: periodWithList.userTakenCourseList?.reduce((acc, cnt) => acc + cnt.credit, 0),
     };
   });
+
+  const dataForLineChart = courseListWithPeriod
+    .map((periodWithList) => {
+      return {
+        period: periodWithList.period,
+        학점: periodWithList.grade ?? 0,
+      };
+    })
+    .filter((item) => item.학점 !== 0);
+
   const dataForSelect = courseListWithPeriod.map((periodWithList) => {
     return {
       value: periodWithList.period,

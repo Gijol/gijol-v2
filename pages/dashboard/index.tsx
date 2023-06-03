@@ -1,14 +1,4 @@
-import {
-  Badge,
-  Button,
-  Card,
-  Container,
-  Divider,
-  Group,
-  ScrollArea,
-  Space,
-  Text,
-} from '@mantine/core';
+import { Button, Container, ScrollArea, Space, Text } from '@mantine/core';
 import { homeContents } from '../../lib/const/contentData';
 import { useRouter } from 'next/router';
 import { useAuthState } from '../../lib/hooks/auth';
@@ -17,7 +7,7 @@ import DashboardHeroHeader from '../../components/DashboardHeroHeader';
 
 export default function HomePage() {
   const router = useRouter();
-  const { isUnAuthenticated, userData } = useAuthState();
+  const { isUnAuthenticated } = useAuthState();
   const cntFeatures = homeContents.main.cntFeatures;
   const futureFeatures = homeContents.main.betaFeatures;
   return (
@@ -38,7 +28,7 @@ export default function HomePage() {
                 기능 이용하러 가기
               </Button>
             );
-            return <DashboardFeatureCard feat={feat} button={btn} />;
+            return <DashboardFeatureCard key={feat.title} feat={feat} button={btn} />;
           })}
         </div>
         <Space h={40} />

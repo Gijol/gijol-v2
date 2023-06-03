@@ -1,19 +1,24 @@
 import { UserTakenCourse, UserType } from '../../types';
+import { SemesterStatusType, UserTakenCourseWithGradeType } from '../../types/score-status';
 
-export const getPeriodWithTakenCourse = (data: UserType) => {
-  const initYear = data.userTakenCourseList.at(0)?.year as number;
-  const finalYear = data.userTakenCourseList.at(-1)?.year as number;
+export const getSortedCourseStatus = (data: UserTakenCourseWithGradeType | undefined) => {
+  const semesterList: SemesterStatusType[] | undefined =
+    data?.userTakenCourseBySemesterResponses?.sort((a, b) => a.year - b.year);
+  const initYear = semesterList?.at(0)?.year as number;
+  const finalYear = semesterList?.at(-1)?.year as number;
   const semesters = ['1학기', '여름학기', '2학기', '겨울학기'];
 
   let result = [];
 
   for (let i = initYear; i <= finalYear; i++) {
     for (const j in semesters) {
+      const cnt = semesterList
+        ?.filter((course) => course.year === i && course.semester === semesters[j])
+        .at(0);
       result.push({
         period: `${i}년도 ${semesters[j]}`,
-        userTakenCourseList: data.userTakenCourseList.filter(
-          (course) => course.year === i && course.semester === semesters[j]
-        ),
+        grade: cnt?.averageGradeBySemester,
+        userTakenCourseList: cnt?.coursesAndGradeResponses,
       });
     }
   }

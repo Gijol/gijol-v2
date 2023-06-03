@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { BASE_DEV_SERVER_URL } from '../const';
 import { getSession } from 'next-auth/react';
+import { UserTakenCourseWithGradeType } from '../types/score-status';
 
 export function useCourseStatus() {
   const courseStatusFetcher = async () => {
@@ -13,6 +14,8 @@ export function useCourseStatus() {
       },
     }).then((res) => res.json());
   };
-  const { data, isLoading } = useQuery(['course-status'], () => courseStatusFetcher());
+  const { data, isLoading } = useQuery<UserTakenCourseWithGradeType>(['course-status'], () =>
+    courseStatusFetcher()
+  );
   return { data, isLoading };
 }

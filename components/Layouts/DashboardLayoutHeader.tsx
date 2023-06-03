@@ -1,13 +1,12 @@
 import { CSSProperties, Dispatch, SetStateAction, useEffect } from 'react';
 import { Burger, Button, Group, Header, MediaQuery, Text } from '@mantine/core';
-import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import { MantineTheme } from '@mantine/core';
 import UserLoginPopover from '../UserLoginPopover';
 import Link from 'next/link';
 import { useAuthState, useUserStatus } from '../../lib/hooks/auth';
-import { signOut } from 'next-auth/react';
 import { modals } from '@mantine/modals';
 import { useRouter } from 'next/router';
+import { signOut } from 'next-auth/react';
 
 export function DashboardLayoutHeader({
   theme,
@@ -19,7 +18,7 @@ export function DashboardLayoutHeader({
   setOpened: Dispatch<SetStateAction<boolean>>;
 }) {
   const { isAuthenticated } = useAuthState();
-  const isMember = useUserStatus();
+  const { isMember, error } = useUserStatus();
   const router = useRouter();
   // 구글로 로그인 한 이후이더라도, 우리 서버에 파일을 업로드 하지 않았다면, 업로드하도록 진행
   useEffect(() => {
@@ -57,6 +56,12 @@ export function DashboardLayoutHeader({
       });
     }
   }, [isMember, isAuthenticated]);
+
+  useEffect(() => {
+    if (error) {
+      signOut();
+    }
+  }, [error]);
 
   return (
     <Header height={{ base: 50, md: 60 }} p="sm">
