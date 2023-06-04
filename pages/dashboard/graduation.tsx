@@ -4,9 +4,9 @@ import GradSpecificDomainStatus from '../../components/GradSpecificDomainStatus'
 import GradOverallStatus from '../../components/GradOverallStatus';
 import GradRecommend from '../../components/GradRecommend';
 import { useGraduation } from '../../lib/hooks/graduation';
-import { notifications } from '@mantine/notifications';
-import { useEffect } from 'react';
-import { IconCheck } from '@tabler/icons-react';
+import router from 'next/router';
+import React from 'react';
+import Loading from '../../components/Loading';
 
 const useStyles = createStyles((theme) => ({
   tableHead: {
@@ -20,36 +20,19 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function Graduation() {
+  const { classes } = useStyles();
+
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
     offset: 60,
   });
-  const { classes } = useStyles();
-  const { status, isLoading, isError, isInitial } = useGraduation();
-  console.log({ status: status });
-  useEffect(() => {
-    if (isInitial) {
-      notifications.show({
-        id: 'grad-status',
-        title: '졸업요건 데이터 로딩중',
-        message: '졸업요건 데이터를 불러오는 중입니다.',
-        loading: isInitial,
-      });
-    } else {
-      notifications.update({
-        id: 'grad-status',
-        title: '졸업요건 받아오기 완료!',
-        message: '졸업요건 데이터를 받아오는데 성공했습니다!',
-        icon: <IconCheck />,
-        color: 'teal',
-        autoClose: 1000,
-      });
-    }
-  }, [isInitial]);
-
-  if (isLoading) return <Container>Loading</Container>;
-  if (isError) return <Container>Error</Container>;
-  if (typeof status === 'undefined') return <Container>Error</Container>;
-
+  const { isLoading, isError, error, status } = useGraduation();
+  if (isLoading) {
+    return <Loading content="졸업요건 데이터 로딩중..." />;
+  }
+  if (isError) {
+    // @ts-ignore
+    router.push(`/dashboard/error?status=${error.message}`);
+  }
   return (
     <Container>
       <h1>졸업요건 현황</h1>

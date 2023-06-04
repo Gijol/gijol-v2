@@ -3,7 +3,7 @@ import { Burger, Button, Group, Header, MediaQuery, Text } from '@mantine/core';
 import { MantineTheme } from '@mantine/core';
 import UserLoginPopover from '../UserLoginPopover';
 import Link from 'next/link';
-import { useAuthState, useUserStatus } from '../../lib/hooks/auth';
+import { useAuthState, useMemberStatus } from '../../lib/hooks/auth';
 import { modals } from '@mantine/modals';
 import { useRouter } from 'next/router';
 import { signOut } from 'next-auth/react';
@@ -18,7 +18,7 @@ export function DashboardLayoutHeader({
   setOpened: Dispatch<SetStateAction<boolean>>;
 }) {
   const { isAuthenticated } = useAuthState();
-  const { isMember, error } = useUserStatus();
+  const { isMember, error } = useMemberStatus();
   const router = useRouter();
   // 구글로 로그인 한 이후이더라도, 우리 서버에 파일을 업로드 하지 않았다면, 업로드하도록 진행
   useEffect(() => {

@@ -8,7 +8,6 @@ import Signup2 from '../../components/Signup/Signup2';
 import SignupComplete from '../../components/Signup/SignupComplete';
 import { FileWithPath } from '@mantine/dropzone';
 import { getAuthTypeResponse } from '../../lib/utils/auth';
-import { redirect } from 'next/navigation';
 import { useRouter } from 'next/router';
 
 export default function Signup() {

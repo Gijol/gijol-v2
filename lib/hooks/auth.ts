@@ -19,7 +19,7 @@ export function useAuthState() {
   return { userData, expires, isAuthenticated, isUnAuthenticated, isLoading, update };
 }
 
-export function useUserStatus() {
+export function useMemberStatus() {
   const [isMember, setIsMember] = useState<boolean | undefined>(undefined);
   const [error, setError] = useState<any | null>(null);
   const { isAuthenticated } = useAuthState(); // 로그인 상태 확인

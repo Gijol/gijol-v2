@@ -29,10 +29,10 @@ export const getCntTab = (href: string) => {
   switch (href) {
     case '/dashboard':
       return '홈';
-    case '/dashboard/course':
+    case '/dashboard/graduation':
       return '내 졸업요건';
     case '/dashboard/course/my':
-      return '내 강의 현황';
+      return '내 수강현황';
     case '/dashboard/course/search':
       return '강의 정보 확인하기';
     default:

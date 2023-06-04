@@ -3,9 +3,12 @@ import { signOut } from 'next-auth/react';
 import { IconAt, IconChevronDown, IconIdBadge2 } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
 import { useAuthState } from '../lib/hooks/auth';
+import { useUserInfo } from '../lib/hooks/user';
+import { convertMajorTypeToText } from '../lib/utils/user';
 
 export default function UserLoginPopover() {
   const { userData, isAuthenticated, isLoading, isUnAuthenticated } = useAuthState();
+  const { data: userInfoData, isError: isInfoError, isLoading: isInfoLoadingError } = useUserInfo();
   const router = useRouter();
   return (
     <Box h="100%">
@@ -30,7 +33,7 @@ export default function UserLoginPopover() {
                     <Avatar src={userData?.image} radius="md" m={8} />
                   </MediaQuery>
                   <MediaQuery smallerThan="sm" styles={{ padding: 8 }}>
-                    <Text size="xs">{userData?.name} 님</Text>
+                    <Text size="xs">{userInfoData?.name} 님</Text>
                   </MediaQuery>
                 </>
               )}
@@ -45,9 +48,8 @@ export default function UserLoginPopover() {
                 <Avatar src={userData?.image} size={80} radius="lg" m={12} />
                 <div style={{ padding: 12 }}>
                   <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
-                    전기전자컴퓨터공학부
+                    {convertMajorTypeToText(userInfoData?.majorType as string)}
                   </Text>
-
                   <Text fz="lg" fw={500}>
                     {userData?.name} 님
                   </Text>
@@ -55,7 +57,7 @@ export default function UserLoginPopover() {
                   <Group noWrap spacing={10} mt={5}>
                     <IconIdBadge2 stroke={1.5} size="1rem" />
                     <Text fz="xs" c="dimmed">
-                      20205098
+                      {userInfoData?.studentId}
                     </Text>
                   </Group>
                   <Group noWrap spacing={10} mt={3}>

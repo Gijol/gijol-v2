@@ -1,14 +1,17 @@
 import React, { Fragment, useState } from 'react';
 import {
   Box,
+  Center,
   Container,
   createStyles,
   Divider,
   Group,
+  Loader,
   Paper,
   rem,
   ScrollArea,
   Select,
+  Stack,
   Table,
   Text,
 } from '@mantine/core';
@@ -25,9 +28,13 @@ import {
   YAxis,
   Line,
 } from 'recharts';
-import { getSortedCourseStatus, getUserScoreFromTakenCourseList } from '../../../lib/utils/status';
-import { useAuthState } from '../../../lib/hooks/auth';
+import { getSortedCourseStatus } from '../../../lib/utils/status';
 import { useCourseStatus } from '../../../lib/hooks/course';
+import { useRouter } from 'next/router';
+import { notifications } from '@mantine/notifications';
+import { IconX } from '@tabler/icons-react';
+import { useViewportSize } from '@mantine/hooks';
+import Loading from '../../../components/Loading';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -54,11 +61,15 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function My() {
-  const { data } = useCourseStatus();
   const { classes, cx } = useStyles();
+  const { height } = useViewportSize();
+  const { data, isError, isLoading, status, error } = useCourseStatus();
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
+
   /* 수강한 강의 선택 */
   const [cntPeriod, setCntPeriod] = useState('2020년도 1학기');
+
   /* 연도 및 학기별 수강한 강의 목록*/
   const courseListWithPeriod = getSortedCourseStatus(data);
   const list = courseListWithPeriod
@@ -79,7 +90,6 @@ export default function My() {
   /* 학기 시작과 끝 조사하기 */
   const dateStart = courseListWithPeriod.at(0)?.period;
   const dateEnd = courseListWithPeriod.at(-1)?.period;
-
   const dataSet = [
     {
       label: '총 이수 학점',
@@ -130,6 +140,14 @@ export default function My() {
       </Fragment>
     );
   });
+  if (isLoading) {
+    return <Loading content="수강현황 데이터 로딩중" />;
+  }
+  if (isError) {
+    //@ts-ignore
+    router.push(`/dashboard/error?status=${error.message}`);
+  }
+
   return (
     <Container size="md">
       <Text size={32} mt={24} mb={32} weight={700}>
