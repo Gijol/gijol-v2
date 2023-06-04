@@ -73,7 +73,6 @@ export class GradeReportParser {
       userTakenCourseList.push(addedTakenCourse);
     }
     const studentId = this.parseStudentId(workSheet);
-    console.log(userTakenCourseList);
     return { studentId, userTakenCourseList };
   }
 

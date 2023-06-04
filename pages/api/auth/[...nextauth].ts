@@ -35,7 +35,7 @@ export default NextAuth({
         return token;
       }
       const nowTime = Math.round(Date.now() / 1000);
-      const shouldRefreshTime = (token.accessTokenExpires as number) - 10 * 60 - nowTime;
+      const shouldRefreshTime = (token.expires_at as number) - 10 * 60 - nowTime;
       if (shouldRefreshTime > 0) {
         return token;
       }

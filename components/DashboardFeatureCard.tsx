@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Card, createStyles, Group, rem, Space, Stack, Text } from '@mantine/core';
+import { Box, Card, createStyles, Group, rem, Stack, Text } from '@mantine/core';
 import { TablerIconsProps } from '@tabler/icons-react';
 
 export default function DashboardFeatureCard({
@@ -17,7 +17,7 @@ export default function DashboardFeatureCard({
   const { classes, theme } = useStyles();
   return (
     <Card shadow="xs" radius="md" p="md" w={400} className={classes.card} withBorder>
-      <Stack justify="space-between">
+      <Stack justify="space-between" h="100%">
         <div>
           <feat.icon size={rem(40)} stroke={2} color={theme.fn.primaryColor()} />
           <Group>

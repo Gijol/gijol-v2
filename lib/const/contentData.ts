@@ -13,7 +13,7 @@ export const homeContents = {
         title: '내 수강현황',
         description: '개인 수강 현황을 시각화해서 보여주는 서비스입니다!',
         icon: IconClipboardList,
-        route: `/dashboard/graduation`,
+        route: `/dashboard/course/my`,
       },
       {
         title: '졸업요건 확인 기능',
