@@ -1,19 +1,32 @@
-import React from 'react';
-import { Container, Text, Input, Select, Flex, Group, MediaQuery, Stack } from '@mantine/core';
+import React, { useState } from 'react';
+import { Container, Text, Input, Select, Group, Pagination, Center } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import CourseThumbnail from '../../../components/CourseThumbnail';
 import { fakeMajorData } from '../../../lib/const/course';
+import { useCourseList, useCourseStatus } from '../../../lib/hooks/course';
+import Loading from '../../../components/Loading';
+import router from 'next/router';
+import { MinorType } from '../../../lib/types/course';
 
 export default function Search() {
-  const courses = fakeMajorData.map((item) => {
+  const [activePage, setPage] = useState(1);
+  const [minor, setMinor] = useState<MinorType>('NONE');
+  const { data, isLoading, isError, error } = useCourseList(activePage, minor);
+  const courses = data?.map((item) => {
     return (
       <CourseThumbnail
-        key={item.courseCode + item.courseDescription.length}
+        key={item.courseCode}
         code={item.courseCode}
-        description={item.courseDescription}
+        title={item.courseName}
+        credit={item.courseCredit}
+        tags={item.courseTags}
       />
     );
   });
+  if (isError) {
+    //@ts-ignore
+    router.push(`/dashboard/error?status=${error.message}`);
+  }
   return (
     <Container>
       <Text size={32} weight={700} my={32}>
@@ -31,14 +44,30 @@ export default function Search() {
         </Input.Wrapper>
         <Group w="fit-content">
           <Select
-            placeholder="전공 영역 선택"
+            placeholder="부전공 선택"
             w="10rem"
             data={[
-              { value: 'BS', label: 'React' },
-              { value: 'ng', label: 'Angular' },
-              { value: 'svelte', label: 'Svelte' },
-              { value: 'vue', label: 'Vue' },
+              { value: 'NONE', label: 'NONE' },
+              { value: 'BS', label: 'BS' },
+              { value: 'CH', label: 'CH' },
+              { value: 'CT', label: 'CT' },
+              { value: 'EB', label: 'EB' },
+              { value: 'EC', label: 'EC' },
+              { value: 'EV', label: 'EV' },
+              { value: 'FE', label: 'FE' },
+              { value: 'IR', label: 'IR' },
+              { value: 'LH', label: 'LH' },
+              { value: 'MA', label: 'MA' },
+              { value: 'MB', label: 'MB' },
+              { value: 'MC', label: 'MC' },
+              { value: 'MD', label: 'MD' },
+              { value: 'MM', label: 'MM' },
+              { value: 'PP', label: 'PP' },
+              { value: 'PS', label: 'PS' },
+              { value: 'SS', label: 'SS' },
             ]}
+            value={minor}
+            onChange={(type: MinorType) => setMinor(type)}
           />
           <Select
             placeholder="필수 여부 선택"
@@ -52,7 +81,11 @@ export default function Search() {
           />
         </Group>
       </Group>
-      {courses}
+      {isLoading ? <Loading content="강의 리스트 로딩중" /> : <></>}
+      <>{courses}</>
+      <Center py="md">
+        <Pagination value={activePage} onChange={setPage} total={10} />
+      </Center>
     </Container>
   );
 }
