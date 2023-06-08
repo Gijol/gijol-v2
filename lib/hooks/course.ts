@@ -38,6 +38,9 @@ export function useCourseList(page: number, minorType: MinorType) {
       sorted: 'true',
     });
     const res = await axios.get(`${BASE_DEV_SERVER_URL}/api/v1/courses`, { params });
+    if (res.status !== 200) {
+      throw new Error(res.status.toString());
+    }
     return res.data;
   };
 
