@@ -2,9 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { BASE_DEV_SERVER_URL } from '../const';
 import { getSession } from 'next-auth/react';
 import { UserTakenCourseWithGradeType } from '../types/score-status';
-import { useInfiniteQuery } from '@tanstack/react-query/src';
-import axios from 'axios';
 import { CourseType, MinorType } from '../types/course';
+import axios from 'axios';
 
 export function useCourseStatus() {
   const courseStatusFetcher = async () => {
@@ -22,6 +21,7 @@ export function useCourseStatus() {
       return res.json();
     });
   };
+
   const { data, isLoading, isError, status, error } = useQuery<UserTakenCourseWithGradeType>(
     ['course-status'],
     () => courseStatusFetcher(),
