@@ -2,10 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { BASE_DEV_SERVER_URL } from '../const';
 import { getSession } from 'next-auth/react';
 import { UserTakenCourseWithGradeType } from '../types/score-status';
-
-interface ErrorProps {
-  message: string;
-}
+import { CourseType, MinorType } from '../types/course';
+import axios from 'axios';
 
 export function useCourseStatus() {
   const courseStatusFetcher = async () => {
@@ -23,10 +21,34 @@ export function useCourseStatus() {
       return res.json();
     });
   };
+
   const { data, isLoading, isError, status, error } = useQuery<UserTakenCourseWithGradeType>(
     ['course-status'],
     () => courseStatusFetcher(),
     { retry: 0, refetchOnWindowFocus: false }
   );
   return { data, isLoading, isError, status, error };
+}
+
+export function useCourseList(page: number, minorType: MinorType) {
+  const fetchProjects = async (page: number) => {
+    const params = new URLSearchParams({
+      minorType: minorType,
+      pageNumber: page.toString(),
+      sorted: 'true',
+    });
+    const res = await axios.get(`${BASE_DEV_SERVER_URL}/api/v1/courses`, { params });
+    if (res.status !== 200) {
+      throw new Error(res.status.toString());
+    }
+    return res.data;
+  };
+
+  const { isLoading, isError, error, data, isPreviousData } = useQuery<CourseType[]>({
+    queryKey: ['projects', page],
+    queryFn: () => fetchProjects(page),
+    keepPreviousData: true,
+    refetchOnWindowFocus: false,
+  });
+  return { data, isLoading, isError, error };
 }

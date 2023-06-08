@@ -10,13 +10,14 @@ import {
   Textarea,
   Checkbox,
   Group,
+  Box,
+  MediaQuery,
 } from '@mantine/core';
 import { Dots } from './Dots';
 import { useDebouncedState, useDisclosure } from '@mantine/hooks';
 import { IconAt } from '@tabler/icons-react';
-import { BaseSyntheticEvent, useState } from 'react';
+import React, { BaseSyntheticEvent, useState } from 'react';
 import { sendFeedbackToNotion } from '../lib/utils/notion';
-import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 
 const useStyles = createStyles((theme) => ({
@@ -26,6 +27,7 @@ const useStyles = createStyles((theme) => ({
     paddingBottom: rem(80),
 
     [theme.fn.smallerThan('sm')]: {
+      width: '100%',
       paddingTop: rem(80),
       paddingBottom: rem(60),
     },
@@ -77,32 +79,31 @@ const useStyles = createStyles((theme) => ({
       fontSize: theme.fontSizes.md,
     },
   },
-
-  controls: {
-    marginTop: theme.spacing.lg,
-    display: 'flex',
-    justifyContent: 'center',
-
-    [theme.fn.smallerThan('xs')]: {
-      flexDirection: 'column',
-    },
-  },
-
-  control: {
-    '&:not(:first-of-type)': {
-      marginLeft: theme.spacing.md,
-    },
-
-    [theme.fn.smallerThan('xs')]: {
-      height: rem(42),
-      fontSize: theme.fontSizes.md,
-
-      '&:not(:first-of-type)': {
-        marginTop: theme.spacing.md,
-        marginLeft: 0,
-      },
-    },
-  },
+  //
+  // controls: {
+  //   marginTop: theme.spacing.lg,
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //
+  //   [theme.fn.smallerThan('xs')]: {
+  //     flexDirection: 'column',
+  //   },
+  // },
+  //
+  // control: {
+  // '&:not(:first-of-type)': {
+  //   marginLeft: theme.spacing.md,
+  // },
+  // [theme.fn.smallerThan('xs')]: {
+  //   height: rem(42),
+  //   fontSize: theme.fontSizes.md,
+  //
+  //   '&:not(:first-of-type)': {
+  //     marginTop: theme.spacing.md,
+  //     marginLeft: 0,
+  //   },
+  // },
+  // },
 }));
 
 export default function DashboardHeroHeader() {
@@ -119,7 +120,7 @@ export default function DashboardHeroHeader() {
   const isNotEmpty = Boolean(title && description && email && checked);
   return (
     <>
-      <Container className={classes.wrapper} size={1400}>
+      <Container className={classes.wrapper} size="xl">
         <Dots className={classes.dots} style={{ left: 0, top: 0 }} />
         <Dots className={classes.dots} style={{ left: 60, top: 0 }} />
         <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
@@ -133,8 +134,8 @@ export default function DashboardHeroHeader() {
             에 오신 것을 환영합니다! 🙌
           </Title>
 
-          <Container p={0} size={600}>
-            <Text size="lg" color="dimmed" pt="md" className={classes.description}>
+          <Container p={0} size={600} className={classes.description}>
+            <Text size="lg" color="dimmed" pt="md">
               아래에서{' '}
               <Text component="span" fw={500} color="black">
                 새로워진 Gijol 버전 2
@@ -143,18 +144,11 @@ export default function DashboardHeroHeader() {
               눌러 의견을 제출해주세요!
             </Text>
           </Container>
-
-          <div className={classes.controls}>
-            <Button
-              className={classes.control}
-              size="lg"
-              variant="default"
-              color="gray"
-              onClick={open}
-            >
+          <Group position="center" py="md">
+            <Button size="lg" variant="default" color="gray" onClick={open} w={300}>
               의견 작성하기
             </Button>
-          </div>
+          </Group>
         </div>
       </Container>
       <Modal
