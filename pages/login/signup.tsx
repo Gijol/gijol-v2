@@ -1,6 +1,6 @@
-import { Group, Paper, rem, Stepper, Text } from '@mantine/core';
+import { Group, MediaQuery, Paper, rem, Stepper, Text } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
-import { useViewportSize } from '@mantine/hooks';
+import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 import TossCap from '/public/images/tossfaceCap.png';
 import Image from 'next/image';
 import Signup1 from '../../components/Signup/Signup1';
@@ -12,11 +12,15 @@ import { useRouter } from 'next/router';
 
 export default function Signup() {
   const { height } = useViewportSize();
+  const matches = useMediaQuery('(min-width: 56.25em)');
+
   /* stepper active 상태 관리 */
   const [active, setActive] = useState(0);
   const nextStep = () => setActive((current) => (current < 2 ? current + 1 : current));
+
   /* file upload 상태 관리*/
   const [fileInfo, setFileInfo] = useState<FileWithPath | undefined>(undefined);
+
   const router = useRouter();
   useEffect(() => {
     const loginStateRediretHandler = async () => {
@@ -33,29 +37,44 @@ export default function Signup() {
 
   return (
     <Group>
-      <Paper w="30%" miw={300} h={height} p={40} bg="gray.0">
-        <Group mb={40}>
-          <Image src={TossCap} alt="Gijol Icon" width={32} height={32} />
-          <Text size={32} weight="bolder">
+      <Paper
+        w="30%"
+        miw={matches ? 300 : '100%'}
+        h={matches ? height : 'fit-content'}
+        p={matches ? 40 : 'xs'}
+        bg="gray.0"
+      >
+        <Group mb={matches ? 40 : 0}>
+          <Image
+            src={TossCap}
+            alt="Gijol Icon"
+            width={matches ? 32 : 18}
+            height={matches ? 32 : 18}
+          />
+          <Text size={matches ? 32 : 18} weight="bolder">
             Gijol
           </Text>
         </Group>
-        <Stepper
-          active={active}
-          onStepClick={setActive}
-          orientation="vertical"
-          styles={{
-            stepIcon: {
-              borderWidth: rem(4),
-            },
-          }}
-        >
-          <Stepper.Step label="개인 정보 수집 및 이용 동의" description="약관에 동의해주세요" />
-          <Stepper.Step
-            label="엑셀 업로드"
-            description="강의 수강현황 엑셀 파일을 업로드 해주세요"
-          />
-        </Stepper>
+        <MediaQuery smallerThan="56.25em" styles={{ display: 'none' }}>
+          <Stepper
+            active={active}
+            allowNextStepsSelect={false}
+            size={matches ? 'md' : 'sm'}
+            onStepClick={setActive}
+            orientation={matches ? 'vertical' : 'horizontal'}
+            styles={{
+              stepIcon: {
+                borderWidth: rem(3),
+              },
+            }}
+          >
+            <Stepper.Step label="개인 정보 수집 및 이용 동의" description="약관에 동의해주세요" />
+            <Stepper.Step
+              label="엑셀 업로드"
+              description="강의 수강현황 엑셀 파일을 업로드 해주세요"
+            />
+          </Stepper>
+        </MediaQuery>
       </Paper>
       {active === 0 && <Signup1 nextStep={nextStep} />}
       {active === 1 && (

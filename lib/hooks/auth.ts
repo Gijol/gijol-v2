@@ -41,5 +41,6 @@ export function useMemberStatus() {
     };
     getMemberStatus();
   }, [isAuthenticated]);
+
   return { isMember, error };
 }

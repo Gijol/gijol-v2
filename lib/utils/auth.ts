@@ -1,6 +1,6 @@
 import { BASE_DEV_SERVER_URL } from '../const';
 import { UserStatusType } from '../types';
-import { getSession, signOut } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { notifications } from '@mantine/notifications';
 import { JWT } from 'next-auth/jwt';
 import axios from 'axios';

@@ -1,5 +1,5 @@
 import { CSSProperties, Dispatch, SetStateAction, useEffect } from 'react';
-import { Burger, Button, Group, Header, MediaQuery, Text } from '@mantine/core';
+import { Box, Burger, Button, Group, Header, MediaQuery, Text } from '@mantine/core';
 import { MantineTheme } from '@mantine/core';
 import UserLoginPopover from '../UserLoginPopover';
 import Link from 'next/link';
@@ -55,7 +55,7 @@ export function DashboardLayoutHeader({
         closeOnEscape: true,
       });
     }
-  }, [isMember, isAuthenticated]);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (error) {
