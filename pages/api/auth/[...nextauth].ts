@@ -8,8 +8,8 @@ export default NextAuth({
   },
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID || '',
-      clientSecret: process.env.GOOGLE_SECRET || '',
+      clientId: process.env.GOOGLE_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!,
       authorization: {
         params: { access_type: 'offline', prompt: 'consent' },
       },
@@ -22,7 +22,6 @@ export default NextAuth({
     updateAge: 60 * 60,
   },
   jwt: {
-    secret: process.env.JWT_SECRET,
     maxAge: 60 * 60,
   },
   callbacks: {
