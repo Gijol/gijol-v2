@@ -5,6 +5,7 @@ export interface CourseType {
   courseName: string;
   courseTags: string[];
   prerequisite: string;
+  description: string;
 }
 
 const minorTypes = {

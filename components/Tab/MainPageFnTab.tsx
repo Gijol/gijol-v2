@@ -7,9 +7,9 @@ export default function MainPageFnTab(props: TabsProps) {
       styles={(theme) => ({
         tab: {
           ...theme.fn.focusStyles(),
-          backgroundColor: '#172e48',
-          color: theme.colors.gray[2],
-          border: `${rem(1)} solid #172e48`,
+          // backgroundColor: '#172e48',
+          // color: theme.colors.gray[2],
+          // border: `${rem(1)} solid #172e48`,
           borderTopLeftRadius: theme.radius.sm,
           borderTopRightRadius: theme.radius.sm,
           padding: `${theme.spacing.xs} ${theme.spacing.md}`,

@@ -3,8 +3,8 @@ import { IOptions, RecursivePartial } from 'tsparticles-engine';
 export const particleOptions: RecursivePartial<IOptions> | undefined = {
   autoPlay: true,
   background: {
-    color: { value: '#567698' },
-    image: 'linear-gradient(180deg, #283E51 0%, #0A2342 100%)',
+    color: { value: '#25262B' },
+    image: 'linear-gradient(180deg, #25262B 0%, #1A1B1E 100%)',
     position: '',
     repeat: '',
     size: '',

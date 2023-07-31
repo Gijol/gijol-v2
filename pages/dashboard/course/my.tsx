@@ -1,17 +1,14 @@
 import React, { Fragment, useState } from 'react';
 import {
   Box,
-  Center,
   Container,
   createStyles,
   Divider,
   Group,
-  Loader,
   Paper,
   rem,
   ScrollArea,
   Select,
-  Stack,
   Table,
   Text,
 } from '@mantine/core';
@@ -31,8 +28,6 @@ import {
 import { getSortedCourseStatus } from '../../../lib/utils/status';
 import { useCourseStatus } from '../../../lib/hooks/course';
 import { useRouter } from 'next/router';
-import { notifications } from '@mantine/notifications';
-import { IconX } from '@tabler/icons-react';
 import { useViewportSize } from '@mantine/hooks';
 import Loading from '../../../components/Loading';
 
