@@ -1,4 +1,5 @@
 import {
+  IconChalkboard,
   IconClipboardList,
   IconDeviceDesktopAnalytics,
   IconListSearch,
@@ -14,6 +15,7 @@ export const homeContents = {
         description: '개인 수강 현황을 시각화해서 보여주는 서비스입니다!',
         icon: IconClipboardList,
         route: `/dashboard/course/my`,
+        with_auth: true,
       },
       {
         title: '졸업요건 확인 기능',
@@ -21,6 +23,14 @@ export const homeContents = {
           '개인 수강정보를 기반으로 졸업요건 충족 여부를 확인하여 그 결과와 강의 추천까지 해드립니다!',
         icon: IconDeviceDesktopAnalytics,
         route: `/dashboard/graduation`,
+        with_auth: true,
+      },
+      {
+        title: '강의목록 확인 기능',
+        description: '2023년도 학사편람을 기반으로 한 강의 정보를 확인하세요!',
+        icon: IconChalkboard,
+        route: `/dashboard/course/search`,
+        with_auth: false,
       },
     ],
     newFeatures: [
