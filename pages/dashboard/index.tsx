@@ -17,7 +17,14 @@ export default function HomePage() {
         <Text size={24} my="md" fw={600}>
           진행중인 서비스들
         </Text>
-        <SimpleGrid cols={3} spacing="xl">
+        <SimpleGrid
+          cols={3}
+          spacing="xl"
+          breakpoints={[
+            { maxWidth: 'md', cols: 2, spacing: 'xl' },
+            { maxWidth: 'xs', cols: 1, spacing: 'xl' },
+          ]}
+        >
           {cntFeatures.map((feat) => {
             const btn = feat.with_auth ? (
               <Button fullWidth variant="light" onClick={() => router.push('/login')}>
@@ -35,7 +42,14 @@ export default function HomePage() {
         <Text size={24} my="md" fw={600}>
           개발중인 서비스들
         </Text>
-        <SimpleGrid cols={3}>
+        <SimpleGrid
+          cols={3}
+          spacing="xl"
+          breakpoints={[
+            { maxWidth: 'md', cols: 2, spacing: 'xl' },
+            { maxWidth: 'xs', cols: 1, spacing: 'xl' },
+          ]}
+        >
           {futureFeatures.map((feat) => {
             return <DashboardFeatureCard feat={feat} key={feat.title} />;
           })}

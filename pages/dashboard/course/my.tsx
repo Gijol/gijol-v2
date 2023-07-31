@@ -11,8 +11,8 @@ import {
   Select,
   Table,
   Text,
+  useMantineTheme,
 } from '@mantine/core';
-import { fakeUserData } from '../../../lib/const/fakeUserData';
 import {
   Bar,
   BarChart,
@@ -28,59 +28,21 @@ import {
 import { getSortedCourseStatus } from '../../../lib/utils/status';
 import { useCourseStatus } from '../../../lib/hooks/course';
 import { useRouter } from 'next/router';
-import { useViewportSize } from '@mantine/hooks';
+import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 import Loading from '../../../components/Loading';
-
-const useStyles = createStyles((theme) => ({
-  header: {
-    position: 'sticky',
-    top: 0,
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-    transition: 'box-shadow 150ms ease',
-
-    '&::after': {
-      content: '""',
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: 0,
-      borderBottom: `${rem(1)} solid ${
-        theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[2]
-      }`,
-    },
-  },
-
-  scrolled: {
-    boxShadow: theme.shadows.sm,
-  },
-}));
+import CourseMyCreditChart from '../../../components/course-my-credit-chart';
+import CourseMyGradeChart from '../../../components/course-my-grade-chart';
+import CourseMyTableChart from '../../../components/course-my-table-chart';
 
 export default function My() {
-  const { classes, cx } = useStyles();
-  const { height } = useViewportSize();
-  const { data, isError, isLoading, status, error } = useCourseStatus();
-  const router = useRouter();
-  const [scrolled, setScrolled] = useState(false);
+  const theme = useMantineTheme();
+  const matches = useMediaQuery(`(min-width: ${theme.spacing.md})`);
 
-  /* 수강한 강의 선택 */
-  const [cntPeriod, setCntPeriod] = useState('2020년도 1학기');
+  const router = useRouter();
+  const { data, isError, isLoading, status, error } = useCourseStatus();
 
   /* 연도 및 학기별 수강한 강의 목록*/
   const courseListWithPeriod = getSortedCourseStatus(data);
-  const list = courseListWithPeriod
-    ?.filter((periodList) => cntPeriod === periodList.period)
-    ?.at(0)
-    ?.userTakenCourseList?.map((course) => {
-      return (
-        <tr key={`${course.courseCode} + ${course.grade}`}>
-          <td>{course.courseCode}</td>
-          <td>{course.courseName}</td>
-          <td>{course.courseType}</td>
-          <td>{course.credit}</td>
-          <td>{course.grade}</td>
-        </tr>
-      );
-    });
 
   /* 학기 시작과 끝 조사하기 */
   const dateStart = courseListWithPeriod.at(0)?.period;
@@ -88,7 +50,7 @@ export default function My() {
   const dataSet = [
     {
       label: '총 이수 학점',
-      content: `${fakeUserData.totalCredit} 학점 / 130 학점`,
+      content: `${data?.totalCredit} 학점 / 130 학점`,
     },
     {
       label: '이수 학기',
@@ -96,7 +58,7 @@ export default function My() {
     },
     {
       label: '학기별 평균 학점',
-      content: `${fakeUserData.averageGrade}`,
+      content: `${data?.averageGrade}`,
     },
   ];
 
@@ -148,83 +110,22 @@ export default function My() {
       <Text size={32} mt={24} mb={32} weight={700}>
         학기별 강의 이수 현황
       </Text>
-      <Paper w="100%" h={400} my={40} pr={40} pl={0} radius="md">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart width={300} height={100} data={dataForTable}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="name"
-              padding={{ left: 20 }}
-              fontSize={12}
-              tick={{ width: 30 }}
-              tickSize={8}
-              interval={1}
-            />
-            <YAxis dataKey="수강학점" />
-            <Tooltip />
-            <Bar
-              type="monotone"
-              dataKey="수강학점"
-              fill="#4593fc"
-              onClick={(data) => setCntPeriod(data.name)}
-            >
-              <LabelList dataKey="수강학점" position="top" />
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
+      <Paper w="100%" h={400} my={40} pr={matches ? 40 : 0} pl={0} radius="md">
+        <CourseMyCreditChart dataForTable={dataForTable} />
       </Paper>
-
       <Box>{overall}</Box>
+
       <Text size={32} my={32} weight={700}>
         학기별 성적 현황
       </Text>
       <Paper w="100%" h={400} my={40} pr={40} radius="md">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart width={300} height={100} data={dataForLineChart}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="period"
-              padding={{ left: 40, right: 40 }}
-              fontSize={12}
-              tick={{ width: 30 }}
-              tickSize={8}
-              interval={0}
-            />
-            <YAxis dataKey="학점" domain={[2.0, 4.5]} />
-            <Tooltip />
-            <Line type="monotone" dataKey="학점" stroke="#8884d8" dot={{ r: 6 }}>
-              <LabelList dataKey="학점" position="top" />
-            </Line>
-          </LineChart>
-        </ResponsiveContainer>
+        <CourseMyGradeChart dataForLineChart={dataForLineChart} />
       </Paper>
-      <Box p={40} mb={100}>
-        <Group position="apart">
-          <Text size={24} weight={600} m={16}>
-            {cntPeriod}
-          </Text>
-          <Select
-            placeholder="수강 시기를 고르세요"
-            value={cntPeriod}
-            onChange={(cnt) => setCntPeriod(cnt as string)}
-            data={dataForSelect}
-          />
-        </Group>
-        <ScrollArea h={300} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
-          <Table miw={700}>
-            <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
-              <tr>
-                <th>강의 코드</th>
-                <th>강의 명</th>
-                <th>강의 종류</th>
-                <th>학점</th>
-                <th>성적</th>
-              </tr>
-            </thead>
-            <tbody>{list}</tbody>
-          </Table>
-        </ScrollArea>
-      </Box>
+
+      <CourseMyTableChart
+        dataForSelect={dataForSelect}
+        courseListWithPeriod={courseListWithPeriod}
+      />
     </Container>
   );
 }
