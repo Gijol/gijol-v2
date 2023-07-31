@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import { Container, Text, Input, Select, Group, Pagination, Center } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
-import CourseThumbnail from '../../../components/CourseThumbnail';
-import { useCourseList } from '../../../lib/hooks/course';
-import Loading from '../../../components/Loading';
-import router from 'next/router';
-import { MinorType } from '../../../lib/types/course';
+import CourseThumbnailWithDrawer from '../../../../components/CourseThumbnailWithDrawer';
+import { useCourseList } from '../../../../lib/hooks/course';
+import Loading from '../../../../components/Loading';
+import { MinorType } from '../../../../lib/types/course';
+import { useRouter } from 'next/navigation';
 
-export default function Search() {
+export default function Index() {
   const [activePage, setPage] = useState(1);
   const [minor, setMinor] = useState<MinorType>('NONE');
   const { data, isLoading, isError, error } = useCourseList(activePage, minor);
+  const router = useRouter();
   const courses = data?.map((item) => {
     return (
-      <CourseThumbnail
+      <CourseThumbnailWithDrawer
         key={item.courseCode}
         code={item.courseCode}
         title={item.courseName}
         credit={item.courseCredit}
+        description={item.description}
         tags={item.courseTags}
       />
     );
