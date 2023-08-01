@@ -8,7 +8,7 @@ export default function Loading({ content }: { content: string }) {
     <Container size="md" h={height - 60}>
       <Center h="60%">
         <Stack align="center">
-          <Loader size="xl" />
+          <Loader size="md" variant="bars" />
           <Text size="lg" fw={500}>
             {content}
           </Text>

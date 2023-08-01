@@ -1,34 +1,9 @@
-import React, { Fragment, useState } from 'react';
-import {
-  Box,
-  Container,
-  createStyles,
-  Divider,
-  Group,
-  Paper,
-  rem,
-  ScrollArea,
-  Select,
-  Table,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
-import {
-  Bar,
-  BarChart,
-  LineChart,
-  CartesianGrid,
-  LabelList,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-  Line,
-} from 'recharts';
+import React, { Fragment } from 'react';
+import { Box, Container, Divider, Group, Paper, Text, useMantineTheme } from '@mantine/core';
 import { getSortedCourseStatus } from '../../../lib/utils/status';
 import { useCourseStatus } from '../../../lib/hooks/course';
 import { useRouter } from 'next/router';
-import { useMediaQuery, useViewportSize } from '@mantine/hooks';
+import { useMediaQuery } from '@mantine/hooks';
 import Loading from '../../../components/Loading';
 import CourseMyCreditChart from '../../../components/course-my-credit-chart';
 import CourseMyGradeChart from '../../../components/course-my-grade-chart';

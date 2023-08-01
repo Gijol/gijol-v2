@@ -8,13 +8,14 @@ import { Layout } from '../components/Layouts/Layout';
 import { SessionProvider } from 'next-auth/react';
 import { ModalsProvider } from '@mantine/modals';
 import { Analytics } from '@vercel/analytics/react';
-import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { QueryClient } from '@tanstack/query-core';
-import RefreshTokenHandler from '../components/RefreshTokenHandler';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
   const [queryClient] = useState(() => new QueryClient());
+
   /* 라이트 모드, 다크 모드 설정하는 상태 로직 */
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
 
@@ -23,8 +24,6 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     setColorScheme(nextColorScheme);
     setCookie('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
   };
-  /* session refetch interval 설정 */
-  const [sessionRefetchInterval, setSessionRefetchInterval] = useState(10000);
 
   return (
     <>
@@ -36,17 +35,15 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
           <QueryClientProvider client={queryClient}>
-            <Hydrate state={pageProps.dehydratedState}>
-              <SessionProvider session={pageProps.session} refetchInterval={sessionRefetchInterval}>
-                <ModalsProvider>
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                  <Notifications />
-                </ModalsProvider>
-                <RefreshTokenHandler setSessionRefetchInterval={setSessionRefetchInterval} />
-              </SessionProvider>
-            </Hydrate>
+            <SessionProvider session={pageProps.session}>
+              <ModalsProvider>
+                <Notifications />
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </ModalsProvider>
+            </SessionProvider>
+            {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
           </QueryClientProvider>
         </MantineProvider>
       </ColorSchemeProvider>
