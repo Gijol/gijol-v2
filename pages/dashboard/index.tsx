@@ -1,4 +1,4 @@
-import { Button, Container, ScrollArea, Space, Text } from '@mantine/core';
+import { Button, Container, ScrollArea, SimpleGrid, Space, Text } from '@mantine/core';
 import { homeContents } from '../../lib/const/contentData';
 import { useRouter } from 'next/router';
 import { useAuthState } from '../../lib/hooks/auth';
@@ -17,9 +17,16 @@ export default function HomePage() {
         <Text size={24} my="md" fw={600}>
           진행중인 서비스들
         </Text>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+        <SimpleGrid
+          cols={3}
+          spacing="xl"
+          breakpoints={[
+            { maxWidth: 'md', cols: 2, spacing: 'xl' },
+            { maxWidth: 'xs', cols: 1, spacing: 'xl' },
+          ]}
+        >
           {cntFeatures.map((feat) => {
-            const btn = isUnAuthenticated ? (
+            const btn = feat.with_auth ? (
               <Button fullWidth variant="light" onClick={() => router.push('/login')}>
                 로그인 하러가기 👉
               </Button>
@@ -30,16 +37,23 @@ export default function HomePage() {
             );
             return <DashboardFeatureCard key={feat.title} feat={feat} button={btn} />;
           })}
-        </div>
+        </SimpleGrid>
         <Space h={40} />
         <Text size={24} my="md" fw={600}>
           개발중인 서비스들
         </Text>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+        <SimpleGrid
+          cols={3}
+          spacing="xl"
+          breakpoints={[
+            { maxWidth: 'md', cols: 2, spacing: 'xl' },
+            { maxWidth: 'xs', cols: 1, spacing: 'xl' },
+          ]}
+        >
           {futureFeatures.map((feat) => {
             return <DashboardFeatureCard feat={feat} key={feat.title} />;
           })}
-        </div>
+        </SimpleGrid>
         <Space h={96} />
       </Container>
     </ScrollArea>

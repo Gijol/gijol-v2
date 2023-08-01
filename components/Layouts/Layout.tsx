@@ -18,6 +18,8 @@ export function Layout({ children }: { children: ReactNode }) {
       styles={{
         main: {
           background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+          paddingRight: theme.spacing['md'],
+          wordBreak: 'keep-all',
         },
       }}
       navbarOffsetBreakpoint="sm"

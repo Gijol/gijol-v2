@@ -10,6 +10,8 @@ import {
   Drawer,
   rem,
   Spoiler,
+  Code,
+  Flex,
 } from '@mantine/core';
 import { useDisclosure, useHover } from '@mantine/hooks';
 import Link from 'next/link';
@@ -21,11 +23,13 @@ export default function CourseThumbnailWithDrawer({
   credit,
   tags,
   description,
+  prerequisites,
 }: {
   code: string;
   title: string;
   credit: number;
   description: string | null;
+  prerequisites: string;
   tags?: string[];
 }) {
   const { hovered, ref } = useHover();
@@ -37,6 +41,7 @@ export default function CourseThumbnailWithDrawer({
       </Badge>
     );
   });
+  const none = ['none', 'NONE', 'None', '-', '', ' '];
   return (
     <>
       <UnstyledButton onClick={open} w="100%">
@@ -44,17 +49,17 @@ export default function CourseThumbnailWithDrawer({
           <Text size={rem(14)} mb={8} color="dimmed">
             {code}
           </Text>
-          <Group position="apart">
-            <Text size={rem(24)} weight={500} w="30rem">
+          <Flex justify="space-between" wrap="wrap" gap="md" align="center">
+            <Text size={rem(24)} weight={500} miw={300}>
               {title}
             </Text>
-            <Group>
+            <Group w="fit-content" position="apart">
               {tagContent}
               <Badge radius="sm" px={6}>
                 {credit}학점
               </Badge>
             </Group>
-          </Group>
+          </Flex>
         </Paper>
       </UnstyledButton>
       <Drawer
@@ -78,6 +83,19 @@ export default function CourseThumbnailWithDrawer({
           ))}
           <Badge>{credit}학점</Badge>
         </Group>
+        <Text py="md">
+          선 이수과목 :
+          {none.includes(prerequisites) ? (
+            <Text component="span" color="dimmed">
+              {' '}
+              없습니다! 😆
+            </Text>
+          ) : (
+            <Code color="blue.4" mx="md">
+              {prerequisites}
+            </Code>
+          )}
+        </Text>
         <Text fz="md" fw={600} mt="lg">
           강의소개
         </Text>

@@ -16,12 +16,12 @@ export default function DashboardFeatureCard({
 }) {
   const { classes, theme } = useStyles();
   return (
-    <Card shadow="xs" radius="md" p="md" w={400} className={classes.card} withBorder>
+    <Card radius="md" p="lg" className={classes.card} withBorder>
       <Stack justify="space-between" h="100%">
         <div>
-          <feat.icon size={rem(40)} stroke={2} color={theme.fn.primaryColor()} />
+          <feat.icon size="2rem" stroke={1.4} color={theme.fn.primaryColor()} />
           <Group>
-            <Text fz="lg" fw={600} className={classes.cardTitle} mt="sm">
+            <Text fz="lg" fw={600} className={classes.cardTitle} mt="xs">
               {feat.title}
             </Text>
           </Group>
