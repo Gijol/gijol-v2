@@ -35,7 +35,12 @@ export default function GradOverallStatus({
     <tr key={element.title}>
       <td width={280}>{element.title}</td>
       <td width={280}>
-        <Progress value={element.percentage} label={`${element.percentage}%`} size="xl" />
+        <Progress
+          value={element.percentage}
+          label={`${element.percentage}%`}
+          size="xl"
+          color="blue.4"
+        />
       </td>
       <td>
         <Badge color={element.satisfied ? 'green' : element.title === '부전공' ? 'blue' : 'red'}>

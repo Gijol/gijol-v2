@@ -1,4 +1,4 @@
-import { portalLogin } from '../utils/portalLogin';
+import { portalLogin } from '../utils/portal-login';
 import { LoginProps } from '../types';
 import { useQuery } from 'react-query';
 

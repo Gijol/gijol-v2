@@ -1,13 +1,12 @@
 import { Button, Container, ScrollArea, SimpleGrid, Space, Text } from '@mantine/core';
-import { homeContents } from '../../lib/const/contentData';
+import { homeContents } from '../../lib/const/content-data';
 import { useRouter } from 'next/router';
 import { useAuthState } from '../../lib/hooks/auth';
-import DashboardFeatureCard from '../../components/DashboardFeatureCard';
-import DashboardHeroHeader from '../../components/DashboardHeroHeader';
+import DashboardFeatureCard from '../../components/dashboard-feature-card';
+import DashboardHeroHeader from '../../components/dashboard-hero-header';
 
 export default function HomePage() {
   const router = useRouter();
-  const { isUnAuthenticated } = useAuthState();
   const cntFeatures = homeContents.main.cntFeatures;
   const futureFeatures = homeContents.main.betaFeatures;
   return (

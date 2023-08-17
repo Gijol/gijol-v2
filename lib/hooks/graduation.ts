@@ -3,7 +3,7 @@ import { BASE_DEV_SERVER_URL } from '../const';
 import { GradStatusResponseType } from '../types/grad';
 import { initialValue } from '../const/grad';
 import { useQuery } from '@tanstack/react-query';
-import { extractOverallStatus, getFeedbackNumbers } from '../utils/graduation/gradFormatter';
+import { extractOverallStatus, getFeedbackNumbers } from '../utils/graduation/grad-formatter';
 import router, { useRouter } from 'next/router';
 
 export function useGraduation() {

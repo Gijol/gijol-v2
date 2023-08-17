@@ -1,8 +1,8 @@
 import { AppShell, useMantineTheme, clsx } from '@mantine/core';
 import { ReactNode, useState } from 'react';
-import { DashboardLayoutHeader } from './DashboardLayoutHeader';
+import { DashboardLayoutHeader } from './dashboard-layout-header';
 import { useRouter } from 'next/router';
-import { LayoutNavbar } from './LayoutNavbar';
+import { LayoutNavbar } from './layout-navbar';
 
 export function Layout({ children }: { children: ReactNode }) {
   const theme = useMantineTheme();

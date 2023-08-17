@@ -16,8 +16,8 @@ import { useScrollIntoView } from '@mantine/hooks';
 import { CSSProperties } from 'react';
 import router from 'next/router';
 import Image from 'next/image';
-import MainLayoutHeader from '../components/Layouts/MainLayoutHeader';
-import UserReviews from '../components/Carousel/UserReviews';
+import MainLayoutHeader from '../components/layouts/main-layout-header';
+import UserReviews from '../components/carousel/UserReviews';
 import macImg from '/public/images/MacBookAir.png';
 import {
   IconPackages,

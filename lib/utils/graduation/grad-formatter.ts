@@ -152,7 +152,7 @@ export function createSpecificStatusMessage(
     } else if (my > 0 && total - my > 0) {
       return `${percentage}% 들으셨네요!`;
     } else {
-      return '수강하신 강의가 없네요...';
+      return '아직 수강하지 않으셨습니다';
     }
   }
 }

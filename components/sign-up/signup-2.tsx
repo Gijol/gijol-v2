@@ -22,7 +22,7 @@ import {
   IconNumber4,
   IconAlertCircle,
 } from '@tabler/icons-react';
-import { readFileAndParse } from '../../lib/utils/graduation/gradFormatter';
+import { readFileAndParse } from '../../lib/utils/graduation/grad-formatter';
 import { signupAndGetResponse } from '../../lib/utils/auth';
 import { getSession, useSession } from 'next-auth/react';
 import { notifications } from '@mantine/notifications';
@@ -42,8 +42,8 @@ export default function Signup2({
   const [major, setMajor] = useState<string | null>(null);
   const onClickHandler = async () => {
     const session = await getSession();
-    const parsedUserStatus: UserStatusType | null = await readFileAndParse(fileInfo as File);
-    if (!parsedUserStatus) {
+    const parsed_user_status: UserStatusType | null = await readFileAndParse(fileInfo as File);
+    if (!parsed_user_status) {
       notifications.show({
         color: 'red',
         title: '파일 업로드 오류',
@@ -56,12 +56,12 @@ export default function Signup2({
       notifications.show({
         color: 'red',
         title: '전공 미선택',
-        message: '전공을 선택하시지 않으셨습니다. 만약 기초교육학부라면 희망 전공을 선택해주세요! ',
+        message: '전공을 선택하시지 않으셨습니다. 만약 기초교육학부라면 희망 전공을 선택해주세요!',
         withCloseButton: true,
       });
     } else {
-      const res = await signupAndGetResponse(parsedUserStatus, session?.user.id_token, major);
-      if (res.status === 201) {
+      const res = await signupAndGetResponse(parsed_user_status, session?.user.id_token, major);
+      if (res?.status === 201) {
         nextStep();
       } else {
         notifications.show({

@@ -4,16 +4,20 @@ import { getSortedCourseStatus } from '../../../lib/utils/status';
 import { useCourseStatus } from '../../../lib/hooks/course';
 import { useRouter } from 'next/router';
 import { useMediaQuery } from '@mantine/hooks';
-import Loading from '../../../components/Loading';
+import Loading from '../../../components/loading';
 import CourseMyCreditChart from '../../../components/course-my-credit-chart';
 import CourseMyGradeChart from '../../../components/course-my-grade-chart';
 import CourseMyTableChart from '../../../components/course-my-table-chart';
+import { useMemberStatus } from '../../../lib/hooks/auth';
+import DashboardFileUploadEncouragement from '../../../components/dashboard-file-upload-encouragement';
 
 export default function My() {
   const theme = useMantineTheme();
   const matches = useMediaQuery(`(min-width: ${theme.spacing.md})`);
 
   const router = useRouter();
+
+  const { isMember, error: notAuthenticated } = useMemberStatus();
   const { data, isError, isLoading, status, error } = useCourseStatus();
 
   /* 연도 및 학기별 수강한 강의 목록*/
@@ -72,35 +76,41 @@ export default function My() {
       </Fragment>
     );
   });
-  if (isLoading) {
-    return <Loading content="수강현황 데이터 로딩중" />;
-  }
-  if (isError) {
+
+  if (notAuthenticated) {
     //@ts-ignore
     router.push(`/dashboard/error?status=${error.message}`);
   }
 
-  return (
-    <Container size="md">
-      <Text size={32} mt={24} mb={32} weight={700}>
-        학기별 강의 이수 현황
-      </Text>
-      <Paper w="100%" h={400} my={40} pr={matches ? 40 : 0} pl={0} radius="md">
-        <CourseMyCreditChart dataForTable={dataForTable} />
-      </Paper>
-      <Box>{overall}</Box>
+  if (isLoading) {
+    return <Loading content="수강현황 데이터 로딩중" />;
+  } else {
+    if (!isMember) {
+      return <DashboardFileUploadEncouragement />;
+    }
 
-      <Text size={32} my={32} weight={700}>
-        학기별 성적 현황
-      </Text>
-      <Paper w="100%" h={400} my={40} pr={40} radius="md">
-        <CourseMyGradeChart dataForLineChart={dataForLineChart} />
-      </Paper>
+    return (
+      <Container size="md">
+        <Text size={32} mt={24} mb={32} weight={700}>
+          학기별 강의 이수 현황
+        </Text>
+        <Paper w="100%" h={400} my={40} pr={matches ? 40 : 0} pl={0} radius="md">
+          <CourseMyCreditChart dataForTable={dataForTable} />
+        </Paper>
+        <Box>{overall}</Box>
 
-      <CourseMyTableChart
-        dataForSelect={dataForSelect}
-        courseListWithPeriod={courseListWithPeriod}
-      />
-    </Container>
-  );
+        <Text size={32} my={32} weight={700}>
+          학기별 성적 현황
+        </Text>
+        <Paper w="100%" h={400} my={40} pr={40} radius="md">
+          <CourseMyGradeChart dataForLineChart={dataForLineChart} />
+        </Paper>
+
+        <CourseMyTableChart
+          dataForSelect={dataForSelect}
+          courseListWithPeriod={courseListWithPeriod}
+        />
+      </Container>
+    );
+  }
 }

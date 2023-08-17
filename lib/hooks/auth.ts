@@ -1,4 +1,4 @@
-import { signOut, useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { getAuthTypeResponse } from '../utils/auth';
 
@@ -8,15 +8,15 @@ export function useAuthState() {
   const isUnAuthenticated = status === 'unauthenticated';
   const isLoading = status === 'loading';
   const userData = session?.user;
-  const expires = session?.expires;
 
-  // 30분마다 next-auth의 세션 업데이트 -> 해당 과정에서 구글에서 토큰 재발급 받는 과정이 진행된다.
+  // Force sign in to resolve error at client side
   useEffect(() => {
-    const interval = setInterval(() => update(), 1000 * 60 * 30);
-    return () => clearInterval(interval);
-  }, [update]);
+    if (session?.error === 'RefreshAccessTokenError') {
+      signIn();
+    }
+  }, [session]);
 
-  return { userData, expires, isAuthenticated, isUnAuthenticated, isLoading, update };
+  return { userData, isAuthenticated, isUnAuthenticated, isLoading, update };
 }
 
 export function useMemberStatus() {
@@ -35,7 +35,7 @@ export function useMemberStatus() {
             setIsMember(false);
           }
         } catch (e) {
-          setError(e);
+          console.log('Auth type response error', e);
         }
       }
     };
