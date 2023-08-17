@@ -10,15 +10,13 @@ import {
   Textarea,
   Checkbox,
   Group,
-  Box,
-  MediaQuery,
 } from '@mantine/core';
-import { Dots } from './Dots';
 import { useDebouncedState, useDisclosure } from '@mantine/hooks';
 import { IconAt } from '@tabler/icons-react';
 import React, { BaseSyntheticEvent, useState } from 'react';
 import { sendFeedbackToNotion } from '../lib/utils/notion';
 import { notifications } from '@mantine/notifications';
+import { CustomDots } from './custom-dots';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -79,31 +77,6 @@ const useStyles = createStyles((theme) => ({
       fontSize: theme.fontSizes.md,
     },
   },
-  //
-  // controls: {
-  //   marginTop: theme.spacing.lg,
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //
-  //   [theme.fn.smallerThan('xs')]: {
-  //     flexDirection: 'column',
-  //   },
-  // },
-  //
-  // control: {
-  // '&:not(:first-of-type)': {
-  //   marginLeft: theme.spacing.md,
-  // },
-  // [theme.fn.smallerThan('xs')]: {
-  //   height: rem(42),
-  //   fontSize: theme.fontSizes.md,
-  //
-  //   '&:not(:first-of-type)': {
-  //     marginTop: theme.spacing.md,
-  //     marginLeft: 0,
-  //   },
-  // },
-  // },
 }));
 
 export default function DashboardHeroHeader() {
@@ -121,10 +94,10 @@ export default function DashboardHeroHeader() {
   return (
     <>
       <Container className={classes.wrapper} size="xl">
-        <Dots className={classes.dots} style={{ left: 0, top: 0 }} />
-        <Dots className={classes.dots} style={{ left: 60, top: 0 }} />
-        <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
-        <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
+        <CustomDots className={classes.dots} style={{ left: 0, top: 0 }} />
+        <CustomDots className={classes.dots} style={{ left: 60, top: 0 }} />
+        <CustomDots className={classes.dots} style={{ left: 0, top: 140 }} />
+        <CustomDots className={classes.dots} style={{ right: 0, top: 60 }} />
 
         <div className={classes.inner}>
           <Title className={classes.title}>

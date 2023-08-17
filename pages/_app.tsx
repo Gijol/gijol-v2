@@ -4,7 +4,7 @@ import { getCookie, setCookie } from 'cookies-next';
 import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
-import { Layout } from '../components/Layouts/Layout';
+import { Layout } from '../components/layouts/layout';
 import { SessionProvider } from 'next-auth/react';
 import { ModalsProvider } from '@mantine/modals';
 import { Analytics } from '@vercel/analytics/react';
@@ -13,7 +13,10 @@ import { QueryClient } from '@tanstack/query-core';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
-  const { Component, pageProps } = props;
+  const {
+    Component,
+    pageProps: { session, ...pageProps },
+  } = props;
   const [queryClient] = useState(() => new QueryClient());
 
   /* 라이트 모드, 다크 모드 설정하는 상태 로직 */
@@ -35,7 +38,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
           <QueryClientProvider client={queryClient}>
-            <SessionProvider session={pageProps.session}>
+            <SessionProvider session={session}>
               <ModalsProvider>
                 <Notifications />
                 <Layout>

@@ -1,5 +1,4 @@
-import React, { CSSProperties, useState } from 'react';
-import { Burger, Header, MediaQuery, Sx, Text, useMantineTheme } from '@mantine/core';
+import { Header, Sx, Text } from '@mantine/core';
 import Link from 'next/link';
 
 export default function MainLayoutHeader() {

@@ -2,7 +2,7 @@ import { FileWithPath } from '@mantine/dropzone';
 import { getSession } from 'next-auth/react';
 import axios from 'axios';
 import { BASE_DEV_SERVER_URL } from '../const';
-import { readFileAndParse } from './graduation/gradFormatter';
+import { readFileAndParse } from './graduation/grad-formatter';
 import { notifications } from '@mantine/notifications';
 
 const putUserMajorInfo = async (major: string, token: string) => {

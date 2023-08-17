@@ -14,9 +14,9 @@ import {
   TextInput,
 } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
-import CourseThumbnailWithDrawer from '../../../../components/CourseThumbnailWithDrawer';
+import CourseThumbnailWithDrawer from '../../../../components/course-thumbnail-with-drawer';
 import { useCourseList } from '../../../../lib/hooks/course';
-import Loading from '../../../../components/Loading';
+import Loading from '../../../../components/loading';
 import { MinorType } from '../../../../lib/types/course';
 import { useRouter } from 'next/navigation';
 import { useDebouncedState, useInputState } from '@mantine/hooks';

@@ -1,7 +1,7 @@
 import { Alert, Paper, ScrollArea, Tabs } from '@mantine/core';
 import { IconAlertCircle, IconCircleCheck } from '@tabler/icons-react';
 import { SingleCategoryType } from '../lib/types/grad';
-import { getDomainColor } from '../lib/utils/graduation/gradFormatter';
+import { getDomainColor } from '../lib/utils/graduation/grad-formatter';
 
 export default function GradRecommend({
   specificDomainStatusArr,

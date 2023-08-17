@@ -2,17 +2,22 @@ import {
   Accordion,
   Alert,
   Badge,
-  Container,
+  Box,
+  Flex,
   Group,
   RingProgress,
   ScrollArea,
   Space,
+  Stack,
   Table,
   Text,
 } from '@mantine/core';
 import { IconAlertCircle, IconCircleCheck } from '@tabler/icons-react';
 import { SingleCategoryType } from '../lib/types/grad';
-import { createSpecificStatusMessage, getDomainColor } from '../lib/utils/graduation/gradFormatter';
+import {
+  createSpecificStatusMessage,
+  getDomainColor,
+} from '../lib/utils/graduation/grad-formatter';
 
 export default function GradSpecificDomainStatus({
   classes,
@@ -24,6 +29,12 @@ export default function GradSpecificDomainStatus({
   return (
     <>
       {specificDomainStatusArr.map((category) => {
+        const domainName = category.domain;
+        const { minConditionCredits, totalCredits, satisfied, messages } =
+          category.status as SingleCategoryType;
+        const temp = Math.round((totalCredits * 100) / minConditionCredits);
+        const percentage = totalCredits === 0 ? 0 : temp >= 100 ? 100 : temp;
+
         const elements = category.status?.userTakenCoursesList.takenCourses;
         const rows = elements?.map((element) => {
           return (
@@ -42,11 +53,6 @@ export default function GradSpecificDomainStatus({
             </tr>
           );
         });
-        const domainName = category.domain;
-        const { minConditionCredits, totalCredits, satisfied, messages } =
-          category.status as SingleCategoryType;
-        const temp = Math.round((totalCredits * 100) / minConditionCredits);
-        const percentage = totalCredits === 0 ? 0 : temp >= 100 ? 100 : temp;
 
         return (
           <Accordion
@@ -67,18 +73,12 @@ export default function GradSpecificDomainStatus({
                   </Badge>
                 </Group>
               </Accordion.Control>
-              <Accordion.Panel py={16} className={classes.background}>
-                <Container
-                  sx={{
-                    padding: 0,
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}
-                >
+              <Accordion.Panel py={16} className={classes.background} h="fit-content">
+                <Flex>
                   <RingProgress
+                    mx="md"
                     roundCaps
-                    size={280}
+                    size={260}
                     sections={[
                       {
                         value: percentage,
@@ -101,7 +101,7 @@ export default function GradSpecificDomainStatus({
                       </Text>
                     }
                   />
-                  <Container px={32} w="100%">
+                  <Stack px="md" w="100%">
                     <ScrollArea h={280}>
                       <Space h={16} />
                       {satisfied && (
@@ -125,47 +125,33 @@ export default function GradSpecificDomainStatus({
                           );
                         })}
                     </ScrollArea>
-                  </Container>
-                </Container>
+                  </Stack>
+                </Flex>
                 <Space h={32} />
-                <ScrollArea sx={{ width: '100%', backgroundColor: 'unset' }} h={300}>
-                  <Container
-                    sx={{
-                      margin: 0,
-                      width: '100%',
-                      height: 'inherit',
-                      backgroundColor: 'inherit',
-                    }}
-                    px={32}
-                    py={0}
-                  >
-                    <Table
-                      highlightOnHover
-                      sx={{
-                        position: 'relative',
-                        width: 'inherit',
-                        height: '100%',
-                        backgroundColor: 'inherit',
+                <Box h="fit-content">
+                  <Table highlightOnHover w="100%">
+                    <thead
+                      className={classes.tableHead}
+                      style={{
+                        position: 'sticky',
+                        top: 0,
                       }}
                     >
-                      <thead
-                        className={classes.tableHead}
-                        style={{
-                          position: 'sticky',
-                          top: 0,
-                        }}
-                      >
-                        <tr>
-                          <th>수강학기</th>
-                          <th>강의코드</th>
-                          <th>강의명</th>
-                          <th>학점</th>
-                        </tr>
-                      </thead>
-                      <tbody>{rows}</tbody>
-                    </Table>
-                  </Container>
-                </ScrollArea>
+                      <tr>
+                        <th>수강학기</th>
+                        <th>강의코드</th>
+                        <th>강의명</th>
+                        <th>학점</th>
+                      </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                  </Table>
+                  {elements?.length === 0 && (
+                    <Text align="center" color="dimmed" my="xl" fw={500}>
+                      수강하신 강의가 없습니다!
+                    </Text>
+                  )}
+                </Box>
               </Accordion.Panel>
             </Accordion.Item>
           </Accordion>

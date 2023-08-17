@@ -1,6 +1,6 @@
 import { Text, createStyles, Divider, Navbar, NavLink, rem } from '@mantine/core';
 import Link from 'next/link';
-import { navLinks } from '../../lib/const/navLinks';
+import { navLinks } from '../../lib/const/nav-links';
 import { useRouter } from 'next/router';
 import { getCntTab } from '../../lib/utils/status';
 

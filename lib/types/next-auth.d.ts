@@ -7,6 +7,7 @@ declare module 'next-auth/jwt' {
     access_token?: string | undefined;
     refresh_token?: string | undefined;
     expires_at?: number;
+    error?: 'RefreshAccessTokenError';
   }
 }
 
@@ -20,5 +21,6 @@ declare module 'next-auth' {
       expires_at?: number;
       isExpired?: boolean;
     } & DefaultSession['user'];
+    error?: 'RefreshAccessTokenError';
   }
 }
