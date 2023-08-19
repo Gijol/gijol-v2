@@ -11,6 +11,7 @@ import {
   Paper,
   Select,
   Text,
+  TextInput,
   Timeline,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -27,6 +28,8 @@ import { signupAndGetResponse } from '../../lib/utils/auth';
 import { getSession, useSession } from 'next-auth/react';
 import { notifications } from '@mantine/notifications';
 import { UserStatusType } from '../../lib/types';
+import { getClerkTemplateToken } from '../../lib/utils/token';
+import { useAuth, useUser } from '@clerk/nextjs';
 
 export default function Signup2({
   nextStep,
@@ -40,8 +43,15 @@ export default function Signup2({
   const openRef = useRef<any>(null);
   const [opened, { open, close }] = useDisclosure(false);
   const [major, setMajor] = useState<string | null>(null);
+
+  const { getToken } = useAuth();
+  const { user, isLoaded, isSignedIn } = useUser();
+  const [userName, setUserName] = useState(user?.fullName as string);
+
+  console.log(userName);
+
   const onClickHandler = async () => {
-    const session = await getSession();
+    const token = await getToken({ template: 'gijol-token-test' });
     const parsed_user_status: UserStatusType | null = await readFileAndParse(fileInfo as File);
     if (!parsed_user_status) {
       notifications.show({
@@ -60,7 +70,8 @@ export default function Signup2({
         withCloseButton: true,
       });
     } else {
-      const res = await signupAndGetResponse(parsed_user_status, session?.user.id_token, major);
+      const res = await signupAndGetResponse(parsed_user_status, token, major, userName);
+
       if (res?.status === 201) {
         nextStep();
       } else {
@@ -74,7 +85,7 @@ export default function Signup2({
     }
   };
   return (
-    <Container miw={600}>
+    <Container miw={300} w={600}>
       <Text size="xl" weight={600} align="center" my={20}>
         2. 다운 받은 엑셀 파일을 업로드 해주세요!
       </Text>
@@ -146,11 +157,19 @@ export default function Signup2({
           어떤 파일을 업로드 하나요?
         </Button>
       </Center>
-      <Group position="center" my={32}>
+      <Group position="apart" my={32} grow>
+        <TextInput
+          label="닉네임을 입력해주세요"
+          placeholder="원하시는 닉네임을 입력해주세요"
+          value={userName}
+          onChange={(e) => setUserName(e.currentTarget.value)}
+          withAsterisk
+        />
         <Select
           allowDeselect={false}
           label="전공을 선택해주세요"
           placeholder="여기를 누르세요"
+          withAsterisk
           onChange={setMajor}
           data={[
             { value: 'EC', label: '전기전자컴퓨터공학전공' },

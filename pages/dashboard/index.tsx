@@ -25,16 +25,7 @@ export default function HomePage() {
           ]}
         >
           {cntFeatures.map((feat) => {
-            const btn = feat.with_auth ? (
-              <Button fullWidth variant="light" onClick={() => router.push('/login')}>
-                로그인 하러가기 👉
-              </Button>
-            ) : (
-              <Button variant="light" onClick={() => router.push(feat.route)} fullWidth>
-                기능 이용하러 가기
-              </Button>
-            );
-            return <DashboardFeatureCard key={feat.title} feat={feat} button={btn} />;
+            return <DashboardFeatureCard key={feat.title} feat={feat} />;
           })}
         </SimpleGrid>
         <Space h={40} />

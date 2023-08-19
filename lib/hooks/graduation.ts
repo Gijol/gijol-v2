@@ -5,17 +5,17 @@ import { initialValue } from '../const/grad';
 import { useQuery } from '@tanstack/react-query';
 import { extractOverallStatus, getFeedbackNumbers } from '../utils/graduation/grad-formatter';
 import router, { useRouter } from 'next/router';
+import { useAuth } from '@clerk/nextjs';
 
 export function useGraduation() {
-  const router = useRouter();
+  const { getToken } = useAuth();
   const getGradStatus = async () => {
-    const session = await getSession();
-    const id_token = session?.user.id_token;
+    const token = await getToken({ template: 'gijol-token-test' });
     const gradStatus: GradStatusResponseType = await fetch(
       `${BASE_DEV_SERVER_URL}/api/v1/users/me/graduation`,
       {
         headers: {
-          Authorization: `Bearer ${id_token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         method: 'GET',
@@ -29,14 +29,11 @@ export function useGraduation() {
 
     return gradStatus;
   };
-  const { data, isLoading, isError, error, isSuccess, status } = useQuery<GradStatusResponseType>(
-    ['grad-status'],
-    () => getGradStatus(),
-    {
+  const { data, isLoading, isError, error, isSuccess, isInitialLoading, isFetching, status } =
+    useQuery<GradStatusResponseType>(['grad-status'], () => getGradStatus(), {
       refetchOnWindowFocus: false,
       retry: 0,
-    }
-  );
+    });
   const { categoriesArr, totalCredits, totalPercentage, minDomain, minDomainPercentage, domains } =
     extractOverallStatus(data ? data : initialValue);
   const numbers = getFeedbackNumbers(data ? data : initialValue);
@@ -54,6 +51,8 @@ export function useGraduation() {
     },
     isInitial,
     isLoading,
+    isInitialLoading,
+    isFetching,
     isError,
     isSuccess,
     error,

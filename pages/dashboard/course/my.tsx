@@ -1,24 +1,33 @@
 import React, { Fragment } from 'react';
-import { Box, Container, Divider, Group, Paper, Text, useMantineTheme } from '@mantine/core';
+import {
+  Box,
+  Center,
+  Container,
+  Divider,
+  Group,
+  Paper,
+  SimpleGrid,
+  Stack,
+  Text,
+  useMantineTheme,
+} from '@mantine/core';
 import { getSortedCourseStatus } from '../../../lib/utils/status';
 import { useCourseStatus } from '../../../lib/hooks/course';
-import { useRouter } from 'next/router';
 import { useMediaQuery } from '@mantine/hooks';
 import Loading from '../../../components/loading';
 import CourseMyCreditChart from '../../../components/course-my-credit-chart';
 import CourseMyGradeChart from '../../../components/course-my-grade-chart';
 import CourseMyTableChart from '../../../components/course-my-table-chart';
-import { useMemberStatus } from '../../../lib/hooks/auth';
-import DashboardFileUploadEncouragement from '../../../components/dashboard-file-upload-encouragement';
+import { useUser } from '@clerk/nextjs';
+import CourseMyLoadingSkeleton from '../../../components/course-my-loading-skeleton';
 
 export default function My() {
   const theme = useMantineTheme();
   const matches = useMediaQuery(`(min-width: ${theme.spacing.md})`);
 
-  const router = useRouter();
-
-  const { isMember, error: notAuthenticated } = useMemberStatus();
-  const { data, isError, isLoading, status, error } = useCourseStatus();
+  // Clerk 사용하는 부분 !!
+  const { data, isLoading, isInitialLoading, isFetching } = useCourseStatus();
+  const { isSignedIn, isLoaded: isAuthStateLoaded } = useUser();
 
   /* 연도 및 학기별 수강한 강의 목록*/
   const courseListWithPeriod = getSortedCourseStatus(data);
@@ -66,51 +75,56 @@ export default function My() {
   const overall = dataSet.map((data) => {
     return (
       <Fragment key={data.label}>
-        <Group>
-          <Text ml={8} w={150} weight={600}>
-            {data.label}
-          </Text>
-          <Text>{data.content}</Text>
-        </Group>
-        <Divider my={12} />
+        <Text ml={8} w={150} weight={600}>
+          {data.label}
+        </Text>
+        <Text>{data.content}</Text>
       </Fragment>
     );
   });
 
-  if (notAuthenticated) {
-    //@ts-ignore
-    router.push(`/dashboard/error?status=${error.message}`);
+  if (!isAuthStateLoaded) {
+    return <Loading content="잠시만 기다려 주세요" />;
   }
 
-  if (isLoading) {
-    return <Loading content="수강현황 데이터 로딩중" />;
-  } else {
-    if (!isMember) {
-      return <DashboardFileUploadEncouragement />;
-    }
-
+  if (isAuthStateLoaded && !isSignedIn) {
     return (
-      <Container size="md">
-        <Text size={32} mt={24} mb={32} weight={700}>
-          학기별 강의 이수 현황
-        </Text>
-        <Paper w="100%" h={400} my={40} pr={matches ? 40 : 0} pl={0} radius="md">
-          <CourseMyCreditChart dataForTable={dataForTable} />
-        </Paper>
-        <Box>{overall}</Box>
-
-        <Text size={32} my={32} weight={700}>
-          학기별 성적 현황
-        </Text>
-        <Paper w="100%" h={400} my={40} pr={40} radius="md">
-          <CourseMyGradeChart dataForLineChart={dataForLineChart} />
-        </Paper>
-
-        <CourseMyTableChart
-          dataForSelect={dataForSelect}
-          courseListWithPeriod={courseListWithPeriod}
-        />
-      </Container>
+      <Center>
+        <Text>로그인 해주세용...</Text>
+      </Center>
     );
   }
+
+  if (isLoading || isFetching || isInitialLoading) {
+    return <CourseMyLoadingSkeleton />;
+  }
+
+  return (
+    <Container size="md">
+      <Text size={32} mt={24} mb={32} weight={700}>
+        학기별 강의 이수 현황
+      </Text>
+
+      <Paper w="100%" h={400} my={40} pr={matches ? 40 : 0} pl={0} radius="md">
+        <CourseMyCreditChart dataForTable={dataForTable} />
+      </Paper>
+
+      <SimpleGrid cols={2} px="md">
+        {overall}
+      </SimpleGrid>
+
+      <Text size={32} my={32} weight={700}>
+        학기별 성적 현황
+      </Text>
+      <Paper w="100%" h={400} my={40} pr={40} radius="md">
+        <CourseMyGradeChart dataForLineChart={dataForLineChart} />
+      </Paper>
+
+      <CourseMyTableChart
+        dataForSelect={dataForSelect}
+        courseListWithPeriod={courseListWithPeriod}
+      />
+    </Container>
+  );
+  // }
 }

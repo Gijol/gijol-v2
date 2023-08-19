@@ -20,6 +20,7 @@ export function Layout({ children }: { children: ReactNode }) {
           background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
           paddingRight: theme.spacing['md'],
           wordBreak: 'keep-all',
+          whiteSpace: 'pre-wrap',
         },
       }}
       navbarOffsetBreakpoint="sm"

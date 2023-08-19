@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
+import { getToken } from 'next-auth/jwt';
+
+const secret = process.env.JWT_SECRET;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getSession();
-  await res.send({ session });
+  const token = await getToken({ req, secret });
+  res.send(token);
 }

@@ -1,61 +1,38 @@
 import { BASE_DEV_SERVER_URL } from '../const';
 import { UserStatusType } from '../types';
-import { getSession } from 'next-auth/react';
-import { notifications } from '@mantine/notifications';
 import { JWT } from 'next-auth/jwt';
-import axios from 'axios';
 import { TokenSet } from 'next-auth';
+import { instance } from './instance';
 
-export const getAuthTypeResponse = async (): Promise<
-  'SIGN_UP' | 'SIGN_IN' | { message: string }
-> => {
-  const session = await getSession();
-  const authTypeResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google`, {
-    method: 'POST',
+export const getAuthTypeResponse = async (
+  token: string | null
+): Promise<{ isNewUser: boolean }> => {
+  console.log(token);
+  const res = await instance.post('/api/v1/auth', null, {
     headers: {
-      Authorization: `Bearer ${session?.user.id_token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   });
-  return authTypeResponse.json();
-};
-
-export const getMembershipStatus = async (
-  id_token: string | undefined
-): Promise<'SIGN_IN' | 'SIGN_UP'> => {
-  if (!id_token) {
-    throw new Error('No id token');
-  }
-  const loginResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${id_token}`,
-      'Content-Type': 'application/json',
-    },
-  });
-  if (!loginResponse.ok) {
-    notifications.show({
-      title: 'Gijol 서버 통신 오류',
-      message: '로그인에 실패했습니다. 현재 탭을 끄고 다시 로그인을 진행해주시길 바랍니다.',
-    });
-  }
-  return loginResponse.json();
+  return res.data;
 };
 
 export const signupAndGetResponse = async (
   user_status: UserStatusType,
-  id_token: string | null | undefined,
-  major_type: string
+  token: string | null,
+  major_type: string,
+  user_name: string
 ) => {
   try {
     const sign_up_response = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google/sign-up`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${id_token}`,
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         majorType: major_type,
+        name: user_name,
         ...user_status,
       }),
     });
@@ -80,7 +57,7 @@ export async function refreshAccessToken(token: JWT) {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
 
-    const res = await axios.post(url, null, {
+    const res = await instance.post(url, null, {
       headers,
       params,
     });

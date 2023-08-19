@@ -4,7 +4,6 @@ import { TablerIconsProps } from '@tabler/icons-react';
 
 export default function DashboardFeatureCard({
   feat,
-  button,
 }: {
   feat: {
     title: string;
@@ -12,7 +11,6 @@ export default function DashboardFeatureCard({
     icon: (props: TablerIconsProps) => JSX.Element;
     route?: string;
   };
-  button?: React.ReactNode;
 }) {
   const { classes, theme } = useStyles();
   return (
@@ -20,16 +18,13 @@ export default function DashboardFeatureCard({
       <Stack justify="space-between" h="100%">
         <div>
           <feat.icon size="2rem" stroke={1.4} color={theme.fn.primaryColor()} />
-          <Group>
-            <Text fz="lg" fw={600} className={classes.cardTitle} mt="xs">
-              {feat.title}
-            </Text>
-          </Group>
-          <Text fz="sm" c="dimmed" mt="sm">
+          <Text fz="lg" fw={600} className={classes.cardTitle} mt="xs">
+            {feat.title}
+          </Text>
+          <Text fz="sm" c="dimmed" mt="sm" mih="5rem">
             {feat.description}
           </Text>
         </div>
-        <Box mt="md">{button}</Box>
       </Stack>
     </Card>
   );

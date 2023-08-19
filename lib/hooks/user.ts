@@ -1,28 +1,27 @@
-import { getSession } from 'next-auth/react';
 import { BASE_DEV_SERVER_URL } from '../const';
 import { useQuery } from '@tanstack/react-query';
 import { UserStatusType } from '../types/user';
+import { useAuth } from '@clerk/nextjs';
+import { instance } from '../utils/instance';
 
 export function useUserInfo() {
+  const { getToken } = useAuth();
   const userStatusFetcher = async () => {
-    const session = await getSession();
-    const res = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/users/me/`, {
-      method: 'GET',
+    const token = await getToken({ template: 'gijol-token-test' });
+    const res = await instance.get('/api/v1/users/me/', {
       headers: {
-        Authorization: `Bearer ${session?.user.id_token}`,
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     });
-    if (!res.ok) {
-      throw new Error(res.status.toString());
-    }
-    return res.json();
+    // if (!res.ok) {
+    //   throw new Error(res.status.toString());
+    // }
+    return res.data;
   };
 
-  const { data, isLoading, isError, status, error } = useQuery<UserStatusType>(
-    ['user-status'],
-    () => userStatusFetcher(),
-    { retry: false, refetchOnWindowFocus: false }
-  );
-  return { data, isLoading, isError, status, error };
+  return useQuery<UserStatusType>(['user-status'], () => userStatusFetcher(), {
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 }
