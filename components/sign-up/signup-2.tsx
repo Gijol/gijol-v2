@@ -28,6 +28,8 @@ import { signupAndGetResponse } from '../../lib/utils/auth';
 import { getSession, useSession } from 'next-auth/react';
 import { notifications } from '@mantine/notifications';
 import { UserStatusType } from '../../lib/types';
+import { getClerkTemplateToken } from '../../lib/utils/token';
+import { useAuth, useUser } from '@clerk/nextjs';
 
 export default function Signup2({
   nextStep,
@@ -41,10 +43,15 @@ export default function Signup2({
   const openRef = useRef<any>(null);
   const [opened, { open, close }] = useDisclosure(false);
   const [major, setMajor] = useState<string | null>(null);
-  const { data: session } = useSession();
-  const [userName, setUserName] = useState(session?.user.name as string);
+
+  const { getToken } = useAuth();
+  const { user, isLoaded, isSignedIn } = useUser();
+  const [userName, setUserName] = useState(user?.fullName as string);
+
+  console.log(userName);
+
   const onClickHandler = async () => {
-    const session = await getSession();
+    const token = await getToken({ template: 'gijol-token-test' });
     const parsed_user_status: UserStatusType | null = await readFileAndParse(fileInfo as File);
     if (!parsed_user_status) {
       notifications.show({
@@ -63,12 +70,8 @@ export default function Signup2({
         withCloseButton: true,
       });
     } else {
-      const res = await signupAndGetResponse(
-        parsed_user_status,
-        session?.user.id_token,
-        major,
-        userName
-      );
+      const res = await signupAndGetResponse(parsed_user_status, token, major, userName);
+
       if (res?.status === 201) {
         nextStep();
       } else {

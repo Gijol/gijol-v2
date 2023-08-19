@@ -9,10 +9,12 @@ import SignupComplete from '../../components/sign-up/signup-complete';
 import { FileWithPath } from '@mantine/dropzone';
 import { getAuthTypeResponse } from '../../lib/utils/auth';
 import { useRouter } from 'next/router';
+import { useAuth } from '@clerk/nextjs';
 
 export default function Signup() {
   const { height } = useViewportSize();
   const matches = useMediaQuery('(min-width: 56.25em)');
+  const { getToken } = useAuth();
 
   /* stepper active 상태 관리 */
   const [active, setActive] = useState(0);
@@ -24,11 +26,12 @@ export default function Signup() {
   const router = useRouter();
   useEffect(() => {
     const loginStateRedirectHandler = async () => {
-      const res = await getAuthTypeResponse();
+      const token = await getToken();
+      const res = await getAuthTypeResponse(token);
       if (res === 'SIGN_IN') {
         await router.push('/dashboard');
         await alert(
-          "이미 로그인 한 상태입니다. 새로운 파일을 업로드 하시려면, '대쉬보드 페이지 -> 프로필 -> 내 정보 수정' 에서     새로운 파일을 업로드 해주세요"
+          "이미 로그인 한 상태입니다. 새로운 파일을 업로드 하시려면, '대쉬보드 페이지 -> 프로필 -> 내 정보 수정' 에서 새로운 파일을 업로드 해주세요"
         );
       }
     };

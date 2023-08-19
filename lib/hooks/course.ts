@@ -1,17 +1,18 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { BASE_DEV_SERVER_URL } from '../const';
-import { getSession } from 'next-auth/react';
 import { UserTakenCourseWithGradeType } from '../types/score-status';
 import { CourseType, MinorType } from '../types/course';
 import axios from 'axios';
+import { useAuth } from '@clerk/nextjs';
 
 export function useCourseStatus() {
+  const { getToken } = useAuth();
   const courseStatusFetcher = async () => {
-    const session = await getSession();
+    const token = await getToken({ template: 'gijol-token-test' });
     return await fetch(`${BASE_DEV_SERVER_URL}/api/v1/users/me/taken-courses`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${session?.user.id_token}`,
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     }).then((res) => {

@@ -23,6 +23,8 @@ import axios from 'axios';
 import { BASE_DEV_SERVER_URL } from '../../lib/const';
 import { notifications } from '@mantine/notifications';
 import { getSession } from 'next-auth/react';
+import { useAuth, useUser } from '@clerk/nextjs';
+import UserInfoLoadingSkeleton from '../../components/user-info-loading-skeleton';
 
 const major_select_data = [
   { value: 'EC', label: '전기전자컴퓨터공학전공' },
@@ -35,12 +37,10 @@ const major_select_data = [
 ];
 
 export default function UserInfo() {
-  // GET - 유저 회원여부 확인
-  const { isMember, error: notAuthenticated } = useMemberStatus();
-
-  // GET - 유저 이름, 학번, 이메일
-  const { userData } = useAuthState();
-  const { data: userInfoData, isLoading, isFetching, isInitialLoading, error } = useUserInfo();
+  // Clerk을 통해 유저 정보 받아오기
+  const { user, isLoaded, isSignedIn } = useUser();
+  const { getToken } = useAuth();
+  const { data: userInfoData, isLoading, isFetching, isInitialLoading } = useUserInfo();
 
   // POST - 전공 상태관리
   const [major, setMajor] = useState<string | null>(null);
@@ -55,10 +55,10 @@ export default function UserInfo() {
 
   // 이름 변경 요청
   const updateUserName = async () => {
-    const session = await getSession();
+    const token = await getToken({ template: 'gijol-token-test' });
     const headers = {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${session?.user.id_token}`,
+      Authorization: `Bearer ${token}`,
     };
     const res = await axios.put(
       `${BASE_DEV_SERVER_URL}/api/v1/users/me/name`,
@@ -75,7 +75,7 @@ export default function UserInfo() {
         autoClose: 2000,
       });
       await setNameInputOpened(false);
-      await setUserName(userInfoData?.name ?? '');
+      await setUserName(user?.fullName ?? '');
       await location.reload();
     } else {
       notifications.show({
@@ -94,7 +94,7 @@ export default function UserInfo() {
     },
     {
       label: '이메일',
-      data: userInfoData?.email,
+      data: user?.primaryEmailAddress?.emailAddress,
     },
     {
       label: '전공',
@@ -116,96 +116,110 @@ export default function UserInfo() {
     );
   });
 
-  if (notAuthenticated) {
-    // @ts-ignore
-    router.push(`/dashboard/error?status=${error.message}`);
+  if (!isLoaded) {
+    return <Loading content="잠시만 기다려주세요..." />;
+  }
+
+  if (isLoaded && !isSignedIn) {
+    return (
+      <Center>
+        <Text>로그인 해주세용...</Text>
+      </Center>
+    );
   }
 
   if (isLoading || isInitialLoading || isFetching) {
-    return <Loading content="유저 정보를 불러오는 중입니다..." />;
-  } else {
-    if (!isMember) {
-      return <DashboardFileUploadEncouragement />;
-    }
-    return (
-      <Container size="md">
-        <Text size={32} weight={700} my={32}>
-          내 정보
-        </Text>
-        <Group position="left" spacing={40} align="flex-start">
-          <Avatar src={userData?.image} alt="user profile" size={100} mt="md" />
-          <Stack w="40rem" spacing={0}>
-            <Group position="apart" py={10}>
-              <Group mih="2.5rem">
-                <Text ml={8} w={100} weight={600}>
-                  이름
-                </Text>
-                {!nameInputOpened ? (
-                  <Text ml={8}>{userInfoData?.name}</Text>
-                ) : (
-                  <TextInput
-                    placeholder="바꿀 닉네임을 입력해주세요"
-                    value={userName}
-                    onChange={(e) => setUserName(e.currentTarget.value)}
-                  />
-                )}
-              </Group>
+    return <UserInfoLoadingSkeleton />;
+  }
+
+  return (
+    <Container size="md">
+      <Text size={32} weight={700} my={32}>
+        내 정보
+      </Text>
+      <Group position="left" spacing={40} align="flex-start">
+        <Avatar src={user?.imageUrl} alt="user profile" size={100} mt="md" />
+        <Stack w="40rem" spacing={0}>
+          <Group position="apart" py={10}>
+            <Group mih="2.5rem">
+              <Text ml={8} w={100} weight={600}>
+                이름
+              </Text>
               {!nameInputOpened ? (
-                <Button
-                  variant="default"
-                  onClick={() => {
-                    setNameInputOpened(true);
-                  }}
-                >
-                  수정하기
-                </Button>
+                <Text ml={8}>{userInfoData?.name}</Text>
               ) : (
-                <Group>
-                  <Button color="teal.7" py={8} px={12} variant="light" onClick={updateUserName}>
-                    저장하기
-                  </Button>
-                  <Button
-                    color="red"
-                    variant="light"
-                    onClick={() => {
-                      setUserName(userInfoData?.name ?? '');
-                      setNameInputOpened(false);
-                    }}
-                  >
-                    취소하기
-                  </Button>
-                </Group>
+                <TextInput
+                  placeholder="바꿀 닉네임을 입력해주세요"
+                  value={userName}
+                  onChange={(e) => setUserName(e.currentTarget.value)}
+                />
               )}
             </Group>
-            <>{info}</>
-            <Divider my={12} />
-            <Box ml={8}>
-              <Text weight={600} mb="md">
-                전공 및 파일 수정
-              </Text>
-              <Text size="sm" fw={450} py={8}>
-                수정하려는 전공을 선택해주세요
-              </Text>
-              <Select
-                placeholder="전공을 선택하세요"
-                mb={16}
-                data={major_select_data}
-                value={major}
-                onChange={setMajor}
-              />
-              <Box>
-                <Text size="sm" fw={450} py={8}>
-                  수정하려는 파일을 선택해주세요
-                </Text>
-                <Dropzone
-                  h={400}
-                  openRef={openRef}
-                  onDrop={(files) => {
-                    setFileInfo(files.at(0));
+            {!nameInputOpened ? (
+              <Button
+                variant="default"
+                onClick={() => {
+                  setNameInputOpened(true);
+                }}
+              >
+                수정하기
+              </Button>
+            ) : (
+              <Group>
+                <Button color="teal.7" py={8} px={12} variant="light" onClick={updateUserName}>
+                  저장하기
+                </Button>
+                <Button
+                  color="red"
+                  variant="light"
+                  onClick={() => {
+                    setUserName(userInfoData?.name ?? '');
+                    setNameInputOpened(false);
                   }}
-                  activateOnClick={false}
-                  accept={[MIME_TYPES.xls, MIME_TYPES.xlsx]}
-                  styles={{ inner: { pointerEvents: 'all' } }}
+                >
+                  취소하기
+                </Button>
+              </Group>
+            )}
+          </Group>
+          <>{info}</>
+          <Divider my={12} />
+          <Box ml={8}>
+            <Text weight={600} mb="md">
+              전공 및 파일 수정
+            </Text>
+            <Text size="sm" fw={450} py={8}>
+              수정하려는 전공을 선택해주세요
+            </Text>
+            <Select
+              placeholder="전공을 선택하세요"
+              mb={16}
+              data={major_select_data}
+              value={major}
+              onChange={setMajor}
+            />
+            <Box>
+              <Text size="sm" fw={450} py={8}>
+                수정하려는 파일을 선택해주세요
+              </Text>
+              <Dropzone
+                h={400}
+                openRef={openRef}
+                onDrop={(files) => {
+                  setFileInfo(files.at(0));
+                }}
+                activateOnClick={false}
+                accept={[MIME_TYPES.xls, MIME_TYPES.xlsx]}
+                styles={{ inner: { pointerEvents: 'all' } }}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Group
+                  position="center"
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -213,74 +227,65 @@ export default function UserInfo() {
                     justifyContent: 'center',
                   }}
                 >
-                  <Group
-                    position="center"
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {!fileInfo ? (
-                      <>
-                        <Text align="center">
-                          기존의 파일을 수정하려면, 여기에 다시 파일을 업로드 해주세요!
-                        </Text>
-                        <Button onClick={() => openRef.current()}>파일 선택하기</Button>
-                      </>
-                    ) : (
-                      <>
-                        <Text>{fileInfo?.path}</Text>
-                        <Group>
-                          <Button variant="light" onClick={() => openRef.current()}>
-                            파일 바꾸기
-                          </Button>
-                          <Button
-                            color="red.6"
-                            variant="light"
-                            onClick={() => setFileInfo(undefined)}
-                          >
-                            파일 삭제하기
-                          </Button>
-                        </Group>
-                      </>
-                    )}
-                  </Group>
-                </Dropzone>
-              </Box>
+                  {!fileInfo ? (
+                    <>
+                      <Text align="center">
+                        기존의 파일을 수정하려면, 여기에 다시 파일을 업로드 해주세요!
+                      </Text>
+                      <Button onClick={() => openRef.current()}>파일 선택하기</Button>
+                    </>
+                  ) : (
+                    <>
+                      <Text>{fileInfo?.path}</Text>
+                      <Group>
+                        <Button variant="light" onClick={() => openRef.current()}>
+                          파일 바꾸기
+                        </Button>
+                        <Button
+                          color="red.6"
+                          variant="light"
+                          onClick={() => setFileInfo(undefined)}
+                        >
+                          파일 삭제하기
+                        </Button>
+                      </Group>
+                    </>
+                  )}
+                </Group>
+              </Dropzone>
             </Box>
-            <Divider my={20} />
-            <Center pb={40} mb={80}>
-              <Group w="100%" grow>
-                <Button
-                  w="fit-content"
-                  disabled={!(fileInfo || major)}
-                  onClick={async () => {
-                    await updateUserInfo(major, fileInfo);
-                    await setFileInfo(undefined);
-                    await setMajor('');
-                  }}
-                >
-                  변경사항 적용하기
-                </Button>
-                <Button
-                  w="fit-content"
-                  color="red"
-                  variant="light"
-                  disabled={!(fileInfo || major)}
-                  onClick={() => {
-                    setFileInfo(undefined);
-                    setMajor('');
-                  }}
-                >
-                  변경사항 버리기
-                </Button>
-              </Group>
-            </Center>
-          </Stack>
-        </Group>
-      </Container>
-    );
-  }
+          </Box>
+          <Divider my={20} />
+          <Center pb={40} mb={80}>
+            <Group w="100%" grow>
+              <Button
+                w="fit-content"
+                disabled={!(fileInfo || major)}
+                onClick={async () => {
+                  const token = await getToken({ template: 'gijol-token-test' });
+                  await updateUserInfo(major, fileInfo, token);
+                  await setFileInfo(undefined);
+                  await setMajor('');
+                }}
+              >
+                변경사항 적용하기
+              </Button>
+              <Button
+                w="fit-content"
+                color="red"
+                variant="light"
+                disabled={!(fileInfo || major)}
+                onClick={() => {
+                  setFileInfo(undefined);
+                  setMajor('');
+                }}
+              >
+                변경사항 버리기
+              </Button>
+            </Group>
+          </Center>
+        </Stack>
+      </Group>
+    </Container>
+  );
 }

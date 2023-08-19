@@ -35,6 +35,8 @@ export const getCntTab = (href: string) => {
       return '내 수강현황';
     case '/dashboard/course/search':
       return '강의 정보 확인하기';
+    case '/dashboard/user-info':
+      return '내 정보';
     default:
       return '';
   }

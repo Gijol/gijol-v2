@@ -5,17 +5,17 @@ import { initialValue } from '../const/grad';
 import { useQuery } from '@tanstack/react-query';
 import { extractOverallStatus, getFeedbackNumbers } from '../utils/graduation/grad-formatter';
 import router, { useRouter } from 'next/router';
+import { useAuth } from '@clerk/nextjs';
 
 export function useGraduation() {
-  const router = useRouter();
+  const { getToken } = useAuth();
   const getGradStatus = async () => {
-    const session = await getSession();
-    const id_token = session?.user.id_token;
+    const token = await getToken({ template: 'gijol-token-test' });
     const gradStatus: GradStatusResponseType = await fetch(
       `${BASE_DEV_SERVER_URL}/api/v1/users/me/graduation`,
       {
         headers: {
-          Authorization: `Bearer ${id_token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         method: 'GET',

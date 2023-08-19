@@ -5,15 +5,15 @@ import { notifications } from '@mantine/notifications';
 import { JWT } from 'next-auth/jwt';
 import axios from 'axios';
 import { TokenSet } from 'next-auth';
+import { getClerkTemplateToken } from './token';
 
-export const getAuthTypeResponse = async (): Promise<
-  'SIGN_UP' | 'SIGN_IN' | { message: string }
-> => {
-  const session = await getSession();
+export const getAuthTypeResponse = async (
+  token: string | null
+): Promise<'SIGN_UP' | 'SIGN_IN' | { message: string }> => {
   const authTypeResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google`, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${session?.user.id_token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   });
@@ -22,7 +22,7 @@ export const getAuthTypeResponse = async (): Promise<
 
 export const signupAndGetResponse = async (
   user_status: UserStatusType,
-  id_token: string | null | undefined,
+  token: string | null,
   major_type: string,
   user_name: string
 ) => {
@@ -30,7 +30,7 @@ export const signupAndGetResponse = async (
     const sign_up_response = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google/sign-up`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${id_token}`,
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

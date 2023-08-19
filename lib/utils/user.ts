@@ -4,6 +4,8 @@ import axios from 'axios';
 import { BASE_DEV_SERVER_URL } from '../const';
 import { readFileAndParse } from './graduation/grad-formatter';
 import { notifications } from '@mantine/notifications';
+import { useAuth } from '@clerk/nextjs';
+import { getClerkTemplateToken } from './token';
 
 const putUserMajorInfo = async (major: string, token: string) => {
   const data = {
@@ -27,15 +29,18 @@ const putUserFileInfo = async (fileInfo: FileWithPath, token: string) => {
   });
 };
 
-export const updateUserInfo = async (major: string | null, fileInfo: FileWithPath | undefined) => {
+export const updateUserInfo = async (
+  major: string | null,
+  fileInfo: FileWithPath | undefined,
+  token: string | null
+) => {
   try {
-    const session = await getSession();
-    if (session?.user.id_token) {
+    if (token) {
       if (major) {
-        await putUserMajorInfo(major, session.user.id_token);
+        await putUserMajorInfo(major, token);
       }
       if (fileInfo) {
-        await putUserFileInfo(fileInfo, session.user.id_token);
+        await putUserFileInfo(fileInfo, token);
       }
     }
     await notifications.show({
@@ -43,7 +48,9 @@ export const updateUserInfo = async (major: string | null, fileInfo: FileWithPat
       title: '변경사항 적용 완료',
       message: '변경하신 부분들이 적용 완료되었습니다!',
     });
+    await location.reload();
   } catch (e) {
+    console.log(e);
     await notifications.show({
       color: 'red',
       title: '변경사항 적용 안됨',

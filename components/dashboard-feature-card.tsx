@@ -18,12 +18,10 @@ export default function DashboardFeatureCard({
       <Stack justify="space-between" h="100%">
         <div>
           <feat.icon size="2rem" stroke={1.4} color={theme.fn.primaryColor()} />
-          <Group>
-            <Text fz="lg" fw={600} className={classes.cardTitle} mt="xs">
-              {feat.title}
-            </Text>
-          </Group>
-          <Text fz="sm" c="dimmed" mt="sm">
+          <Text fz="lg" fw={600} className={classes.cardTitle} mt="xs">
+            {feat.title}
+          </Text>
+          <Text fz="sm" c="dimmed" mt="sm" mih="5rem">
             {feat.description}
           </Text>
         </div>

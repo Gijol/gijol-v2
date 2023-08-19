@@ -11,6 +11,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { QueryClient } from '@tanstack/query-core';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ClerkProvider } from '@clerk/nextjs';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const {
@@ -39,12 +40,14 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
           <QueryClientProvider client={queryClient}>
             <SessionProvider session={session}>
-              <ModalsProvider>
-                <Notifications />
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </ModalsProvider>
+              <ClerkProvider {...pageProps}>
+                <ModalsProvider>
+                  <Notifications />
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                </ModalsProvider>
+              </ClerkProvider>
             </SessionProvider>
             {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
           </QueryClientProvider>

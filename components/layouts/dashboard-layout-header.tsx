@@ -1,9 +1,8 @@
 import { CSSProperties, Dispatch, SetStateAction, useEffect } from 'react';
-import { Burger, Group, Header, MediaQuery, Text } from '@mantine/core';
+import { Burger, Button, Group, Header, MediaQuery, Text } from '@mantine/core';
 import { MantineTheme } from '@mantine/core';
-import UserLoginPopover from '../user-login-popover';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import { SignInButton, useAuth, UserButton, useUser } from '@clerk/nextjs';
 
 export function DashboardLayoutHeader({
   theme,
@@ -14,21 +13,18 @@ export function DashboardLayoutHeader({
   opened: boolean;
   setOpened: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { update } = useSession();
+  const { isSignedIn } = useUser();
+  const { getToken } = useAuth();
 
   useEffect(() => {
-    const interval = setInterval(() => update(), 1000 * 60 * 60);
-    return clearInterval(interval);
-  }, [update]);
-
-  useEffect(() => {
-    const visibilityHandler = () => document.visibilityState === 'visible' && update();
-    window.addEventListener('visibilitychange', visibilityHandler, false);
-    return () => window.removeEventListener('visibilitychange', visibilityHandler, false);
-  }, [update]);
+    const hi = async () => {
+      console.log(await getToken({ template: 'gijol-token-test' }));
+    };
+    hi();
+  }, [getToken]);
 
   return (
-    <Header height={{ base: 50, md: 60 }} p="sm">
+    <Header height={60} py="sm" px="lg">
       <div style={headerContainer}>
         <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
           <Burger
@@ -47,7 +43,12 @@ export function DashboardLayoutHeader({
           </Link>
         </MediaQuery>
         <Group>
-          <UserLoginPopover />
+          {!isSignedIn && (
+            <Button component={SignInButton} afterSignInUrl="/login/new-user" variant="default">
+              로그인하기
+            </Button>
+          )}
+          <UserButton afterSignOutUrl="/dashboard" />
         </Group>
       </div>
     </Header>
