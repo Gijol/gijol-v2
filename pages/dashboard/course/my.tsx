@@ -18,7 +18,8 @@ export default function My() {
   const router = useRouter();
 
   const { isMember, error: notAuthenticated } = useMemberStatus();
-  const { data, isError, isLoading, status, error } = useCourseStatus();
+  const { data, isFetching, isLoading, isInitialLoading, status, error, isStale, isSuccess } =
+    useCourseStatus();
 
   /* 연도 및 학기별 수강한 강의 목록*/
   const courseListWithPeriod = getSortedCourseStatus(data);
@@ -82,21 +83,22 @@ export default function My() {
     router.push(`/dashboard/error?status=${error.message}`);
   }
 
-  if (isLoading) {
+  if (isLoading || isFetching || isInitialLoading) {
     return <Loading content="수강현황 데이터 로딩중" />;
   } else {
     if (!isMember) {
       return <DashboardFileUploadEncouragement />;
     }
-
     return (
       <Container size="md">
         <Text size={32} mt={24} mb={32} weight={700}>
           학기별 강의 이수 현황
         </Text>
+
         <Paper w="100%" h={400} my={40} pr={matches ? 40 : 0} pl={0} radius="md">
           <CourseMyCreditChart dataForTable={dataForTable} />
         </Paper>
+
         <Box>{overall}</Box>
 
         <Text size={32} my={32} weight={700}>

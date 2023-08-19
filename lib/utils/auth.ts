@@ -20,32 +20,11 @@ export const getAuthTypeResponse = async (): Promise<
   return authTypeResponse.json();
 };
 
-export const getMembershipStatus = async (
-  id_token: string | undefined
-): Promise<'SIGN_IN' | 'SIGN_UP'> => {
-  if (!id_token) {
-    throw new Error('No id token');
-  }
-  const loginResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${id_token}`,
-      'Content-Type': 'application/json',
-    },
-  });
-  if (!loginResponse.ok) {
-    notifications.show({
-      title: 'Gijol 서버 통신 오류',
-      message: '로그인에 실패했습니다. 현재 탭을 끄고 다시 로그인을 진행해주시길 바랍니다.',
-    });
-  }
-  return loginResponse.json();
-};
-
 export const signupAndGetResponse = async (
   user_status: UserStatusType,
   id_token: string | null | undefined,
-  major_type: string
+  major_type: string,
+  user_name: string
 ) => {
   try {
     const sign_up_response = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google/sign-up`, {
@@ -56,6 +35,7 @@ export const signupAndGetResponse = async (
       },
       body: JSON.stringify({
         majorType: major_type,
+        name: user_name,
         ...user_status,
       }),
     });

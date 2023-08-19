@@ -8,6 +8,7 @@ import router from 'next/router';
 import Loading from '../../components/loading';
 import { useMemberStatus } from '../../lib/hooks/auth';
 import DashboardFileUploadEncouragement from '../../components/dashboard-file-upload-encouragement';
+import React from 'react';
 
 export default function Graduation() {
   const { classes } = useStyles();
@@ -16,14 +17,14 @@ export default function Graduation() {
     offset: 60,
   });
   const { isMember, error: notAuthenticated } = useMemberStatus();
-  const { isLoading, isError, error, status } = useGraduation();
+  const { isLoading, isError, error, status, isInitialLoading, isFetching } = useGraduation();
 
   if (notAuthenticated) {
     // @ts-ignore
     router.push(`/dashboard/error?status=${error.message}`);
   }
 
-  if (isLoading) {
+  if (isLoading || isFetching || isInitialLoading) {
     return <Loading content="졸업요건 데이터 로딩중..." />;
   } else {
     if (!isMember) {

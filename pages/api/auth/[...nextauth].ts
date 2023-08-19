@@ -28,10 +28,11 @@ export default NextAuth({
         token.refresh_token = account?.refresh_token;
         token.expires_at = account?.expires_at;
         return token;
-      } else if (Date.now() < token.expires_at! * 1000) {
+      }
+      if (Date.now() < token.expires_at! * 900) {
         return token;
       } else {
-        return refreshAccessToken(token);
+        return await refreshAccessToken(token);
       }
     },
     async session({ session, token }) {

@@ -1,8 +1,9 @@
-import { CSSProperties, Dispatch, SetStateAction } from 'react';
+import { CSSProperties, Dispatch, SetStateAction, useEffect } from 'react';
 import { Burger, Group, Header, MediaQuery, Text } from '@mantine/core';
 import { MantineTheme } from '@mantine/core';
 import UserLoginPopover from '../user-login-popover';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 export function DashboardLayoutHeader({
   theme,
@@ -13,6 +14,19 @@ export function DashboardLayoutHeader({
   opened: boolean;
   setOpened: Dispatch<SetStateAction<boolean>>;
 }) {
+  const { update } = useSession();
+
+  useEffect(() => {
+    const interval = setInterval(() => update(), 1000 * 60 * 60);
+    return clearInterval(interval);
+  }, [update]);
+
+  useEffect(() => {
+    const visibilityHandler = () => document.visibilityState === 'visible' && update();
+    window.addEventListener('visibilitychange', visibilityHandler, false);
+    return () => window.removeEventListener('visibilitychange', visibilityHandler, false);
+  }, [update]);
+
   return (
     <Header height={{ base: 50, md: 60 }} p="sm">
       <div style={headerContainer}>

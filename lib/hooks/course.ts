@@ -22,12 +22,10 @@ export function useCourseStatus() {
     });
   };
 
-  const { data, isLoading, isError, status, error } = useQuery<UserTakenCourseWithGradeType>(
-    ['course-status'],
-    () => courseStatusFetcher(),
-    { retry: 0, refetchOnWindowFocus: false }
-  );
-  return { data, isLoading, isError, status, error };
+  return useQuery<UserTakenCourseWithGradeType>(['course-status'], () => courseStatusFetcher(), {
+    retry: 0,
+    refetchOnWindowFocus: false,
+  });
 }
 
 export function useCourseList(page: number, size: number, minorType: MinorType) {
@@ -44,10 +42,9 @@ export function useCourseList(page: number, size: number, minorType: MinorType) 
     return res.data;
   };
 
-  const { isLoading, isError, isFetching, error, data, refetch } = useQuery<CourseType[]>({
+  return useQuery<CourseType[]>({
     queryKey: ['courses', page],
     queryFn: () => fetchCourses(),
     refetchOnWindowFocus: false,
   });
-  return { data, isLoading, isError, error, refetch, isFetching };
 }

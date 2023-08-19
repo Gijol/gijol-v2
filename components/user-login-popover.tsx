@@ -3,17 +3,15 @@ import {
   Avatar,
   Box,
   Button,
-  Divider,
   Group,
   MediaQuery,
-  Paper,
   Popover,
   SimpleGrid,
   Stack,
   Sx,
   Text,
 } from '@mantine/core';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import {
   IconAlertCircle,
   IconAt,
@@ -32,6 +30,7 @@ export default function UserLoginPopover() {
   const { data: userInfoData } = useUserInfo();
   const { isMember } = useMemberStatus();
   const router = useRouter();
+
   return (
     <Box h="100%">
       <Popover withArrow shadow="md" position="bottom-end">
@@ -55,7 +54,7 @@ export default function UserLoginPopover() {
                     <Avatar src={userData?.image} radius="md" m={8} />
                   </MediaQuery>
                   <MediaQuery smallerThan="sm" styles={{ padding: 8 }}>
-                    <Text size="xs">{userData?.name} 님</Text>
+                    <Text size="xs">{userInfoData?.name} 님</Text>
                   </MediaQuery>
                 </>
               )}
@@ -70,7 +69,7 @@ export default function UserLoginPopover() {
                 <Avatar src={userData?.image} size="4rem" radius="lg" m={12} />
                 <Stack align="center" spacing="xs">
                   <Text fz="lg" fw={500} align="center">
-                    {userData?.name}
+                    {userInfoData?.name}
                   </Text>
                   {!isMember ? (
                     <Alert
@@ -129,7 +128,7 @@ export default function UserLoginPopover() {
                     정보 업로드
                   </Button>
                 ) : (
-                  <Button variant="light" onClick={() => router.push('/dashboard/user')}>
+                  <Button variant="light" onClick={() => router.push('/dashboard/user-info')}>
                     내 정보 수정
                   </Button>
                 )}

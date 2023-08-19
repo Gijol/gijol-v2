@@ -19,10 +19,8 @@ export function useUserInfo() {
     return res.json();
   };
 
-  const { data, isLoading, isError, status, error } = useQuery<UserStatusType>(
-    ['user-status'],
-    () => userStatusFetcher(),
-    { retry: false, refetchOnWindowFocus: false }
-  );
-  return { data, isLoading, isError, status, error };
+  return useQuery<UserStatusType>(['user-status'], () => userStatusFetcher(), {
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 }

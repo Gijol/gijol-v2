@@ -36,7 +36,7 @@ export default function Signup() {
   }, []);
 
   return (
-    <Group>
+    <Group spacing={0}>
       <Paper
         w="30%"
         miw={matches ? 300 : '100%'}
@@ -63,6 +63,11 @@ export default function Signup() {
             onStepClick={setActive}
             orientation={matches ? 'vertical' : 'horizontal'}
             styles={{
+              root: {
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'keep-all',
+                lineHeight: 2,
+              },
               stepIcon: {
                 borderWidth: rem(3),
               },
