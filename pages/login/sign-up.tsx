@@ -26,9 +26,9 @@ export default function Signup() {
   const router = useRouter();
   useEffect(() => {
     const loginStateRedirectHandler = async () => {
-      const token = await getToken();
-      const res = await getAuthTypeResponse(token);
-      if (res === 'SIGN_IN') {
+      const token = await getToken({ template: 'gijol-token-test' });
+      const { isNewUser } = await getAuthTypeResponse(token);
+      if (!isNewUser) {
         await router.push('/dashboard');
         await alert(
           "이미 로그인 한 상태입니다. 새로운 파일을 업로드 하시려면, '대쉬보드 페이지 -> 프로필 -> 내 정보 수정' 에서 새로운 파일을 업로드 해주세요"

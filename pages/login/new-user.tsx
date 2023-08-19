@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import { useAuth } from '@clerk/nextjs';
 import { useRouter } from 'next/router';
-
-const checkUserExistence = async (token: string | null): Promise<boolean> => {
-  return true;
-};
+import { getAuthTypeResponse } from '../../lib/utils/auth';
 
 export default function NewUser() {
   const { getToken } = useAuth();
@@ -12,8 +9,9 @@ export default function NewUser() {
   useEffect(() => {
     const redirectToDashboardIfUserIsNew = async () => {
       const token = await getToken({ template: 'gijol-token-test' });
-      const isNew = await checkUserExistence(token);
-      if (!isNew) {
+      const { isNewUser } = await getAuthTypeResponse(token);
+      console.log(isNewUser);
+      if (!isNewUser) {
         router.push('/dashboard');
       } else {
         router.push('/login/sign-up');

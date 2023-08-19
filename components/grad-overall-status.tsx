@@ -1,10 +1,12 @@
 import {
   Badge,
   Button,
+  Flex,
   Grid,
   Group,
   Paper,
   Progress,
+  SimpleGrid,
   Space,
   Table,
   Text,
@@ -52,77 +54,85 @@ export default function GradOverallStatus({
   return (
     <>
       <Paper withBorder p={40} radius="md" shadow="xs">
-        <Grid gutter="md">
-          <Grid.Col span={4}>
-            <Paper radius="md" withBorder h={160} p={8}>
-              <Group p={8}>
-                <ThemeIcon variant="light" size="lg">
-                  <IconPresentationAnalytics />
-                </ThemeIcon>
-                <Text size="md" weight={650}>
-                  총 학점
-                </Text>
-              </Group>
-              <Text size="xl" align="start" p={8} pl={14}>
-                {totalCredits} 학점
+        <SimpleGrid
+          breakpoints={[
+            { minWidth: 'md', cols: 3, spacing: 'md' },
+            { minWidth: 'sm', cols: 2, spacing: 'md' },
+            { minWidth: 'xs', cols: 1, spacing: 'md' },
+          ]}
+        >
+          {/*<Grid gutter="md">*/}
+          {/*  <Grid.Col span={4}>*/}
+          <Paper radius="md" withBorder h={160} p={8}>
+            <Group p={8}>
+              <ThemeIcon variant="light" size="lg">
+                <IconPresentationAnalytics />
+              </ThemeIcon>
+              <Text size="md" weight={650}>
+                총 학점
               </Text>
-              <Group p={8}>
-                <Text size="sm" color="dimmed" weight={600}>
-                  총 학점 : 130
-                </Text>
-                <Badge>{totalPercentage}% 이수중</Badge>
-              </Group>
-            </Paper>
-          </Grid.Col>
-          <Grid.Col span={4}>
-            <Paper radius="md" withBorder h={160} p={8}>
-              <Group p={8}>
-                <ThemeIcon variant="light" size="lg" color="orange">
-                  <IconReportAnalytics />
-                </ThemeIcon>
-                <Text size="md" weight={650}>
-                  최저 이수 영역
-                </Text>
-              </Group>
-              <Text size="xl" align="start" p={8} pl={14}>
-                {minDomain}
+            </Group>
+            <Text size="xl" align="start" p={8} pl={14}>
+              {totalCredits} 학점
+            </Text>
+            <Group p={8}>
+              <Text size="sm" color="dimmed" weight={600}>
+                총 학점 : 130
               </Text>
-              <Group p={8}>
-                <Badge color="orange">{minDomainPercentage}% 이수중</Badge>
-              </Group>
-            </Paper>
-          </Grid.Col>
-          <Grid.Col span={4}>
-            <Paper radius="md" withBorder h={160} p={8}>
-              <Group p={8}>
-                <ThemeIcon variant="light" size="lg" color="yellow">
-                  <IconBolt />
-                </ThemeIcon>
-                <Text size="md" weight={650}>
-                  Gijol의 피드백
-                </Text>
-              </Group>
-              <Text size="xl" align="start" p={8} pl={14}>
-                {feedbackNumbers} 개
+              <Badge>{totalPercentage}% 이수중</Badge>
+            </Group>
+          </Paper>
+          {/*</Grid.Col>*/}
+          {/*<Grid.Col span={4}>*/}
+          <Paper radius="md" withBorder h={160} p={8}>
+            <Group p={8}>
+              <ThemeIcon variant="light" size="lg" color="orange">
+                <IconReportAnalytics />
+              </ThemeIcon>
+              <Text size="md" weight={650}>
+                최저 이수 영역
               </Text>
-              <Group p={8}>
-                <Button
-                  variant="light"
-                  size="xs"
-                  color="yellow"
-                  fullWidth
-                  onClick={() =>
-                    scrollIntoView({
-                      alignment: 'center',
-                    })
-                  }
-                >
-                  바로 확인하러 가기
-                </Button>
-              </Group>
-            </Paper>
-          </Grid.Col>
-        </Grid>
+            </Group>
+            <Text size="xl" align="start" p={8} pl={14}>
+              {minDomain}
+            </Text>
+            <Group p={8}>
+              <Badge color="orange">{minDomainPercentage}% 이수중</Badge>
+            </Group>
+          </Paper>
+          {/*</Grid.Col>*/}
+          {/*<Grid.Col span={4}>*/}
+          <Paper radius="md" withBorder h={160} p={8}>
+            <Group p={8}>
+              <ThemeIcon variant="light" size="lg" color="yellow">
+                <IconBolt />
+              </ThemeIcon>
+              <Text size="md" weight={650}>
+                Gijol의 피드백
+              </Text>
+            </Group>
+            <Text size="xl" align="start" p={8} pl={14}>
+              {feedbackNumbers} 개
+            </Text>
+            <Group p={8}>
+              <Button
+                variant="light"
+                size="xs"
+                color="yellow"
+                fullWidth
+                onClick={() =>
+                  scrollIntoView({
+                    alignment: 'center',
+                  })
+                }
+              >
+                바로 확인하러 가기
+              </Button>
+            </Group>
+          </Paper>
+          {/*</Grid.Col>*/}
+          {/*</Grid>*/}
+        </SimpleGrid>
         <Space h={24} />
         <Table
           highlightOnHover

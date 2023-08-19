@@ -6,6 +6,7 @@ import { readFileAndParse } from './graduation/grad-formatter';
 import { notifications } from '@mantine/notifications';
 import { useAuth } from '@clerk/nextjs';
 import { getClerkTemplateToken } from './token';
+import { instance } from './instance';
 
 const putUserMajorInfo = async (major: string, token: string) => {
   const data = {
@@ -15,7 +16,7 @@ const putUserMajorInfo = async (major: string, token: string) => {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   };
-  await axios.put(`${BASE_DEV_SERVER_URL}/api/v1/users/me/major`, data, { headers });
+  await instance.put(`/api/v1/users/me/major`, data, { headers });
 };
 
 const putUserFileInfo = async (fileInfo: FileWithPath, token: string) => {
@@ -24,7 +25,7 @@ const putUserFileInfo = async (fileInfo: FileWithPath, token: string) => {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   };
-  await axios.put(`${BASE_DEV_SERVER_URL}/api/v1/users/me/taken-courses`, parsedUserStatus, {
+  await instance.put(`/api/v1/users/me/taken-courses`, parsedUserStatus, {
     headers,
   });
 };

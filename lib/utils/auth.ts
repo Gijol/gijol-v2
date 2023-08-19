@@ -1,23 +1,20 @@
 import { BASE_DEV_SERVER_URL } from '../const';
 import { UserStatusType } from '../types';
-import { getSession } from 'next-auth/react';
-import { notifications } from '@mantine/notifications';
 import { JWT } from 'next-auth/jwt';
-import axios from 'axios';
 import { TokenSet } from 'next-auth';
-import { getClerkTemplateToken } from './token';
+import { instance } from './instance';
 
 export const getAuthTypeResponse = async (
   token: string | null
-): Promise<'SIGN_UP' | 'SIGN_IN' | { message: string }> => {
-  const authTypeResponse = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google`, {
-    method: 'POST',
+): Promise<{ isNewUser: boolean }> => {
+  console.log(token);
+  const res = await instance.post('/api/v1/auth', null, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   });
-  return authTypeResponse.json();
+  return res.data;
 };
 
 export const signupAndGetResponse = async (
@@ -60,7 +57,7 @@ export async function refreshAccessToken(token: JWT) {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
 
-    const res = await axios.post(url, null, {
+    const res = await instance.post(url, null, {
       headers,
       params,
     });

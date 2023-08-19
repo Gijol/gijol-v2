@@ -11,20 +11,16 @@ import {
   Stack,
   TextInput,
 } from '@mantine/core';
-import React, { useEffect, useRef, useState } from 'react';
-import { useAuthState, useMemberStatus } from '../../lib/hooks/auth';
+import React, { useRef, useState } from 'react';
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
 import { convertMajorTypeToText, updateUserInfo } from '../../lib/utils/user';
 import { useUserInfo } from '../../lib/hooks/user';
 import Loading from '../../components/loading';
-import router from 'next/router';
-import DashboardFileUploadEncouragement from '../../components/dashboard-file-upload-encouragement';
-import axios from 'axios';
 import { BASE_DEV_SERVER_URL } from '../../lib/const';
 import { notifications } from '@mantine/notifications';
-import { getSession } from 'next-auth/react';
 import { useAuth, useUser } from '@clerk/nextjs';
 import UserInfoLoadingSkeleton from '../../components/user-info-loading-skeleton';
+import { instance } from '../../lib/utils/instance';
 
 const major_select_data = [
   { value: 'EC', label: '전기전자컴퓨터공학전공' },
@@ -60,7 +56,7 @@ export default function UserInfo() {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
-    const res = await axios.put(
+    const res = await instance.put(
       `${BASE_DEV_SERVER_URL}/api/v1/users/me/name`,
       { name: userName },
       {

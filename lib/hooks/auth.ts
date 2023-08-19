@@ -27,22 +27,20 @@ export function useMemberStatus() {
 
   useEffect(() => {
     const getMemberStatus = async () => {
-      if (isSignedIn) {
-        try {
-          const token = await getToken({ template: 'gijol-token-test' });
-          const status = await getAuthTypeResponse(token);
-          if (status === 'SIGN_IN') {
-            setIsMember(true);
-          } else if (status === 'SIGN_UP') {
-            setIsMember(false);
-          }
-        } catch (e) {
-          console.log('Auth type response error', e);
+      const token = await getToken({ template: 'gijol-token-test' });
+      try {
+        const { isNewUser } = await getAuthTypeResponse(token);
+        if (isNewUser) {
+          setIsMember(true);
+        } else {
+          setIsMember(false);
         }
+      } catch (e) {
+        console.log('Auth type response error', e);
       }
     };
     getMemberStatus();
-  }, [isSignedIn]);
+  }, []);
 
   return { isMember };
 }
