@@ -1,7 +1,6 @@
-import { Button, Container, ScrollArea, SimpleGrid, Space, Text } from '@mantine/core';
+import { Container, ScrollArea, SimpleGrid, Space, Text } from '@mantine/core';
 import { homeContents } from '../../lib/const/content-data';
 import { useRouter } from 'next/router';
-import { useAuthState } from '../../lib/hooks/auth';
 import DashboardFeatureCard from '../../components/dashboard-feature-card';
 import DashboardHeroHeader from '../../components/dashboard-hero-header';
 

@@ -5,7 +5,6 @@ import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { Layout } from '../components/layouts/layout';
-import { SessionProvider } from 'next-auth/react';
 import { ModalsProvider } from '@mantine/modals';
 import { Analytics } from '@vercel/analytics/react';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -14,10 +13,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ClerkProvider } from '@clerk/nextjs';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
-  const {
-    Component,
-    pageProps: { session, ...pageProps },
-  } = props;
+  const { Component, pageProps } = props;
   const [queryClient] = useState(() => new QueryClient());
 
   /* 라이트 모드, 다크 모드 설정하는 상태 로직 */
@@ -39,16 +35,14 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
           <QueryClientProvider client={queryClient}>
-            <SessionProvider session={session}>
-              <ClerkProvider {...pageProps}>
-                <ModalsProvider>
-                  <Notifications />
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                </ModalsProvider>
-              </ClerkProvider>
-            </SessionProvider>
+            <ClerkProvider {...pageProps}>
+              <ModalsProvider>
+                <Notifications />
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </ModalsProvider>
+            </ClerkProvider>
             {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
           </QueryClientProvider>
         </MantineProvider>

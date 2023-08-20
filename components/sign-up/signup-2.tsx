@@ -21,14 +21,11 @@ import {
   IconNumber2,
   IconNumber3,
   IconNumber4,
-  IconAlertCircle,
 } from '@tabler/icons-react';
 import { readFileAndParse } from '../../lib/utils/graduation/grad-formatter';
 import { signupAndGetResponse } from '../../lib/utils/auth';
-import { getSession, useSession } from 'next-auth/react';
 import { notifications } from '@mantine/notifications';
 import { UserStatusType } from '../../lib/types';
-import { getClerkTemplateToken } from '../../lib/utils/token';
 import { useAuth, useUser } from '@clerk/nextjs';
 
 export default function Signup2({

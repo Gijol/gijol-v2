@@ -1,12 +1,10 @@
 import { FileWithPath } from '@mantine/dropzone';
-import { getSession } from 'next-auth/react';
-import axios from 'axios';
-import { BASE_DEV_SERVER_URL } from '../const';
 import { readFileAndParse } from './graduation/grad-formatter';
 import { notifications } from '@mantine/notifications';
-import { useAuth } from '@clerk/nextjs';
-import { getClerkTemplateToken } from './token';
 import { instance } from './instance';
+import router from 'next/router';
+import { SignOut } from '@clerk/types';
+import { clerkClient } from '@clerk/clerk-sdk-node';
 
 const putUserMajorInfo = async (major: string, token: string) => {
   const data = {
@@ -56,6 +54,36 @@ export const updateUserInfo = async (
       color: 'red',
       title: '변경사항 적용 안됨',
       message: '변경하신 부분들이 적용되지 않았습니다... 다시 한번 시도해주세요!',
+    });
+  }
+};
+
+export const deleteUserInfo = async (
+  token: string | null,
+  user_id: string | undefined,
+  signOut: SignOut
+) => {
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  };
+  try {
+    if (user_id === undefined) {
+      throw new Error('no user_id');
+    }
+    await instance.delete('/api/v1/users/me', { headers });
+    await instance.post('/api/user/delete', { userId: user_id });
+    await signOut();
+    await notifications.show({
+      title: '회원 탈퇴 완료',
+      message: '데이터가 정상적으로 삭제되었습니다',
+    });
+    await router.push('/dashboard');
+  } catch (err) {
+    await notifications.show({
+      title: '회원 탈퇴 오류',
+      message: '정상적으로 회원 탈퇴가 이루어지지 않았습니다',
+      color: 'red',
     });
   }
 };

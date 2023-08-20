@@ -4,10 +4,7 @@ import GradSpecificDomainStatus from '../../components/grad-specific-domain-stat
 import GradOverallStatus from '../../components/grad-overall-status';
 import GradRecommend from '../../components/grad-recommend';
 import { useGraduation } from '../../lib/hooks/graduation';
-import router from 'next/router';
 import Loading from '../../components/loading';
-import { useMemberStatus } from '../../lib/hooks/auth';
-import DashboardFileUploadEncouragement from '../../components/dashboard-file-upload-encouragement';
 import React from 'react';
 import { useUser } from '@clerk/nextjs';
 import GraduationLoadingSkeleton from '../../components/graduation-loading-skeleton';
@@ -18,7 +15,7 @@ export default function Graduation() {
     offset: 60,
   });
 
-  const { isLoaded: isAuthStateLoaded, isSignedIn, user } = useUser();
+  const { isLoaded: isAuthStateLoaded, isSignedIn } = useUser();
   const { isLoading, isError, error, status, isInitialLoading, isFetching } = useGraduation();
 
   if (!isAuthStateLoaded) {

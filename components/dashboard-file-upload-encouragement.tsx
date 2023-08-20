@@ -13,7 +13,7 @@ export default function DashboardFileUploadEncouragement() {
         </Text>
         <Text fz="md">원활한 서비스 이용을 위해 파일 업로드를 부탁드립니다! 🙏</Text>
         <Group position="center" mt="md">
-          <Button variant="outline" size="xl" onClick={() => router.push('/login/signup')}>
+          <Button variant="outline" size="xl" onClick={() => router.push('/login/sign-up')}>
             업로드 하러 가기 👉
           </Button>
         </Group>
