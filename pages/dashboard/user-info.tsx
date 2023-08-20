@@ -21,6 +21,7 @@ import { notifications } from '@mantine/notifications';
 import { useAuth, useUser } from '@clerk/nextjs';
 import UserInfoLoadingSkeleton from '../../components/user-info-loading-skeleton';
 import { instance } from '../../lib/utils/instance';
+import { useRouter } from 'next/router';
 
 const major_select_data = [
   { value: 'EC', label: '전기전자컴퓨터공학전공' },
@@ -33,6 +34,7 @@ const major_select_data = [
 ];
 
 export default function UserInfo() {
+  const router = useRouter();
   // Clerk을 통해 유저 정보 받아오기
   const { user, isLoaded, isSignedIn } = useUser();
   const { getToken } = useAuth();
@@ -47,7 +49,7 @@ export default function UserInfo() {
 
   // POST - 이름 변경 상태관리
   const [nameInputOpened, setNameInputOpened] = useState<boolean>(false);
-  const [userName, setUserName] = useState<string>(userInfoData?.name!);
+  const [userName, setUserName] = useState<string>(userInfoData?.name ?? '');
 
   // 이름 변경 요청
   const updateUserName = async () => {
@@ -72,7 +74,7 @@ export default function UserInfo() {
       });
       await setNameInputOpened(false);
       await setUserName(user?.fullName ?? '');
-      await location.reload();
+      await router.reload();
     } else {
       notifications.show({
         color: 'red',
