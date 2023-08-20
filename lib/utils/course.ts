@@ -18,11 +18,5 @@ export const filterByText = (data: CourseType[] | undefined, text: string) => {
   if (!text) {
     return data;
   }
-  return data?.filter(
-    (i) =>
-      i.courseName.includes(text) ||
-      i.courseCode.includes(text) ||
-      i.courseTags.includes(text) ||
-      i.courseTags.some((tag) => tag.toLowerCase().includes(text.toLowerCase()))
-  );
+  return data?.filter((i) => i.courseName.includes(text) || i.courseCode.includes(text));
 };

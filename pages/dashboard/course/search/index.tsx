@@ -16,7 +16,7 @@ import { IconSearch } from '@tabler/icons-react';
 import CourseThumbnailWithDrawer from '../../../../components/course-thumbnail-with-drawer';
 import { useCourseList } from '../../../../lib/hooks/course';
 import Loading from '../../../../components/loading';
-import { MinorType } from '../../../../lib/types/course';
+import { CourseSearchCodeType } from '../../../../lib/types/course';
 import { useRouter } from 'next/navigation';
 import { useDebouncedState, useInputState } from '@mantine/hooks';
 import { filterByText } from '../../../../lib/utils/course';
@@ -26,20 +26,21 @@ export default function Index() {
   const [stringValue, setStringValue] = useInputState('');
   const [activePage, setPage] = useState(1);
   const [pageSize, setPageSize] = useDebouncedState<number | ''>(20, 500);
-  const [minor, setMinor] = useState<MinorType>('NONE');
+  const [courseSearchCode, setCourseSearchCode] = useState<CourseSearchCodeType>('NONE');
   const { data, isLoading, isError, error, refetch, isFetching } = useCourseList(
     activePage - 1,
     Number(pageSize),
-    minor
+    courseSearchCode
   );
   useEffect(() => {
     refetch();
-  }, [minor, pageSize, activePage]);
+  }, [courseSearchCode, pageSize, activePage]);
 
   const courses = filterByText(data?.content, stringValue)?.map((item) => {
     return (
       <CourseThumbnailWithDrawer
         key={item.id}
+        id={item.id}
         code={item.courseCode}
         title={item.courseName}
         credit={item.courseCredit}
@@ -56,6 +57,8 @@ export default function Index() {
   }
   const minor_types = [
     { value: 'NONE', label: '없음' },
+    { value: 'HUS', label: 'HUS' },
+    { value: 'PPE', label: 'PPE' },
     { value: 'BS', label: '생물학' },
     { value: 'CH', label: '화학' },
     { value: 'CT', label: '문화기술' },
@@ -85,7 +88,7 @@ export default function Index() {
           <TextInput
             id="course-search"
             label="검색어를 입력해주세요!"
-            placeholder="강의코드, 강의명, 태그명으로 검색하세요"
+            placeholder="강의코드, 강의명으로 검색해주세요!"
             size="sm"
             radius="sm"
             icon={<IconSearch size="1rem" />}
@@ -101,12 +104,12 @@ export default function Index() {
         <Grid.Col md={5}>
           <Group grow>
             <Select
-              label="부전공을 골라보세요!"
+              label="HUS, PPE, 또는 부전공"
               size="sm"
               data={minor_types}
-              value={minor}
-              onChange={(type: MinorType) => {
-                setMinor(type);
+              value={courseSearchCode}
+              onChange={(type: CourseSearchCodeType) => {
+                setCourseSearchCode(type);
                 setPage(1);
               }}
             />
