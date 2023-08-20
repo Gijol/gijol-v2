@@ -17,6 +17,7 @@ import React, { BaseSyntheticEvent, useState } from 'react';
 import { sendFeedbackToNotion } from '../lib/utils/notion';
 import { notifications } from '@mantine/notifications';
 import { CustomDots } from './custom-dots';
+import router from 'next/router';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -118,8 +119,19 @@ export default function DashboardHeroHeader() {
             </Text>
           </Container>
           <Group position="center" py="md">
-            <Button size="lg" variant="default" color="gray" onClick={open} w={300}>
+            <Button size="md" variant="light" color="orange" onClick={open}>
               의견 작성하기
+            </Button>
+            <Button
+              component="a"
+              size="md"
+              variant="light"
+              color="orange"
+              href="https://open.kakao.com/o/gsj1KpCf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              오픈채팅방 참여하기
             </Button>
           </Group>
         </div>
