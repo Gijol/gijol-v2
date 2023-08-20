@@ -101,7 +101,7 @@ export default function MainPage() {
           <Center h="100%" mt={60}>
             <Blockquote cite={'- Gijol 개발자 일동'}>
               <Text
-                size={32}
+                size="2rem"
                 align="center"
                 variant="gradient"
                 gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
@@ -130,7 +130,14 @@ export default function MainPage() {
           <Text size="2rem" fw={600} align="center" color="gray.8" mt={40} mb={24} ref={targetRef}>
             Gijol은 다음과 같은 기능들을 제공합니다
           </Text>
-          <SimpleGrid cols={3} py="2.5rem">
+          <SimpleGrid
+            cols={3}
+            py="2.5rem"
+            breakpoints={[
+              { maxWidth: 'sm', cols: 2 },
+              { maxWidth: 'xs', cols: 1 },
+            ]}
+          >
             {service_section}
           </SimpleGrid>
         </Container>
