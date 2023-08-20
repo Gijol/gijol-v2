@@ -20,6 +20,9 @@ import CourseMyGradeChart from '../../../components/course-my-grade-chart';
 import CourseMyTableChart from '../../../components/course-my-table-chart';
 import { useUser } from '@clerk/nextjs';
 import CourseMyLoadingSkeleton from '../../../components/course-my-loading-skeleton';
+import { useMemberStatus } from '../../../lib/hooks/auth';
+import DashboardFileUploadEncouragement from '../../../components/dashboard-file-upload-encouragement';
+import DashboardUnsignedPage from '../../../components/dashboard-unsigned-page';
 
 export default function My() {
   const theme = useMantineTheme();
@@ -28,6 +31,7 @@ export default function My() {
   // Clerk 사용하는 부분 !!
   const { data, isLoading, isInitialLoading, isFetching } = useCourseStatus();
   const { isSignedIn, isLoaded: isAuthStateLoaded } = useUser();
+  const { data: status, isLoading: isMemberStatusLoading } = useMemberStatus();
 
   /* 연도 및 학기별 수강한 강의 목록*/
   const courseListWithPeriod = getSortedCourseStatus(data);
@@ -83,19 +87,19 @@ export default function My() {
     );
   });
 
-  if (!isAuthStateLoaded) {
+  if (!isAuthStateLoaded || isMemberStatusLoading) {
     return <Loading content="잠시만 기다려 주세요" />;
   }
 
   if (isAuthStateLoaded && !isSignedIn) {
-    return (
-      <Center>
-        <Text>로그인 해주세용...</Text>
-      </Center>
-    );
+    return <DashboardUnsignedPage />;
   }
 
-  if (isLoading || isFetching || isInitialLoading) {
+  if (isAuthStateLoaded && isSignedIn && status?.isNewUser) {
+    return <DashboardFileUploadEncouragement />;
+  }
+
+  if (!status?.isNewUser && (isLoading || isInitialLoading || isFetching)) {
     return <CourseMyLoadingSkeleton />;
   }
 

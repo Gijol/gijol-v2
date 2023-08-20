@@ -5,7 +5,6 @@ import DashboardFeatureCard from '../../components/dashboard-feature-card';
 import DashboardHeroHeader from '../../components/dashboard-hero-header';
 
 export default function HomePage() {
-  const router = useRouter();
   const cntFeatures = homeContents.main.cntFeatures;
   const futureFeatures = homeContents.main.betaFeatures;
   return (

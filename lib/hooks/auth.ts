@@ -11,5 +11,6 @@ export function useMemberStatus() {
 
   return useQuery<{ isNewUser: boolean }>(['is-new-user'], () => getMemberStatus(), {
     refetchOnWindowFocus: false,
+    retry: false,
   });
 }

@@ -23,8 +23,9 @@ import { useAuth, useClerk, useUser } from '@clerk/nextjs';
 import UserInfoLoadingSkeleton from '../../components/user-info-loading-skeleton';
 import { instance } from '../../lib/utils/instance';
 import { useRouter } from 'next/router';
-import { Session } from '@clerk/backend';
 import { useMemberStatus } from '../../lib/hooks/auth';
+import DashboardFileUploadEncouragement from '../../components/dashboard-file-upload-encouragement';
+import DashboardUnsignedPage from '../../components/dashboard-unsigned-page';
 
 const major_select_data = [
   { value: 'EC', label: '전기전자컴퓨터공학전공' },
@@ -40,7 +41,7 @@ export default function UserInfo() {
   const router = useRouter();
 
   // Clerk을 통해 유저 정보 받아오기
-  const { user, isSignedIn, isLoaded } = useUser();
+  const { user, isSignedIn, isLoaded: isAuthStateLoaded } = useUser();
   const { data: status, isLoading: isMemberStatusLoading } = useMemberStatus();
   const { getToken } = useAuth();
   const { data: userInfoData, isLoading, isFetching, isInitialLoading } = useUserInfo();
@@ -120,23 +121,19 @@ export default function UserInfo() {
     );
   });
 
-  if (!isLoaded || isMemberStatusLoading) {
+  if (!isAuthStateLoaded || isMemberStatusLoading) {
     return <Loading content="잠시만 기다려주세요..." />;
   }
 
-  if (isLoaded && !isSignedIn) {
-    return (
-      <Center>
-        <Text>로그인 해주세용...</Text>
-      </Center>
-    );
+  if (isAuthStateLoaded && !isSignedIn) {
+    return <DashboardUnsignedPage />;
   }
 
-  if (isLoaded && isSignedIn && status?.isNewUser) {
-    router.push('/dashboard/error?status=new_user');
+  if (isAuthStateLoaded && isSignedIn && status?.isNewUser) {
+    return <DashboardFileUploadEncouragement />;
   }
 
-  if (status?.isNewUser && (isLoading || isInitialLoading || isFetching)) {
+  if (!status?.isNewUser && (isLoading || isInitialLoading || isFetching)) {
     return <UserInfoLoadingSkeleton />;
   }
 

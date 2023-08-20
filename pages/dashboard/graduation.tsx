@@ -8,6 +8,9 @@ import Loading from '../../components/loading';
 import React from 'react';
 import { useUser } from '@clerk/nextjs';
 import GraduationLoadingSkeleton from '../../components/graduation-loading-skeleton';
+import DashboardFileUploadEncouragement from '../../components/dashboard-file-upload-encouragement';
+import { useMemberStatus } from '../../lib/hooks/auth';
+import DashboardUnsignedPage from '../../components/dashboard-unsigned-page';
 
 export default function Graduation() {
   const { classes } = useStyles();
@@ -16,21 +19,22 @@ export default function Graduation() {
   });
 
   const { isLoaded: isAuthStateLoaded, isSignedIn } = useUser();
-  const { isLoading, isError, error, status, isInitialLoading, isFetching } = useGraduation();
+  const { data: status, isLoading: isMemberStatusLoading } = useMemberStatus();
+  const { isLoading, status: gradStatus, isInitialLoading, isFetching } = useGraduation();
 
-  if (!isAuthStateLoaded) {
+  if (!isAuthStateLoaded || isMemberStatusLoading) {
     return <Loading content="잠시만 기다려주세요..." />;
   }
 
   if (isAuthStateLoaded && !isSignedIn) {
-    return (
-      <Center>
-        <Text>로그인 부탁드립니다.</Text>
-      </Center>
-    );
+    return <DashboardUnsignedPage />;
   }
 
-  if (isLoading || isFetching || isInitialLoading) {
+  if (isAuthStateLoaded && isSignedIn && status?.isNewUser) {
+    return <DashboardFileUploadEncouragement />;
+  }
+
+  if (!status?.isNewUser && (isLoading || isInitialLoading || isFetching)) {
     return <GraduationLoadingSkeleton />;
   }
 
@@ -41,21 +45,24 @@ export default function Graduation() {
       <GradOverallStatus
         classes={classes}
         scrollIntoView={scrollIntoView}
-        totalCredits={status.totalCredits}
-        totalPercentage={status.totalPercentage}
-        overallStatus={status.domains}
-        minDomain={status.minDomain}
-        minDomainPercentage={status.minDomainPercentage}
-        feedbackNumbers={status.numbers}
+        totalCredits={gradStatus.totalCredits}
+        totalPercentage={gradStatus.totalPercentage}
+        overallStatus={gradStatus.domains}
+        minDomain={gradStatus.minDomain}
+        minDomainPercentage={gradStatus.minDomainPercentage}
+        feedbackNumbers={gradStatus.numbers}
       />
       <Space h={40} />
       <h1>영역별 세부 현황</h1>
       <Space h={16} />
-      <GradSpecificDomainStatus classes={classes} specificDomainStatusArr={status.categoriesArr} />
+      <GradSpecificDomainStatus
+        classes={classes}
+        specificDomainStatusArr={gradStatus.categoriesArr}
+      />
       <Space h={16} />
       <h1 ref={targetRef}>영역별 피드백 모음</h1>
       <Space h={16} />
-      <GradRecommend specificDomainStatusArr={status.categoriesArr} />
+      <GradRecommend specificDomainStatusArr={gradStatus.categoriesArr} />
       <Space h={80} />
     </Container>
   );
