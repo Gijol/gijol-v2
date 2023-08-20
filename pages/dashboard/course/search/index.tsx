@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import {
   Container,
   Text,
@@ -22,10 +22,19 @@ import { useDebouncedState, useInputState } from '@mantine/hooks';
 
 export default function Index() {
   const router = useRouter();
-  const [courseSearchString, setCourseSearchString] = useDebouncedState('', 200);
+
+  // search string input state 관리
+  const [courseSearchString, setCourseSearchString] = useInputState('');
+  const [isPending, startTransition] = useTransition();
+
+  // active page 및 page size 관리
   const [activePage, setPage] = useState(1);
   const [pageSize, setPageSize] = useDebouncedState<number | ''>(20, 500);
+
+  // search code 관리
   const [courseSearchCode, setCourseSearchCode] = useState<CourseSearchCodeType>('NONE');
+
+  // 강의 리스트 관리
   const { data, isLoading, isError, error, refetch, isFetching } = useCourseList(
     activePage - 1,
     Number(pageSize),
@@ -33,7 +42,9 @@ export default function Index() {
     courseSearchString
   );
   useEffect(() => {
-    refetch();
+    startTransition(() => {
+      refetch();
+    });
   }, [pageSize, activePage, courseSearchCode, courseSearchString]);
 
   const courses = data?.content.map((item) => {
@@ -93,7 +104,9 @@ export default function Index() {
             radius="sm"
             icon={<IconSearch size="1rem" />}
             value={courseSearchString}
-            onChange={(e: any) => setCourseSearchString(e.currentTarget.value)}
+            onChange={(e: any) => {
+              setCourseSearchString(e.currentTarget.value);
+            }}
             styles={{
               input: {
                 fontSize: rem(14),
@@ -126,7 +139,7 @@ export default function Index() {
       </Grid>
       {isLoading ? (
         <Loading content="강의 리스트 로딩중" />
-      ) : isFetching ? (
+      ) : isFetching || isPending ? (
         <>
           {[...Array(5)].map((_) => (
             <Skeleton height={100} mb="xl" radius="md" animate />
