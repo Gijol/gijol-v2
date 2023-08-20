@@ -11,6 +11,8 @@ import {
   NumberInput,
   Skeleton,
   TextInput,
+  Button,
+  Flex,
 } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import CourseThumbnailWithDrawer from '../../../../components/course-thumbnail-with-drawer';
@@ -24,7 +26,8 @@ export default function Index() {
   const router = useRouter();
 
   // search string input state 관리
-  const [courseSearchString, setCourseSearchString] = useInputState('');
+  const [typedString, setTypedString] = useInputState('');
+  const [courseSearchString, setCourseSearchString] = useState('');
   const [isPending, startTransition] = useTransition();
 
   // active page 및 page size 관리
@@ -42,10 +45,16 @@ export default function Index() {
     courseSearchString
   );
   useEffect(() => {
-    startTransition(() => {
-      refetch();
-    });
+    refetch();
   }, [pageSize, activePage, courseSearchCode, courseSearchString]);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     startTransition(() => {
+  //       refetch();
+  //     });
+  //   }, 1500);
+  // }, [courseSearchString, pageSize, activePage, courseSearchCode]);
 
   const courses = data?.content.map((item) => {
     return (
@@ -96,23 +105,52 @@ export default function Index() {
       </Text>
       <Grid align="center" mb={rem(40)}>
         <Grid.Col md="auto">
-          <TextInput
-            id="course-search"
-            label="검색어를 입력해주세요!"
-            placeholder="강의코드, 강의명으로 검색해주세요!"
-            size="sm"
-            radius="sm"
-            icon={<IconSearch size="1rem" />}
-            value={courseSearchString}
-            onChange={(e: any) => {
-              setCourseSearchString(e.currentTarget.value);
-            }}
-            styles={{
-              input: {
-                fontSize: rem(14),
-              },
-            }}
-          />
+          <Grid columns={2}>
+            <Grid.Col md="auto">
+              <TextInput
+                id="course-search"
+                label="검색어를 입력해주세요!"
+                placeholder="강의코드, 강의명으로 검색해주세요!"
+                size="sm"
+                radius="sm"
+                icon={<IconSearch size="1rem" />}
+                value={typedString}
+                onChange={(e: any) => {
+                  setTypedString(e.currentTarget.value);
+                }}
+                styles={{
+                  input: {
+                    fontSize: rem(14),
+                  },
+                }}
+              />
+            </Grid.Col>
+            <Grid.Col md={0.8}>
+              <Group>
+                <Button
+                  maw={200}
+                  mt="xl"
+                  size="sm"
+                  disabled={typedString === ''}
+                  onClick={() => setCourseSearchString(typedString)}
+                >
+                  검색하기
+                </Button>
+                <Button
+                  mt="xl"
+                  variant="light"
+                  color="red"
+                  size="sm"
+                  onClick={() => {
+                    setCourseSearchString('');
+                    setTypedString('');
+                  }}
+                >
+                  초기화
+                </Button>
+              </Group>
+            </Grid.Col>
+          </Grid>
         </Grid.Col>
         <Grid.Col md={5}>
           <Group grow>
