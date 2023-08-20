@@ -125,15 +125,30 @@ export default function Index() {
                 }}
               />
             </Grid.Col>
-            <Grid.Col md={0.5}>
-              <Button
-                maw={200}
-                mt="xl"
-                disabled={typedString === ''}
-                onClick={() => setCourseSearchString(typedString)}
-              >
-                검색하기
-              </Button>
+            <Grid.Col md={0.8}>
+              <Group>
+                <Button
+                  maw={200}
+                  mt="xl"
+                  size="sm"
+                  disabled={typedString === ''}
+                  onClick={() => setCourseSearchString(typedString)}
+                >
+                  검색하기
+                </Button>
+                <Button
+                  mt="xl"
+                  variant="light"
+                  color="red"
+                  size="sm"
+                  onClick={() => {
+                    setCourseSearchString('');
+                    setTypedString('');
+                  }}
+                >
+                  초기화
+                </Button>
+              </Group>
             </Grid.Col>
           </Grid>
         </Grid.Col>
