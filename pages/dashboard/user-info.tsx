@@ -10,17 +10,20 @@ import {
   Select,
   Stack,
   TextInput,
+  Paper,
 } from '@mantine/core';
 import React, { useRef, useState } from 'react';
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
-import { convertMajorTypeToText, updateUserInfo } from '../../lib/utils/user';
+import { convertMajorTypeToText, deleteUserInfo, updateUserInfo } from '../../lib/utils/user';
 import { useUserInfo } from '../../lib/hooks/user';
 import Loading from '../../components/loading';
 import { BASE_DEV_SERVER_URL } from '../../lib/const';
 import { notifications } from '@mantine/notifications';
-import { useAuth, useUser } from '@clerk/nextjs';
+import { useAuth, useClerk, useUser } from '@clerk/nextjs';
 import UserInfoLoadingSkeleton from '../../components/user-info-loading-skeleton';
 import { instance } from '../../lib/utils/instance';
+import { useRouter } from 'next/router';
+import { Session } from '@clerk/backend';
 
 const major_select_data = [
   { value: 'EC', label: '전기전자컴퓨터공학전공' },
@@ -33,10 +36,13 @@ const major_select_data = [
 ];
 
 export default function UserInfo() {
+  const router = useRouter();
+
   // Clerk을 통해 유저 정보 받아오기
   const { user, isLoaded, isSignedIn } = useUser();
   const { getToken } = useAuth();
   const { data: userInfoData, isLoading, isFetching, isInitialLoading } = useUserInfo();
+  const { signOut } = useClerk();
 
   // POST - 전공 상태관리
   const [major, setMajor] = useState<string | null>(null);
@@ -47,7 +53,7 @@ export default function UserInfo() {
 
   // POST - 이름 변경 상태관리
   const [nameInputOpened, setNameInputOpened] = useState<boolean>(false);
-  const [userName, setUserName] = useState<string>(userInfoData?.name!);
+  const [userName, setUserName] = useState<string>(userInfoData?.name ?? '');
 
   // 이름 변경 요청
   const updateUserName = async () => {
@@ -72,7 +78,7 @@ export default function UserInfo() {
       });
       await setNameInputOpened(false);
       await setUserName(user?.fullName ?? '');
-      await location.reload();
+      await router.reload();
     } else {
       notifications.show({
         color: 'red',
@@ -252,7 +258,7 @@ export default function UserInfo() {
             </Box>
           </Box>
           <Divider my={20} />
-          <Center pb={40} mb={80}>
+          <Box pb={40} mb={80}>
             <Group w="100%" grow>
               <Button
                 w="fit-content"
@@ -279,7 +285,41 @@ export default function UserInfo() {
                 변경사항 버리기
               </Button>
             </Group>
-          </Center>
+            <Paper
+              radius="md"
+              withBorder
+              p="md"
+              mt="3rem"
+              color="red"
+              style={{
+                borderColor: 'red',
+              }}
+              shadow="sm"
+            >
+              <Text size="xl" fw={600}>
+                회원 탈퇴하기
+              </Text>
+              <Box>
+                <Text color="dimmed" size="sm" my="md">
+                  Gijol에 제공해주신 모든 정보가 삭제되며 Gijol이 제공하는 서비스를 이용하지 못하게
+                  됩니다. 그래도 진행하시겠습니까?
+                </Text>
+                <Group position="right">
+                  <Button
+                    variant="filled"
+                    color="red"
+                    onClick={async () => {
+                      const token = await getToken({ template: 'gijol-token-test' });
+                      await console.log(user?.id);
+                      await deleteUserInfo(token, user?.id, signOut);
+                    }}
+                  >
+                    탈퇴하기
+                  </Button>
+                </Group>
+              </Box>
+            </Paper>
+          </Box>
         </Stack>
       </Group>
     </Container>

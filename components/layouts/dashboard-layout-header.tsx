@@ -2,7 +2,8 @@ import { CSSProperties, Dispatch, SetStateAction, useEffect } from 'react';
 import { Burger, Button, Group, Header, MediaQuery, Text } from '@mantine/core';
 import { MantineTheme } from '@mantine/core';
 import Link from 'next/link';
-import { SignInButton, useAuth, UserButton, useUser } from '@clerk/nextjs';
+import { SignInButton, useAuth, useUser } from '@clerk/nextjs';
+import UserLoginPopover from '../user-login-popover';
 
 export function DashboardLayoutHeader({
   theme,
@@ -43,12 +44,13 @@ export function DashboardLayoutHeader({
           </Link>
         </MediaQuery>
         <Group>
-          {!isSignedIn && (
+          {!isSignedIn ? (
             <Button component={SignInButton} afterSignInUrl="/login/new-user" variant="default">
               로그인하기
             </Button>
+          ) : (
+            <UserLoginPopover />
           )}
-          <UserButton afterSignOutUrl="/dashboard" />
         </Group>
       </div>
     </Header>
