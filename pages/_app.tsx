@@ -4,10 +4,20 @@ import { getCookie, setCookie } from 'cookies-next';
 import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
+import { Layout } from '../components/layouts/layout';
+import { ModalsProvider } from '@mantine/modals';
+import { Analytics } from '@vercel/analytics/react';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/query-core';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ClerkProvider } from '@clerk/nextjs';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
-  const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
+  const [queryClient] = useState(() => new QueryClient());
+
+  /* 라이트 모드, 다크 모드 설정하는 상태 로직 */
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
 
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
@@ -18,17 +28,26 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   return (
     <>
       <Head>
-        <title>Mantine next example</title>
+        <title>학교 생활을 편리하게, Gijol</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-        <link rel="shortcut icon" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/public/images/tossfaceCap.png" />
       </Head>
-
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-          <Component {...pageProps} />
-          <Notifications />
+          <QueryClientProvider client={queryClient}>
+            <ClerkProvider {...pageProps}>
+              <ModalsProvider>
+                <Notifications />
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </ModalsProvider>
+            </ClerkProvider>
+            {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+          </QueryClientProvider>
         </MantineProvider>
       </ColorSchemeProvider>
+      <Analytics />
     </>
   );
 }

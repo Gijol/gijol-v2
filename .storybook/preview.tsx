@@ -1,6 +1,6 @@
 import { useDarkMode } from 'storybook-dark-mode';
 import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
-import { NotificationsProvider } from '@mantine/notifications';
+import { Notifications } from '@mantine/notifications';
 
 export const parameters = { layout: 'fullscreen' };
 
@@ -12,7 +12,8 @@ function ThemeWrapper(props: { children: React.ReactNode }) {
         withGlobalStyles
         withNormalizeCSS
       >
-        <NotificationsProvider>{props.children}</NotificationsProvider>
+        <Notifications />
+        {props.children}
       </MantineProvider>
     </ColorSchemeProvider>
   );
