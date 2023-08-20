@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
   Container,
   Text,
-  Input,
   Select,
   Group,
   Pagination,
@@ -37,7 +36,7 @@ export default function Index() {
     refetch();
   }, [minor, pageSize, activePage]);
 
-  const courses = filterByText(data, stringValue)?.map((item) => {
+  const courses = filterByText(data?.content, stringValue)?.map((item) => {
     return (
       <CourseThumbnailWithDrawer
         key={item.id}
@@ -135,7 +134,7 @@ export default function Index() {
       )}
 
       <Center py="md">
-        <Pagination value={activePage} onChange={setPage} total={10} />
+        <Pagination value={activePage} onChange={setPage} total={data?.totalPages ?? 10} />
       </Center>
     </Container>
   );

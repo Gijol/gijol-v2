@@ -20,7 +20,7 @@ import { useMemberStatus } from '../lib/hooks/auth';
 export default function UserLoginPopover() {
   const { user, isSignedIn } = useUser();
   const { data: userInfoData } = useUserInfo();
-  const { isMember } = useMemberStatus();
+  const { data: status } = useMemberStatus();
   const { signOut } = useClerk();
   const router = useRouter();
 
@@ -40,7 +40,7 @@ export default function UserLoginPopover() {
                 <Text fz="lg" fw={500} align="center">
                   {user?.fullName}
                 </Text>
-                {!isMember ? (
+                {status?.isNewUser ? (
                   <Alert
                     icon={<IconAlertCircle size="1rem" />}
                     p="xs"
@@ -80,7 +80,7 @@ export default function UserLoginPopover() {
               </Stack>
             </Stack>
             <Group miw={320} grow>
-              {!isMember ? (
+              {status?.isNewUser ? (
                 <Button
                   variant="light"
                   onClick={() => router.push('/login/sign-up')}
