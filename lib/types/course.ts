@@ -8,7 +8,7 @@ export interface CourseType {
   description: string;
 }
 
-const minorTypes = {
+const CourseTypes = {
   BS: 'BS',
   CH: 'CH',
   CT: 'CT',
@@ -27,9 +27,11 @@ const minorTypes = {
   PP: 'PP',
   PS: 'PS',
   SS: 'SS',
+  HUS: 'HUS',
+  PPE: 'PPE',
 };
 
-export type MinorType = keyof typeof minorTypes;
+export type CourseSearchCodeType = keyof typeof CourseTypes;
 
 export interface Sort {
   empty: boolean;
@@ -57,4 +59,12 @@ export interface CourseResponse {
   sort: Sort;
   totalElements: number;
   totalPages: number;
+}
+
+export interface CourseHistory {
+  year: number;
+  semester: string;
+  courseProfessor: string;
+  courseTime: string;
+  courseRoom: string;
 }

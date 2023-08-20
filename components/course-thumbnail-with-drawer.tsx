@@ -12,12 +12,16 @@ import {
   Spoiler,
   Code,
   Flex,
+  Table,
 } from '@mantine/core';
 import { useDisclosure, useHover } from '@mantine/hooks';
 import Link from 'next/link';
 import { getCourseTagColor } from '../lib/utils/course';
+import { useQuery } from '@tanstack/react-query';
+import { useSingleCourse } from '../lib/hooks/course';
 
 export default function CourseThumbnailWithDrawer({
+  id,
   code,
   title,
   credit,
@@ -25,6 +29,7 @@ export default function CourseThumbnailWithDrawer({
   description,
   prerequisites,
 }: {
+  id: number;
   code: string;
   title: string;
   credit: number;
@@ -42,6 +47,18 @@ export default function CourseThumbnailWithDrawer({
     );
   });
   const none = ['none', 'NONE', 'None', '-', '', ' '];
+
+  const { data: single_course, isLoading } = useSingleCourse(id);
+  const rows = single_course?.courseHistoryResponses.map((element, idx) => (
+    <tr key={idx}>
+      <td>{element.year}</td>
+      <td>{element.semester}</td>
+      <td>{element.courseProfessor}</td>
+      <td>{element.courseTime}</td>
+      <td>{element.courseRoom}</td>
+    </tr>
+  ));
+
   return (
     <>
       <UnstyledButton onClick={open} w="100%">
@@ -69,7 +86,7 @@ export default function CourseThumbnailWithDrawer({
         withCloseButton={false}
         overlayProps={{ opacity: 0.5, blur: 4 }}
         padding="xl"
-        size="40%"
+        size="60%"
       >
         <Text color="dimmed">{code}</Text>
         <Text size="2rem" fw={600} mt="sm">
@@ -113,6 +130,21 @@ export default function CourseThumbnailWithDrawer({
             )}
           </Spoiler>
         </Paper>
+        <Text fz="md" fw={600} mt="xl" mb="sm">
+          강의 히스토리
+        </Text>
+        <Table>
+          <thead>
+            <tr>
+              <th>연도</th>
+              <th>학기</th>
+              <th>교수명</th>
+              <th>강의 시간대</th>
+              <th>강의실</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
       </Drawer>
     </>
   );

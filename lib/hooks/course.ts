@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { BASE_DEV_SERVER_URL } from '../const';
 import { UserTakenCourseWithGradeType } from '../types/score-status';
-import { CourseResponse, CourseType, MinorType } from '../types/course';
+import { CourseHistory, CourseResponse, CourseType, CourseSearchCodeType } from '../types/course';
 import { useAuth } from '@clerk/nextjs';
 import { instance } from '../utils/instance';
 import axios from 'axios';
@@ -36,23 +36,37 @@ export function useCourseStatus() {
   });
 }
 
-export function useCourseList(page: number, size: number, minorType: MinorType) {
-  const fetchCourses = async () => {
-    const params = new URLSearchParams({
-      minorType: minorType,
-      page: page.toString(),
-      size: size.toString(),
-    });
-    const res = await instance.get('/api/v1/courses', { params });
-    if (res.status !== 200) {
-      throw new Error(res.status.toString());
-    }
-    return res.data;
-  };
-
+const fetchCourses = async (courseSearchCode: CourseSearchCodeType, page: number, size: number) => {
+  const params = new URLSearchParams({
+    courseSearchCode: courseSearchCode,
+    page: page.toString(),
+    size: size.toString(),
+  });
+  const res = await instance.get('/api/v1/courses', { params });
+  if (res.status !== 200) {
+    throw new Error(res.status.toString());
+  }
+  return res.data;
+};
+export function useCourseList(page: number, size: number, minorType: CourseSearchCodeType) {
   return useQuery<CourseResponse>({
     queryKey: ['courses', page],
-    queryFn: () => fetchCourses(),
+    queryFn: () => fetchCourses(minorType, page, size),
     refetchOnWindowFocus: false,
   });
+}
+
+const fetchCourseWithId = async (id: number) => {
+  const res = await instance.get(`/api/v1/courses/${id.toString()}`);
+  return res.data;
+};
+export function useSingleCourse(id: number) {
+  return useQuery<{ courseHistoryResponses: CourseHistory[] }>(
+    ['course-history'],
+    () => fetchCourseWithId(id),
+    {
+      refetchOnWindowFocus: false,
+      retry: false,
+    }
+  );
 }
