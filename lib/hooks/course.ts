@@ -36,9 +36,15 @@ export function useCourseStatus() {
   });
 }
 
-const fetchCourses = async (courseSearchCode: CourseSearchCodeType, page: number, size: number) => {
+const fetchCourses = async (
+  courseSearchCode: CourseSearchCodeType,
+  page: number,
+  size: number,
+  searchString: string
+) => {
   const params = new URLSearchParams({
     courseSearchCode: courseSearchCode,
+    courseSearchString: searchString,
     page: page.toString(),
     size: size.toString(),
   });
@@ -48,10 +54,15 @@ const fetchCourses = async (courseSearchCode: CourseSearchCodeType, page: number
   }
   return res.data;
 };
-export function useCourseList(page: number, size: number, minorType: CourseSearchCodeType) {
+export function useCourseList(
+  page: number,
+  size: number,
+  minorType: CourseSearchCodeType,
+  searchString: string
+) {
   return useQuery<CourseResponse>({
     queryKey: ['courses', page],
-    queryFn: () => fetchCourses(minorType, page, size),
+    queryFn: () => fetchCourses(minorType, page, size, searchString),
     refetchOnWindowFocus: false,
   });
 }

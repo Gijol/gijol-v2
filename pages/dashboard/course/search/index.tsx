@@ -19,24 +19,24 @@ import Loading from '../../../../components/loading';
 import { CourseSearchCodeType } from '../../../../lib/types/course';
 import { useRouter } from 'next/navigation';
 import { useDebouncedState, useInputState } from '@mantine/hooks';
-import { filterByText } from '../../../../lib/utils/course';
 
 export default function Index() {
   const router = useRouter();
-  const [stringValue, setStringValue] = useInputState('');
+  const [courseSearchString, setCourseSearchString] = useDebouncedState('', 200);
   const [activePage, setPage] = useState(1);
   const [pageSize, setPageSize] = useDebouncedState<number | ''>(20, 500);
   const [courseSearchCode, setCourseSearchCode] = useState<CourseSearchCodeType>('NONE');
   const { data, isLoading, isError, error, refetch, isFetching } = useCourseList(
     activePage - 1,
     Number(pageSize),
-    courseSearchCode
+    courseSearchCode,
+    courseSearchString
   );
   useEffect(() => {
     refetch();
-  }, [courseSearchCode, pageSize, activePage]);
+  }, [pageSize, activePage, courseSearchCode, courseSearchString]);
 
-  const courses = filterByText(data?.content, stringValue)?.map((item) => {
+  const courses = data?.content.map((item) => {
     return (
       <CourseThumbnailWithDrawer
         key={item.id}
@@ -92,8 +92,8 @@ export default function Index() {
             size="sm"
             radius="sm"
             icon={<IconSearch size="1rem" />}
-            value={stringValue}
-            onChange={(e: any) => setStringValue(e.currentTarget.value)}
+            value={courseSearchString}
+            onChange={(e: any) => setCourseSearchString(e.currentTarget.value)}
             styles={{
               input: {
                 fontSize: rem(14),
