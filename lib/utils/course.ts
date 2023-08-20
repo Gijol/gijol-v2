@@ -13,10 +13,3 @@ export const getCourseTagColor = (tag: string) => {
       return undefined;
   }
 };
-
-export const filterByText = (data: CourseType[] | undefined, text: string) => {
-  if (!text) {
-    return data;
-  }
-  return data?.filter((i) => i.courseName.includes(text) || i.courseCode.includes(text));
-};
