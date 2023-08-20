@@ -5,6 +5,7 @@ import { instance } from './instance';
 import router from 'next/router';
 import { SignOut } from '@clerk/types';
 import { clerkClient } from '@clerk/clerk-sdk-node';
+import axios from 'axios';
 
 const putUserMajorInfo = async (major: string, token: string) => {
   const data = {
@@ -72,7 +73,7 @@ export const deleteUserInfo = async (
       throw new Error('no user_id');
     }
     await instance.delete('/api/v1/users/me', { headers });
-    await instance.post('/api/user/delete', { userId: user_id });
+    await axios.post('/api/user/delete', { userId: user_id });
     await signOut();
     await notifications.show({
       title: '회원 탈퇴 완료',

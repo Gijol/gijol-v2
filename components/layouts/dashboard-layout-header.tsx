@@ -2,7 +2,7 @@ import { CSSProperties, Dispatch, SetStateAction, useEffect } from 'react';
 import { Burger, Button, Group, Header, MediaQuery, Text } from '@mantine/core';
 import { MantineTheme } from '@mantine/core';
 import Link from 'next/link';
-import { SignInButton, useAuth, useUser } from '@clerk/nextjs';
+import { SignInButton, useUser } from '@clerk/nextjs';
 import UserLoginPopover from '../user-login-popover';
 
 export function DashboardLayoutHeader({

@@ -13,9 +13,6 @@ export default function DashboardUnsignedPage() {
         <Button variant="subtle" size="md" onClick={() => router.push('/dashboard')}>
           대쉬보드로 돌아가기
         </Button>
-        <Button variant="subtle" size="md" onClick={() => router.push('/login')}>
-          로그인 하러가기
-        </Button>
       </Group>
     </Container>
   );

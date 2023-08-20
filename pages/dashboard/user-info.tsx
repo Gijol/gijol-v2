@@ -26,6 +26,7 @@ import { useRouter } from 'next/router';
 import { useMemberStatus } from '../../lib/hooks/auth';
 import DashboardFileUploadEncouragement from '../../components/dashboard-file-upload-encouragement';
 import DashboardUnsignedPage from '../../components/dashboard-unsigned-page';
+import { modals } from '@mantine/modals';
 
 const major_select_data = [
   { value: 'EC', label: '전기전자컴퓨터공학전공' },
@@ -313,7 +314,28 @@ export default function UserInfo() {
                     color="red"
                     onClick={async () => {
                       const token = await getToken({ template: 'gijol-token-test' });
-                      await deleteUserInfo(token, user?.id, signOut);
+                      await modals.openConfirmModal({
+                        title: '계정을 삭제합니다 🥲',
+                        centered: true,
+                        children: (
+                          <Text size="sm" color="dimmed">
+                            정말로 계정을 삭제하시겠습니까? 계정을 삭제하면 지졸 서비스 이용에
+                            문제가 생기며 이용을 위해서는 회원가입 절차를 다시 거쳐야 할 것입니다.
+                            그래도 삭제하시겠습니까?
+                          </Text>
+                        ),
+                        labels: { confirm: '회원 탈퇴', cancel: '다시 생각해볼게요...' },
+                        confirmProps: { color: 'red' },
+                        styles: { title: { fontWeight: 600 } },
+                        onCancel: () =>
+                          notifications.show({
+                            title: '감사합니다...',
+                            message: '다시 한번 고려해주셔서 감사합니다...!',
+                            color: 'teal',
+                            autoClose: 2000,
+                          }),
+                        onConfirm: () => deleteUserInfo(token, user?.id, signOut),
+                      });
                     }}
                   >
                     탈퇴하기

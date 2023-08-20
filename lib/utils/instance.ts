@@ -12,5 +12,6 @@ instance.interceptors.response.use(
       // router.push(`/dashboard/error`);
       console.log(error);
     }
+    console.log(error);
   }
 );
