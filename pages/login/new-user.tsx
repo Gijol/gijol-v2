@@ -10,7 +10,6 @@ export default function NewUser() {
     const redirectToDashboardIfUserIsNew = async () => {
       const token = await getToken({ template: 'gijol-token-test' });
       const { isNewUser } = await getAuthTypeResponse(token);
-      console.log(isNewUser);
       if (!isNewUser) {
         router.push('/dashboard');
       } else {

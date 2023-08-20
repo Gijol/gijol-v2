@@ -15,14 +15,6 @@ export function DashboardLayoutHeader({
   setOpened: Dispatch<SetStateAction<boolean>>;
 }) {
   const { isSignedIn } = useUser();
-  const { getToken } = useAuth();
-
-  useEffect(() => {
-    const hi = async () => {
-      console.log(await getToken({ template: 'gijol-token-test' }));
-    };
-    hi();
-  }, [getToken]);
 
   return (
     <Header height={60} py="sm" px="lg">

@@ -313,7 +313,6 @@ export default function UserInfo() {
                     color="red"
                     onClick={async () => {
                       const token = await getToken({ template: 'gijol-token-test' });
-                      await console.log(user?.id);
                       await deleteUserInfo(token, user?.id, signOut);
                     }}
                   >

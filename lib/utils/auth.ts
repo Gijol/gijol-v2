@@ -7,7 +7,6 @@ import { instance } from './instance';
 export const getAuthTypeResponse = async (
   token: string | null
 ): Promise<{ isNewUser: boolean }> => {
-  console.log(token);
   const res = await instance.post('/api/v1/auth', null, {
     headers: {
       Authorization: `Bearer ${token}`,
