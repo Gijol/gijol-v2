@@ -17,7 +17,7 @@ import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
 import { convertMajorTypeToText, deleteUserInfo, updateUserInfo } from '../../lib/utils/user';
 import { useUserInfo } from '../../lib/hooks/user';
 import Loading from '../../components/loading';
-import { BASE_DEV_SERVER_URL } from '../../lib/const';
+import { BASE_SERVER_URL } from '../../lib/const';
 import { notifications } from '@mantine/notifications';
 import { useAuth, useClerk, useUser } from '@clerk/nextjs';
 import UserInfoLoadingSkeleton from '../../components/user-info-loading-skeleton';
@@ -66,7 +66,7 @@ export default function UserInfo() {
       Authorization: `Bearer ${token}`,
     };
     const res = await instance.put(
-      `${BASE_DEV_SERVER_URL}/api/v1/users/me/name`,
+      `${BASE_SERVER_URL}/api/v1/users/me/name`,
       { name: userName },
       {
         headers,

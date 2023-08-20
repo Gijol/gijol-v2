@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { BASE_DEV_SERVER_URL } from '../const';
+import { BASE_SERVER_URL } from '../const';
 import { UserTakenCourseWithGradeType } from '../types/score-status';
 import { CourseHistory, CourseResponse, CourseType, CourseSearchCodeType } from '../types/course';
 import { useAuth } from '@clerk/nextjs';

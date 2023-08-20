@@ -1,4 +1,4 @@
-import { BASE_DEV_SERVER_URL } from '../const';
+import { BASE_SERVER_URL } from '../const';
 import { UserStatusType } from '../types';
 import { JWT } from 'next-auth/jwt';
 import { TokenSet } from 'next-auth';
@@ -23,7 +23,7 @@ export const signupAndGetResponse = async (
   user_name: string
 ) => {
   try {
-    const sign_up_response = await fetch(`${BASE_DEV_SERVER_URL}/api/v1/auth/google/sign-up`, {
+    const sign_up_response = await fetch(`${BASE_SERVER_URL}/api/v1/auth/google/sign-up`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
