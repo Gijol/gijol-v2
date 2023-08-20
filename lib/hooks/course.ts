@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { BASE_DEV_SERVER_URL } from '../const';
 import { UserTakenCourseWithGradeType } from '../types/score-status';
-import { CourseType, MinorType } from '../types/course';
+import { CourseResponse, CourseType, MinorType } from '../types/course';
 import { useAuth } from '@clerk/nextjs';
 import { instance } from '../utils/instance';
 import axios from 'axios';
@@ -50,7 +50,7 @@ export function useCourseList(page: number, size: number, minorType: MinorType) 
     return res.data;
   };
 
-  return useQuery<CourseType[]>({
+  return useQuery<CourseResponse>({
     queryKey: ['courses', page],
     queryFn: () => fetchCourses(),
     refetchOnWindowFocus: false,

@@ -24,6 +24,7 @@ import UserInfoLoadingSkeleton from '../../components/user-info-loading-skeleton
 import { instance } from '../../lib/utils/instance';
 import { useRouter } from 'next/router';
 import { Session } from '@clerk/backend';
+import { useMemberStatus } from '../../lib/hooks/auth';
 
 const major_select_data = [
   { value: 'EC', label: '전기전자컴퓨터공학전공' },
@@ -39,7 +40,8 @@ export default function UserInfo() {
   const router = useRouter();
 
   // Clerk을 통해 유저 정보 받아오기
-  const { user, isLoaded, isSignedIn } = useUser();
+  const { user, isSignedIn, isLoaded } = useUser();
+  const { data: status, isLoading: isMemberStatusLoading } = useMemberStatus();
   const { getToken } = useAuth();
   const { data: userInfoData, isLoading, isFetching, isInitialLoading } = useUserInfo();
   const { signOut } = useClerk();
@@ -118,7 +120,7 @@ export default function UserInfo() {
     );
   });
 
-  if (!isLoaded) {
+  if (!isLoaded || isMemberStatusLoading) {
     return <Loading content="잠시만 기다려주세요..." />;
   }
 
@@ -130,7 +132,11 @@ export default function UserInfo() {
     );
   }
 
-  if (isLoading || isInitialLoading || isFetching) {
+  if (isLoaded && isSignedIn && status?.isNewUser) {
+    router.push('/dashboard/error?status=new_user');
+  }
+
+  if (status?.isNewUser && (isLoading || isInitialLoading || isFetching)) {
     return <UserInfoLoadingSkeleton />;
   }
 
