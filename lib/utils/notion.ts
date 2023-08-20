@@ -3,7 +3,7 @@ import { notifications } from '@mantine/notifications';
 import { instance } from './instance';
 
 export const sendFeedbackToNotion = async (title: string, description: string, email: string) => {
-  const res = await instance.post(`/api/notion`, {
+  const res = await axios.post(`/api/notion`, {
     title,
     description,
     email,
