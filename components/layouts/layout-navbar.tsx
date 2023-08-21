@@ -35,7 +35,6 @@ export function LayoutNavbar({
   const { classes } = useStyles();
   const router = useRouter();
   const cntRoute = getCntTab(router.route);
-
   const links = navLinks.map((link) => {
     return (
       <NavLink

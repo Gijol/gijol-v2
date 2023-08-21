@@ -45,7 +45,6 @@ export default function CourseThumbnailWithDrawer({
 
   // mutation으로 히스토리 관리
   const { data: single_course, isLoading: isCourseHistoryDataLoading, mutate } = useSingleCourse();
-
   const tagContent = tags?.map((tag) => {
     return (
       <Badge key={tag} radius="sm" px={6} color={getCourseTagColor(tag)}>
