@@ -13,6 +13,7 @@ import {
   TextInput,
   Button,
   Flex,
+  Title,
 } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import CourseThumbnailWithDrawer from '../../../../components/course-thumbnail-with-drawer';
@@ -63,10 +64,6 @@ export default function Index() {
     );
   });
 
-  if (isError) {
-    //@ts-ignore
-    router.push(`/dashboard/error?status=${error.message}`);
-  }
   const minor_types = [
     { value: 'NONE', label: '없음' },
     { value: 'HUS', label: 'HUS' },
@@ -175,8 +172,12 @@ export default function Index() {
             <Skeleton height={100} mb="xl" radius="md" animate />
           ))}
         </>
-      ) : (
+      ) : !isError ? (
         <>{courses}</>
+      ) : (
+        <Text color="dimmed" size="lg" align="center">
+          강의 정보를 불러오는데 실패했습니다...!
+        </Text>
       )}
 
       <Center py="md">
