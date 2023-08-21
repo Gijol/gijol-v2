@@ -1,4 +1,4 @@
-import { BASE_DEV_SERVER_URL } from '../const';
+import { BASE_SERVER_URL } from '../const';
 import { useQuery } from '@tanstack/react-query';
 import { UserStatusType } from '../types/user';
 import { useAuth } from '@clerk/nextjs';

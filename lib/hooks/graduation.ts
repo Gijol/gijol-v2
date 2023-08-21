@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react';
-import { BASE_DEV_SERVER_URL } from '../const';
+import { BASE_SERVER_URL } from '../const';
 import { GradStatusResponseType } from '../types/grad';
 import { initialValue } from '../const/grad';
 import { useQuery } from '@tanstack/react-query';
@@ -12,7 +12,7 @@ export function useGraduation() {
   const getGradStatus = async () => {
     const token = await getToken({ template: 'gijol-token-test' });
     const gradStatus: GradStatusResponseType = await fetch(
-      `${BASE_DEV_SERVER_URL}/api/v1/users/me/graduation`,
+      `${BASE_SERVER_URL}/api/v1/users/me/graduation`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

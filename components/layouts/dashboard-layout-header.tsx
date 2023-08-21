@@ -1,40 +1,26 @@
-import { CSSProperties, Dispatch, SetStateAction, useEffect } from 'react';
+import { CSSProperties } from 'react';
 import { Burger, Button, Group, Header, MediaQuery, Text } from '@mantine/core';
 import { MantineTheme } from '@mantine/core';
 import Link from 'next/link';
-import { SignInButton, useAuth, useUser } from '@clerk/nextjs';
+import { SignInButton, useUser } from '@clerk/nextjs';
 import UserLoginPopover from '../user-login-popover';
 
 export function DashboardLayoutHeader({
   theme,
   opened,
-  setOpened,
+  open,
 }: {
   theme: MantineTheme;
   opened: boolean;
-  setOpened: Dispatch<SetStateAction<boolean>>;
+  open: () => void;
 }) {
   const { isSignedIn } = useUser();
-  const { getToken } = useAuth();
-
-  useEffect(() => {
-    const hi = async () => {
-      console.log(await getToken({ template: 'gijol-token-test' }));
-    };
-    hi();
-  }, [getToken]);
 
   return (
     <Header height={60} py="sm" px="lg">
       <div style={headerContainer}>
         <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-          <Burger
-            opened={opened}
-            onClick={() => setOpened((o) => !o)}
-            size="sm"
-            color={theme.colors.gray[6]}
-            mr="xl"
-          />
+          <Burger opened={opened} onClick={open} size="sm" color={theme.colors.gray[6]} mr="xl" />
         </MediaQuery>
         <MediaQuery smallerThan="sm" styles={{ fontSize: 16 }}>
           <Link href="/dashboard" style={{ color: 'black', textDecoration: 'none' }}>

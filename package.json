@@ -36,7 +36,7 @@
     "@notionhq/client": "^2.2.5",
     "@tabler/icons-react": "^2.4.0",
     "@tanstack/react-query": "^4.29.7",
-    "@vercel/analytics": "^1.0.1",
+    "@vercel/analytics": "^1.0.2",
     "axios": "^1.4.0",
     "cookies-next": "^2.1.1",
     "dayjs": "^1.11.6",

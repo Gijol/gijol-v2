@@ -74,7 +74,7 @@ export default function GradSpecificDomainStatus({
                 </Group>
               </Accordion.Control>
               <Accordion.Panel py={16} className={classes.background} h="fit-content">
-                <Flex>
+                <Flex direction="row" wrap="wrap">
                   <RingProgress
                     mx="md"
                     roundCaps
@@ -101,15 +101,14 @@ export default function GradSpecificDomainStatus({
                       </Text>
                     }
                   />
-                  <Stack px="md" w="100%">
-                    <ScrollArea h={280}>
+                  <Stack miw={200} w={500} mx="auto">
+                    <ScrollArea mah={280} h="fit-content">
                       <Space h={16} />
                       {satisfied && (
                         <Alert icon={<IconCircleCheck size="1rem" />} title="완료!" color="green">
                           모든 요건들을 충족했습니다! ✨
                         </Alert>
                       )}
-                      <Space h={16} />
                       {!satisfied &&
                         messages.map((message) => {
                           return (

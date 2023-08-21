@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { BASE_DEV_SERVER_URL } from '../const';
+import { BASE_SERVER_URL } from '../const';
 
 export const instance = axios.create({
-  baseURL: BASE_DEV_SERVER_URL,
+  baseURL: BASE_SERVER_URL,
 });
 
 instance.interceptors.response.use(
@@ -12,5 +12,6 @@ instance.interceptors.response.use(
       // router.push(`/dashboard/error`);
       console.log(error);
     }
+    console.log(error);
   }
 );
