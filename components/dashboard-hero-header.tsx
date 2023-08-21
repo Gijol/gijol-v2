@@ -104,7 +104,6 @@ export default function DashboardHeroHeader() {
 
   // 전부 채워져야 제출 가능
   const isNotEmpty = Boolean(title && description && email && checked);
-
   return (
     <>
       <Container className={classes.wrapper} size="xl">
