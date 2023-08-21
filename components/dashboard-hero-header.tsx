@@ -10,6 +10,7 @@ import {
   Textarea,
   Checkbox,
   Group,
+  LoadingOverlay,
 } from '@mantine/core';
 import { useDebouncedState, useDisclosure } from '@mantine/hooks';
 import { IconAt } from '@tabler/icons-react';
@@ -82,15 +83,26 @@ const useStyles = createStyles((theme) => ({
 
 export default function DashboardHeroHeader() {
   const { classes } = useStyles();
+
+  // 의견 제출하기 모달 관리
   const [opened, { open, close }] = useDisclosure(false);
+
+  // 의견 제출하는 도중의 로딩 상태 관리
+  const [visible, { open: openLoading, close: closeLoading }] = useDisclosure(false);
+
+  // 의견 제목, 설명, 이메일, 이메일 제공 동의 항목
   const [title, setTitle] = useDebouncedState('', 200);
   const [description, setDescription] = useDebouncedState('', 200);
   const [email, setEmail] = useDebouncedState('', 200);
   const [checked, setChecked] = useState(false);
+
+  // 이메일 유효성 검사
   const emailErrorState =
     email === '' || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
       ? ''
       : '유효하지 않은 이메일 형식입니다';
+
+  // 전부 채워져야 제출 가능
   const isNotEmpty = Boolean(title && description && email && checked);
   return (
     <>
@@ -143,6 +155,7 @@ export default function DashboardHeroHeader() {
         centered
         styles={{ title: { fontWeight: 600 } }}
       >
+        <LoadingOverlay visible={visible} overlayBlur={2} />
         <Input.Wrapper id="fn_name" label="기능 명" required mx="auto" my={8} withAsterisk>
           <Input
             id="fn_name"
@@ -184,15 +197,33 @@ export default function DashboardHeroHeader() {
         <Group position="right">
           <Button
             onClick={async () => {
-              if (!isNotEmpty) {
-                notifications.show({
+              try {
+                if (!isNotEmpty) {
+                  notifications.show({
+                    color: 'orange',
+                    title: '빈 항목이 있습니다',
+                    message: '모든 항목을 입력 부탁드립니다! 감사합니다!',
+                  });
+                } else {
+                  await openLoading();
+                  await sendFeedbackToNotion(title, description, email);
+                  await closeLoading();
+                  await close();
+                  await notifications.show({
+                    color: 'teal',
+                    title: '의견을 남겨주셔서 감사합니다!',
+                    message:
+                      '소중한 의견을 남겨주셔서 감사드립니다! 남겨주신 의견을 최대한 반영해보겠습니다! 🤗',
+                    autoClose: 3000,
+                  });
+                }
+              } catch (e) {
+                await notifications.show({
                   color: 'orange',
-                  title: '빈 항목이 있습니다',
-                  message: '모든 항목을 입력 부탁드립니다! 감사합니다!',
+                  title: '전송오류',
+                  message: '의견이 제대로 전송되지 않았습니다... 다시 한번 시도 부탁드립니다! 🙇‍♂️',
+                  autoClose: 3000,
                 });
-              } else {
-                await sendFeedbackToNotion(title, description, email);
-                await close();
               }
             }}
           >

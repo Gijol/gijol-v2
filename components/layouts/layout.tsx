@@ -3,11 +3,13 @@ import { ReactNode, useState } from 'react';
 import { DashboardLayoutHeader } from './dashboard-layout-header';
 import { useRouter } from 'next/router';
 import { LayoutNavbar } from './layout-navbar';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
 export function Layout({ children }: { children: ReactNode }) {
   const theme = useMantineTheme();
   const cntRoute = useRouter();
-  const [opened, setOpened] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
+  const matches = useMediaQuery('(min-width: 48em)');
   const isDashboard = cntRoute.pathname.includes('dashboard');
   if (!isDashboard) {
     return <>{children}</>;
@@ -21,12 +23,16 @@ export function Layout({ children }: { children: ReactNode }) {
           paddingRight: theme.spacing['md'],
           wordBreak: 'keep-all',
           whiteSpace: 'pre-wrap',
+          '@media (max-width: 48em)': {
+            paddingLeft: theme.spacing['xs'],
+            paddingRight: theme.spacing['xs'],
+          },
         },
       }}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={<LayoutNavbar opened={opened} />}
-      header={<DashboardLayoutHeader theme={theme} opened={opened} setOpened={setOpened} />}
+      navbar={<LayoutNavbar matches={matches} opened={opened} onClose={close} />}
+      header={<DashboardLayoutHeader theme={theme} opened={opened} open={open} />}
     >
       {children}
     </AppShell>

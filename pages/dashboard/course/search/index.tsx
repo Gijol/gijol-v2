@@ -13,10 +13,11 @@ import {
   TextInput,
   Button,
   Flex,
+  Title,
 } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import CourseThumbnailWithDrawer from '../../../../components/course-thumbnail-with-drawer';
-import { useCourseList } from '../../../../lib/hooks/course';
+import { useCourseList, useSingleCourse } from '../../../../lib/hooks/course';
 import Loading from '../../../../components/loading';
 import { CourseSearchCodeType } from '../../../../lib/types/course';
 import { useRouter } from 'next/navigation';
@@ -48,14 +49,6 @@ export default function Index() {
     refetch();
   }, [pageSize, activePage, courseSearchCode, courseSearchString]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     startTransition(() => {
-  //       refetch();
-  //     });
-  //   }, 1500);
-  // }, [courseSearchString, pageSize, activePage, courseSearchCode]);
-
   const courses = data?.content.map((item) => {
     return (
       <CourseThumbnailWithDrawer
@@ -70,11 +63,7 @@ export default function Index() {
       />
     );
   });
-
-  if (isError) {
-    //@ts-ignore
-    router.push(`/dashboard/error?status=${error.message}`);
-  }
+  
   const minor_types = [
     { value: 'NONE', label: '없음' },
     { value: 'HUS', label: 'HUS' },
@@ -183,8 +172,12 @@ export default function Index() {
             <Skeleton height={100} mb="xl" radius="md" animate />
           ))}
         </>
-      ) : (
+      ) : !isError ? (
         <>{courses}</>
+      ) : (
+        <Text color="dimmed" size="lg" align="center">
+          강의 정보를 불러오는데 실패했습니다...!
+        </Text>
       )}
 
       <Center py="md">

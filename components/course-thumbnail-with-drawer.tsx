@@ -13,12 +13,14 @@ import {
   Code,
   Flex,
   Table,
+  Skeleton,
 } from '@mantine/core';
 import { useDisclosure, useHover } from '@mantine/hooks';
 import Link from 'next/link';
 import { getCourseTagColor } from '../lib/utils/course';
 import { useQuery } from '@tanstack/react-query';
 import { useSingleCourse } from '../lib/hooks/course';
+import { CourseHistory } from '../lib/types/course';
 
 export default function CourseThumbnailWithDrawer({
   id,
@@ -37,8 +39,12 @@ export default function CourseThumbnailWithDrawer({
   prerequisites: string;
   tags?: string[];
 }) {
+  // Drawer open 상태 관리
   const { hovered, ref } = useHover();
   const [opened, { open, close }] = useDisclosure(false);
+
+  // mutation으로 히스토리 관리
+  const { data: single_course, isLoading: isCourseHistoryDataLoading, mutate } = useSingleCourse();
   const tagContent = tags?.map((tag) => {
     return (
       <Badge key={tag} radius="sm" px={6} color={getCourseTagColor(tag)}>
@@ -48,7 +54,6 @@ export default function CourseThumbnailWithDrawer({
   });
   const none = ['none', 'NONE', 'None', '-', '', ' '];
 
-  const { data: single_course, isLoading } = useSingleCourse(id);
   const rows = single_course?.courseHistoryResponses.map((element, idx) => (
     <tr key={idx}>
       <td>{element.year}</td>
@@ -61,7 +66,13 @@ export default function CourseThumbnailWithDrawer({
 
   return (
     <>
-      <UnstyledButton onClick={open} w="100%">
+      <UnstyledButton
+        onClick={() => {
+          open();
+          mutate(id);
+        }}
+        w="100%"
+      >
         <Paper withBorder p="md" radius="md" ref={ref} bg={hovered ? 'gray.0' : undefined} my="sm">
           <Text size={rem(14)} mb={8} color="dimmed">
             {code}
@@ -133,18 +144,22 @@ export default function CourseThumbnailWithDrawer({
         <Text fz="md" fw={600} mt="xl" mb="sm">
           강의 히스토리
         </Text>
-        <Table>
-          <thead>
-            <tr>
-              <th>연도</th>
-              <th>학기</th>
-              <th>교수명</th>
-              <th>강의 시간대</th>
-              <th>강의실</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </Table>
+        {isCourseHistoryDataLoading ? (
+          <Skeleton radius="sm" h={300} />
+        ) : (
+          <Table>
+            <thead>
+              <tr>
+                <th>연도</th>
+                <th>학기</th>
+                <th>교수명</th>
+                <th>강의 시간대</th>
+                <th>강의실</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+        )}
       </Drawer>
     </>
   );

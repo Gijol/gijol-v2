@@ -1,8 +1,9 @@
-import { Text, createStyles, Divider, Navbar, NavLink, rem } from '@mantine/core';
+import { Text, createStyles, Divider, Navbar, NavLink, rem, Drawer } from '@mantine/core';
 import Link from 'next/link';
 import { navLinks } from '../../lib/const/nav-links';
 import { useRouter } from 'next/router';
 import { getCntTab } from '../../lib/utils/status';
+import { useMediaQuery } from '@mantine/hooks';
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -22,7 +23,15 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function LayoutNavbar({ opened }: { opened: boolean }) {
+export function LayoutNavbar({
+  matches,
+  opened,
+  onClose,
+}: {
+  matches: boolean;
+  opened: boolean;
+  onClose: () => void;
+}) {
   const { classes } = useStyles();
   const router = useRouter();
   const cntRoute = getCntTab(router.route);
@@ -40,7 +49,8 @@ export function LayoutNavbar({ opened }: { opened: boolean }) {
       />
     );
   });
-  return (
+
+  const navbar = (
     <Navbar
       p="sm"
       hiddenBreakpoint="sm"
@@ -50,5 +60,17 @@ export function LayoutNavbar({ opened }: { opened: boolean }) {
     >
       <Navbar.Section>{links}</Navbar.Section>
     </Navbar>
+  );
+
+  return (
+    <>
+      {matches ? (
+        navbar
+      ) : (
+        <Drawer opened={opened} onClose={onClose} size="70%">
+          {navbar}
+        </Drawer>
+      )}
+    </>
   );
 }
