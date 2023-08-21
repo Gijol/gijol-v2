@@ -16,7 +16,7 @@ import {
 } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import CourseThumbnailWithDrawer from '../../../../components/course-thumbnail-with-drawer';
-import { useCourseList } from '../../../../lib/hooks/course';
+import { useCourseList, useSingleCourse } from '../../../../lib/hooks/course';
 import Loading from '../../../../components/loading';
 import { CourseSearchCodeType } from '../../../../lib/types/course';
 import { useRouter } from 'next/navigation';
@@ -47,14 +47,6 @@ export default function Index() {
   useEffect(() => {
     refetch();
   }, [pageSize, activePage, courseSearchCode, courseSearchString]);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     startTransition(() => {
-  //       refetch();
-  //     });
-  //   }, 1500);
-  // }, [courseSearchString, pageSize, activePage, courseSearchCode]);
 
   const courses = data?.content.map((item) => {
     return (

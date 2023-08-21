@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { BASE_SERVER_URL } from '../const';
 import { UserTakenCourseWithGradeType } from '../types/score-status';
 import { CourseHistory, CourseResponse, CourseType, CourseSearchCodeType } from '../types/course';
@@ -67,17 +67,12 @@ export function useCourseList(
   });
 }
 
-const fetchCourseWithId = async (id: number) => {
+const fetchCourseWithId = async (
+  id: number
+): Promise<{ courseHistoryResponses: CourseHistory[] }> => {
   const res = await instance.get(`/api/v1/courses/${id.toString()}`);
   return res.data;
 };
-export function useSingleCourse(id: number) {
-  return useQuery<{ courseHistoryResponses: CourseHistory[] }>(
-    ['course-history'],
-    () => fetchCourseWithId(id),
-    {
-      refetchOnWindowFocus: false,
-      retry: false,
-    }
-  );
+export function useSingleCourse() {
+  return useMutation(fetchCourseWithId);
 }

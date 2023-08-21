@@ -38,7 +38,7 @@ export default function UserLoginPopover() {
               <Avatar src={user?.imageUrl} size="4rem" radius="lg" m={12} />
               <Stack align="center" spacing="xs">
                 <Text fz="lg" fw={500} align="center">
-                  {user?.fullName}
+                  {userInfoData?.name}
                 </Text>
                 {status?.isNewUser ? (
                   <Alert
