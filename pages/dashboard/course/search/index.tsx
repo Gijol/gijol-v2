@@ -63,7 +63,7 @@ export default function Index() {
       />
     );
   });
-
+  
   const minor_types = [
     { value: 'NONE', label: '없음' },
     { value: 'HUS', label: 'HUS' },
