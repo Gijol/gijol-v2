@@ -61,8 +61,6 @@ export default function GradOverallStatus({
             { minWidth: 'xs', cols: 1, spacing: 'md' },
           ]}
         >
-          {/*<Grid gutter="md">*/}
-          {/*  <Grid.Col span={4}>*/}
           <Paper radius="md" withBorder h={160} p={8}>
             <Group p={8}>
               <ThemeIcon variant="light" size="lg">
@@ -130,8 +128,6 @@ export default function GradOverallStatus({
               </Button>
             </Group>
           </Paper>
-          {/*</Grid.Col>*/}
-          {/*</Grid>*/}
         </SimpleGrid>
         <Space h={24} />
         <Table
