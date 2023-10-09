@@ -8,7 +8,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import React from 'react';
 
 export default function CourseMyCreditChart({
   dataForTable,

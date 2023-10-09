@@ -87,18 +87,25 @@ export default function GradSpecificDomainStatus({
                       },
                     ]}
                     label={
-                      <Text
-                        align="center"
-                        px={32}
-                        sx={{ whiteSpace: 'pre-wrap', wordBreak: 'keep-all' }}
-                      >
-                        {createSpecificStatusMessage(
-                          satisfied,
-                          percentage,
-                          minConditionCredits,
-                          totalCredits
-                        )}
-                      </Text>
+                      <>
+                        <Text
+                          align="center"
+                          px={32}
+                          sx={{ whiteSpace: 'pre-wrap', wordBreak: 'keep-all' }}
+                        >
+                          {createSpecificStatusMessage(
+                            satisfied,
+                            percentage,
+                            minConditionCredits,
+                            totalCredits
+                          )}
+                        </Text>
+                        <Text align="center">
+                          <Badge variant="outline">
+                            {minConditionCredits}학점 중 {totalCredits}학점 이수
+                          </Badge>
+                        </Text>
+                      </>
                     }
                   />
                   <Stack miw={200} w={500} mx="auto">
@@ -144,6 +151,14 @@ export default function GradSpecificDomainStatus({
                       </tr>
                     </thead>
                     <tbody>{rows}</tbody>
+                    <tfoot>
+                      <tr>
+                        <th>합계</th>
+                        <th></th>
+                        <th></th>
+                        <th style={{ fontWeight: 500 }}>{totalCredits} 학점</th>
+                      </tr>
+                    </tfoot>
                   </Table>
                   {elements?.length === 0 && (
                     <Text align="center" color="dimmed" my="xl" fw={500}>

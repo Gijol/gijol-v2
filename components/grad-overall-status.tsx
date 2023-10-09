@@ -1,8 +1,6 @@
 import {
   Badge,
   Button,
-  Flex,
-  Grid,
   Group,
   Paper,
   Progress,
@@ -61,8 +59,6 @@ export default function GradOverallStatus({
             { minWidth: 'xs', cols: 1, spacing: 'md' },
           ]}
         >
-          {/*<Grid gutter="md">*/}
-          {/*  <Grid.Col span={4}>*/}
           <Paper radius="md" withBorder h={160} p={8}>
             <Group p={8}>
               <ThemeIcon variant="light" size="lg">
@@ -82,8 +78,6 @@ export default function GradOverallStatus({
               <Badge>{totalPercentage}% 이수중</Badge>
             </Group>
           </Paper>
-          {/*</Grid.Col>*/}
-          {/*<Grid.Col span={4}>*/}
           <Paper radius="md" withBorder h={160} p={8}>
             <Group p={8}>
               <ThemeIcon variant="light" size="lg" color="orange">
@@ -100,8 +94,6 @@ export default function GradOverallStatus({
               <Badge color="orange">{minDomainPercentage}% 이수중</Badge>
             </Group>
           </Paper>
-          {/*</Grid.Col>*/}
-          {/*<Grid.Col span={4}>*/}
           <Paper radius="md" withBorder h={160} p={8}>
             <Group p={8}>
               <ThemeIcon variant="light" size="lg" color="yellow">
@@ -130,8 +122,6 @@ export default function GradOverallStatus({
               </Button>
             </Group>
           </Paper>
-          {/*</Grid.Col>*/}
-          {/*</Grid>*/}
         </SimpleGrid>
         <Space h={24} />
         <Table

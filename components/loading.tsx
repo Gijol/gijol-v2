@@ -1,4 +1,3 @@
-import React from 'react';
 import { Center, Container, Loader, Stack, Text } from '@mantine/core';
 import { useViewportSize } from '@mantine/hooks';
 
