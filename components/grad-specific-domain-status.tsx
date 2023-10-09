@@ -18,7 +18,6 @@ import {
   createSpecificStatusMessage,
   getDomainColor,
 } from '../lib/utils/graduation/grad-formatter';
-import React from 'react';
 
 export default function GradSpecificDomainStatus({
   classes,

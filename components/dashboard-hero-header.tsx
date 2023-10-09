@@ -18,7 +18,6 @@ import React, { BaseSyntheticEvent, useState } from 'react';
 import { sendFeedbackToNotion } from '../lib/utils/notion';
 import { notifications } from '@mantine/notifications';
 import { CustomDots } from './custom-dots';
-import router from 'next/router';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -205,11 +204,11 @@ export default function DashboardHeroHeader() {
                     message: '모든 항목을 입력 부탁드립니다! 감사합니다!',
                   });
                 } else {
-                  await openLoading();
+                  openLoading();
                   await sendFeedbackToNotion(title, description, email);
-                  await closeLoading();
-                  await close();
-                  await notifications.show({
+                  closeLoading();
+                  close();
+                  notifications.show({
                     color: 'teal',
                     title: '의견을 남겨주셔서 감사합니다!',
                     message:
@@ -218,7 +217,7 @@ export default function DashboardHeroHeader() {
                   });
                 }
               } catch (e) {
-                await notifications.show({
+                notifications.show({
                   color: 'orange',
                   title: '전송오류',
                   message: '의견이 제대로 전송되지 않았습니다... 다시 한번 시도 부탁드립니다! 🙇‍♂️',
