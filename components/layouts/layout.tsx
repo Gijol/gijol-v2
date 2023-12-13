@@ -27,6 +27,7 @@ export function Layout({ children }: { children: ReactNode }) {
             paddingLeft: theme.spacing['xs'],
             paddingRight: theme.spacing['xs'],
           },
+          boxSizing: 'border-box',
         },
       }}
       navbarOffsetBreakpoint="sm"

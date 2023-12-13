@@ -1,18 +1,18 @@
 import { Container, Space, createStyles, Center, Text } from '@mantine/core';
 import { useScrollIntoView } from '@mantine/hooks';
-import GradSpecificDomainStatus from '../../components/grad-specific-domain-status';
-import GradOverallStatus from '../../components/grad-overall-status';
-import GradRecommend from '../../components/grad-recommend';
-import { useGraduation } from '../../lib/hooks/graduation';
-import Loading from '../../components/loading';
 import React from 'react';
 import { useUser } from '@clerk/nextjs';
-import GraduationLoadingSkeleton from '../../components/graduation-loading-skeleton';
-import DashboardFileUploadEncouragement from '../../components/dashboard-file-upload-encouragement';
-import { useMemberStatus } from '../../lib/hooks/auth';
-import DashboardUnsignedPage from '../../components/dashboard-unsigned-page';
+import { useMemberStatus } from '../../../lib/hooks/auth';
+import { useGraduation } from '../../../lib/hooks/graduation';
+import Loading from '../../../components/loading';
+import DashboardUnsignedPage from '../../../components/dashboard-unsigned-page';
+import DashboardFileUploadEncouragement from '../../../components/dashboard-file-upload-encouragement';
+import GraduationLoadingSkeleton from '../../../components/graduation-loading-skeleton';
+import GradOverallStatus from '../../../components/grad-overall-status';
+import GradSpecificDomainStatus from '../../../components/grad-specific-domain-status';
+import GradRecommend from '../../../components/grad-recommend';
 
-export default function Graduation() {
+export default function Index() {
   const { classes } = useStyles();
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
     offset: 60,
