@@ -16,7 +16,7 @@ import {
 } from '@mantine/core';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { IconFileDownload } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   section_titles,
   sections,
@@ -142,6 +142,11 @@ const useStyles = createStyles((theme) => ({
       },
       ':focus::placeholder': {
         color: 'transparent',
+      },
+      ':focus-within': {
+        border: '2px solid',
+        backgroundColor: 'transparent',
+        borderColor: theme.colors.blue[5],
       },
     },
   },

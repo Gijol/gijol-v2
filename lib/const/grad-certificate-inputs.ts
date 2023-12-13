@@ -117,12 +117,12 @@ export const sections: Array<{
     section_label: '해외대학 학점',
     inputs: [
       {
-        value: 'overseasUniversitySummerSemesterDispatchRecognitionSubjectsAndCredits',
+        value: 'summerSemesterSubjectsAndCredits',
         label: '해외대학 여름학기 파견 이수 인정 교과목 및 학점',
         placeholder: '해외대학 여름학기 파견 이수 인정 교과목 및 학점을 입력하세요',
       },
       {
-        value: 'overseasDispatchUniversityName',
+        value: 'dispatchUniversityName',
         label: '파견 대학명',
         placeholder: '파견 대학명을 입력하세요',
       },
