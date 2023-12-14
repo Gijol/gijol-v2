@@ -1,11 +1,14 @@
 import {
   Badge,
   Button,
+  Card,
+  createStyles,
   Group,
   Paper,
   Progress,
   SimpleGrid,
   Space,
+  Stack,
   Table,
   Text,
   ThemeIcon,
@@ -13,7 +16,6 @@ import {
 import { IconBolt, IconPresentationAnalytics, IconReportAnalytics } from '@tabler/icons-react';
 
 export default function GradOverallStatus({
-  classes,
   scrollIntoView,
   totalCredits,
   totalPercentage,
@@ -22,7 +24,6 @@ export default function GradOverallStatus({
   minDomainPercentage,
   feedbackNumbers,
 }: {
-  classes: { tableHead: string; background: string };
   scrollIntoView: any;
   totalCredits: number | undefined;
   totalPercentage: number;
@@ -31,9 +32,14 @@ export default function GradOverallStatus({
   minDomainPercentage: number;
   feedbackNumbers: number;
 }) {
+  const { classes } = useStyles();
   const courseRows = overallStatus.map((element) => (
     <tr key={element.title}>
-      <td width={280}>{element.title}</td>
+      <td width={280}>
+        <Text size="md" weight={400}>
+          {element.title}
+        </Text>
+      </td>
       <td width={280}>
         <Progress
           value={element.percentage}
@@ -43,7 +49,11 @@ export default function GradOverallStatus({
         />
       </td>
       <td>
-        <Badge color={element.satisfied ? 'green' : element.title === '부전공' ? 'blue' : 'red'}>
+        <Badge
+          color={element.satisfied ? 'green' : element.title === '부전공' ? 'blue' : 'red'}
+          variant="dot"
+          size="lg"
+        >
           {element.satisfied ? '충족됨' : element.title === '부전공' ? '필수 아님' : '미충족'}
         </Badge>
       </td>
@@ -51,82 +61,98 @@ export default function GradOverallStatus({
   ));
   return (
     <>
-      <Paper withBorder p={40} radius="md" shadow="xs">
-        <SimpleGrid
-          breakpoints={[
-            { minWidth: 'md', cols: 3, spacing: 'md' },
-            { minWidth: 'sm', cols: 2, spacing: 'md' },
-            { minWidth: 'xs', cols: 1, spacing: 'md' },
-          ]}
-        >
-          <Paper radius="md" withBorder h={160} p={8}>
-            <Group p={8}>
-              <ThemeIcon variant="light" size="lg">
-                <IconPresentationAnalytics />
-              </ThemeIcon>
-              <Text size="md" weight={650}>
+      <SimpleGrid
+        breakpoints={[
+          { minWidth: 'md', cols: 3, spacing: 'md' },
+          { minWidth: 'sm', cols: 2, spacing: 'md' },
+          { minWidth: 'xs', cols: 1, spacing: 'md' },
+        ]}
+      >
+        <Card h="160" radius="md" withBorder>
+          <Card.Section withBorder py="sm" px="md">
+            <Group position="apart">
+              <Text size="md" weight={500}>
                 총 학점
               </Text>
+              <ThemeIcon variant="subtle" size="md" color="dark">
+                <IconPresentationAnalytics />
+              </ThemeIcon>
             </Group>
-            <Text size="xl" align="start" p={8} pl={14}>
+          </Card.Section>
+          <Card.Section component={Stack} px="md" py="sm" justify="space-between">
+            <Text size="xl" align="start" py="sm">
               {totalCredits} 학점
             </Text>
-            <Group p={8}>
-              <Text size="sm" color="dimmed" weight={600}>
+            <Group>
+              <Text size="md" color="dimmed" weight={500}>
                 총 학점 : 130
               </Text>
               <Badge>{totalPercentage}% 이수중</Badge>
             </Group>
-          </Paper>
-          <Paper radius="md" withBorder h={160} p={8}>
-            <Group p={8}>
-              <ThemeIcon variant="light" size="lg" color="orange">
-                <IconReportAnalytics />
-              </ThemeIcon>
-              <Text size="md" weight={650}>
+          </Card.Section>
+        </Card>
+        <Card h={160} radius="md" withBorder>
+          <Card.Section withBorder py="sm" px="md">
+            <Group position="apart">
+              <Text size="md" weight={500}>
                 최저 이수 영역
               </Text>
+              <ThemeIcon variant="subtle" size="md" color="dark">
+                <IconReportAnalytics />
+              </ThemeIcon>
             </Group>
-            <Text size="xl" align="start" p={8} pl={14}>
+          </Card.Section>
+          <Card.Section component={Stack} px="md" py="sm" justify="space-between">
+            <Text size="xl" align="start" py="sm">
               {minDomain}
             </Text>
-            <Group p={8}>
+            <Group>
               <Badge color="orange">{minDomainPercentage}% 이수중</Badge>
             </Group>
-          </Paper>
-          <Paper radius="md" withBorder h={160} p={8}>
-            <Group p={8}>
-              <ThemeIcon variant="light" size="lg" color="yellow">
-                <IconBolt />
-              </ThemeIcon>
-              <Text size="md" weight={650}>
-                Gijol의 피드백
-              </Text>
-            </Group>
-            <Text size="xl" align="start" p={8} pl={14}>
-              {feedbackNumbers} 개
+          </Card.Section>
+        </Card>
+        <Paper
+          radius="md"
+          h={160}
+          p={8}
+          sx={(theme) => ({
+            border: '1px solid #FCC419',
+            backgroundColor: 'transparent',
+            boxShadow: '0 0 10px 2px #FFF3BF',
+          })}
+        >
+          <Group p={8} position="apart">
+            <Text size="md" weight={500}>
+              Gijol의 피드백
             </Text>
-            <Group p={8}>
-              <Button
-                variant="light"
-                size="xs"
-                color="yellow"
-                fullWidth
-                onClick={() =>
-                  scrollIntoView({
-                    alignment: 'center',
-                  })
-                }
-              >
-                바로 확인하러 가기
-              </Button>
-            </Group>
-          </Paper>
-        </SimpleGrid>
-        <Space h={24} />
+            <IconBolt color="#FCC419" />
+          </Group>
+          <Text size="xl" align="start" p={8} pl={14}>
+            {feedbackNumbers} 개
+          </Text>
+          <Group p={8}>
+            <Button
+              variant="outline"
+              size="sm"
+              color="yellow"
+              fullWidth
+              onClick={() =>
+                scrollIntoView({
+                  alignment: 'center',
+                })
+              }
+            >
+              바로 확인하러 가기
+            </Button>
+          </Group>
+        </Paper>
+      </SimpleGrid>
+      <Space h={24} />
+      <div style={{ border: '1px solid #dee2e6', borderRadius: '0.5rem', overflow: 'hidden' }}>
         <Table
           highlightOnHover
           horizontalSpacing="lg"
+          verticalSpacing="sm"
           sx={{
             position: 'relative',
             width: '100%',
@@ -149,8 +175,20 @@ export default function GradOverallStatus({
           </thead>
           <tbody>{courseRows}</tbody>
         </Table>
-        <Space h={16} />
-      </Paper>
+      </div>
+      <Space h={16} />
     </>
   );
 }
+
+const useStyles = createStyles((theme) => ({
+  tableHead: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    borderRadius: theme.radius.md,
+  },
+  background: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark : theme.white,
+    borderBottomRightRadius: '0.5rem',
+    borderBottomLeftRadius: '0.5rem',
+  },
+}));

@@ -1,4 +1,4 @@
-import { Container, Space, createStyles, Center, Text } from '@mantine/core';
+import { Container, Space, createStyles, Center, Text, Title } from '@mantine/core';
 import { useScrollIntoView } from '@mantine/hooks';
 import React from 'react';
 import { useUser } from '@clerk/nextjs';
@@ -13,7 +13,6 @@ import GradSpecificDomainStatus from '../../../components/grad-specific-domain-s
 import GradRecommend from '../../../components/grad-recommend';
 
 export default function Index() {
-  const { classes } = useStyles();
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
     offset: 60,
   });
@@ -40,10 +39,11 @@ export default function Index() {
 
   return (
     <Container>
-      <h1>졸업요건 현황</h1>
+      <Title order={1} mb="lg" mt={40}>
+        종합적인 현황 📋
+      </Title>
       <Space h={16} />
       <GradOverallStatus
-        classes={classes}
         scrollIntoView={scrollIntoView}
         totalCredits={gradStatus.totalCredits}
         totalPercentage={gradStatus.totalPercentage}
@@ -53,12 +53,11 @@ export default function Index() {
         feedbackNumbers={gradStatus.numbers}
       />
       <Space h={40} />
-      <h1>영역별 세부 현황</h1>
+      <Title order={1} mb="lg" mt={40}>
+        세부적인 현황 📑
+      </Title>
       <Space h={16} />
-      <GradSpecificDomainStatus
-        classes={classes}
-        specificDomainStatusArr={gradStatus.categoriesArr}
-      />
+      <GradSpecificDomainStatus specificDomainStatusArr={gradStatus.categoriesArr} />
       <Space h={16} />
       <h1 ref={targetRef}>영역별 피드백 모음</h1>
       <Space h={16} />
@@ -67,14 +66,3 @@ export default function Index() {
     </Container>
   );
 }
-
-const useStyles = createStyles((theme) => ({
-  tableHead: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-  },
-  background: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark : theme.white,
-    borderBottomRightRadius: '0.5rem',
-    borderBottomLeftRadius: '0.5rem',
-  },
-}));

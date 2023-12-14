@@ -3,14 +3,19 @@ import {
   Alert,
   Badge,
   Box,
+  Card,
+  createStyles,
+  Divider,
   Flex,
   Group,
+  Paper,
   RingProgress,
   ScrollArea,
   Space,
   Stack,
   Table,
   Text,
+  Title,
 } from '@mantine/core';
 import { IconAlertCircle, IconCircleCheck } from '@tabler/icons-react';
 import { SingleCategoryType } from '../lib/types/grad';
@@ -20,12 +25,11 @@ import {
 } from '../lib/utils/graduation/grad-formatter';
 
 export default function GradSpecificDomainStatus({
-  classes,
   specificDomainStatusArr,
 }: {
-  classes: any;
   specificDomainStatusArr: { domain: string; status: SingleCategoryType | undefined }[];
 }) {
+  const { classes } = useStyles();
   return (
     <>
       {specificDomainStatusArr.map((category) => {
@@ -64,21 +68,23 @@ export default function GradSpecificDomainStatus({
           >
             <Accordion.Item value={domainName}>
               <Accordion.Control>
-                <Group>
-                  <Text w="fit-content">{domainName}</Text>
-                  <Badge
-                    color={satisfied ? 'green' : category.domain === '부전공' ? 'blue' : 'red'}
-                  >
-                    {satisfied ? '충족' : category.domain === '부전공' ? '필수 아님' : '미충족'}
-                  </Badge>
-                </Group>
-              </Accordion.Control>
-              <Accordion.Panel py={16} className={classes.background} h="fit-content">
-                <Flex direction="row" wrap="wrap">
+                <Group position="apart">
+                  <Group>
+                    <Text w="fit-content" size="xl" weight={500}>
+                      {domainName}
+                    </Text>
+                    <Badge
+                      color={satisfied ? 'green' : category.domain === '부전공' ? 'blue' : 'red'}
+                      variant="dot"
+                      size="lg"
+                    >
+                      {minConditionCredits}학점 중 {totalCredits}학점
+                    </Badge>
+                  </Group>
                   <RingProgress
-                    mx="md"
                     roundCaps
-                    size={260}
+                    size={64}
+                    thickness={4}
                     sections={[
                       {
                         value: percentage,
@@ -87,84 +93,97 @@ export default function GradSpecificDomainStatus({
                       },
                     ]}
                     label={
-                      <>
-                        <Text
-                          align="center"
-                          px={32}
-                          sx={{ whiteSpace: 'pre-wrap', wordBreak: 'keep-all' }}
-                        >
-                          {createSpecificStatusMessage(
-                            satisfied,
-                            percentage,
-                            minConditionCredits,
-                            totalCredits
-                          )}
-                        </Text>
-                        <Text align="center">
-                          <Badge variant="outline">
-                            {minConditionCredits}학점 중 {totalCredits}학점 이수
-                          </Badge>
-                        </Text>
-                      </>
+                      <Text
+                        fz="md"
+                        align="center"
+                        sx={{ whiteSpace: 'pre-wrap', wordBreak: 'keep-all' }}
+                      >
+                        {percentage}
+                      </Text>
                     }
                   />
-                  <Stack miw={200} w={500} mx="auto">
-                    <ScrollArea mah={280} h="fit-content">
-                      <Space h={16} />
-                      {satisfied && (
-                        <Alert icon={<IconCircleCheck size="1rem" />} title="완료!" color="green">
-                          모든 요건들을 충족했습니다! ✨
-                        </Alert>
-                      )}
-                      {!satisfied &&
-                        messages.map((message) => {
-                          return (
-                            <Alert
-                              key={`${message.length} ${message}`}
-                              icon={<IconAlertCircle size="1rem" />}
-                              title="충족 요건"
-                              color="red"
-                              my={8}
-                            >
-                              {message}
-                            </Alert>
-                          );
+                </Group>
+              </Accordion.Control>
+              <Accordion.Panel className={classes.background} h="fit-content">
+                <Stack miw={200} w="100%" mb={40}>
+                  <Title order={3}>요구사항</Title>
+                  <ScrollArea mah={280} h="fit-content">
+                    <Space h={16} />
+                    {satisfied && (
+                      <Alert
+                        icon={<IconCircleCheck size="1rem" />}
+                        color="green"
+                        sx={(theme) => ({
+                          borderRadius: '0.5rem',
+                          border: '1px solid',
+                          borderColor: theme.colors.green[4],
                         })}
-                    </ScrollArea>
-                  </Stack>
-                </Flex>
-                <Space h={32} />
+                      >
+                        모든 요건들을 충족했습니다! ✨
+                      </Alert>
+                    )}
+                    {!satisfied &&
+                      messages.map((message) => {
+                        return (
+                          <Alert
+                            key={`${message.length} ${message}`}
+                            icon={<IconAlertCircle size="1rem" />}
+                            color="red"
+                            my={8}
+                            sx={(theme) => ({
+                              borderRadius: '0.5rem',
+                              border: '1px solid',
+                              borderColor: theme.colors.red[4],
+                            })}
+                          >
+                            {message}
+                          </Alert>
+                        );
+                      })}
+                  </ScrollArea>
+                </Stack>
                 <Box h="fit-content">
-                  <Table highlightOnHover w="100%">
-                    <thead
-                      className={classes.tableHead}
+                  <Stack>
+                    <Title order={3}>수강한 강의 목록</Title>
+                    <div
                       style={{
-                        position: 'sticky',
-                        top: 0,
+                        border: '1px solid #dee2e6',
+                        borderRadius: '0.5rem',
+                        overflow: 'hidden',
                       }}
                     >
-                      <tr>
-                        <th>수강학기</th>
-                        <th>강의코드</th>
-                        <th>강의명</th>
-                        <th>학점</th>
-                      </tr>
-                    </thead>
-                    <tbody>{rows}</tbody>
-                    <tfoot>
-                      <tr>
-                        <th>합계</th>
-                        <th></th>
-                        <th></th>
-                        <th style={{ fontWeight: 500 }}>{totalCredits} 학점</th>
-                      </tr>
-                    </tfoot>
-                  </Table>
-                  {elements?.length === 0 && (
-                    <Text align="center" color="dimmed" my="xl" fw={500}>
-                      수강하신 강의가 없습니다!
-                    </Text>
-                  )}
+                      <Table highlightOnHover w="100%" horizontalSpacing="lg" verticalSpacing="sm">
+                        <thead
+                          className={classes.tableHead}
+                          style={{
+                            position: 'sticky',
+                            top: 0,
+                          }}
+                        >
+                          <tr>
+                            <th>수강학기</th>
+                            <th>강의코드</th>
+                            <th>강의명</th>
+                            <th>학점</th>
+                          </tr>
+                        </thead>
+                        <tbody>{rows}</tbody>
+                        <tfoot>
+                          <tr>
+                            <th>합계</th>
+                            <th></th>
+                            <th></th>
+                            <th style={{ fontWeight: 500 }}>{totalCredits} 학점</th>
+                          </tr>
+                        </tfoot>
+                      </Table>
+                    </div>
+                    {elements?.length === 0 && (
+                      <Text align="center" color="dimmed" my="xl" fw={500}>
+                        수강하신 강의가 없습니다!
+                      </Text>
+                    )}
+                  </Stack>
                 </Box>
               </Accordion.Panel>
             </Accordion.Item>
@@ -174,3 +193,16 @@ export default function GradSpecificDomainStatus({
     </>
   );
 }
+
+const useStyles = createStyles((theme) => ({
+  tableHead: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    borderRadius: theme.radius.md,
+  },
+  background: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark : theme.white,
+    borderBottomRightRadius: '0.5rem',
+    borderBottomLeftRadius: '0.5rem',
+    padding: theme.spacing.xl,
+  },
+}));
