@@ -17,7 +17,8 @@
   },
   "ts-node": {
     "compilerOptions": {
-      "module": "CommonJS"
+      "module": "CommonJS",
+      "jsx": "react"
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

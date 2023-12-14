@@ -8,6 +8,7 @@ import { useMediaQuery } from '@mantine/hooks';
 const useStyles = createStyles((theme) => ({
   navbar: {
     paddingTop: 0,
+    wordBreak: 'keep-all',
   },
 
   section: {
