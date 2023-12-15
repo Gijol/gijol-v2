@@ -113,11 +113,7 @@ export default function GradSpecificDomainStatus({
                       <Alert
                         icon={<IconCircleCheck size="1rem" />}
                         color="green"
-                        sx={(theme) => ({
-                          borderRadius: '0.5rem',
-                          border: '1px solid',
-                          borderColor: theme.colors.green[4],
-                        })}
+                        className={classes.alert}
                       >
                         모든 요건들을 충족했습니다! ✨
                       </Alert>
@@ -128,13 +124,9 @@ export default function GradSpecificDomainStatus({
                           <Alert
                             key={`${message.length} ${message}`}
                             icon={<IconAlertCircle size="1rem" />}
+                            className={classes.alert}
                             color="red"
                             my={8}
-                            sx={(theme) => ({
-                              borderRadius: '0.5rem',
-                              border: '1px solid',
-                              borderColor: theme.colors.red[4],
-                            })}
                           >
                             {message}
                           </Alert>
@@ -145,13 +137,7 @@ export default function GradSpecificDomainStatus({
                 <Box h="fit-content">
                   <Stack>
                     <Title order={3}>수강한 강의 목록</Title>
-                    <div
-                      style={{
-                        border: '1px solid #dee2e6',
-                        borderRadius: '0.5rem',
-                        overflow: 'hidden',
-                      }}
-                    >
+                    <div className={classes.tableBorder}>
                       <Table highlightOnHover w="100%" horizontalSpacing="lg" verticalSpacing="sm">
                         <thead
                           className={classes.tableHead}
@@ -204,5 +190,14 @@ const useStyles = createStyles((theme) => ({
     borderBottomRightRadius: '0.5rem',
     borderBottomLeftRadius: '0.5rem',
     padding: theme.spacing.xl,
+  },
+  alert: {
+    borderRadius: '0.5rem',
+    border: '1px solid',
+  },
+  tableBorder: {
+    border: '1px solid #dee2e6',
+    borderRadius: '0.5rem',
+    overflow: 'hidden',
   },
 }));

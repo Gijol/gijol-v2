@@ -14,6 +14,7 @@ import {
   ThemeIcon,
 } from '@mantine/core';
 import { IconBolt, IconPresentationAnalytics, IconReportAnalytics } from '@tabler/icons-react';
+import { getStatusColor, getStatusMessage } from '../lib/utils/graduation/grad-formatter';
 
 export default function GradOverallStatus({
   scrollIntoView,
@@ -49,12 +50,8 @@ export default function GradOverallStatus({
         />
       </td>
       <td>
-        <Badge
-          color={element.satisfied ? 'green' : element.title === '부전공' ? 'blue' : 'red'}
-          variant="dot"
-          size="lg"
-        >
-          {element.satisfied ? '충족됨' : element.title === '부전공' ? '필수 아님' : '미충족'}
+        <Badge color={getStatusColor(element.satisfied, element.title)} variant="dot" size="lg">
+          {getStatusMessage(element.satisfied, element.title)}
         </Badge>
       </td>
     </tr>
@@ -111,16 +108,7 @@ export default function GradOverallStatus({
             </Group>
           </Card.Section>
         </Card>
-        <Paper
-          radius="md"
-          h={160}
-          p={8}
-          sx={(theme) => ({
-            border: '1px solid #FCC419',
-            backgroundColor: 'transparent',
-            boxShadow: '0 0 10px 2px #FFF3BF',
-          })}
-        >
+        <Paper radius="md" h={160} p={8} className={classes.feedback}>
           <Group p={8} position="apart">
             <Text size="md" weight={500}>
               Gijol의 피드백
@@ -148,17 +136,12 @@ export default function GradOverallStatus({
         </Paper>
       </SimpleGrid>
       <Space h={24} />
-      <div style={{ border: '1px solid #dee2e6', borderRadius: '0.5rem', overflow: 'hidden' }}>
+      <div className={classes.tableBorder}>
         <Table
           highlightOnHover
           horizontalSpacing="lg"
           verticalSpacing="sm"
-          sx={{
-            position: 'relative',
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'inherit',
-          }}
+          className={classes.table}
         >
           <thead
             className={classes.tableHead}
@@ -190,5 +173,21 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark : theme.white,
     borderBottomRightRadius: '0.5rem',
     borderBottomLeftRadius: '0.5rem',
+  },
+  table: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'inherit',
+  },
+  tableBorder: {
+    border: '1px solid #dee2e6',
+    borderRadius: '0.5rem',
+    overflow: 'hidden',
+  },
+  feedback: {
+    border: `2px solid ${theme.colors.orange[4]}`,
+    backgroundColor: 'transparent',
+    boxShadow: `0 0 16px 2px ${theme.colors.orange[1]}`,
   },
 }));

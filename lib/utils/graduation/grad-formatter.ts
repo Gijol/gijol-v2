@@ -156,3 +156,42 @@ export function createSpecificStatusMessage(
     }
   }
 }
+
+const satisfaction = ['satisfied', 'unSatisfied', 'notRequired'] as const;
+type Satisfaction = typeof satisfaction[number];
+export function verifyStatus(status: boolean | undefined, title: string): Satisfaction {
+  return !!status ? 'satisfied' : title === '부전공' ? 'notRequired' : 'unSatisfied';
+}
+
+function createStatusColor(verifiedStatus: Satisfaction): string {
+  switch (verifiedStatus) {
+    case 'satisfied':
+      return 'green'; // green.5
+    case 'unSatisfied':
+      return 'red'; // red.5
+    case 'notRequired':
+      return 'blue'; // blue.5
+    default:
+      return 'gray'; // gray.5
+  }
+}
+function createStatusMessage(verifiedStatus: Satisfaction): string {
+  switch (verifiedStatus) {
+    case 'satisfied':
+      return '충족됨';
+    case 'unSatisfied':
+      return '충족되지 않음';
+    case 'notRequired':
+      return '필수 아님';
+    default:
+      return '오류';
+  }
+}
+
+export function getStatusColor(status: boolean | undefined, title: string) {
+  console.log(verifyStatus(!!status, title));
+  return createStatusColor(verifyStatus(!!status, title));
+}
+export function getStatusMessage(status: boolean | undefined, title: string) {
+  return createStatusMessage(verifyStatus(!!status, title));
+}

@@ -59,7 +59,9 @@ export default function Index() {
       <Space h={16} />
       <GradSpecificDomainStatus specificDomainStatusArr={gradStatus.categoriesArr} />
       <Space h={16} />
-      <h1 ref={targetRef}>영역별 피드백 모음</h1>
+      <Title order={1} mt={40} mb="lg" ref={targetRef}>
+        영역별 피드백 모음
+      </Title>
       <Space h={16} />
       <GradRecommend specificDomainStatusArr={gradStatus.categoriesArr} />
       <Space h={80} />
