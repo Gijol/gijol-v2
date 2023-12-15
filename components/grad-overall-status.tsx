@@ -165,10 +165,6 @@ export default function GradOverallStatus({
 }
 
 const useStyles = createStyles((theme) => ({
-  tableHead: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-    borderRadius: theme.radius.md,
-  },
   background: {
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark : theme.white,
     borderBottomRightRadius: '0.5rem',
@@ -179,6 +175,10 @@ const useStyles = createStyles((theme) => ({
     width: '100%',
     height: '100%',
     backgroundColor: 'inherit',
+  },
+  tableHead: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    borderRadius: theme.radius.md,
   },
   tableBorder: {
     border: '1px solid #dee2e6',
