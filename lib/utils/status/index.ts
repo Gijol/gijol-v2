@@ -1,5 +1,17 @@
 import { UserTakenCourse, UserType } from '../../types';
-import { SemesterStatusType, UserTakenCourseWithGradeType } from '../../types/score-status';
+import {
+  CourseWithGradeStatusType,
+  SemesterStatusType,
+  UserTakenCourseWithGradeType,
+} from '../../types/score-status';
+
+export type CourseListWithPeriod = {
+  year: number;
+  semester_idx: number;
+  semester_str: string;
+  grade: number;
+  userTakenCourseList: Array<CourseWithGradeStatusType> | undefined;
+};
 
 export const getSortedCourseStatus = (data: UserTakenCourseWithGradeType | undefined) => {
   const semesterList: SemesterStatusType[] | undefined =
@@ -8,16 +20,18 @@ export const getSortedCourseStatus = (data: UserTakenCourseWithGradeType | undef
   const finalYear = semesterList?.at(-1)?.year as number;
   const semesters = ['1학기', '여름학기', '2학기', '겨울학기'];
 
-  let result = [];
+  let result: CourseListWithPeriod[] = [];
 
-  for (let i = initYear; i <= finalYear; i++) {
+  for (let year = initYear; year <= finalYear; year++) {
     for (const j in semesters) {
       const cnt = semesterList
-        ?.filter((course) => course.year === i && course.semester === semesters[j])
+        ?.filter((course) => course.year === year && course.semester === semesters[j])
         .at(0);
       result.push({
-        period: `${i}년도 ${semesters[j]}`,
-        grade: cnt?.averageGradeBySemester,
+        year,
+        semester_idx: parseInt(j),
+        semester_str: semesters[j],
+        grade: cnt?.averageGradeBySemester ?? 0,
         userTakenCourseList: cnt?.coursesAndGradeResponses,
       });
     }

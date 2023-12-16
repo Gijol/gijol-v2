@@ -74,15 +74,15 @@ export default function UserInfo() {
       }
     );
     if (res.status === 204) {
-      await notifications.show({
+      notifications.show({
         color: 'teal',
         title: '업데이트 완료!',
         message: '변경 사항이 적용되었습니다!',
         autoClose: 2000,
       });
-      await setNameInputOpened(false);
-      await setUserName(user?.fullName ?? '');
-      await router.reload();
+      setNameInputOpened(false);
+      setUserName(user?.fullName ?? '');
+      router.reload();
     } else {
       notifications.show({
         color: 'red',

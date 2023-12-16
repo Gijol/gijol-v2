@@ -21,7 +21,6 @@ export default function Index() {
       pageSize: 20,
     },
   });
-  const onSubmit = (data: any) => console.log(data);
 
   // 강의 리스트 관리
   const { data, isLoading, isError, refetch, isFetching } = useCourseList(
