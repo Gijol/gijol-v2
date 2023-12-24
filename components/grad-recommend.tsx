@@ -1,11 +1,8 @@
 import { Alert, createStyles, Group, Paper, ScrollArea, Tabs, Text } from '@mantine/core';
 import { IconAlertCircle, IconAlertTriangle, IconCircleCheck } from '@tabler/icons-react';
 import { SingleCategoryType } from '../lib/types/grad';
-import {
-  getDomainColor,
-  getStatusColor,
-  verifyStatus,
-} from '../lib/utils/graduation/grad-formatter';
+import { getDomainColor, verifyStatus } from '../lib/utils/graduation/grad-formatter';
+import { useMediaQuery } from '@mantine/hooks';
 
 export default function GradRecommend({
   specificDomainStatusArr,
@@ -13,7 +10,6 @@ export default function GradRecommend({
   specificDomainStatusArr: { domain: string; status: SingleCategoryType | undefined }[];
 }) {
   const { classes } = useStyles();
-
   return (
     <Tabs
       orientation="horizontal"
@@ -83,5 +79,8 @@ const useStyles = createStyles((theme) => ({
   alert: {
     borderRadius: '0.5rem',
     border: '1px solid',
+    '@media (max-width: 48em)': {
+      padding: theme.spacing.xs,
+    },
   },
 }));

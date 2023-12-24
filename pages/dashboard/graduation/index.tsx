@@ -39,7 +39,7 @@ export default function Index() {
 
   return (
     <Container>
-      <Title order={1} mb="lg" mt={40}>
+      <Title order={3} mb="lg" mt={40}>
         종합적인 현황 📋
       </Title>
       <Space h={16} />
@@ -53,13 +53,13 @@ export default function Index() {
         feedbackNumbers={gradStatus.numbers}
       />
       <Space h={40} />
-      <Title order={1} mb="lg" mt={40}>
+      <Title order={3} mb="lg" mt={40}>
         세부적인 현황 📑
       </Title>
       <Space h={16} />
       <GradSpecificDomainStatus specificDomainStatusArr={gradStatus.categoriesArr} />
       <Space h={16} />
-      <Title order={1} mt={40} mb="lg" ref={targetRef}>
+      <Title order={3} mt={40} mb="lg" ref={targetRef}>
         영역별 피드백 모음
       </Title>
       <Space h={16} />

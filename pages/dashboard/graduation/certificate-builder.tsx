@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  Badge,
   Box,
   Button,
   Col,
@@ -8,11 +7,11 @@ import {
   createStyles,
   Divider,
   Drawer,
+  FileInput,
   Grid,
   Group,
   MediaQuery,
   Paper,
-  Progress,
   SimpleGrid,
   Stack,
   Tabs,
@@ -20,7 +19,7 @@ import {
   TextInput,
 } from '@mantine/core';
 import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
-import { IconFileDownload, IconLayoutNavbarCollapse } from '@tabler/icons-react';
+import { IconLayoutNavbarCollapse } from '@tabler/icons-react';
 import { useState } from 'react';
 import {
   section_titles,
@@ -30,6 +29,7 @@ import {
 } from '../../../lib/const/grad-certificate-inputs';
 import { useDisclosure } from '@mantine/hooks';
 import CertificateSectionPanel from '../../../components/certificate-section-panel';
+import { parseCertificate } from '../../../lib/utils/parser/grade/certificate-parser';
 
 export default function CertificateBuilder() {
   const { classes } = useStyles();
@@ -37,13 +37,32 @@ export default function CertificateBuilder() {
   const [activeTab, setActiveTab] = useState<SectionTitleType>(section_titles[0]);
   const [opened, { open, close }] = useDisclosure(false);
 
+  // file parsing trying
+  const [file, setFile] = useState<File | null>(null); // file state
+  const [fileParsed, setFileParsed] = useState<any[]>([]);
+
   const onSubmit = (data: any) => console.log(data);
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <Tabs unstyled defaultValue="신청자 정보">
-          <Container size="lg" mb="xl" fluid className={classes.container}>
-            <Grid m={0} justify="center" maw={1050} mx="auto">
+        <Container size="lg" mb="xl" fluid className={classes.container}>
+          <Tabs unstyled defaultValue="신청자 정보">
+            <Grid m={0} justify="center" maw={1050} mx="auto" columns={6}>
+              <Col span={6}>
+                <Paper p={40} radius="md" withBorder>
+                  <FileInput
+                    placeholder="Pick file"
+                    label="Your resume"
+                    withAsterisk
+                    onChange={setFile}
+                    value={file}
+                  />
+                  <Button onClick={() => parseCertificate(file as File)}>
+                    성적 이수표 파싱하기
+                  </Button>
+                  <Text>{JSON.stringify(fileParsed)}</Text>
+                </Paper>
+              </Col>
               <Col xl="auto" lg="auto" md="auto">
                 <Paper withBorder className={classes.form_container}>
                   <Stack spacing="md" className={classes.form_stack}>
@@ -92,8 +111,8 @@ export default function CertificateBuilder() {
                 </Col>
               </MediaQuery>
             </Grid>
-          </Container>
-        </Tabs>
+          </Tabs>
+        </Container>
       </form>
     </FormProvider>
   );

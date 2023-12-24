@@ -1,6 +1,6 @@
 import { GradeReportParser } from '../parser/grade/gradeReportParser';
 import { GradStatusResponseType, SingleCategoryType } from '../../types/grad';
-import { TempGradResultType, UserStatusType } from '../../types';
+import { UserStatusType } from '../../types';
 import { notifications } from '@mantine/notifications';
 
 export async function readFileAndParse(file: File): Promise<UserStatusType> {
@@ -189,7 +189,6 @@ function createStatusMessage(verifiedStatus: Satisfaction): string {
 }
 
 export function getStatusColor(status: boolean | undefined, title: string) {
-  console.log(verifyStatus(!!status, title));
   return createStatusColor(verifyStatus(!!status, title));
 }
 export function getStatusMessage(status: boolean | undefined, title: string) {
