@@ -14,28 +14,44 @@ import {
   Paper,
   SimpleGrid,
   Stack,
+  Switch,
   Tabs,
   Text,
   TextInput,
 } from '@mantine/core';
 import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { IconLayoutNavbarCollapse } from '@tabler/icons-react';
-import { useState } from 'react';
+import { ForwardedRef, forwardRef, useState } from 'react';
 import {
   section_titles,
-  sections,
+  generateInputSections,
   SectionTitleType,
   InputOrUncontrolledComponentProps,
 } from '../../../lib/const/grad-certificate-inputs';
 import { useDisclosure } from '@mantine/hooks';
 import CertificateSectionPanel from '../../../components/certificate-section-panel';
-import { parseCertificate } from '../../../lib/utils/parser/grade/certificate-parser';
+import {
+  initializeCertForm,
+  parseCertificate,
+} from '../../../lib/utils/parser/grade/certificate-parser';
+import { MonthPickerInput } from '@mantine/dates';
 
 export default function CertificateBuilder() {
   const { classes } = useStyles();
-  const methods = useForm();
+  const methods = useForm({
+    defaultValues: {
+      OU: {
+        summer_session: {
+          subjects: [],
+        },
+      },
+    },
+  });
   const [activeTab, setActiveTab] = useState<SectionTitleType>(section_titles[0]);
   const [opened, { open, close }] = useDisclosure(false);
+
+  // 2021학번 이후
+  const [laterThan2021, setLaterThan2021] = useState(true);
 
   // file parsing trying
   const [file, setFile] = useState<File | null>(null); // file state
@@ -44,10 +60,10 @@ export default function CertificateBuilder() {
   const onSubmit = (data: any) => console.log(data);
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <form onSubmit={methods.handleSubmit(onSubmit)} autoComplete="off">
         <Container size="lg" mb="xl" fluid className={classes.container}>
           <Tabs unstyled defaultValue="신청자 정보">
-            <Grid m={0} justify="center" maw={1050} mx="auto" columns={6}>
+            <Grid m={0} justify="center" maw={1100} mx="auto" columns={6}>
               <Col span={6}>
                 <Paper p={40} radius="md" withBorder>
                   <FileInput
@@ -57,7 +73,7 @@ export default function CertificateBuilder() {
                     onChange={setFile}
                     value={file}
                   />
-                  <Button onClick={() => parseCertificate(file as File)}>
+                  <Button onClick={() => parseCertificate(file as File, methods)}>
                     성적 이수표 파싱하기
                   </Button>
                   <Text>{JSON.stringify(fileParsed)}</Text>
@@ -66,16 +82,26 @@ export default function CertificateBuilder() {
               <Col xl="auto" lg="auto" md="auto">
                 <Paper withBorder className={classes.form_container}>
                   <Stack spacing="md" className={classes.form_stack}>
-                    <Text component="h2" size="xl" align="left" my="lg">
-                      {activeTab}
-                    </Text>
+                    <Group position="apart">
+                      <Text component="h2" size="xl" align="left" my="lg">
+                        {activeTab}
+                      </Text>
+                      <Switch
+                        size="xl"
+                        checked={laterThan2021}
+                        onChange={() => setLaterThan2021(!laterThan2021)}
+                        onLabel="2021학번 이후"
+                        offLabel="2021학번 이전"
+                      />
+                    </Group>
                     <Divider />
-                    {sections.map((section) => (
+                    {generateInputSections(methods).map((section) => (
                       <SectionPanelWithInputs
                         key={section.title}
                         inputs={section.inputs}
                         title={section.title}
                         label={section.section_label}
+                        laterThan2021={laterThan2021}
                       />
                     ))}
                   </Stack>
@@ -122,52 +148,59 @@ function SectionPanelWithInputs({
   inputs,
   title,
   label,
+  laterThan2021,
 }: {
   inputs: Array<InputOrUncontrolledComponentProps<any>>;
   label: SectionTitleType;
   title: string;
+  laterThan2021: boolean;
 }) {
   const { control } = useFormContext();
-  const content = inputs.map((item) => {
-    const Component = item.component ?? TextInput;
-    const isControlled = item.controlled !== false;
-    if (!isControlled) {
-      return <Component key={item.rhf_name} {...(item.props as any)} />;
-    }
-    return (
-      <Controller
-        key={item.rhf_name}
-        name={`${title}-${item.rhf_name}`}
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Box
-            component={Component}
-            type={item.type ?? 'string'}
-            label={item.label}
-            placeholder={item.placeholder}
-            mt="md"
-            styles={{
-              label: {
-                marginBottom: '8px',
-              },
-            }}
-            {...(item.props as any)}
-            {...field}
+  const content = inputs
+    .filter((item) => item.laterThan2021 === undefined || item.laterThan2021 === laterThan2021)
+    .map((item) => {
+      const Component = item.component ?? TextInput;
+      const isControlled = item.controlled ?? true;
+      const key = item.rhf_name ?? (item.props as any).label ?? (item.props as any).children;
+      if (!isControlled) {
+        return <Box key={key} component={Component} {...(item.props as any)} w="100%" />;
+      }
+      return (
+        <Col span={4} key={key}>
+          <Controller
+            key={item.rhf_name}
+            name={`${item.rhf_name}`}
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Box
+                component={Component}
+                type={item.type ?? 'string'}
+                label={item.label}
+                placeholder={item.placeholder}
+                mt="sm"
+                styles={{
+                  label: {
+                    marginBottom: '8px',
+                  },
+                }}
+                {...(item.props as any)}
+                {...field}
+              />
+            )}
           />
-        )}
-      />
-    );
-  });
+        </Col>
+      );
+    });
   return (
     <Tabs.Panel value={label} key={title}>
-      {isGridView(label) ? <SimpleGrid cols={3}>{content}</SimpleGrid> : content}
+      <Grid columns={isBulkCreditSection(label) ? 12 : 4}>{content}</Grid>
     </Tabs.Panel>
   );
 }
 
-const isGridView = (section: SectionTitleType) => {
-  return section !== '신청자 정보' && section !== '해외대학 학점';
+const isBulkCreditSection = (section: SectionTitleType) => {
+  return section !== '신청자 정보' && section !== '기타 학점';
 };
 
 const useStyles = createStyles((theme) => ({
@@ -189,7 +222,7 @@ const useStyles = createStyles((theme) => ({
         color: theme.colors.gray[6],
       },
       ':focus::placeholder': {
-        color: 'transparent',
+        color: theme.colors.gray[6],
       },
       ':focus-within': {
         border: '1px solid',

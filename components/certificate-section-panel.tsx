@@ -14,6 +14,7 @@ import {
 import { section_titles, SectionTitleType } from '../lib/const/grad-certificate-inputs';
 import { IconFileDownload } from '@tabler/icons-react';
 import { Dispatch, SetStateAction } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 export default function CertificateSectionPanel({
   activeTab,
@@ -23,6 +24,7 @@ export default function CertificateSectionPanel({
   setActiveTab: Dispatch<SetStateAction<SectionTitleType>>;
 }) {
   const { classes } = useStyles();
+  const { getValues } = useFormContext();
   return (
     <Stack spacing={0}>
       <Box px="md" pb="xs">
@@ -65,6 +67,7 @@ export default function CertificateSectionPanel({
         type="submit"
         color="dark"
         leftIcon={<IconFileDownload size={20} />}
+        onClick={() => console.log(getValues())}
       >
         PDF 생성하기
       </Button>

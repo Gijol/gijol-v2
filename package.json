@@ -60,7 +60,6 @@
     "recoil-sync": "^0.2.0",
     "svix": "^1.8.1",
     "ts-node": "^10.9.1",
-    "vaul": "^0.7.9",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz"
   },
   "devDependencies": {
