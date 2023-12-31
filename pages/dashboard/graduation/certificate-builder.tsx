@@ -12,7 +12,6 @@ import {
   Group,
   MediaQuery,
   Paper,
-  SimpleGrid,
   Stack,
   Switch,
   Tabs,
@@ -21,20 +20,16 @@ import {
 } from '@mantine/core';
 import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { IconLayoutNavbarCollapse } from '@tabler/icons-react';
-import { ForwardedRef, forwardRef, useState } from 'react';
+import { useState } from 'react';
 import {
   section_titles,
   generateInputSections,
   SectionTitleType,
   InputOrUncontrolledComponentProps,
-} from '../../../lib/const/grad-certificate-inputs';
+} from '@const/grad-certificate-inputs';
 import { useDisclosure } from '@mantine/hooks';
 import CertificateSectionPanel from '../../../components/certificate-section-panel';
-import {
-  initializeCertForm,
-  parseCertificate,
-} from '../../../lib/utils/parser/grade/certificate-parser';
-import { MonthPickerInput } from '@mantine/dates';
+import { parseCertificate } from '@utils/parser/grade/certificate-parser';
 
 export default function CertificateBuilder() {
   const { classes } = useStyles();
