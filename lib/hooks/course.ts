@@ -1,8 +1,9 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { UserTakenCourseWithGradeType } from '../types/score-status';
-import { CourseHistory, CourseResponse, CourseSearchCodeType } from '../types/course';
 import { useAuth } from '@clerk/nextjs';
-import { instance } from '../utils/instance';
+import { useMutation, useQuery } from '@tanstack/react-query';
+
+import { instance } from '@utils/instance';
+import { UserTakenCourseWithGradeType } from '@lib/types/score-status';
+import { CourseHistory, CourseResponse, CourseSearchCodeType } from '@lib/types/course';
 
 export function useCourseStatus() {
   const { getToken } = useAuth();

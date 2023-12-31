@@ -1,16 +1,19 @@
-import { Container, Space, createStyles, Center, Text, Title } from '@mantine/core';
-import { useScrollIntoView } from '@mantine/hooks';
 import React from 'react';
+
+import { Container, Space, Title } from '@mantine/core';
+
 import { useUser } from '@clerk/nextjs';
-import { useMemberStatus } from '../../../lib/hooks/auth';
-import { useGraduation } from '../../../lib/hooks/graduation';
-import Loading from '../../../components/loading';
-import DashboardUnsignedPage from '../../../components/dashboard-unsigned-page';
-import DashboardFileUploadEncouragement from '../../../components/dashboard-file-upload-encouragement';
-import GraduationLoadingSkeleton from '../../../components/graduation-loading-skeleton';
-import GradOverallStatus from '../../../components/grad-overall-status';
-import GradSpecificDomainStatus from '../../../components/grad-specific-domain-status';
-import GradRecommend from '../../../components/grad-recommend';
+import { useMemberStatus } from '@hooks/auth';
+import { useGraduation } from '@hooks/graduation';
+import { useScrollIntoView } from '@mantine/hooks';
+
+import Loading from '@components/loading';
+import GradRecommend from '@components/grad-recommend';
+import GradOverallStatus from '@components/grad-overall-status';
+import DashboardUnsignedPage from '@components/dashboard-unsigned-page';
+import GradSpecificDomainStatus from '@components/grad-specific-domain-status';
+import GraduationLoadingSkeleton from '@components/graduation-loading-skeleton';
+import DashboardFileUploadEncouragement from '@components/dashboard-file-upload-encouragement';
 
 export default function Index() {
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({

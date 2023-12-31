@@ -1,17 +1,20 @@
-import { useState } from 'react';
-import NextApp, { AppProps, AppContext } from 'next/app';
-import { getCookie, setCookie } from 'cookies-next';
-import Head from 'next/head';
-import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
-import { Notifications } from '@mantine/notifications';
-import { Layout } from '../components/layouts/layout';
-import { ModalsProvider } from '@mantine/modals';
-import { Analytics } from '@vercel/analytics/react';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { QueryClient } from '@tanstack/query-core';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ClerkProvider } from '@clerk/nextjs';
 import '../public/global.css';
+import { useState } from 'react';
+import Head from 'next/head';
+import { getCookie, setCookie } from 'cookies-next';
+import NextApp, { AppProps, AppContext } from 'next/app';
+
+import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
+import { Notifications } from '@mantine/notifications';
+
+import { ClerkProvider } from '@clerk/nextjs';
+import { Analytics } from '@vercel/analytics/react';
+import { QueryClient } from '@tanstack/query-core';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+import { Layout } from '@components/layouts/layout';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;

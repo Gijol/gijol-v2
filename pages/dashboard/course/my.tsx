@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import { useUser } from '@clerk/nextjs';
+
 import {
   Col,
   Container,
@@ -10,22 +11,21 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  Title,
   useMantineTheme,
 } from '@mantine/core';
-import { getSortedCourseStatus } from '../../../lib/utils/status';
-import { useCourseStatus } from '../../../lib/hooks/course';
 import { useMediaQuery } from '@mantine/hooks';
-import Loading from '../../../components/loading';
-import CourseMyCreditChart from '../../../components/course-my-credit-chart';
-import CourseMyGradeChart from '../../../components/course-my-grade-chart';
-import CourseMyTableChart from '../../../components/course-my-table-chart';
-import { useUser } from '@clerk/nextjs';
-import CourseMyLoadingSkeleton from '../../../components/course-my-loading-skeleton';
-import { useMemberStatus } from '../../../lib/hooks/auth';
-import DashboardFileUploadEncouragement from '../../../components/dashboard-file-upload-encouragement';
-import DashboardUnsignedPage from '../../../components/dashboard-unsigned-page';
-import { IconCalendar, IconCalendarEvent } from '@tabler/icons-react';
+
+import Loading from '@components/loading';
+import CourseMyGradeChart from '@components/course-my-grade-chart';
+import CourseMyTableChart from '@components/course-my-table-chart';
+import CourseMyCreditChart from '@components/course-my-credit-chart';
+import DashboardUnsignedPage from '@components/dashboard-unsigned-page';
+import CourseMyLoadingSkeleton from '@components/course-my-loading-skeleton';
+import DashboardFileUploadEncouragement from '@components/dashboard-file-upload-encouragement';
+
+import { getSortedCourseStatus } from '@utils/status';
+import { useCourseStatus } from '@hooks/course';
+import { useMemberStatus } from '@hooks/auth';
 
 export default function My() {
   const theme = useMantineTheme();

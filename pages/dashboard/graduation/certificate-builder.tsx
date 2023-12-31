@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   ActionIcon,
   Box,
@@ -18,18 +20,20 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
-import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { useDisclosure } from '@mantine/hooks';
+
 import { IconLayoutNavbarCollapse } from '@tabler/icons-react';
-import { useState } from 'react';
+import CertificateSectionPanel from '@components/certificate-section-panel';
+
 import {
   section_titles,
   generateInputSections,
   SectionTitleType,
   InputOrUncontrolledComponentProps,
 } from '@const/grad-certificate-inputs';
-import { useDisclosure } from '@mantine/hooks';
-import CertificateSectionPanel from '../../../components/certificate-section-panel';
 import { parseCertificate } from '@utils/parser/grade/certificate-parser';
+
+import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
 
 export default function CertificateBuilder() {
   const { classes } = useStyles();

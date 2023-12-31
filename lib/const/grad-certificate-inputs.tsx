@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentType, HTMLInputTypeAttribute, ReactNode } from 'react';
+import { ChangeEvent, ComponentType, HTMLInputTypeAttribute } from 'react';
 import {
   Box,
   Col,
@@ -7,7 +7,6 @@ import {
   MultiSelect,
   NumberInput,
   Select,
-  Text,
   TextInput,
   Title,
 } from '@mantine/core';

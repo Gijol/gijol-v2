@@ -1,3 +1,7 @@
+import { useRouter } from 'next/router';
+import React, { useRef, useState } from 'react';
+import { useAuth, useClerk, useUser } from '@clerk/nextjs';
+
 import {
   Box,
   Container,
@@ -6,27 +10,25 @@ import {
   Text,
   Avatar,
   Button,
-  Center,
   Select,
   Stack,
   TextInput,
   Paper,
 } from '@mantine/core';
-import React, { useRef, useState } from 'react';
-import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
-import { convertMajorTypeToText, deleteUserInfo, updateUserInfo } from '../../lib/utils/user';
-import { useUserInfo } from '../../lib/hooks/user';
-import Loading from '../../components/loading';
-import { BASE_SERVER_URL } from '../../lib/const';
-import { notifications } from '@mantine/notifications';
-import { useAuth, useClerk, useUser } from '@clerk/nextjs';
-import UserInfoLoadingSkeleton from '../../components/user-info-loading-skeleton';
-import { instance } from '../../lib/utils/instance';
-import { useRouter } from 'next/router';
-import { useMemberStatus } from '../../lib/hooks/auth';
-import DashboardFileUploadEncouragement from '../../components/dashboard-file-upload-encouragement';
-import DashboardUnsignedPage from '../../components/dashboard-unsigned-page';
 import { modals } from '@mantine/modals';
+import { notifications } from '@mantine/notifications';
+import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
+
+import { instance } from '@utils/instance';
+import { BASE_SERVER_URL } from '@const/index';
+import { useUserInfo } from '@hooks/user';
+import { useMemberStatus } from '@hooks/auth';
+import { convertMajorTypeToText, deleteUserInfo, updateUserInfo } from '@utils/user';
+
+import Loading from '@components/loading';
+import DashboardUnsignedPage from '@components/dashboard-unsigned-page';
+import UserInfoLoadingSkeleton from '@components/user-info-loading-skeleton';
+import DashboardFileUploadEncouragement from '@components/dashboard-file-upload-encouragement';
 
 const major_select_data = [
   { value: 'EC', label: '전기전자컴퓨터공학전공' },
