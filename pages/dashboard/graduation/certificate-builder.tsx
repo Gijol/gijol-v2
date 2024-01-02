@@ -14,6 +14,8 @@ import {
   Group,
   MediaQuery,
   Paper,
+  rem,
+  Select,
   Stack,
   Switch,
   Tabs,
@@ -34,6 +36,7 @@ import {
 import { parseCertificate } from '@utils/parser/grade/certificate-parser';
 
 import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
+import CertificateDropzone from '@components/certificate-dropzone';
 
 export default function CertificateBuilder() {
   const { classes } = useStyles();
@@ -44,17 +47,11 @@ export default function CertificateBuilder() {
           subjects: [],
         },
       },
-    },
+    } as unknown as Record<string, any>,
   });
   const [activeTab, setActiveTab] = useState<SectionTitleType>(section_titles[0]);
   const [opened, { open, close }] = useDisclosure(false);
-
-  // 2021학번 이후
-  const [laterThan2021, setLaterThan2021] = useState(true);
-
-  // file parsing trying
-  const [file, setFile] = useState<File | null>(null); // file state
-  const [fileParsed, setFileParsed] = useState<any[]>([]);
+  const [isUpperThan2021, setIsUpperThan2021] = useState<string | null>(null);
 
   const onSubmit = (data: any) => console.log(data);
   return (
@@ -63,20 +60,17 @@ export default function CertificateBuilder() {
         <Container size="lg" mb="xl" fluid className={classes.container}>
           <Tabs unstyled defaultValue="신청자 정보">
             <Grid m={0} justify="center" maw={1100} mx="auto" columns={6}>
-              <Col span={6}>
-                <Paper p={40} radius="md" withBorder>
-                  <FileInput
-                    placeholder="Pick file"
-                    label="Your resume"
-                    withAsterisk
-                    onChange={setFile}
-                    value={file}
-                  />
-                  <Button onClick={() => parseCertificate(file as File, methods)}>
-                    성적 이수표 파싱하기
-                  </Button>
-                  <Text>{JSON.stringify(fileParsed)}</Text>
-                </Paper>
+              <Col lg={6} md="auto">
+                <CertificateDropzone
+                  onDrop={(file) => {
+                    parseCertificate(file[0] as File, methods);
+                    setIsUpperThan2021(
+                      parseInt(methods.getValues('USER.studentNumber')?.substring(0, 4)) >= 2021
+                        ? '2021~'
+                        : '~2020'
+                    );
+                  }}
+                />
               </Col>
               <Col xl="auto" lg="auto" md="auto">
                 <Paper withBorder className={classes.form_container}>
@@ -85,12 +79,18 @@ export default function CertificateBuilder() {
                       <Text component="h2" size="xl" align="left" my="lg">
                         {activeTab}
                       </Text>
-                      <Switch
-                        size="xl"
-                        checked={laterThan2021}
-                        onChange={() => setLaterThan2021(!laterThan2021)}
-                        onLabel="2021학번 이후"
-                        offLabel="2021학번 이전"
+                      <Select
+                        className={classes.student_number_input}
+                        size="xs"
+                        label="학번"
+                        withAsterisk
+                        placeholder="학번을 선택해주세요"
+                        data={[
+                          { value: '2021~', label: '2021년도 이후 (2021 ~ )' },
+                          { value: '~2020', label: '2021년도 이전 ( ~ 2020)' },
+                        ]}
+                        onChange={setIsUpperThan2021}
+                        value={isUpperThan2021}
                       />
                     </Group>
                     <Divider />
@@ -100,7 +100,7 @@ export default function CertificateBuilder() {
                         inputs={section.inputs}
                         title={section.title}
                         label={section.section_label}
-                        laterThan2021={laterThan2021}
+                        laterThan2021={isLaterThan2021(isUpperThan2021 ?? '2021')}
                       />
                     ))}
                   </Stack>
@@ -202,6 +202,10 @@ const isBulkCreditSection = (section: SectionTitleType) => {
   return section !== '신청자 정보' && section !== '기타 학점';
 };
 
+const isLaterThan2021 = (year: string) => {
+  return year === '2021~';
+};
+
 const useStyles = createStyles((theme) => ({
   form_stack: {
     '& .mantine-Input-input': {
@@ -244,18 +248,24 @@ const useStyles = createStyles((theme) => ({
     '@media (max-width: 48em)': { padding: 0 },
   },
   form_container: {
-    maxWidth: 750,
-    padding: 40,
-    marginInline: 'auto',
+    padding: theme.spacing.lg,
     borderRadius: theme.radius.lg,
     '@media (max-width: 48em)': { padding: theme.spacing.md },
+  },
+  student_number_input: {
+    '& .mantine-Input-input': {
+      padding: '1px 20px 1px 12px',
+      height: rem(32),
+      lineHeight: rem(2.125),
+      fontSize: rem(14),
+      width: 'fit-content',
+    },
   },
   section_panel: {
     width: 280,
     height: 'fit-content',
     padding: `${theme.spacing.xl} ${theme.spacing.md}`,
     borderRadius: theme.radius.lg,
-    marginLeft: 20,
   },
   section_panel_button: {
     borderRadius: theme.radius.xl,

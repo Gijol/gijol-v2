@@ -204,7 +204,7 @@ export const initializeCertForm = (method: UseFormReturn, parsed_data: any[]) =>
   setValue('M_R_F', M_R_F);
   setValue('NOC', NOC);
   setValue('OU', OU);
-  // console.log(method.getValues());
+  console.log(method.getValues());
 };
 
 const checkSemesterWithDate = (cnt_month: number) => {
