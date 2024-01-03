@@ -1,4 +1,5 @@
 import {
+  IconCalendarTime,
   IconCertificate,
   IconChalkboard,
   IconClipboardList,
@@ -18,4 +19,5 @@ export const navLinks = [
     href: '/dashboard/graduation/certificate-builder',
     icon: IconCertificate,
   },
+  { label: '시간표 제작하기 ✨', href: '/dashboard/course/timetable', icon: IconCalendarTime },
 ];

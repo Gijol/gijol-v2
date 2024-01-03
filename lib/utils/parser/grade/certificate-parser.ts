@@ -48,6 +48,27 @@ function mapUserInfo(data: any[]): UserInfo {
 
 export function mapBasicAndCommon(data: any[]): BasicAndCommon {
   const creditData = data[5];
+  const isLaterThan2021 = parseInt(data[2][STU_NUM_INDEX].substring(0, 4)) >= 2021;
+  const freshmanContent = isLaterThan2021
+    ? {
+        gistFreshman: {
+          completed: parseInt(creditData[GF_INDEX]),
+          inProgress: 0,
+          total: parseInt(creditData[GF_INDEX]),
+        },
+        gistMajorExploration: {
+          completed: parseInt(creditData[MR_INDEX]),
+          inProgress: 0,
+          total: parseInt(creditData[MR_INDEX]),
+        },
+      }
+    : {
+        freshmanSeminar: {
+          completed: parseInt(creditData[GF_INDEX]),
+          inProgress: 0,
+          total: parseInt(creditData[GF_INDEX]),
+        },
+      };
   return {
     languageBasics: {
       completed: parseInt(creditData[LB_INDEX]),
@@ -69,16 +90,7 @@ export function mapBasicAndCommon(data: any[]): BasicAndCommon {
       inProgress: 0,
       total: parseInt(creditData[BS_INDEX]),
     },
-    gistFreshman: {
-      completed: parseInt(creditData[GF_INDEX]),
-      inProgress: 0,
-      total: parseInt(creditData[GF_INDEX]),
-    },
-    gistMajorExploration: {
-      completed: parseInt(creditData[MR_INDEX]),
-      inProgress: 0,
-      total: parseInt(creditData[MR_INDEX]),
-    },
+    ...freshmanContent,
   };
 }
 
@@ -180,7 +192,7 @@ export const parseCertificate = (file: File, methods: UseFormReturn<any, undefin
       const wb = read(result, { type: 'binary' });
       const ws = wb.Sheets[wb.SheetNames[0]];
       const data = utils.sheet_to_json(ws);
-      // console.log(data);
+      console.log(data);
       initializeCertForm(methods, data);
     } catch (err) {
       throw new Error(err as string);
@@ -198,7 +210,6 @@ export const initializeCertForm = (method: UseFormReturn, parsed_data: any[]) =>
   const M_R_F = mapMajorAndResearchAndFree(parsed_data);
   const NOC = mapNoCreditsRequired(parsed_data);
   const OU = mapOuterUniversity(parsed_data);
-  // console.log(USER, B_C, M_R_F, NOC, OU);
   setValue('USER', USER);
   setValue('B_C', B_C);
   setValue('M_R_F', M_R_F);

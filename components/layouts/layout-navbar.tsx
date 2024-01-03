@@ -1,9 +1,8 @@
 import { Text, createStyles, Divider, Navbar, NavLink, rem, Drawer } from '@mantine/core';
 import Link from 'next/link';
-import { navLinks } from '../../lib/const/nav-links';
 import { useRouter } from 'next/router';
-import { getCntTab } from '../../lib/utils/status';
-import { useMediaQuery } from '@mantine/hooks';
+import { navLinks } from '@const/nav-links';
+import { getCntTab } from '@utils/status';
 
 const useStyles = createStyles((theme) => ({
   navbar: {

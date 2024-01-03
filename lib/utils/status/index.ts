@@ -53,6 +53,8 @@ export const getCntTab = (href: string) => {
       return '내 정보';
     case '/dashboard/graduation/certificate-builder':
       return '졸업요건 확인서 만들기 ✨';
+    case '/dashboard/course/timetable':
+      return '시간표 제작하기 ✨';
     default:
       return '';
   }

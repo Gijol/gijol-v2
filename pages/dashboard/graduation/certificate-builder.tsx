@@ -3,28 +3,29 @@ import { useState } from 'react';
 import {
   ActionIcon,
   Box,
-  Button,
   Col,
   Container,
-  createStyles,
   Divider,
-  Drawer,
-  FileInput,
   Grid,
   Group,
-  MediaQuery,
   Paper,
-  rem,
   Select,
   Stack,
-  Switch,
   Tabs,
   Text,
   TextInput,
+  Drawer,
+  MediaQuery,
+  rem,
+  createStyles,
+  Title,
+  Button,
+  Tooltip,
+  useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
-import { IconLayoutNavbarCollapse } from '@tabler/icons-react';
+import { IconFileCheck, IconFileShredder, IconMenu2 } from '@tabler/icons-react';
 import CertificateSectionPanel from '@components/certificate-section-panel';
 
 import {
@@ -38,19 +39,29 @@ import { parseCertificate } from '@utils/parser/grade/certificate-parser';
 import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
 import CertificateDropzone from '@components/certificate-dropzone';
 
-export default function CertificateBuilder() {
-  const { classes } = useStyles();
-  const methods = useForm({
-    defaultValues: {
-      OU: {
-        summer_session: {
-          subjects: [],
-        },
+const getDefaultOrSavedValue = () => {
+  return {
+    OU: {
+      summer_session: {
+        subjects: [],
       },
-    } as unknown as Record<string, any>,
+    },
+  } as unknown as Record<string, any>;
+};
+
+export default function CertificateBuilder() {
+  const theme = useMantineTheme();
+  const { classes } = useStyles();
+
+  // form management
+  const methods = useForm({
+    defaultValues: getDefaultOrSavedValue(),
   });
+
+  // section panel tabs & drawer
   const [activeTab, setActiveTab] = useState<SectionTitleType>(section_titles[0]);
   const [opened, { open, close }] = useDisclosure(false);
+
   const [isUpperThan2021, setIsUpperThan2021] = useState<string | null>(null);
 
   const onSubmit = (data: any) => console.log(data);
@@ -60,7 +71,11 @@ export default function CertificateBuilder() {
         <Container size="lg" mb="xl" fluid className={classes.container}>
           <Tabs unstyled defaultValue="신청자 정보">
             <Grid m={0} justify="center" maw={1100} mx="auto" columns={6}>
-              <Col lg={6} md="auto">
+              <Col lg={6} md={6}>
+                <Title order={3}>졸업 이수요건 확인서 생성기</Title>
+                <Divider mt="md" />
+              </Col>
+              <Col lg={6} md={6}>
                 <CertificateDropzone
                   onDrop={(file) => {
                     parseCertificate(file[0] as File, methods);
@@ -106,26 +121,77 @@ export default function CertificateBuilder() {
                   </Stack>
                 </Paper>
                 <MediaQuery styles={{ display: 'none' }} largerThan="xl">
-                  <Group position="right" my="xl" pos="sticky" bottom={20}>
-                    <ActionIcon
-                      component="button"
-                      onClick={open}
-                      size="4rem"
-                      color="dark"
-                      variant="default"
-                      className={classes.section_panel_button}
-                    >
-                      <IconLayoutNavbarCollapse size="2rem" />
-                    </ActionIcon>
-                    <Drawer
-                      opened={opened}
-                      onClose={close}
-                      overlayProps={{ opacity: 0.5, blur: 0.5 }}
-                      position="bottom"
-                    >
-                      <CertificateSectionPanel activeTab={activeTab} setActiveTab={setActiveTab} />
-                    </Drawer>
-                  </Group>
+                  <Paper
+                    pos="sticky"
+                    bottom={40}
+                    w="fit-content"
+                    mx="auto"
+                    mt={40}
+                    withBorder
+                    radius="xl"
+                    p="xs"
+                    shadow="xs"
+                  >
+                    <Group position="center" spacing="xs">
+                      <Tooltip label="변경사항 저장">
+                        <ActionIcon
+                          component="button"
+                          onClick={open}
+                          size="2rem"
+                          color="dark"
+                          variant="subtle"
+                          className={classes.section_panel_button}
+                        >
+                          <IconFileCheck size="1.25rem" color={theme.colors.green[6]} />
+                        </ActionIcon>
+                      </Tooltip>
+                      <Tooltip label="변경사항 폐기">
+                        <ActionIcon
+                          component="button"
+                          onClick={open}
+                          size="2rem"
+                          color="dark"
+                          variant="subtle"
+                          className={classes.section_panel_button}
+                        >
+                          <IconFileShredder size="1.25rem" color={theme.colors.red[6]} />
+                        </ActionIcon>
+                      </Tooltip>
+                      <Divider orientation="vertical" />
+                      <Button
+                        color="dark"
+                        radius="lg"
+                        onClick={() => console.log(methods.getValues())}
+                      >
+                        PDF 생성하기
+                      </Button>
+                      <Divider orientation="vertical" />
+                      <Tooltip label="섹션 메뉴">
+                        <ActionIcon
+                          component="button"
+                          onClick={open}
+                          size="2rem"
+                          color="dark"
+                          variant="subtle"
+                          className={classes.section_panel_button}
+                        >
+                          <IconMenu2 size="1.25rem" />
+                        </ActionIcon>
+                      </Tooltip>
+
+                      <Drawer
+                        opened={opened}
+                        onClose={close}
+                        overlayProps={{ opacity: 0.5, blur: 0.5 }}
+                        position="bottom"
+                      >
+                        <CertificateSectionPanel
+                          activeTab={activeTab}
+                          setActiveTab={setActiveTab}
+                        />
+                      </Drawer>
+                    </Group>
+                  </Paper>
                 </MediaQuery>
               </Col>
               <MediaQuery styles={{ display: 'none' }} smallerThan="xl">
@@ -185,6 +251,12 @@ function SectionPanelWithInputs({
                 }}
                 {...(item.props as any)}
                 {...field}
+                onChange={(e: unknown) => {
+                  field.onChange(e);
+                  if ((item.props as any)?.onChange) {
+                    (item.props as any)?.onChange(e);
+                  }
+                }}
               />
             )}
           />
@@ -264,11 +336,13 @@ const useStyles = createStyles((theme) => ({
   section_panel: {
     width: 280,
     height: 'fit-content',
-    padding: `${theme.spacing.xl} ${theme.spacing.md}`,
+    padding: theme.spacing.md,
     borderRadius: theme.radius.lg,
   },
   section_panel_button: {
     borderRadius: theme.radius.xl,
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    '&:hover': {
+      backgroundColor: theme.colors.gray[2],
+    },
   },
 }));

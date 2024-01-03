@@ -25,8 +25,9 @@ export interface BasicAndCommon {
   humanitiesAndSocial: CreditCommon;
   software: CreditCommon;
   basicScience: CreditCommon;
-  gistFreshman: CreditCommon;
-  gistMajorExploration: CreditCommon;
+  gistFreshman?: CreditCommon;
+  gistMajorExploration?: CreditCommon;
+  freshmanSeminar?: CreditCommon;
 }
 
 // major & research & free

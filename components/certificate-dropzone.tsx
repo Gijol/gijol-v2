@@ -1,6 +1,16 @@
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
-import { createStyles, Group, rem, useMantineTheme, Text, Button, Stack } from '@mantine/core';
-import { IconCloudUpload, IconDownload, IconFileUpload, IconX } from '@tabler/icons-react';
+import {
+  createStyles,
+  Group,
+  rem,
+  useMantineTheme,
+  Text,
+  Stack,
+  Code,
+  Highlight,
+  Mark,
+} from '@mantine/core';
+import { IconDownload, IconFileUpload, IconX } from '@tabler/icons-react';
 import { useRef } from 'react';
 
 export default function CertificateDropzone({
@@ -41,10 +51,13 @@ export default function CertificateDropzone({
             <Text ta="center" fw={700} mt="sm">
               <Dropzone.Accept>여기에 파일을 업로드하세요</Dropzone.Accept>
               <Dropzone.Reject>정확한 성적 이수표 엑셀을 업로드 해주세요</Dropzone.Reject>
-              <Dropzone.Idle>성적 이수표 가져오기</Dropzone.Idle>
+              <Dropzone.Idle>성적 이수표 업로드 하기</Dropzone.Idle>
             </Text>
-            <Text ta="center" fz="sm" c="dimmed" mt="xs">
-              제우스에서 졸업요건 성적 이수표 엑셀 파일을 다운받아 업로드 해주세요
+            <Text ta="center" fz="md" c="dimmed" mt="xs">
+              <Mark>
+                제우스 {'>'} 자격졸업 {'>'} [R]졸업성적이수표출력
+              </Mark>{' '}
+              페이지에서 엑셀 파일을 다운받아 업로드 해주세요
             </Text>
           </Stack>
         </div>

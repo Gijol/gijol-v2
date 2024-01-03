@@ -136,6 +136,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.languageBasics.total',
+              e + context.watch('B_C.languageBasics.inProgress')
+            );
+          },
         },
       },
       {
@@ -148,14 +154,20 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.languageBasics.total',
+              e + context.watch('B_C.languageBasics.completed')
+            );
+          },
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'B_C.languageBasics.total',
         label: '언어의 기초(합계)',
         props: {
-          disabled: true,
+          readOnly: true,
         },
       },
       {
@@ -168,6 +180,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.humanitiesAndSocial.total',
+              e + context.watch('B_C.humanitiesAndSocial.inProgress')
+            );
+          },
         },
       },
       {
@@ -180,14 +198,20 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.humanitiesAndSocial.total',
+              e + context.watch('B_C.humanitiesAndSocial.completed')
+            );
+          },
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'B_C.humanitiesAndSocial.total',
         label: '인문사회(합계)',
         props: {
-          disabled: true,
+          readOnly: true,
         },
       },
       {
@@ -200,6 +224,9 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue('B_C.software.total', e + context.watch('B_C.software.inProgress'));
+          },
         },
       },
       {
@@ -212,14 +239,17 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue('B_C.software.total', e + context.watch('B_C.software.completed'));
+          },
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'B_C.software.total',
         label: '소프트웨어(합계)',
         props: {
-          disabled: true,
+          readOnly: true,
         },
       },
       {
@@ -232,6 +262,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.basicScience.total',
+              e + context.watch('B_C.basicScience.inProgress')
+            );
+          },
         },
       },
       {
@@ -244,14 +280,20 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.basicScience.total',
+              e + context.watch('B_C.basicScience.completed')
+            );
+          },
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'B_C.basicScience.total',
         label: '기초과학(합계)',
         props: {
-          disabled: true,
+          readOnly: true,
         },
       },
       {
@@ -262,6 +304,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           labelPosition: 'center',
           label: '이 부분은 학번에 따라 다르니 유의하세요! ⚠️',
           color: 'red',
+          variant: 'dashed',
         },
       },
       {
@@ -274,6 +317,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.gistFreshman.total',
+              e + context.watch('B_C.gistFreshman.inProgress')
+            );
+          },
         },
       },
       {
@@ -286,15 +335,21 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.gistFreshman.total',
+              e + context.watch('B_C.gistFreshman.completed')
+            );
+          },
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'B_C.gistFreshman.total',
         label: 'GIST 새내기(합계)',
         laterThan2021: true,
         props: {
-          disabled: true,
+          readOnly: true,
         },
       },
       {
@@ -307,6 +362,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.gistMajorExploration.total',
+              e + context.watch('B_C.gistMajorExploration.inProgress')
+            );
+          },
         },
       },
       {
@@ -319,11 +380,26 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.gistMajorExploration.total',
+              e + context.watch('B_C.gistMajorExploration.completed')
+            );
+          },
         },
       },
       {
         component: NumberInput,
-        rhf_name: 'B_C.newcomer_seminar.completed',
+        rhf_name: 'B_C.gistMajorExploration.total',
+        label: 'GIST 전공탐색(합계)',
+        laterThan2021: true,
+        props: {
+          readOnly: true,
+        },
+      },
+      {
+        component: NumberInput,
+        rhf_name: 'B_C.freshmanSeminar.completed',
         label: '신입생세미나(이수 완료)',
         placeholder: '신입생 세미나 학점',
         laterThan2021: false,
@@ -331,11 +407,17 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.freshmanSeminar.total',
+              e + context.watch('B_C.freshmanSeminar.inProgress')
+            );
+          },
         },
       },
       {
         component: NumberInput,
-        rhf_name: 'B_C.newcomer_seminar.inProgress',
+        rhf_name: 'B_C.freshmanSeminar.inProgress',
         label: '신입생세미나(이수 중)',
         placeholder: '신입생 세미나 학점',
         laterThan2021: false,
@@ -343,24 +425,21 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'B_C.freshmanSeminar.total',
+              e + context.watch('B_C.freshmanSeminar.completed')
+            );
+          },
         },
       },
       {
-        component: TextInput,
-        rhf_name: 'B_C.newcomer_seminar.total',
+        component: NumberInput,
+        rhf_name: 'B_C.freshmanSeminar.total',
         label: '신입생세미나(합계)',
         laterThan2021: false,
         props: {
-          disabled: true,
-        },
-      },
-      {
-        component: TextInput,
-        rhf_name: 'B_C.gistMajorExploration.total',
-        label: 'GIST 전공탐색(합계)',
-        laterThan2021: true,
-        props: {
-          disabled: true,
+          readOnly: true,
         },
       },
     ],
@@ -376,6 +455,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           order: 5,
           children: '전공학점',
           mt: 'md',
+          ml: 'xs',
         },
       },
       {
@@ -387,6 +467,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'M_R_F.majorRequired.total',
+              e + context.watch('M_R_F.majorRequired.inProgress')
+            );
+          },
         },
       },
       {
@@ -398,14 +484,20 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'M_R_F.majorRequired.total',
+              e + context.watch('M_R_F.majorRequired.completed')
+            );
+          },
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'M_R_F.majorRequired.total',
         label: '전공필수(합계)',
         props: {
-          disabled: true,
+          readOnly: true,
         },
       },
       {
@@ -417,6 +509,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'M_R_F.majorElective.total',
+              e + context.watch('M_R_F.majorElective.inProgress')
+            );
+          },
         },
       },
       {
@@ -428,14 +526,20 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'M_R_F.majorElective.total',
+              e + context.watch('M_R_F.majorElective.completed')
+            );
+          },
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'M_R_F.majorElective.total',
         label: '전공선택(합계)',
         props: {
-          disabled: true,
+          readOnly: true,
         },
       },
       {
@@ -445,6 +549,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           order: 5,
           children: '연구학점',
           mt: 40,
+          ml: 'xs',
         },
       },
       {
@@ -456,6 +561,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'M_R_F.thesisResearch.total',
+              e + context.watch('M_R_F.thesisResearch.inProgress')
+            );
+          },
         },
       },
       {
@@ -467,13 +578,18 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) =>
+            context.setValue(
+              'M_R_F.thesisResearch.total',
+              e + context.watch('M_R_F.thesisResearch.completed')
+            ),
         },
       },
       {
         component: TextInput,
         rhf_name: 'M_R_F.thesisResearch.total',
         label: '학사논문연구(합계)',
-        props: { disabled: true },
+        props: { readOnly: true },
       },
       {
         component: Title,
@@ -482,6 +598,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           order: 5,
           children: '자유선택 학점',
           mt: 40,
+          ml: 'xs',
         },
       },
       {
@@ -493,6 +610,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'M_R_F.universityCommonSubjects.total',
+              e + context.watch('M_R_F.universityCommonSubjects.inProgress')
+            );
+          },
         },
       },
       {
@@ -504,13 +627,18 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) =>
+            context.setValue(
+              'M_R_F.universityCommonSubjects.total',
+              e + context.watch('M_R_F.universityCommonSubjects.completed')
+            ),
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'M_R_F.universityCommonSubjects.total',
         label: '대학 공통 교과목(합계)',
-        props: { disabled: true },
+        props: { readOnly: true },
       },
       {
         component: NumberInput,
@@ -521,6 +649,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'M_R_F.humanitiesAndSocial.total',
+              e + context.watch('M_R_F.humanitiesAndSocial.inProgress')
+            );
+          },
         },
       },
       {
@@ -532,13 +666,18 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) =>
+            context.setValue(
+              'M_R_F.humanitiesAndSocial.total',
+              e + context.watch('M_R_F.humanitiesAndSocial.completed')
+            ),
         },
       },
       {
         component: TextInput,
         rhf_name: 'M_R_F.humanitiesAndSocial.total',
         label: '인문사회(합계)',
-        props: { disabled: true },
+        props: { readOnly: true },
       },
       {
         component: NumberInput,
@@ -549,24 +688,34 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) =>
+            context.setValue(
+              'M_R_F.languageSelectionSoftware.total',
+              e + context.watch('M_R_F.languageSelectionSoftware.inProgress')
+            ),
         },
       },
       {
         component: NumberInput,
-        label: 'M_R_F.언어선택/소프트웨어(이수중)',
+        label: '언어선택/소프트웨어(이수중)',
         rhf_name: 'M_R_F.languageSelectionSoftware.inProgress',
         placeholder: '언어선택/소프트웨어 학점을 입력하세요',
         props: {
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) =>
+            context.setValue(
+              'M_R_F.languageSelectionSoftware.total',
+              e + context.watch('M_R_F.languageSelectionSoftware.completed')
+            ),
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'M_R_F.languageSelectionSoftware.total',
         label: '언어선택/소프트웨어(합계)',
-        props: { disabled: true },
+        props: { readOnly: true },
       },
       {
         component: NumberInput,
@@ -577,6 +726,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'M_R_F.basicScienceSelection.total',
+              e + context.watch('M_R_F.basicScienceSelection.inProgress')
+            );
+          },
         },
       },
       {
@@ -588,13 +743,18 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) =>
+            context.setValue(
+              'M_R_F.basicScienceSelection.total',
+              e + context.watch('M_R_F.basicScienceSelection.completed')
+            ),
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'M_R_F.basicScienceSelection.total',
         label: '기초과학선택(합계)',
-        props: { disabled: true },
+        props: { readOnly: true },
       },
       {
         component: NumberInput,
@@ -605,6 +765,11 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) =>
+            context.setValue(
+              'M_R_F.otherMajor.total',
+              e + context.watch('M_R_F.otherMajor.inProgress')
+            ),
         },
       },
       {
@@ -616,13 +781,18 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) =>
+            context.setValue(
+              'M_R_F.otherMajor.total',
+              e + context.watch('M_R_F.otherMajor.completed')
+            ),
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'M_R_F.otherMajor.total',
         label: '타전공(합계)',
-        props: { disabled: true },
+        props: { readOnly: true },
       },
       {
         component: NumberInput,
@@ -633,6 +803,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) => {
+            context.setValue(
+              'M_R_F.graduateSchoolSubjects.total',
+              e + context.watch('M_R_F.graduateSchoolSubjects.inProgress')
+            );
+          },
         },
       },
       {
@@ -644,13 +820,18 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           min: 0,
           max: 200,
           defaultValue: 0,
+          onChange: (e: number) =>
+            context.setValue(
+              'M_R_F.graduateSchoolSubjects.total',
+              e + context.watch('M_R_F.graduateSchoolSubjects.completed')
+            ),
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'M_R_F.graduateSchoolSubjects.total',
         label: '대학원 교과목(합계)',
-        props: { disabled: true },
+        props: { readOnly: true },
       },
     ],
   },
@@ -667,6 +848,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           defaultValue: 0,
           min: 0,
           max: 200,
+          onChange: (e: number) => {
+            context.setValue(
+              'NOC.artPracticalSkills.total',
+              e + context.watch('NOC.artPracticalSkills.inProgress')
+            );
+          },
         },
       },
       {
@@ -678,14 +865,20 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           defaultValue: 0,
           min: 0,
           max: 200,
+          onChange: (e: number) => {
+            context.setValue(
+              'NOC.artPracticalSkills.total',
+              e + context.watch('NOC.artPracticalSkills.completed')
+            );
+          },
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'NOC.artPracticalSkills.total',
         label: '예능실기(합계)',
         props: {
-          disabled: true,
+          readOnly: true,
         },
       },
       {
@@ -697,6 +890,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           defaultValue: 0,
           min: 0,
           max: 200,
+          onChange: (e: number) => {
+            context.setValue(
+              'NOC.physicalEducationPracticalSkills.total',
+              e + context.watch('NOC.physicalEducationPracticalSkills.inProgress')
+            );
+          },
         },
       },
       {
@@ -708,14 +907,20 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           defaultValue: 0,
           min: 0,
           max: 200,
+          onChange: (e: number) => {
+            context.setValue(
+              'NOC.physicalEducationPracticalSkills.total',
+              e + context.watch('NOC.physicalEducationPracticalSkills.completed')
+            );
+          },
         },
       },
       {
-        component: TextInput,
+        component: NumberInput,
         rhf_name: 'NOC.physicalEducationPracticalSkills.total',
         label: '체육실기(합계)',
         props: {
-          disabled: true,
+          readOnly: true,
         },
       },
       {
@@ -727,6 +932,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           defaultValue: 0,
           min: 0,
           max: 200,
+          onChange: (e: number) => {
+            context.setValue(
+              'NOC.gistCollegeColloquium.total',
+              e + context.watch('NOC.gistCollegeColloquium.inProgress')
+            );
+          },
         },
       },
       {
@@ -738,13 +949,19 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
           defaultValue: 0,
           min: 0,
           max: 200,
+          onChange: (e: number) => {
+            context.setValue(
+              'NOC.gistCollegeColloquium.total',
+              e + context.watch('NOC.gistCollegeColloquium.completed')
+            );
+          },
         },
       },
       {
         component: TextInput,
         rhf_name: 'NOC.gistCollegeColloquium.total',
         label: 'GIST 대학 콜로퀴움',
-        props: { disabled: true },
+        props: { readOnly: true },
       },
     ],
   },
@@ -755,7 +972,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
       {
         component: Title,
         controlled: false,
-        props: { order: 5, children: '해외대학 여름학기 파견 관련 학점', mt: 'md' },
+        props: { order: 5, children: '해외대학 여름학기 파견 관련 학점', mt: 'md', ml: 'xs' },
       },
       {
         component: NumberInput,
@@ -809,22 +1026,51 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
       {
         component: Title,
         controlled: false,
-        props: { order: 5, children: 'Study Abroad Program 관련 학점', mt: 40 },
+        props: { order: 5, children: 'Study Abroad Program 관련 학점', mt: 40, ml: 'xs' },
       },
       {
+        component: NumberInput,
         rhf_name: 'OU.study_abroad_program.total_credits',
         label: '총 이수 학점',
-        placeholder: 'Study Abroad Program 이수 교과목 및 학점을 입력하세요',
+        placeholder: 'Study Abroad Program 이수 학점을 입력하세요',
+        props: {
+          min: 0,
+          max: 200,
+          defaultValue: 0,
+        },
       },
       {
+        component: Select,
         rhf_name: 'OU.study_abroad_program.university_name',
         label: '파견 대학명',
-        placeholder: '파견 대학명을 입력하세요',
+        placeholder: '파견된 대학명을 입력하세요',
+        props: {
+          data: ['UC Berkeley', 'Boston University'],
+          searchable: true,
+          creatable: true,
+          getCreateLabel: (query: string) => `+ ${query} 생성하기`,
+          onCreate: (query: string) => {
+            context.setValue('OU.summer_session.study_abroad_program', query);
+          },
+        },
       },
       {
+        component: MultiSelect,
         rhf_name: 'OU.study_abroad_program.subjects',
-        label: '교과목 명',
-        placeholder: '교과목 명을 입력하세요',
+        label: '이수한 강의들',
+        placeholder: '이수한 강의들을 입력하세요',
+        props: {
+          data: context.watch('OU.summer_session.subjects') ?? [],
+          searchable: true,
+          creatable: true,
+          getCreateLabel: (query: string) => `+ ${query} 생성하기`,
+          onCreate: (query: string) => {
+            context.setValue('OU.study_abroad_program.subjects', [
+              ...context.getValues('OU.study_abroad_program.subjects'),
+              query,
+            ]);
+          },
+        },
       },
       {
         rhf_name: 'OU.study_abroad_program.semester',
