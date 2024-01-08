@@ -141,11 +141,11 @@ export default function UserInfo() {
   }
 
   return (
-    <Container size="md">
+    <Container size="lg">
       <Text size={32} weight={700} my={32}>
         내 정보
       </Text>
-      <Group position="left" spacing={40} align="flex-start">
+      <Group position="center" spacing={40} align="flex-start">
         <Avatar src={user?.imageUrl} alt="user profile" size={100} mt="md" />
         <Stack w="40rem" spacing={0}>
           <Group position="apart" py={10}>

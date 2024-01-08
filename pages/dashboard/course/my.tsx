@@ -11,6 +11,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  Title,
   useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -26,6 +27,7 @@ import DashboardFileUploadEncouragement from '@components/dashboard-file-upload-
 import { getSortedCourseStatus } from '@utils/status';
 import { useCourseStatus } from '@hooks/course';
 import { useMemberStatus } from '@hooks/auth';
+import React from 'react';
 
 export default function My() {
   const theme = useMantineTheme();
@@ -132,6 +134,9 @@ export default function My() {
 
   return (
     <Container size="lg">
+      <Title order={3} mb="lg" mt={40}>
+        내 수강현황 📑
+      </Title>
       <SimpleGrid cols={matches ? 3 : 1} my="xl">
         {overall_credit}
         {overall_grade}

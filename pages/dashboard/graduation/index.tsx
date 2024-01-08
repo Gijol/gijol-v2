@@ -41,7 +41,7 @@ export default function Index() {
   }
 
   return (
-    <Container>
+    <Container size="lg">
       <Title order={3} mb="lg" mt={40}>
         종합적인 현황 📋
       </Title>

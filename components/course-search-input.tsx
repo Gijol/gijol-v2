@@ -13,7 +13,6 @@ import { IconAdjustments, IconSearch } from '@tabler/icons-react';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useCourseList } from '@hooks/course';
-import debounce from 'debounce';
 
 export default function CourseSearchInput() {
   const { register, control, reset } = useFormContext();
