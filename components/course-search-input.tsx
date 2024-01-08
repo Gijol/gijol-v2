@@ -12,9 +12,20 @@ import {
 import { IconAdjustments, IconSearch } from '@tabler/icons-react';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import { useCourseList } from '@hooks/course';
+import debounce from 'debounce';
 
 export default function CourseSearchInput() {
-  const { register, control } = useFormContext();
+  const { register, control, reset } = useFormContext();
+  const { refetch } = useCourseList();
+  const handleReset = () => {
+    reset({
+      courseSearchCode: 'NONE',
+      courseSearchString: '',
+      pageSize: 20,
+    });
+    refetch();
+  };
 
   return (
     <Group mx="auto" mb="2rem" position="center">
@@ -69,15 +80,17 @@ export default function CourseSearchInput() {
               />
               <Controller
                 name="pageSize"
+                control={control}
                 render={({ field }) => (
-                  <NumberInput
-                    defaultValue={20}
-                    onChange={field.onChange}
-                    label="몇 개씩 검색할까요?"
-                  />
+                  <NumberInput defaultValue={20} label="몇 개씩 검색할까요?" {...field} />
                 )}
               />
-              <Button type="submit">적용하기</Button>
+              <Group grow>
+                <Button variant="light" color="red" onClick={handleReset}>
+                  초기화
+                </Button>
+                <Button type="submit">적용하기</Button>
+              </Group>
             </Stack>
           </Menu.Dropdown>
         </Menu>

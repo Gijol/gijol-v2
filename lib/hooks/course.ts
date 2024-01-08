@@ -42,10 +42,10 @@ const fetchCourses = async (
   return res.data;
 };
 export function useCourseList(
-  page: number,
-  size: number,
-  minorType: CourseSearchCodeType,
-  searchString: string
+  page: number = 0,
+  size: number = 20,
+  minorType: CourseSearchCodeType = 'NONE',
+  searchString: string = ''
 ) {
   return useQuery<CourseResponse>({
     queryKey: ['courses', page],

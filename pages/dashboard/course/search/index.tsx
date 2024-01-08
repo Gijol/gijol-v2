@@ -17,9 +17,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import debounce from 'debounce';
 
 export default function Index() {
-  // active page 및 page size 관리
+  // active page 관리
   const [activePage, setPage] = useState(1);
-  const [pageSize, setPageSize] = useDebouncedState<number | ''>(20, 500);
 
   // 강의 검색 단어 및 옵션 관리
   const methods = useForm({
@@ -31,37 +30,48 @@ export default function Index() {
   });
 
   // 강의 리스트 관리
-  const { data, isLoading, isError, refetch, isFetching, isStale } = useCourseList(
+  const { data, isLoading, isError, refetch, isFetching } = useCourseList(
     activePage - 1,
-    Number(pageSize),
+    methods.getValues('pageSize'),
     methods.getValues('courseSearchCode'),
     methods.getValues('courseSearchString')
   );
   // UI 업데이트 상태를 관리하는 상태 변수
   const [isUpdating, setIsUpdating] = useState(false);
-
   const inputValue = methods.watch('courseSearchString');
 
+  const debouncedFetch = debounce(() => {
+    refetch();
+    setPage(1);
+  }, 500);
+
+  // 강의 검색 단어가 변경되면 목록을 디바운스 업데이트
   useEffect(() => {
-    // debounce를 사용하여 입력 변경 후 0.5초가 지나면 fetchData 호출
     setIsUpdating(true);
-    const debouncedFetch = debounce(() => {
-      refetch();
-    }, 500);
-
     debouncedFetch();
-
-    // 컴포넌트가 언마운트될 때 debounce를 취소
     return () => {
       debouncedFetch.clear();
     };
   }, [inputValue, refetch]);
 
+  // 로딩 오버레이를 표시 관리
   useEffect(() => {
     if (!isLoading && !isFetching) {
       setIsUpdating(false);
     }
   }, [isLoading, isFetching]);
+
+  // 컴포넌트가 언마운트되면 디바운스를 취소
+  useEffect(() => {
+    return () => {
+      debouncedFetch.clear();
+    };
+  }, []);
+
+  const onSubmit = () => {
+    setIsUpdating(true);
+    debouncedFetch();
+  };
 
   const courses = data?.content.map((item) => {
     return (
@@ -80,36 +90,38 @@ export default function Index() {
 
   return (
     <FormProvider {...methods}>
-      <Container size="lg">
-        <Text size={32} weight={700} my={32}>
-          강의 검색
-        </Text>
-        <CourseSearchInput />
-        <div style={{ position: 'relative' }}>
-          {isUpdating ? (
-            <LoadingOverlay visible />
-          ) : isError ? (
-            <Text color="dimmed" size="lg" align="center">
-              강의 정보를 불러오는데 실패했습니다...!
-            </Text>
-          ) : null}
-          <SimpleGrid
-            cols={3}
-            spacing="md"
-            breakpoints={[
-              { maxWidth: 'md', cols: 3, spacing: 'md' },
-              { maxWidth: 'sm', cols: 2, spacing: 'sm' },
-              { maxWidth: 'xs', cols: 1, spacing: 'sm' },
-            ]}
-          >
-            {courses}
-          </SimpleGrid>
-        </div>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <Container size="lg">
+          <Text size={32} weight={700} my={32}>
+            강의 검색
+          </Text>
+          <CourseSearchInput />
+          <div style={{ position: 'relative' }}>
+            {isUpdating ? (
+              <LoadingOverlay visible />
+            ) : isError ? (
+              <Text color="dimmed" size="lg" align="center">
+                강의 정보를 불러오는데 실패했습니다...!
+              </Text>
+            ) : null}
+            <SimpleGrid
+              cols={3}
+              spacing="md"
+              breakpoints={[
+                { maxWidth: 'md', cols: 3, spacing: 'md' },
+                { maxWidth: 'sm', cols: 2, spacing: 'sm' },
+                { maxWidth: 'xs', cols: 1, spacing: 'sm' },
+              ]}
+            >
+              {courses}
+            </SimpleGrid>
+          </div>
 
-        <Center py="md">
-          <Pagination value={activePage} onChange={setPage} total={data?.totalPages ?? 10} />
-        </Center>
-      </Container>
+          <Center my={40}>
+            <Pagination value={activePage} onChange={setPage} total={data?.totalPages ?? 10} />
+          </Center>
+        </Container>
+      </form>
     </FormProvider>
   );
 }
