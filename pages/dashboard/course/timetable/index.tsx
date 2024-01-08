@@ -2,6 +2,7 @@ import {
   ActionIcon,
   Box,
   Button,
+  Container,
   Grid,
   Group,
   Paper,
@@ -16,7 +17,7 @@ import Link from 'next/link';
 
 export default function Timetable() {
   return (
-    <div>
+    <Container size="lg">
       <Title order={3}>내 시간표들</Title>
       <Grid mt="md">
         <Grid.Col span="auto">
@@ -52,6 +53,6 @@ export default function Timetable() {
           </Paper>
         </Stack>
       </Stack>
-    </div>
+    </Container>
   );
 }
