@@ -33,6 +33,13 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     <>
       <Head>
         <title>학교 생활을 편리하게, Gijol</title>
+        {process.env.NODE_ENV === 'production' && (
+          <script
+            defer
+            src="https://us.umami.is/script.js"
+            data-website-id="8211eefd-56a6-49bb-b4fb-8aab627a4f45"
+          ></script>
+        )}
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/public/images/tossfaceCap.png" />
       </Head>

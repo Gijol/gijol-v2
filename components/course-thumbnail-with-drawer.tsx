@@ -14,6 +14,7 @@ import {
   Skeleton,
   createStyles,
   Title,
+  Stack,
 } from '@mantine/core';
 import { useDisclosure, useHover } from '@mantine/hooks';
 import { getCourseTagColor } from '../lib/utils/course';
@@ -37,6 +38,7 @@ export default function CourseThumbnailWithDrawer({
   tags?: string[];
 }) {
   const { classes } = useStyles();
+
   // Drawer open 상태 관리
   const { hovered, ref } = useHover();
   const [opened, { open, close }] = useDisclosure(false);
@@ -52,7 +54,6 @@ export default function CourseThumbnailWithDrawer({
         px={6}
         color={color}
         variant="light"
-        size="lg"
         sx={(theme) => ({
           fontWeight: 550,
           borderColor: theme.colors[color as string][5],
@@ -83,18 +84,17 @@ export default function CourseThumbnailWithDrawer({
         }}
         w="100%"
       >
-        <Paper withBorder p="md" radius="md" ref={ref} bg={hovered ? 'gray.0' : undefined} my="sm">
-          <Text size={rem(14)} mb={8} color="dimmed">
-            {code}
-          </Text>
-          <Flex justify="space-between" wrap="wrap" gap="xs" align="center">
-            <Text size={rem(24)} weight={500} miw={300}>
+        <Paper withBorder p="md" radius="md" ref={ref} bg={hovered ? 'gray.0' : undefined} h="100%">
+          <Stack justify="space-between" h="100%">
+            <Text size="md" mb={8} color="dimmed">
+              {code}
+            </Text>
+            <Text size={rem(24)} weight={500} w="fit-content">
               {title}
             </Text>
-            <Group w="fit-content" position="apart" spacing="xs">
+            <Group w="fit-content" position="apart" spacing="xs" mt="xl">
               {tagContent}
               <Badge
-                size="lg"
                 radius="sm"
                 px={6}
                 fw={550}
@@ -105,7 +105,7 @@ export default function CourseThumbnailWithDrawer({
                 {credit}학점
               </Badge>
             </Group>
-          </Flex>
+          </Stack>
         </Paper>
       </UnstyledButton>
       <Drawer

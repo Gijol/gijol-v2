@@ -14,31 +14,31 @@ import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 export default function CourseSearchInput() {
-  const { register, control, trigger } = useFormContext();
+  const { register, control } = useFormContext();
 
   return (
-    <Stack>
-      <Group mx="auto" mb="2rem">
-        <TextInput
-          id="course-search"
-          placeholder="강의코드, 강의명으로 검색해주세요!"
-          size="lg"
-          radius="xl"
-          w={540}
-          icon={<IconSearch size="1rem" />}
-          styles={{
-            input: {
-              lineHeight: '3rem',
+    <Group mx="auto" mb="2rem" position="center">
+      <TextInput
+        id="course-search"
+        placeholder="강의코드, 강의명으로 검색해주세요!"
+        size="lg"
+        radius="xl"
+        w={540}
+        icon={<IconSearch size="1rem" />}
+        styles={{
+          input: {
+            lineHeight: '3rem',
+            borderWidth: '2px',
+            ':hover': {
+              borderColor: '#339AF0',
               borderWidth: '2px',
-              ':hover': {
-                borderColor: '#339AF0',
-                borderWidth: '2px',
-              },
             },
-          }}
-          {...register('courseSearchString')}
-        />
+          },
+        }}
+        {...register('courseSearchString')}
+      />
 
+      <Group position="left">
         <Menu shadow="md" width={300} offset={16} radius="md">
           <Menu.Target>
             <Button variant="default" rightIcon={<IconAdjustments size="1.25rem" />} radius="xl">
@@ -82,7 +82,7 @@ export default function CourseSearchInput() {
           </Menu.Dropdown>
         </Menu>
       </Group>
-    </Stack>
+    </Group>
   );
 }
 
