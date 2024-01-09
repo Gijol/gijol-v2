@@ -1,19 +1,23 @@
 import {
   Badge,
   Button,
+  Card,
+  createStyles,
   Group,
   Paper,
   Progress,
   SimpleGrid,
   Space,
+  Stack,
   Table,
   Text,
   ThemeIcon,
 } from '@mantine/core';
 import { IconBolt, IconPresentationAnalytics, IconReportAnalytics } from '@tabler/icons-react';
+import { getStatusColor, getStatusMessage } from '../lib/utils/graduation/grad-formatter';
+import { useMediaQuery } from '@mantine/hooks';
 
 export default function GradOverallStatus({
-  classes,
   scrollIntoView,
   totalCredits,
   totalPercentage,
@@ -22,7 +26,6 @@ export default function GradOverallStatus({
   minDomainPercentage,
   feedbackNumbers,
 }: {
-  classes: { tableHead: string; background: string };
   scrollIntoView: any;
   totalCredits: number | undefined;
   totalPercentage: number;
@@ -31,126 +34,179 @@ export default function GradOverallStatus({
   minDomainPercentage: number;
   feedbackNumbers: number;
 }) {
+  const matches = useMediaQuery(`(min-width: 48em)`);
+  const { classes } = useStyles();
   const courseRows = overallStatus.map((element) => (
     <tr key={element.title}>
-      <td width={280}>{element.title}</td>
-      <td width={280}>
+      <td>
+        <Text size={matches ? 'md' : 'sm'} weight={400}>
+          {element.title}
+        </Text>
+      </td>
+      <td width={300} style={{ minWidth: 160 }}>
         <Progress
           value={element.percentage}
           label={`${element.percentage}%`}
-          size="xl"
+          size={20}
           color="blue.4"
         />
       </td>
       <td>
-        <Badge color={element.satisfied ? 'green' : element.title === '부전공' ? 'blue' : 'red'}>
-          {element.satisfied ? '충족됨' : element.title === '부전공' ? '필수 아님' : '미충족'}
+        <Badge
+          color={getStatusColor(element.satisfied, element.title)}
+          variant="dot"
+          size={matches ? 'lg' : 'md'}
+        >
+          {getStatusMessage(element.satisfied, element.title)}
         </Badge>
       </td>
     </tr>
   ));
   return (
     <>
-      <Paper withBorder p={40} radius="md" shadow="xs">
-        <SimpleGrid
-          breakpoints={[
-            { minWidth: 'md', cols: 3, spacing: 'md' },
-            { minWidth: 'sm', cols: 2, spacing: 'md' },
-            { minWidth: 'xs', cols: 1, spacing: 'md' },
-          ]}
-        >
-          <Paper radius="md" withBorder h={160} p={8}>
-            <Group p={8}>
-              <ThemeIcon variant="light" size="lg">
-                <IconPresentationAnalytics />
-              </ThemeIcon>
-              <Text size="md" weight={650}>
+      <SimpleGrid
+        breakpoints={[
+          { minWidth: 'md', cols: 3, spacing: 'md' },
+          { minWidth: 'sm', cols: 2, spacing: 'md' },
+          { minWidth: 'xs', cols: 1, spacing: 'md' },
+        ]}
+      >
+        <Card h="160" radius="md" withBorder>
+          <Card.Section inheritPadding withBorder py="sm" px="md">
+            <Group position="apart">
+              <Text className={classes.text_md_sm} fw={500}>
                 총 학점
               </Text>
+              <ThemeIcon variant="subtle" size="md" color="dark">
+                <IconPresentationAnalytics />
+              </ThemeIcon>
             </Group>
-            <Text size="xl" align="start" p={8} pl={14}>
+          </Card.Section>
+          <Card.Section component={Stack} px="md" py="sm" justify="space-between">
+            <Text className={classes.text_xl_md} align="start" pb="sm" pt={matches ? 'sm' : 0}>
               {totalCredits} 학점
             </Text>
-            <Group p={8}>
-              <Text size="sm" color="dimmed" weight={600}>
+            <Group>
+              <Text className={classes.text_md_sm} color="dimmed" weight={500}>
                 총 학점 : 130
               </Text>
               <Badge>{totalPercentage}% 이수중</Badge>
             </Group>
-          </Paper>
-          <Paper radius="md" withBorder h={160} p={8}>
-            <Group p={8}>
-              <ThemeIcon variant="light" size="lg" color="orange">
-                <IconReportAnalytics />
-              </ThemeIcon>
-              <Text size="md" weight={650}>
+          </Card.Section>
+        </Card>
+        <Card radius="md" withBorder>
+          <Card.Section inheritPadding withBorder py="sm" px="md">
+            <Group position="apart">
+              <Text className={classes.text_md_sm} weight={500}>
                 최저 이수 영역
               </Text>
+              <ThemeIcon variant="subtle" size="md" color="dark">
+                <IconReportAnalytics />
+              </ThemeIcon>
             </Group>
-            <Text size="xl" align="start" p={8} pl={14}>
+          </Card.Section>
+          <Card.Section inheritPadding component={Stack} px="md" py="sm" justify="space-between">
+            <Text className={classes.text_xl_md} align="start" pb="sm" pt={matches ? 'sm' : 0}>
               {minDomain}
             </Text>
-            <Group p={8}>
+            <Group>
               <Badge color="orange">{minDomainPercentage}% 이수중</Badge>
             </Group>
-          </Paper>
-          <Paper radius="md" withBorder h={160} p={8}>
-            <Group p={8}>
-              <ThemeIcon variant="light" size="lg" color="yellow">
-                <IconBolt />
-              </ThemeIcon>
-              <Text size="md" weight={650}>
-                Gijol의 피드백
-              </Text>
-            </Group>
-            <Text size="xl" align="start" p={8} pl={14}>
-              {feedbackNumbers} 개
+          </Card.Section>
+        </Card>
+        <Paper radius="md" h={160} p={8} className={classes.feedback}>
+          <Group p={8} position="apart">
+            <Text className={classes.text_md_sm} weight={500}>
+              Gijol의 피드백
             </Text>
-            <Group p={8}>
-              <Button
-                variant="light"
-                size="xs"
-                color="yellow"
-                fullWidth
-                onClick={() =>
-                  scrollIntoView({
-                    alignment: 'center',
-                  })
-                }
-              >
-                바로 확인하러 가기
-              </Button>
-            </Group>
-          </Paper>
-        </SimpleGrid>
-        <Space h={24} />
+            <IconBolt color="#FCC419" />
+          </Group>
+          <Text className={classes.text_xl_md} align="start" p={8} pl={14}>
+            {feedbackNumbers} 개
+          </Text>
+          <Group p={8}>
+            <Button
+              variant="outline"
+              size={matches ? 'sm' : 'xs'}
+              color="yellow"
+              fullWidth
+              onClick={() =>
+                scrollIntoView({
+                  alignment: 'center',
+                })
+              }
+            >
+              바로 확인하러 가기
+            </Button>
+          </Group>
+        </Paper>
+      </SimpleGrid>
+      <Space h={24} />
+      <div className={classes.tableBorder}>
         <Table
           highlightOnHover
-          horizontalSpacing="lg"
-          sx={{
-            position: 'relative',
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'inherit',
-          }}
+          horizontalSpacing={matches ? 'lg' : 'sm'}
+          verticalSpacing={matches ? 'sm' : 'xs'}
+          className={classes.table}
         >
-          <thead
-            className={classes.tableHead}
-            style={{
-              position: 'sticky',
-              top: 0,
-            }}
-          >
+          <thead className={classes.tableHead}>
             <tr>
-              <th>영역</th>
-              <th>충족도</th>
+              <th className={classes.tableCell} style={{ minWidth: 100 }}>
+                영역
+              </th>
+              <th className={classes.tableCell}>충족도</th>
               <th>충족 여부</th>
             </tr>
           </thead>
           <tbody>{courseRows}</tbody>
         </Table>
-        <Space h={16} />
-      </Paper>
+      </div>
+      <Space h={16} />
     </>
   );
 }
+
+const useStyles = createStyles((theme) => ({
+  background: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark : theme.white,
+    borderBottomRightRadius: '0.5rem',
+    borderBottomLeftRadius: '0.5rem',
+  },
+  table: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'inherit',
+  },
+  tableHead: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    borderRadius: theme.radius.md,
+  },
+  tableBorder: {
+    border: '1px solid #dee2e6',
+    borderRadius: '0.5rem',
+    overflowX: 'auto',
+  },
+  feedback: {
+    border: `2px solid ${theme.colors.orange[4]}`,
+    backgroundColor: 'transparent',
+    boxShadow: `0 0 16px 2px ${theme.colors.orange[1]}`,
+  },
+  tableCell: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  text_md_sm: {
+    fontSize: theme.fontSizes.md,
+    '@media (max-width:48em)': {
+      fontSize: theme.fontSizes.sm,
+    },
+  },
+  text_xl_md: {
+    fontSize: theme.fontSizes.xl,
+    '@media (max-width:48em)': {
+      fontSize: theme.fontSizes.md,
+    },
+  },
+}));
