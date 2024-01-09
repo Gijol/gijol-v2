@@ -26,11 +26,6 @@ export default function CourseMyLoadingSkeleton() {
         <Skeleton height="2rem" radius="sm" />
         <Skeleton height="2rem" radius="sm" />
       </Stack>
-      <Text size={32} my={32} weight={700}>
-        학기별 성적 현황
-      </Text>
-      <Skeleton height={400} radius="sm" my={40} />
-      <Skeleton height={400} radius="sm" my={40} />
     </Container>
   );
 }

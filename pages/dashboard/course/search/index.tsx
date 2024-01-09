@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import {
   Container,
   Text,
@@ -7,6 +7,7 @@ import {
   Skeleton,
   SimpleGrid,
   LoadingOverlay,
+  Title,
 } from '@mantine/core';
 import CourseThumbnailWithDrawer from '@components/course-thumbnail-with-drawer';
 import { useCourseList } from '@hooks/course';
@@ -92,9 +93,9 @@ export default function Index() {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Container size="lg">
-          <Text size={32} weight={700} my={32}>
-            강의 검색
-          </Text>
+          <Title order={3} mt={40} mb="lg">
+            강의 검색하기 🔍
+          </Title>
           <CourseSearchInput />
           <div style={{ position: 'relative' }}>
             {isUpdating ? (
@@ -113,6 +114,7 @@ export default function Index() {
                 { maxWidth: 'xs', cols: 1, spacing: 'sm' },
               ]}
             >
+              {isLoading && [...Array(9)].map((_, index) => <Skeleton key={index} height={166} />)}
               {courses}
             </SimpleGrid>
           </div>

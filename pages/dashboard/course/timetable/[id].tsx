@@ -10,8 +10,10 @@ import {
   Checkbox,
   Container,
   createStyles,
+  Grid,
   Group,
   Modal,
+  Paper,
   Stack,
   Text,
   Textarea,
@@ -28,9 +30,9 @@ import { useState } from 'react';
 import { IconPlus } from '@tabler/icons-react';
 import { Controller, useForm } from 'react-hook-form';
 
-type Event = {
+type CourseEventType = {
   name: string;
-  day_of_week: string;
+  day_of_week: DayOfWeek | DayOfWeek[] | any;
   start_time: string;
   end_time: string;
   description?: string;
@@ -49,31 +51,51 @@ const defaultEvents = [
 ];
 
 export default function Page() {
-  const router = useRouter();
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
   const [events, setEvents] = useState(defaultEvents);
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control } = useForm<CourseEventType>({
+    defaultValues: {
+      name: '',
+      day_of_week: ['월요일', '수요일'],
+      start_time: '09:00',
+      end_time: '10:30',
+      description: '',
+    },
+  });
 
   // console.log(dayjs().day(2).format('YYYY-MM-DD'));
 
-  const onSubmit = (data: any | Event) => {
-    // const { name, day_of_week, start_time, end_time, description } = data;
-    // const idx = getDayOfWeekIdx(day_of_week);
-    // const start_str = dayjs().day(idx).format('YYYY-MM-DD') + ' ' + `${start_time}:00`;
-    // const end_str = dayjs().day(idx).format('YYYY-MM-DD') + ' ' + `${end_time}:00`;
-    // const newEvent = { title: name, start: start_str, end: end_str };
+  const onSubmit = (data: CourseEventType) => {
+    const { name, day_of_week, start_time, end_time, description } = data;
+    const idx = getDayOfWeekIdx(day_of_week);
+    if (Array.isArray(idx)) {
+      idx.forEach((day) => {
+        const start_str = dayjs().day(day).format('YYYY-MM-DD') + ' ' + `${start_time}:00`;
+        const end_str = dayjs().day(day).format('YYYY-MM-DD') + ' ' + `${end_time}:00`;
+        const newEvent = { title: name, start: start_str, end: end_str };
+        console.log('newEvent : ', newEvent);
+        setEvents((events) => [...events, newEvent]);
+      });
+    } else {
+      const start_str = dayjs().day(idx).format('YYYY-MM-DD') + ' ' + `${start_time}:00`;
+      const end_str = dayjs().day(idx).format('YYYY-MM-DD') + ' ' + `${end_time}:00`;
+      const newEvent = { title: name, start: start_str, end: end_str };
+      console.log('newEvent : ', newEvent);
+      setEvents([...events, newEvent]);
+    }
     console.log(data);
-    // setEvents([...events, newEvent]);
-    // close();
+    close();
   };
 
-  console.log(events);
+  console.log('events : ', events);
 
   return (
     <Container size="lg">
-      <Title>시간표 이름</Title>
+      <Title order={3} mt={40} mb="lg">
+        시간표 이름
+      </Title>
       <Group position="right">
         <Button
           size="xs"
@@ -97,7 +119,7 @@ export default function Page() {
           blur: 3,
         }}
       >
-        <form onSubmit={handleSubmit((data) => onSubmit(data))}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing="md">
             <Controller
               name="name"
@@ -174,21 +196,30 @@ export default function Page() {
           </Stack>
         </form>
       </Modal>
-      <div className={classes.calendar_wrapper}>
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-          initialView="timeGridWeek"
-          headerToolbar={false}
-          allDaySlot={false}
-          slotMinTime={'08:00:00'}
-          slotMaxTime={'20:00:00'}
-          slotDuration={'00:30:00'}
-          hiddenDays={[0, 6]}
-          dayHeaderContent={formatDateHeader}
-          contentHeight={600}
-          events={[{ title: 'event 1', start: '2024-01-10 10:00:00', end: '2024-01-10 11:30:00' }]}
-        />
-      </div>
+      <Grid my="xl">
+        <Grid.Col span="auto">
+          <Paper withBorder radius="lg" p="xs" className={classes.calendar_wrapper}>
+            <FullCalendar
+              plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+              initialView="timeGridWeek"
+              headerToolbar={false}
+              allDaySlot={false}
+              slotMinTime={'08:00:00'}
+              slotMaxTime={'20:00:00'}
+              slotDuration={'00:30:00'}
+              hiddenDays={[0, 6]}
+              dayHeaderContent={formatDateHeader}
+              contentHeight={600}
+              events={events}
+            />
+          </Paper>
+        </Grid.Col>
+        <Grid.Col span={3}>
+          <Paper withBorder radius="lg" h="100%" p="xs">
+            hi
+          </Paper>
+        </Grid.Col>
+      </Grid>
       <Box mt={40} />
     </Container>
   );
@@ -219,6 +250,7 @@ const useStyles = createStyles((theme) => ({
     '& .fc-timegrid-slot-label-cushion': {
       paddingRight: theme.spacing.xs,
       color: theme.colors.gray[6],
+      fontSize: theme.fontSizes.xs,
     },
     '& .fc th': {
       border: 'none !important',

@@ -18,7 +18,9 @@ import Link from 'next/link';
 export default function Timetable() {
   return (
     <Container size="lg">
-      <Title order={3}>내 시간표들</Title>
+      <Title order={3} mt={40} mb="lg">
+        내 시간표들 📅
+      </Title>
       <Grid mt="md">
         <Grid.Col span="auto">
           <TextInput

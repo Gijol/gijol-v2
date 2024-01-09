@@ -54,7 +54,7 @@ export default function My() {
       <Stack justify="space-between" h="100%">
         <Stack spacing={4}>
           <Group align="baseline">
-            <Text fw={600} color="gray.6" mb="md">
+            <Text fw={600} color="gray.6" mb="xs">
               총 학점
             </Text>
           </Group>
@@ -80,7 +80,7 @@ export default function My() {
     <Paper radius="md" p={matches ? 'xl' : 'xs'} withBorder>
       <Stack justify="space-between" h="100%">
         <Stack spacing={4}>
-          <Text fw={600} color="gray.6" mb="md">
+          <Text fw={600} color="gray.6" mb="xs">
             평균 학점
           </Text>
           <Group spacing={6}>
@@ -100,18 +100,18 @@ export default function My() {
   const overall_semester = (
     <Paper radius="md" p={matches ? 'xl' : 'xs'} withBorder>
       <Stack spacing={0} h="100%">
-        <Text fw={600} color="gray.6" mb="md">
+        <Text fw={600} color="gray.6" mb="xs">
           이수 학기
         </Text>
-        <Flex justify="space-around" mb="xl" my="auto">
-          <Text size="xl" fw={600}>
+        <Group position="center" spacing="md" my="auto">
+          <Text size="lg" fw={600}>
             {start_y}년도 {start_s}
           </Text>
-          <Text>~</Text>
-          <Text size="xl" fw={600}>
+          <Text> ~ </Text>
+          <Text size="lg" fw={600}>
             {end_y}년도 {end_s}
           </Text>
-        </Flex>
+        </Group>
       </Stack>
     </Paper>
   );

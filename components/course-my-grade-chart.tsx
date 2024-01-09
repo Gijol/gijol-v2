@@ -9,9 +9,10 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { Paper, Title } from '@mantine/core';
+import { Notification, Paper, Title, useMantineTheme } from '@mantine/core';
 import React from 'react';
 import { CourseListWithPeriod } from '../lib/utils/status';
+import CustomTooltip from '@components/rechart-custom-tooltip';
 
 const generateLineChartData = (courseListWithPeriod: CourseListWithPeriod[]) => {
   return courseListWithPeriod.map((periodWithList: any) => {
@@ -24,6 +25,7 @@ const generateLineChartData = (courseListWithPeriod: CourseListWithPeriod[]) => 
 
 export default function CourseMyGradeChart({ data }: { data: CourseListWithPeriod[] }) {
   const dataForLineChart = generateLineChartData(data);
+  const theme = useMantineTheme();
   return (
     <Paper w="100%" p="xl" radius="md" withBorder>
       <Title order={3} mb="xl">
@@ -42,9 +44,15 @@ export default function CourseMyGradeChart({ data }: { data: CourseListWithPerio
             interval="preserveStartEnd"
           />
           <YAxis dataKey="credit" tickLine={false} axisLine={false} hide domain={[2.5, 'auto']} />
-          <Tooltip />
-          <Line type="monotone" dataKey="credit" stroke="#8884d8">
-            <LabelList dataKey="credit" position="top" />
+          <Tooltip content={<CustomTooltip />} />
+          <Line
+            type="monotone"
+            dataKey="credit"
+            stroke={theme.colors.blue[6]}
+            strokeWidth={2}
+            name="평균 학점"
+          >
+            <LabelList dataKey="credit" name="평균학점" position="top" />
           </Line>
         </LineChart>
       </ResponsiveContainer>

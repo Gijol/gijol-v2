@@ -14,6 +14,7 @@ import {
   Stack,
   TextInput,
   Paper,
+  Title,
 } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
@@ -113,7 +114,7 @@ export default function UserInfo() {
   // 이름, 학번, 이메일, 전공 정보 컴포넌트
   const info = information_data.map((i) => {
     return (
-      <Group key={i.label} position="apart" py="xs">
+      <Group key={i.label} position="apart">
         <Group mih="2.5rem">
           <Text ml={8} w={100} weight={600}>
             {i.label}
@@ -142,13 +143,18 @@ export default function UserInfo() {
 
   return (
     <Container size="lg">
-      <Text size={32} weight={700} my={32}>
-        내 정보
-      </Text>
+      <Title order={3} mt={40} mb="lg">
+        내 정보 📝
+      </Title>
       <Group position="center" spacing={40} align="flex-start">
-        <Avatar src={user?.imageUrl} alt="user profile" size={100} mt="md" />
-        <Stack w="40rem" spacing={0}>
-          <Group position="apart" py={10}>
+        <Stack w="40rem" spacing={10}>
+          <Group>
+            <Text ml={8} w={100} weight={600}>
+              사진
+            </Text>
+            <Avatar src={user?.imageUrl} alt="user profile" size={80} mt="md" />
+          </Group>
+          <Group position="apart">
             <Group mih="2.5rem">
               <Text ml={8} w={100} weight={600}>
                 이름
@@ -219,6 +225,7 @@ export default function UserInfo() {
                 activateOnClick={false}
                 accept={[MIME_TYPES.xls, MIME_TYPES.xlsx]}
                 styles={{ inner: { pointerEvents: 'all' } }}
+                radius="lg"
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',

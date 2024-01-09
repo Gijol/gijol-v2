@@ -1,3 +1,6 @@
+import React from 'react';
+import { Paper, Stack, Title } from '@mantine/core';
+import { CourseListWithPeriod } from '@utils/status';
 import {
   Bar,
   BarChart,
@@ -7,10 +10,7 @@ import {
   Tooltip,
   XAxis,
 } from 'recharts';
-import { Paper, Stack, Title } from '@mantine/core';
-import React, { useState } from 'react';
-import { useMediaQuery } from '@mantine/hooks';
-import { CourseListWithPeriod } from '../lib/utils/status';
+import CustomTooltip from '@components/rechart-custom-tooltip';
 
 const generateTableData = (courseListWithPeriod: CourseListWithPeriod[]) => {
   return courseListWithPeriod.map((periodWithList: CourseListWithPeriod) => {
@@ -25,7 +25,6 @@ const generateTableData = (courseListWithPeriod: CourseListWithPeriod[]) => {
 
 export default function CourseMyCreditChart({ data }: { data: CourseListWithPeriod[] }) {
   const dataForTable = generateTableData(data);
-  const matches = useMediaQuery(`(min-width: 48em)`);
   return (
     <Paper component={Stack} w="100%" p="xl" radius="md" withBorder>
       <Title order={3} mb="xl">
@@ -41,7 +40,7 @@ export default function CourseMyCreditChart({ data }: { data: CourseListWithPeri
             fontSize={14}
             tick={{ width: 30 }}
           />
-          <Tooltip />
+          <Tooltip content={<CustomTooltip />} />
           <Bar type="monotone" dataKey="credit" fill="#4593fc" radius={8} barSize={40}>
             <LabelList dataKey="credit" position="top" />
           </Bar>

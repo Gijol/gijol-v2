@@ -72,7 +72,9 @@ export default function CertificateBuilder() {
           <Tabs unstyled defaultValue="신청자 정보">
             <Grid m={0} justify="center" maw={1100} mx="auto" columns={6}>
               <Col lg={6} md={6}>
-                <Title order={3}>졸업 이수요건 확인서 생성기</Title>
+                <Title order={3} mt={40} mb="lg">
+                  졸업 이수요건 확인서 생성기 🪄
+                </Title>
                 <Divider mt="md" />
               </Col>
               <Col lg={6} md={6}>

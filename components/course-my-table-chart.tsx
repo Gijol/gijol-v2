@@ -1,18 +1,6 @@
-import {
-  Box,
-  createStyles,
-  Group,
-  Paper,
-  rem,
-  ScrollArea,
-  Select,
-  Table,
-  Text,
-  Title,
-} from '@mantine/core';
 import React, { useState } from 'react';
-import { CourseWithGradeStatusType } from '../lib/types/score-status';
-import { CourseListWithPeriod } from '../lib/utils/status';
+import { createStyles, Group, Paper, ScrollArea, Select, Table, Title } from '@mantine/core';
+import { CourseListWithPeriod } from '@utils/status';
 
 const generateSelectData = (courseListWithPeriod: CourseListWithPeriod[]) => {
   return courseListWithPeriod.map((periodWithList) => {
