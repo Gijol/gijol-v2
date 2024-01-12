@@ -19,6 +19,7 @@ import {
 import { useDisclosure, useHover } from '@mantine/hooks';
 import { getCourseTagColor } from '../lib/utils/course';
 import { useSingleCourse } from '../lib/hooks/course';
+import { CourseHistory } from '../lib/types/course';
 
 export default function CourseThumbnailWithDrawer({
   id,
