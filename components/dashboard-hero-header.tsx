@@ -11,13 +11,17 @@ import {
   Checkbox,
   Group,
   LoadingOverlay,
+  useMantineTheme,
+  MediaQuery,
+  Stack,
 } from '@mantine/core';
-import { useDebouncedState, useDisclosure } from '@mantine/hooks';
+import { useDebouncedState, useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { IconAt } from '@tabler/icons-react';
 import React, { BaseSyntheticEvent, useState } from 'react';
 import { sendFeedbackToNotion } from '../lib/utils/notion';
 import { notifications } from '@mantine/notifications';
 import { CustomDots } from './custom-dots';
+import Balancer from 'react-wrap-balancer';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -82,6 +86,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function DashboardHeroHeader() {
   const { classes } = useStyles();
+  const mobile = useMediaQuery('(max-width: 56.25em)');
 
   // 의견 제출하기 모달 관리
   const [opened, { open, close }] = useDisclosure(false);
@@ -120,31 +125,57 @@ export default function DashboardHeroHeader() {
           </Title>
 
           <Container p={0} size={600} className={classes.description}>
-            <Text size="lg" color="dimmed" pt="md">
-              아래에서{' '}
-              <Text component="span" fw={500} color="black">
-                새로워진 Gijol 버전 2
+            <Balancer>
+              <Text size="lg" color="dimmed" pt="md">
+                아래에서{' '}
+                <Text component="span" fw={500} color="black">
+                  새로워진 Gijol 버전 2
+                </Text>
+                의 여러 가지 기능들을 살펴보세요! 또,{' '}
+                <Text component="span" fw={500} color="black">
+                  필요한 기능이 있다면
+                </Text>{' '}
+                아래 버튼을 눌러 의견을 제출해주세요!
               </Text>
-              의 여러 가지 기능들을 살펴보세요! 또한 있으면 좋을 듯한 기능들이 있다면 아래 버튼을
-              눌러 의견을 제출해주세요!
-            </Text>
+            </Balancer>
           </Container>
-          <Group position="center" py="md">
-            <Button size="md" variant="light" color="orange" onClick={open}>
-              의견 작성하기
-            </Button>
-            <Button
-              component="a"
-              size="md"
-              variant="light"
-              color="orange"
-              href="https://open.kakao.com/o/gsj1KpCf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              오픈채팅방 참여하기
-            </Button>
-          </Group>
+          <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
+            <Group position="center" py="md">
+              <Button size="md" variant="light" color="orange" onClick={open}>
+                의견 작성하기
+              </Button>
+              <Button
+                component="a"
+                size="md"
+                variant="light"
+                color="orange"
+                href="https://open.kakao.com/o/gsj1KpCf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                오픈채팅방 참여하기
+              </Button>
+            </Group>
+          </MediaQuery>
+          <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+            <Stack spacing="xs" mt="xl">
+              <Button size="md" variant="light" color="orange" radius="md" onClick={open}>
+                의견 작성하기
+              </Button>
+              <Button
+                component="a"
+                size="md"
+                radius="md"
+                variant="light"
+                color="orange"
+                href="https://open.kakao.com/o/gsj1KpCf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                오픈채팅방 참여하기
+              </Button>
+            </Stack>
+          </MediaQuery>
         </div>
       </Container>
       <Modal

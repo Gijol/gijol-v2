@@ -42,10 +42,8 @@ export default function Signup2({
   const [major, setMajor] = useState<string | null>(null);
 
   const { getToken } = useAuth();
-  const { user, isLoaded, isSignedIn } = useUser();
+  const { user } = useUser();
   const [userName, setUserName] = useState(user?.fullName as string);
-
-  console.log(userName);
 
   const onClickHandler = async () => {
     const token = await getToken({ template: 'gijol-token-test' });

@@ -62,6 +62,7 @@
     "react-lottie-player": "^1.5.4",
     "react-particles": "^2.9.3",
     "react-pdf": "^7.6.0",
+    "react-wrap-balancer": "^1.1.0",
     "recharts": "^2.5.0",
     "recoil": "^0.7.7",
     "recoil-persist": "^4.2.0",

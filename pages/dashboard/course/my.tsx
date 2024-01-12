@@ -11,7 +11,9 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  ThemeIcon,
   Title,
+  Tooltip,
   useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -24,10 +26,11 @@ import DashboardUnsignedPage from '@components/dashboard-unsigned-page';
 import CourseMyLoadingSkeleton from '@components/course-my-loading-skeleton';
 import DashboardFileUploadEncouragement from '@components/dashboard-file-upload-encouragement';
 
-import { getSortedCourseStatus } from '@utils/status';
+import { convertGradeTo4Scale, getSortedCourseStatus } from '@utils/status';
 import { useCourseStatus } from '@hooks/course';
 import { useMemberStatus } from '@hooks/auth';
 import React from 'react';
+import { IconQuestionMark } from '@tabler/icons-react';
 
 export default function My() {
   const theme = useMantineTheme();
@@ -92,7 +95,16 @@ export default function My() {
             </Text>
           </Group>
         </Stack>
-        <Progress />
+        <Group spacing="sm">
+          <Text fw={500} size="sm" color="dimmed">
+            GPA 환산 점수 : {convertGradeTo4Scale(data?.averageGrade as number, 4.5)}
+          </Text>
+          <Tooltip label="정확하지 않으므로 참고용으로만 사용해주세요!" withArrow position="bottom">
+            <ThemeIcon radius="xl" variant="default" size="sm">
+              <IconQuestionMark size="0.9rem" color={theme.colors.gray[7]} />
+            </ThemeIcon>
+          </Tooltip>
+        </Group>
       </Stack>
     </Paper>
   );
@@ -155,5 +167,4 @@ export default function My() {
       </Grid>
     </Container>
   );
-  // }
 }
