@@ -23,6 +23,7 @@ import { notifications } from '@mantine/notifications';
 import { CustomDots } from './custom-dots';
 import Balancer from 'react-wrap-balancer';
 
+
 const useStyles = createStyles((theme) => ({
   wrapper: {
     position: 'relative',

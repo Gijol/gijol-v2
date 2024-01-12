@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import { useMediaQuery } from '@mantine/hooks';
 
+
 export default function CourseMyLoadingSkeleton() {
   const theme = useMantineTheme();
   const matches = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
