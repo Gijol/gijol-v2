@@ -1,17 +1,5 @@
-import { UserTakenCourse } from '../../types';
-import {
-  CourseWithGradeStatusType,
-  SemesterStatusType,
-  UserTakenCourseWithGradeType,
-} from '../../types/score-status';
-
-export type CourseListWithPeriod = {
-  year: number;
-  semester_idx: number;
-  semester_str: string;
-  grade: number;
-  userTakenCourseList: Array<CourseWithGradeStatusType> | undefined;
-};
+import { UserTakenCourse, UserType } from '../../types';
+import { SemesterStatusType, UserTakenCourseWithGradeType } from '../../types/score-status';
 
 export const getSortedCourseStatus = (data: UserTakenCourseWithGradeType | undefined) => {
   const semesterList: SemesterStatusType[] | undefined =
@@ -20,18 +8,16 @@ export const getSortedCourseStatus = (data: UserTakenCourseWithGradeType | undef
   const finalYear = semesterList?.at(-1)?.year as number;
   const semesters = ['1학기', '여름학기', '2학기', '겨울학기'];
 
-  let result: CourseListWithPeriod[] = [];
+  let result = [];
 
-  for (let year = initYear; year <= finalYear; year++) {
+  for (let i = initYear; i <= finalYear; i++) {
     for (const j in semesters) {
       const cnt = semesterList
-        ?.filter((course) => course.year === year && course.semester === semesters[j])
+        ?.filter((course) => course.year === i && course.semester === semesters[j])
         .at(0);
       result.push({
-        year,
-        semester_idx: parseInt(j),
-        semester_str: semesters[j],
-        grade: cnt?.averageGradeBySemester ?? 0,
+        period: `${i}년도 ${semesters[j]}`,
+        grade: cnt?.averageGradeBySemester,
         userTakenCourseList: cnt?.coursesAndGradeResponses,
       });
     }
@@ -48,13 +34,9 @@ export const getCntTab = (href: string) => {
     case '/dashboard/course/my':
       return '내 수강현황';
     case '/dashboard/course/search':
-      return '강의 정보';
+      return '강의 정보 확인하기';
     case '/dashboard/user-info':
       return '내 정보';
-    case '/dashboard/graduation/certificate-builder':
-      return '졸업요건 확인서 만들기 ✨';
-    case '/dashboard/course/timetable':
-      return '시간표 제작하기 ✨';
     default:
       return '';
   }
@@ -101,9 +83,4 @@ export const gradeToNumber = (grade: string) => {
     default:
       return NaN;
   }
-};
-
-export const convertGradeTo4Scale = (grade: number, scale: number) => {
-  if (scale === 4.0) return grade;
-  return ((grade / scale) * 4.0).toFixed(2);
 };

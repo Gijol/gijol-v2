@@ -1,4 +1,4 @@
-import { GradStatusResponseType } from '@lib/types/grad';
+import { GradStatusResponseType } from '../types/grad';
 
 export const initialValue: GradStatusResponseType = {
   graduationCategory: {

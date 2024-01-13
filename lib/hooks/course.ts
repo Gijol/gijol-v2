@@ -1,9 +1,10 @@
-import { useAuth } from '@clerk/nextjs';
 import { useMutation, useQuery } from '@tanstack/react-query';
-
-import { instance } from '@utils/instance';
-import { UserTakenCourseWithGradeType } from '@lib/types/score-status';
-import { CourseHistory, CourseResponse, CourseSearchCodeType } from '@lib/types/course';
+import { BASE_SERVER_URL } from '../const';
+import { UserTakenCourseWithGradeType } from '../types/score-status';
+import { CourseHistory, CourseResponse, CourseType, CourseSearchCodeType } from '../types/course';
+import { useAuth } from '@clerk/nextjs';
+import { instance } from '../utils/instance';
+import axios from 'axios';
 
 export function useCourseStatus() {
   const { getToken } = useAuth();
@@ -42,10 +43,10 @@ const fetchCourses = async (
   return res.data;
 };
 export function useCourseList(
-  page: number = 0,
-  size: number = 20,
-  minorType: CourseSearchCodeType = 'NONE',
-  searchString: string = ''
+  page: number,
+  size: number,
+  minorType: CourseSearchCodeType,
+  searchString: string
 ) {
   return useQuery<CourseResponse>({
     queryKey: ['courses', page],

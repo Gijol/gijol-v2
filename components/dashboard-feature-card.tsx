@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, createStyles, rem, Stack, Text } from '@mantine/core';
 import { TablerIconsProps } from '@tabler/icons-react';
-import Balancer from 'react-wrap-balancer';
 
 export default function DashboardFeatureCard({
   feat,
@@ -23,7 +22,7 @@ export default function DashboardFeatureCard({
             {feat.title}
           </Text>
           <Text fz="sm" c="dimmed" mt="sm" mih="5rem">
-            <Balancer ratio={0.2}>{feat.description}</Balancer>
+            {feat.description}
           </Text>
         </div>
       </Stack>

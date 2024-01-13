@@ -1,7 +1,3 @@
-import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
-import { useAuth, useClerk, useUser } from '@clerk/nextjs';
-
 import {
   Box,
   Container,
@@ -10,26 +6,27 @@ import {
   Text,
   Avatar,
   Button,
+  Center,
   Select,
   Stack,
   TextInput,
   Paper,
-  Title,
 } from '@mantine/core';
-import { modals } from '@mantine/modals';
-import { notifications } from '@mantine/notifications';
+import React, { useRef, useState } from 'react';
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
-
-import { instance } from '@utils/instance';
-import { BASE_SERVER_URL } from '@const/index';
-import { useUserInfo } from '@hooks/user';
-import { useMemberStatus } from '@hooks/auth';
-import { convertMajorTypeToText, deleteUserInfo, updateUserInfo } from '@utils/user';
-
-import Loading from '@components/loading';
-import DashboardUnsignedPage from '@components/dashboard-unsigned-page';
-import UserInfoLoadingSkeleton from '@components/user-info-loading-skeleton';
-import DashboardFileUploadEncouragement from '@components/dashboard-file-upload-encouragement';
+import { convertMajorTypeToText, deleteUserInfo, updateUserInfo } from '../../lib/utils/user';
+import { useUserInfo } from '../../lib/hooks/user';
+import Loading from '../../components/loading';
+import { BASE_SERVER_URL } from '../../lib/const';
+import { notifications } from '@mantine/notifications';
+import { useAuth, useClerk, useUser } from '@clerk/nextjs';
+import UserInfoLoadingSkeleton from '../../components/user-info-loading-skeleton';
+import { instance } from '../../lib/utils/instance';
+import { useRouter } from 'next/router';
+import { useMemberStatus } from '../../lib/hooks/auth';
+import DashboardFileUploadEncouragement from '../../components/dashboard-file-upload-encouragement';
+import DashboardUnsignedPage from '../../components/dashboard-unsigned-page';
+import { modals } from '@mantine/modals';
 
 const major_select_data = [
   { value: 'EC', label: '전기전자컴퓨터공학전공' },
@@ -77,15 +74,15 @@ export default function UserInfo() {
       }
     );
     if (res.status === 204) {
-      notifications.show({
+      await notifications.show({
         color: 'teal',
         title: '업데이트 완료!',
         message: '변경 사항이 적용되었습니다!',
         autoClose: 2000,
       });
-      setNameInputOpened(false);
-      setUserName(user?.fullName ?? '');
-      router.reload();
+      await setNameInputOpened(false);
+      await setUserName(user?.fullName ?? '');
+      await router.reload();
     } else {
       notifications.show({
         color: 'red',
@@ -114,7 +111,7 @@ export default function UserInfo() {
   // 이름, 학번, 이메일, 전공 정보 컴포넌트
   const info = information_data.map((i) => {
     return (
-      <Group key={i.label} position="apart">
+      <Group key={i.label} position="apart" py="xs">
         <Group mih="2.5rem">
           <Text ml={8} w={100} weight={600}>
             {i.label}
@@ -142,19 +139,14 @@ export default function UserInfo() {
   }
 
   return (
-    <Container size="lg">
-      <Title order={3} mt={40} mb="lg">
-        내 정보 📝
-      </Title>
-      <Group position="center" spacing={40} align="flex-start">
-        <Stack w="40rem" spacing={10}>
-          <Group>
-            <Text ml={8} w={100} weight={600}>
-              사진
-            </Text>
-            <Avatar src={user?.imageUrl} alt="user profile" size={80} mt="md" />
-          </Group>
-          <Group position="apart">
+    <Container size="md">
+      <Text size={32} weight={700} my={32}>
+        내 정보
+      </Text>
+      <Group position="left" spacing={40} align="flex-start">
+        <Avatar src={user?.imageUrl} alt="user profile" size={100} mt="md" />
+        <Stack w="40rem" spacing={0}>
+          <Group position="apart" py={10}>
             <Group mih="2.5rem">
               <Text ml={8} w={100} weight={600}>
                 이름
@@ -225,7 +217,6 @@ export default function UserInfo() {
                 activateOnClick={false}
                 accept={[MIME_TYPES.xls, MIME_TYPES.xlsx]}
                 styles={{ inner: { pointerEvents: 'all' } }}
-                radius="lg"
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',

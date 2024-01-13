@@ -1,10 +1,11 @@
-import { useAuth } from '@clerk/nextjs';
+import { getSession } from 'next-auth/react';
+import { BASE_SERVER_URL } from '../const';
+import { GradStatusResponseType } from '../types/grad';
+import { initialValue } from '../const/grad';
 import { useQuery } from '@tanstack/react-query';
-
-import { initialValue } from '@const/grad';
-import { BASE_SERVER_URL } from '@const/index';
-import { GradStatusResponseType } from '@lib/types/grad';
-import { extractOverallStatus, getFeedbackNumbers } from '@utils/graduation/grad-formatter';
+import { extractOverallStatus, getFeedbackNumbers } from '../utils/graduation/grad-formatter';
+import router, { useRouter } from 'next/router';
+import { useAuth } from '@clerk/nextjs';
 
 export function useGraduation() {
   const { getToken } = useAuth();

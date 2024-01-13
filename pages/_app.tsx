@@ -1,20 +1,16 @@
-import '../public/global.css';
 import { useState } from 'react';
-import Head from 'next/head';
-import { getCookie, setCookie } from 'cookies-next';
 import NextApp, { AppProps, AppContext } from 'next/app';
-
+import { getCookie, setCookie } from 'cookies-next';
+import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
-import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
-
-import { ClerkProvider } from '@clerk/nextjs';
+import { Layout } from '../components/layouts/layout';
+import { ModalsProvider } from '@mantine/modals';
 import { Analytics } from '@vercel/analytics/react';
-import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/query-core';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
-import { Layout } from '@components/layouts/layout';
+import { ClerkProvider } from '@clerk/nextjs';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -33,13 +29,6 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     <>
       <Head>
         <title>학교 생활을 편리하게, Gijol</title>
-        {/*{process.env.NODE_ENV === 'production' && (*/}
-        {/*  <script*/}
-        {/*    defer*/}
-        {/*    src="https://us.umami.is/script.js"*/}
-        {/*    data-website-id="8211eefd-56a6-49bb-b4fb-8aab627a4f45"*/}
-        {/*  ></script>*/}
-        {/*)}*/}
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/public/images/tossfaceCap.png" />
       </Head>

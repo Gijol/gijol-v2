@@ -1,8 +1,8 @@
-import { useAuth } from '@clerk/nextjs';
+import { BASE_SERVER_URL } from '../const';
 import { useQuery } from '@tanstack/react-query';
-
-import { instance } from '@utils/instance';
-import { UserStatusType } from '@lib/types/user';
+import { UserStatusType } from '../types/user';
+import { useAuth } from '@clerk/nextjs';
+import { instance } from '../utils/instance';
 
 export function useUserInfo() {
   const { getToken } = useAuth();

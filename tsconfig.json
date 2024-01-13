@@ -13,24 +13,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true,
-    "baseUrl": ".",
-    "paths": {
-      "@lib/types/*": ["lib/types/*"],
-      "@configs/*": ["lib/config/*"],
-      "@hooks/*": ["lib/hooks/*"],
-      "@utils/*": ["lib/utils/*"],
-      "@const/*": ["lib/const/*"],
-      "@public/*": ["public/*"],
-      "@components/*": ["components/*"],
-    }
+    "incremental": true
   },
   "ts-node": {
     "compilerOptions": {
-      "module": "CommonJS",
-      "jsx": "react"
+      "module": "CommonJS"
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }

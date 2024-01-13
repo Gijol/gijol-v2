@@ -1,7 +1,3 @@
-import { CSSProperties } from 'react';
-import Image from 'next/image';
-import router from 'next/router';
-
 import {
   Container,
   Box,
@@ -17,16 +13,19 @@ import {
   ThemeIcon,
 } from '@mantine/core';
 import { useScrollIntoView } from '@mantine/hooks';
-
-import UserReviews from '@components/carousel/UserReviews';
-import MainLayoutHeader from '@components/layouts/main-layout-header';
+import { CSSProperties } from 'react';
+import router from 'next/router';
+import Image from 'next/image';
+import MainLayoutHeader from '../components/layouts/main-layout-header';
+import UserReviews from '../components/carousel/UserReviews';
+import macImg from '/public/images/MacBookAir.png';
 import {
   IconPackages,
+  IconPresentation,
   IconPresentationAnalytics,
   IconUser,
   TablerIconsProps,
 } from '@tabler/icons-react';
-import macImg from '/public/images/MacBookAir.png';
 
 export default function MainPage() {
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({

@@ -50,6 +50,7 @@ export const updateUserInfo = async (
     });
     await location.reload();
   } catch (e) {
+    console.log(e);
     await notifications.show({
       color: 'red',
       title: '변경사항 적용 안됨',

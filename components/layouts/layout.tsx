@@ -1,5 +1,5 @@
 import { AppShell, useMantineTheme, clsx } from '@mantine/core';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { DashboardLayoutHeader } from './dashboard-layout-header';
 import { useRouter } from 'next/router';
 import { LayoutNavbar } from './layout-navbar';
@@ -27,7 +27,6 @@ export function Layout({ children }: { children: ReactNode }) {
             paddingLeft: theme.spacing['xs'],
             paddingRight: theme.spacing['xs'],
           },
-          boxSizing: 'border-box',
         },
       }}
       navbarOffsetBreakpoint="sm"

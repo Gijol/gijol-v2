@@ -1,5 +1,4 @@
 import {
-  IconCertificate,
   IconChalkboard,
   IconClipboardList,
   IconDeviceDesktopAnalytics,
@@ -19,7 +18,7 @@ export const homeContents = {
         with_auth: true,
       },
       {
-        title: '내 졸업요건',
+        title: '졸업요건 확인 기능',
         description:
           '개인 수강정보를 기반으로 졸업요건 충족 여부를 확인하여 그 결과와 강의 추천까지 해드립니다!',
         icon: IconDeviceDesktopAnalytics,
@@ -27,7 +26,7 @@ export const homeContents = {
         with_auth: true,
       },
       {
-        title: '강의 정보 확인하기',
+        title: '강의목록 확인 기능',
         description: '2023년도 학사편람을 기반으로 한 강의 정보를 확인하세요!',
         icon: IconChalkboard,
         route: `/dashboard/course/search`,
@@ -43,21 +42,15 @@ export const homeContents = {
     betaFeatures: [
       {
         title: '강의 추천 기능',
-        description: '유저 정보 기반으로 학번별, 전공별, 난이도별 추천이 이뤄질 것으로 예상됩니다!',
+        description:
+          '이제 강의 추천기능이 더욱 고도화 될 것입니다! Gijol 유저들의 정보 기반으로 학번별, 전공별, 난이도별 추천이 이뤄질 것으로 예상됩니다!',
         icon: IconThumbUp,
       },
       {
         title: '강의 검색 기능',
         description:
-          '강의 난이도, 학기별 오픈 여부, 수강생 수 등의 정보를 확인할 수 있을 것으로 예상됩니다!',
+          '강의에 대한 정보를 확인할 수 있을 것입니다! 단순히 과목명과 설명을 넘어서 난이도, 학기별 오픈 여부, 수강생 수 등의 정보를 확인할 수 있을 것으로 예상됩니다!',
         icon: IconListSearch,
-      },
-      {
-        title: '졸업요건 확인서 발급하기',
-        description: '졸업 전에 제출하는 졸업요건 이수 확인서를 발급하세요!',
-        icon: IconCertificate,
-        route: `/dashboard/graduation/certificate`,
-        with_auth: false,
       },
     ],
   },

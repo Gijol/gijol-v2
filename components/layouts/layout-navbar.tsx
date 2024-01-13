@@ -1,9 +1,27 @@
+import { Text, createStyles, Divider, Navbar, NavLink, rem, Drawer } from '@mantine/core';
 import Link from 'next/link';
+import { navLinks } from '../../lib/const/nav-links';
 import { useRouter } from 'next/router';
+import { getCntTab } from '../../lib/utils/status';
+import { useMediaQuery } from '@mantine/hooks';
 
-import { createStyles, Navbar, NavLink, rem, Drawer } from '@mantine/core';
-import { getCntTab } from '@utils/status';
-import { navLinks } from '@const/nav-links';
+const useStyles = createStyles((theme) => ({
+  navbar: {
+    paddingTop: 0,
+  },
+
+  section: {
+    marginLeft: `calc(${theme.spacing.md} * -1)`,
+    marginRight: `calc(${theme.spacing.md} * -1)`,
+    marginBottom: theme.spacing.md,
+
+    '&:not(:last-of-type)': {
+      borderBottom: `${rem(1)} solid ${
+        theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
+      }`,
+    },
+  },
+}));
 
 export function LayoutNavbar({
   matches,
@@ -25,13 +43,13 @@ export function LayoutNavbar({
         active={link.label === cntRoute}
         label={link.label}
         href={link.href}
-        rightSection={link.badge}
         icon={<link.icon size="1.25rem" stroke={1.5} />}
         sx={{ borderRadius: 8 }}
         my={4}
       />
     );
   });
+
   const navbar = (
     <Navbar
       p="sm"
@@ -56,21 +74,3 @@ export function LayoutNavbar({
     </>
   );
 }
-const useStyles = createStyles((theme) => ({
-  navbar: {
-    paddingTop: 0,
-    wordBreak: 'keep-all',
-  },
-
-  section: {
-    marginLeft: `calc(${theme.spacing.md} * -1)`,
-    marginRight: `calc(${theme.spacing.md} * -1)`,
-    marginBottom: theme.spacing.md,
-
-    '&:not(:last-of-type)': {
-      borderBottom: `${rem(1)} solid ${
-        theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
-      }`,
-    },
-  },
-}));

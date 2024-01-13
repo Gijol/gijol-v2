@@ -12,9 +12,6 @@ import {
   Flex,
   Table,
   Skeleton,
-  createStyles,
-  Title,
-  Stack,
 } from '@mantine/core';
 import { useDisclosure, useHover } from '@mantine/hooks';
 import { getCourseTagColor } from '../lib/utils/course';
@@ -38,8 +35,6 @@ export default function CourseThumbnailWithDrawer({
   prerequisites: string;
   tags?: string[];
 }) {
-  const { classes } = useStyles();
-
   // Drawer open 상태 관리
   const { hovered, ref } = useHover();
   const [opened, { open, close }] = useDisclosure(false);
@@ -47,19 +42,8 @@ export default function CourseThumbnailWithDrawer({
   // mutation으로 히스토리 관리
   const { data: single_course, isLoading: isCourseHistoryDataLoading, mutate } = useSingleCourse();
   const tagContent = tags?.map((tag) => {
-    const color = getCourseTagColor(tag);
     return (
-      <Badge
-        key={tag}
-        radius="sm"
-        px={6}
-        color={color}
-        variant="light"
-        sx={(theme) => ({
-          fontWeight: 550,
-          borderColor: theme.colors[color as string][5],
-        })}
-      >
+      <Badge key={tag} radius="sm" px={6} color={getCourseTagColor(tag)}>
         {tag}
       </Badge>
     );
@@ -85,28 +69,21 @@ export default function CourseThumbnailWithDrawer({
         }}
         w="100%"
       >
-        <Paper withBorder p="md" radius="md" ref={ref} bg={hovered ? 'gray.0' : undefined} h="100%">
-          <Stack justify="space-between" h="100%">
-            <Text size="md" mb={8} color="dimmed">
-              {code}
-            </Text>
-            <Text size={rem(24)} weight={500} w="fit-content">
+        <Paper withBorder p="md" radius="md" ref={ref} bg={hovered ? 'gray.0' : undefined} my="sm">
+          <Text size={rem(14)} mb={8} color="dimmed">
+            {code}
+          </Text>
+          <Flex justify="space-between" wrap="wrap" gap="md" align="center">
+            <Text size={rem(24)} weight={500} miw={300}>
               {title}
             </Text>
-            <Group w="fit-content" position="apart" spacing="xs" mt="xl">
+            <Group w="fit-content" position="apart">
               {tagContent}
-              <Badge
-                radius="sm"
-                px={6}
-                fw={550}
-                sx={(theme) => ({
-                  borderColor: theme.colors.blue[5],
-                })}
-              >
+              <Badge radius="sm" px={6}>
                 {credit}학점
               </Badge>
             </Group>
-          </Stack>
+          </Flex>
         </Paper>
       </UnstyledButton>
       <Drawer
@@ -124,13 +101,11 @@ export default function CourseThumbnailWithDrawer({
         </Text>
         <Group mt="md" spacing="xs">
           {tags?.map((t) => (
-            <Badge variant="dot" radius="md" size="lg" key={t} color={getCourseTagColor(t)}>
+            <Badge key={t} color={getCourseTagColor(t)}>
               {t}
             </Badge>
           ))}
-          <Badge variant="dot" radius="md" size="lg">
-            {credit}학점
-          </Badge>
+          <Badge>{credit}학점</Badge>
         </Group>
         <Text py="md">
           선 이수과목 :
@@ -145,9 +120,9 @@ export default function CourseThumbnailWithDrawer({
             </Code>
           )}
         </Text>
-        <Title order={3} mt="xl" mb="sm">
+        <Text fz="md" fw={600} mt="lg">
           강의소개
-        </Title>
+        </Text>
         <Paper p="xl" withBorder radius="lg" bg="gray.0" mt="sm">
           <Spoiler
             maxHeight={120}
@@ -162,36 +137,26 @@ export default function CourseThumbnailWithDrawer({
             )}
           </Spoiler>
         </Paper>
-        <Title order={3} mt="xl" mb="sm">
+        <Text fz="md" fw={600} mt="xl" mb="sm">
           강의 히스토리
-        </Title>
+        </Text>
         {isCourseHistoryDataLoading ? (
           <Skeleton radius="sm" h={300} />
         ) : (
-          <div className={classes.tableBorder}>
-            <Table highlightOnHover horizontalSpacing="lg" verticalSpacing="sm">
-              <thead>
-                <tr>
-                  <th>연도</th>
-                  <th>학기</th>
-                  <th>교수명</th>
-                  <th>강의 시간대</th>
-                  <th>강의실</th>
-                </tr>
-              </thead>
-              <tbody>{rows}</tbody>
-            </Table>
-          </div>
+          <Table>
+            <thead>
+              <tr>
+                <th>연도</th>
+                <th>학기</th>
+                <th>교수명</th>
+                <th>강의 시간대</th>
+                <th>강의실</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
         )}
       </Drawer>
     </>
   );
 }
-
-const useStyles = createStyles((theme) => ({
-  tableBorder: {
-    border: '1px solid #dee2e6',
-    borderRadius: '0.5rem',
-    overflow: 'hidden',
-  },
-}));
