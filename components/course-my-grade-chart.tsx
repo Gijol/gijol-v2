@@ -1,5 +1,4 @@
 import {
-  CartesianAxis,
   CartesianGrid,
   LabelList,
   Line,
@@ -9,13 +8,10 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import React from 'react';
 
-import { Notification, Paper, Title, useMantineTheme } from '@mantine/core';
-import React from 'react';
-import { CourseListWithPeriod } from '../lib/utils/status';
+import { Paper, Title, useMantineTheme } from '@mantine/core';
+import { CourseListWithPeriod } from '@utils/status';
 import CustomTooltip from '@components/rechart-custom-tooltip';
-
 
 const generateLineChartData = (courseListWithPeriod: CourseListWithPeriod[]) => {
   return courseListWithPeriod.map((periodWithList: any) => {
