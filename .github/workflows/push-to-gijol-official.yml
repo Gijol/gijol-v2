@@ -20,7 +20,7 @@ jobs:
       - name: Push to gijol-official repo
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.EXTERNAL_REPO_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ steps.branch.outputs.branch }}
           force: true
           directory: .
