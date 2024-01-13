@@ -86,7 +86,6 @@ const useStyles = createStyles((theme) => ({
 
 export default function DashboardHeroHeader() {
   const { classes } = useStyles();
-  const mobile = useMediaQuery('(max-width: 56.25em)');
 
   // 의견 제출하기 모달 관리
   const [opened, { open, close }] = useDisclosure(false);
@@ -102,7 +101,7 @@ export default function DashboardHeroHeader() {
 
   // 이메일 유효성 검사
   const emailErrorState =
-    email === '' || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
+    email === '' || /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
       ? ''
       : '유효하지 않은 이메일 형식입니다';
 
@@ -235,11 +234,11 @@ export default function DashboardHeroHeader() {
                     message: '모든 항목을 입력 부탁드립니다! 감사합니다!',
                   });
                 } else {
-                  await openLoading();
+                  openLoading();
                   await sendFeedbackToNotion(title, description, email);
-                  await closeLoading();
-                  await close();
-                  await notifications.show({
+                  closeLoading();
+                  close();
+                  notifications.show({
                     color: 'teal',
                     title: '의견을 남겨주셔서 감사합니다!',
                     message:
@@ -248,7 +247,7 @@ export default function DashboardHeroHeader() {
                   });
                 }
               } catch (e) {
-                await notifications.show({
+                notifications.show({
                   color: 'orange',
                   title: '전송오류',
                   message: '의견이 제대로 전송되지 않았습니다... 다시 한번 시도 부탁드립니다! 🙇‍♂️',
