@@ -1,8 +1,9 @@
+import { homeContents } from '@const/content-data';
+
 import { Container, ScrollArea, SimpleGrid, Space, Text } from '@mantine/core';
-import { homeContents } from '../../lib/const/content-data';
-import { useRouter } from 'next/router';
-import DashboardFeatureCard from '../../components/dashboard-feature-card';
-import DashboardHeroHeader from '../../components/dashboard-hero-header';
+
+import DashboardHeroHeader from '@components/dashboard-hero-header';
+import DashboardFeatureCard from '@components/dashboard-feature-card';
 
 export default function HomePage() {
   const cntFeatures = homeContents.main.cntFeatures;

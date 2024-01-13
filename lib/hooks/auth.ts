@@ -1,6 +1,6 @@
-import { getAuthTypeResponse } from '../utils/auth';
 import { useAuth } from '@clerk/nextjs';
 import { useQuery } from '@tanstack/react-query';
+import { getAuthTypeResponse } from '@utils/auth';
 
 export function useMemberStatus() {
   const auth = useAuth();

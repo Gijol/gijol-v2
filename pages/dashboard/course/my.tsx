@@ -1,32 +1,40 @@
-import React, { Fragment } from 'react';
+import { useUser } from '@clerk/nextjs';
+
 import {
-  Box,
-  Center,
+  Col,
   Container,
-  Divider,
+  Flex,
+  Grid,
   Group,
   Paper,
+  Progress,
   SimpleGrid,
   Stack,
   Text,
+  ThemeIcon,
+  Title,
+  Tooltip,
   useMantineTheme,
 } from '@mantine/core';
-import { getSortedCourseStatus } from '../../../lib/utils/status';
-import { useCourseStatus } from '../../../lib/hooks/course';
 import { useMediaQuery } from '@mantine/hooks';
-import Loading from '../../../components/loading';
-import CourseMyCreditChart from '../../../components/course-my-credit-chart';
-import CourseMyGradeChart from '../../../components/course-my-grade-chart';
-import CourseMyTableChart from '../../../components/course-my-table-chart';
-import { useUser } from '@clerk/nextjs';
-import CourseMyLoadingSkeleton from '../../../components/course-my-loading-skeleton';
-import { useMemberStatus } from '../../../lib/hooks/auth';
-import DashboardFileUploadEncouragement from '../../../components/dashboard-file-upload-encouragement';
-import DashboardUnsignedPage from '../../../components/dashboard-unsigned-page';
+
+import Loading from '@components/loading';
+import CourseMyGradeChart from '@components/course-my-grade-chart';
+import CourseMyTableChart from '@components/course-my-table-chart';
+import CourseMyCreditChart from '@components/course-my-credit-chart';
+import DashboardUnsignedPage from '@components/dashboard-unsigned-page';
+import CourseMyLoadingSkeleton from '@components/course-my-loading-skeleton';
+import DashboardFileUploadEncouragement from '@components/dashboard-file-upload-encouragement';
+
+import { convertGradeTo4Scale, getSortedCourseStatus } from '@utils/status';
+import { useCourseStatus } from '@hooks/course';
+import { useMemberStatus } from '@hooks/auth';
+import React from 'react';
+import { IconQuestionMark } from '@tabler/icons-react';
 
 export default function My() {
   const theme = useMantineTheme();
-  const matches = useMediaQuery(`(min-width: ${theme.spacing.md})`);
+  const matches = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
   // Clerk 사용하는 부분 !!
   const { data, isLoading, isInitialLoading, isFetching } = useCourseStatus();
@@ -34,58 +42,91 @@ export default function My() {
   const { data: status, isLoading: isMemberStatusLoading } = useMemberStatus();
 
   /* 연도 및 학기별 수강한 강의 목록*/
-  const courseListWithPeriod = getSortedCourseStatus(data);
+  const courseListWithPeriod = getSortedCourseStatus(data).filter(
+    (i) => (i.userTakenCourseList?.length as number) > 0
+  );
 
   /* 학기 시작과 끝 조사하기 */
-  const dateStart = courseListWithPeriod.at(0)?.period;
-  const dateEnd = courseListWithPeriod.at(-1)?.period;
-  const dataSet = [
-    {
-      label: '총 이수 학점',
-      content: `${data?.totalCredit} 학점 / 130 학점`,
-    },
-    {
-      label: '이수 학기',
-      content: `${dateStart} ~ ${dateEnd}`,
-    },
-    {
-      label: '학기별 평균 학점',
-      content: `${data?.averageGrade}`,
-    },
-  ];
+  const start_y = courseListWithPeriod.at(0)?.year;
+  const start_s = courseListWithPeriod.at(0)?.semester_str;
+  const end_y = courseListWithPeriod.at(-1)?.year;
+  const end_s = courseListWithPeriod.at(-1)?.semester_str;
 
-  const dataForTable = courseListWithPeriod.map((periodWithList) => {
-    return {
-      name: periodWithList.period,
-      수강학점: periodWithList.userTakenCourseList?.reduce((acc, cnt) => acc + cnt.credit, 0),
-    };
-  });
+  const overall_credit = (
+    <Paper radius="md" p={matches ? 'xl' : 'xs'} withBorder>
+      <Stack justify="space-between" h="100%">
+        <Stack spacing={4}>
+          <Group align="baseline">
+            <Text fw={600} color="gray.6" mb="xs">
+              총 학점
+            </Text>
+          </Group>
+          <Group spacing={6}>
+            <Text size={28} fw={500}>
+              {data?.totalCredit}
+            </Text>
+            <Text mt={5} size="lg" fw={500}>
+              / 130 학점
+            </Text>
+          </Group>
+        </Stack>
+        <Progress
+          value={((data?.totalCredit as number) * 100) / 130}
+          bg="#bfdbfe80"
+          h={theme.spacing.sm}
+        />
+      </Stack>
+    </Paper>
+  );
 
-  const dataForLineChart = courseListWithPeriod
-    .map((periodWithList) => {
-      return {
-        period: periodWithList.period,
-        학점: periodWithList.grade ?? 0,
-      };
-    })
-    .filter((item) => item.학점 !== 0);
+  const overall_grade = (
+    <Paper radius="md" p={matches ? 'xl' : 'xs'} withBorder>
+      <Stack justify="space-between" h="100%">
+        <Stack spacing={4}>
+          <Text fw={600} color="gray.6" mb="xs">
+            평균 학점
+          </Text>
+          <Group spacing={6}>
+            <Text size={28} fw={500}>
+              {data?.averageGrade}
+            </Text>
+            <Text mt={5} size="lg" fw={500}>
+              / 4.5
+            </Text>
+          </Group>
+        </Stack>
+        <Group spacing="sm">
+          <Text fw={500} size="sm" color="dimmed">
+            GPA 환산 점수 : {convertGradeTo4Scale(data?.averageGrade as number, 4.5)}
+          </Text>
+          <Tooltip label="정확하지 않으므로 참고용으로만 사용해주세요!" withArrow position="bottom">
+            <ThemeIcon radius="xl" variant="default" size="sm">
+              <IconQuestionMark size="0.9rem" color={theme.colors.gray[7]} />
+            </ThemeIcon>
+          </Tooltip>
+        </Group>
+      </Stack>
+    </Paper>
+  );
 
-  const dataForSelect = courseListWithPeriod.map((periodWithList) => {
-    return {
-      value: periodWithList.period,
-      label: periodWithList.period,
-    };
-  });
-  const overall = dataSet.map((data) => {
-    return (
-      <Fragment key={data.label}>
-        <Text ml={8} w={150} weight={600}>
-          {data.label}
+  const overall_semester = (
+    <Paper radius="md" p={matches ? 'xl' : 'xs'} withBorder>
+      <Stack spacing={0} h="100%">
+        <Text fw={600} color="gray.6" mb="xs">
+          이수 학기
         </Text>
-        <Text>{data.content}</Text>
-      </Fragment>
-    );
-  });
+        <Group position="center" spacing="md" my="auto">
+          <Text size="lg" fw={600}>
+            {start_y}년도 {start_s}
+          </Text>
+          <Text> ~ </Text>
+          <Text size="lg" fw={600}>
+            {end_y}년도 {end_s}
+          </Text>
+        </Group>
+      </Stack>
+    </Paper>
+  );
 
   if (!isAuthStateLoaded || isMemberStatusLoading) {
     return <Loading content="잠시만 기다려 주세요" />;
@@ -104,31 +145,26 @@ export default function My() {
   }
 
   return (
-    <Container size="md">
-      <Text size={32} mt={24} mb={32} weight={700}>
-        학기별 강의 이수 현황
-      </Text>
-
-      <Paper w="100%" h={400} my={40} pr={matches ? 40 : 0} pl={0} radius="md">
-        <CourseMyCreditChart dataForTable={dataForTable} />
-      </Paper>
-
-      <SimpleGrid cols={2} px="md">
-        {overall}
+    <Container size="lg">
+      <Title order={3} mb="lg" mt={40}>
+        내 수강현황 📑
+      </Title>
+      <SimpleGrid cols={matches ? 3 : 1} my="xl">
+        {overall_credit}
+        {overall_grade}
+        {overall_semester}
       </SimpleGrid>
-
-      <Text size={32} my={32} weight={700}>
-        학기별 성적 현황
-      </Text>
-      <Paper w="100%" h={400} my={40} pr={40} radius="md">
-        <CourseMyGradeChart dataForLineChart={dataForLineChart} />
-      </Paper>
-
-      <CourseMyTableChart
-        dataForSelect={dataForSelect}
-        courseListWithPeriod={courseListWithPeriod}
-      />
+      <Grid columns={12} gutter="xl">
+        <Col lg={6} md={12}>
+          <CourseMyCreditChart data={courseListWithPeriod} />
+        </Col>
+        <Col lg={6} md={12}>
+          <CourseMyGradeChart data={courseListWithPeriod} />
+        </Col>
+        <Col lg={12} md={12}>
+          <CourseMyTableChart data={courseListWithPeriod} />
+        </Col>
+      </Grid>
     </Container>
   );
-  // }
 }
