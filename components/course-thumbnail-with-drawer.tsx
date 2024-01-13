@@ -4,7 +4,9 @@ import {
   Paper,
   Text,
   Badge,
+  Button,
   UnstyledButton,
+  Box,
   Drawer,
   rem,
   Spoiler,
@@ -14,7 +16,9 @@ import {
   Skeleton,
 } from '@mantine/core';
 import { useDisclosure, useHover } from '@mantine/hooks';
+import Link from 'next/link';
 import { getCourseTagColor } from '../lib/utils/course';
+import { useQuery } from '@tanstack/react-query';
 import { useSingleCourse } from '../lib/hooks/course';
 import { CourseHistory } from '../lib/types/course';
 

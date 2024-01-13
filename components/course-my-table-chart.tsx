@@ -1,5 +1,5 @@
 import { Box, createStyles, Group, rem, ScrollArea, Select, Table, Text } from '@mantine/core';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { CourseWithGradeStatusType } from '../lib/types/score-status';
 
 export default function CourseMyTableChart({

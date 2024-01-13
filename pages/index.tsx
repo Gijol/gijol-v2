@@ -170,7 +170,7 @@ const services: MainService[] = [
   },
   {
     name: '내 정보 확인하기',
-    description: '나의 학교 생활 수강 정보를 확인할 수 있습니다',
+    description: '매 학기 열리는 강의 정보를 검색해보세요',
     Icon: IconUser,
   },
 ];

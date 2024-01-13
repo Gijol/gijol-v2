@@ -1,4 +1,5 @@
 import { Container, Skeleton, Space, Stack } from '@mantine/core';
+import React from 'react';
 
 export default function GraduationLoadingSkeleton() {
   return (

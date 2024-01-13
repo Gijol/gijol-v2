@@ -14,6 +14,18 @@ export function useCourseStatus() {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
+    // return await fetch(`${BASE_DEV_SERVER_URL}/api/v1/users/me/taken-courses`, {
+    //   method: 'GET',
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //     'Content-Type': 'application/json',
+    //   },
+    // }).then((res) => {
+    //   if (!res.ok) {
+    //     throw new Error(res.status.toString());
+    //   }
+    //   return res.json();
+    // });
     const res = await instance.get('/api/v1/users/me/taken-courses', { headers });
     return res.data;
   };

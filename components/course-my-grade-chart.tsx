@@ -8,6 +8,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
+import React from 'react';
 
 export default function CourseMyGradeChart({
   dataForLineChart,
