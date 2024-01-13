@@ -12,11 +12,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
+        
       - name: Determine Branch
         id: branch
         run: echo ::set-output name=branch::${GITHUB_REF#refs/heads/}
-
+        
       - name: Push to gijol-official repo
         uses: ad-m/github-push-action@master
         with:

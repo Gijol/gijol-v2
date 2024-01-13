@@ -8,7 +8,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-
 import { Paper, Title, useMantineTheme } from '@mantine/core';
 import { CourseListWithPeriod } from '@utils/status';
 import CustomTooltip from '@components/rechart-custom-tooltip';
