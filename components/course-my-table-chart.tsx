@@ -3,6 +3,7 @@ import { createStyles, Group, Paper, ScrollArea, Select, Table, Title } from '@m
 import { CourseListWithPeriod } from '@utils/status';
 
 
+
 const generateSelectData = (courseListWithPeriod: CourseListWithPeriod[]) => {
   return courseListWithPeriod.map((periodWithList) => {
     return {

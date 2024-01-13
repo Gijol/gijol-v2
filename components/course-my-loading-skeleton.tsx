@@ -1,3 +1,4 @@
+
 import {
   Container,
   SimpleGrid,
@@ -9,7 +10,6 @@ import {
 } from '@mantine/core';
 import React from 'react';
 import { useMediaQuery } from '@mantine/hooks';
-
 
 export default function CourseMyLoadingSkeleton() {
   const theme = useMantineTheme();

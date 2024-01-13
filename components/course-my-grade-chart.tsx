@@ -9,6 +9,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
+import React from 'react';
 
 import { Notification, Paper, Title, useMantineTheme } from '@mantine/core';
 import React from 'react';
