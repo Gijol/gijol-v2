@@ -2,6 +2,7 @@
 on:
   pull_request:
     branches:
+      - dev
       - main
 
 jobs:
@@ -11,12 +12,16 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
+        
+      - name: Determine Branch
+        id: branch
+        run: echo ::set-output name=branch::${GITHUB_REF#refs/heads/}
+        
       - name: Push to gijol-official repo
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.EXTERNAL_REPO_TOKEN }}
-          branch: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.branch.outputs.branch }}
           force: true
           directory: .
           repository: gijol-official/Gijol

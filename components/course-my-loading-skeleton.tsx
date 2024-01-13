@@ -1,14 +1,4 @@
-
-import {
-  Container,
-  SimpleGrid,
-  Skeleton,
-  Stack,
-  Text,
-  Title,
-  useMantineTheme,
-} from '@mantine/core';
-import React from 'react';
+import { Container, SimpleGrid, Skeleton, Stack, Title, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
 export default function CourseMyLoadingSkeleton() {

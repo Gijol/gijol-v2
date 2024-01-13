@@ -86,7 +86,6 @@ const useStyles = createStyles((theme) => ({
 
 export default function DashboardHeroHeader() {
   const { classes } = useStyles();
-  const mobile = useMediaQuery('(max-width: 56.25em)');
 
   // 의견 제출하기 모달 관리
   const [opened, { open, close }] = useDisclosure(false);
@@ -102,7 +101,7 @@ export default function DashboardHeroHeader() {
 
   // 이메일 유효성 검사
   const emailErrorState =
-    email === '' || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
+    email === '' || /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
       ? ''
       : '유효하지 않은 이메일 형식입니다';
 

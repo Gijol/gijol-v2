@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box, Card, createStyles, Group, rem, Stack, Text } from '@mantine/core';
+import { Card, createStyles, rem, Stack, Text } from '@mantine/core';
 import { TablerIconsProps } from '@tabler/icons-react';
 import Balancer from 'react-wrap-balancer';
 
