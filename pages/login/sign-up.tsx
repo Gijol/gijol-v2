@@ -7,7 +7,7 @@ import Signup1 from '../../components/sign-up/signup-1';
 import Signup2 from '../../components/sign-up/signup-2';
 import SignupComplete from '../../components/sign-up/signup-complete';
 import { FileWithPath } from '@mantine/dropzone';
-import { getAuthTypeResponse } from '../../lib/utils/auth';
+import { getAuthTypeResponse } from '@utils/auth';
 import { useRouter } from 'next/router';
 import { useAuth } from '@clerk/nextjs';
 
@@ -30,7 +30,7 @@ export default function Signup() {
       const { isNewUser } = await getAuthTypeResponse(token);
       if (!isNewUser) {
         await router.push('/dashboard');
-        await alert(
+        alert(
           "이미 로그인 한 상태입니다. 새로운 파일을 업로드 하시려면, '대쉬보드 페이지 -> 프로필 -> 내 정보 수정' 에서 새로운 파일을 업로드 해주세요"
         );
       }

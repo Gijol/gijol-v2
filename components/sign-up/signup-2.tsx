@@ -9,6 +9,7 @@ import {
   Image,
   Modal,
   Paper,
+  ScrollArea,
   Select,
   Text,
   TextInput,
@@ -27,6 +28,8 @@ import { signupAndGetResponse } from '../../lib/utils/auth';
 import { notifications } from '@mantine/notifications';
 import { UserStatusType } from '../../lib/types';
 import { useAuth, useUser } from '@clerk/nextjs';
+import { modals } from '@mantine/modals';
+import { SignupVerificationTable } from './signup-verification-table';
 
 export default function Signup2({
   nextStep,
@@ -48,6 +51,7 @@ export default function Signup2({
   const onClickHandler = async () => {
     const token = await getToken({ template: 'gijol-token-test' });
     const parsed_user_status: UserStatusType | null = await readFileAndParse(fileInfo as File);
+    
     if (!parsed_user_status) {
       notifications.show({
         color: 'red',
@@ -79,6 +83,23 @@ export default function Signup2({
       }
     }
   };
+
+  const openVerificationModal = async () => {
+    const parsed_user_status: UserStatusType | null = await readFileAndParse(fileInfo as File);
+    console.log(parsed_user_status);
+    modals.openConfirmModal({
+      size: 'xl',
+      title: 'Please confirm your action',
+      children: (
+        <SignupVerificationTable parsedUserStatus={parsed_user_status} />
+      ),
+      labels: { confirm: '제출하기', cancel: '수정하기' },
+      onCancel: () => console.log('수정하기'),
+      onConfirm: () => onClickHandler,
+      scrollAreaComponent: ScrollArea.Autosize,
+    });
+    
+  }
   return (
     <Container miw={300} w={600}>
       <Text size="xl" weight={600} align="center" my={20}>
@@ -223,10 +244,11 @@ export default function Signup2({
         </Group>
       </Dropzone>
       <Center my={20}>
-        <Button disabled={!fileInfo} size="lg" onClick={onClickHandler}>
+        <Button disabled={!fileInfo} size="lg" onClick={openVerificationModal}>
           다음 과정으로
         </Button>
       </Center>
     </Container>
   );
 }
+

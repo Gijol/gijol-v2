@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAuth } from '@clerk/nextjs';
 import { useRouter } from 'next/router';
-import { getAuthTypeResponse } from '../../lib/utils/auth';
+import { getAuthTypeResponse } from '@utils/auth';
 
 export default function NewUser() {
   const { getToken } = useAuth();
