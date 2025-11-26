@@ -50,6 +50,7 @@
     "dayjs": "^1.11.6",
     "debounce": "^2.0.0",
     "embla-carousel-react": "^7.0.3",
+    "formidable": "^3.5.4",
     "micro": "^10.0.1",
     "next": "13.1.6",
     "next-auth": "^4.22.1",

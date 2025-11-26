@@ -1,4 +1,4 @@
-import { GradeReportParser } from '../utils/parser/grade/gradeReportParser';
+import { GradeReportParser } from '@utils/parser/grade/gradeReportParser';
 
 export async function parseGradeBuffer(buffer: Buffer) {
   try {
