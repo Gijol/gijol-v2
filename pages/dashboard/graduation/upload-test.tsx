@@ -17,6 +17,7 @@ export default function UploadTestPage() {
     setError(null);
 
     try {
+      console.log(file);
       const formData = new FormData();
       formData.append('file', file as File);
 
@@ -30,6 +31,7 @@ export default function UploadTestPage() {
         setError(json?.error || `Server returned ${resp.status}`);
       } else {
         const json = await resp.json();
+        console.log(resp);
         setResult(json);
       }
     } catch (e: any) {

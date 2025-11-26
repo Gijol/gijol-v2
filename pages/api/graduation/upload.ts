@@ -1,6 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import formidable from 'formidable';
 import { parseGradeBuffer } from '../../../lib/api/parse-grad';
+
+// Use require to avoid ESM/CJS interop issues in Next.js runtime.
+const formidableImport: any = require('formidable');
+const createForm: any = formidableImport?.default ?? formidableImport;
+const os = require('os');
 
 export const config = {
   api: {
@@ -14,9 +18,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const form = new formidable.IncomingForm({
+  // Create form with safe defaults for serverless environments
+  const form = createForm({
     multiples: false,
     keepExtensions: true,
+    uploadDir: os.tmpdir(),
+    maxFileSize: 10 * 1024 * 1024, // 10 MB
   });
 
   try {
@@ -41,7 +48,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           // formidable v2 uses 'filepath', older versions use 'path'
           const filePath = file.filepath || file.path;
           if (!filePath) {
-            throw new Error('Uploaded file path not found');
+            // respond with a friendly error instead of throwing
+            res.status(422).json({ error: 'Uploaded file path not found' });
+            resolve();
+            return;
           }
           const buffer: Buffer = fs.readFileSync(filePath);
           const parsed = await parseGradeBuffer(buffer);
@@ -52,6 +62,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           res.status(422).json({ error: 'Parsing failed', details: e?.message || String(e) });
           resolve();
         }
+      });
+
+      // optional: handle form-level errors
+      form.on('error', (formErr: any) => {
+        console.error('form error', formErr);
+        reject(formErr);
       });
     });
   } catch (e: any) {
