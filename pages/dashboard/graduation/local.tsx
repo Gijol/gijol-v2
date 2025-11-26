@@ -16,8 +16,6 @@ import Loading from '@components/loading';
 
 import { readFileAndParse } from '@utils/graduation/grad-formatter';
 import type { UserStatusType } from '@lib/types/index';
-
-// 새로 추가된 import: 기존 졸업 컴포넌트들과 유틸
 import GradOverallStatus from '@components/grad-overall-status';
 import GradSpecificDomainStatus from '@components/grad-specific-domain-status';
 import GradRecommend from '@components/grad-recommend';
@@ -32,6 +30,10 @@ export default function Local() {
   const [isParsing, setIsParsing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [parsed, setParsed] = useState<UserStatusType | null>(null);
+  const [gradStatusFromApi, setGradStatusFromApi] = useState<GradStatusResponseType | null>(null);
+  const [isFetchingGradStatus, setIsFetchingGradStatus] = useState(false);
+  const [classifyResult, setClassifyResult] = useState<GradStatusResponseType | null>(null);
+  const [isFetchingClassify, setIsFetchingClassify] = useState(false);
 
   // parsed(UserStatusType) -> GradStatusResponseType로 변환하는 간단한 헬퍼
   // 실제 서버 로직과 다르지만, 컴포넌트 미리보기를 위해 최소한의 구조를 채웁니다.
@@ -85,6 +87,63 @@ export default function Local() {
     try {
       const res = await readFileAndParse(file as File);
       setParsed(res as UserStatusType);
+      // call both classify and grad-status in parallel
+      const payload = {
+        userTakenCourseList: (res as any).userTakenCourseList,
+        userMajor: (res as any).major,
+        courses: (res as any).userTakenCourseList?.takenCourses ?? (res as any).userTakenCourseList,
+      };
+
+      setIsFetchingClassify(true);
+      setIsFetchingGradStatus(true);
+      try {
+        const [classifyP, gradP] = await Promise.allSettled([
+          fetch('/api/graduation/classify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          }),
+          fetch('/api/graduation/grad-status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          }),
+        ]);
+
+        // classify result
+        if (classifyP.status === 'fulfilled') {
+          const r = classifyP.value as Response;
+          if (r.ok) {
+            const j = await r.json();
+            console.log('classify api response:', j);
+            setClassifyResult(j as GradStatusResponseType);
+          } else {
+            console.error('classify api error', r.status, await r.text());
+          }
+        } else {
+          console.error('classify fetch rejected', classifyP.reason);
+        }
+
+        // grad-status result
+        if (gradP.status === 'fulfilled') {
+          const r = gradP.value as Response;
+          if (r.ok) {
+            const j = await r.json();
+            console.log('grad-status api response:', j);
+            setGradStatusFromApi(j as GradStatusResponseType);
+          } else {
+            console.error('grad-status api error', r.status, await r.text());
+          }
+        } else {
+          console.error('grad-status fetch rejected', gradP.reason);
+        }
+      } catch (e: any) {
+        console.error('parallel fetch error', e);
+        setError(e?.message || String(e));
+      } finally {
+        setIsFetchingClassify(false);
+        setIsFetchingGradStatus(false);
+      }
       // auto-save into localStorage
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(res));
@@ -135,11 +194,13 @@ export default function Local() {
 
   const effectiveParsed = parsed as UserStatusType | null;
 
-  // 변환된 gradStatus와 overall props
-  const gradStatusPreview = effectiveParsed ? convertParsedToGradStatus(effectiveParsed) : null;
+  // prefer server-side categorized result if available; otherwise fallback to local preview
+  const gradStatusPreview =
+    gradStatusFromApi ?? (effectiveParsed ? convertParsedToGradStatus(effectiveParsed) : null);
   const overallProps = gradStatusPreview ? extractOverallStatus(gradStatusPreview) : null;
   const feedbackNumbers = gradStatusPreview ? getFeedbackNumbers(gradStatusPreview) : 0;
-  console.log(overallProps);
+  console.log('gradStatusPreview', gradStatusPreview);
+  console.log('overallProps', overallProps);
   return (
     <Container size="lg">
       <Title order={2} my={20}>
@@ -198,6 +259,84 @@ export default function Local() {
             파싱 결과 — 미리보기
           </Title>
 
+          {/* API에서 받은 원시 분류 결과(디버깅용) */}
+          {isFetchingGradStatus && (
+            <Box my="sm">
+              <Text color="dimmed">분류 서버에서 응답을 기다리는 중...</Text>
+            </Box>
+          )}
+
+          {classifyResult && (
+            <Box my="md" p="md" style={{ background: '#eef9ff', borderRadius: 8 }}>
+              <Group position="apart">
+                <Text weight={600}>classify API 결과 (원시)</Text>
+                <Button
+                  size="xs"
+                  variant="outline"
+                  onClick={() => console.log('classifyResult', classifyResult)}
+                >
+                  콘솔 출력
+                </Button>
+              </Group>
+
+              <Box mt="sm" style={{ maxHeight: 200, overflow: 'auto', padding: 8 }}>
+                <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'keep-all', fontSize: 12 }}>
+                  {JSON.stringify(classifyResult, null, 2)}
+                </pre>
+              </Box>
+            </Box>
+          )}
+
+          {gradStatusFromApi && (
+            <Box my="md" p="md" style={{ background: '#f8f9fa', borderRadius: 8 }}>
+              <Group position="apart">
+                <Text weight={600}>분류 결과 (원시)</Text>
+                <Button
+                  size="xs"
+                  variant="outline"
+                  onClick={() => console.log('gradStatusFromApi', gradStatusFromApi)}
+                >
+                  콘솔 출력
+                </Button>
+              </Group>
+
+              <Box mt="sm" style={{ maxHeight: 240, overflow: 'auto', padding: 8 }}>
+                <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'keep-all', fontSize: 12 }}>
+                  {JSON.stringify(gradStatusFromApi, null, 2)}
+                </pre>
+              </Box>
+
+              <Box mt="sm">
+                <Text weight={600} size="sm">
+                  카테고리 요약
+                </Text>
+                <Table striped>
+                  <thead>
+                    <tr>
+                      <th>영역</th>
+                      <th>총 학점</th>
+                      <th>충족 여부</th>
+                      <th>과목 수</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(gradStatusFromApi.graduationCategory).map(([k, cat]: any) => (
+                      <tr key={k}>
+                        <td>{k}</td>
+                        <td>{cat.totalCredits}</td>
+                        <td>{cat.satisfied ? '충족' : '미충족'}</td>
+                        <td>{cat.userTakenCoursesList?.takenCourses?.length ?? 0}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </Box>
+            </Box>
+          )}
+
+          <Space h={40} />
+
+          {/* 전체 요약 카드 */}
           <GradOverallStatus
             scrollIntoView={() => {}}
             totalCredits={overallProps.totalCredits}

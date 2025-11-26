@@ -5,23 +5,14 @@ import type {
   GradStatusResponseType,
   TakenCourseType,
 } from '@lib/types/grad';
-import { initialValue } from '@const/grad';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  // GET: return example/default grad status (useful for development/testing)
-  if (req.method === 'GET') {
-    try {
-      return res.status(200).json(initialValue as GradStatusResponseType);
-    } catch (err: any) {
-      console.error('grad-status GET error', err);
-      return res.status(500).json({ error: err?.message || String(err) });
-    }
-  }
-
-  // Only allow POST besides GET
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<GradStatusResponseType | { error: string }>
+) {
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'GET, POST');
-    return res.status(405).json({ error: 'Method not allowed' });
+    res.setHeader('Allow', ['POST']);
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
   try {
@@ -40,7 +31,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       takenCourses = body.userTakenCourseList.takenCourses as TakenCourseType[];
 
     if (!Array.isArray(takenCourses)) {
-      return res.status(400).json({ error: 'Invalid payload: courses/takenCourses missing' });
+      return res.status(400).json({ error: 'Invalid payload: takenCourses missing' });
     }
 
     const requestBody: GradStatusRequestBody = {
@@ -51,9 +42,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     };
 
     const status = calculateGradStatus(requestBody);
-    return res.status(200).json(status as GradStatusResponseType);
-  } catch (err: any) {
-    console.error('grad-status POST error', err);
-    return res.status(500).json({ error: err?.message || String(err) });
+    return res.status(200).json(status);
+  } catch (e: any) {
+    console.error(e);
+    return res.status(500).json({ error: '졸업요건 계산 중 오류가 발생했습니다.' });
   }
 }
