@@ -14,53 +14,85 @@ import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
 
 import Loading from '@components/loading';
 
-import { readFileAndParse } from '@utils/graduation/grad-formatter';
+import {
+  readFileAndParse,
+  extractOverallStatus,
+  getFeedbackNumbers,
+} from '@utils/graduation/grad-formatter';
 import type { UserStatusType } from '@lib/types/index';
 import GradOverallStatus from '@components/grad-overall-status';
 import GradSpecificDomainStatus from '@components/grad-specific-domain-status';
 import GradRecommend from '@components/grad-recommend';
-import type { GradStatusResponseType, SingleCategoryType } from '@lib/types/grad';
-import { extractOverallStatus, getFeedbackNumbers } from '@utils/graduation/grad-formatter';
+import type {
+  GradStatusResponseType,
+  GradStatusRequestBody,
+  SingleCategoryType,
+  TakenCourseType,
+} from '@lib/types/grad';
 
 const STORAGE_KEY = 'gijol_grad_local_v1';
 
 export default function Local() {
   const openRef = useRef<any>(null);
+
   const [file, setFile] = useState<FileWithPath | null>(null);
   const [isParsing, setIsParsing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
   const [parsed, setParsed] = useState<UserStatusType | null>(null);
+
   const [gradStatusFromApi, setGradStatusFromApi] = useState<GradStatusResponseType | null>(null);
-  const [isFetchingGradStatus, setIsFetchingGradStatus] = useState(false);
   const [classifyResult, setClassifyResult] = useState<GradStatusResponseType | null>(null);
+
+  const [isFetchingGradStatus, setIsFetchingGradStatus] = useState(false);
   const [isFetchingClassify, setIsFetchingClassify] = useState(false);
 
-  // parsed(UserStatusType) -> GradStatusResponseType로 변환하는 간단한 헬퍼
-  // 실제 서버 로직과 다르지만, 컴포넌트 미리보기를 위해 최소한의 구조를 채웁니다.
-  const convertParsedToGradStatus = (p: UserStatusType): GradStatusResponseType => {
-    const taken = p.userTakenCourseList || [];
-    const totalCredits = taken.reduce((s, c) => s + (Number(c.credit) || 0), 0);
-
-    const mapTaken = taken.map((c) => ({
+  // -------------------------
+  // 헬퍼: UserStatusType -> TakenCourseType[]
+  // -------------------------
+  const toTakenCourses = (p: UserStatusType): TakenCourseType[] => {
+    const list = (p as any).userTakenCourseList ?? [];
+    return list.map((c: any) => ({
       year: Number(c.year) || 0,
       semester: c.semester || '',
       courseType: c.courseType || '기타',
-      courseName: c.courseName || (c as any)['course'] || '',
-      courseCode: c.courseCode || (c as any)['code'] || '',
+      courseName: c.courseName || c.course || '',
+      courseCode: c.courseCode || c.code || '',
       credit: Number(c.credit) || 0,
     }));
+  };
 
-    // 기본 카테고리 템플릿
-    const emptyCategory = (items: any[] = []): SingleCategoryType => ({
+  // 헬퍼: UserStatusType에서 입학년도 추정
+  const inferEntryYear = (p: UserStatusType): number | null => {
+    // 1) 타입에 entryYear가 직접 들어있다면 사용
+    if ((p as any).entryYear) {
+      const v = Number((p as any).entryYear);
+      return Number.isFinite(v) && v > 1900 ? v : null;
+    }
+    // 2) studentId의 앞 4자리를 학번으로 사용 (예: 2021****)
+    if (p.studentId && String(p.studentId).length >= 4) {
+      const year = Number(String(p.studentId).slice(0, 4));
+      return Number.isFinite(year) && year > 1900 ? year : null;
+    }
+    return null;
+  };
+
+  // -------------------------
+  // 로컬 프리뷰용: Parsed -> GradStatusResponseType (fallback)
+  // -------------------------
+  const convertParsedToGradStatus = (p: UserStatusType): GradStatusResponseType => {
+    const taken = toTakenCourses(p);
+    const totalCredits = taken.reduce((s, c) => s + (Number(c.credit) || 0), 0);
+
+    const emptyCategory = (items: TakenCourseType[] = []): SingleCategoryType => ({
       messages: [],
-      minConditionCredits: 1, // 0이면 퍼센트 계산에서 분모가 0이 될 수 있어 1로 설정
+      minConditionCredits: 1, // 0이면 퍼센트 계산 분모 문제를 피하기 위해 1로 설정
       satisfied: false,
       totalCredits: 0,
       userTakenCoursesList: { takenCourses: items },
     });
 
-    // otherUncheckedClass 에만 모든 과목을 넣어 미리보기 제공
-    const otherUnchecked = emptyCategory(mapTaken as any);
+    const otherUnchecked = emptyCategory(taken);
     otherUnchecked.totalCredits = totalCredits;
     otherUnchecked.minConditionCredits = Math.max(totalCredits, 1);
     otherUnchecked.satisfied = true;
@@ -80,22 +112,41 @@ export default function Local() {
     };
   };
 
+  // -------------------------
+  // 파일 파싱 + API 호출
+  // -------------------------
   const onParse = async () => {
     if (!file) return;
+
     setIsParsing(true);
     setError(null);
+    setGradStatusFromApi(null);
+    setClassifyResult(null);
+
     try {
-      const res = await readFileAndParse(file as File);
-      setParsed(res as UserStatusType);
-      // call both classify and grad-status in parallel
-      const payload = {
-        userTakenCourseList: (res as any).userTakenCourseList,
-        userMajor: (res as any).major,
-        courses: (res as any).userTakenCourseList?.takenCourses ?? (res as any).userTakenCourseList,
+      const res = (await readFileAndParse(file as File)) as UserStatusType;
+      setParsed(res);
+
+      const takenCourses = toTakenCourses(res);
+      const entryYear = inferEntryYear(res);
+      const userMajor = (res as any).major || (res as any).department || undefined;
+
+      if (!entryYear) {
+        setError(
+          '학번(입학년도)을 파싱할 수 없습니다. studentId 또는 entryYear 정보를 확인해주세요.'
+        );
+      }
+
+      const payload: GradStatusRequestBody = {
+        entryYear: entryYear ?? new Date().getFullYear(), // fallback: 현재 연도
+        takenCourses,
+        userMajor,
+        userMinors: [], // 추후 부전공 정보가 생기면 채우기
       };
 
       setIsFetchingClassify(true);
       setIsFetchingGradStatus(true);
+
       try {
         const [classifyP, gradP] = await Promise.allSettled([
           fetch('/api/graduation/classify', {
@@ -114,9 +165,9 @@ export default function Local() {
         if (classifyP.status === 'fulfilled') {
           const r = classifyP.value as Response;
           if (r.ok) {
-            const j = await r.json();
+            const j = (await r.json()) as GradStatusResponseType;
             console.log('classify api response:', j);
-            setClassifyResult(j as GradStatusResponseType);
+            setClassifyResult(j);
           } else {
             console.error('classify api error', r.status, await r.text());
           }
@@ -128,9 +179,9 @@ export default function Local() {
         if (gradP.status === 'fulfilled') {
           const r = gradP.value as Response;
           if (r.ok) {
-            const j = await r.json();
+            const j = (await r.json()) as GradStatusResponseType;
             console.log('grad-status api response:', j);
-            setGradStatusFromApi(j as GradStatusResponseType);
+            setGradStatusFromApi(j);
           } else {
             console.error('grad-status api error', r.status, await r.text());
           }
@@ -144,33 +195,46 @@ export default function Local() {
         setIsFetchingClassify(false);
         setIsFetchingGradStatus(false);
       }
+
       // auto-save into localStorage
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(res));
-      } catch (e) {
+      } catch {
         // ignore storage errors
       }
     } catch (e: any) {
+      console.error(e);
       setError(e?.message || String(e));
     } finally {
       setIsParsing(false);
     }
   };
 
+  // -------------------------
+  // 로컬 저장 데이터 불러오기
+  // -------------------------
   const onLoadFromStorage = () => {
+    setError(null);
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return setError('로컬 저장된 데이터가 없습니다.');
       const obj = JSON.parse(raw) as UserStatusType;
       setParsed(obj);
+      setGradStatusFromApi(null);
+      setClassifyResult(null);
     } catch (e: any) {
       setError(e?.message || String(e));
     }
   };
 
+  // -------------------------
+  // 현재 parsed JSON 다운로드
+  // -------------------------
   const onDownload = () => {
     if (!parsed) return setError('다운로드할 데이터가 없습니다.');
-    const blob = new Blob([JSON.stringify(parsed, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(parsed, null, 2)], {
+      type: 'application/json',
+    });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -181,26 +245,35 @@ export default function Local() {
     URL.revokeObjectURL(url);
   };
 
+  // -------------------------
+  // 리셋
+  // -------------------------
   const onClear = () => {
     setParsed(null);
     setFile(null);
     setError(null);
+    setGradStatusFromApi(null);
+    setClassifyResult(null);
     try {
       localStorage.removeItem(STORAGE_KEY);
-    } catch (e) {
+    } catch {
       // ignore
     }
   };
 
   const effectiveParsed = parsed as UserStatusType | null;
 
-  // prefer server-side categorized result if available; otherwise fallback to local preview
-  const gradStatusPreview =
+  // 1순위: 서버에서 계산한 GradStatusResponseType
+  // 2순위: 로컬 fallback (모든 과목을 자유학점으로 넣는 임시 프리뷰)
+  const gradStatusPreview: GradStatusResponseType | null =
     gradStatusFromApi ?? (effectiveParsed ? convertParsedToGradStatus(effectiveParsed) : null);
+
   const overallProps = gradStatusPreview ? extractOverallStatus(gradStatusPreview) : null;
   const feedbackNumbers = gradStatusPreview ? getFeedbackNumbers(gradStatusPreview) : 0;
+
   console.log('gradStatusPreview', gradStatusPreview);
   console.log('overallProps', overallProps);
+
   return (
     <Container size="lg">
       <Title order={2} my={20}>
@@ -218,7 +291,7 @@ export default function Local() {
       >
         <Group position="center" style={{ height: '100%' }}>
           {!file ? (
-            <Text color="dimmed">여기에 엑셀 파일을 드롭하거나 파일 선택 버튼으로 올려주세요.</Text>
+            <Text c="dimmed">여기에 엑셀 파일을 드롭하거나 파일 선택 버튼으로 올려주세요.</Text>
           ) : (
             <Text>{file.name || file.path}</Text>
           )}
@@ -244,9 +317,10 @@ export default function Local() {
       </Group>
 
       {isParsing && <Loading content="파싱 중입니다... 잠시만 기다려주세요." />}
+
       {error && (
         <Box mt="md">
-          <Text color="red">에러: {error}</Text>
+          <Text c="red">에러: {error}</Text>
         </Box>
       )}
 
@@ -259,17 +333,17 @@ export default function Local() {
             파싱 결과 — 미리보기
           </Title>
 
-          {/* API에서 받은 원시 분류 결과(디버깅용) */}
           {isFetchingGradStatus && (
             <Box my="sm">
-              <Text color="dimmed">분류 서버에서 응답을 기다리는 중...</Text>
+              <Text c="dimmed">분류 서버에서 응답을 기다리는 중...</Text>
             </Box>
           )}
 
+          {/* classify API 원시 결과 (디버깅용) */}
           {classifyResult && (
             <Box my="md" p="md" style={{ background: '#eef9ff', borderRadius: 8 }}>
               <Group position="apart">
-                <Text weight={600}>classify API 결과 (원시)</Text>
+                <Text fw={600}>classify API 결과 (원시)</Text>
                 <Button
                   size="xs"
                   variant="outline"
@@ -280,17 +354,24 @@ export default function Local() {
               </Group>
 
               <Box mt="sm" style={{ maxHeight: 200, overflow: 'auto', padding: 8 }}>
-                <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'keep-all', fontSize: 12 }}>
+                <pre
+                  style={{
+                    whiteSpace: 'pre-wrap',
+                    wordBreak: 'keep-all',
+                    fontSize: 12,
+                  }}
+                >
                   {JSON.stringify(classifyResult, null, 2)}
                 </pre>
               </Box>
             </Box>
           )}
 
+          {/* grad-status API 원시 결과 (디버깅 + 요약 테이블) */}
           {gradStatusFromApi && (
             <Box my="md" p="md" style={{ background: '#f8f9fa', borderRadius: 8 }}>
               <Group position="apart">
-                <Text weight={600}>분류 결과 (원시)</Text>
+                <Text fw={600}>분류 결과 (원시)</Text>
                 <Button
                   size="xs"
                   variant="outline"
@@ -301,13 +382,19 @@ export default function Local() {
               </Group>
 
               <Box mt="sm" style={{ maxHeight: 240, overflow: 'auto', padding: 8 }}>
-                <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'keep-all', fontSize: 12 }}>
+                <pre
+                  style={{
+                    whiteSpace: 'pre-wrap',
+                    wordBreak: 'keep-all',
+                    fontSize: 12,
+                  }}
+                >
                   {JSON.stringify(gradStatusFromApi, null, 2)}
                 </pre>
               </Box>
 
               <Box mt="sm">
-                <Text weight={600} size="sm">
+                <Text fw={600} size="sm">
                   카테고리 요약
                 </Text>
                 <Table striped>
@@ -352,36 +439,32 @@ export default function Local() {
           <Title order={3} mb="sm">
             세부적인 현황 (미리보기)
           </Title>
-          <GradSpecificDomainStatus
-            specificDomainStatusArr={gradStatusPreview ? overallProps.categoriesArr : []}
-          />
+          <GradSpecificDomainStatus specificDomainStatusArr={overallProps.categoriesArr} />
 
           <Space h={16} />
 
           <Title order={3} mt={40} mb="lg">
             영역별 피드백 모음 (미리보기)
           </Title>
-          <GradRecommend
-            specificDomainStatusArr={gradStatusPreview ? overallProps.categoriesArr : []}
-          />
+          <GradRecommend specificDomainStatusArr={overallProps.categoriesArr} />
 
           <Space h={40} />
         </>
       ) : (
         <Box mt="md">
-          <Text color="dimmed">아직 파싱된 데이터가 없습니다. 파일을 업로드하여 파싱해주세요.</Text>
+          <Text c="dimmed">아직 파싱된 데이터가 없습니다. 파일을 업로드하여 파싱해주세요.</Text>
         </Box>
       )}
 
       <Space h={20} />
 
-      {/* 원래 있던 원시 테이블도 유지 (디버깅용) */}
-      {effectiveParsed ? (
+      {/* 원시 파싱 결과 테이블 (디버깅용) */}
+      {effectiveParsed && (
         <>
           <Title order={3} mb="sm">
             원시 파싱 결과
           </Title>
-          <Text size="sm" color="dimmed" mb={8}>
+          <Text size="sm" c="dimmed" mb={8}>
             학번: {effectiveParsed.studentId} · 총 과목 수:{' '}
             {effectiveParsed.userTakenCourseList?.length ?? 0}
           </Text>
@@ -424,7 +507,7 @@ export default function Local() {
             </Table>
           </ScrollArea>
         </>
-      ) : null}
+      )}
 
       <Space h={80} />
     </Container>
