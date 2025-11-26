@@ -1,5 +1,5 @@
 import { GradeReportParser } from '../parser/grade/gradeReportParser';
-import { GradStatusResponseType, SingleCategoryType } from '../../types/grad';
+import { GradStatusResponseType, SingleCategoryType } from '@lib/types/grad';
 import { UserStatusType } from '../../types';
 import { notifications } from '@mantine/notifications';
 

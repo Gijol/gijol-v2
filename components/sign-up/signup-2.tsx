@@ -22,7 +22,6 @@ import {
   IconNumber3,
   IconNumber4,
 } from '@tabler/icons-react';
-import { readFileAndParse } from '@utils/graduation/grad-formatter';
 import { signupAndGetResponse } from '@utils/auth';
 import { notifications } from '@mantine/notifications';
 import { UserStatusType } from '../../lib/types';
@@ -47,24 +46,64 @@ export default function Signup2({
 
   const onClickHandler = async () => {
     const token = await getToken({ template: 'gijol-token-test' });
-    const parsed_user_status: UserStatusType | null = await readFileAndParse(fileInfo as File);
-    if (!parsed_user_status) {
+
+    if (!fileInfo) {
       notifications.show({
         color: 'red',
         title: '파일 업로드 오류',
-        message:
-          '업로드 해주신 파일에 문제가 있거나 미 업로드 상태입니다. 다시 한번 파일을 확인해주시길 바랍니다.',
+        message: '업로드 해주신 파일이 없습니다. 파일을 선택해주신 뒤 다시 시도해주세요.',
         withCloseButton: true,
       });
+      return;
     }
-    if (!major) {
-      notifications.show({
-        color: 'red',
-        title: '전공 미선택',
-        message: '전공을 선택하시지 않으셨습니다. 만약 기초교육학부라면 희망 전공을 선택해주세요!',
-        withCloseButton: true,
+
+    // upload file to server-side parsing API
+    try {
+      const formData = new FormData();
+      // FileWithPath extends File
+      formData.append('file', fileInfo as File);
+
+      const resp = await fetch('/api/graduation/upload', {
+        method: 'POST',
+        body: formData,
       });
-    } else {
+
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        notifications.show({
+          color: 'red',
+          title: '파일 업로드 오류',
+          message: err?.error || '서버에서 파일을 파싱하지 못했습니다. 파일 형식을 확인해주세요.',
+          withCloseButton: true,
+        });
+        return;
+      }
+
+      const parsed_user_status: UserStatusType = await resp.json();
+
+      if (!parsed_user_status) {
+        notifications.show({
+          color: 'red',
+          title: '파일 업로드 오류',
+          message:
+            '업로드 해주신 파일에 문제가 있거나 미 업로드 상태입니다. 다시 한번 파일을 확인해주시길 바랍니다.',
+          withCloseButton: true,
+        });
+        return;
+      }
+
+      if (!major) {
+        notifications.show({
+          color: 'red',
+          title: '전공 미선택',
+          message:
+            '전공을 선택하시지 않으셨습니다. 만약 기초교육학부라면 희망 전공을 선택해주세요!',
+          withCloseButton: true,
+        });
+        return;
+      }
+
+      // proceed with signup call (existing behavior)
       const res = await signupAndGetResponse(parsed_user_status, token, major, userName);
 
       if (res?.status === 201) {
@@ -77,6 +116,14 @@ export default function Signup2({
           withCloseButton: true,
         });
       }
+    } catch (e: any) {
+      console.error('upload error', e);
+      notifications.show({
+        color: 'red',
+        title: '업로드 실패',
+        message: e?.message || '알 수 없는 오류가 발생했습니다.',
+        withCloseButton: true,
+      });
     }
   };
   return (
