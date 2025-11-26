@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { initialValue } from '@const/grad';
 import { BASE_SERVER_URL } from '@const/index';
-import { GradStatusResponseType } from '@lib/types/grad';
+import { GradStatusResponseType, GradOverallStatusType } from '@lib/types/grad';
 import { extractOverallStatus, getFeedbackNumbers } from '@utils/graduation/grad-formatter';
 
 export function useGraduation() {
@@ -28,13 +28,25 @@ export function useGraduation() {
 
     return gradStatus;
   };
-  const { data, isLoading, isError, error, isSuccess, isInitialLoading, isFetching, status } =
+  const { data, isLoading, isError, error, isSuccess, isInitialLoading, isFetching } =
     useQuery<GradStatusResponseType>(['grad-status'], () => getGradStatus(), {
       refetchOnWindowFocus: false,
       retry: 0,
     });
+
+  // extractOverallStatus 가 undefined 나올 경우, provide a safe default
+  const defaultOverall: GradOverallStatusType = {
+    categoriesArr: [],
+    totalCredits: 0,
+    totalPercentage: 0,
+    minDomain: '',
+    minDomainPercentage: 0,
+    domains: [],
+  };
+
+  const overall = extractOverallStatus(data ?? initialValue) ?? defaultOverall;
   const { categoriesArr, totalCredits, totalPercentage, minDomain, minDomainPercentage, domains } =
-    extractOverallStatus(data ? data : initialValue);
+    overall;
   const numbers = getFeedbackNumbers(data ? data : initialValue);
   const isInitial = data === initialValue;
 

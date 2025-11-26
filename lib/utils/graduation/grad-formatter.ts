@@ -26,31 +26,32 @@ export async function readFileAndParse(file: File): Promise<UserStatusType> {
   });
 }
 
-export function getPercentage(status: SingleCategoryType | undefined) {
-  const minCredit = status?.minConditionCredits ?? 1;
-  const myCredit = status?.totalCredits;
-  const result = Math.round(((myCredit as number) * 100) / minCredit);
-  if (result >= 100) {
-    return 100;
-  } else if (myCredit === 0) {
-    return 0;
-  } else {
-    return result;
-  }
+export function getPercentage(category?: SingleCategoryType): number {
+  if (!category) return 0;
+  const min = category.minConditionCredits ?? 1;
+  const total = category.totalCredits;
+
+  if (min <= 0) return 100;
+
+  const pct = Math.round((total * 100) / min);
+  return pct >= 100 ? 100 : pct;
 }
 
 export function extractOverallStatus(status: GradStatusResponseType | undefined) {
+  if (!status) return undefined;
+
   const totalCredits = status?.totalCredits;
   const percentage = Math.round(((totalCredits as number) * 100) / 130);
   const totalPercentage = percentage >= 100 ? 100 : percentage;
 
-  const languageBasic = status?.graduationCategory.languageBasic;
-  const scienceBasic = status?.graduationCategory.scienceBasic;
-  const major = status?.graduationCategory.major;
-  const minor = status?.graduationCategory.minor;
-  const humanities = status?.graduationCategory.humanities;
-  const etcMandatory = status?.graduationCategory.etcMandatory;
-  const otherUncheckedClass = status?.graduationCategory.otherUncheckedClass;
+  const languageBasic = status.graduationCategory.languageBasic;
+  const scienceBasic = status.graduationCategory.scienceBasic;
+  const major = status.graduationCategory.major;
+  const minor = status.graduationCategory.minor;
+  const humanities = status.graduationCategory.humanities;
+  const etcMandatory = status.graduationCategory.etcMandatory;
+  const otherUncheckedClass = status.graduationCategory.otherUncheckedClass;
+
   const categoriesArr = [
     { domain: '언어와 기초', status: languageBasic },
     { domain: '기초과학', status: scienceBasic },
@@ -60,7 +61,8 @@ export function extractOverallStatus(status: GradStatusResponseType | undefined)
     { domain: '연구 및 기타', status: etcMandatory },
     { domain: '자유학점', status: otherUncheckedClass },
   ];
-  const arr = [
+
+  const domains = [
     {
       title: '언어와 기초',
       percentage: getPercentage(languageBasic),
@@ -85,12 +87,13 @@ export function extractOverallStatus(status: GradStatusResponseType | undefined)
       satisfied: otherUncheckedClass?.satisfied,
     },
   ];
+
   let minDomainPercentage = getPercentage(languageBasic);
   let minDomain = '언어와 기초';
-  arr.forEach((domain) => {
-    if (domain.title === '부전공') {
-      return;
-    }
+
+  domains.forEach((domain) => {
+    if (domain.title === '부전공') return;
+
     if (domain.percentage <= minDomainPercentage) {
       minDomain = domain.title;
       minDomainPercentage = domain.percentage;
@@ -102,7 +105,7 @@ export function extractOverallStatus(status: GradStatusResponseType | undefined)
     totalPercentage,
     minDomain,
     minDomainPercentage,
-    domains: arr,
+    domains,
   };
 }
 
