@@ -43,14 +43,14 @@ export const updateUserInfo = async (
         await putUserFileInfo(fileInfo, token);
       }
     }
-    await notifications.show({
+    notifications.show({
       color: 'teal',
       title: '변경사항 적용 완료',
       message: '변경하신 부분들이 적용 완료되었습니다!',
     });
-    await location.reload();
+    location.reload();
   } catch (e) {
-    await notifications.show({
+    notifications.show({
       color: 'red',
       title: '변경사항 적용 안됨',
       message: '변경하신 부분들이 적용되지 않았습니다... 다시 한번 시도해주세요!',

@@ -22,8 +22,8 @@ import {
   IconNumber3,
   IconNumber4,
 } from '@tabler/icons-react';
-import { readFileAndParse } from '../../lib/utils/graduation/grad-formatter';
-import { signupAndGetResponse } from '../../lib/utils/auth';
+import { readFileAndParse } from '@utils/graduation/grad-formatter';
+import { signupAndGetResponse } from '@utils/auth';
 import { notifications } from '@mantine/notifications';
 import { UserStatusType } from '../../lib/types';
 import { useAuth, useUser } from '@clerk/nextjs';
