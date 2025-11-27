@@ -14,7 +14,6 @@ import {
   Title,
   Tooltip,
   Button,
-  Box,
   useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -25,126 +24,161 @@ import CourseMyGradeChart from '@components/course-my-grade-chart';
 import CourseMyTableChart from '@components/course-my-table-chart';
 import CourseMyCreditChart from '@components/course-my-credit-chart';
 
-import { convertGradeTo4Scale } from '@utils/status';
+import { convertGradeTo4Scale, CourseListWithPeriod } from '@utils/status';
 import { useMyCourseOverview } from '@hooks/useMyCourseOverview';
-
-function OverallCreditCard({
-  totalCredit,
-  totalRequired,
-}: {
-  totalCredit: number;
-  totalRequired: number;
-}) {
-  const theme = useMantineTheme();
-  const matches = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
-
-  return (
-    <Paper radius="md" p={matches ? 'xl' : 'xs'} withBorder>
-      <Stack justify="space-between" h="100%">
-        <Stack spacing={4}>
-          <Group align="baseline">
-            <Text fw={600} color="gray.6" mb="xs">
-              총 학점
-            </Text>
-          </Group>
-          <Group spacing={6}>
-            <Text size={28} fw={500}>
-              {totalCredit}
-            </Text>
-            <Text mt={5} size="lg" fw={500}>
-              / {totalRequired} 학점
-            </Text>
-          </Group>
-        </Stack>
-        <Progress
-          value={Math.min((Number(totalCredit) * 100) / totalRequired, 100)}
-          bg="#bfdbfe80"
-          h={theme.spacing.sm}
-        />
-      </Stack>
-    </Paper>
-  );
-}
-
-function OverallGradeCard({ averageGrade }: { averageGrade: number | null }) {
-  const theme = useMantineTheme();
-  const matches = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
-
-  return (
-    <Paper radius="md" p={matches ? 'xl' : 'xs'} withBorder>
-      <Stack justify="space-between" h="100%">
-        <Stack spacing={4}>
-          <Text fw={600} color="gray.6" mb="xs">
-            평균 학점
-          </Text>
-          <Group spacing={6}>
-            <Text size={28} fw={500}>
-              {averageGrade ?? '-'}
-            </Text>
-            <Text mt={5} size="lg" fw={500}>
-              / 4.5
-            </Text>
-          </Group>
-        </Stack>
-        {averageGrade != null && (
-          <Group spacing="sm">
-            <Text fw={500} size="sm" color="dimmed">
-              GPA 환산 점수 : {convertGradeTo4Scale(averageGrade, 4.5)}
-            </Text>
-            <Tooltip
-              label="정확하지 않으므로 참고용으로만 사용해주세요!"
-              withArrow
-              position="bottom"
-            >
-              <ThemeIcon radius="xl" variant="default" size="sm">
-                <IconQuestionMark size="0.9rem" color={theme.colors.gray[7]} />
-              </ThemeIcon>
-            </Tooltip>
-          </Group>
-        )}
-      </Stack>
-    </Paper>
-  );
-}
+import { TOTAL_REQUIRED_CREDITS } from '@const/grad-status-constants';
+import UploadEmptyState from '@components/graduation/upload-empty-state';
 
 function OverallSemesterCard({
   start_y,
   start_s,
   end_y,
   end_s,
+  semesterCount,
+  avgCreditPerSemester,
+  bestSemester,
 }: {
   start_y?: number;
   start_s?: string;
   end_y?: number;
   end_s?: string;
+  semesterCount: number;
+  avgCreditPerSemester: number;
+  bestSemester: any | null;
+}) {
+  const theme = useMantineTheme();
+  const matches = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
+
+  const rangeLabel =
+    start_y && start_s && end_y && end_s ? `${start_y}년 ${start_s} ~ ${end_y}년 ${end_s}` : '-';
+
+  const bestLabel = bestSemester
+    ? `${bestSemester.year}년 ${bestSemester.semester_str} (${bestSemester.grade.toFixed(2)} / 4.5)`
+    : '-';
+
+  return (
+    <Paper radius="md" p={matches ? 'xl' : 'xs'} withBorder>
+      <Stack spacing="xs" h="100%" justify="space-between">
+        <Text size={18} fw={600} c="gray.7">
+          🗃️ 이수 학기 정보
+        </Text>
+        <Group position="center">
+          <Text size="xl" fw={600} sx={{ whiteSpace: 'nowrap' }}>
+            {rangeLabel}
+          </Text>
+        </Group>
+
+        <Stack>
+          <Group spacing="xs">
+            <Text size="sm" color="gray.7">
+              총 이수 학기:
+            </Text>
+            <Text size="sm" fw={600}>
+              {semesterCount}학기
+            </Text>
+          </Group>
+
+          <Group spacing="xs">
+            <Text size="sm" color="gray.7">
+              학기당 평균 이수 학점:
+            </Text>
+            <Text size="sm" fw={600}>
+              {avgCreditPerSemester}학점
+            </Text>
+          </Group>
+
+          <Group spacing="xs">
+            <Text size="sm" color="gray.7">
+              최고 학기:
+            </Text>
+            <Text size="sm" fw={600}>
+              {bestLabel}
+            </Text>
+          </Group>
+        </Stack>
+      </Stack>
+    </Paper>
+  );
+}
+
+function OverallAcademicCard({
+  totalCredit,
+  averageGrade,
+  progress,
+}: {
+  totalCredit: number;
+  totalRequired: number;
+  averageGrade: number | null;
+  progress: number; // 0~100
 }) {
   const theme = useMantineTheme();
   const matches = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
   return (
-    <Paper radius="md" p={matches ? 'xl' : 'xs'} withBorder>
-      <Stack spacing={0} h="100%">
-        <Text fw={600} color="gray.6" mb="xs">
-          이수 학기
-        </Text>
-        <Group position="center" spacing="md" my="auto">
-          <Text size="lg" fw={600}>
-            {start_y}년도 {start_s}
+    <Stack spacing="md">
+      <Paper radius="md" p={matches ? 'xl' : 'xs'} withBorder>
+        {/* 학점 진행률 */}
+        <Stack spacing={4}>
+          <Text size={18} fw={600} c="gray.7">
+            누적 이수 학점
           </Text>
-          <Text> ~ </Text>
-          <Text size="lg" fw={600}>
-            {end_y}년도 {end_s}
+          <Group align="baseline" spacing={8}>
+            <Text size={28} fw={700}>
+              {totalCredit}
+            </Text>
+            <Text size={18} fw={500}>
+              / {TOTAL_REQUIRED_CREDITS}
+            </Text>
+          </Group>
+          <Progress
+            size={28}
+            label={`${progress.toFixed(2)}%`}
+            animate
+            value={progress}
+            radius="md"
+          />
+        </Stack>
+      </Paper>
+      <Paper radius="md" p="xl" withBorder>
+        <Stack spacing="xs">
+          <Text size={20} fw={600} c="gray.7">
+            평균 학점
           </Text>
-        </Group>
-      </Stack>
-    </Paper>
+
+          <Group align="baseline" spacing={8}>
+            <Text size={28} fw={700}>
+              {averageGrade ?? '-'}
+            </Text>
+            <Text size={18} fw={500}>
+              / 4.5
+            </Text>
+          </Group>
+
+          {averageGrade != null && (
+            <Group spacing="xs">
+              <Text size="sm" color="dimmed">
+                GPA(4.0 기준) 환산 : {convertGradeTo4Scale(averageGrade, 4.5)}
+              </Text>
+              <Tooltip
+                label="정확하지 않으므로 참고용으로만 사용해주세요!"
+                withArrow
+                position="bottom"
+              >
+                <ThemeIcon radius="xl" variant="default" size="sm">
+                  <IconQuestionMark size="0.9rem" color={theme.colors.gray[7]} />
+                </ThemeIcon>
+              </Tooltip>
+            </Group>
+          )}
+        </Stack>
+      </Paper>
+    </Stack>
   );
 }
 
 export default function My() {
   const theme = useMantineTheme();
   const matches = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
-  const router = useRouter();
 
   const {
     parsed,
@@ -155,6 +189,12 @@ export default function My() {
     start_s,
     end_y,
     end_s,
+    semesterCount,
+    avgCreditPerSemester,
+    bestSemester,
+    progress,
+    majorName,
+    entryYear,
     TOTAL_REQUIRED_CREDITS,
   } = useMyCourseOverview();
 
@@ -162,38 +202,46 @@ export default function My() {
   if (!parsed || !parsed.userTakenCourseList?.length) {
     return (
       <Container size="lg">
-        <Title order={3} mb="lg" mt={40}>
-          내 수강현황 📑
+        <Title order={2} mb="lg" mt={40}>
+          📑 수강현황
         </Title>
-        <Paper p="xl" radius="md" withBorder>
-          <Stack spacing="md">
-            <Text>
-              아직 수강 내역이 로드되지 않았어요.
-              <br />
-              먼저 <b>졸업요건 파서</b>에서 엑셀 파일을 업로드하면, 이 페이지에서 내 수강현황과
-              학기별 통계를 확인할 수 있습니다.
-            </Text>
-            <Group>
-              <Button onClick={() => router.push('/graduation')} color="blue">
-                졸업요건 파서로 이동
-              </Button>
-            </Group>
-          </Stack>
-        </Paper>
+        <UploadEmptyState />
       </Container>
     );
   }
 
   return (
     <Container size="lg">
-      <Title order={3} mb="lg" mt={40}>
-        내 수강현황 📑
+      <Title order={2} mb="lg" mt={20}>
+        📑 수강현황
       </Title>
 
-      <SimpleGrid cols={matches ? 3 : 1} my="xl">
-        <OverallCreditCard totalCredit={totalCredit} totalRequired={TOTAL_REQUIRED_CREDITS} />
-        <OverallGradeCard averageGrade={overallAverageGrade} />
-        <OverallSemesterCard start_y={start_y} start_s={start_s} end_y={end_y} end_s={end_s} />
+      <Group align="baseline" spacing={6} mt={8} mb={24}>
+        <Text size="xl" fw={700}>
+          {entryYear} 학번 {majorName}
+        </Text>
+
+        <Text size="md" fw={600} c="dimmed">
+          총 {semesterCount}학기 이수
+        </Text>
+      </Group>
+
+      <SimpleGrid cols={matches ? 2 : 1} my="xl">
+        <OverallAcademicCard
+          totalCredit={totalCredit}
+          totalRequired={TOTAL_REQUIRED_CREDITS}
+          averageGrade={overallAverageGrade}
+          progress={progress}
+        />
+        <OverallSemesterCard
+          start_y={start_y}
+          start_s={start_s}
+          end_y={end_y}
+          end_s={end_s}
+          semesterCount={semesterCount}
+          avgCreditPerSemester={avgCreditPerSemester}
+          bestSemester={bestSemester}
+        />
       </SimpleGrid>
 
       <Grid columns={12} gutter="xl">

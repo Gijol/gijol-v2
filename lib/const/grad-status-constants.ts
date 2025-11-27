@@ -1,5 +1,7 @@
 import { GradStatusResponseType } from '@lib/types/grad';
 
+export const TOTAL_REQUIRED_CREDITS = 130;
+
 export const initialValue: GradStatusResponseType = {
   graduationCategory: {
     etcMandatory: {

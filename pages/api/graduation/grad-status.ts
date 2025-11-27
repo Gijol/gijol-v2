@@ -5,7 +5,7 @@ import type {
   GradStatusResponseType,
   TakenCourseType,
 } from '@lib/types/grad';
-import { initialValue } from '@const/grad';
+import { initialValue } from '@const/grad-status-constants';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   // GET: return example/default grad status (useful for development/testing)

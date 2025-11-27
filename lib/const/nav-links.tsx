@@ -5,6 +5,7 @@ import {
   IconClipboardList,
   IconDeviceDesktopAnalytics,
   IconHome,
+  IconUpload,
 } from '@tabler/icons-react';
 import { Badge } from '@mantine/core';
 
@@ -26,6 +27,7 @@ function createBadge(content: string, color: string = 'blue') {
 
 export const navLinks: NavLink[] = [
   { label: '홈', href: '/dashboard', icon: IconHome },
+  { label: '파일 업로드', href: '/dashboard/graduation/upload', icon: IconUpload },
   {
     label: '내 수강현황',
     href: '/dashboard/course/my',
