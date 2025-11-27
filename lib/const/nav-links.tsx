@@ -5,7 +5,6 @@ import {
   IconClipboardList,
   IconDeviceDesktopAnalytics,
   IconHome,
-  IconUserCircle,
 } from '@tabler/icons-react';
 import { Badge } from '@mantine/core';
 
@@ -27,7 +26,6 @@ function createBadge(content: string, color: string = 'blue') {
 
 export const navLinks: NavLink[] = [
   { label: '홈', href: '/dashboard', icon: IconHome },
-  { label: '프로필', href: '/dashboard/user-info', icon: IconUserCircle },
   {
     label: '내 수강현황',
     href: '/dashboard/course/my',

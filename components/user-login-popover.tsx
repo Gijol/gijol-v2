@@ -15,12 +15,11 @@ import { useRouter } from 'next/router';
 import { useUserInfo } from '../lib/hooks/user';
 import { convertMajorTypeToText } from '../lib/utils/user';
 import { useClerk, useUser } from '@clerk/nextjs';
-import { useMemberStatus } from '../lib/hooks/auth';
 
 export default function UserLoginPopover() {
   const { user, isSignedIn } = useUser();
   const { data: userInfoData } = useUserInfo();
-  const { data: status } = useMemberStatus();
+  const status = { isNewUser: false };
   const { signOut } = useClerk();
   const router = useRouter();
 
@@ -38,64 +37,50 @@ export default function UserLoginPopover() {
               <Avatar src={user?.imageUrl} size="4rem" radius="lg" m={12} />
               <Stack align="center" spacing="xs">
                 <Text fz="lg" fw={500} align="center">
-                  {userInfoData?.name}
+                  {userInfoData?.name ?? '게스트'}
                 </Text>
-                {status?.isNewUser ? (
-                  <Alert
-                    icon={<IconAlertCircle size="1rem" />}
-                    p="xs"
-                    radius="sm"
-                    maw={300}
-                    variant="light"
-                    my="sm"
-                  >
-                    엑셀 파일 정보 업로드를 하시면 더욱 많은 기능들을 이용하실 수 있습니다! 아래
-                    버튼을 눌러 정보를 업로드 해주세요!
-                  </Alert>
-                ) : (
-                  <SimpleGrid cols={2} spacing="xs" p="md">
-                    <Group spacing="xs">
-                      <IconSchool stroke={1.5} size="1rem" />
-                      <Text fz="xs">전공</Text>
-                    </Group>
-                    <Text fz="xs" c="dimmed">
-                      {convertMajorTypeToText(userInfoData?.majorType as string)}
-                    </Text>
-                    <Group spacing="xs">
-                      <IconIdBadge2 stroke={1.5} size="1rem" />
-                      <Text fz="xs">학번</Text>
-                    </Group>
-                    <Text fz="xs" c="dimmed">
-                      {userInfoData?.studentId}
-                    </Text>
-                    <Group spacing="xs">
-                      <IconAt stroke={1.5} size="1rem" />
-                      <Text fz="xs">이메일</Text>
-                    </Group>
-                    <Text fz="xs" c="dimmed" maw={150} sx={{ overflowX: 'hidden' }}>
-                      {userInfoData?.email}
-                    </Text>
-                  </SimpleGrid>
-                )}
+                <SimpleGrid cols={2} spacing="xs" p="md">
+                  <Group spacing="xs">
+                    <IconSchool stroke={1.5} size="1rem" />
+                    <Text fz="xs">전공</Text>
+                  </Group>
+                  <Text fz="xs" c="dimmed">
+                    {convertMajorTypeToText(userInfoData?.majorType as string) ?? '-'}
+                  </Text>
+                  <Group spacing="xs">
+                    <IconIdBadge2 stroke={1.5} size="1rem" />
+                    <Text fz="xs">학번</Text>
+                  </Group>
+                  <Text fz="xs" c="dimmed">
+                    {userInfoData?.studentId ?? '-'}
+                  </Text>
+                  <Group spacing="xs">
+                    <IconAt stroke={1.5} size="1rem" />
+                    <Text fz="xs">이메일</Text>
+                  </Group>
+                  <Text fz="xs" c="dimmed" maw={150} sx={{ overflowX: 'hidden' }}>
+                    {userInfoData?.email ?? '-'}
+                  </Text>
+                </SimpleGrid>
               </Stack>
             </Stack>
             <Group miw={320} grow>
-              {status?.isNewUser ? (
-                <Button
-                  variant="light"
-                  onClick={() => router.push('/login/sign-up')}
-                  rightIcon={<IconUpload size="1rem" />}
-                >
-                  정보 업로드
+              <Button variant="light" onClick={() => router.push('/dashboard/user-info')}>
+                내 정보 수정
+              </Button>
+              {isSignedIn ? (
+                <Button onClick={() => signOut()} variant="light" color="red">
+                  로그아웃
                 </Button>
               ) : (
-                <Button variant="light" onClick={() => router.push('/dashboard/user-info')}>
-                  내 정보 수정
+                <Button
+                  onClick={() => console.log('Sign-out skipped in anonymous mode')}
+                  variant="light"
+                  color="red"
+                >
+                  로그아웃
                 </Button>
               )}
-              <Button onClick={() => signOut()} variant="light" color="red">
-                로그아웃
-              </Button>
             </Group>
           </Stack>
         </Popover.Dropdown>

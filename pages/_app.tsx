@@ -8,7 +8,6 @@ import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 
-import { ClerkProvider } from '@clerk/nextjs';
 import { Analytics } from '@vercel/analytics/react';
 import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -39,14 +38,12 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
           <QueryClientProvider client={queryClient}>
-            <ClerkProvider {...pageProps}>
-              <ModalsProvider>
-                <Notifications />
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </ModalsProvider>
-            </ClerkProvider>
+            <ModalsProvider>
+              <Notifications />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ModalsProvider>
             {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
           </QueryClientProvider>
         </MantineProvider>
