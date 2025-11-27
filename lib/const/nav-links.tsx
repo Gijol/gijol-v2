@@ -38,11 +38,11 @@ export const navLinks: NavLink[] = [
     href: '/dashboard/graduation',
     icon: IconDeviceDesktopAnalytics,
   },
-  {
-    label: '강의 정보',
-    href: '/dashboard/course/search',
-    icon: IconChalkboard,
-  },
+  // {
+  //   label: '강의 정보',
+  //   href: '/dashboard/course/search',
+  //   icon: IconChalkboard,
+  // },
   // {
   //   label: '졸업요건 확인서 만들기 ✨',
   //   href: '/dashboard/graduation/certificate-builder',
