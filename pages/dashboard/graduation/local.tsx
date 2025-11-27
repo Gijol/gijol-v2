@@ -32,6 +32,15 @@ import type {
 
 const STORAGE_KEY = 'gijol_grad_local_v1';
 
+const gradStatusFetchFn = async (payload: GradStatusRequestBody) =>
+  await fetch('/api/graduation/grad-status', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+    .then((res) => res.json())
+    .catch((error) => console.log('grad-status api response: ', error));
+
 export default function Local() {
   const openRef = useRef<any>(null);
 
@@ -42,13 +51,12 @@ export default function Local() {
   const [parsed, setParsed] = useState<UserStatusType | null>(null);
 
   const [gradStatusFromApi, setGradStatusFromApi] = useState<GradStatusResponseType | null>(null);
-  const [classifyResult, setClassifyResult] = useState<GradStatusResponseType | null>(null);
 
   const [isFetchingGradStatus, setIsFetchingGradStatus] = useState(false);
-  const [isFetchingClassify, setIsFetchingClassify] = useState(false);
 
   // -------------------------
   // 헬퍼: UserStatusType -> TakenCourseType[]
+  // TODO: 여러 포맷 대응 목적으로 두긴 좋은데, 좀 더 깔끔한 방법 고민 필요
   // -------------------------
   const toTakenCourses = (p: UserStatusType): TakenCourseType[] => {
     const list = (p as any).userTakenCourseList ?? [];
@@ -121,7 +129,6 @@ export default function Local() {
     setIsParsing(true);
     setError(null);
     setGradStatusFromApi(null);
-    setClassifyResult(null);
 
     try {
       const res = (await readFileAndParse(file as File)) as UserStatusType;
@@ -144,55 +151,19 @@ export default function Local() {
         userMinors: [], // 추후 부전공 정보가 생기면 채우기
       };
 
-      setIsFetchingClassify(true);
       setIsFetchingGradStatus(true);
 
       try {
-        const [classifyP, gradP] = await Promise.allSettled([
-          fetch('/api/graduation/classify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          }),
-          fetch('/api/graduation/grad-status', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          }),
-        ]);
-
-        // classify result
-        if (classifyP.status === 'fulfilled') {
-          const r = classifyP.value as Response;
-          if (r.ok) {
-            const j = (await r.json()) as GradStatusResponseType;
-            console.log('classify api response:', j);
-            setClassifyResult(j);
-          } else {
-            console.error('classify api error', r.status, await r.text());
-          }
-        } else {
-          console.error('classify fetch rejected', classifyP.reason);
-        }
+        const gradP = await gradStatusFetchFn(payload);
 
         // grad-status result
-        if (gradP.status === 'fulfilled') {
-          const r = gradP.value as Response;
-          if (r.ok) {
-            const j = (await r.json()) as GradStatusResponseType;
-            console.log('grad-status api response:', j);
-            setGradStatusFromApi(j);
-          } else {
-            console.error('grad-status api error', r.status, await r.text());
-          }
-        } else {
-          console.error('grad-status fetch rejected', gradP.reason);
-        }
+        const j = gradP as GradStatusResponseType;
+        console.log('grad-status api response:', j);
+        setGradStatusFromApi(j);
       } catch (e: any) {
-        console.error('parallel fetch error', e);
+        console.error('grad status fetch error', e);
         setError(e?.message || String(e));
       } finally {
-        setIsFetchingClassify(false);
         setIsFetchingGradStatus(false);
       }
 
@@ -213,7 +184,7 @@ export default function Local() {
   // -------------------------
   // 로컬 저장 데이터 불러오기
   // -------------------------
-  const onLoadFromStorage = () => {
+  const onLoadFromStorage = async () => {
     setError(null);
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -221,7 +192,27 @@ export default function Local() {
       const obj = JSON.parse(raw) as UserStatusType;
       setParsed(obj);
       setGradStatusFromApi(null);
-      setClassifyResult(null);
+
+      // 기존 로직과 중복된 api 호출 부분
+      // TODO: 리팩토링 고려 지점
+      try {
+        const gradP = await gradStatusFetchFn({
+          entryYear: inferEntryYear(obj) ?? new Date().getFullYear(),
+          takenCourses: toTakenCourses(obj),
+          userMajor: (obj as any).major || (obj as any).department || undefined,
+          userMinors: [],
+        });
+
+        // grad-status result
+        const j = gradP as GradStatusResponseType;
+        console.log('grad-status api response:', j);
+        setGradStatusFromApi(j);
+      } catch (e: any) {
+        console.error('grad status fetch error', e);
+        setError(e?.message || String(e));
+      } finally {
+        setIsFetchingGradStatus(false);
+      }
     } catch (e: any) {
       setError(e?.message || String(e));
     }
@@ -253,7 +244,6 @@ export default function Local() {
     setFile(null);
     setError(null);
     setGradStatusFromApi(null);
-    setClassifyResult(null);
     try {
       localStorage.removeItem(STORAGE_KEY);
     } catch {
@@ -270,9 +260,6 @@ export default function Local() {
 
   const overallProps = gradStatusPreview ? extractOverallStatus(gradStatusPreview) : null;
   const feedbackNumbers = gradStatusPreview ? getFeedbackNumbers(gradStatusPreview) : 0;
-
-  console.log('gradStatusPreview', gradStatusPreview);
-  console.log('overallProps', overallProps);
 
   return (
     <Container size="lg">
@@ -336,34 +323,6 @@ export default function Local() {
           {isFetchingGradStatus && (
             <Box my="sm">
               <Text c="dimmed">분류 서버에서 응답을 기다리는 중...</Text>
-            </Box>
-          )}
-
-          {/* classify API 원시 결과 (디버깅용) */}
-          {classifyResult && (
-            <Box my="md" p="md" style={{ background: '#eef9ff', borderRadius: 8 }}>
-              <Group position="apart">
-                <Text fw={600}>classify API 결과 (원시)</Text>
-                <Button
-                  size="xs"
-                  variant="outline"
-                  onClick={() => console.log('classifyResult', classifyResult)}
-                >
-                  콘솔 출력
-                </Button>
-              </Group>
-
-              <Box mt="sm" style={{ maxHeight: 200, overflow: 'auto', padding: 8 }}>
-                <pre
-                  style={{
-                    whiteSpace: 'pre-wrap',
-                    wordBreak: 'keep-all',
-                    fontSize: 12,
-                  }}
-                >
-                  {JSON.stringify(classifyResult, null, 2)}
-                </pre>
-              </Box>
             </Box>
           )}
 

@@ -30,7 +30,7 @@ export interface GradCategoriesType {
 }
 
 export interface GradStatusResponseType {
-  graduationCategory: GradCategoriesType;
+  graduationCategory: GradCategoriesType; // default는 2020년도
   totalCredits: number;
   totalSatisfied: boolean;
 }

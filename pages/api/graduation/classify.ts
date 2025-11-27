@@ -19,6 +19,7 @@ export default async function handler(
     const body = req.body || {};
 
     // Extract takenCourses from several possible shapes
+    // TODO: 비효율적 분기점 같긴해서 수정 필요할듯?
     let takenCourses: TakenCourseType[] = [];
     if (Array.isArray(body.takenCourses)) takenCourses = body.takenCourses as TakenCourseType[];
     else if (Array.isArray(body.courses)) takenCourses = body.courses as TakenCourseType[];
