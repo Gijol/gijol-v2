@@ -3,26 +3,91 @@ import { GradStatusResponseType, SingleCategoryType } from '@lib/types/grad';
 import { UserStatusType } from '../../types';
 import { notifications } from '@mantine/notifications';
 
+// 정말 간단한 최소 검증 예시 — 필요하면 더 강화하면 됨
+function isValidUserStatus(parsed: any): parsed is UserStatusType {
+  if (!parsed || typeof parsed !== 'object') return false;
+
+  // 학번
+  if (!parsed.studentId) return false;
+
+  // 수강 내역 배열
+  if (!Array.isArray(parsed.userTakenCourseList)) return false;
+  if (parsed.userTakenCourseList.length === 0) return false;
+
+  // 최소한 첫 번째 row에 year/semester/credit 정도는 있어야 한다고 가정
+  const first = parsed.userTakenCourseList[0];
+  return !(!('year' in first) || !('semester' in first) || !('credit' in first));
+}
+
 export async function readFileAndParse(file: File): Promise<UserStatusType> {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
+
+    // ✅ FileReader read timeout (예: 8초)
+    const READ_TIMEOUT_MS = 8000;
+    const readTimeoutId = window.setTimeout(() => {
+      try {
+        fileReader.abort();
+      } catch {}
+      const err = new Error('FILE_READ_TIMEOUT');
+      console.error('[readFileAndParse] timeout:', err);
+      notifications.show({
+        color: 'red',
+        title: '파일 읽기 시간 초과',
+        message:
+          '파일을 읽는 데 너무 오래 걸립니다. 올바른 Report card(KOR) 파일인지 확인해주세요.',
+      });
+      reject(err);
+    }, READ_TIMEOUT_MS);
+
     fileReader.onload = () => {
+      console.log('[readFileAndParse] FileReader onload fired');
       try {
         const { result } = fileReader;
-        if (result) {
-          resolve(GradeReportParser.readXlsxFile(result as string));
+        if (!result) {
+          throw new Error('EMPTY_FILE_RESULT');
         }
+
+        // 🔹 원래 쓰던 파서 호출
+        const parsed = GradeReportParser.readXlsxFile(result as string);
+
+        // 🔹 여기서 "이게 진짜 성적표인가?" 검증
+        if (!isValidUserStatus(parsed)) {
+          throw new Error('INVALID_GRADE_REPORT');
+        }
+
+        resolve(parsed);
       } catch (err) {
+        console.error('[readFileAndParse] parse/validation error:', err);
+
         notifications.show({
           color: 'red',
           title: '파일 파싱 오류',
           message:
-            '업로드 하신 파일에 문제가 있습니다. 상단에 업로드 해야 하는 파일에 대한 정보를 다시 한번 읽어보신 뒤 시도해주시길 바랍니다.',
+            '업로드하신 파일이 GIST 제우스 성적표 양식과 다릅니다.\n' +
+            '제우스 → 성적 → 개인성적조회 → 우측 상단 "Report card(KOR)" 버튼으로 받은 원본 엑셀 파일을 다시 업로드해주세요.',
           withCloseButton: true,
         });
+        reject(err);
       }
     };
-    fileReader.readAsBinaryString(file);
+
+    fileReader.onerror = (e) => {
+      console.error('[readFileAndParse] FileReader onerror:', e);
+      notifications.show({
+        color: 'red',
+        title: '파일 읽기 오류',
+        message: '파일을 읽는 도중 문제가 발생했습니다. 다시 시도해주세요.',
+        withCloseButton: true,
+      });
+      reject(fileReader.error ?? new Error('FILE_READ_ERROR'));
+    };
+    try {
+      fileReader.readAsBinaryString(file);
+    } catch (e) {
+      console.error('[readFileAndParse] readAsBinaryString threw:', e);
+      reject(e);
+    }
   });
 }
 

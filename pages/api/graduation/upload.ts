@@ -53,13 +53,35 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             resolve();
             return;
           }
+
           const buffer: Buffer = fs.readFileSync(filePath);
+
+          // 🔹 엑셀 파싱 + 구조 검증
           const parsed = await parseGradeBuffer(buffer);
+
           res.status(200).json(parsed);
           resolve();
         } catch (e: any) {
           console.error('parse error', e);
-          res.status(422).json({ error: 'Parsing failed', details: e?.message || String(e) });
+
+          const code = e?.code || 'PARSING_FAILED';
+
+          if (code === 'INVALID_GRADE_REPORT') {
+            res.status(422).json({
+              error: 'INVALID_GRADE_REPORT',
+              message: 'Uploaded file is not a valid ZEUS Report card(KOR) grade report.',
+            });
+          } else if (code === 'PARSE_TIMEOUT') {
+            res.status(422).json({
+              error: 'PARSE_TIMEOUT',
+              message: 'Parsing grade report took too long.',
+            });
+          } else {
+            res.status(422).json({
+              error: 'PARSING_FAILED',
+              message: e?.message || 'Parsing failed',
+            });
+          }
           resolve();
         }
       });
@@ -72,6 +94,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
   } catch (e: any) {
     console.error('upload error', e);
-    return res.status(500).json({ error: 'Upload failed', details: e?.message || String(e) });
+    return res.status(500).json({
+      error: 'UPLOAD_FAILED',
+      message: 'Upload failed',
+      details: e?.message || String(e),
+    });
   }
 }

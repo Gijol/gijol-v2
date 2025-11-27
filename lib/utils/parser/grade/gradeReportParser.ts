@@ -116,8 +116,11 @@ export class GradeReportParser {
     return studentIdString.split(':')[1].trim(); // format: StudentNo.:20205185
   }
 
-  private static createSheet(file: string) {
-    const workBook = read(file, { type: 'binary' });
+  private static createSheet(file: string | ArrayBuffer) {
+    // xlsx.read accepts different "type" options depending on input
+    const isString = typeof file === 'string';
+    const readOpts = isString ? { type: 'binary' as const } : { type: 'array' as const };
+    const workBook = read(file as any, readOpts);
     const sheetNames = workBook.SheetNames;
     if (sheetNames.length > 1) throw new Error('유효하지 않은 파일입니다.');
     const sheetName = sheetNames[0];
