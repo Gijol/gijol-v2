@@ -213,7 +213,7 @@ export default function My() {
 
   return (
     <Container size="lg">
-      <Title order={2} mb="lg" mt={20}>
+      <Title order={2} mb="md" mt={20}>
         📑 수강현황
       </Title>
 
@@ -232,7 +232,7 @@ export default function My() {
         </Text>
       </Group>
 
-      <SimpleGrid cols={matches ? 2 : 1} my="xl">
+      <SimpleGrid cols={matches ? 2 : 1} my="xl" spacing="xl">
         <OverallAcademicCard
           totalCredit={totalCredit}
           totalRequired={TOTAL_REQUIRED_CREDITS}

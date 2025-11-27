@@ -47,9 +47,14 @@ export default function Index() {
         🙏 졸업요건 현황
       </Title>
 
-      <Text size="sm" c="dimmed" mb="lg">
-        학번: {parsed.studentId} · 총 이수 학점: {overallProps.totalCredits}학점
-      </Text>
+      <Group spacing="md">
+        <Text size="md" c="dimmed" mb="lg">
+          학번: {parsed.studentId}
+        </Text>{' '}
+        <Text size="md" c="dimmed" mb="lg">
+          총 이수 학점: {overallProps.totalCredits}학점
+        </Text>
+      </Group>
 
       <GradOverallStatus
         scrollIntoView={() => {}}
