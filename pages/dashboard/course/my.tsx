@@ -193,6 +193,7 @@ export default function My() {
     avgCreditPerSemester,
     bestSemester,
     progress,
+    studentId,
     majorName,
     entryYear,
     TOTAL_REQUIRED_CREDITS,
@@ -216,13 +217,18 @@ export default function My() {
         📑 수강현황
       </Title>
 
-      <Group align="baseline" spacing={6} mt={8} mb={24}>
-        <Text size="xl" fw={700}>
-          {entryYear} 학번 {majorName}
+      <Group spacing="md">
+        <Text size="md" c="dimmed">
+          학번: {studentId}
         </Text>
-
-        <Text size="md" fw={600} c="dimmed">
-          총 {semesterCount}학기 이수
+        <Text size="md" c="dimmed">
+          전공: {majorName ?? '-'}
+        </Text>
+        <Text size="md" c="dimmed">
+          부전공: {majorName ?? '-'}
+        </Text>
+        <Text size="md" c="dimmed">
+          입학년도: {entryYear}년
         </Text>
       </Group>
 

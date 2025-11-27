@@ -13,12 +13,10 @@ import {
   Paper,
 } from '@mantine/core';
 
-import type { UserStatusType } from '@lib/types/index';
 import GradOverallStatus from '@components/grad-overall-status';
 import GradSpecificDomainStatus from '@components/grad-specific-domain-status';
 import GradRecommend from '@components/grad-recommend';
 import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
-import { useRouter } from 'next/router';
 import { extractOverallStatus, getFeedbackNumbers } from '@utils/graduation/grad-formatter';
 import UploadEmptyState from '@components/graduation/upload-empty-state';
 
@@ -45,7 +43,7 @@ export default function Index() {
 
   return (
     <Container size="lg">
-      <Title order={2} mt={40} mb="md">
+      <Title order={2} mt={20} mb="md">
         🙏 졸업요건 현황
       </Title>
 
