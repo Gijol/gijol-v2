@@ -15,3 +15,21 @@ export function toEditableRows(parsed: UserStatusType | null): EditableCourseRow
     grade: c.grade ?? '',
   }));
 }
+
+export function applyEditableRowsToUserStatus(
+  original: UserStatusType,
+  rows: EditableCourseRow[]
+): UserStatusType {
+  return {
+    ...original,
+    userTakenCourseList: rows.map((r) => ({
+      year: r.year === '' ? 0 : Number(r.year), // 임의로 0 처리
+      semester: r.semester,
+      courseType: r.courseType,
+      courseCode: r.courseCode,
+      courseName: r.courseName,
+      credit: r.credit === '' ? 0 : Number(r.credit), // 임의로 0 처리
+      grade: r.grade ?? '', // 임의로 빈문장 처리
+    })),
+  };
+}

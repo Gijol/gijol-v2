@@ -1,107 +1,43 @@
-import React, { useRef, useState, useMemo } from 'react';
-import { Box, Button, Container, Group, Paper, Space, Stack, Text, Title } from '@mantine/core';
+// components/graduation/GradUploadPanel.tsx
+import React, { useRef, useState } from 'react';
+import { Box, Button, Container, Group, Space, Stack, Text, Title } from '@mantine/core';
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
 import { useRouter } from 'next/router';
 
 import Loading from '@components/loading';
-import GradOverallStatus from '@components/grad-overall-status';
-import GradSpecificDomainStatus from '@components/grad-specific-domain-status';
-import GradRecommend from '@components/grad-recommend';
-
-import {
-  readFileAndParse,
-  extractOverallStatus,
-  getFeedbackNumbers,
-} from '@utils/graduation/grad-formatter';
+import { readFileAndParse } from '@utils/graduation/grad-formatter';
 import type { UserStatusType } from '@lib/types/index';
 import type {
   GradStatusRequestBody,
   GradStatusResponseType,
   TakenCourseType,
-  SingleCategoryType,
 } from '@lib/types/grad';
+import {
+  gradStatusFetchFn,
+  inferEntryYear,
+  toTakenCourses,
+} from '@utils/graduation/grad-status-helper';
 import { useGraduationStore } from '../../lib/stores/useGraduationStore';
-
-// 이미 만들어 둔 헬퍼들 (이전 local 페이지에서 쓰던 것들) — utils로 빼두는 걸 추천
-export const STORAGE_KEY = 'gijol_grad_local_v1';
-
-export const gradStatusFetchFn = async (payload: GradStatusRequestBody) => {
-  const res = await fetch('/api/graduation/grad-status', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`grad-status ${res.status}: ${text}`);
-  }
-  return (await res.json()) as GradStatusResponseType;
-};
-
-export const inferEntryYear = (p: UserStatusType): number | null => {
-  if ((p as any).entryYear) {
-    const v = Number((p as any).entryYear);
-    return Number.isFinite(v) && v > 1900 ? v : null;
-  }
-  if (p.studentId && String(p.studentId).length >= 4) {
-    const year = Number(String(p.studentId).slice(0, 4));
-    return Number.isFinite(year) && year > 1900 ? year : null;
-  }
-  return null;
-};
-
-export const toTakenCourses = (p: UserStatusType): TakenCourseType[] => {
-  const list = (p as any).userTakenCourseList ?? [];
-  return list.map((c: any) => ({
-    year: Number(c.year) || 0,
-    semester: c.semester || '',
-    courseType: c.courseType || '기타',
-    courseName: c.courseName || c.course || '',
-    courseCode: c.courseCode || c.code || '',
-    credit: Number(c.credit) || 0,
-  }));
-};
-
-// gradStatus가 없을 때를 위한 임시 fallback
-const convertParsedToGradStatus = (p: UserStatusType): GradStatusResponseType => {
-  const taken = toTakenCourses(p);
-  const totalCredits = taken.reduce((s, c) => s + (Number(c.credit) || 0), 0);
-
-  const emptyCategory = (items: TakenCourseType[] = []): SingleCategoryType => ({
-    messages: [],
-    minConditionCredits: 1,
-    satisfied: false,
-    totalCredits: 0,
-    userTakenCoursesList: { takenCourses: items },
-  });
-
-  const otherUnchecked = emptyCategory(taken);
-  otherUnchecked.totalCredits = totalCredits;
-  otherUnchecked.minConditionCredits = Math.max(totalCredits, 1);
-  otherUnchecked.satisfied = true;
-
-  return {
-    graduationCategory: {
-      languageBasic: emptyCategory(),
-      scienceBasic: emptyCategory(),
-      major: emptyCategory(),
-      minor: emptyCategory(),
-      humanities: emptyCategory(),
-      etcMandatory: emptyCategory(),
-      otherUncheckedClass: otherUnchecked,
-    },
-    totalCredits,
-    totalSatisfied: false,
-  };
-};
+import { STORAGE_KEY } from '../../lib/stores/storage-key';
 
 type GradUploadPanelProps = {
   title?: string;
-  redirectTo?: string; // 업로드 후 다른 페이지로 보내고 싶을 때 사용 (선택)
+  redirectTo?: string; // 업로드 후 이동하고 싶을 때 (선택)
+  /**
+   * 업로드/파싱 이후, 아래쪽에 보여줄 커스텀 UI (표, 미리보기 등)
+   * parsed, gradStatus는 store에서 읽어서 내려줌
+   */
+  children?: (ctx: {
+    parsed: UserStatusType | null;
+    gradStatus: GradStatusResponseType | null;
+  }) => React.ReactNode;
 };
 
-export function GradUploadPanel({ title = '졸업요건 파서', redirectTo }: GradUploadPanelProps) {
+export function GradUploadPanel({
+  title = '졸업요건 파서',
+  redirectTo,
+  children,
+}: GradUploadPanelProps) {
   const router = useRouter();
   const openRef = useRef<any>(null);
 
@@ -112,9 +48,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo }: G
 
   const { parsed, gradStatus, setFromParsed, reset } = useGraduationStore();
 
-  // -------------------------
-  // 파일 파싱 + API 호출
-  // -------------------------
+  // 파일 파싱 + 졸업요건 API 호출 + store 저장
   const handleParse = async () => {
     if (!file) return;
 
@@ -153,21 +87,18 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo }: G
         setIsFetchingGradStatus(false);
       }
 
-      // ✅ 전역 store에 저장 (API 결과 없으면 fallback 사용)
       setFromParsed({
         parsed: res,
         takenCourses: tc,
-        gradStatus: grad ?? convertParsedToGradStatus(res),
+        gradStatus: grad ?? null,
       });
 
-      // localStorage 저장
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(res));
       } catch {
         // ignore
       }
 
-      // 별도 redirect를 원하면 이동
       if (redirectTo) {
         router.push(redirectTo);
       }
@@ -178,9 +109,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo }: G
       setIsParsing(false);
     }
   };
-  // -------------------------
-  // 현재 parsed JSON 다운로드
-  // -------------------------
+
   const onDownload = () => {
     if (!parsed) return setError('다운로드할 데이터가 없습니다.');
     const blob = new Blob([JSON.stringify(parsed, null, 2)], {
@@ -196,9 +125,6 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo }: G
     URL.revokeObjectURL(url);
   };
 
-  // -------------------------
-  // 리셋
-  // -------------------------
   const handleReset = () => {
     setError(null);
     setFile(null);
@@ -209,16 +135,6 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo }: G
       // ignore
     }
   };
-
-  // 1순위: store.gradStatus
-  // 2순위: store.parsed 기반 fallback
-  const gradStatusPreview: GradStatusResponseType | null = useMemo(
-    () => gradStatus ?? (parsed ? convertParsedToGradStatus(parsed) : null),
-    [gradStatus, parsed]
-  );
-
-  const overallProps = gradStatusPreview ? extractOverallStatus(gradStatusPreview) : null;
-  const feedbackNumbers = gradStatusPreview ? getFeedbackNumbers(gradStatusPreview) : 0;
 
   return (
     <Container size="lg">
@@ -250,7 +166,10 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo }: G
         <Button onClick={handleParse} disabled={!file || isParsing} color="blue">
           파싱 및 졸업요건 계산
         </Button>
-        <Button variant="default" onClick={handleReset}>
+        <Button onClick={onDownload} disabled={!parsed} variant="default">
+          JSON 다운로드
+        </Button>
+        <Button variant="default" onClick={handleReset} color="gray">
           리셋
         </Button>
       </Group>
@@ -271,45 +190,8 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo }: G
 
       <Space h={24} />
 
-      {/* 졸업요건 미리보기 영역 */}
-      {gradStatusPreview && overallProps ? (
-        <>
-          <Title order={3} mb="sm">
-            졸업요건 충족 현황 (미리보기)
-          </Title>
-
-          <GradOverallStatus
-            scrollIntoView={() => {}}
-            totalCredits={overallProps.totalCredits}
-            totalPercentage={overallProps.totalPercentage}
-            overallStatus={overallProps.domains}
-            minDomain={overallProps.minDomain}
-            minDomainPercentage={overallProps.minDomainPercentage}
-            feedbackNumbers={feedbackNumbers}
-          />
-
-          <Space h={32} />
-
-          <Title order={3} mb="sm">
-            영역별 세부 현황
-          </Title>
-          <GradSpecificDomainStatus specificDomainStatusArr={overallProps.categoriesArr} />
-
-          <Space h={24} />
-
-          <Title order={3} mt={32} mb="lg">
-            영역별 피드백
-          </Title>
-          <GradRecommend specificDomainStatusArr={overallProps.categoriesArr} />
-        </>
-      ) : (
-        <Box mt="md">
-          <Text c="dimmed">
-            아직 파싱된 데이터가 없습니다. 엑셀 파일을 업로드하고 &quot;파싱 및 졸업요건
-            계산&quot;을 눌러 주세요.
-          </Text>
-        </Box>
-      )}
+      {/* ⬇️ 이 아래는 “슬롯” – 밖에서 원하는 UI를 넣을 수 있음 */}
+      {children && <Box mt="md">{children({ parsed, gradStatus })}</Box>}
     </Container>
   );
 }
