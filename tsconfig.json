@@ -22,7 +22,7 @@
       "@utils/*": ["lib/utils/*"],
       "@const/*": ["lib/const/*"],
       "@public/*": ["public/*"],
-      "@components/*": ["components/*"],
+      "@components/*": ["components/*"]
     }
   },
   "ts-node": {
@@ -31,6 +31,6 @@
       "jsx": "react"
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

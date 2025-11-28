@@ -50,6 +50,7 @@
     "dayjs": "^1.11.6",
     "debounce": "^2.0.0",
     "embla-carousel-react": "^7.0.3",
+    "formidable": "^3.5.4",
     "micro": "^10.0.1",
     "next": "13.1.6",
     "next-auth": "^4.22.1",
@@ -64,12 +65,11 @@
     "react-pdf": "^7.6.0",
     "react-wrap-balancer": "^1.1.0",
     "recharts": "^2.5.0",
-    "recoil": "^0.7.7",
-    "recoil-persist": "^4.2.0",
-    "recoil-sync": "^0.2.0",
     "svix": "^1.8.1",
     "ts-node": "^10.9.1",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz"
+    "uuid": "^13.0.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",

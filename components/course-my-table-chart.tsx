@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { createStyles, Group, Paper, ScrollArea, Select, Table, Title } from '@mantine/core';
 import { CourseListWithPeriod } from '@utils/status';
 
-
 const generateSelectData = (courseListWithPeriod: CourseListWithPeriod[]) => {
   return courseListWithPeriod.map((periodWithList) => {
     return {

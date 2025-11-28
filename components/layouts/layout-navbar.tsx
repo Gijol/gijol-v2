@@ -25,7 +25,7 @@ export function LayoutNavbar({
         active={link.label === cntRoute}
         label={link.label}
         href={link.href}
-        rightSection={link.badge}
+        rightSection={link.badge ?? <></>}
         icon={<link.icon size="1.25rem" stroke={1.5} />}
         sx={{ borderRadius: 8 }}
         my={4}

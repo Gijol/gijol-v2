@@ -1,9 +1,7 @@
 import { CSSProperties } from 'react';
-import { Burger, Button, Group, Header, MediaQuery, Text } from '@mantine/core';
+import { Burger, Header, MediaQuery, Text } from '@mantine/core';
 import { MantineTheme } from '@mantine/core';
 import Link from 'next/link';
-import { SignInButton, useUser } from '@clerk/nextjs';
-import UserLoginPopover from '../user-login-popover';
 
 export function DashboardLayoutHeader({
   theme,
@@ -14,8 +12,6 @@ export function DashboardLayoutHeader({
   opened: boolean;
   open: () => void;
 }) {
-  const { isSignedIn } = useUser();
-
   return (
     <Header height={60} py="sm" px="lg">
       <div style={headerContainer}>
@@ -29,15 +25,6 @@ export function DashboardLayoutHeader({
             </Text>
           </Link>
         </MediaQuery>
-        <Group>
-          {!isSignedIn ? (
-            <Button component={SignInButton} afterSignInUrl="/login/new-user" variant="default">
-              로그인하기
-            </Button>
-          ) : (
-            <UserLoginPopover />
-          )}
-        </Group>
       </div>
     </Header>
   );

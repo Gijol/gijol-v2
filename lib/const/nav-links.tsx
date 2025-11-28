@@ -5,7 +5,7 @@ import {
   IconClipboardList,
   IconDeviceDesktopAnalytics,
   IconHome,
-  IconUserCircle,
+  IconUpload,
 } from '@tabler/icons-react';
 import { Badge } from '@mantine/core';
 
@@ -16,39 +16,33 @@ type NavLink = {
   badge?: React.ReactNode;
 };
 
-export const navLinks = [
+// custom badge function
+function createBadge(content: string, color: string = 'blue') {
+  return (
+    <Badge color={color} size="sm">
+      {content}
+    </Badge>
+  );
+}
+
+export const navLinks: NavLink[] = [
   { label: '홈', href: '/dashboard', icon: IconHome },
-  { label: '프로필', href: '/dashboard/user-info', icon: IconUserCircle },
+  { label: '파일 업로드', href: '/dashboard/graduation/upload', icon: IconUpload },
   {
     label: '내 수강현황',
     href: '/dashboard/course/my',
     icon: IconClipboardList,
-    badge: (
-      <Badge color="teal" size="sm">
-        Update
-      </Badge>
-    ),
   },
   {
     label: '내 졸업요건',
     href: '/dashboard/graduation',
     icon: IconDeviceDesktopAnalytics,
-    badge: (
-      <Badge color="teal" size="sm">
-        Update
-      </Badge>
-    ),
   },
-  {
-    label: '강의 정보',
-    href: '/dashboard/course/search',
-    icon: IconChalkboard,
-    badge: (
-      <Badge color="teal" size="sm">
-        Update
-      </Badge>
-    ),
-  },
+  // {
+  //   label: '강의 정보',
+  //   href: '/dashboard/course/search',
+  //   icon: IconChalkboard,
+  // },
   // {
   //   label: '졸업요건 확인서 만들기 ✨',
   //   href: '/dashboard/graduation/certificate-builder',

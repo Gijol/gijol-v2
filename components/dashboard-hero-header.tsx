@@ -1,28 +1,7 @@
-import {
-  createStyles,
-  Title,
-  Input,
-  Text,
-  Button,
-  Container,
-  rem,
-  Modal,
-  Textarea,
-  Checkbox,
-  Group,
-  LoadingOverlay,
-  useMantineTheme,
-  MediaQuery,
-  Stack,
-} from '@mantine/core';
-import { useDebouncedState, useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { IconAt } from '@tabler/icons-react';
-import React, { BaseSyntheticEvent, useState } from 'react';
-import { sendFeedbackToNotion } from '../lib/utils/notion';
-import { notifications } from '@mantine/notifications';
+import React from 'react';
+import { createStyles, Title, Text, Container, rem } from '@mantine/core';
 import { CustomDots } from './custom-dots';
 import Balancer from 'react-wrap-balancer';
-
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -87,181 +66,34 @@ const useStyles = createStyles((theme) => ({
 
 export default function DashboardHeroHeader() {
   const { classes } = useStyles();
-  const mobile = useMediaQuery('(max-width: 56.25em)');
 
-  // 의견 제출하기 모달 관리
-  const [opened, { open, close }] = useDisclosure(false);
-
-  // 의견 제출하는 도중의 로딩 상태 관리
-  const [visible, { open: openLoading, close: closeLoading }] = useDisclosure(false);
-
-  // 의견 제목, 설명, 이메일, 이메일 제공 동의 항목
-  const [title, setTitle] = useDebouncedState('', 200);
-  const [description, setDescription] = useDebouncedState('', 200);
-  const [email, setEmail] = useDebouncedState('', 200);
-  const [checked, setChecked] = useState(false);
-
-  // 이메일 유효성 검사
-  const emailErrorState =
-    email === '' || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
-      ? ''
-      : '유효하지 않은 이메일 형식입니다';
-
-  // 전부 채워져야 제출 가능
-  const isNotEmpty = Boolean(title && description && email && checked);
   return (
-    <>
-      <Container className={classes.wrapper} size="xl">
-        <CustomDots className={classes.dots} style={{ left: 0, top: 0 }} />
-        <CustomDots className={classes.dots} style={{ left: 60, top: 0 }} />
-        <CustomDots className={classes.dots} style={{ left: 0, top: 140 }} />
-        <CustomDots className={classes.dots} style={{ right: 0, top: 60 }} />
+    <Container className={classes.wrapper} size="xl">
+      <CustomDots className={classes.dots} style={{ left: 0, top: 0 }} />
+      <CustomDots className={classes.dots} style={{ left: 60, top: 0 }} />
+      <CustomDots className={classes.dots} style={{ left: 0, top: 140 }} />
+      <CustomDots className={classes.dots} style={{ right: 0, top: 60 }} />
 
-        <div className={classes.inner}>
-          <Title className={classes.title}>
-            <Text component="span" className={classes.highlight} inherit>
-              Gijol-v2
-            </Text>{' '}
-            에 오신 것을 환영합니다! 🙌
-          </Title>
+      <div className={classes.inner}>
+        <Title className={classes.title}>
+          <Text component="span" className={classes.highlight} inherit>
+            Gijol-v2
+          </Text>{' '}
+          에 오신 것을 환영합니다! 🙌
+        </Title>
 
-          <Container p={0} size={600} className={classes.description}>
-            <Balancer>
-              <Text size="lg" color="dimmed" pt="md">
-                아래에서{' '}
-                <Text component="span" fw={500} color="black">
-                  새로워진 Gijol 버전 2
-                </Text>
-                의 여러 가지 기능들을 살펴보세요! 또,{' '}
-                <Text component="span" fw={500} color="black">
-                  필요한 기능이 있다면
-                </Text>{' '}
-                아래 버튼을 눌러 의견을 제출해주세요!
+        <Container p={0} size={600} className={classes.description}>
+          <Balancer>
+            <Text size="lg" color="dimmed" pt="xl" span>
+              아래에서{' '}
+              <Text span color="red" size="xl" fw={700}>
+                주의사항
               </Text>
-            </Balancer>
-          </Container>
-          <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
-            <Group position="center" py="md">
-              <Button size="md" variant="light" color="orange" onClick={open}>
-                의견 작성하기
-              </Button>
-              <Button
-                component="a"
-                size="md"
-                variant="light"
-                color="orange"
-                href="https://open.kakao.com/o/gsj1KpCf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                오픈채팅방 참여하기
-              </Button>
-            </Group>
-          </MediaQuery>
-          <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-            <Stack spacing="xs" mt="xl">
-              <Button size="md" variant="light" color="orange" radius="md" onClick={open}>
-                의견 작성하기
-              </Button>
-              <Button
-                component="a"
-                size="md"
-                radius="md"
-                variant="light"
-                color="orange"
-                href="https://open.kakao.com/o/gsj1KpCf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                오픈채팅방 참여하기
-              </Button>
-            </Stack>
-          </MediaQuery>
-        </div>
-      </Container>
-      <Modal
-        opened={opened}
-        onClose={close}
-        title="기능 및 개선 요청"
-        centered
-        styles={{ title: { fontWeight: 600 } }}
-      >
-        <LoadingOverlay visible={visible} overlayBlur={2} />
-        <Input.Wrapper id="fn_name" label="기능 명" required mx="auto" my={8} withAsterisk>
-          <Input
-            id="fn_name"
-            placeholder="기능 이름을 입력해주세요"
-            onChange={(e: BaseSyntheticEvent) => setTitle(e.target.value)}
-          />
-        </Input.Wrapper>
-        <Textarea
-          my={8}
-          label="기능 설명"
-          placeholder="기능에 대해서 짧게 설명해주세요"
-          withAsterisk
-          onChange={(e: BaseSyntheticEvent) => setDescription(e.target.value)}
-        />
-        <Input.Wrapper
-          id="email"
-          label="이메일"
-          required
-          mx="auto"
-          my={8}
-          description="추후 기능 개발 적용 여부 및 소정의 감사를 위해 수집됩니다!"
-          error={emailErrorState}
-          withAsterisk
-        >
-          <Input
-            icon={<IconAt size="1rem" />}
-            id="email"
-            error={emailErrorState}
-            placeholder="이메일을 입력해주세요"
-            onChange={(e: BaseSyntheticEvent) => setEmail(e.target.value)}
-          />
-        </Input.Wrapper>
-        <Checkbox
-          size="xs"
-          label="이메일 정보 수집 및 이용에 동의합니다"
-          my="md"
-          onChange={(e) => setChecked(e.currentTarget.checked)}
-        />
-        <Group position="right">
-          <Button
-            onClick={async () => {
-              try {
-                if (!isNotEmpty) {
-                  notifications.show({
-                    color: 'orange',
-                    title: '빈 항목이 있습니다',
-                    message: '모든 항목을 입력 부탁드립니다! 감사합니다!',
-                  });
-                } else {
-                  openLoading();
-                  await sendFeedbackToNotion(title, description, email);
-                  closeLoading();
-                  close();
-                  notifications.show({
-                    color: 'teal',
-                    title: '의견을 남겨주셔서 감사합니다!',
-                    message:
-                      '소중한 의견을 남겨주셔서 감사드립니다! 남겨주신 의견을 최대한 반영해보겠습니다! 🤗',
-                    autoClose: 3000,
-                  });
-                }
-              } catch (e) {
-                notifications.show({
-                  color: 'orange',
-                  title: '전송오류',
-                  message: '의견이 제대로 전송되지 않았습니다... 다시 한번 시도 부탁드립니다! 🙇‍♂️',
-                  autoClose: 3000,
-                });
-              }
-            }}
-          >
-            의견 제출하기
-          </Button>
-        </Group>
-      </Modal>
-    </>
+              을 꼭 확인하시고, 대시보드의 다양한 기능들을 활용해보세요!
+            </Text>
+          </Balancer>
+        </Container>
+      </div>
+    </Container>
   );
 }

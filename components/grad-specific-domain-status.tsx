@@ -175,6 +175,7 @@ export default function GradSpecificDomainStatus({
                       </tfoot>
                     </Table>
                   </div>
+
                   {elements?.length === 0 && (
                     <Text align="center" color="dimmed" my="xl" fw={500}>
                       수강하신 강의가 없습니다!

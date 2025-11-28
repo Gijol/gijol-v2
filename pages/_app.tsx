@@ -8,7 +8,6 @@ import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 
-import { ClerkProvider } from '@clerk/nextjs';
 import { Analytics } from '@vercel/analytics/react';
 import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -33,27 +32,18 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     <>
       <Head>
         <title>학교 생활을 편리하게, Gijol</title>
-        {/*{process.env.NODE_ENV === 'production' && (*/}
-        {/*  <script*/}
-        {/*    defer*/}
-        {/*    src="https://us.umami.is/script.js"*/}
-        {/*    data-website-id="8211eefd-56a6-49bb-b4fb-8aab627a4f45"*/}
-        {/*  ></script>*/}
-        {/*)}*/}
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/public/images/tossfaceCap.png" />
       </Head>
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
           <QueryClientProvider client={queryClient}>
-            <ClerkProvider {...pageProps}>
-              <ModalsProvider>
-                <Notifications />
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </ModalsProvider>
-            </ClerkProvider>
+            <ModalsProvider>
+              <Notifications />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ModalsProvider>
             {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
           </QueryClientProvider>
         </MantineProvider>

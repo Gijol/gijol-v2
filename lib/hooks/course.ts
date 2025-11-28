@@ -1,27 +1,6 @@
-import { useAuth } from '@clerk/nextjs';
 import { useMutation, useQuery } from '@tanstack/react-query';
-
 import { instance } from '@utils/instance';
-import { UserTakenCourseWithGradeType } from '@lib/types/score-status';
 import { CourseHistory, CourseResponse, CourseSearchCodeType } from '@lib/types/course';
-
-export function useCourseStatus() {
-  const { getToken } = useAuth();
-  const courseStatusFetcher = async () => {
-    const token = await getToken({ template: 'gijol-token-test' });
-    const headers = {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    };
-    const res = await instance.get('/api/v1/users/me/taken-courses', { headers });
-    return res.data;
-  };
-
-  return useQuery<UserTakenCourseWithGradeType>(['course-status'], () => courseStatusFetcher(), {
-    retry: 0,
-    refetchOnWindowFocus: false,
-  });
-}
 
 const fetchCourses = async (
   courseSearchCode: CourseSearchCodeType,

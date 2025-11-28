@@ -13,6 +13,7 @@ export interface SemesterStatusType {
   coursesAndGradeResponses: CourseWithGradeStatusType[];
 }
 
+// TODO: 무슨 의도로 넣었는지 확인 필요
 export interface UserTakenCourseWithGradeType {
   userTakenCourseBySemesterResponses: SemesterStatusType[];
   averageGrade: number;

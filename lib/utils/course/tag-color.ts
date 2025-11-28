@@ -1,5 +1,3 @@
-import { CourseType } from '../types/course';
-
 export const getCourseTagColor = (tag: string) => {
   switch (tag) {
     case '전공':

@@ -3,7 +3,7 @@ import {
   CourseWithGradeStatusType,
   SemesterStatusType,
   UserTakenCourseWithGradeType,
-} from '../../types/score-status';
+} from '@lib/types/score-status';
 
 export type CourseListWithPeriod = {
   year: number;
