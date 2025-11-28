@@ -1,5 +1,3 @@
-// components/grad-overall-status.tsx (기존 파일 교체)
-
 import {
   Badge,
   Button,
@@ -8,7 +6,6 @@ import {
   Group,
   Paper,
   Progress,
-  RingProgress,
   SimpleGrid,
   Space,
   Stack,
@@ -17,7 +14,7 @@ import {
   ThemeIcon,
 } from '@mantine/core';
 import { IconBolt, IconPresentationAnalytics, IconReportAnalytics } from '@tabler/icons-react';
-import { getStatusColor, getStatusMessage } from '@utils/graduation/grad-formatter';
+import { getStatusMessage } from '@utils/graduation/grad-formatter';
 import { useMediaQuery } from '@mantine/hooks';
 
 type OverallDomain = {

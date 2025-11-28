@@ -1,5 +1,4 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-
 import { instance } from '@utils/instance';
 import { CourseHistory, CourseResponse, CourseSearchCodeType } from '@lib/types/course';
 

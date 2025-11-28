@@ -4,14 +4,11 @@ import {
   Paper,
   Text,
   Badge,
-  Button,
   UnstyledButton,
-  Box,
   Drawer,
   rem,
   Spoiler,
   Code,
-  Flex,
   Table,
   Skeleton,
   createStyles,
@@ -19,7 +16,7 @@ import {
   Stack,
 } from '@mantine/core';
 import { useDisclosure, useHover } from '@mantine/hooks';
-import { useSingleCourse } from '../lib/hooks/course';
+import { useSingleCourse } from '@hooks/course';
 import { getCourseTagColor } from '@utils/course/tag-color';
 
 export default function CourseThumbnailWithDrawer({
