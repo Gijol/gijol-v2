@@ -64,7 +64,7 @@ export default function MainPage() {
                 color="gray.8"
                 sx={{ letterSpacing: -1.6 }}
               >
-                학교 생활의 모든 것
+                학교 생활을 더욱 편리하게,
               </Text>
               <Text size={rem(48)} weight={600} align="center" lh={1.4} color="gray.8">
                 Gijol과 함께
