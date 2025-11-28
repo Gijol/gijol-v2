@@ -1,3 +1,5 @@
+// components/grad-overall-status.tsx (기존 파일 교체)
+
 import {
   Badge,
   Button,
@@ -6,6 +8,7 @@ import {
   Group,
   Paper,
   Progress,
+  RingProgress,
   SimpleGrid,
   Space,
   Stack,
@@ -14,8 +17,24 @@ import {
   ThemeIcon,
 } from '@mantine/core';
 import { IconBolt, IconPresentationAnalytics, IconReportAnalytics } from '@tabler/icons-react';
-import { getStatusColor, getStatusMessage } from '../lib/utils/graduation/grad-formatter';
+import { getStatusColor, getStatusMessage } from '@utils/graduation/grad-formatter';
 import { useMediaQuery } from '@mantine/hooks';
+
+type OverallDomain = {
+  title: string;
+  percentage: number;
+  satisfied: boolean | undefined;
+};
+
+type Props = {
+  scrollIntoView: (options?: any) => void;
+  totalCredits: number | undefined;
+  totalPercentage: number;
+  overallStatus: OverallDomain[];
+  minDomain: string;
+  minDomainPercentage: number;
+  feedbackNumbers: number;
+};
 
 export default function GradOverallStatus({
   scrollIntoView,
@@ -25,56 +44,49 @@ export default function GradOverallStatus({
   minDomain,
   minDomainPercentage,
   feedbackNumbers,
-}: {
-  scrollIntoView: any;
-  totalCredits: number | undefined;
-  totalPercentage: number;
-  overallStatus: { title: string; percentage: number; satisfied: boolean | undefined }[];
-  minDomain: string;
-  minDomainPercentage: number;
-  feedbackNumbers: number;
-}) {
+}: Props) {
   const matches = useMediaQuery(`(min-width: 48em)`);
   const { classes } = useStyles();
+
   const courseRows = overallStatus.map((element) => (
     <tr key={element.title}>
       <td>
-        <Text size={matches ? 'md' : 'sm'} weight={400}>
+        <Text className={classes.text_md_sm} fw={400}>
           {element.title}
         </Text>
       </td>
-      <td width={300} style={{ minWidth: 160 }}>
+      <td className={classes.progressCell}>
         <Progress
           value={element.percentage}
           label={`${element.percentage}%`}
-          size={20}
-          color="blue.4"
+          size={18}
+          radius="xl"
+          color="indigo.4"
         />
       </td>
-      <td>
-        <Badge
-          color={getStatusColor(element.satisfied, element.title)}
-          variant="dot"
-          size={matches ? 'lg' : 'md'}
-        >
+      <td className={classes.statusCell}>
+        <Text size={matches ? 'lg' : 'md'}>
           {getStatusMessage(element.satisfied, element.title)}
-        </Badge>
+        </Text>
       </td>
     </tr>
   ));
+
   return (
     <>
       <SimpleGrid
+        cols={3}
+        spacing="md"
         breakpoints={[
-          { minWidth: 'md', cols: 3, spacing: 'md' },
-          { minWidth: 'sm', cols: 2, spacing: 'md' },
-          { minWidth: 'xs', cols: 1, spacing: 'md' },
+          { maxWidth: 'md', cols: 2 },
+          { maxWidth: 'sm', cols: 1 },
         ]}
       >
-        <Card h="160" radius="md" withBorder>
+        {/* 총 학점 카드 */}
+        <Card radius="md" withBorder className={classes.card}>
           <Card.Section inheritPadding withBorder py="sm" px="md">
             <Group position="apart">
-              <Text className={classes.text_md_sm} fw={500}>
+              <Text className={classes.text_md_sm} fw={600}>
                 총 학점
               </Text>
               <ThemeIcon variant="subtle" size="md" color="dark">
@@ -82,22 +94,27 @@ export default function GradOverallStatus({
               </ThemeIcon>
             </Group>
           </Card.Section>
-          <Card.Section component={Stack} px="md" py="sm" justify="space-between">
-            <Text className={classes.text_xl_md} align="start" pb="sm" pt={matches ? 'sm' : 0}>
-              {totalCredits} 학점
-            </Text>
-            <Group>
-              <Text className={classes.text_md_sm} color="dimmed" weight={500}>
-                총 학점 : 130
+          <Card.Section component="div" px="md" py="sm">
+            <Stack justify="space-between" h="auto">
+              <Text size="xl" fw={600} pb="xs">
+                {totalCredits ?? 0} 학점
               </Text>
-              <Badge>{totalPercentage}% 이수중</Badge>
-            </Group>
+
+              <Group position="apart">
+                <Text size="sm" c="dimmed">
+                  기준 학점 : 130
+                </Text>
+                <Badge variant="outline">{totalPercentage}% 이수중</Badge>
+              </Group>
+            </Stack>
           </Card.Section>
         </Card>
-        <Card radius="md" withBorder>
+
+        {/* 최저 이수 영역 카드 */}
+        <Card radius="md" withBorder className={classes.card}>
           <Card.Section inheritPadding withBorder py="sm" px="md">
             <Group position="apart">
-              <Text className={classes.text_md_sm} weight={500}>
+              <Text className={classes.text_md_sm} fw={600}>
                 최저 이수 영역
               </Text>
               <ThemeIcon variant="subtle" size="md" color="dark">
@@ -105,43 +122,65 @@ export default function GradOverallStatus({
               </ThemeIcon>
             </Group>
           </Card.Section>
-          <Card.Section inheritPadding component={Stack} px="md" py="sm" justify="space-between">
-            <Text className={classes.text_xl_md} align="start" pb="sm" pt={matches ? 'sm' : 0}>
-              {minDomain}
-            </Text>
-            <Group>
-              <Badge color="orange">{minDomainPercentage}% 이수중</Badge>
-            </Group>
+          <Card.Section inheritPadding px="md" py="sm">
+            <Stack>
+              <Text size="xl" fw={600} pt={matches ? 'sm' : 4} pb="xs">
+                {minDomain}
+              </Text>
+              <Group position="apart">
+                <Text size="xs" c="dimmed" mb={4}>
+                  이 영역을 우선적으로 채우는 것이 좋아요.
+                </Text>
+                <Badge color="orange" variant="outline">
+                  {minDomainPercentage}% 이수중
+                </Badge>
+              </Group>
+            </Stack>
           </Card.Section>
         </Card>
-        <Paper radius="md" h={160} p={8} className={classes.feedback}>
-          <Group p={8} position="apart">
-            <Text className={classes.text_md_sm} weight={500}>
+
+        {/* 피드백 카드 */}
+        <Paper radius="md" p="sm" className={classes.feedback}>
+          <Group position="apart" align="flex-start" mb="xs">
+            <Text className={classes.text_md_sm} fw={600}>
               Gijol의 피드백
             </Text>
             <IconBolt color="#FCC419" />
           </Group>
-          <Text className={classes.text_xl_md} align="start" p={8} pl={14}>
+          <Text size="xl" pb="xs">
             {feedbackNumbers} 개
           </Text>
-          <Group p={8}>
-            <Button
-              variant="outline"
-              size={matches ? 'sm' : 'xs'}
-              color="yellow"
-              fullWidth
-              onClick={() =>
-                scrollIntoView({
-                  alignment: 'center',
-                })
-              }
-            >
-              바로 확인하러 가기
-            </Button>
-          </Group>
+          <Text size="xs" c="dimmed" mb="xs">
+            부족한 영역을 중심으로 정리된 추천 사항이에요.
+          </Text>
+          <Button
+            variant="gradient"
+            gradient={{ from: 'yellow', to: 'orange' }}
+            size={matches ? 'sm' : 'xs'}
+            fullWidth
+            onClick={() =>
+              scrollIntoView({
+                alignment: 'center',
+              })
+            }
+            sx={{
+              fontWeight: 700,
+              animation: 'pulse 1.8s infinite',
+              '@keyframes pulse': {
+                '0%': { boxShadow: '0 0 0 0 rgba(252, 196, 25, 0.6)' }, // yellow[4] with opacity
+                '70%': { boxShadow: '0 0 0 12px rgba(252, 196, 25, 0)' }, // fades out
+                '100%': { boxShadow: '0 0 0 0 rgba(252, 196, 25, 0)' },
+              },
+            }}
+          >
+            추천 / 피드백 보러가기
+          </Button>
         </Paper>
       </SimpleGrid>
+
       <Space h={24} />
+
+      {/* 전체 영역 테이블 */}
       <div className={classes.tableBorder}>
         <Table
           highlightOnHover
@@ -155,47 +194,51 @@ export default function GradOverallStatus({
                 영역
               </th>
               <th className={classes.tableCell}>충족도</th>
-              <th>충족 여부</th>
+              <th className={classes.tableCell}>충족 여부</th>
             </tr>
           </thead>
           <tbody>{courseRows}</tbody>
         </Table>
       </div>
+
       <Space h={16} />
     </>
   );
 }
 
 const useStyles = createStyles((theme) => ({
+  card: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
   background: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark : theme.white,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
     borderBottomRightRadius: '0.5rem',
     borderBottomLeftRadius: '0.5rem',
   },
   table: {
-    position: 'relative',
     width: '100%',
-    height: '100%',
     backgroundColor: 'inherit',
   },
   tableHead: {
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-    borderRadius: theme.radius.md,
   },
   tableBorder: {
     border: '1px solid #dee2e6',
-    borderRadius: '0.5rem',
+    borderRadius: theme.radius.md,
     overflowX: 'auto',
   },
   feedback: {
     border: `2px solid ${theme.colors.orange[4]}`,
-    backgroundColor: 'transparent',
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
     boxShadow: `0 0 16px 2px ${theme.colors.orange[1]}`,
   },
   tableCell: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    fontSize: theme.fontSizes.sm,
   },
   text_md_sm: {
     fontSize: theme.fontSizes.md,
@@ -208,5 +251,21 @@ const useStyles = createStyles((theme) => ({
     '@media (max-width:48em)': {
       fontSize: theme.fontSizes.md,
     },
+  },
+  text_sm_xs: {
+    fontSize: theme.fontSizes.sm,
+    '@media (max-width:48em)': {
+      fontSize: theme.fontSizes.xs,
+    },
+  },
+  progressCell: {
+    minWidth: 220,
+    verticalAlign: 'middle',
+    paddingTop: theme.spacing.xs,
+    paddingBottom: theme.spacing.xs,
+  },
+  statusCell: {
+    whiteSpace: 'nowrap',
+    verticalAlign: 'middle',
   },
 }));

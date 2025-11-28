@@ -246,9 +246,9 @@ function createStatusColor(verifiedStatus: Satisfaction): string {
 function createStatusMessage(verifiedStatus: Satisfaction): string {
   switch (verifiedStatus) {
     case 'satisfied':
-      return '충족됨';
+      return '✅';
     case 'unSatisfied':
-      return '충족되지 않음';
+      return '❌';
     case 'notRequired':
       return '필수 아님';
     default:

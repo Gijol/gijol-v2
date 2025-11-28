@@ -15,6 +15,8 @@ import {
   Tooltip,
   Button,
   useMantineTheme,
+  Center,
+  Space,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconQuestionMark } from '@tabler/icons-react';
@@ -222,12 +224,6 @@ export default function My() {
           학번: {studentId}
         </Text>
         <Text size="md" c="dimmed">
-          전공: {majorName ?? '-'}
-        </Text>
-        <Text size="md" c="dimmed">
-          부전공: {majorName ?? '-'}
-        </Text>
-        <Text size="md" c="dimmed">
           입학년도: {entryYear}년
         </Text>
       </Group>
@@ -261,6 +257,12 @@ export default function My() {
           <CourseMyTableChart data={courseListWithPeriod} />
         </Col>
       </Grid>
+      <Space h={60} />
+      <Center mt="lg" mb="xl" pb="xl">
+        <Text size="md" c="dimmed" ta="center">
+          언제나 여러분의 성공적인 학업 여정을 응원합니다! 🎓🚀
+        </Text>
+      </Center>
     </Container>
   );
 }
