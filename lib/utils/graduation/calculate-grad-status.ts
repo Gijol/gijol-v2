@@ -1,4 +1,3 @@
-// grad-calc-v2.ts
 import type {
   GradStatusRequestBody,
   GradStatusResponseType,
@@ -109,6 +108,7 @@ export function calculateGradStatusV2(
     allCourses: takenCourses,
     grouped,
     ruleSet,
+    entryYear
   });
 
   // 5) 세부 요건을 기준으로 카테고리 satisfied 보정

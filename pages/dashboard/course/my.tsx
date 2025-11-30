@@ -223,6 +223,7 @@ export default function My() {
         <Text size="md" c="dimmed">
           학번: {studentId}
         </Text>
+        <Text size="md" c="dimmed">전공: {majorName}</Text>
         <Text size="md" c="dimmed">
           입학년도: {entryYear}년
         </Text>

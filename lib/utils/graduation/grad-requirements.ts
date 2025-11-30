@@ -41,7 +41,9 @@ function isWritingCourse(c: TakenCourseType) {
 }
 
 // SW 기초 vs 컴퓨터 프로그래밍
-const SW_BASIC_CODES = new Set(['GS1490']); // 'SW 기초와 코딩' 실제 코드 넣기
+// 2018학번~: SW 기초와 코딩 / (MOOC)파이썬 기초 중 택1 2학점,
+//            단 컴퓨터 프로그래밍 이수 시 면제
+const SW_BASIC_CODES = new Set(['GS1490', 'GS1499']); // 'SW 기초와 코딩'
 const COMP_PROG_CODES = new Set(['GS1401']); // 컴퓨터 프로그래밍
 
 function isSwBasicCourse(c: TakenCourseType) {
@@ -67,7 +69,8 @@ function isPpeCourse(c: TakenCourseType) {
 }
 
 // 기초과학 세부: 수학 / 과학 분야 / 실험
-const MATH_CODES = new Set(['GS1001', 'GS2001', 'GS2002', 'GS2004']); // 미적분, 해석학, 선형대수 등
+// 편람의 "수학 6학점" 체크용
+const MATH_CODES = new Set(['GS1001', 'GS2001', 'GS2002', 'GS2004']); // 미적분, 해석학, 미분방정식, 선형대수 등
 
 function isMathCourse(c: TakenCourseType) {
   const code = normalizeCode(c.courseCode);
@@ -76,11 +79,43 @@ function isMathCourse(c: TakenCourseType) {
   return name.includes('수학') || name.includes('미적분') || name.includes('해석학');
 }
 
+// 분야별 기초과학 강의 탐지 (전컴/생명/물리/화학)
+function isCsBasicLecture(c: TakenCourseType) {
+  // 전컴: 컴퓨터 프로그래밍을 기초과학(전컴)으로 본다
+  return isComputerProgrammingCourse(c);
+}
+function isBioBasicLecture(c: TakenCourseType) {
+  const name = normalizeName(c.courseName);
+  return name.includes('생물학') || name.includes('인간 생물학');
+}
+function isPhysicsBasicLecture(c: TakenCourseType) {
+  const name = normalizeName(c.courseName);
+  return name.includes('일반물리학') || name.includes('고급일반물리학');
+}
+function isChemBasicLecture(c: TakenCourseType) {
+  const name = normalizeName(c.courseName);
+  return name.includes('일반화학') || name.includes('고급일반화학');
+}
+
 // 실험 여부는 과목명/코드에 '실험', 'lab'이 들어가는지로 근사
 function isExperimentCourse(c: TakenCourseType) {
   const code = normalizeCode(c.courseCode);
   const name = normalizeName(c.courseName);
   return name.includes('실험') || name.includes('lab') || /[0-9]11$/.test(code); // 예: GS1111
+}
+
+// 분야별 실험 (강의와 연계 이수 체크용)
+function isBioExperiment(c: TakenCourseType) {
+  const name = normalizeName(c.courseName);
+  return name.includes('생물학실험');
+}
+function isPhysicsExperiment(c: TakenCourseType) {
+  const name = normalizeName(c.courseName);
+  return name.includes('물리학실험');
+}
+function isChemExperiment(c: TakenCourseType) {
+  const name = normalizeName(c.courseName);
+  return name.includes('화학실험');
 }
 
 // 새내기/전공탐색/공통 필수
@@ -117,10 +152,11 @@ interface AnalyzeContext {
   allCourses: TakenCourseType[];
   grouped: Record<CategoryKey, TakenCourseType[]>;
   ruleSet: YearRuleSet;
+  entryYear: number;
 }
 
 export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRequirement[] {
-  const { allCourses, grouped } = ctx;
+  const { allCourses, grouped, ruleSet, entryYear } = ctx;
   const reqs: FineGrainedRequirement[] = [];
 
   // 1) 언어의 기초: 영어 4, 글쓰기 3
@@ -174,7 +210,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
     importance: 'must',
     hint: 'HUS(인문사회) prefix의 과목에서 6학점을 채워야 합니다.',
     relatedCoursePatterns: {
-      codePrefixes: ['HS'],
+      codePrefixes: ['HS, GS'],
     },
   });
 
@@ -189,11 +225,12 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
     importance: 'must',
     hint: 'PPE(철학·정치·경제) 계열 과목에서 6학점을 채워야 합니다.',
     relatedCoursePatterns: {
-      codePrefixes: ['PP'],
+      codePrefixes: ['HS, GS'],
     },
   });
 
   // 3) 소프트웨어: SW 기초와 코딩 2학점 (컴프로그 이수시 면제)
+  // 2018학번 이후만 서비스 대상이므로 별도 하위 학번 분기는 생략
   const swBasicCredits = sumCredits(allCourses, isSwBasicCourse);
   const compProgCredits = sumCredits(allCourses, isComputerProgrammingCourse);
   const swSatisfied = compProgCredits > 0 || swBasicCredits >= 2;
@@ -209,7 +246,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
     satisfied: swSatisfied,
     importance: 'must',
     hint:
-      'SW 기초와 코딩 2학점을 듣거나, 컴퓨터 프로그래밍 과목을 이수하면 이 요건이 충족됩니다.',
+      'SW 기초와 코딩(GS1490) 또는 (MOOC지정)파이썬 기초(GS1499) 2학점을 이수하거나, 컴퓨터 프로그래밍(GS1401)을 이수하면 SW 요건이 충족됩니다.',
     relatedCoursePatterns: {
       nameKeywords: ['sw 기초', '코딩', '컴퓨터 프로그래밍'],
     },
@@ -220,6 +257,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   const mathCredits = sumCredits(sciCourses, isMathCourse);
   const experimentCredits = sumCredits(sciCourses, isExperimentCourse);
 
+  // 4-1) 수학 6학점
   reqs.push({
     id: 'science-math',
     categoryKey: 'scienceBasic',
@@ -235,6 +273,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
     },
   });
 
+  // 4-2) 실험 총 2학점 이상
   reqs.push({
     id: 'science-experiment',
     categoryKey: 'scienceBasic',
@@ -249,6 +288,119 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
       nameKeywords: ['실험', 'lab'],
     },
   });
+
+    // 4-3) 전컴/생명/물리/화학 분야별 강의 구성 (9학점 / 3개 분야 규칙 근사 구현)
+  const csLectureCredits = sumCredits(sciCourses, isCsBasicLecture);
+  const bioLectureCredits = sumCredits(sciCourses, isBioBasicLecture);
+  const physLectureCredits = sumCredits(sciCourses, isPhysicsBasicLecture);
+  const chemLectureCredits = sumCredits(sciCourses, isChemBasicLecture);
+
+  const basicLectureTotal =
+    csLectureCredits + bioLectureCredits + physLectureCredits + chemLectureCredits;
+
+  // 각 분야를 "3학점 이상 이수했는지"로 본다
+  const hasCs = csLectureCredits >= 3;
+  const hasBio = bioLectureCredits >= 3;
+  const hasPhys = physLectureCredits >= 3;
+  const hasChem = chemLectureCredits >= 3;
+
+  const fieldsTakenCount = [hasCs, hasBio, hasPhys, hasChem].filter(Boolean).length;
+
+  // 편람 해석:
+  // - 전컴 미이수 시: 생명/물리/화학 3개 분야 강의 및 실험 모두 필수
+  // - 전컴 이수 시: 생명/물리/화학 중 2개 분야 선택 가능 + 전컴 포함하여 총 3분야
+  const hasCompProg = csLectureCredits >= 3;
+
+  // "9학점 이상" 체크
+  const lectureTotalSatisfied = basicLectureTotal >= 9;
+
+  // "분야 수" + 전컴 여부 조건
+  const fieldsSatisfied = hasCompProg
+    ? // 전컴 포함 3개 분야, B/P/C 중 최소 2개
+      lectureTotalSatisfied &&
+      fieldsTakenCount >= 3 &&
+      [hasBio, hasPhys, hasChem].filter(Boolean).length >= 2
+    : // 전컴 미이수 시: 생명/물리/화학 3개 분야 모두
+      lectureTotalSatisfied && hasBio && hasPhys && hasChem;
+
+  reqs.push({
+    id: 'science-basic-lecture-total',
+    categoryKey: 'scienceBasic',
+    label: '기초과학 - 전컴/생명/물리/화학 강의 9학점 이상',
+    requiredCredits: 9,
+    acquiredCredits: basicLectureTotal,
+    missingCredits: Math.max(0, 9 - basicLectureTotal),
+    satisfied: lectureTotalSatisfied,
+    importance: 'must',
+    hint:
+      '컴퓨터 프로그래밍, 생물학/인간 생물학, 일반/고급일반물리학, 일반/고급일반화학 중에서 강의 과목을 합산하여 최소 9학점을 이수해야 합니다.',
+  });
+
+  reqs.push({
+    id: 'science-basic-fields',
+    categoryKey: 'scienceBasic',
+    label: '기초과학 - 전컴/생명/물리/화학 3개 분야 강의 구성',
+    requiredCredits: 3, // 필요한 분야 수
+    acquiredCredits: fieldsTakenCount,
+    missingCredits: Math.max(0, 3 - fieldsTakenCount),
+    satisfied: fieldsSatisfied,
+    importance: 'must',
+    hint:
+      hasCompProg
+        ? '컴퓨터 프로그래밍(전컴) + 생명/물리/화학 중 2개 분야 강의를 포함해 총 3개 분야에서 강의를 이수해야 합니다.'
+        : '컴퓨터 프로그래밍을 이수하지 않은 경우, 생명·물리·화학 3개 분야 강의를 모두 이수해야 합니다.',
+  });
+
+  // 4-4) 생명/물리/화학 강의와 실험 연계 (강의 이수 시 해당 실험 1학점 이상 필요)
+  const bioExperimentCredits = sumCredits(sciCourses, isBioExperiment);
+  const physExperimentCredits = sumCredits(sciCourses, isPhysicsExperiment);
+  const chemExperimentCredits = sumCredits(sciCourses, isChemExperiment);
+
+  const needsBioExp = hasBio;
+  const needsPhysExp = hasPhys;
+  const needsChemExp = hasChem;
+
+  if (needsBioExp) {
+    reqs.push({
+      id: 'science-experiment-bio',
+      categoryKey: 'scienceBasic',
+      label: '기초과학 - 생명 분야 실험',
+      requiredCredits: 1,
+      acquiredCredits: bioExperimentCredits,
+      missingCredits: Math.max(0, 1 - bioExperimentCredits),
+      satisfied: bioExperimentCredits >= 1,
+      importance: 'must',
+      hint: '생명 분야 강의(생물학/인간 생물학)를 이수한 경우, 일반생물학실험 등 생명실험 과목을 최소 1학점 이상 이수해야 합니다.',
+    });
+  }
+
+  if (needsPhysExp) {
+    reqs.push({
+      id: 'science-experiment-physics',
+      categoryKey: 'scienceBasic',
+      label: '기초과학 - 물리 분야 실험',
+      requiredCredits: 1,
+      acquiredCredits: physExperimentCredits,
+      missingCredits: Math.max(0, 1 - physExperimentCredits),
+      satisfied: physExperimentCredits >= 1,
+      importance: 'must',
+      hint: '물리 강의(일반물리학 및 연습 I, 고급일반물리학 및 연습 I 등)를 이수한 경우, 일반물리학실험 I 등 물리실험 과목을 최소 1학점 이상 이수해야 합니다.',
+    });
+  }
+
+  if (needsChemExp) {
+    reqs.push({
+      id: 'science-experiment-chemistry',
+      categoryKey: 'scienceBasic',
+      label: '기초과학 - 화학 분야 실험',
+      requiredCredits: 1,
+      acquiredCredits: chemExperimentCredits,
+      missingCredits: Math.max(0, 1 - chemExperimentCredits),
+      satisfied: chemExperimentCredits >= 1,
+      importance: 'must',
+      hint: '화학 강의(일반화학 및 연습 I, 고급일반화학 및 연습 I 등)를 이수한 경우, 일반화학실험 I 등 화학실험 과목을 최소 1학점 이상 이수해야 합니다.',
+    });
+  }
 
   // 5) 새내기/전공탐색/공통 (과학기술과 경제)
   const freshmanCredits = sumCredits(allCourses, isFreshmanSeminar);
@@ -267,17 +419,20 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
     hint: '1학년 1학기에 개설되는 GIST 새내기(또는 신입생 세미나)를 반드시 수강해야 합니다.',
   });
 
-  reqs.push({
-    id: 'etc-major-exploration',
-    categoryKey: 'etcMandatory',
-    label: 'GIST 전공탐색 1학점',
-    requiredCredits: 1,
-    acquiredCredits: majorExplorationCredits,
-    missingCredits: Math.max(0, 1 - majorExplorationCredits),
-    satisfied: majorExplorationCredits >= 1,
-    importance: 'must',
-    hint: '1학년 2학기에 개설되는 GIST 전공탐색 과목을 반드시 수강해야 합니다.',
-  });
+  // 전공탐색: 2021학번부터 필수
+  if (entryYear >= 2021) {
+    reqs.push({
+      id: 'etc-major-exploration',
+      categoryKey: 'etcMandatory',
+      label: 'GIST 전공탐색 1학점',
+      requiredCredits: 1,
+      acquiredCredits: majorExplorationCredits,
+      missingCredits: Math.max(0, 1 - majorExplorationCredits),
+      satisfied: majorExplorationCredits >= 1,
+      importance: 'must',
+      hint: '1학년 가을학기에 개설되는 GIST 전공탐색(UC0902)을 반드시 수강해야 합니다. (반도체공학과 예외는 별도 처리 필요)',
+    });
+  }
 
   reqs.push({
     id: 'etc-economy',
@@ -334,6 +489,10 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
 
   // 7) 전공 학점 최소/최대
   const majorCredits = sumCredits(grouped.major ?? []);
+  // 2018학번 이후 기준: 36~42 (신소재 예외는 ruleSet에서 관리한다고 가정)
+  const majorMinRequired = 36;
+  const majorMaxAllowed = 42;
+  
   reqs.push(
     {
       id: 'major-min',

@@ -1,6 +1,5 @@
-// pages/graduation/parse.tsx
 import React, { useState, useEffect } from 'react';
-import { Paper, Text, Group, Button } from '@mantine/core';
+import { Paper, Text, Group, Button, NumberInput, TextInput, MultiSelect, Select } from '@mantine/core';
 import { useRouter } from 'next/router';
 
 import {
@@ -18,18 +17,80 @@ import {
 import { ParsedCourseEditableTable } from '@components/graduation/parse-course-editable-table';
 import { GradUploadPanel } from '@components/graduation/upload-panel';
 
+// ✅ 2025 학사편람 기준(대략) 전공 리스트
+const MAJOR_OPTIONS = [
+  { value: '전기전자컴퓨터공학부', label: '전기전자컴퓨터공학부' },
+  { value: '신소재공학과', label: '신소재공학과' },
+  { value: '기계로봇공학과', label: '기계로봇공학과' },
+  { value: '환경·에너지공학과', label: '환경·에너지공학과' },
+  { value: '생명과학과', label: '생명과학과' },
+  { value: '물리·광과학과', label: '물리·광과학과' },
+  { value: '화학과', label: '화학과' },
+  { value: '수리과학과', label: '수리과학과' },
+  { value: 'AI융합학과', label: 'AI융합학과' },
+  { value: '반도체공학과', label: '반도체공학과' },
+];
+
+// GIST 기준 예시 부전공 목록 (필요하면 수정/추가)
+const MINOR_OPTIONS = [
+  { value: '전기전자컴퓨터', label: '전기전자컴퓨터' },
+  { value: '신소재', label: '신소재공학' },
+  { value: '기계로봇', label: '기계로봇공학' },
+  { value: '환경에너지', label: '환경·에너지공학' },
+  { value: '생명과학', label: '생명과학' },
+  { value: '물리광과학', label: '물리·광과학' },
+  { value: '화학', label: '화학' },
+  { value: '수리과학', label: '수리과학' },
+  { value: '의생명', label: '의생명' },
+  { value: '에너지', label: '에너지' },
+  { value: '문화기술', label: '문화기술' },
+  { value: '지능로봇', label: '지능로봇' },
+  { value: '인문사회', label: '인문사회' },
+  { value: 'AI융합', label: 'AI융합' },
+];
+
 export default function GraduationParsePage() {
   const router = useRouter();
   const { parsed, setFromParsed } = useGraduationStore();
   const [rows, setRows] = useState<EditableCourseRow[]>([]);
   const [saving, setSaving] = useState(false);
 
+  // 입학년도 / 전공 / 부전공 입력 상태
+  const [entryYear, setEntryYear] = useState<number>(2020);
+  const [major, setMajor] = useState<string>('');
+  const [minors, setMinors] = useState<string[]>([]);
+
+
   // parsed가 바뀌면 editable rows 초기화
   useEffect(() => {
     if (parsed) {
       setRows(toEditableRows(parsed));
+
+      const inferred = inferEntryYear(parsed);
+      if (inferred) {
+        setEntryYear(inferred);
+      } else {
+        setEntryYear(2020);
+      }
+
+      // 전공 추론
+      const parsedMajor =
+        (parsed as any).major ||
+        (parsed as any).department ||
+        '';
+      setMajor(parsedMajor);
+
+      // 부전공: 배열 그대로 반영
+      const parsedMinors: string[] =
+        (parsed as any).minors ||
+        (parsed as any).userMinors ||
+        [];
+      setMinors(parsedMinors);
     } else {
       setRows([]);
+      setEntryYear(2020);
+      setMajor('');
+      setMinors([]);
     }
   }, [parsed]);
 
@@ -63,15 +124,38 @@ export default function GraduationParsePage() {
 
     try {
       const updated = applyEditableRowsToUserStatus(parsed, rows);
-      const entryYear = inferEntryYear(updated);
-      const userMajor = (updated as any).major || (updated as any).department || undefined;
       const takenCourses = toTakenCourses(updated);
 
+      // 1차: UI에서 선택된 entryYear 사용
+      // 2차: 데이터 기반 재추론
+      // 3차: fallback = 2020
+      const inferredFromData = inferEntryYear(updated);
+      const finalEntryYear =
+        typeof entryYear === 'number' && !Number.isNaN(entryYear)
+          ? entryYear
+          : inferredFromData ?? new Date().getFullYear();
+
+       // 2018 이전 학번은 서비스 대상이 아니므로, 여기서 방어적으로 처리할 수도 있음
+      // (단순 경고용으로 쓰고, 로직은 그대로 돌릴 수도)
+      // if (finalEntryYear < 2018) {
+      //   // TODO: UI에서 경고 메시지 보여주기 등
+      // }
+
+      const fallbackMajor =
+        (updated as any).major ||
+        (updated as any).department ||
+        undefined;
+
+      const userMajor = major || fallbackMajor;
+
+      const userMinors = minors;
+      
+
       const payload = {
-        entryYear: entryYear ?? new Date().getFullYear(),
+        entryYear: finalEntryYear,
         takenCourses,
         userMajor,
-        userMinors: [],
+        userMinors,
       };
 
       const grad = await gradStatusFetchFn(payload);
@@ -80,6 +164,7 @@ export default function GraduationParsePage() {
         parsed: updated,
         takenCourses,
         gradStatus: grad,
+        userMajor
       });
 
       router.push('/dashboard/graduation');
@@ -106,6 +191,52 @@ export default function GraduationParsePage() {
               아래에서 파싱된 수강 내역을 확인하고, 필요하다면 직접 수정하거나 행을 추가/삭제할 수
               있습니다.
             </Text>
+
+            
+            {/* 입학년도 필드: inferEntryYear로 자동 채워주고, 수정 가능 */}
+            <Paper withBorder radius="md" p="md" mb="md">
+              <Text size="xs" c="dimmed">
+                  2018학번 이후만 현재 서비스 대상입니다.
+                </Text>
+              <Group align="flex-end" spacing="md">
+                <NumberInput
+                  label="입학년도 (학번 기준)"
+                  placeholder="예: 2021"
+                  value={entryYear}
+                  onChange={(value) => {
+                    // Mantine NumberInput은 number | '' | null을 줄 수 있음
+                    if (value === null) setEntryYear(2020);
+                    else setEntryYear(Number(value));
+                  }}
+                  min={2010}
+                  max={new Date().getFullYear()}
+                  step={1}
+                />
+                
+                <Select
+                  label="전공"
+                  placeholder="전공을 선택하세요"
+                  data={MAJOR_OPTIONS}
+                  value={major}
+                  onChange={(value) => setMajor(value || '')}
+                  searchable
+                  clearable
+                  nothingFound="해당 전공이 없습니다"
+                />
+
+                <MultiSelect
+                  label="부전공(선택)"
+                  placeholder="부전공을 복수 선택하세요"
+                  data={MINOR_OPTIONS}
+                  value={minors}
+                  onChange={setMinors}
+                  searchable
+                  clearable
+                  nothingFound="해당 이름의 부전공이 없습니다"
+                />
+                
+              </Group>
+            </Paper>
 
             <Paper withBorder radius="md" p="md">
               <ParsedCourseEditableTable
