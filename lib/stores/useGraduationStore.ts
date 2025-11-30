@@ -3,11 +3,17 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { UserStatusType } from '@lib/types/index';
 import type { GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
+import { FineGrainedRequirement } from '@lib/types/grad-requirements';
+
+export type GradStatusExtended = GradStatusResponseType & {
+  fineGrainedRequirements?: FineGrainedRequirement[];
+};
+
 
 type GraduationState = {
   parsed: UserStatusType | null;
   takenCourses: TakenCourseType[];
-  gradStatus: GradStatusResponseType | null;
+  gradStatus: GradStatusExtended | null;
 
   setFromParsed: (args: {
     parsed: UserStatusType;
