@@ -41,7 +41,7 @@ function isWritingCourse(c: TakenCourseType) {
 }
 
 // SW 기초 vs 컴퓨터 프로그래밍
-const SW_BASIC_CODES = new Set(['GS14XX']); // 'SW 기초와 코딩' 실제 코드 넣기
+const SW_BASIC_CODES = new Set(['GS1490']); // 'SW 기초와 코딩' 실제 코드 넣기
 const COMP_PROG_CODES = new Set(['GS1401']); // 컴퓨터 프로그래밍
 
 function isSwBasicCourse(c: TakenCourseType) {
@@ -60,12 +60,10 @@ function isComputerProgrammingCourse(c: TakenCourseType) {
 
 // 인문사회 세부: HUS, PPE
 function isHusCourse(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
-  return code.startsWith('HS'); // 필요시 더 정교하게
+  return c.courseType === "HUS"
 }
 function isPpeCourse(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
-  return code.startsWith('PP'); // PPE 과목 prefix 기준으로 조정
+  return c.courseType === "PPE"
 }
 
 // 기초과학 세부: 수학 / 과학 분야 / 실험

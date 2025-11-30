@@ -17,7 +17,7 @@ export interface GradStatusResponseV2 extends GradStatusResponseType {
 }
 
 
-// 기존 buildSingleCategory 재활용 (필요하다면 약간 확장)
+// 기존 buildSingleCategory
 function buildSingleCategory(
   categoryKey: CategoryKey,
   takenCourses: TakenCourseType[],

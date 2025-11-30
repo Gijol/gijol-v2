@@ -166,33 +166,4 @@ export function classifyCourse(
   return 'otherUncheckedClass';
 }
 
-function buildSingleCategory(
-  categoryKey: CategoryKey,
-  takenCourses: TakenCourseType[],
-  minConditionCredits: number
-): SingleCategoryType {
-  const totalCredits = takenCourses.reduce((s, c) => s + (Number(c.credit) || 0), 0);
-  const required = minConditionCredits || 0;
-  const satisfied = totalCredits >= required;
-
-  const messages: string[] = [];
-  if (required === 0) {
-    messages.push('필수 이수학점이 없는 영역입니다.');
-  } else if (satisfied) {
-    messages.push(`충족됨 — 최소 ${required}학점, 현재 ${totalCredits}학점`);
-  } else {
-    messages.push(
-      `미충족 — 최소 ${required}학점 필요, 현재 ${totalCredits}학점 (부족 ${
-        required - totalCredits
-      }학점)`
-    );
-  }
-  return {
-    messages,
-    minConditionCredits: required,
-    satisfied,
-    totalCredits,
-    userTakenCoursesList: { takenCourses },
-  };
-}
 
