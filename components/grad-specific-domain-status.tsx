@@ -114,7 +114,7 @@ export default function GradSpecificDomainStatus({
               <Accordion.Panel className={classes.background} h="fit-content">
                 <Stack miw={200} w="100%" mb={40}>
                   <Title order={matches ? 3 : 4}>요구사항</Title>
-                  <ScrollArea mah={280} h="fit-content">
+                  <ScrollArea h="fit-content">
                     <Space h={16} />
                     {satisfied && (
                       <Alert
