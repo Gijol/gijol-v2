@@ -107,15 +107,15 @@ function isExperimentCourse(c: TakenCourseType) {
 // 분야별 실험 (강의와 연계 이수 체크용)
 function isBioExperiment(c: TakenCourseType) {
   const name = normalizeName(c.courseName);
-  return name.includes('생물학실험');
+  return isExperimentCourse(c) && name.includes('일반생물학');
 }
 function isPhysicsExperiment(c: TakenCourseType) {
   const name = normalizeName(c.courseName);
-  return name.includes('물리학실험');
+  return isExperimentCourse(c) && name.includes('일반물리학');
 }
 function isChemExperiment(c: TakenCourseType) {
   const name = normalizeName(c.courseName);
-  return name.includes('화학실험');
+  return isExperimentCourse(c) && name.includes('일반화학') ;
 }
 
 // 새내기/전공탐색/공통 필수
