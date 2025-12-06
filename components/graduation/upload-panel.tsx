@@ -1,11 +1,10 @@
 // components/graduation/GradUploadPanel.tsx
 import React, { useRef, useState } from 'react';
-import { Box, Button, Container, Group, Space, Stack, Text, Title } from '@mantine/core';
+import { Box, Button, Container, Group, Space, Text, Title } from '@mantine/core';
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
 import { useRouter } from 'next/router';
 
 import Loading from '@components/loading';
-import { readFileAndParse } from '@utils/graduation/grad-formatter';
 import type { UserStatusType } from '@lib/types/index';
 import type {
   GradStatusRequestBody,
@@ -18,7 +17,7 @@ import {
   toTakenCourses,
 } from '@utils/graduation/grad-status-helper';
 import { useGraduationStore } from '../../lib/stores/useGraduationStore';
-import { STORAGE_KEY } from '../../lib/stores/storage-key';
+import { PARSED_EDITABLE_STATE_KEY } from '../../lib/stores/storage-key';
 import { uploadGradeReportViaApi } from '@utils/graduation/upload-grade-report-via-api';
 
 type GradUploadPanelProps = {
@@ -96,11 +95,12 @@ export function GradUploadPanel({
         parsed: res,
         takenCourses: tc,
         gradStatus: grad ?? null,
+        userMajor: ''
       });
 
       // ✅ 5) localStorage 저장
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(res));
+        localStorage.setItem(PARSED_EDITABLE_STATE_KEY, JSON.stringify(res));
       } catch {
         // ignore
       }
@@ -158,7 +158,7 @@ export function GradUploadPanel({
     setFile(null);
     reset();
     try {
-      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(PARSED_EDITABLE_STATE_KEY);
     } catch {
       // ignore
     }

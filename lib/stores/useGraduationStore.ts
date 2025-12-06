@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware';
 import type { UserStatusType } from '@lib/types/index';
 import type { GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
 import { FineGrainedRequirement } from '@lib/types/grad-requirements';
+import { PARSED_PROCESSED_STATE_KEY } from './storage-key';
 
 export type GradStatusExtended = GradStatusResponseType & {
   fineGrainedRequirements?: FineGrainedRequirement[];
@@ -40,7 +41,7 @@ export const useGraduationStore = create<GraduationState>()(
       reset: () => set({ parsed: null, takenCourses: [], gradStatus: null, userMajor: '' }),
     }),
     {
-      name: 'gijol_grad_state_v1', // localStorage key
+      name: PARSED_PROCESSED_STATE_KEY, // localStorage key
     }
   )
 );

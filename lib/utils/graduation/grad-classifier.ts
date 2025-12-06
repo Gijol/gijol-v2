@@ -1,10 +1,9 @@
+// 수강한 강의명, 강의 코드 기반으로 언어기초,기초과학,전공,부전공,인문,기타의무,자유학점으로 구분하는 역할
+
 import type {
-  GradStatusRequestBody,
-  GradStatusResponseType,
   TakenCourseType,
 } from '@lib/types/grad';
-import type { SingleCategoryType } from '@lib/types/grad';
-import { pickRuleSet, YearRuleSet } from './grad-rules';
+
 
 // Helper: normalize code/name
 function normalizeCode(code?: string) {
