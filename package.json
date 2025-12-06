@@ -19,7 +19,6 @@
     "storybook:build": "build-storybook"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.23.2",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@fullcalendar/core": "^6.1.10",
@@ -40,7 +39,6 @@
     "@mantine/notifications": "^6.0.10",
     "@mantine/prism": "6.0.0",
     "@next/bundle-analyzer": "^13.1.6",
-    "@notionhq/client": "^2.2.5",
     "@react-pdf/renderer": "^3.1.14",
     "@tabler/icons-react": "^2.4.0",
     "@tanstack/react-query": "^4.29.7",
@@ -52,7 +50,7 @@
     "embla-carousel-react": "^7.0.3",
     "formidable": "^3.5.4",
     "micro": "^10.0.1",
-    "next": "13.1.6",
+    "next": "13.5.11",
     "next-auth": "^4.22.1",
     "playwright-core": "^1.31.2",
     "prop-types": "^15.8.1",
