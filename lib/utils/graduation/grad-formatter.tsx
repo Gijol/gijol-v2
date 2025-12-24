@@ -2,6 +2,7 @@ import { GradeReportParser } from '../parser/grade/gradeReportParser';
 import { GradStatusResponseType, SingleCategoryType } from '@lib/types/grad';
 import { UserStatusType } from '../../types';
 import { notifications } from '@mantine/notifications';
+import { IconCircleCheck, IconCircleX } from '@tabler/icons-react';
 
 // 정말 간단한 최소 검증 예시 — 필요하면 더 강화하면 됨
 function isValidUserStatus(parsed: any): parsed is UserStatusType {
@@ -243,16 +244,16 @@ function createStatusColor(verifiedStatus: Satisfaction): string {
       return 'gray'; // gray.5
   }
 }
-function createStatusMessage(verifiedStatus: Satisfaction): string {
+function createStatusMessage(verifiedStatus: Satisfaction): React.ReactNode {
   switch (verifiedStatus) {
     case 'satisfied':
-      return '✅';
+      return <IconCircleCheck size="24" color="green" />;
     case 'unSatisfied':
-      return '❌';
+      return <IconCircleX size="24" color="red" />;
     case 'notRequired':
-      return '필수 아님';
+      return <span>필수 아님</span>;
     default:
-      return '오류';
+      return <span>오류</span>;
   }
 }
 

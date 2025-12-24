@@ -66,63 +66,6 @@ export default function GraduationStatusPage() {
         🙏 졸업요건 현황
       </Title>
 
-      {/* ✅ 상단 요약 카드 */}
-      <Paper radius="lg" p="lg" mb="xl">
-        <Group position="apart" align="center">
-          <Stack spacing={4}>
-            <Stack spacing={4}>
-              <Group spacing="md">
-                <Text c="dimmed" fz="xs">
-                  학번
-                </Text>
-                <Text fw={500}>{parsed.studentId}</Text>
-              </Group>
-
-              {entryYear && (
-                <Group spacing="md">
-                  <Text c="dimmed" fz="xs">
-                    입학년도
-                  </Text>
-                  <Text fw={500}>{entryYear}년</Text>
-                </Group>
-              )}
-            </Stack>
-          </Stack>
-
-          <Group align="center">
-            <Text size="xl" fw={600}>
-              {generatePercentMsg(overallProps.totalPercentage)}
-            </Text>
-          </Group>
-
-          <Stack spacing={4} align="flex-end">
-            <RingProgress
-              roundCaps
-              size={matches ? 80 : 64}
-              thickness={matches ? 6 : 4}
-              sections={[
-                {
-                  value: overallProps.totalPercentage,
-                  tooltip: `130학점 중 ${overallProps.totalPercentage}학점`,
-                  color: 'indigo',
-                },
-              ]}
-              label={
-                <Text
-                  fz={matches ? 'md' : 'sm'}
-                  align="center"
-                  color="indigo"
-                  fw={600}
-                  sx={{ whiteSpace: 'pre-wrap', wordBreak: 'keep-all' }}
-                >
-                  {overallProps.totalPercentage}%
-                </Text>
-              }
-            />
-          </Stack>
-        </Group>
-      </Paper>
-
       {/* ✅ 전체 요약 + 영역 테이블 */}
       <GradOverallStatus
         scrollIntoView={scrollIntoView}

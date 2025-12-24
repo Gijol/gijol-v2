@@ -1,12 +1,4 @@
-import {
-  GradCategoriesType,
-  SingleCategoryType,
-  TakenCourseType,
-  UserTakenCourseListType,
-  GradStatusResponseType,
-} from '@lib/types/grad';
-import { ex } from '@fullcalendar/core/internal-common';
-import exp from 'node:constants';
+import { GradCategoriesType } from '@lib/types/grad';
 
 export type CategoryKey = keyof GradCategoriesType;
 

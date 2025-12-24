@@ -19,10 +19,7 @@ import {
 } from '@mantine/core';
 import { IconAlertCircle, IconCircleCheck } from '@tabler/icons-react';
 import { SingleCategoryType } from '../lib/types/grad';
-import {
-  createSpecificStatusMessage,
-  getDomainColor,
-} from '../lib/utils/graduation/grad-formatter';
+import { createSpecificStatusMessage, getDomainColor } from '@utils/graduation/grad-formatter';
 import { matches } from '@mantine/form';
 import { useMediaQuery } from '@mantine/hooks';
 
