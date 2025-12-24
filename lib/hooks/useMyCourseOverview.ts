@@ -7,7 +7,7 @@ import { useGraduationStore } from '../stores/useGraduationStore';
 const TOTAL_REQUIRED_CREDITS = 130;
 
 export function useMyCourseOverview() {
-  const { parsed, takenCourses, gradStatus } = useGraduationStore();
+  const { parsed, userMajor, takenCourses, gradStatus } = useGraduationStore();
 
   const courseListWithPeriod: CourseListWithPeriod[] = useMemo(
     () => buildCourseListWithPeriod(parsed),
@@ -42,11 +42,7 @@ export function useMyCourseOverview() {
   const progress = Math.min((totalCredit / TOTAL_REQUIRED_CREDITS) * 100, 100);
 
   const studentId = parsed?.studentId;
-  const majorName =
-    (parsed as any)?.majorName ||
-    (parsed as any)?.major ||
-    (parsed as any)?.department ||
-    undefined;
+  const majorName = userMajor;
 
   const entryYear =
     (parsed as any)?.entryYear ??

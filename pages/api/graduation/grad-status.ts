@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { calculateGradStatus } from '@utils/graduation/calculate-grad-status';
 import type {
   GradStatusRequestBody,
   GradStatusResponseType,
   TakenCourseType,
 } from '@lib/types/grad';
 import { initialValue } from '@const/grad-status-constants';
+import { calculateGradStatusV2 } from '@utils/graduation/calculate-grad-status';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   // GET: return example/default grad status (useful for development/testing)
@@ -50,7 +50,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       userMinors: Array.isArray(body.userMinors) ? (body.userMinors as string[]) : undefined,
     };
 
-    const status = calculateGradStatus(requestBody);
+    const status = calculateGradStatusV2(requestBody);
     return res.status(200).json(status as GradStatusResponseType);
   } catch (err: any) {
     console.error('grad-status POST error', err);
