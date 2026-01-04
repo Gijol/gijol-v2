@@ -1,34 +1,16 @@
 import React from 'react';
-import {
-  Container,
-  Space,
-  Title,
-  Group,
-  Text,
-  Box,
-  Paper,
-  Badge,
-  Stack,
-  Divider,
-  RingProgress,
-  Center,
-} from '@mantine/core';
-import { useMediaQuery, useScrollIntoView } from '@mantine/hooks';
+import { Container, Space, Title, Group, Text, Box, Divider, Center } from '@mantine/core';
+import { useScrollIntoView } from '@mantine/hooks';
 
 import GradOverallStatus from '@components/grad-overall-status';
 import GradSpecificDomainStatus from '@components/grad-specific-domain-status';
 import GradRecommend from '@components/grad-recommend';
-import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
-import {
-  extractOverallStatus,
-  getDomainColor,
-  getFeedbackNumbers,
-} from '@utils/graduation/grad-formatter';
+import { extractOverallStatus, getFeedbackNumbers } from '@utils/graduation/grad-formatter';
 import UploadEmptyState from '@components/graduation/upload-empty-state';
 import { inferEntryYear } from '@utils/graduation/grad-status-helper';
+import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
 
 export default function GraduationStatusPage() {
-  const matches = useMediaQuery(`(min-width: 48em)`);
   const { parsed, gradStatus } = useGraduationStore();
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({ offset: 80 });
 
@@ -56,9 +38,6 @@ export default function GraduationStatusPage() {
       </Container>
     );
   }
-
-  const entryYear = inferEntryYear(parsed as any);
-  const major = (parsed as any).major || (parsed as any).department || undefined;
 
   return (
     <Container size="lg">
@@ -106,15 +85,3 @@ export default function GraduationStatusPage() {
     </Container>
   );
 }
-
-const generatePercentMsg = (percentage: number) => {
-  if (percentage >= 100) {
-    return '🎉 축하드려요! 졸업하실 수 있습니다! 🎉';
-  } else if (percentage >= 80) {
-    return '거의 다 왔어요! 조금만 더 힘내세요! 💪';
-  } else if (percentage >= 50) {
-    return '절반은 왔어요! 꾸준히 채워나가요! 📚';
-  } else {
-    return '아직 갈 길이 멀어요! 계획을 세워봐요! 📝';
-  }
-};
