@@ -15,7 +15,6 @@ export interface GradStatusResponseV2 extends GradStatusResponseType {
   fineGrainedRequirements: FineGrainedRequirement[];
 }
 
-
 // 기존 buildSingleCategory
 function buildSingleCategory(
   categoryKey: CategoryKey,
@@ -67,38 +66,39 @@ export function calculateGradStatusV2(
     otherUncheckedClass: [],
   };
 
-  for (const c of takenCourses) {
-    let k: CategoryKey = 'otherUncheckedClass';
-    try {
-      // 기존 classifyCourse 함수 재활용
-      // (import { classifyCourse } from './calculateGradStatus-old' 등으로 빼놓으면 좋음)
-      // 여기서는 이미 정의되어 있다고 가정
-      // eslint-disable-next-line no-undef
-      k = classifyCourse(c, userMajor, userMinors);
-    } catch {
-      k = 'otherUncheckedClass';
+  takenCourses.forEach((c) => {
+    const k: CategoryKey = classifyCourse(c, userMajor, userMinors);
+    // Ensure the category array exists before pushing
+    if (!grouped[k]) {
+      grouped[k] = [];
     }
     grouped[k].push(c);
-  }
+  });
 
   // 2) ruleSet 기반으로 카테고리별 SingleCategory 생성
   const graduationCategory = {} as GradStatusResponseType['graduationCategory'];
 
-  for (const rule of ruleSet.categories) {
-    const key = rule.key;
-    const bucket = grouped[key] ?? [];
-    const cat = buildSingleCategory(key, bucket, rule.minCredits);
-    graduationCategory[key] = cat;
-  }
+  ruleSet.categories.forEach((rule) => {
+    const bucket = grouped[rule.key] ?? [];
+    graduationCategory[rule.key] = buildSingleCategory(rule.key, bucket, rule.minCredits);
+  });
 
   // 혹시 ruleSet에 없는 카테고리가 있으면 기본 0으로 채워줌
-  (['languageBasic', 'scienceBasic', 'major', 'minor', 'humanities', 'etcMandatory', 'otherUncheckedClass'] as CategoryKey[]).forEach(
-    (key) => {
-      if (!graduationCategory[key]) {
-        graduationCategory[key] = buildSingleCategory(key, grouped[key] ?? [], 0);
-      }
+  (
+    [
+      'languageBasic',
+      'scienceBasic',
+      'major',
+      'minor',
+      'humanities',
+      'etcMandatory',
+      'otherUncheckedClass',
+    ] as CategoryKey[]
+  ).forEach((key) => {
+    if (!graduationCategory[key]) {
+      graduationCategory[key] = buildSingleCategory(key, grouped[key] ?? [], 0);
     }
-  );
+  });
 
   // 3) 총 학점
   const totalCredits = takenCourses.reduce((s, c) => s + (Number(c.credit) || 0), 0);
@@ -108,7 +108,7 @@ export function calculateGradStatusV2(
     allCourses: takenCourses,
     grouped,
     ruleSet,
-    entryYear
+    entryYear,
   });
 
   // 5) 세부 요건을 기준으로 카테고리 satisfied 보정
@@ -130,13 +130,11 @@ export function calculateGradStatusV2(
   fineGrainedRequirements.forEach((req) => {
     if (!req.satisfied && req.requiredCredits > 0 && req.importance === 'must') {
       const cat = graduationCategory[req.categoryKey];
-      const suffix = req.missingCredits
-        ? ` (부족 ${req.missingCredits}학점)`
-        : '';
+      const suffix = req.missingCredits ? ` (부족 ${req.missingCredits}학점)` : '';
       cat.messages.push(
-        `[세부요건 미충족] ${req.label} — 최소 ${req.requiredCredits}학점 중 현재 ${req.acquiredCredits}학점 이수${suffix}${
-          req.hint ? ` / ${req.hint}` : ''
-        }`
+        `[세부요건 미충족] ${req.label} — 최소 ${req.requiredCredits}학점 중 현재 ${
+          req.acquiredCredits
+        }학점 이수${suffix}${req.hint ? ` / ${req.hint}` : ''}`
       );
     }
   });
@@ -147,7 +145,6 @@ export function calculateGradStatusV2(
     .every((c) => graduationCategory[c.key].satisfied);
 
   const totalSatisfied = requiredSatisfied && totalCredits >= ruleSet.minTotalCredits;
-
 
   const base: GradStatusResponseType = {
     graduationCategory,
