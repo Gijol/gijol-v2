@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Container,
   Title,
@@ -20,8 +20,19 @@ import {
 
 import { extractOverallStatus, getPercentage } from '@utils/graduation/grad-formatter';
 import UploadEmptyState from '@components/graduation/upload-empty-state';
-import { IconAlertTriangle, IconCircleCheck } from '@tabler/icons-react';
+import { IconAlertTriangle, IconCircleCheck, IconTrendingUp } from '@tabler/icons-react';
+import { buildCourseListWithPeriod, calcAverageGrade } from '@utils/course/analytics';
 import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
+
+const TOTAL_REQUIRED_CREDITS = 130;
+const toOrdinal = (n: number) => {
+  const j = n % 10;
+  const k = n % 100;
+  if (j === 1 && k !== 11) return `${n}st`;
+  if (j === 2 && k !== 12) return `${n}nd`;
+  if (j === 3 && k !== 13) return `${n}rd`;
+  return `${n}`;
+};
 
 export default function GraduationStatusPage() {
   const { classes } = useStyles();
@@ -48,7 +59,34 @@ export default function GraduationStatusPage() {
   }
 
   const overallProps = extractOverallStatus(gradStatus);
-  const creditsRemaining = Math.max(0, 130 - (overallProps?.totalCredits ?? 0));
+  const totalCreditsEarned = overallProps?.totalCredits ?? 0;
+  const creditsRemaining = Math.max(0, TOTAL_REQUIRED_CREDITS - totalCreditsEarned);
+
+  const courseListWithPeriod = useMemo(() => buildCourseListWithPeriod(parsed), [parsed]);
+  const overallAverageGrade = useMemo(
+    () => calcAverageGrade(courseListWithPeriod.flatMap((t) => t.userTakenCourseList ?? [])),
+    [courseListWithPeriod]
+  );
+  const validTermGrades = courseListWithPeriod.filter((t) => t.grade && t.grade > 0);
+  const gradeDelta =
+    validTermGrades.length >= 2
+      ? validTermGrades[validTermGrades.length - 1].grade -
+        validTermGrades[validTermGrades.length - 2].grade
+      : null;
+
+  const semesterCount = courseListWithPeriod.length;
+  const standingLabel =
+    semesterCount >= 7
+      ? '고인물'
+      : semesterCount >= 5
+      ? '3학년'
+      : semesterCount >= 3
+      ? '2학년'
+      : semesterCount > 0
+      ? '1학년'
+      : '-';
+  const semesterLabel = semesterCount ? `${toOrdinal(semesterCount)} 학기` : '-';
+
   const requirements =
     overallProps?.categoriesArr.map(({ domain, status }) => {
       const required = status?.minConditionCredits ?? 0;
@@ -107,60 +145,86 @@ export default function GraduationStatusPage() {
           ]}
         >
           <Stack spacing="lg">
-            <Paper className={classes.card} p="lg">
+            <Paper className={`${classes.card} ${classes.highlightCard}`} p="lg">
               <Stack spacing="md" align="center">
                 <RingProgress
-                  size={220}
+                  size={230}
                   thickness={16}
                   roundCaps
                   sections={[{ value: overallProps.totalPercentage, color: '#4f46e5' }]}
                   label={
-                    <Stack spacing={0} align="center">
-                      <Text fw={700} size="xl">
-                        {overallProps.totalPercentage}%
-                      </Text>
+                    <Stack spacing={2} align="center">
+                      <Text className={classes.progressValue}>{overallProps.totalPercentage}%</Text>
                       <Text size="xs" className={classes.muted}>
                         Complete
                       </Text>
                     </Stack>
                   }
                 />
-                <Stack spacing={4} align="center">
-                  <Text size="xl" fw={700}>
-                    {creditsRemaining} 학점
-                  </Text>
-                  <Text size="sm" className={classes.muted}>
+                <Stack spacing={6} align="center">
+                  <Text className={classes.dDay}>D-{creditsRemaining}</Text>
+                  <Text size="sm" className={classes.subLabel}>
                     Credits Remaining
                   </Text>
                 </Stack>
-                <Badge radius="xl" variant="outline" color="gray">
-                  Total {overallProps.totalCredits ?? 0} / 130
-                </Badge>
+                <div className={classes.totalPill}>
+                  <Text size="sm" className={classes.muted}>
+                    Total <span className={classes.pillHighlight}>{totalCreditsEarned}</span> /{' '}
+                    {TOTAL_REQUIRED_CREDITS}
+                  </Text>
+                </div>
               </Stack>
             </Paper>
-            <Paper className={classes.card} p="lg">
-              <Stack spacing="md">
-                <Text size="sm" className={classes.statLabel}>
-                  최저 충족 영역
-                </Text>
-                <Text className={classes.statValue}>{overallProps.minDomain}</Text>
-                <Text size="sm" className={classes.muted}>
-                  현재 {overallProps.minDomainPercentage}% 이수중이에요.
-                </Text>
-              </Stack>
-            </Paper>
+
             <Paper className={classes.card} p="lg">
               <Stack spacing="sm">
-                <Text size="sm" className={classes.statLabel}>
-                  진행 요약
+                <Group position="apart" align="center" spacing="xs">
+                  <Text className={classes.metricLabel}>누적 GPA</Text>
+                  {gradeDelta !== null ? (
+                    <Group spacing={4} align="center">
+                      <IconTrendingUp size={16} color={gradeDelta >= 0 ? '#2fb344' : '#f03e3e'} />
+                      <Text
+                        size="sm"
+                        className={gradeDelta >= 0 ? classes.deltaPositive : classes.deltaNegative}
+                      >
+                        {gradeDelta >= 0 ? '+' : ''}
+                        {gradeDelta.toFixed(2)}
+                      </Text>
+                    </Group>
+                  ) : (
+                    <Text size="sm" className={classes.muted}>
+                      최근 변화 없음
+                    </Text>
+                  )}
+                </Group>
+                <Group align="baseline" spacing={6}>
+                  <Text className={classes.gpaValue}>
+                    {overallAverageGrade != null ? overallAverageGrade.toFixed(2) : '-'}
+                  </Text>
+                  <Text size="sm" className={classes.gpaScale}>
+                    / 4.5
+                  </Text>
+                </Group>
+                <Text size="xs" className={classes.muted}>
+                  누적 평균 학점을 기준으로 계산했어요.
                 </Text>
-                <div className={classes.statCard}>
-                  <Text className={classes.statLabel}>총 이수 학점</Text>
-                  <Text className={classes.statValue}>{overallProps.totalCredits ?? 0}</Text>
-                  <Text className={classes.statLabel}>남은 학점</Text>
-                  <Text className={classes.statValue}>{creditsRemaining}</Text>
-                  <Text className={classes.statLabel}>진행률</Text>
-                  <Text className={classes.statValue}>{overallProps.totalPercentage}%</Text>
+              </Stack>
+            </Paper>
+
+            <Paper className={classes.card} p="lg">
+              <Stack spacing="xs">
+                <Text className={classes.metricLabel}>내 정보</Text>
+                <div className={classes.infoRow}>
+                  <Text className={classes.infoKey}>학번</Text>
+                  <Text className={classes.infoValue}>{parsed.studentId ?? '-'}</Text>
+                </div>
+                <div className={classes.infoRow}>
+                  <Text className={classes.infoKey}>구분</Text>
+                  <Text className={classes.infoValue}>{standingLabel}</Text>
+                </div>
+                <div className={classes.infoRow}>
+                  <Text className={classes.infoKey}>학기</Text>
+                  <Text className={classes.infoValue}>{semesterLabel}</Text>
                 </div>
               </Stack>
             </Paper>
@@ -335,6 +399,9 @@ const useStyles = createStyles((theme) => ({
     boxShadow: '0 2px 8px rgba(15, 23, 42, 0.06)',
     borderRadius: theme.radius.md,
   },
+  highlightCard: {
+    borderColor: theme.colors.gray[3],
+  },
   requirementsCard: {
     display: 'flex',
     flexDirection: 'column',
@@ -347,6 +414,73 @@ const useStyles = createStyles((theme) => ({
   },
   scrollViewport: {
     paddingRight: rem(8),
+  },
+  progressValue: {
+    fontWeight: 800,
+    fontSize: rem(32),
+    lineHeight: 1.1,
+  },
+  dDay: {
+    fontWeight: 700,
+    fontSize: rem(22),
+    letterSpacing: '-0.01em',
+  },
+  subLabel: {
+    color: theme.colors.gray[6],
+    letterSpacing: '0.02em',
+  },
+  totalPill: {
+    padding: theme.spacing.xs,
+    borderRadius: 999,
+    border: `1px solid ${theme.colors.gray[2]}`,
+    backgroundColor: theme.colors.gray[0],
+  },
+  pillHighlight: {
+    color: theme.colors.indigo[6],
+    fontWeight: 800,
+  },
+  metricLabel: {
+    textTransform: 'uppercase',
+    letterSpacing: '0.08em',
+    fontWeight: 700,
+    color: theme.colors.gray[6],
+    fontSize: theme.fontSizes.xs,
+  },
+  gpaValue: {
+    fontWeight: 800,
+    fontSize: rem(28),
+    lineHeight: 1.1,
+  },
+  gpaScale: {
+    color: theme.colors.gray[6],
+    fontWeight: 600,
+  },
+  deltaPositive: {
+    color: theme.colors.green[6],
+    fontWeight: 700,
+  },
+  deltaNegative: {
+    color: theme.colors.red[6],
+    fontWeight: 700,
+  },
+  infoRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: `${theme.spacing.sm}px 0`,
+    borderBottom: `1px solid ${theme.colors.gray[2]}`,
+    '&:last-of-type': {
+      borderBottom: 'none',
+      paddingBottom: 0,
+    },
+  },
+  infoKey: {
+    color: theme.colors.gray[6],
+    fontSize: theme.fontSizes.sm,
+  },
+  infoValue: {
+    fontWeight: 700,
+    color: theme.black,
   },
   sectionTitle: {
     fontWeight: 700,
