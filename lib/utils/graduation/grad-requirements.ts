@@ -1,6 +1,17 @@
-import { TakenCourseType } from "@lib/types/grad";
-import { CategoryKey, YearRuleSet } from "./grad-rules";
-import { FineGrainedRequirement } from "@lib/types/grad-requirements";
+import { TakenCourseType } from '@lib/types/grad';
+import { FineGrainedRequirement } from '@lib/types/grad-requirements';
+import { CategoryKey, YearRuleSet } from './grad-rules';
+
+function normalizeCode(code?: string) {
+  if (!code) return '';
+  return String(code)
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, '');
+}
+
+function normalizeName(name?: string) {
+  return (name || '').toString().toLowerCase();
+}
 
 function sumCredits(
   courses: TakenCourseType[],
@@ -14,525 +25,441 @@ function sumCredits(
   }, 0);
 }
 
-function normalizeCode(code?: string) {
-  if (!code) return '';
-  return String(code).toUpperCase().replace(/[^A-Z0-9]/g, '');
-}
-function normalizeName(name?: string) {
-  return (name || '').toString().toLowerCase();
+function countCourses(
+  courses: TakenCourseType[],
+  predicate: (c: TakenCourseType) => boolean
+): number {
+  return courses.reduce((acc, c) => acc + (predicate(c) ? 1 : 0), 0);
 }
 
-// 언어의 기초 세부
-const ENGLISH_CODES = new Set(['GS1601']); // Academic English 등 실제 코드로 수정
-const WRITING_CODES = new Set(['GS1607', 'GS2652', 'GS1513']);
+function codeInSet(c: TakenCourseType, set: Set<string>) {
+  return set.has(normalizeCode(c.courseCode));
+}
 
-function isEnglishCourse(c: TakenCourseType) {
+function hasCourseInSet(courses: TakenCourseType[], set: Set<string>) {
+  return courses.some((c) => codeInSet(c, set));
+}
+
+function hasCourseWithSuffix(courses: TakenCourseType[], suffix: string) {
+  return courses.some((c) => normalizeCode(c.courseCode).endsWith(suffix));
+}
+
+function hasCodePrefix(c: TakenCourseType, prefix: string) {
+  return normalizeCode(c.courseCode).startsWith(prefix);
+}
+
+function isCourseType(c: TakenCourseType, type: string) {
+  return normalizeCode(c.courseType) === normalizeCode(type);
+}
+
+const SET_ENG_I = new Set(['GS1601', 'GS1603', 'GS1607']);
+const SET_ENG_II = new Set(['GS1602', 'GS1604', 'GS2652']);
+const SET_WRITING = new Set(['GS1511', 'GS1512', 'GS1513', 'GS1531', 'GS1532', 'GS1533', 'GS1534']);
+
+const SET_CALCULUS = new Set(['GS1001', 'GS1011']);
+const SET_CORE_MATH = new Set([
+  'GS1002',
+  'GS2001',
+  'MM2001',
+  'GS1012',
+  'GS2004',
+  'GS2013',
+  'MM2004',
+  'GS2002',
+  'MM2002',
+]);
+
+const SET_PHYSICS = new Set(['GS1101', 'GS1103']);
+const SET_CHEM = new Set(['GS1201', 'GS1203']);
+const SET_BIO = new Set(['GS1301', 'GS1302', 'GS1303']);
+const SET_COMP_PROG = new Set(['GS1401']);
+const SET_SW_BASIC = new Set(['GS1490']);
+
+const SET_FRESHMAN = new Set(['GS1901', 'GS9301']);
+const SET_EXPLORATION = new Set(['UC0902']);
+const SET_COLLOQUIUM = new Set(['UC9331']);
+
+const RESEARCH_I_SUFFIX = '9102';
+const RESEARCH_II_SUFFIX = '9103';
+
+const CODE_ART_PREFIX = 'GS02';
+const CODE_SPORT_PREFIX = 'GS01';
+
+const MAJOR_MANDATORY: Record<string, string[]> = {
+  EC: ['EC3101', 'EC3102'],
+  MA: ['MA2101', 'MA2102', 'MA2103', 'MA2104', 'MA3104', 'MA3105'],
+  MC: ['MC2100', 'MC2101', 'MC2102', 'MC2103', 'MC3106', 'MC3107'],
+};
+
+const SCIENCE_LAB_KEYWORDS = [
+  '실험',
+  'lab',
+  'biology',
+  'physics',
+  'chemistry',
+  '생물',
+  '물리',
+  '화학',
+];
+
+function isLabCourse(c: TakenCourseType) {
+  const name = normalizeName(c.courseName);
   const code = normalizeCode(c.courseCode);
-  const name = normalizeName(c.courseName);
-  if (ENGLISH_CODES.has(code)) return true;
-  return name.includes('영어') || name.includes('english');
+  return (
+    SCIENCE_LAB_KEYWORDS.some((kw) => name.includes(kw)) ||
+    /[0-9]11$/.test(code) ||
+    name.includes('experiment')
+  );
 }
 
-function isWritingCourse(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
+function isScienceCreditCourse(c: TakenCourseType) {
+  const codeMatch =
+    codeInSet(c, SET_PHYSICS) ||
+    codeInSet(c, SET_CHEM) ||
+    codeInSet(c, SET_BIO) ||
+    codeInSet(c, SET_COMP_PROG) ||
+    codeInSet(c, SET_SW_BASIC);
+
+  if (codeMatch) return true;
+
   const name = normalizeName(c.courseName);
-  if (WRITING_CODES.has(code)) return true;
-  return name.includes('글쓰기') || name.includes('writing');
+  const isScienceLab = isLabCourse(c);
+  const scienceKeyword =
+    name.includes('physics') ||
+    name.includes('chem') ||
+    name.includes('bio') ||
+    name.includes('생물') ||
+    name.includes('물리') ||
+    name.includes('화학');
+
+  return isScienceLab && scienceKeyword;
 }
 
-// SW 기초 vs 컴퓨터 프로그래밍
-// 2018학번~: SW 기초와 코딩 / (MOOC)파이썬 기초 중 택1 2학점,
-//            단 컴퓨터 프로그래밍 이수 시 면제
-const SW_BASIC_CODES = new Set(['GS1490', 'GS1499']); // 'SW 기초와 코딩'
-const COMP_PROG_CODES = new Set(['GS1401']); // 컴퓨터 프로그래밍
-
-function isSwBasicCourse(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
-  const name = normalizeName(c.courseName);
-  if (SW_BASIC_CODES.has(code)) return true;
-  return name.includes('sw 기초') || name.includes('코딩');
+function normalizeMajorCode(major?: string) {
+  if (!major) return '';
+  return normalizeCode(major).slice(0, 2) || '';
 }
-
-function isComputerProgrammingCourse(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
-  const name = normalizeName(c.courseName);
-  if (COMP_PROG_CODES.has(code)) return true;
-  return name.includes('컴퓨터 프로그래밍') || name.includes('programming');
-}
-
-// 인문사회 세부: HUS, PPE
-function isHusCourse(c: TakenCourseType) {
-  return c.courseType === "HUS"
-}
-function isPpeCourse(c: TakenCourseType) {
-  return c.courseType === "PPE"
-}
-
-// 기초과학 세부: 수학 / 과학 분야 / 실험
-// 편람의 "수학 6학점" 체크용
-const MATH_CODES = new Set(['GS1001', 'GS2001', 'GS2002', 'GS2004']); // 미적분, 해석학, 미분방정식, 선형대수 등
-
-function isMathCourse(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
-  const name = normalizeName(c.courseName);
-  if (MATH_CODES.has(code)) return true;
-  return name.includes('수학') || name.includes('미적분') || name.includes('해석학');
-}
-
-// 분야별 기초과학 강의 탐지 (전컴/생명/물리/화학)
-function isCsBasicLecture(c: TakenCourseType) {
-  // 전컴: 컴퓨터 프로그래밍을 기초과학(전컴)으로 본다
-  return isComputerProgrammingCourse(c);
-}
-function isBioBasicLecture(c: TakenCourseType) {
-  const name = normalizeName(c.courseName);
-  return name.includes('생물학') || name.includes('인간 생물학');
-}
-function isPhysicsBasicLecture(c: TakenCourseType) {
-  const name = normalizeName(c.courseName);
-  return name.includes('일반물리학') || name.includes('고급일반물리학');
-}
-function isChemBasicLecture(c: TakenCourseType) {
-  const name = normalizeName(c.courseName);
-  return name.includes('일반화학') || name.includes('고급일반화학');
-}
-
-// 실험 여부는 과목명/코드에 '실험', 'lab'이 들어가는지로 근사
-function isExperimentCourse(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
-  const name = normalizeName(c.courseName);
-  return name.includes('실험') || name.includes('lab') || /[0-9]11$/.test(code); // 예: GS1111
-}
-
-// 분야별 실험 (강의와 연계 이수 체크용)
-function isBioExperiment(c: TakenCourseType) {
-  const name = normalizeName(c.courseName);
-  return isExperimentCourse(c) && name.includes('일반생물학');
-}
-function isPhysicsExperiment(c: TakenCourseType) {
-  const name = normalizeName(c.courseName);
-  return isExperimentCourse(c) && name.includes('일반물리학');
-}
-function isChemExperiment(c: TakenCourseType) {
-  const name = normalizeName(c.courseName);
-  return isExperimentCourse(c) && name.includes('일반화학') ;
-}
-
-// 새내기/전공탐색/공통 필수
-function isFreshmanSeminar(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
-  const name = normalizeName(c.courseName);
-  return code === 'GS1901' || name.includes('새내기') || name.includes('신입생 세미나');
-}
-function isMajorExploration(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
-  const name = normalizeName(c.courseName);
-  return code === 'GS1902' || name.includes('전공탐색');
-}
-function isEconomyCourse(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
-  const name = normalizeName(c.courseName);
-  return code === 'UC0901' || name.includes('과학기술과 경제');
-}
-
-// 논문연구
-function isThesisI(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
-  const name = normalizeName(c.courseName);
-  return code.endsWith('9101') || name.includes('학사논문연구 i');
-}
-function isThesisII(c: TakenCourseType) {
-  const code = normalizeCode(c.courseCode);
-  const name = normalizeName(c.courseName);
-  return code.endsWith('9102') || name.includes('학사논문연구 ii');
-}
-
 
 interface AnalyzeContext {
   allCourses: TakenCourseType[];
   grouped: Record<CategoryKey, TakenCourseType[]>;
   ruleSet: YearRuleSet;
   entryYear: number;
+  userMajor?: string;
 }
 
 export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRequirement[] {
-  const { allCourses, grouped, ruleSet, entryYear } = ctx;
+  const { allCourses, grouped, ruleSet, entryYear, userMajor } = ctx;
   const reqs: FineGrainedRequirement[] = [];
 
-  // 1) 언어의 기초: 영어 4, 글쓰기 3
-  const langCourses = grouped.languageBasic ?? [];
-  const englishCredits = sumCredits(langCourses, isEnglishCourse);
-  const writingCredits = sumCredits(langCourses, isWritingCourse);
-
+  const totalCredits = sumCredits(allCourses);
   reqs.push({
-    id: 'language-english',
-    categoryKey: 'languageBasic',
-    label: '언어의 기초 - 영어 4학점',
-    requiredCredits: 4,
-    acquiredCredits: englishCredits,
-    missingCredits: Math.max(0, 4 - englishCredits),
-    satisfied: englishCredits >= 4,
+    id: 'total-credits',
+    categoryKey: 'otherUncheckedClass',
+    label: '총 이수학점 130학점 이상',
+    requiredCredits: ruleSet.minTotalCredits,
+    acquiredCredits: totalCredits,
+    missingCredits: Math.max(0, ruleSet.minTotalCredits - totalCredits),
+    satisfied: totalCredits >= ruleSet.minTotalCredits,
     importance: 'must',
-    hint: 'Academic English, 영어회화, 영어읽기/쓰기 과목을 통해 4학점을 채워야 합니다.',
-    relatedCoursePatterns: {
-      nameKeywords: ['영어', 'english'],
-    },
+    hint: '졸업을 위해서는 총 130학점 이상이 필요합니다.',
   });
 
-  reqs.push({
-    id: 'language-writing',
-    categoryKey: 'languageBasic',
-    label: '언어의 기초 - 글쓰기 3학점',
-    requiredCredits: 3,
-    acquiredCredits: writingCredits,
-    missingCredits: Math.max(0, 3 - writingCredits),
-    satisfied: writingCredits >= 3,
-    importance: 'must',
-    hint: '대학 글쓰기, 과학기술 글쓰기 등 글쓰기 계열 과목을 이수해야 합니다.',
-    relatedCoursePatterns: {
-      nameKeywords: ['글쓰기', 'writing'],
-    },
-  });
+  // 1. 언어의 기초
+  const tookEngI = hasCourseInSet(allCourses, SET_ENG_I);
+  const tookEngII = hasCourseInSet(allCourses, SET_ENG_II);
+  const tookWriting = hasCourseInSet(allCourses, SET_WRITING);
 
-  // 2) 인문사회: HUS 6, PPE 6
-  const humCourses = grouped.humanities ?? [];
-  const husCredits = sumCredits(humCourses, isHusCourse);
-  const ppeCredits = sumCredits(humCourses, isPpeCourse);
-
-  reqs.push({
-    id: 'humanities-hus',
-    categoryKey: 'humanities',
-    label: '인문사회 - HUS 6학점',
-    requiredCredits: 6,
-    acquiredCredits: husCredits,
-    missingCredits: Math.max(0, 6 - husCredits),
-    satisfied: husCredits >= 6,
-    importance: 'must',
-    hint: 'HUS(인문사회) prefix의 과목에서 6학점을 채워야 합니다.',
-    relatedCoursePatterns: {
-      codePrefixes: ['HS, GS'],
-    },
-  });
-
-  reqs.push({
-    id: 'humanities-ppe',
-    categoryKey: 'humanities',
-    label: '인문사회 - PPE 6학점',
-    requiredCredits: 6,
-    acquiredCredits: ppeCredits,
-    missingCredits: Math.max(0, 6 - ppeCredits),
-    satisfied: ppeCredits >= 6,
-    importance: 'must',
-    hint: 'PPE(철학·정치·경제) 계열 과목에서 6학점을 채워야 합니다.',
-    relatedCoursePatterns: {
-      codePrefixes: ['HS, GS'],
-    },
-  });
-
-  // 3) 소프트웨어: SW 기초와 코딩 2학점 (컴프로그 이수시 면제)
-  // 2018학번 이후만 서비스 대상이므로 별도 하위 학번 분기는 생략
-  const swBasicCredits = sumCredits(allCourses, isSwBasicCourse);
-  const compProgCredits = sumCredits(allCourses, isComputerProgrammingCourse);
-  const swSatisfied = compProgCredits > 0 || swBasicCredits >= 2;
-  const swMissing = swSatisfied ? 0 : 2 - swBasicCredits;
-
-  reqs.push({
-    id: 'software-basic',
-    categoryKey: 'scienceBasic', // or 별도 categoryKey 만들 수도 있음
-    label: '소프트웨어 기초 - SW 기초와 코딩 2학점 (또는 컴퓨터 프로그래밍 이수)',
-    requiredCredits: 2,
-    acquiredCredits: swBasicCredits,
-    missingCredits: Math.max(0, swMissing),
-    satisfied: swSatisfied,
-    importance: 'must',
-    hint:
-      'SW 기초와 코딩(GS1490) 또는 (MOOC지정)파이썬 기초(GS1499) 2학점을 이수하거나, 컴퓨터 프로그래밍(GS1401)을 이수하면 SW 요건이 충족됩니다.',
-    relatedCoursePatterns: {
-      nameKeywords: ['sw 기초', '코딩', '컴퓨터 프로그래밍'],
-    },
-  });
-
-  // 4) 기초과학: 수학 6 + 실험 포함
-  const sciCourses = grouped.scienceBasic ?? [];
-  const mathCredits = sumCredits(sciCourses, isMathCourse);
-  const experimentCredits = sumCredits(sciCourses, isExperimentCourse);
-
-  // 4-1) 수학 6학점
-  reqs.push({
-    id: 'science-math',
-    categoryKey: 'scienceBasic',
-    label: '기초과학 - 수학 6학점',
-    requiredCredits: 6,
-    acquiredCredits: mathCredits,
-    missingCredits: Math.max(0, 6 - mathCredits),
-    satisfied: mathCredits >= 6,
-    importance: 'must',
-    hint: '미적분학, 다변수해석학, 미분방정식, 선형대수 등 수학 과목으로 6학점 이상 이수해야 합니다.',
-    relatedCoursePatterns: {
-      nameKeywords: ['수학', '미적분', '해석학', '선형대수'],
-    },
-  });
-
-  // 4-2) 실험 총 2학점 이상
-  reqs.push({
-    id: 'science-experiment',
-    categoryKey: 'scienceBasic',
-    label: '기초과학 - 실험 과목 (생명/물리/화학 실험)',
-    requiredCredits: 2, // 편람상 보통 2~3학점 → 2를 최소로 잡고, 추후 fine tuning
-    acquiredCredits: experimentCredits,
-    missingCredits: Math.max(0, 2 - experimentCredits),
-    satisfied: experimentCredits >= 2,
-    importance: 'must',
-    hint: '생명/물리/화학 실험 과목(실험, lab 표기가 있는 과목)을 포함해야 합니다.',
-    relatedCoursePatterns: {
-      nameKeywords: ['실험', 'lab'],
-    },
-  });
-
-    // 4-3) 전컴/생명/물리/화학 분야별 강의 구성 (9학점 / 3개 분야 규칙 근사 구현)
-  const csLectureCredits = sumCredits(sciCourses, isCsBasicLecture);
-  const bioLectureCredits = sumCredits(sciCourses, isBioBasicLecture);
-  const physLectureCredits = sumCredits(sciCourses, isPhysicsBasicLecture);
-  const chemLectureCredits = sumCredits(sciCourses, isChemBasicLecture);
-
-  const basicLectureTotal =
-    csLectureCredits + bioLectureCredits + physLectureCredits + chemLectureCredits;
-
-  // 각 분야를 "3학점 이상 이수했는지"로 본다
-  const hasCs = csLectureCredits >= 3;
-  const hasBio = bioLectureCredits >= 3;
-  const hasPhys = physLectureCredits >= 3;
-  const hasChem = chemLectureCredits >= 3;
-
-  const fieldsTakenCount = [hasCs, hasBio, hasPhys, hasChem].filter(Boolean).length;
-
-  // 편람 해석:
-  // - 전컴 미이수 시: 생명/물리/화학 3개 분야 강의 및 실험 모두 필수
-  // - 전컴 이수 시: 생명/물리/화학 중 2개 분야 선택 가능 + 전컴 포함하여 총 3분야
-  const hasCompProg = csLectureCredits >= 3;
-
-  // "9학점 이상" 체크
-  const lectureTotalSatisfied = basicLectureTotal >= 9;
-
-  // "분야 수" + 전컴 여부 조건
-  const fieldsSatisfied = hasCompProg
-    ? // 전컴 포함 3개 분야, B/P/C 중 최소 2개
-      lectureTotalSatisfied &&
-      fieldsTakenCount >= 3 &&
-      [hasBio, hasPhys, hasChem].filter(Boolean).length >= 2
-    : // 전컴 미이수 시: 생명/물리/화학 3개 분야 모두
-      lectureTotalSatisfied && hasBio && hasPhys && hasChem;
-
-  reqs.push({
-    id: 'science-basic-lecture-total',
-    categoryKey: 'scienceBasic',
-    label: '기초과학 - 전컴/생명/물리/화학 강의 9학점 이상',
-    requiredCredits: 9,
-    acquiredCredits: basicLectureTotal,
-    missingCredits: Math.max(0, 9 - basicLectureTotal),
-    satisfied: lectureTotalSatisfied,
-    importance: 'must',
-    hint:
-      '컴퓨터 프로그래밍, 생물학/인간 생물학, 일반/고급일반물리학, 일반/고급일반화학 중에서 강의 과목을 합산하여 최소 9학점을 이수해야 합니다.',
-  });
-
-  reqs.push({
-    id: 'science-basic-fields',
-    categoryKey: 'scienceBasic',
-    label: '기초과학 - 전컴/생명/물리/화학 3개 분야 강의 구성',
-    requiredCredits: 3, // 필요한 분야 수
-    acquiredCredits: fieldsTakenCount,
-    missingCredits: Math.max(0, 3 - fieldsTakenCount),
-    satisfied: fieldsSatisfied,
-    importance: 'must',
-    hint:
-      hasCompProg
-        ? '컴퓨터 프로그래밍(전컴) + 생명/물리/화학 중 2개 분야 강의를 포함해 총 3개 분야에서 강의를 이수해야 합니다.'
-        : '컴퓨터 프로그래밍을 이수하지 않은 경우, 생명·물리·화학 3개 분야 강의를 모두 이수해야 합니다.',
-  });
-
-  // 4-4) 생명/물리/화학 강의와 실험 연계 (강의 이수 시 해당 실험 1학점 이상 필요)
-  const bioExperimentCredits = sumCredits(sciCourses, isBioExperiment);
-  const physExperimentCredits = sumCredits(sciCourses, isPhysicsExperiment);
-  const chemExperimentCredits = sumCredits(sciCourses, isChemExperiment);
-
-  const needsBioExp = hasBio;
-  const needsPhysExp = hasPhys;
-  const needsChemExp = hasChem;
-
-  if (needsBioExp) {
-    reqs.push({
-      id: 'science-experiment-bio',
-      categoryKey: 'scienceBasic',
-      label: '기초과학 - 생명 분야 실험',
+  reqs.push(
+    {
+      id: 'language-english-i',
+      categoryKey: 'languageBasic',
+      label: 'English I 필수 (GS1601/GS1603/GS1607 중 1과목)',
       requiredCredits: 1,
-      acquiredCredits: bioExperimentCredits,
-      missingCredits: Math.max(0, 1 - bioExperimentCredits),
-      satisfied: bioExperimentCredits >= 1,
+      acquiredCredits: tookEngI ? 1 : 0,
+      missingCredits: tookEngI ? 0 : 1,
+      satisfied: tookEngI,
       importance: 'must',
-      hint: '생명 분야 강의(생물학/인간 생물학)를 이수한 경우, 일반생물학실험 등 생명실험 과목을 최소 1학점 이상 이수해야 합니다.',
-    });
-  }
-
-  if (needsPhysExp) {
-    reqs.push({
-      id: 'science-experiment-physics',
-      categoryKey: 'scienceBasic',
-      label: '기초과학 - 물리 분야 실험',
+      hint: 'SET_ENG_I 중 한 과목을 이수해야 합니다.',
+      relatedCoursePatterns: { codePrefixes: Array.from(SET_ENG_I) },
+    },
+    {
+      id: 'language-english-ii',
+      categoryKey: 'languageBasic',
+      label: 'English II 필수 (GS1602/GS1604/GS2652 중 1과목)',
       requiredCredits: 1,
-      acquiredCredits: physExperimentCredits,
-      missingCredits: Math.max(0, 1 - physExperimentCredits),
-      satisfied: physExperimentCredits >= 1,
+      acquiredCredits: tookEngII ? 1 : 0,
+      missingCredits: tookEngII ? 0 : 1,
+      satisfied: tookEngII,
       importance: 'must',
-      hint: '물리 강의(일반물리학 및 연습 I, 고급일반물리학 및 연습 I 등)를 이수한 경우, 일반물리학실험 I 등 물리실험 과목을 최소 1학점 이상 이수해야 합니다.',
-    });
-  }
-
-  if (needsChemExp) {
-    reqs.push({
-      id: 'science-experiment-chemistry',
-      categoryKey: 'scienceBasic',
-      label: '기초과학 - 화학 분야 실험',
+      hint: 'SET_ENG_II 중 한 과목을 이수해야 합니다.',
+      relatedCoursePatterns: { codePrefixes: Array.from(SET_ENG_II) },
+    },
+    {
+      id: 'language-writing',
+      categoryKey: 'languageBasic',
+      label: '글쓰기 과목 필수 (GS1511/GS1512/GS1513/GS1531/GS1532/GS1533/GS1534 중 1과목)',
       requiredCredits: 1,
-      acquiredCredits: chemExperimentCredits,
-      missingCredits: Math.max(0, 1 - chemExperimentCredits),
-      satisfied: chemExperimentCredits >= 1,
+      acquiredCredits: tookWriting ? 1 : 0,
+      missingCredits: tookWriting ? 0 : 1,
+      satisfied: tookWriting,
       importance: 'must',
-      hint: '화학 강의(일반화학 및 연습 I, 고급일반화학 및 연습 I 등)를 이수한 경우, 일반화학실험 I 등 화학실험 과목을 최소 1학점 이상 이수해야 합니다.',
-    });
-  }
+      hint: 'SET_WRITING 중 한 과목을 이수해야 합니다.',
+      relatedCoursePatterns: { codePrefixes: Array.from(SET_WRITING) },
+    }
+  );
 
-  // 5) 새내기/전공탐색/공통 (과학기술과 경제)
-  const freshmanCredits = sumCredits(allCourses, isFreshmanSeminar);
-  const majorExplorationCredits = sumCredits(allCourses, isMajorExploration);
-  const economyCredits = sumCredits(allCourses, isEconomyCourse);
+  // 2. 기초과학 - 수학 필수 과목
+  const tookCalculus = hasCourseInSet(allCourses, SET_CALCULUS);
+  const tookCoreMath = hasCourseInSet(allCourses, SET_CORE_MATH);
+
+  reqs.push(
+    {
+      id: 'science-calculus',
+      categoryKey: 'scienceBasic',
+      label: '미적분학 필수 (GS1001/GS1011 중 1과목)',
+      requiredCredits: 1,
+      acquiredCredits: tookCalculus ? 1 : 0,
+      missingCredits: tookCalculus ? 0 : 1,
+      satisfied: tookCalculus,
+      importance: 'must',
+      hint: 'SET_CALCULUS 중 한 과목을 이수해야 합니다.',
+      relatedCoursePatterns: { codePrefixes: Array.from(SET_CALCULUS) },
+    },
+    {
+      id: 'science-core-math',
+      categoryKey: 'scienceBasic',
+      label: '수학 선택 필수 (해석학/선형대수 등 CORE MATH 집합 중 1과목)',
+      requiredCredits: 1,
+      acquiredCredits: tookCoreMath ? 1 : 0,
+      missingCredits: tookCoreMath ? 0 : 1,
+      satisfied: tookCoreMath,
+      importance: 'must',
+      hint: 'SET_CORE_MATH 중 한 과목을 이수해야 합니다.',
+      relatedCoursePatterns: { codePrefixes: Array.from(SET_CORE_MATH) },
+    }
+  );
+
+  // 3. 기초과학 학점 계산 (컴퓨터 프로그래밍 이수 여부에 따라 17/18)
+  const tookCompProg = hasCourseInSet(allCourses, SET_COMP_PROG);
+  const scienceCredits = sumCredits(allCourses, isScienceCreditCourse);
+  const requiredScienceCredits = tookCompProg ? 17 : 18;
+
+  reqs.push({
+    id: 'science-total',
+    categoryKey: 'scienceBasic',
+    label: '기초과학 학점 (컴프로그 이수 시 17학점, 미이수 시 18학점)',
+    requiredCredits: requiredScienceCredits,
+    acquiredCredits: scienceCredits,
+    missingCredits: Math.max(0, requiredScienceCredits - scienceCredits),
+    satisfied: scienceCredits >= requiredScienceCredits,
+    importance: 'must',
+    hint: '물리/화학/생물 강의 및 실험, 컴퓨터 프로그래밍, SW 기초와 코딩을 포함한 기초과학 학점을 충족해야 합니다.',
+  });
+
+  // 4. SW 기초 (컴퓨터 프로그래밍과 별개)
+  const swBasicTaken = hasCourseInSet(allCourses, SET_SW_BASIC);
+  reqs.push({
+    id: 'science-sw-basic',
+    categoryKey: 'scienceBasic',
+    label: 'SW 기초와 코딩(GS1490) 필수',
+    requiredCredits: 1,
+    acquiredCredits: swBasicTaken ? 1 : 0,
+    missingCredits: swBasicTaken ? 0 : 1,
+    satisfied: swBasicTaken,
+    importance: 'must',
+    hint: '컴퓨터 프로그래밍과 별개로 SW 기초와 코딩(GS1490)을 이수해야 합니다.',
+    relatedCoursePatterns: { codePrefixes: Array.from(SET_SW_BASIC) },
+  });
+
+  // 5. 인문사회
+  const husCredits = sumCredits(allCourses, (c) => isCourseType(c, 'HUS'));
+  const ppeCredits = sumCredits(allCourses, (c) => isCourseType(c, 'PPE'));
+  const humanitiesCredits = sumCredits(grouped.humanities ?? allCourses, () => true);
+
+  reqs.push(
+    {
+      id: 'humanities-hus',
+      categoryKey: 'humanities',
+      label: 'HUS 학점 6학점 이상',
+      requiredCredits: 6,
+      acquiredCredits: husCredits,
+      missingCredits: Math.max(0, 6 - husCredits),
+      satisfied: husCredits >= 6,
+      importance: 'must',
+      hint: '이수구분이 HUS인 과목에서 6학점 이상 필요합니다.',
+    },
+    {
+      id: 'humanities-ppe',
+      categoryKey: 'humanities',
+      label: 'PPE 학점 6학점 이상',
+      requiredCredits: 6,
+      acquiredCredits: ppeCredits,
+      missingCredits: Math.max(0, 6 - ppeCredits),
+      satisfied: ppeCredits >= 6,
+      importance: 'must',
+      hint: '이수구분이 PPE인 과목에서 6학점 이상 필요합니다.',
+    },
+    {
+      id: 'humanities-total',
+      categoryKey: 'humanities',
+      label: '인문사회 총 24학점 이상',
+      requiredCredits: 24,
+      acquiredCredits: humanitiesCredits,
+      missingCredits: Math.max(0, 24 - humanitiesCredits),
+      satisfied: humanitiesCredits >= 24,
+      importance: 'must',
+      hint: '인문사회 전체 학점이 24학점 이상이어야 합니다.',
+    }
+  );
+
+  // 6. 공통 필수: 새내기 / 전공탐색 / 콜로퀴움
+  const freshmanTaken = hasCourseInSet(allCourses, SET_FRESHMAN);
+  const explorationTaken = hasCourseInSet(allCourses, SET_EXPLORATION);
+  const colloquiumCount = countCourses(
+    allCourses,
+    (c) => codeInSet(c, SET_COLLOQUIUM) || normalizeName(c.courseName).includes('콜로퀴움')
+  );
 
   reqs.push({
     id: 'etc-freshman',
     categoryKey: 'etcMandatory',
-    label: 'GIST 새내기 1학점',
+    label: 'GIST 새내기(또는 GS9301) 1회 이수',
     requiredCredits: 1,
-    acquiredCredits: freshmanCredits,
-    missingCredits: Math.max(0, 1 - freshmanCredits),
-    satisfied: freshmanCredits >= 1,
+    acquiredCredits: freshmanTaken ? 1 : 0,
+    missingCredits: freshmanTaken ? 0 : 1,
+    satisfied: freshmanTaken,
     importance: 'must',
-    hint: '1학년 1학기에 개설되는 GIST 새내기(또는 신입생 세미나)를 반드시 수강해야 합니다.',
+    hint: 'SET_FRESHMAN 중 한 과목을 이수해야 합니다.',
+    relatedCoursePatterns: { codePrefixes: Array.from(SET_FRESHMAN) },
   });
 
-  // 전공탐색: 2021학번부터 필수
   if (entryYear >= 2021) {
     reqs.push({
       id: 'etc-major-exploration',
       categoryKey: 'etcMandatory',
-      label: 'GIST 전공탐색 1학점',
+      label: '전공탐색(UC0902) 1회 이수',
       requiredCredits: 1,
-      acquiredCredits: majorExplorationCredits,
-      missingCredits: Math.max(0, 1 - majorExplorationCredits),
-      satisfied: majorExplorationCredits >= 1,
+      acquiredCredits: explorationTaken ? 1 : 0,
+      missingCredits: explorationTaken ? 0 : 1,
+      satisfied: explorationTaken,
       importance: 'must',
-      hint: '1학년 가을학기에 개설되는 GIST 전공탐색(UC0902)을 반드시 수강해야 합니다. (반도체공학과 예외는 별도 처리 필요)',
+      hint: '2021학번 이후는 UC0902 전공탐색을 필수로 이수해야 합니다.',
+      relatedCoursePatterns: { codePrefixes: Array.from(SET_EXPLORATION) },
     });
   }
 
   reqs.push({
-    id: 'etc-economy',
+    id: 'etc-colloquium',
     categoryKey: 'etcMandatory',
-    label: '과학기술과 경제 1학점',
-    requiredCredits: 1,
-    acquiredCredits: economyCredits,
-    missingCredits: Math.max(0, 1 - economyCredits),
-    satisfied: economyCredits >= 1,
+    label: 'GIST 대학 콜로퀴움 2회 이수',
+    requiredCredits: 2,
+    acquiredCredits: colloquiumCount,
+    missingCredits: Math.max(0, 2 - colloquiumCount),
+    satisfied: colloquiumCount >= 2,
     importance: 'must',
-    hint: '대학 공통 필수 과목인 「과학기술과 경제」 1학점을 반드시 이수해야 합니다.',
+    hint: 'UC9331 콜로퀴움을 2회 이상 이수해야 합니다.',
+    relatedCoursePatterns: { codePrefixes: Array.from(SET_COLLOQUIUM) },
   });
 
-  // 6) 학사논문연구 I/II
-  const thesisICredits = sumCredits(allCourses, isThesisI);
-  const thesisIICredits = sumCredits(allCourses, isThesisII);
-  const thesisTotal = thesisICredits + thesisIICredits;
+  // 7. 예체능: 연도별 필요한 이수 횟수
+  const requiredArtSportCount = entryYear >= 2020 ? 2 : 4;
+  const artCount = countCourses(allCourses, (c) => hasCodePrefix(c, CODE_ART_PREFIX));
+  const sportCount = countCourses(allCourses, (c) => hasCodePrefix(c, CODE_SPORT_PREFIX));
+
+  reqs.push(
+    {
+      id: 'arts',
+      categoryKey: 'otherUncheckedClass',
+      label: `예술 교양 과목 ${requiredArtSportCount}과목 이상`,
+      requiredCredits: requiredArtSportCount,
+      acquiredCredits: artCount,
+      missingCredits: Math.max(0, requiredArtSportCount - artCount),
+      satisfied: artCount >= requiredArtSportCount,
+      importance: 'must',
+      hint: `${CODE_ART_PREFIX}로 시작하는 예술 교양 과목을 ${requiredArtSportCount}과목 이상 이수해야 합니다.`,
+    },
+    {
+      id: 'sports',
+      categoryKey: 'otherUncheckedClass',
+      label: `체육 과목 ${requiredArtSportCount}과목 이상`,
+      requiredCredits: requiredArtSportCount,
+      acquiredCredits: sportCount,
+      missingCredits: Math.max(0, requiredArtSportCount - sportCount),
+      satisfied: sportCount >= requiredArtSportCount,
+      importance: 'must',
+      hint: `${CODE_SPORT_PREFIX}로 시작하는 체육 과목을 ${requiredArtSportCount}과목 이상 이수해야 합니다.`,
+    }
+  );
+
+  // 8. 전공 학점 및 전공필수
+  const majorCode = normalizeMajorCode(userMajor);
+  const majorCourses =
+    majorCode.length > 0
+      ? allCourses.filter((c) => hasCodePrefix(c, majorCode))
+      : grouped.major ?? [];
+
+  const majorCredits = sumCredits(majorCourses);
+
+  reqs.push({
+    id: 'major-credits',
+    categoryKey: 'major',
+    label: '전공 학점 36학점 이상',
+    requiredCredits: 36,
+    acquiredCredits: majorCredits,
+    missingCredits: Math.max(0, 36 - majorCredits),
+    satisfied: majorCredits >= 36,
+    importance: 'must',
+    hint: '전공 과목 학점을 36학점 이상 이수해야 합니다.',
+  });
+
+  const mandatoryList = MAJOR_MANDATORY[majorCode];
+  if (mandatoryList?.length) {
+    mandatoryList.forEach((courseCode) => {
+      const taken = hasCourseInSet(allCourses, new Set([courseCode]));
+      reqs.push({
+        id: `major-mandatory-${courseCode}`,
+        categoryKey: 'major',
+        label: `전공 필수 과목 ${courseCode}`,
+        requiredCredits: 1,
+        acquiredCredits: taken ? 1 : 0,
+        missingCredits: taken ? 0 : 1,
+        satisfied: taken,
+        importance: 'must',
+        hint: `${courseCode} 과목을 반드시 이수해야 합니다.`,
+        relatedCoursePatterns: { codePrefixes: [courseCode] },
+      });
+    });
+  }
+
+  // 9. 학사논문연구 I/II (9102/9103)
+  const thesisI = hasCourseWithSuffix(allCourses, RESEARCH_I_SUFFIX);
+  const thesisII = hasCourseWithSuffix(allCourses, RESEARCH_II_SUFFIX);
 
   reqs.push(
     {
       id: 'thesis-i',
       categoryKey: 'etcMandatory',
-      label: '학사논문연구 I 3학점',
-      requiredCredits: 3,
-      acquiredCredits: thesisICredits,
-      missingCredits: Math.max(0, 3 - thesisICredits),
-      satisfied: thesisICredits >= 3,
+      label: '학사논문연구 I (9102) 필수',
+      requiredCredits: 1,
+      acquiredCredits: thesisI ? 1 : 0,
+      missingCredits: thesisI ? 0 : 1,
+      satisfied: thesisI,
       importance: 'must',
-      hint: '학사논문연구 I는 보통 3학점으로, 졸업을 위해 반드시 이수해야 합니다.',
+      hint: '전공 코드 + 9102 형태의 학사논문연구 I을 이수해야 합니다.',
     },
     {
       id: 'thesis-ii',
       categoryKey: 'etcMandatory',
-      label: '학사논문연구 II 3학점',
-      requiredCredits: 3,
-      acquiredCredits: thesisIICredits,
-      missingCredits: Math.max(0, 3 - thesisIICredits),
-      satisfied: thesisIICredits >= 3,
+      label: '학사논문연구 II (9103) 필수',
+      requiredCredits: 1,
+      acquiredCredits: thesisII ? 1 : 0,
+      missingCredits: thesisII ? 0 : 1,
+      satisfied: thesisII,
       importance: 'must',
-      hint: '학사논문연구 II는 졸업예정학기에 반드시 수강해야 하는 3학점 과목입니다.',
-    },
-    {
-      id: 'thesis-total',
-      categoryKey: 'etcMandatory',
-      label: '학사논문연구 총 6학점',
-      requiredCredits: 6,
-      acquiredCredits: thesisTotal,
-      missingCredits: Math.max(0, 6 - thesisTotal),
-      satisfied: thesisTotal >= 6,
-      importance: 'must',
-      hint: '학사논문연구 I/II 합산 6학점을 충족해야 졸업요건을 만족합니다.',
+      hint: '전공 코드 + 9103 형태의 학사논문연구 II을 이수해야 합니다.',
     }
   );
-
-  // 7) 전공 학점 최소/최대
-  const majorCredits = sumCredits(grouped.major ?? []);
-  // 2018학번 이후 기준: 36~42 (신소재 예외는 ruleSet에서 관리한다고 가정)
-  const majorMinRequired = 36;
-  const majorMaxAllowed = 42;
-  
-  reqs.push(
-    {
-      id: 'major-min',
-      categoryKey: 'major',
-      label: '전공 학점 최소 36학점',
-      requiredCredits: 36,
-      acquiredCredits: majorCredits,
-      missingCredits: Math.max(0, 36 - majorCredits),
-      satisfied: majorCredits >= 36,
-      importance: 'must',
-      hint: '전공필수/선택 과목을 합해 최소 36학점을 이수해야 합니다.',
-    },
-    {
-      id: 'major-max',
-      categoryKey: 'major',
-      label: '전공 학점 최대 42학점 (초과분은 자유선택)',
-      requiredCredits: 42,
-      acquiredCredits: majorCredits,
-      missingCredits: 0,
-      satisfied: majorCredits <= 42,
-      importance: 'should',
-      hint:
-        '전공학점은 42학점까지만 졸업학점으로 인정됩니다. 초과분은 자유선택 학점으로 처리됩니다.',
-    }
-  );
-
-  // 8) 부전공 15학점 (실제 필수과목 규칙은 추후 확장)
-  const minorCredits = sumCredits(grouped.minor ?? []);
-  reqs.push({
-    id: 'minor-total',
-    categoryKey: 'minor',
-    label: '부전공 학점 15학점 이상 (부전공 선언 시)',
-    requiredCredits: 15,
-    acquiredCredits: minorCredits,
-    missingCredits: Math.max(0, 15 - minorCredits),
-    satisfied: minorCredits >= 15,
-    importance: 'should',
-    hint:
-      '부전공을 공식적으로 인정받으려면 해당 분야에서 15학점 이상을 이수해야 합니다. 실제 필수과목 규칙은 각 부전공 안내를 참고하세요.',
-  });
 
   return reqs;
 }

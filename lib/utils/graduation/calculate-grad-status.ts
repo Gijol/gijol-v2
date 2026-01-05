@@ -109,6 +109,7 @@ export function calculateGradStatusV2(
     grouped,
     ruleSet,
     entryYear,
+    userMajor,
   });
 
   // 5) 세부 요건을 기준으로 카테고리 satisfied 보정
@@ -130,12 +131,12 @@ export function calculateGradStatusV2(
   fineGrainedRequirements.forEach((req) => {
     if (!req.satisfied && req.requiredCredits > 0 && req.importance === 'must') {
       const cat = graduationCategory[req.categoryKey];
+      const codes = req.relatedCoursePatterns?.codePrefixes?.length
+        ? req.relatedCoursePatterns.codePrefixes.join(', ')
+        : '';
+      const prefix = codes ? `${codes} - ` : '';
       const suffix = req.missingCredits ? ` (부족 ${req.missingCredits}학점)` : '';
-      cat.messages.push(
-        `[세부요건 미충족] ${req.label} — 최소 ${req.requiredCredits}학점 중 현재 ${
-          req.acquiredCredits
-        }학점 이수${suffix}${req.hint ? ` / ${req.hint}` : ''}`
-      );
+      cat.messages.push(`${prefix}${req.label}${suffix}`);
     }
   });
 
