@@ -1,13 +1,9 @@
 import {
-  IconCalendarTime,
-  IconCertificate,
-  IconChalkboard,
   IconClipboardList,
   IconDeviceDesktopAnalytics,
   IconHome,
   IconUpload,
 } from '@tabler/icons-react';
-import { Badge } from '@mantine/core';
 
 type NavLink = {
   label: string;
@@ -15,15 +11,6 @@ type NavLink = {
   icon: any;
   badge?: React.ReactNode;
 };
-
-// custom badge function
-function createBadge(content: string, color: string = 'blue') {
-  return (
-    <Badge color={color} size="sm">
-      {content}
-    </Badge>
-  );
-}
 
 export const navLinks: NavLink[] = [
   { label: '홈', href: '/dashboard', icon: IconHome },

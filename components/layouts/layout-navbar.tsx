@@ -17,21 +17,19 @@ export function LayoutNavbar({
   const { classes } = useStyles();
   const router = useRouter();
   const cntRoute = getCntTab(router.route);
-  const links = navLinks.map((link) => {
-    return (
-      <NavLink
-        component={Link}
-        key={link.label}
-        active={link.label === cntRoute}
-        label={link.label}
-        href={link.href}
-        rightSection={link.badge ?? <></>}
-        icon={<link.icon size="1.25rem" stroke={1.5} />}
-        sx={{ borderRadius: 8 }}
-        my={4}
-      />
-    );
-  });
+  const links = navLinks.map((link) => (
+    <NavLink
+      component={Link}
+      key={link.label}
+      active={link.label === cntRoute}
+      label={link.label}
+      href={link.href}
+      rightSection={link.badge ?? <></>}
+      icon={<link.icon size="1.25rem" stroke={1.5} />}
+      sx={{ borderRadius: 8 }}
+      my={4}
+    />
+  ));
   const navbar = (
     <Navbar
       p="sm"

@@ -39,15 +39,14 @@ import { parseCertificate } from '@utils/parser/grade/certificate-parser';
 import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
 import CertificateDropzone from '@components/certificate-dropzone';
 
-const getDefaultOrSavedValue = () => {
-  return {
+const getDefaultOrSavedValue = () =>
+  ({
     OU: {
       summer_session: {
         subjects: [],
       },
     },
-  } as unknown as Record<string, any>;
-};
+  } as unknown as Record<string, any>);
 
 export default function CertificateBuilder() {
   const theme = useMantineTheme();
@@ -82,7 +81,7 @@ export default function CertificateBuilder() {
                   onDrop={(file) => {
                     parseCertificate(file[0] as File, methods);
                     setIsUpperThan2021(
-                      parseInt(methods.getValues('USER.studentNumber')?.substring(0, 4)) >= 2021
+                      parseInt(methods.getValues('USER.studentNumber')?.substring(0, 4), 10) >= 2021
                         ? '2021~'
                         : '~2020'
                     );
@@ -272,13 +271,10 @@ function SectionPanelWithInputs({
   );
 }
 
-const isBulkCreditSection = (section: SectionTitleType) => {
-  return section !== '신청자 정보' && section !== '기타 학점';
-};
+const isBulkCreditSection = (section: SectionTitleType) =>
+  section !== '신청자 정보' && section !== '기타 학점';
 
-const isLaterThan2021 = (year: string) => {
-  return year === '2021~';
-};
+const isLaterThan2021 = (year: string) => year === '2021~';
 
 const useStyles = createStyles((theme) => ({
   form_stack: {

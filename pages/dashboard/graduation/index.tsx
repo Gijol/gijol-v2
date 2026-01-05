@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Space, Title, Group, Text, Box, Divider, Center } from '@mantine/core';
+import { Container, Space, Title, Text, Box, Divider, Center } from '@mantine/core';
 import { useScrollIntoView } from '@mantine/hooks';
 
 import GradOverallStatus from '@components/grad-overall-status';
@@ -7,7 +7,6 @@ import GradSpecificDomainStatus from '@components/grad-specific-domain-status';
 import GradRecommend from '@components/grad-recommend';
 import { extractOverallStatus, getFeedbackNumbers } from '@utils/graduation/grad-formatter';
 import UploadEmptyState from '@components/graduation/upload-empty-state';
-import { inferEntryYear } from '@utils/graduation/grad-status-helper';
 import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
 
 export default function GraduationStatusPage() {

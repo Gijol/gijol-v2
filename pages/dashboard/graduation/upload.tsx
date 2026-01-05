@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Paper, Text, Group, Button, NumberInput, TextInput, MultiSelect, Select } from '@mantine/core';
+import { Paper, Text, Group, Button, NumberInput, MultiSelect, Select } from '@mantine/core';
 import { useRouter } from 'next/router';
 
 import {
@@ -9,7 +9,6 @@ import {
 } from '@utils/graduation/grad-status-helper';
 import type { EditableCourseRow } from '@lib/types/graduation-editable';
 import { v4 as uuid } from 'uuid';
-import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
 import {
   applyEditableRowsToUserStatus,
   toEditableRows,
@@ -17,6 +16,7 @@ import {
 import { ParsedCourseEditableTable } from '@components/graduation/parse-course-editable-table';
 import { GradUploadPanel } from '@components/graduation/upload-panel';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
+import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
 
 export default function GraduationParsePage() {
   const router = useRouter();
@@ -28,7 +28,6 @@ export default function GraduationParsePage() {
   const [entryYear, setEntryYear] = useState<number>(2020);
   const [major, setMajor] = useState<string>('');
   const [minors, setMinors] = useState<string[]>([]);
-
 
   // parsed가 바뀌면 editable rows 초기화
   useEffect(() => {
@@ -43,17 +42,11 @@ export default function GraduationParsePage() {
       }
 
       // 전공 추론
-      const parsedMajor =
-        (parsed as any).major ||
-        (parsed as any).department ||
-        '';
+      const parsedMajor = (parsed as any).major || (parsed as any).department || '';
       setMajor(parsedMajor);
 
       // 부전공: 배열 그대로 반영
-      const parsedMinors: string[] =
-        (parsed as any).minors ||
-        (parsed as any).userMinors ||
-        [];
+      const parsedMinors: string[] = (parsed as any).minors || (parsed as any).userMinors || [];
       setMinors(parsedMinors);
     } else {
       setRows([]);
@@ -104,22 +97,17 @@ export default function GraduationParsePage() {
           ? entryYear
           : inferredFromData ?? new Date().getFullYear();
 
-       // 2018 이전 학번은 서비스 대상이 아니므로, 여기서 방어적으로 처리할 수도 있음
+      // 2018 이전 학번은 서비스 대상이 아니므로, 여기서 방어적으로 처리할 수도 있음
       // (단순 경고용으로 쓰고, 로직은 그대로 돌릴 수도)
       // if (finalEntryYear < 2018) {
       //   // TODO: UI에서 경고 메시지 보여주기 등
       // }
 
-      const fallbackMajor =
-        (updated as any).major ||
-        (updated as any).department ||
-        undefined;
+      const fallbackMajor = (updated as any).major || (updated as any).department || undefined;
 
       const userMajor = major || fallbackMajor;
 
       const userMinors = minors;
-      
-
       const payload = {
         entryYear: finalEntryYear,
         takenCourses,
@@ -133,7 +121,7 @@ export default function GraduationParsePage() {
         parsed: updated,
         takenCourses,
         gradStatus: grad,
-        userMajor
+        userMajor,
       });
 
       router.push('/dashboard/graduation');
@@ -161,12 +149,11 @@ export default function GraduationParsePage() {
               있습니다.
             </Text>
 
-            
             {/* 입학년도 필드: inferEntryYear로 자동 채워주고, 수정 가능 */}
             <Paper withBorder radius="md" p="md" mb="md">
               <Text size="xs" c="dimmed">
-                  2018학번 이후만 현재 서비스 대상입니다.
-                </Text>
+                2018학번 이후만 현재 서비스 대상입니다.
+              </Text>
               <Group align="flex-end" spacing="md">
                 <NumberInput
                   label="입학년도 (학번 기준)"
@@ -181,7 +168,6 @@ export default function GraduationParsePage() {
                   max={new Date().getFullYear()}
                   step={1}
                 />
-                
                 <Select
                   label="전공"
                   placeholder="전공을 선택하세요"
@@ -203,7 +189,6 @@ export default function GraduationParsePage() {
                   clearable
                   nothingFound="해당 이름의 부전공이 없습니다"
                 />
-                
               </Group>
             </Paper>
 
