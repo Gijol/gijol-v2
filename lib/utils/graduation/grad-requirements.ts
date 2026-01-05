@@ -264,11 +264,11 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
     categoryKey: 'scienceBasic',
     label: 'SW 기초와 코딩(GS1490) 필수',
     requiredCredits: 1,
-    acquiredCredits: swBasicTaken ? 1 : 0,
-    missingCredits: swBasicTaken ? 0 : 1,
-    satisfied: swBasicTaken,
+    acquiredCredits: swBasicTaken || tookCompProg ? 1 : 0,
+    missingCredits: swBasicTaken || tookCompProg ? 0 : 1,
+    satisfied: swBasicTaken || tookCompProg,
     importance: 'must',
-    hint: '컴퓨터 프로그래밍과 별개로 SW 기초와 코딩(GS1490)을 이수해야 합니다.',
+    hint: '컴퓨터 프로그래밍 이수 시 면제되며, 미이수한 경우 SW 기초와 코딩(GS1490)을 이수해야 합니다.',
     relatedCoursePatterns: { codePrefixes: Array.from(SET_SW_BASIC) },
   });
 

@@ -170,9 +170,6 @@ export default function GraduationStatusPage() {
             <Stack spacing="md" className={classes.requirementsBody}>
               <Group position="apart" align="center" spacing="xs">
                 <Text size="lg" className={classes.sectionTitle}>
-                  Requirement Progress
-                </Text>
-                <Text size="sm" className={classes.muted}>
                   영역별 이수 현황
                 </Text>
               </Group>
@@ -195,9 +192,9 @@ export default function GraduationStatusPage() {
                           <Group position="apart" noWrap>
                             <Group spacing="sm" noWrap>
                               {req.satisfied ? (
-                                <IconCircleCheck size={16} color="green" />
+                                <IconCircleCheck size={20} color="green" />
                               ) : (
-                                <IconAlertTriangle size={16} color="orange" />
+                                <IconAlertTriangle size={20} color="orange" />
                               )}
                               <div>
                                 <Text className={classes.accordionLabel}>{req.domain}</Text>
