@@ -1,120 +1,89 @@
 import { homeContents } from '@const/content-data';
-
-import {
-  Button,
-  Container,
-  Group,
-  List,
-  Paper,
-  ScrollArea,
-  SimpleGrid,
-  Space,
-  Text,
-  ThemeIcon,
-} from '@mantine/core';
-
+import { useRouter } from 'next/router';
+import { IconCheck, IconUpload } from '@tabler/icons-react';
 import DashboardHeroHeader from '@components/dashboard-hero-header';
 import DashboardFeatureCard from '@components/dashboard-feature-card';
-import { IconCheck, IconUpload } from '@tabler/icons-react';
-import { useRouter } from 'next/router';
+import { Button } from '@components/ui/button';
+import { cn } from '@/lib/utils';
 
 export default function HomePage() {
   const router = useRouter();
   const cntFeatures = homeContents.main.cntFeatures;
-  const futureFeatures = homeContents.main.betaFeatures;
+  // const futureFeatures = homeContents.main.betaFeatures; // Unused for now
+
   return (
-    <ScrollArea h="fit-content">
+    <div className="w-full">
       <DashboardHeroHeader />
-      <Container size="lg">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         {/* ▶️ ZEUS 엑셀 업로드 안내 박스 */}
-        <Paper
-          radius="md"
-          p="lg"
-          mt={40}
-          sx={(theme) => ({
-            borderColor: theme.colors.red[6],
-            borderWidth: 1,
-            borderStyle: 'solid',
-            backgroundColor: theme.colors.red[0],
-          })}
-        >
-          <Group position="apart" align="flex-start">
-            <div>
-              <Text size="lg" fw={700} mb={6} color="red.6">
+        <div className="mt-10 rounded-md border border-red-600 bg-red-50 p-6 dark:bg-red-950/20 dark:border-red-800">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+            <div className="flex-1">
+              <h3 className="text-lg font-bold text-red-600 mb-1.5">
                 먼저 성적표 엑셀을 업로드해주세요
-              </Text>
-              <Text size="sm" c="dimmed" mb="xs">
+              </h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                 현재 Gijol-v2는 <b>로그인 없이</b> 동작하며, 한 번의 엑셀 업로드로
                 <b> 졸업요건 확인</b>과 <b>내 수강현황</b>을 확인할 수 있습니다.
-              </Text>
+              </p>
 
-              <Text size="sm" fw={500} mt="xs" mb={4}>
+              <p className="text-sm font-medium mt-2 mb-1 text-gray-900 dark:text-gray-100">
                 ✅ 업로드해야 하는 파일 (ZEUS 기준):
-              </Text>
-              <List
-                size="sm"
-                spacing={4}
-                icon={
-                  <ThemeIcon size={18} radius="xl">
-                    <IconCheck size={12} />
-                  </ThemeIcon>
-                }
-              >
-                <List.Item>학교 제우스(Zeus) 시스템 접속</List.Item>
-                <List.Item>
+              </p>
+              <ul className="space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                <ListItem>학교 제우스(Zeus) 시스템 접속</ListItem>
+                <ListItem>
                   상단 메뉴에서 <b>성적 &gt; 개인성적조회</b>로 이동
-                </List.Item>
-                <List.Item>
+                </ListItem>
+                <ListItem>
                   화면 <b>상단 우측</b>에 있는 <b>“Report card (KOR)”</b> 버튼 클릭
-                </List.Item>
-                <List.Item>다운로드된 엑셀 파일을 Gijol에서 업로드</List.Item>
-              </List>
+                </ListItem>
+                <ListItem>다운로드된 엑셀 파일을 Gijol에서 업로드</ListItem>
+              </ul>
             </div>
             <Button
               size="lg"
-              radius="md"
-              leftIcon={<IconUpload size="1.2rem" />}
-              variant="gradient"
-              gradient={{ from: 'indigo', to: 'cyan' }}
-              sx={{
-                fontWeight: 700,
-                animation: 'pulse 1.8s infinite',
-                '@keyframes pulse': {
-                  '0%': { boxShadow: '0 0 0 0 rgba(0, 122, 255, .4)' },
-                  '70%': { boxShadow: '0 0 0 12px rgba(0, 122, 255, 0)' },
-                  '100%': { boxShadow: '0 0 0 0 rgba(0, 122, 255, 0)' },
-                },
-              }}
+              className={cn(
+                "bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white border-0",
+                "shadow-[0_0_0_0_rgba(0,122,255,0.4)] animate-[pulse_1.8s_infinite]"
+              )}
               onClick={() => router.push('/dashboard/graduation/upload')}
             >
+              <IconUpload className="mr-2 h-5 w-5" />
               업로드하러 가기
-            </Button>{' '}
-          </Group>
-        </Paper>
+            </Button>
+          </div>
+        </div>
 
-        <Space h={32} />
+        <div className="h-8" />
 
         {/* 🔹 지금 이용 가능한 기능들 (졸업요건 / 수강현황) */}
-        <Text size={24} my="md" fw={600}>
+        <h2 className="text-2xl font-semibold my-4 text-gray-900 dark:text-gray-100">
           지금 이용 가능한 서비스
-        </Text>
-        <Text size="sm" c="dimmed" mb="sm">
+        </h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
           성적표 엑셀을 업로드하면, 아래 기능들을 바로 사용하실 수 있어요.
-        </Text>
-        <SimpleGrid
-          cols={3}
-          spacing="xl"
-          breakpoints={[
-            { maxWidth: 'md', cols: 2, spacing: 'xl' },
-            { maxWidth: 'xs', cols: 1, spacing: 'xl' },
-          ]}
-        >
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {cntFeatures.map((feat) => (
             <DashboardFeatureCard key={feat.title} feat={feat} />
           ))}
-        </SimpleGrid>
-        <Space h={96} />
-      </Container>
-    </ScrollArea>
+        </div>
+
+        <div className="h-24" />
+      </div>
+    </div>
   );
+}
+
+function ListItem({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex items-start gap-2">
+      <div className="mt-0.5 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 shrink-0">
+        <IconCheck size={10} />
+      </div>
+      <span>{children}</span>
+    </li>
+  )
 }

@@ -1,32 +1,10 @@
 import { useState } from 'react';
+import { useForm, FormProvider, useFormContext, Controller } from 'react-hook-form';
+import { FileCheck, FileX, Menu, FileText } from 'lucide-react';
 
-import {
-  ActionIcon,
-  Box,
-  Col,
-  Container,
-  Divider,
-  Grid,
-  Group,
-  Paper,
-  Select,
-  Stack,
-  Tabs,
-  Text,
-  TextInput,
-  Drawer,
-  MediaQuery,
-  rem,
-  createStyles,
-  Title,
-  Button,
-  Tooltip,
-  useMantineTheme,
-} from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-
-import { IconFileCheck, IconFileShredder, IconMenu2 } from '@tabler/icons-react';
+import { cn } from '@/lib/utils';
 import CertificateSectionPanel from '@components/certificate-section-panel';
+import CertificateDropzone from '@components/certificate-dropzone';
 
 import {
   section_titles,
@@ -36,175 +14,170 @@ import {
 } from '@const/grad-certificate-inputs';
 import { parseCertificate } from '@utils/parser/grade/certificate-parser';
 
-import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
-import CertificateDropzone from '@components/certificate-dropzone';
+import { Button } from '@components/ui/button';
+import { Input } from '@components/ui/input';
+import { Label } from '@components/ui/label';
+import { Card, CardContent } from '@components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
+import { Separator } from '@components/ui/separator';
+import { Sheet, SheetContent, SheetTrigger } from '@components/ui/sheet';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@components/ui/tooltip';
+import { Checkbox } from '@components/ui/checkbox';
+import { Combobox } from '@components/ui/combobox';
+import { MultiSelect } from '@components/ui/multi-select';
 
 const getDefaultOrSavedValue = () =>
-  ({
-    OU: {
-      summer_session: {
-        subjects: [],
-      },
+({
+  OU: {
+    summer_session: {
+      subjects: [],
     },
-  } as unknown as Record<string, any>);
+  },
+} as unknown as Record<string, any>);
 
 export default function CertificateBuilder() {
-  const theme = useMantineTheme();
-  const { classes } = useStyles();
-
   // form management
   const methods = useForm({
     defaultValues: getDefaultOrSavedValue(),
   });
 
   // section panel tabs & drawer
+  // We manage activeTab via state, effectively "controlled tabs" manually implemented
   const [activeTab, setActiveTab] = useState<SectionTitleType>(section_titles[0]);
-  const [opened, { open, close }] = useDisclosure(false);
-
   const [isUpperThan2021, setIsUpperThan2021] = useState<string | null>(null);
 
   const onSubmit = (data: any) => console.log(data);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} autoComplete="off">
-        <Container size="lg" mb="xl" fluid className={classes.container}>
-          <Tabs unstyled defaultValue="신청자 정보">
-            <Grid m={0} justify="center" maw={1100} mx="auto" columns={6}>
-              <Col lg={6} md={6}>
-                <Title order={3} mt={40} mb="lg">
+        <div className="container mx-auto max-w-[1100px] mb-20 px-4">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-6 justify-center">
+
+            {/* Left Column: Title & Dropzone */}
+            <div className="md:col-span-3 lg:col-span-3">
+              <div className="mt-10 mb-6">
+                <h3 className="text-xl font-semibold">
                   졸업 이수요건 확인서 생성기 🪄
-                </Title>
-                <Divider mt="md" />
-              </Col>
-              <Col lg={6} md={6}>
+                </h3>
+                <Separator className="mt-4" />
+              </div>
+
+              <div className="mb-6">
                 <CertificateDropzone
                   onDrop={(file) => {
                     parseCertificate(file[0] as File, methods);
-                    setIsUpperThan2021(
-                      parseInt(methods.getValues('USER.studentNumber')?.substring(0, 4), 10) >= 2021
-                        ? '2021~'
-                        : '~2020'
-                    );
+                    const studentNum = methods.getValues('USER.studentNumber');
+                    if (studentNum && studentNum.length >= 4) {
+                      setIsUpperThan2021(
+                        parseInt(studentNum.substring(0, 4), 10) >= 2021
+                          ? '2021~'
+                          : '~2020'
+                      );
+                    }
                   }}
                 />
-              </Col>
-              <Col xl="auto" lg="auto" md="auto">
-                <Paper withBorder className={classes.form_container}>
-                  <Stack spacing="md" className={classes.form_stack}>
-                    <Group position="apart">
-                      <Text component="h2" size="xl" align="left" my="lg">
-                        {activeTab}
-                      </Text>
+              </div>
+
+              {/* Desktop: Sidebar Menu */}
+              <div className="hidden xl:block">
+                <CertificateSectionPanel activeTab={activeTab} setActiveTab={setActiveTab} />
+              </div>
+            </div>
+
+            {/* Right Column: Form Inputs */}
+            <div className="md:col-span-3 lg:col-span-3 xl:col-span-auto">
+              <Card className="border p-4 md:p-6 w-full">
+                <CardContent className="p-0 flex flex-col gap-4">
+                  <div className="flex justify-between items-center py-4">
+                    <h2 className="text-xl font-semibold text-left">
+                      {activeTab}
+                    </h2>
+                    <div className="w-[200px]">
+                      <Label className="text-xs text-muted-foreground mb-1 block">학번</Label>
                       <Select
-                        className={classes.student_number_input}
-                        size="xs"
-                        label="학번"
-                        withAsterisk
-                        placeholder="학번을 선택해주세요"
-                        data={[
-                          { value: '2021~', label: '2021년도 이후 (2021 ~ )' },
-                          { value: '~2020', label: '2021년도 이전 ( ~ 2020)' },
-                        ]}
-                        onChange={setIsUpperThan2021}
-                        value={isUpperThan2021}
-                      />
-                    </Group>
-                    <Divider />
+                        value={isUpperThan2021 || ""}
+                        onValueChange={setIsUpperThan2021}
+                      >
+                        <SelectTrigger className="h-8">
+                          <SelectValue placeholder="학번 선택" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="2021~">2021년도 이후 (2021 ~ )</SelectItem>
+                          <SelectItem value="~2020">2021년도 이전 ( ~ 2020)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  <Separator />
+
+                  <div className="flex flex-col gap-4">
                     {generateInputSections(methods).map((section) => (
                       <SectionPanelWithInputs
                         key={section.title}
                         inputs={section.inputs}
                         title={section.title}
                         label={section.section_label}
+                        isActive={activeTab === section.section_label}
                         laterThan2021={isLaterThan2021(isUpperThan2021 ?? '2021')}
                       />
                     ))}
-                  </Stack>
-                </Paper>
-                <MediaQuery styles={{ display: 'none' }} largerThan="xl">
-                  <Paper
-                    pos="sticky"
-                    bottom={40}
-                    w="fit-content"
-                    mx="auto"
-                    mt={40}
-                    withBorder
-                    radius="xl"
-                    p="xs"
-                    shadow="xs"
-                  >
-                    <Group position="center" spacing="xs">
-                      <Tooltip label="변경사항 저장">
-                        <ActionIcon
-                          component="button"
-                          onClick={open}
-                          size="2rem"
-                          color="dark"
-                          variant="subtle"
-                          className={classes.section_panel_button}
-                        >
-                          <IconFileCheck size="1.25rem" color={theme.colors.green[6]} />
-                        </ActionIcon>
-                      </Tooltip>
-                      <Tooltip label="변경사항 폐기">
-                        <ActionIcon
-                          component="button"
-                          onClick={open}
-                          size="2rem"
-                          color="dark"
-                          variant="subtle"
-                          className={classes.section_panel_button}
-                        >
-                          <IconFileShredder size="1.25rem" color={theme.colors.red[6]} />
-                        </ActionIcon>
-                      </Tooltip>
-                      <Divider orientation="vertical" />
-                      <Button
-                        color="dark"
-                        radius="lg"
-                        onClick={() => console.log(methods.getValues())}
-                      >
-                        PDF 생성하기
-                      </Button>
-                      <Divider orientation="vertical" />
-                      <Tooltip label="섹션 메뉴">
-                        <ActionIcon
-                          component="button"
-                          onClick={open}
-                          size="2rem"
-                          color="dark"
-                          variant="subtle"
-                          className={classes.section_panel_button}
-                        >
-                          <IconMenu2 size="1.25rem" />
-                        </ActionIcon>
-                      </Tooltip>
+                  </div>
+                </CardContent>
+              </Card>
 
-                      <Drawer
-                        opened={opened}
-                        onClose={close}
-                        overlayProps={{ opacity: 0.5, blur: 0.5 }}
-                        position="bottom"
-                      >
+              {/* Mobile Bottom Bar (visible on < xl) */}
+              <div className="xl:hidden fixed bottom-10 left-0 right-0 z-40 flex justify-center pointer-events-none">
+                <div className="pointer-events-auto bg-white dark:bg-slate-900 border rounded-full shadow-lg p-2 flex items-center gap-2">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button size="icon" variant="ghost" className="rounded-full h-10 w-10">
+                          <FileCheck className="h-5 w-5 text-green-600" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>변경사항 저장</TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button size="icon" variant="ghost" className="rounded-full h-10 w-10">
+                          <FileX className="h-5 w-5 text-red-600" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>변경사항 폐기</TooltipContent>
+                    </Tooltip>
+
+                    <Separator orientation="vertical" className="h-6" />
+
+                    <Button
+                      className="rounded-full bg-slate-900 text-white dark:bg-slate-50 dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200"
+                      onClick={() => console.log(methods.getValues())}
+                    >
+                      PDF 생성하기
+                    </Button>
+
+                    <Separator orientation="vertical" className="h-6" />
+
+                    <Sheet>
+                      <SheetTrigger asChild>
+                        <Button size="icon" variant="ghost" className="rounded-full h-10 w-10">
+                          <Menu className="h-5 w-5" />
+                        </Button>
+                      </SheetTrigger>
+                      <SheetContent side="bottom" className="h-[80vh] overflow-y-auto rounded-t-xl">
                         <CertificateSectionPanel
                           activeTab={activeTab}
                           setActiveTab={setActiveTab}
                         />
-                      </Drawer>
-                    </Group>
-                  </Paper>
-                </MediaQuery>
-              </Col>
-              <MediaQuery styles={{ display: 'none' }} smallerThan="xl">
-                <Col span="content">
-                  <Paper withBorder className={classes.section_panel}>
-                    <CertificateSectionPanel activeTab={activeTab} setActiveTab={setActiveTab} />
-                  </Paper>
-                </Col>
-              </MediaQuery>
-            </Grid>
-          </Tabs>
-        </Container>
+                      </SheetContent>
+                    </Sheet>
+                  </TooltipProvider>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </form>
     </FormProvider>
   );
@@ -214,60 +187,156 @@ function SectionPanelWithInputs({
   inputs,
   title,
   label,
+  isActive,
   laterThan2021,
 }: {
-  inputs: Array<InputOrUncontrolledComponentProps<any>>;
+  inputs: Array<InputOrUncontrolledComponentProps>;
   label: SectionTitleType;
   title: string;
+  isActive: boolean;
   laterThan2021: boolean;
 }) {
-  const { control } = useFormContext();
+  const { control, watch, setValue, register, getValues } = useFormContext();
+
+  // Unlike Mantine Tabs, we just hide/show content based on active state.
+  if (!isActive) return null;
+
   const content = inputs
     .filter((item) => item.laterThan2021 === undefined || item.laterThan2021 === laterThan2021)
-    .map((item) => {
-      const Component = item.component ?? TextInput;
-      const isControlled = item.controlled ?? true;
-      const key = item.rhf_name ?? (item.props as any).label ?? (item.props as any).children;
-      if (!isControlled) {
-        return <Box key={key} component={Component} {...(item.props as any)} w="100%" />;
+    .map((item, index) => {
+      // Wrapper for spacing
+      const wrapperClass = isBulkCreditSection(label) ? "col-span-1" : "col-span-1 sm:col-span-1 md:col-span-1 border-b pb-4 mb-4 md:border-none md:pb-0 md:mb-0";
+      const key = item.rhf_name ?? `${title}-${index}`;
+
+      if (item.component === 'divider') {
+        return (
+          <div key={key} className="col-span-1 md:col-span-2 my-4">
+            <div className="border-t border-dashed border-red-300 relative flex justify-center">
+              <span className="bg-background px-2 text-xs text-red-500 absolute -top-2.5">
+                {item.props?.label}
+              </span>
+            </div>
+          </div>
+        );
       }
-      return (
-        <Col span={4} key={key}>
-          <Controller
-            key={item.rhf_name}
-            name={`${item.rhf_name}`}
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <Box
-                component={Component}
-                type={item.type ?? 'string'}
-                label={item.label}
-                placeholder={item.placeholder}
-                mt="sm"
-                styles={{
-                  label: {
-                    marginBottom: '8px',
-                  },
-                }}
-                {...(item.props as any)}
-                {...field}
-                onChange={(e: unknown) => {
-                  field.onChange(e);
-                  if ((item.props as any)?.onChange) {
-                    (item.props as any)?.onChange(e);
-                  }
-                }}
-              />
-            )}
+
+      if (item.component === 'title') {
+        return (
+          <div key={key} className="col-span-1 md:col-span-2 mt-4">
+            <p className="font-semibold text-sm">{item.props?.children}</p>
+          </div>
+        );
+      }
+
+      // Input Render Helper
+      const renderInput = () => {
+        const commonProps = {
+          placeholder: item.placeholder,
+          readOnly: item.props?.readOnly,
+          className: item.props?.readOnly ? "bg-muted" : "",
+        }
+
+        if (item.component === 'month') {
+          return (
+            <Input
+              type="month"
+              {...register(item.rhf_name!)}
+              {...commonProps}
+            />
+          )
+        }
+
+        const normalizeOptions = (data: any[] = []) => {
+          return data.map(opt => {
+            if (typeof opt === 'string') return { label: opt, value: opt };
+            return opt;
+          });
+        }
+
+        if (item.component === 'select') {
+          return (
+            <Controller
+              control={control}
+              name={item.rhf_name!}
+              render={({ field }) => (
+                <Combobox
+                  options={normalizeOptions(item.props?.data)}
+                  value={field.value}
+                  onChange={(val) => field.onChange(val)}
+                  placeholder={item.placeholder}
+                // searchable={item.props?.searchable} // Not supported in ComboboxProps interface yet
+                // creatable={item.props?.creatable} // Not supported
+                />
+              )}
+            />
+          )
+        }
+
+        if (item.component === 'multi-select') {
+          return (
+            <Controller
+              control={control}
+              name={item.rhf_name!}
+              render={({ field }) => (
+                <MultiSelect
+                  options={normalizeOptions(item.props?.data)}
+                  selected={field.value || []}
+                  onChange={(val) => field.onChange(val)}
+                  placeholder={item.placeholder}
+                // searchable={item.props?.searchable}
+                // creatable={item.props?.creatable}
+                // getCreateLabel={item.props?.getCreateLabel}
+                // onCreate={item.props?.onCreate}
+                />
+              )}
+            />
+          )
+        }
+
+        if (item.component === 'number') {
+          return (
+            <Input
+              type="number"
+              {...register(item.rhf_name!, { valueAsNumber: true })}
+              {...commonProps}
+              min={item.props?.min}
+              max={item.props?.max}
+              onChange={(e) => {
+                const val = Number(e.target.value);
+                setValue(item.rhf_name!, val);
+                if (item.props?.onChange) {
+                  item.props.onChange(val);
+                }
+              }}
+            />
+          )
+        }
+
+        // Default text
+        return (
+          <Input
+            type={item.type || 'text'}
+            {...register(item.rhf_name!)}
+            {...commonProps}
+            {...item.props} // Pass misc props like pattern, maxLength
           />
-        </Col>
+        )
+      }
+
+      return (
+        <div key={key} className={wrapperClass}>
+          <div className="flex flex-col gap-2">
+            {item.label && <Label htmlFor={item.rhf_name} className="mb-1">{item.label}</Label>}
+            {renderInput()}
+          </div>
+        </div>
       );
     });
+
   return (
-    <Tabs.Panel value={label} key={title}>
-      <Grid columns={isBulkCreditSection(label) ? 12 : 4}>{content}</Grid>
-    </Tabs.Panel>
+    <div className={cn("grid gap-4", isBulkCreditSection(label) ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-1 md:grid-cols-2")}>
+      {content}
+    </div>
   );
 }
 
@@ -276,71 +345,3 @@ const isBulkCreditSection = (section: SectionTitleType) =>
 
 const isLaterThan2021 = (year: string) => year === '2021~';
 
-const useStyles = createStyles((theme) => ({
-  form_stack: {
-    '& .mantine-Input-input': {
-      backgroundColor: theme.colors.gray[0],
-      borderRadius: theme.radius.md,
-      padding: '2px 16px',
-      fontSize: theme.fontSizes.md,
-      fontWeight: 400,
-      lineHeight: 'normal',
-      height: '48px',
-      border: `1px solid ${theme.colors.gray[4]}`,
-      ':hover': {
-        border: '1px solid',
-        borderColor: theme.colors.blue[5],
-      },
-      '::placeholder': {
-        color: theme.colors.gray[6],
-      },
-      ':focus::placeholder': {
-        color: theme.colors.gray[6],
-      },
-      ':focus-within': {
-        border: '1px solid',
-        backgroundColor: 'transparent',
-        borderColor: theme.colors.blue[5],
-      },
-    },
-    '& .mantine-NumberInput-controlUp': {
-      borderTopRightRadius: theme.radius.lg,
-    },
-    '& .mantine-NumberInput-controlDown': {
-      borderBottomRightRadius: theme.radius.lg,
-    },
-    'input:-internal-autofill-selected': {
-      backgroundColor: 'transparent !important',
-      color: 'inherit !important',
-    },
-  },
-  container: {
-    '@media (max-width: 48em)': { padding: 0 },
-  },
-  form_container: {
-    padding: theme.spacing.lg,
-    borderRadius: theme.radius.lg,
-    '@media (max-width: 48em)': { padding: theme.spacing.md },
-  },
-  student_number_input: {
-    '& .mantine-Input-input': {
-      padding: '1px 20px 1px 12px',
-      height: rem(32),
-      lineHeight: rem(2.125),
-      fontSize: rem(14),
-      width: 'fit-content',
-    },
-  },
-  section_panel: {
-    width: 280,
-    height: 'fit-content',
-    padding: theme.spacing.md,
-    borderRadius: theme.radius.lg,
-  },
-  section_panel_button: {
-    borderRadius: theme.radius.xl,
-    '&:hover': {
-      backgroundColor: theme.colors.gray[2],
-    },
-  },
-}));

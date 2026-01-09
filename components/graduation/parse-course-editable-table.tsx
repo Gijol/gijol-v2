@@ -1,15 +1,25 @@
 import React from 'react';
+import { Card, CardContent, CardFooter } from '@components/ui/card';
 import {
-  Table,
-  ScrollArea,
-  NumberInput,
-  TextInput,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@components/ui/table';
+import { ScrollArea } from '@components/ui/scroll-area';
+import { Input } from '@components/ui/input';
+import {
   Select,
-  Group,
-  ActionIcon,
-} from '@mantine/core';
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@components/ui/select';
+import { Button } from '@components/ui/button';
 import { IconTrash, IconPlus } from '@tabler/icons-react';
 import type { EditableCourseRow } from '@lib/types/graduation-editable';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@components/ui/tooltip';
 
 type Props = {
   rows: EditableCourseRow[];
@@ -27,105 +37,125 @@ const SEMESTER_OPTIONS = [
 
 export function ParsedCourseEditableTable({ rows, onChangeRow, onAddRow, onRemoveRow }: Props) {
   return (
-    <>
-      <ScrollArea h={420}>
-        <Table striped highlightOnHover verticalSpacing="xs" withBorder>
-          <thead>
-            <tr>
-              <th style={{ width: 100 }}>연도</th>
-              <th style={{ width: 110 }}>학기</th>
-              <th style={{ width: 120 }}>구분</th>
-              <th style={{ width: 130 }}>과목코드</th>
-              <th>과목명</th>
-              <th style={{ width: 80 }}>학점</th>
-              <th style={{ width: 90 }}>성적</th>
-              <th style={{ width: 60 }}>삭제</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.id}>
-                <td>
-                  <NumberInput
-                    hideControls
-                    value={row.year}
-                    onChange={(v) => onChangeRow(row.id, { year: Number(v) || '' })}
-                    placeholder="연도"
-                    min={2000}
-                    max={2100}
-                    size="xs"
-                  />
-                </td>
-                <td>
-                  <Select
-                    data={SEMESTER_OPTIONS}
-                    value={row.semester}
-                    onChange={(v) => onChangeRow(row.id, { semester: v || '' })}
-                    placeholder="학기"
-                    size="xs"
-                  />
-                </td>
-                <td>
-                  <TextInput
-                    value={row.courseType}
-                    onChange={(e) => onChangeRow(row.id, { courseType: e.currentTarget.value })}
-                    placeholder="전공/교양 등"
-                    size="xs"
-                  />
-                </td>
-                <td>
-                  <TextInput
-                    value={row.courseCode}
-                    onChange={(e) => onChangeRow(row.id, { courseCode: e.currentTarget.value })}
-                    placeholder="예: CS101"
-                    size="xs"
-                  />
-                </td>
-                <td>
-                  <TextInput
-                    value={row.courseName}
-                    onChange={(e) => onChangeRow(row.id, { courseName: e.currentTarget.value })}
-                    placeholder="과목명"
-                    size="xs"
-                  />
-                </td>
-                <td>
-                  <NumberInput
-                    hideControls
-                    value={row.credit}
-                    onChange={(v) => onChangeRow(row.id, { credit: Number(v) || '' })}
-                    placeholder="학점"
-                    min={0}
-                    max={10}
-                    size="xs"
-                  />
-                </td>
-                <td>
-                  <TextInput
-                    value={row.grade ?? ''}
-                    onChange={(e) => onChangeRow(row.id, { grade: e.currentTarget.value })}
-                    placeholder="A+, B0 등"
-                    size="xs"
-                  />
-                </td>
-                <td>
-                  <Group position="center">
-                    <ActionIcon color="red" variant="subtle" onClick={() => onRemoveRow(row.id)}>
-                      <IconTrash size={16} />
-                    </ActionIcon>
-                  </Group>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </ScrollArea>
+    <Card className="pt-2 pb-0 px-2">
+        <ScrollArea className="h-[420px]">
+          <table className="w-full caption-bottom text-sm">
+            <TableHeader className="bg-white sticky top-0 z-10">
+              <TableRow>
+                <TableHead className="w-[90px]">연도</TableHead>
+                <TableHead className="w-[80px]">학기</TableHead>
+                <TableHead className="w-[80px]">구분</TableHead>
+                <TableHead className="w-[90px]">과목코드</TableHead>
+                <TableHead>과목명</TableHead>
+                <TableHead className="w-[80px]">학점</TableHead>
+                <TableHead className="w-[80px]">성적</TableHead>
+                <TableHead className="w-[50px]">삭제</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell className="p-2">
+                    <Input
+                      type="number"
+                      value={row.year}
+                      onChange={(e) => onChangeRow(row.id, { year: Number(e.target.value) || 0 })}
+                      placeholder="연도"
+                      min={2000}
+                      max={2100}
+                      className="h-8 text-xs"
+                    />
+                  </TableCell>
+                  <TableCell className="p-2">
+                    <Select
+                      value={row.semester}
+                      onValueChange={(v) => onChangeRow(row.id, { semester: v })}
+                    >
+                      <SelectTrigger className="h-8 text-xs w-full">
+                        <SelectValue placeholder="학기" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {SEMESTER_OPTIONS.map((opt) => (
+                          <SelectItem key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </TableCell>
+                  <TableCell className="p-2">
+                    <Input
+                      value={row.courseType}
+                      onChange={(e) => onChangeRow(row.id, { courseType: e.currentTarget.value })}
+                      placeholder="전공/교양"
+                      className="h-8 text-xs"
+                    />
+                  </TableCell>
+                  <TableCell className="p-2">
+                    <Input
+                      value={row.courseCode}
+                      onChange={(e) => onChangeRow(row.id, { courseCode: e.currentTarget.value })}
+                      placeholder="예: CS101"
+                      className="h-8 text-xs"
+                    />
+                  </TableCell>
+                  <TableCell className="p-2">
+                    <Input
+                      value={row.courseName}
+                      onChange={(e) => onChangeRow(row.id, { courseName: e.currentTarget.value })}
+                      placeholder="과목명"
+                      className="h-8 text-xs"
+                    />
+                  </TableCell>
+                  <TableCell className="p-2">
+                    <Input
+                      type="number"
+                      value={row.credit}
+                      onChange={(e) => onChangeRow(row.id, { credit: Number(e.target.value) || 0 })}
+                      placeholder="학점"
+                      min={0}
+                      max={10}
+                      className="h-8 text-xs"
+                    />
+                  </TableCell>
+                  <TableCell className="p-2">
+                    <Input
+                      value={row.grade ?? ''}
+                      onChange={(e) => onChangeRow(row.id, { grade: e.currentTarget.value })}
+                      placeholder="성적"
+                      className="h-8 text-xs"
+                    />
+                  </TableCell>
+                  <TableCell className="p-2">
+                    <div className="flex justify-center">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-50"
+                        onClick={() => onRemoveRow(row.id)}
+                      >
+                        <IconTrash size={16} />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </table>
+        </ScrollArea>
 
-      <Group position="right" mt="xs">
-        <ActionIcon onClick={onAddRow} variant="light">
-          <IconPlus size={18} />
-        </ActionIcon>
-      </Group>
-    </>
+      <div className="flex justify-end p-6">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button onClick={onAddRow} variant="outline" size="icon" className="h-9 w-9">
+              <IconPlus size={18} />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>행 추가하기 (하단에 추가됨)</p>
+          </TooltipContent>
+        </Tooltip>
+      </div>
+    </Card>
   );
 }

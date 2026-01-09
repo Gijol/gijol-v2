@@ -22,7 +22,8 @@
       "@utils/*": ["lib/utils/*"],
       "@const/*": ["lib/const/*"],
       "@public/*": ["public/*"],
-      "@components/*": ["components/*"]
+      "@components/*": ["components/*"],
+      "@/*": ["./*"]
     }
   },
   "ts-node": {

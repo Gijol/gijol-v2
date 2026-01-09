@@ -1,21 +1,17 @@
-import {
-  Badge,
-  Button,
-  createStyles,
-  Divider,
-  Group,
-  MediaQuery,
-  Paper,
-  Progress,
-  Stack,
-  Tabs,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
-import { Dispatch, SetStateAction } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Badge } from '@components/ui/badge';
+import { Button } from '@components/ui/button';
+import { Card } from '@components/ui/card';
+import { Progress } from '@components/ui/progress';
+import { Separator } from '@components/ui/separator';
+// Using standard div for menu list instead of Shadcn Tabs because it behaves more like a navigation menu with external state
+// But since the original used Tabs, I will try to use custom styled buttons or a list to mimic the behavior.
+// Actually, Shadcn Tabs are for tab content switching. Here it seems to act as a sidebar menu.
+// I will use simple buttons for the menu items to avoid wrestling with Tabs styling for vertical menu if not strictly needed.
 import { IconFileCheck, IconFileDownload } from '@tabler/icons-react';
 import { section_titles, SectionTitleType } from '@const/grad-certificate-inputs';
+import { Dispatch, SetStateAction } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { cn } from "@/lib/utils";
 
 export default function CertificateSectionPanel({
   activeTab,
@@ -24,100 +20,62 @@ export default function CertificateSectionPanel({
   activeTab: SectionTitleType;
   setActiveTab: Dispatch<SetStateAction<SectionTitleType>>;
 }) {
-  const theme = useMantineTheme();
-  const { classes } = useStyles();
   const { getValues } = useFormContext();
+
   return (
-    <Stack spacing={0}>
-      <Paper p="md" withBorder radius="md">
-        <Group position="apart" mb="lg">
-          <Text component="h3" my={0}>
+    <div className="flex flex-col gap-0">
+      <Card className="p-4 rounded-md border mb-4">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-base font-semibold m-0">
             ✍️ 입력 완성도
-          </Text>
+          </h3>
           <Badge>80%</Badge>
-        </Group>
-        <Progress value={80} />
-      </Paper>
-      <Tabs.List className={classes.menu_list}>
+        </div>
+        <Progress value={80} className="h-2" />
+      </Card>
+
+      <div className="flex flex-col gap-1">
         {section_titles.map((title) => (
-          <Tabs.Tab
+          <button
             key={title}
-            value={title}
-            className={classes.menu_tab}
             onClick={() => setActiveTab(title)}
-            bg={activeTab === title ? 'gray.1' : 'transparent'}
+            className={cn(
+              "text-left px-4 py-3 rounded-md text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800",
+              activeTab === title ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100" : "text-gray-500 dark:text-gray-400"
+            )}
           >
-            <Text align="left">{title}</Text>
-          </Tabs.Tab>
+            {title}
+          </button>
         ))}
-      </Tabs.List>
-      <MediaQuery styles={{ display: 'none' }} smallerThan="xl">
-        <div className={classes.menu_list}>
-          <Divider my="xs" />
-          <Group spacing="xs" grow>
-            <Button
-              color="teal"
-              variant="light"
-              className={classes.save_button}
-              leftIcon={<IconFileCheck size={20} />}
-            >
-              임시저장
-            </Button>
-            <Button
-              color="red"
-              variant="light"
-              className={classes.reset_button}
-              leftIcon={<IconFileDownload size={20} color={theme.colors.red[6]} />}
-            >
-              리셋하기
-            </Button>
-          </Group>
+      </div>
+
+      <div className="hidden xl:block mt-4">
+        <Separator className="my-2" />
+        <div className="flex gap-2 mb-2">
           <Button
-            type="submit"
-            color="dark"
-            className={classes.generate_button}
-            leftIcon={<IconFileDownload size={20} />}
-            onClick={() => console.log(getValues())}
+            variant="outline"
+            className="flex-1 border-teal-500 text-teal-600 hover:bg-teal-50 hover:text-teal-700 bg-teal-50/50"
           >
-            PDF 생성하기
+            <IconFileCheck size={20} className="mr-2" />
+            임시저장
+          </Button>
+          <Button
+            variant="outline"
+            className="flex-1 border-red-500 text-red-600 hover:bg-red-50 hover:text-red-700 bg-red-50/50"
+          >
+            <IconFileDownload size={20} className="mr-2 text-red-600" />
+            리셋하기
           </Button>
         </div>
-      </MediaQuery>
-    </Stack>
+        <Button
+          type="submit"
+          className="w-full bg-gray-900 text-white hover:bg-gray-800 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-200"
+          onClick={() => console.log(getValues())}
+        >
+          <IconFileDownload size={20} className="mr-2" />
+          PDF 생성하기
+        </Button>
+      </div>
+    </div>
   );
 }
-
-const useStyles = createStyles((theme) => ({
-  menu_list: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  menu_tab: {
-    backgroundColor: 'unset', // override default styles
-    border: 'none',
-    fontSize: '15px',
-    fontWeight: 500,
-    padding: '12.5px 16px',
-    marginTop: theme.spacing.xs,
-    borderRadius: theme.radius.md,
-    '&:hover': {
-      backgroundColor: theme.colors.gray[1],
-      cursor: 'pointer',
-    },
-  },
-  save_button: {
-    border: ` 1px solid ${theme.colors.teal[6]}`,
-    borderRadius: theme.radius.md,
-    height: '2.5rem',
-  },
-  reset_button: {
-    border: ` 1px solid ${theme.colors.red[6]}`,
-    borderRadius: theme.radius.md,
-    height: '2.5rem',
-  },
-  generate_button: {
-    marginTop: theme.spacing.xs,
-    borderRadius: theme.radius.md,
-    height: '2.5rem',
-  },
-}));

@@ -1,5 +1,21 @@
 import React, { useState } from 'react';
-import { createStyles, Group, Paper, ScrollArea, Select, Table, Title } from '@mantine/core';
+import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
+import { ScrollArea } from '@components/ui/scroll-area';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@components/ui/table';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@components/ui/select';
 import { CourseListWithPeriod } from '@utils/status';
 
 const generateSelectData = (courseListWithPeriod: CourseListWithPeriod[]) => {
@@ -17,72 +33,61 @@ const generateTableList = (courseListWithPeriod: CourseListWithPeriod[], cntPeri
     ?.at(0)
     ?.userTakenCourseList?.map((course) => {
       return (
-        <tr key={`${course.courseCode} + ${course.grade}`}>
-          <td>{course.courseCode}</td>
-          <td>{course.courseName}</td>
-          <td>{course.courseType}</td>
-          <td>{course.credit}</td>
-          <td>{course.grade}</td>
-        </tr>
+        <TableRow key={`${course.courseCode} + ${course.grade}`}>
+          <TableCell>{course.courseCode}</TableCell>
+          <TableCell>{course.courseName}</TableCell>
+          <TableCell>{course.courseType}</TableCell>
+          <TableCell>{course.credit}</TableCell>
+          <TableCell>{course.grade}</TableCell>
+        </TableRow>
       );
     });
 };
 
 export default function CourseMyTableChart({ data }: { data: CourseListWithPeriod[] }) {
-  /* 테이블 스타일 적용 */
-  const { classes, cx } = useStyles();
   /* 수강한 강의 선택 */
   const [cntPeriod, setCntPeriod] = useState('2020년도 1학기');
-  /* 수강 강의 목록 스크롤 여부 훅 */
-  const [scrolled, setScrolled] = useState(false);
 
   const tableList = generateTableList(data, cntPeriod);
   const dataForSelect = generateSelectData(data);
 
   return (
-    <Paper withBorder radius="md" p="xl">
-      <Group position="apart" mb="xl">
-        <Title order={3}>{cntPeriod}</Title>
-        <Select
-          placeholder="수강 시기를 고르세요"
-          value={cntPeriod}
-          onChange={(cnt) => setCntPeriod(cnt as string)}
-          data={dataForSelect}
-          size="sm"
-        />
-      </Group>
-      <ScrollArea h={500} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
-        <div className={classes.tableBorder}>
-          <Table highlightOnHover horizontalSpacing="lg" verticalSpacing="sm">
-            <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
-              <tr>
-                <th>강의 코드</th>
-                <th>강의 명</th>
-                <th>강의 종류</th>
-                <th>학점</th>
-                <th>성적</th>
-              </tr>
-            </thead>
-            <tbody>{tableList}</tbody>
-          </Table>
+    <Card className="w-full">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7">
+        <CardTitle className="text-xl font-bold">{cntPeriod}</CardTitle>
+        <Select value={cntPeriod} onValueChange={setCntPeriod}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="수강 시기를 고르세요" />
+          </SelectTrigger>
+          <SelectContent>
+            {dataForSelect.map((item) => (
+              <SelectItem key={item.value} value={item.value}>
+                {item.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </CardHeader>
+      <CardContent>
+        <div className="rounded-md border">
+          <ScrollArea className="h-[500px]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>강의 코드</TableHead>
+                  <TableHead>강의 명</TableHead>
+                  <TableHead>강의 종류</TableHead>
+                  <TableHead>학점</TableHead>
+                  <TableHead>성적</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {tableList}
+              </TableBody>
+            </Table>
+          </ScrollArea>
         </div>
-      </ScrollArea>
-    </Paper>
+      </CardContent>
+    </Card>
   );
 }
-
-const useStyles = createStyles((theme) => ({
-  header: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-    transition: 'box-shadow 150ms ease',
-  },
-  scrolled: {
-    boxShadow: theme.shadows.sm,
-  },
-  tableBorder: {
-    border: '1px solid #dee2e6',
-    borderRadius: '0.5rem',
-    overflow: 'hidden',
-    position: 'relative',
-  },
-}));

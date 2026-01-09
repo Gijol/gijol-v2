@@ -1,18 +1,9 @@
-import {
-  Alert,
-  Badge,
-  Box,
-  createStyles,
-  Divider,
-  Group,
-  Paper,
-  Progress,
-  ScrollArea,
-  Stack,
-  Tabs,
-  Text,
-  ThemeIcon,
-} from '@mantine/core';
+import { Alert, AlertDescription } from '@components/ui/alert';
+import { Badge } from '@components/ui/badge';
+import { Card } from '@components/ui/card';
+import { Progress } from '@components/ui/progress';
+import { ScrollArea } from '@components/ui/scroll-area';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs';
 import {
   IconAlertCircle,
   IconAlertTriangle,
@@ -24,55 +15,55 @@ import type { SingleCategoryType } from '@lib/types/grad';
 import {
   getDomainColor,
   verifyStatus,
-  getPercentage, // 필요하면 grad-formatter에서 export 하거나, 아래에서 직접 계산해도 됨
 } from '@utils/graduation/grad-formatter';
-import { useMediaQuery } from '@mantine/hooks';
+import React from 'react';
 
 type Props = {
   specificDomainStatusArr: { domain: string; status: SingleCategoryType | undefined }[];
 };
 
 export default function GradRecommend({ specificDomainStatusArr }: Props) {
-  const { classes } = useStyles();
-  const matches = useMediaQuery('(min-width: 48em)');
-
   if (!specificDomainStatusArr || specificDomainStatusArr.length === 0) {
     return null;
   }
 
   return (
-    <Paper withBorder radius="md" p={matches ? 'lg' : 'md'} className={classes.wrapper}>
+    <Card className="p-4 sm:p-6 rounded-md">
       <Tabs
-        orientation="horizontal"
         defaultValue={specificDomainStatusArr[0]?.domain}
-        variant="default"
-        keepMounted={false}
+        className="w-full"
       >
-        <Tabs.List>
-          {specificDomainStatusArr.map((category) => {
-            const status = verifyStatus(category.status?.satisfied, category.domain);
+        <ScrollArea className="w-full pb-2">
+          <TabsList className="w-full justify-start h-auto flex-wrap gap-1 bg-transparent p-0">
+            {specificDomainStatusArr.map((category) => {
+              const status = verifyStatus(category.status?.satisfied, category.domain);
 
-            return (
-              <Tabs.Tab key={category.domain} value={category.domain}>
-                <Group spacing={6} noWrap>
-                  <Text>{category.domain}</Text>
-                  {status === 'satisfied' ? (
-                    <IconCircleCheck size="1.2rem" color="#40c057" stroke={1.6} />
-                  ) : status === 'unSatisfied' ? (
-                    <IconAlertTriangle size="1.2rem" color="#fa5252" stroke={1.6} />
-                  ) : (
-                    <IconAlertCircle size="1.2rem" color="#228be6" stroke={1.6} />
-                  )}
-                </Group>
-              </Tabs.Tab>
-            );
-          })}
-        </Tabs.List>
+              return (
+                <TabsTrigger
+                  key={category.domain}
+                  value={category.domain}
+                  className="data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground border border-transparent data-[state=active]:border-border px-3 py-2 h-auto"
+                >
+                  <div className="flex items-center gap-1.5 whitespace-nowrap">
+                    <span>{category.domain}</span>
+                    {status === 'satisfied' ? (
+                      <IconCircleCheck size="1.2rem" className="text-green-500" stroke={1.6} />
+                    ) : status === 'unSatisfied' ? (
+                      <IconAlertTriangle size="1.2rem" className="text-red-500" stroke={1.6} />
+                    ) : (
+                      <IconAlertCircle size="1.2rem" className="text-blue-500" stroke={1.6} />
+                    )}
+                  </div>
+                </TabsTrigger>
+              );
+            })}
+          </TabsList>
+        </ScrollArea>
 
         {specificDomainStatusArr.map((category) => {
           const status = category.status;
           const statusType = verifyStatus(status?.satisfied, category.domain);
-          const domainColor = getDomainColor(category.domain);
+          const domainColor = getDomainColor(category.domain); // Assuming this returns a HEX or generic color name.
 
           const minCredits = status?.minConditionCredits ?? 0;
           const totalCredits = status?.totalCredits ?? 0;
@@ -80,211 +71,163 @@ export default function GradRecommend({ specificDomainStatusArr }: Props) {
             minCredits > 0 ? Math.min(100, Math.round((totalCredits * 100) / minCredits)) : 0;
 
           const messages = status?.messages ?? [];
-
           const hasMessages = messages.length > 0;
 
           // 우선순위 1순위: 첫 번째 메시지
           const primaryMessage = hasMessages ? messages[0] : null;
           const secondaryMessages = hasMessages ? messages.slice(1) : [];
 
+          let badgeVariant = "outline";
+          let badgeClass = "";
+          if (statusType === 'satisfied') {
+            badgeClass = "bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-300";
+          } else if (statusType === 'unSatisfied') {
+            badgeClass = "bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-300";
+          } else {
+            badgeClass = "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300";
+          }
+
+          // Progress color handling might need custom style or CSS variable override if domainColor is HEX
+          // Shadcn Progress uses bg-primary. 
+          // We can use style={{ backgroundColor: domainColor }} on the Indicator if we expose it, but shadcn component encapsulates it.
+          // For now, let's just use default color or apply a class if domainColor maps to one.
+          // If domainColor is HEX, we can't easily pass it to className.
+          // I will assume default styling for now to keep it simple, or add inline style to Progress component if needed.
+          // Customizing Progress component to accept indicatorColor would be better, but I'll stick to standard for now or minimal hack.
+
           return (
-            <Tabs.Panel key={category.domain} value={category.domain} mt="md">
+            <TabsContent key={category.domain} value={category.domain} className="mt-4 space-y-4">
               {/* 상단 요약 영역 */}
-              <Group position="apart" align="flex-start" spacing={matches ? 'lg' : 'sm'} mb="md">
-                <Stack spacing={4}>
-                  <Group spacing="xs">
-                    <Text fw={600} fz={matches ? 'lg' : 'md'}>
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-lg sm:text-lg">
                       {category.domain}
-                    </Text>
-                    <Badge
-                      color={
-                        statusType === 'satisfied'
-                          ? 'green'
-                          : statusType === 'unSatisfied'
-                          ? 'red'
-                          : 'blue'
-                      }
-                      variant="light"
-                    >
+                    </span>
+                    <Badge variant={badgeVariant as any} className={badgeClass}>
                       {statusType === 'satisfied'
                         ? '충족됨'
                         : statusType === 'unSatisfied'
-                        ? '부족'
-                        : '선택 사항'}
+                          ? '부족'
+                          : '선택 사항'}
                     </Badge>
-                  </Group>
+                  </div>
 
-                  <Group spacing="xs">
-                    <Text fz={matches ? 'sm' : 'xs'} c="dimmed">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">
                       {minCredits > 0
                         ? `${minCredits}학점 필요 중 ${totalCredits}학점 이수`
                         : `총 ${totalCredits}학점 이수`}
-                    </Text>
+                    </span>
                     {minCredits > 0 && (
-                      <Badge size="sm" variant="outline" color={domainColor}>
+                      <Badge variant="outline" className="text-xs">
                         {percentage}% 진행
                       </Badge>
                     )}
-                  </Group>
-                </Stack>
+                  </div>
+                </div>
 
                 {minCredits > 0 && (
-                  <Box className={classes.progressWrapper}>
-                    <Text fz={matches ? 'xs' : 10} c="dimmed" mb={4} align="right">
+                  <div className="flex flex-col items-end w-full sm:w-auto">
+                    <span className="text-xs text-muted-foreground mb-1 text-right">
                       이수 진행률
-                    </Text>
-                    <Progress
-                      value={percentage}
-                      label={`${percentage}%`}
-                      size="xl"
-                      radius="xl"
-                      color={domainColor}
-                      animate
-                      w={matches ? 200 : 140}
-                    />
-                  </Box>
+                    </span>
+                    <div className="flex items-center gap-2 w-full sm:w-[200px]">
+                      <Progress value={percentage} className="h-4" />
+                      <span className="text-sm font-medium w-9 text-right">{percentage}%</span>
+                    </div>
+                  </div>
                 )}
-              </Group>
+              </div>
 
-              <Divider my="sm" />
+              <div className="h-px bg-border my-4" />
 
               {/* 피드백 / 추천 영역 */}
-              <Stack spacing="sm">
+              <div className="space-y-3">
                 {/* 1) 전체 상태 요약 메시지 */}
                 {statusType === 'satisfied' && (
-                  <Alert
-                    icon={<IconCircleCheck size="1rem" />}
-                    color="green"
-                    className={classes.alert}
-                  >
-                    모든 요건을 충족했습니다! 🎉 이 영역은 더 이상 신경 쓰지 않아도 괜찮아요.
+                  <Alert className="bg-green-50 text-green-900 border-green-200 dark:bg-green-900/10 dark:text-green-300">
+                    <IconCircleCheck className="h-4 w-4 text-green-600 dark:text-green-400" />
+                    <AlertDescription className="ml-2 font-medium">
+                      모든 요건을 충족했습니다! 🎉 이 영역은 더 이상 신경 쓰지 않아도 괜찮아요.
+                    </AlertDescription>
                   </Alert>
                 )}
 
                 {statusType === 'notRequired' && (
-                  <Alert
-                    icon={<IconAlertCircle size="1rem" />}
-                    color="blue"
-                    className={classes.alert}
-                  >
-                    부전공 등 선택 영역입니다. 관심이 있다면 해당 영역의 과목을 추가로 이수해
-                    보세요.
+                  <Alert className="bg-blue-50 text-blue-900 border-blue-200 dark:bg-blue-900/10 dark:text-blue-300">
+                    <IconAlertCircle className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                    <AlertDescription className="ml-2 font-medium">
+                      부전공 등 선택 영역입니다. 관심이 있다면 해당 영역의 과목을 추가로 이수해 보세요.
+                    </AlertDescription>
                   </Alert>
                 )}
 
                 {statusType === 'unSatisfied' && !hasMessages && (
-                  <Alert
-                    icon={<IconAlertTriangle size="1rem" />}
-                    color="red"
-                    className={classes.alert}
-                  >
-                    아직 이 영역의 졸업요건을 충족하지 못했습니다. 아래 요건을 다시 확인해 주세요.
+                  <Alert variant="destructive" className="bg-red-50 dark:bg-red-900/10 dark:text-red-300">
+                    <IconAlertTriangle className="h-4 w-4" />
+                    <AlertDescription className="ml-2 font-medium">
+                      아직 이 영역의 졸업요건을 충족하지 못했습니다. 아래 요건을 다시 확인해 주세요.
+                    </AlertDescription>
                   </Alert>
                 )}
 
                 {/* 2) 우선순위 추천 (맨 앞 메세지 하나 강조) */}
                 {primaryMessage && statusType === 'unSatisfied' && (
-                  <Paper
-                    radius="md"
-                    withBorder
-                    p={matches ? 'sm' : 'xs'}
-                    className={classes.primaryCard}
-                  >
-                    <Group align="flex-start" spacing="sm" noWrap>
-                      <ThemeIcon radius="xl" size={32} color={domainColor} variant="light">
+                  <div className="bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-900/50 rounded-md p-3 sm:p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-full text-yellow-700 dark:text-yellow-400">
                         <IconTargetArrow size="1.2rem" />
-                      </ThemeIcon>
-                      <Box>
-                        <Text fw={600} fz={matches ? 'sm' : 'xs'} mb={2}>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-sm sm:text-base mb-1 text-yellow-900 dark:text-yellow-100">
                           지금 가장 먼저 할 일
-                        </Text>
-                        <Text fz={matches ? 'sm' : 'xs'}>{primaryMessage}</Text>
-                      </Box>
-                    </Group>
-                  </Paper>
+                        </div>
+                        <div className="text-sm sm:text-base text-gray-800 dark:text-gray-200">{primaryMessage}</div>
+                      </div>
+                    </div>
+                  </div>
                 )}
 
                 {/* 3) 나머지 추천/피드백 리스트 */}
                 {secondaryMessages.length > 0 && (
-                  <Box>
-                    <Group spacing={6} mb={4}>
-                      <ThemeIcon radius="xl" size={24} color={domainColor} variant="subtle">
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="p-1.5 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-600 dark:text-gray-400">
                         <IconListCheck size="1rem" />
-                      </ThemeIcon>
-                      <Text fw={500} fz={matches ? 'sm' : 'xs'}>
-                        추가로 이런 것들을 확인해보세요
-                      </Text>
-                    </Group>
-                    <ScrollArea h={180}>
-                      <Stack spacing={6}>
+                      </div>
+                      <span className="font-medium text-sm sm:text-base">추가로 이런 것들을 확인해보세요</span>
+                    </div>
+                    <ScrollArea className="h-[180px] rounded-md border p-2">
+                      <div className="space-y-2">
                         {secondaryMessages.map((msg, idx) => (
-                          <Group
+                          <div
                             key={`${category.domain}-${idx}`}
-                            align="flex-start"
-                            spacing={8}
-                            noWrap
+                            className="flex items-start gap-2 text-sm sm:text-base"
                           >
-                            <Text
-                              fz={matches ? 'xs' : 10}
-                              fw={600}
-                              c="dimmed"
-                              className={classes.index}
-                            >
-                              {idx + 2}
-                            </Text>
-                            <Text fz={matches ? 'sm' : 'xs'}>{msg}</Text>
-                          </Group>
+                            <span className="font-bold text-gray-500 w-6 text-right shrink-0">
+                              {idx + 2}.
+                            </span>
+                            <span>{msg}</span>
+                          </div>
                         ))}
-                      </Stack>
+                      </div>
                     </ScrollArea>
-                  </Box>
+                  </div>
                 )}
 
-                {/* 메시지가 아예 없는 경우 (데이터가 없거나 아직 규칙이 적지 않은 영역) */}
+                {/* 메시지가 아예 없는 경우 */}
                 {!hasMessages && statusType !== 'satisfied' && statusType !== 'notRequired' && (
-                  <Text fz={matches ? 'sm' : 'xs'} c="dimmed">
+                  <span className="text-sm text-muted-foreground block text-center py-4">
                     이 영역에 대한 상세 피드백이 아직 없습니다. 학사편람과 졸업요건 표를 함께 확인해
                     주세요.
-                  </Text>
+                  </span>
                 )}
-              </Stack>
-            </Tabs.Panel>
+              </div>
+            </TabsContent>
           );
         })}
       </Tabs>
-    </Paper>
+    </Card>
   );
 }
-
-const useStyles = createStyles((theme) => ({
-  wrapper: {
-    backgroundColor: 'transparent',
-  },
-  alert: {
-    borderRadius: '0.5rem',
-    border: '1px solid',
-    '@media (max-width: 48em)': {
-      padding: theme.spacing.xs,
-    },
-  },
-  primaryCard: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.yellow[0],
-    borderColor: theme.colors.yellow[4],
-  },
-  progressWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-  },
-  index: {
-    width: 18,
-    textAlign: 'right',
-  },
-
-  // Tab Panel (내용 영역)
-  panel: {
-    marginTop: theme.spacing.md,
-    padding: theme.spacing.lg,
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-  },
-}));

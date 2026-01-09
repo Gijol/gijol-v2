@@ -1,21 +1,23 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import {
-  Container,
-  Text,
-  Pagination,
-  Center,
-  Skeleton,
-  SimpleGrid,
-  LoadingOverlay,
-  Title,
-} from '@mantine/core';
 import CourseThumbnailWithDrawer from '@components/course-thumbnail-with-drawer';
 import { useCourseList } from '@hooks/course';
 import Loading from '@components/loading';
-import { useDebouncedState } from '@mantine/hooks';
+
 import CourseSearchInput from '@components/course-search-input';
 import { FormProvider, useForm } from 'react-hook-form';
 import debounce from 'debounce';
+import { Loader2 } from 'lucide-react';
+
+import { Skeleton } from '@components/ui/skeleton';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@components/ui/pagination';
 
 export default function Index() {
   // active page 관리
@@ -89,40 +91,116 @@ export default function Index() {
     );
   });
 
+  const totalPages = data?.totalPages ?? 10;
+
+  // Simple pagination logic for demonstration. 
+  // For production with many pages, you'd want a more robust range generator.
+  const renderPaginationItems = () => {
+    const items = [];
+    const maxVisible = 5;
+    let start = Math.max(1, activePage - 2);
+    let end = Math.min(totalPages, start + maxVisible - 1);
+
+    if (end - start < maxVisible - 1) {
+      start = Math.max(1, end - maxVisible + 1);
+    }
+
+    if (start > 1) {
+      items.push(
+        <PaginationItem key={1}>
+          <PaginationLink onClick={() => setPage(1)} isActive={activePage === 1}>
+            1
+          </PaginationLink>
+        </PaginationItem>
+      );
+      if (start > 2) {
+        items.push(<PaginationItem key="ellipsis-start"><PaginationEllipsis /></PaginationItem>);
+      }
+    }
+
+    for (let i = start; i <= end; i++) {
+      items.push(
+        <PaginationItem key={i}>
+          <PaginationLink onClick={() => setPage(i)} isActive={activePage === i}>
+            {i}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    if (end < totalPages) {
+      if (end < totalPages - 1) {
+        items.push(<PaginationItem key="ellipsis-end"><PaginationEllipsis /></PaginationItem>);
+      }
+      items.push(
+        <PaginationItem key={totalPages}>
+          <PaginationLink onClick={() => setPage(totalPages)} isActive={activePage === totalPages}>
+            {totalPages}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    return items;
+  };
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <Container size="lg">
-          <Title order={3} mt={40} mb="lg">
-            강의 검색하기 🔍
-          </Title>
-          <CourseSearchInput />
-          <div style={{ position: 'relative' }}>
-            {isUpdating ? (
-              <LoadingOverlay visible />
-            ) : isError ? (
-              <Text color="dimmed" size="lg" align="center">
-                강의 정보를 불러오는데 실패했습니다...!
-              </Text>
-            ) : null}
-            <SimpleGrid
-              cols={3}
-              spacing="md"
-              breakpoints={[
-                { maxWidth: 'md', cols: 3, spacing: 'md' },
-                { maxWidth: 'sm', cols: 2, spacing: 'sm' },
-                { maxWidth: 'xs', cols: 1, spacing: 'sm' },
-              ]}
-            >
-              {isLoading && [...Array(9)].map((_, index) => <Skeleton key={index} height={166} />)}
-              {courses}
-            </SimpleGrid>
+        <div className="container mx-auto max-w-5xl px-4 pb-12">
+          <div className="mt-10 mb-6">
+            <h3 className="text-2xl font-bold">
+              강의 검색하기 🔍
+            </h3>
           </div>
 
-          <Center my={40}>
-            <Pagination value={activePage} onChange={setPage} total={data?.totalPages ?? 10} />
-          </Center>
-        </Container>
+          <div className="mb-6">
+            <CourseSearchInput />
+          </div>
+
+          <div className="relative min-h-[300px]">
+            {isUpdating && (
+              <div className="absolute inset-0 z-50 bg-white/50 dark:bg-black/50 flex items-center justify-center backdrop-blur-sm rounded-lg">
+                <Loader2 className="h-10 w-10 animate-spin text-primary" />
+              </div>
+            )}
+
+            {isError ? (
+              <div className="flex flex-col items-center justify-center h-40 text-muted-foreground">
+                <p className="text-lg">강의 정보를 불러오는데 실패했습니다...!</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {isLoading
+                  ? [...Array(9)].map((_, index) => <Skeleton key={index} className="h-[166px] w-full rounded-xl" />)
+                  : courses
+                }
+              </div>
+            )}
+          </div>
+
+          <div className="my-10 flex justify-center">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() => setPage(Math.max(1, activePage - 1))}
+                    className={activePage === 1 ? 'pointer-events-none opacity-50' : ''}
+                  />
+                </PaginationItem>
+
+                {renderPaginationItems()}
+
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() => setPage(Math.min(totalPages, activePage + 1))}
+                    className={activePage === totalPages ? 'pointer-events-none opacity-50' : ''}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
+        </div>
       </form>
     </FormProvider>
   );

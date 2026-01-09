@@ -1,4 +1,10 @@
-import { NativeSelect } from '@mantine/core';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@components/ui/select';
 import { IconClock } from '@tabler/icons-react';
 
 // 9:00 ~ 17:00
@@ -11,15 +17,31 @@ const times = Array.from({ length: 8 }, (_, i) => i + 9)
   .concat('17:00');
 
 export default function TimePicker({ label, field }: { label: string; field: any }) {
+  // field usually comes from RHF Controller: { onChange, onBlur, value, ref }
+  // Shadcn Select doesn't support ref directly on root, but works ok without it usually, 
+  // or we pass ref to SelectTrigger? 
+  // SelectTrigger forwards ref.
+
   return (
-    <NativeSelect
-      data={times}
-      label={label}
-      placeholder="Select time"
-      icon={<IconClock size="1rem" />}
-      withAsterisk
-      styles={{ label: { marginBottom: 8, fontWeight: 600 } }}
-      {...field}
-    />
+    <div className="flex flex-col gap-2">
+      <label className="text-sm font-semibold flex items-center gap-1">
+        {label} <span className="text-red-500">*</span>
+      </label>
+      <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
+        <SelectTrigger ref={field.ref} className="w-full">
+          <div className="flex items-center gap-2">
+            <IconClock size="1rem" className="text-muted-foreground" />
+            <SelectValue placeholder="Select time" />
+          </div>
+        </SelectTrigger>
+        <SelectContent className="max-h-[200px]">
+          {times.map((time) => (
+            <SelectItem key={time} value={time}>
+              {time}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 }

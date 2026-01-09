@@ -1,31 +1,21 @@
-import {
-  Container,
-  SimpleGrid,
-  Skeleton,
-  Stack,
-  Text,
-  Title,
-  useMantineTheme,
-} from '@mantine/core';
+import { Skeleton } from '@components/ui/skeleton';
 import React from 'react';
-import { useMediaQuery } from '@mantine/hooks';
 
 export default function CourseMyLoadingSkeleton() {
-  const theme = useMantineTheme();
-  const matches = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
   return (
-    <Container size="lg">
-      <Title order={3} mb="lg" mt={40}>
-        내 수강현황 📑
-      </Title>
-      <SimpleGrid cols={matches ? 3 : 1} my="xl">
-        <Skeleton height={166} radius="sm" my={40} />
-      </SimpleGrid>
-      <Stack spacing="1rem">
-        <Skeleton height="2rem" radius="sm" />
-        <Skeleton height="2rem" radius="sm" />
-        <Skeleton height="2rem" radius="sm" />
-      </Stack>
-    </Container>
+    <div className="mx-auto max-w-5xl px-4">
+      <h3 className="mb-6 mt-10 text-xl font-bold">내 수강현황 📑</h3>
+      <div className="my-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="my-10">
+          <Skeleton className="h-[166px] w-full rounded-sm" />
+        </div>
+      </div>
+      <div className="flex flex-col gap-4">
+        <Skeleton className="h-[2rem] w-full rounded-sm" />
+        <Skeleton className="h-[2rem] w-full rounded-sm" />
+        <Skeleton className="h-[2rem] w-full rounded-sm" />
+      </div>
+    </div>
   );
 }
+

@@ -1,79 +1,21 @@
 import React from 'react';
-import { Carousel } from '@mantine/carousel';
-import { Avatar, Badge, Center, Group, MantineColor, Paper, Stack, Text } from '@mantine/core';
-
-export default function UserReviews() {
-  const content = reviews.map((r, i) => {
-    return (
-      <Carousel.Slide key={i}>
-        <Center h={'100%'} py="3rem">
-          <Paper
-            withBorder
-            w={544}
-            h="fit-content"
-            mah={340}
-            p="xl"
-            pb={40}
-            shadow="sm"
-            radius={16}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-start',
-              gap: 16,
-            }}
-          >
-            <Group px="md">
-              <Avatar variant={'filled'} size={'md'} radius={'lg'} />
-              <Stack spacing={4}>
-                <Text color="dimmed" size="lg">
-                  {r.name}
-                </Text>
-                <Badge size="md" variant="outline" color={r.color}>
-                  {r.grade}
-                </Badge>
-              </Stack>
-            </Group>
-            <Text
-              align="start"
-              size="md"
-              px={40}
-              color="dimmed"
-              sx={{ whiteSpace: 'pre-wrap', wordBreak: 'keep-all' }}
-            >
-              {r.review}
-            </Text>
-          </Paper>
-        </Center>
-      </Carousel.Slide>
-    );
-  });
-  return (
-    <Carousel
-      my={80}
-      height={'fit-content'}
-      slideSize="100%"
-      controlsOffset={'xl'}
-      controlSize={24}
-      loop
-      styles={(theme) => ({
-        slide: {
-          minWidth: 600,
-          backgroundColor: 'inherit',
-          border: 'unset',
-          margin: '0 200px',
-        },
-      })}
-    >
-      {content}
-    </Carousel>
-  );
-}
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@components/ui/carousel';
+import { Card, CardContent } from '@components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/avatar';
+import { Badge } from '@components/ui/badge';
+import { cn } from '@/lib/utils';
+import { User } from 'lucide-react';
 
 interface Review {
   name: string;
   grade: string;
-  color: MantineColor;
+  color: string;
   review: string;
 }
 
@@ -100,3 +42,57 @@ const reviews: Review[] = [
       '들은 과목이 너무 많아서 졸업을 위해 필요한게 무엇인지 정리하기 어려웠는데 한눈에 보기좋게 정리해 보여줘서 짱이다!',
   },
 ];
+
+export default function UserReviews() {
+  return (
+    <div className="w-full flex justify-center py-20 px-4">
+      <Carousel
+        opts={{
+          loop: true,
+          align: "center",
+        }}
+        className="w-full max-w-4xl"
+      >
+        <CarouselContent className="-ml-4">
+          {reviews.map((r, i) => (
+            <CarouselItem key={i} className="pl-4 basis-full flex justify-center">
+              <Card className="w-[544px] max-w-full h-fit max-h-[340px] shadow-sm rounded-2xl border bg-white dark:bg-slate-950 dark:border-slate-800">
+                <CardContent className="p-6 pb-10 flex flex-col justify-start gap-4">
+                  <div className="flex flex-row items-center gap-4 px-4">
+                    <Avatar className="h-10 w-10">
+                      <AvatarFallback className="bg-slate-200 dark:bg-slate-800">
+                        <User className="h-6 w-6 text-slate-500" />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-gray-500 dark:text-gray-400 text-lg font-medium">
+                        {r.name}
+                      </span>
+                      <Badge
+                        variant="outline"
+                        className={cn(
+                          "w-fit font-normal text-sm",
+                          r.color === 'blue' && "border-blue-200 text-blue-700 bg-blue-50 dark:border-blue-800 dark:text-blue-300 dark:bg-blue-900/20",
+                          r.color === 'orange' && "border-orange-200 text-orange-700 bg-orange-50 dark:border-orange-800 dark:text-orange-300 dark:bg-orange-900/20"
+                        )}
+                      >
+                        {r.grade}
+                      </Badge>
+                    </div>
+                  </div>
+                  <p className="px-10 text-start text-base text-gray-500 dark:text-gray-400 whitespace-pre-wrap break-keep leading-relaxed">
+                    {r.review}
+                  </p>
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <div className="hidden sm:block">
+          <CarouselPrevious className="left-[-50px]" />
+          <CarouselNext className="right-[-50px]" />
+        </div>
+      </Carousel>
+    </div>
+  );
+}

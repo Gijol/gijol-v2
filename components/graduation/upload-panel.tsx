@@ -1,10 +1,12 @@
 // components/graduation/GradUploadPanel.tsx
-import React, { useRef, useState } from 'react';
-import { Box, Button, Container, Group, Space, Text, Title } from '@mantine/core';
-import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
+import React, { useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/router';
 
+import { Button } from '@components/ui/button';
 import Loading from '@components/loading';
+import { cn } from '@/lib/utils';
+
 import type { UserStatusType } from '@lib/types/index';
 import type {
   GradStatusRequestBody,
@@ -22,11 +24,7 @@ import { uploadGradeReportViaApi } from '@utils/graduation/upload-grade-report-v
 
 type GradUploadPanelProps = {
   title?: string;
-  redirectTo?: string; // 업로드 후 이동하고 싶을 때 (선택)
-  /**
-   * 업로드/파싱 이후, 아래쪽에 보여줄 커스텀 UI (표, 미리보기 등)
-   * parsed, gradStatus는 store에서 읽어서 내려줌
-   */
+  redirectTo?: string;
   children?: (ctx: {
     parsed: UserStatusType | null;
     gradStatus: GradStatusResponseType | null;
@@ -39,16 +37,31 @@ export function GradUploadPanel({
   children,
 }: GradUploadPanelProps) {
   const router = useRouter();
-  const openRef = useRef<any>(null);
 
-  const [file, setFile] = useState<FileWithPath | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [isParsing, setIsParsing] = useState(false);
   const [isFetchingGradStatus, setIsFetchingGradStatus] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const { parsed, gradStatus, setFromParsed, reset } = useGraduationStore();
 
-  // 파일 파싱 + 졸업요건 API 호출 + store 저장
+  const onDrop = (acceptedFiles: File[]) => {
+    if (acceptedFiles?.length > 0) {
+      setFile(acceptedFiles[0]);
+      setError(null);
+    }
+  };
+
+  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
+    onDrop,
+    noClick: true, // We have a separate button for clicking if we want, or we can allow click on the zone
+    multiple: false,
+    accept: {
+      'application/vnd.ms-excel': ['.xls'],
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx']
+    }
+  });
+
   const handleParse = async () => {
     if (!file) return;
 
@@ -56,10 +69,8 @@ export function GradUploadPanel({
     setError(null);
 
     try {
-      // ✅ 1) 서버(API Route)를 통해 업로드 + 파싱
-      const res = (await uploadGradeReportViaApi(file as File)) as UserStatusType;
+      const res = (await uploadGradeReportViaApi(file)) as UserStatusType;
 
-      // ✅ 2) takenCourses, entryYear, major 추출
       const tc: TakenCourseType[] = toTakenCourses(res);
       const entryYear = inferEntryYear(res);
       const userMajor = (res as any).major || (res as any).department || undefined;
@@ -77,7 +88,6 @@ export function GradUploadPanel({
         userMinors: [],
       };
 
-      // ✅ 3) 졸업요건 계산 API 호출
       setIsFetchingGradStatus(true);
       let grad: GradStatusResponseType | null = null;
 
@@ -90,7 +100,6 @@ export function GradUploadPanel({
         setIsFetchingGradStatus(false);
       }
 
-      // ✅ 4) store 업데이트
       setFromParsed({
         parsed: res,
         takenCourses: tc,
@@ -98,27 +107,23 @@ export function GradUploadPanel({
         userMajor: ''
       });
 
-      // ✅ 5) localStorage 저장
       try {
         localStorage.setItem(PARSED_EDITABLE_STATE_KEY, JSON.stringify(res));
       } catch {
         // ignore
       }
 
-      // ✅ 6) redirect 옵션
       if (redirectTo) {
         await router.push(redirectTo);
       }
     } catch (e: any) {
       console.error('handleParse error:', e);
 
-      // uploadGradeReportViaApi에서 이미 notifications를 띄우지만,
-      // 패널 레벨에서도 사용자에게 한 줄 에러를 보여주고 싶으면 아래처럼 처리
       if (e instanceof Error) {
         if (e.message === 'INVALID_GRADE_REPORT') {
           setError(
             'GIST 제우스 성적표 양식이 아닌 파일입니다.\n' +
-              '제우스 → 성적 → 개인성적조회 → "Report card(KOR)" 엑셀 파일을 다시 업로드해주세요.'
+            '제우스 → 성적 → 개인성적조회 → "Report card(KOR)" 엑셀 파일을 다시 업로드해주세요.'
           );
         } else if (e.message === 'UPLOAD_REQUEST_TIMEOUT') {
           setError(
@@ -130,8 +135,6 @@ export function GradUploadPanel({
       } else {
         setError('파일을 처리하는 도중 오류가 발생했습니다. 다시 시도해주세요.');
       }
-
-      // ❗ 에러 시 Dropzone 파일 초기화 → “다시 업로드” 유도
       setFile(null);
     } finally {
       setIsParsing(false);
@@ -165,60 +168,62 @@ export function GradUploadPanel({
   };
 
   return (
-    <Container size="lg">
-      <Title order={2} my={20}>
+    <div className="w-full mx-0 px-4">
+      <h2 className="text-2xl font-bold my-5">
         {title}
-      </Title>
+      </h2>
 
-      {/* 업로드 / 파싱 영역 */}
-      <Dropzone
-        openRef={openRef}
-        onDrop={(files) => setFile(files?.[0] ?? null)}
-        activateOnClick={false}
-        accept={[MIME_TYPES.xls, MIME_TYPES.xlsx]}
-        h={140}
+      <div
+        {...getRootProps()}
+        className={cn(
+          "h-[140px] flex items-center justify-center border-2 border-dashed rounded-lg transition-colors cursor-pointer",
+          isDragActive ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" : "border-gray-300 dark:border-gray-700",
+          "hover:bg-gray-50 dark:hover:bg-slate-900"
+        )}
+        onClick={open} // Allow clicking the dropzone too
       >
-        <Group position="center" style={{ height: '100%' }}>
+        <input {...getInputProps()} />
+        <div className="text-center">
           {!file ? (
-            <Text c="dimmed">여기에 엑셀 파일을 드롭하거나 파일 선택 버튼으로 올려주세요.</Text>
+            <p className="text-muted-foreground text-sm">여기에 엑셀 파일을 드롭하거나 클릭하여 업로드해주세요.</p>
           ) : (
-            <Text>{file.name || file.path}</Text>
+            <p className="text-sm font-medium">{file.name}</p>
           )}
-        </Group>
-      </Dropzone>
+        </div>
+      </div>
 
-      <Group mt="md">
-        <Button onClick={() => openRef.current?.()} variant="outline">
+      <div className="flex gap-2 mt-4 flex-wrap">
+        <Button onClick={open} variant="outline">
           파일 선택
         </Button>
-        <Button onClick={handleParse} disabled={!file || isParsing} color="blue">
+        <Button onClick={handleParse} disabled={!file || isParsing} className="bg-blue-600 hover:bg-blue-700 text-white">
           파싱 및 졸업요건 계산
         </Button>
-        <Button onClick={onDownload} disabled={!parsed} variant="default">
+        <Button onClick={onDownload} disabled={!parsed} variant="outline">
           JSON 다운로드
         </Button>
-        <Button variant="default" onClick={handleReset} color="gray">
+        <Button variant="outline" onClick={handleReset} className="text-gray-500">
           리셋
         </Button>
-      </Group>
+      </div>
 
       {isParsing && <Loading content="파싱 중입니다..." />}
 
       {isFetchingGradStatus && (
-        <Box mt="sm">
-          <Text c="dimmed">졸업요건 계산 중입니다...</Text>
-        </Box>
+        <div className="mt-2 text-sm text-muted-foreground">
+          졸업요건 계산 중입니다...
+        </div>
       )}
 
       {error && (
-        <Box mt="md">
-          <Text c="red">에러: {error}</Text>
-        </Box>
+        <div className="mt-4 p-3 bg-red-50 text-red-600 rounded-md text-sm whitespace-pre-line border border-red-200">
+          에러: {error}
+        </div>
       )}
 
-      <Space h={24} />
+      <div className="h-6" />
 
-      {children && <Box mt="md">{children({ parsed, gradStatus })}</Box>}
-    </Container>
+      {children && <div className="mt-4">{children({ parsed, gradStatus })}</div>}
+    </div>
   );
 }

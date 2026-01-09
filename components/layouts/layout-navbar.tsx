@@ -1,74 +1,59 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
-import { createStyles, Navbar, NavLink, rem, Drawer } from '@mantine/core';
 import { getCntTab } from '@utils/status';
 import { navLinks } from '@const/nav-links';
+import { cn } from '@/lib/utils';
 
-export function LayoutNavbar({
-  matches,
-  opened,
-  onClose,
+function TailwindNavLink({
+  label,
+  href,
+  active,
+  icon: Icon,
+  badge
 }: {
-  matches: boolean;
-  opened: boolean;
-  onClose: () => void;
+  label: string;
+  href: string;
+  active: boolean;
+  icon: any;
+  badge?: React.ReactNode;
 }) {
-  const { classes } = useStyles();
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors my-1",
+        active
+          ? "bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300"
+          : "text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+      )}
+    >
+      <Icon size={20} className={cn(active ? "text-blue-700 dark:text-blue-300" : "text-gray-500 dark:text-gray-400")} />
+      <span className="flex-1">{label}</span>
+      {badge}
+    </Link>
+  );
+}
+
+export function SidebarNavigation() {
   const router = useRouter();
   const cntRoute = getCntTab(router.route);
+
   const links = navLinks.map((link) => (
-    <NavLink
-      component={Link}
+    <TailwindNavLink
       key={link.label}
       active={link.label === cntRoute}
       label={link.label}
       href={link.href}
-      rightSection={link.badge ?? <></>}
-      icon={<link.icon size="1.25rem" stroke={1.5} />}
-      sx={{ borderRadius: 8 }}
-      my={4}
+      icon={link.icon}
+      badge={link.badge}
     />
   ));
-  const navbar = (
-    <Navbar
-      p="sm"
-      hiddenBreakpoint="sm"
-      hidden={!opened}
-      width={{ sm: 200, lg: 240 }}
-      className={classes.navbar}
-    >
-      <Navbar.Section>{links}</Navbar.Section>
-    </Navbar>
-  );
 
   return (
-    <>
-      {matches ? (
-        navbar
-      ) : (
-        <Drawer opened={opened} onClose={onClose} size="70%">
-          {navbar}
-        </Drawer>
-      )}
-    </>
+    <div className="flex flex-col h-full py-2">
+      {links}
+    </div>
   );
 }
-const useStyles = createStyles((theme) => ({
-  navbar: {
-    paddingTop: 0,
-    wordBreak: 'keep-all',
-  },
 
-  section: {
-    marginLeft: `calc(${theme.spacing.md} * -1)`,
-    marginRight: `calc(${theme.spacing.md} * -1)`,
-    marginBottom: theme.spacing.md,
 
-    '&:not(:last-of-type)': {
-      borderBottom: `${rem(1)} solid ${
-        theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
-      }`,
-    },
-  },
-}));

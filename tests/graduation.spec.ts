@@ -37,3 +37,4 @@
 //     expect(cat.otherUncheckedClass.totalCredits).toBe(12);
 //   });
 // });
+export {};

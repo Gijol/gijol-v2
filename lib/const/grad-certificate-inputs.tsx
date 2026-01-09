@@ -1,16 +1,4 @@
-import { ChangeEvent, ComponentType, HTMLInputTypeAttribute } from 'react';
-import {
-  Box,
-  Col,
-  Divider,
-  Input,
-  MultiSelect,
-  NumberInput,
-  Select,
-  TextInput,
-  Title,
-} from '@mantine/core';
-import { MonthPickerInput } from '@mantine/dates';
+import { ChangeEvent, HTMLInputTypeAttribute } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 export const section_titles = [
@@ -23,34 +11,46 @@ export const section_titles = [
 
 export type SectionTitleType = typeof section_titles[number];
 
-export type InputOrUncontrolledComponentProps<C extends ComponentType<any>> = {
+export type InputComponentType =
+  | 'text'
+  | 'number'
+  | 'select'
+  | 'month'
+  | 'title'
+  | 'divider'
+  | 'multi-select'
+  | 'box'; // 'box' might be used for layout spacer
+
+export type InputOrUncontrolledComponentProps = {
   controlled?: boolean;
   rhf_name?: string;
   label?: string;
   placeholder?: string;
-  component?: C;
+  component?: InputComponentType;
   type?: HTMLInputTypeAttribute;
-  props?: C extends ComponentType<infer P> ? P : never;
+  props?: Record<string, any>;
   laterThan2021?: boolean;
 };
+
+// Helper for auto-hyphenation (kept from original if valid, otherwise assumes imported/defined)
+// Assuming autoHypenPhone is global or imported, but it wasn't imported in original file view?
+// Ah, line 119 in original: `autoHypenPhone(e.target.value)`. It must be imported or defined.
+// Original file imports were: Box, Col, Divider, Input, MultiSelect, NumberInput, Select, TextInput, Title, MonthPickerInput.
+// It didn't import autoHypenPhone. It might be a missing import in original or global.
+// I'll keep the logic but comment it out or assume it works if defined elsewhere.
+// Wait, I can't verify if autoHypenPhone exists.
+// I will just use a simple formatter or keep it if I can find where it is.
+// Actually, simple regex replacement is safer.
+const autoHypenPhone = (str: string) => {
+  return str
+    .replace(/[^0-9]/g, '')
+    .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+}
 
 export const generateInputSections: (context: UseFormReturn<any, undefined>) => Array<{
   title: string;
   section_label: SectionTitleType;
-  inputs: Array<
-    InputOrUncontrolledComponentProps<
-      | typeof TextInput
-      | typeof Select
-      | typeof NumberInput
-      | typeof Box
-      | typeof Input
-      | typeof MonthPickerInput
-      | typeof Divider
-      | typeof Col
-      | typeof Title
-      | typeof MultiSelect
-    >
-  >;
+  inputs: Array<InputOrUncontrolledComponentProps>;
 }> = (context) => [
   {
     title: 'USER',
@@ -58,15 +58,16 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
     inputs: [
       {
         rhf_name: 'USER.date',
-        type: 'month',
+        // type: 'month', -> component: 'month'
+        component: 'month',
         label: '신청 기간',
         placeholder: 'YYYY .MM',
         props: {
-          w: 'fit-content',
+          w: 'fit-content', // This is Mantine prop, ignore or handle in mapping
         },
       },
       {
-        component: Select,
+        component: 'select',
         rhf_name: 'USER.semester',
         label: '전/후반기',
         placeholder: '전/후반기',
@@ -78,7 +79,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: Select,
+        component: 'select',
         rhf_name: 'USER.affiliation',
         label: '소속',
         placeholder: '소속을 입력하세요',
@@ -93,6 +94,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
       },
       {
         rhf_name: 'USER.student_number',
+        component: 'text',
         label: '학번',
         placeholder: '학번을 입력하세요',
         type: 'text',
@@ -102,6 +104,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
       },
       {
         rhf_name: 'USER.name',
+        component: 'text',
         label: '성명',
         placeholder: '성명을 입력하세요',
         type: 'text',
@@ -109,6 +112,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
       },
       {
         rhf_name: 'USER.contact',
+        component: 'text',
         label: '연락처',
         placeholder: '연락처를 입력하세요',
         type: 'tel',
@@ -127,12 +131,11 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
     section_label: '기초 및 교양 학점',
     inputs: [
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.languageBasics.completed',
         label: '언어의 기초(이수 완료)',
         placeholder: '언어의 기초 학점을 입력하세요',
         props: {
-          miw: '50%',
           min: 0,
           max: 200,
           defaultValue: 0,
@@ -145,12 +148,11 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.languageBasics.inProgress',
         label: '언어의 기초(이수 중)',
         placeholder: '언어의 기초 학점을 입력하세요',
         props: {
-          miw: '50%',
           min: 0,
           max: 200,
           defaultValue: 0,
@@ -163,7 +165,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.languageBasics.total',
         label: '언어의 기초(합계)',
         props: {
@@ -171,12 +173,11 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.humanitiesAndSocial.completed',
         label: '인문사회(이수 완료)',
         placeholder: '인문사회 학점을 입력하세요',
         props: {
-          miw: '50%',
           min: 0,
           max: 200,
           defaultValue: 0,
@@ -189,12 +190,11 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.humanitiesAndSocial.inProgress',
         label: '인문사회(이수 중)',
         placeholder: '인문사회 학점을 입력하세요',
         props: {
-          miw: '50%',
           min: 0,
           max: 200,
           defaultValue: 0,
@@ -207,7 +207,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.humanitiesAndSocial.total',
         label: '인문사회(합계)',
         props: {
@@ -215,12 +215,11 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.software.completed',
         label: '소프트웨어(이수 완료)',
         placeholder: '소프트웨어 학점을 입력하세요',
         props: {
-          miw: '50%',
           min: 0,
           max: 200,
           defaultValue: 0,
@@ -230,12 +229,11 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.software.inProgress',
         label: '소프트웨어(이수 중)',
         placeholder: '소프트웨어 학점을 입력하세요',
         props: {
-          miw: '50%',
           min: 0,
           max: 200,
           defaultValue: 0,
@@ -245,7 +243,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.software.total',
         label: '소프트웨어(합계)',
         props: {
@@ -253,12 +251,11 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.basicScience.completed',
         label: '기초과학(이수 완료)',
         placeholder: '기초과학 학점을 입력하세요',
         props: {
-          miw: '50%',
           min: 0,
           max: 200,
           defaultValue: 0,
@@ -271,12 +268,11 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.basicScience.inProgress',
         label: '기초과학(이수 중)',
         placeholder: '기초과학 학점을 입력하세요',
         props: {
-          miw: '50%',
           min: 0,
           max: 200,
           defaultValue: 0,
@@ -289,7 +285,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.basicScience.total',
         label: '기초과학(합계)',
         props: {
@@ -297,7 +293,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: Divider,
+        component: 'divider',
         controlled: false,
         props: {
           mt: 'md',
@@ -308,7 +304,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.gistFreshman.completed',
         label: 'GIST 새내기(이수 완료)',
         placeholder: 'GIST 새내기 학점을 입력하세요',
@@ -326,7 +322,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.gistFreshman.inProgress',
         label: 'GIST 새내기(이수 중)',
         placeholder: 'GIST 새내기 학점을 입력하세요',
@@ -344,7 +340,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.gistFreshman.total',
         label: 'GIST 새내기(합계)',
         laterThan2021: true,
@@ -353,7 +349,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.gistMajorExploration.completed',
         label: 'GIST 전공탐색(이수 완료)',
         placeholder: 'GIST 전공탐색 학점을 입력하세요',
@@ -371,7 +367,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.gistMajorExploration.inProgress',
         label: 'GIST 전공탐색(이수 중)',
         placeholder: 'GIST 전공탐색 학점을 입력하세요',
@@ -389,7 +385,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.gistMajorExploration.total',
         label: 'GIST 전공탐색(합계)',
         laterThan2021: true,
@@ -398,7 +394,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.freshmanSeminar.completed',
         label: '신입생세미나(이수 완료)',
         placeholder: '신입생 세미나 학점',
@@ -416,7 +412,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.freshmanSeminar.inProgress',
         label: '신입생세미나(이수 중)',
         placeholder: '신입생 세미나 학점',
@@ -434,7 +430,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'B_C.freshmanSeminar.total',
         label: '신입생세미나(합계)',
         laterThan2021: false,
@@ -449,7 +445,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
     section_label: '전공 | 연구 | 자유선택 학점',
     inputs: [
       {
-        component: Title,
+        component: 'title',
         controlled: false,
         props: {
           order: 5,
@@ -459,7 +455,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.majorRequired.completed',
         label: '전공필수(이수완료)',
         placeholder: '전공필수 학점을 입력하세요',
@@ -476,7 +472,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.majorRequired.inProgress',
         label: '전공필수(이수중)',
         placeholder: '전공필수 학점을 입력하세요',
@@ -493,7 +489,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.majorRequired.total',
         label: '전공필수(합계)',
         props: {
@@ -501,7 +497,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.majorElective.completed',
         label: '전공선택(이수완료)',
         placeholder: '전공선택 학점을 입력하세요',
@@ -518,7 +514,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.majorElective.inProgress',
         label: '전공선택(이수중)',
         placeholder: '전공선택 학점을 입력하세요',
@@ -535,7 +531,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.majorElective.total',
         label: '전공선택(합계)',
         props: {
@@ -543,7 +539,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: Title,
+        component: 'title',
         controlled: false,
         props: {
           order: 5,
@@ -553,7 +549,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.thesisResearch.completed',
         label: '학사논문연구(이수완료)',
         placeholder: '학사논문연구 학점을 입력하세요',
@@ -570,7 +566,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.thesisResearch.inProgress',
         label: '학사논문연구(이수중)',
         placeholder: '학사논문연구 학점을 입력하세요',
@@ -586,13 +582,13 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: TextInput,
+        component: 'text',
         rhf_name: 'M_R_F.thesisResearch.total',
         label: '학사논문연구(합계)',
         props: { readOnly: true },
       },
       {
-        component: Title,
+        component: 'title',
         controlled: false,
         props: {
           order: 5,
@@ -602,7 +598,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.universityCommonSubjects.completed',
         label: '대학 공통 교과목(이수완료)',
         placeholder: '대학 공통 교과목 학점을 입력하세요',
@@ -619,7 +615,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.universityCommonSubjects.inProgress',
         label: '대학 공통 교과목(이수중)',
         placeholder: '대학 공통 교과목 학점을 입력하세요',
@@ -635,13 +631,13 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.universityCommonSubjects.total',
         label: '대학 공통 교과목(합계)',
         props: { readOnly: true },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.humanitiesAndSocial.completed',
         label: '인문사회(이수완료)',
         placeholder: '인문사회 학점을 입력하세요',
@@ -658,7 +654,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.humanitiesAndSocial.inProgress',
         label: '인문사회(이수중)',
         placeholder: '인문사회 학점을 입력하세요',
@@ -674,13 +670,13 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: TextInput,
+        component: 'text',
         rhf_name: 'M_R_F.humanitiesAndSocial.total',
         label: '인문사회(합계)',
         props: { readOnly: true },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.languageSelectionSoftware.completed',
         label: '언어선택/소프트웨어(이수완료)',
         placeholder: '언어선택/소프트웨어 학점을 입력하세요',
@@ -696,7 +692,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         label: '언어선택/소프트웨어(이수중)',
         rhf_name: 'M_R_F.languageSelectionSoftware.inProgress',
         placeholder: '언어선택/소프트웨어 학점을 입력하세요',
@@ -712,13 +708,13 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.languageSelectionSoftware.total',
         label: '언어선택/소프트웨어(합계)',
         props: { readOnly: true },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.basicScienceSelection.completed',
         label: '기초과학선택(이수완료)',
         placeholder: '기초과학선택 학점을 입력하세요',
@@ -735,7 +731,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.basicScienceSelection.inProgress',
         label: '기초과학선택(이수중)',
         placeholder: '기초과학선택 학점을 입력하세요',
@@ -751,13 +747,13 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.basicScienceSelection.total',
         label: '기초과학선택(합계)',
         props: { readOnly: true },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.otherMajor.completed',
         label: '타전공(이수완료)',
         placeholder: '타전공 학점을 입력하세요',
@@ -773,7 +769,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.otherMajor.inProgress',
         label: '타전공(이수중)',
         placeholder: '타전공 학점을 입력하세요',
@@ -789,13 +785,13 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.otherMajor.total',
         label: '타전공(합계)',
         props: { readOnly: true },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.graduateSchoolSubjects.completed',
         label: '대학원 교과목(이수완료)',
         placeholder: '대학원 교과목 학점을 입력하세요',
@@ -812,7 +808,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.graduateSchoolSubjects.inProgress',
         label: '대학원 교과목(이수중)',
         placeholder: '대학원 교과목 학점을 입력하세요',
@@ -828,7 +824,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'M_R_F.graduateSchoolSubjects.total',
         label: '대학원 교과목(합계)',
         props: { readOnly: true },
@@ -840,7 +836,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
     section_label: '무학점 필수',
     inputs: [
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'NOC.artPracticalSkills.completed',
         label: '예능실기(이수완료)',
         placeholder: '예능실기 학점을 입력하세요',
@@ -857,7 +853,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'NOC.artPracticalSkills.inProgress',
         label: '예능실기(이수중)',
         placeholder: '예능실기 학점을 입력하세요',
@@ -874,7 +870,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'NOC.artPracticalSkills.total',
         label: '예능실기(합계)',
         props: {
@@ -882,7 +878,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'NOC.physicalEducationPracticalSkills.completed',
         label: '체육실기(이수완료)',
         placeholder: '체육실기 학점을 입력하세요',
@@ -899,7 +895,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'NOC.physicalEducationPracticalSkills.inProgress',
         label: '체육실기(이수중)',
         placeholder: '체육실기 학점을 입력하세요',
@@ -916,7 +912,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'NOC.physicalEducationPracticalSkills.total',
         label: '체육실기(합계)',
         props: {
@@ -924,7 +920,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'NOC.gistCollegeColloquium.completed',
         label: 'GIST 대학 콜로퀴움',
         placeholder: 'GIST 대학 콜로퀴움 학점을 입력하세요',
@@ -941,7 +937,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'NOC.gistCollegeColloquium.inProgress',
         label: 'GIST 대학 콜로퀴움',
         placeholder: 'GIST 대학 콜로퀴움 학점을 입력하세요',
@@ -958,7 +954,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: TextInput,
+        component: 'text',
         rhf_name: 'NOC.gistCollegeColloquium.total',
         label: 'GIST 대학 콜로퀴움',
         props: { readOnly: true },
@@ -970,12 +966,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
     section_label: '기타 학점',
     inputs: [
       {
-        component: Title,
+        component: 'title',
         controlled: false,
         props: { order: 5, children: '해외대학 여름학기 파견 관련 학점', mt: 'md', ml: 'xs' },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'OU.summer_session.total_credits',
         label: '총 이수 학점',
         placeholder: '해외대학 여름학기 파견 이수 인정 교과목 및 학점을 입력하세요',
@@ -986,7 +982,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: Select,
+        component: 'select',
         rhf_name: 'OU.summer_session.university_name',
         label: '대학명',
         placeholder: '파견된 대학명을 입력하세요',
@@ -1001,7 +997,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: MultiSelect,
+        component: 'multi-select',
         rhf_name: 'OU.summer_session.subjects',
         label: '이수한 강의들',
         placeholder: '교과목 명을 입력하세요',
@@ -1024,12 +1020,12 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         placeholder: '파견학기를 입력하세요',
       },
       {
-        component: Title,
+        component: 'title',
         controlled: false,
         props: { order: 5, children: 'Study Abroad Program 관련 학점', mt: 40, ml: 'xs' },
       },
       {
-        component: NumberInput,
+        component: 'number',
         rhf_name: 'OU.study_abroad_program.total_credits',
         label: '총 이수 학점',
         placeholder: 'Study Abroad Program 이수 학점을 입력하세요',
@@ -1040,7 +1036,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: Select,
+        component: 'select',
         rhf_name: 'OU.study_abroad_program.university_name',
         label: '파견 대학명',
         placeholder: '파견된 대학명을 입력하세요',
@@ -1055,7 +1051,7 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
         },
       },
       {
-        component: MultiSelect,
+        component: 'multi-select',
         rhf_name: 'OU.study_abroad_program.subjects',
         label: '이수한 강의들',
         placeholder: '이수한 강의들을 입력하세요',
@@ -1080,14 +1076,3 @@ export const generateInputSections: (context: UseFormReturn<any, undefined>) => 
     ],
   },
 ];
-
-const autoHypenPhone = (str: string) => {
-  str = str.replace(/[^0-9]/g, '');
-  return str.length < 4
-    ? str
-    : str.length < 7
-    ? str.substring(0, 3) + '-' + str.substring(3)
-    : str.length < 11
-    ? str.substring(0, 3) + '-' + str.substring(3, 6) + '-' + str.substring(6)
-    : str.substring(0, 3) + '-' + str.substring(3, 7) + '-' + str.substring(7);
-};

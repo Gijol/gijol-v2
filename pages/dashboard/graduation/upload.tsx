@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Paper, Text, Group, Button, NumberInput, MultiSelect, Select } from '@mantine/core';
 import { useRouter } from 'next/router';
 
 import {
@@ -17,6 +16,13 @@ import { ParsedCourseEditableTable } from '@components/graduation/parse-course-e
 import { GradUploadPanel } from '@components/graduation/upload-panel';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
+
+import { Input } from '@components/ui/input';
+import { Button } from '@components/ui/button';
+import { Card, CardContent } from '@components/ui/card';
+import { Label } from '@components/ui/label';
+import { Combobox } from '@components/ui/combobox';
+import { MultiSelect } from '@components/ui/multi-select';
 
 export default function GraduationParsePage() {
   const router = useRouter();
@@ -130,83 +136,90 @@ export default function GraduationParsePage() {
     }
   };
 
+  const majorOptions = MAJOR_OPTIONS;
+  const minorOptions = MINOR_OPTIONS;
+
   return (
     <GradUploadPanel title="졸업요건 파서 · 파싱 결과 확인 및 수정">
       {({ parsed }) => {
         if (!parsed) {
           return (
-            <Text c="dimmed">
+            <p className="text-gray-500 dark:text-gray-400">
               아직 파싱된 데이터가 없습니다. 파일을 업로드하고 &quot;파싱 및 졸업요건 계산&quot;을
               눌러 주세요.
-            </Text>
+            </p>
           );
         }
 
         return (
-          <>
-            <Text size="sm" c="dimmed" mb="xs">
+          <div className="flex flex-col gap-6">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               아래에서 파싱된 수강 내역을 확인하고, 필요하다면 직접 수정하거나 행을 추가/삭제할 수
               있습니다.
-            </Text>
+            </p>
 
             {/* 입학년도 필드: inferEntryYear로 자동 채워주고, 수정 가능 */}
-            <Paper withBorder radius="md" p="md" mb="md">
-              <Text size="xs" c="dimmed">
-                2018학번 이후만 현재 서비스 대상입니다.
-              </Text>
-              <Group align="flex-end" spacing="md">
-                <NumberInput
-                  label="입학년도 (학번 기준)"
-                  placeholder="예: 2021"
-                  value={entryYear}
-                  onChange={(value) => {
-                    // Mantine NumberInput은 number | '' | null을 줄 수 있음
-                    if (value === null) setEntryYear(2020);
-                    else setEntryYear(Number(value));
-                  }}
-                  min={2010}
-                  max={new Date().getFullYear()}
-                  step={1}
-                />
-                <Select
-                  label="전공"
-                  placeholder="전공을 선택하세요"
-                  data={MAJOR_OPTIONS}
-                  value={major}
-                  onChange={(value) => setMajor(value || '')}
-                  searchable
-                  clearable
-                  nothingFound="해당 전공이 없습니다"
-                />
+            <Card className="transition-all hover:bg-secondary/10 hover:shadow-md">
+              <CardContent className="p-6">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+                  2018학번 이후만 현재 서비스 대상입니다.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                  <div className="flex flex-col gap-2">
+                    <Label htmlFor="entryYear">입학년도 (학번 기준)</Label>
+                    <Input
+                      id="entryYear"
+                      type="number"
+                      placeholder="예: 2021"
+                      value={entryYear}
+                      onChange={(e) => {
+                        const val = e.target.value ? Number(e.target.value) : 2020;
+                        setEntryYear(val);
+                      }}
+                      min={2010}
+                      max={new Date().getFullYear()}
+                      step={1}
+                    />
+                  </div>
 
-                <MultiSelect
-                  label="부전공(선택)"
-                  placeholder="부전공을 복수 선택하세요"
-                  data={MINOR_OPTIONS}
-                  value={minors}
-                  onChange={setMinors}
-                  searchable
-                  clearable
-                  nothingFound="해당 이름의 부전공이 없습니다"
-                />
-              </Group>
-            </Paper>
+                  <div className="flex flex-col gap-2">
+                    <Label>전공</Label>
+                    <Combobox
+                      options={majorOptions}
+                      value={major}
+                      onChange={setMajor}
+                      placeholder="전공을 선택하세요"
+                      searchPlaceholder="전공 검색..."
+                      emptyText="해당 전공이 없습니다"
+                    />
+                  </div>
 
-            <Paper withBorder radius="md" p="md">
-              <ParsedCourseEditableTable
-                rows={rows}
-                onChangeRow={handleChangeRow}
-                onAddRow={handleAddRow}
-                onRemoveRow={handleRemoveRow}
-              />
-            </Paper>
+                  <div className="flex flex-col gap-2">
+                    <Label>부전공(선택)</Label>
+                    <MultiSelect
+                      options={minorOptions}
+                      selected={minors}
+                      onChange={setMinors}
+                      placeholder="부전공을 복수 선택하세요"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-            <Group position="right" mt="md" mb={40}>
-              <Button onClick={handleApplyAndGo} loading={saving} color="teal">
-                수정 내용 적용 & 졸업요건 페이지로 이동
+            <ParsedCourseEditableTable
+              rows={rows}
+              onChangeRow={handleChangeRow}
+              onAddRow={handleAddRow}
+              onRemoveRow={handleRemoveRow}
+            />
+
+            <div className="flex justify-center my-6">
+              <Button onClick={handleApplyAndGo} disabled={saving} className="bg-teal-600 hover:bg-teal-700 text-white">
+                {saving ? "저장 중..." : "수정 내용 적용 & 졸업요건 페이지로 이동"}
               </Button>
-            </Group>
-          </>
+            </div>
+          </div>
         );
       }}
     </GradUploadPanel>
