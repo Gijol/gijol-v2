@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import {
-  gradStatusFetchFn,
-  inferEntryYear,
-  toTakenCourses,
-} from '@utils/graduation/grad-status-helper';
+import { gradStatusFetchFn, inferEntryYear, toTakenCourses } from '@utils/graduation/grad-status-helper';
 import type { EditableCourseRow } from '@lib/types/graduation-editable';
 import { v4 as uuid } from 'uuid';
-import {
-  applyEditableRowsToUserStatus,
-  toEditableRows,
-} from '@utils/graduation/parse-to-editable-rows';
+import { applyEditableRowsToUserStatus, toEditableRows } from '@utils/graduation/parse-to-editable-rows';
 import { ParsedCourseEditableTable } from '@components/graduation/parse-course-editable-table';
 import { GradUploadPanel } from '@components/graduation/upload-panel';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
@@ -42,7 +35,7 @@ export default function GraduationParsePage() {
 
   // parsed가 바뀌면 editable rows 초기화
   useEffect(() => {
-    if (!isHydrated) return; 
+    if (!isHydrated) return;
 
     if (parsed) {
       setRows(toEditableRows(parsed));
@@ -108,7 +101,7 @@ export default function GraduationParsePage() {
       const finalEntryYear =
         typeof entryYear === 'number' && !Number.isNaN(entryYear)
           ? entryYear
-          : inferredFromData ?? new Date().getFullYear();
+          : (inferredFromData ?? new Date().getFullYear());
 
       // 2018 이전 학번은 서비스 대상이 아니므로, 여기서 방어적으로 처리할 수도 있음
       // (단순 경고용으로 쓰고, 로직은 그대로 돌릴 수도)
@@ -147,33 +140,42 @@ export default function GraduationParsePage() {
   const minorOptions = MINOR_OPTIONS;
 
   return (
-    <GradUploadPanel title="졸업요건 파서 · 파싱 결과 확인 및 수정">
+    <GradUploadPanel>
       {({ parsed }) => {
         if (!isHydrated) return null;
 
         if (!parsed) {
           return (
-            <p className="text-gray-500 dark:text-gray-400">
-              아직 파싱된 데이터가 없습니다. 파일을 업로드하고 &quot;파싱 및 졸업요건 계산&quot;을
-              눌러 주세요.
-            </p>
+            <Card className="border-dashed bg-gray-50 dark:bg-gray-800/30">
+              <CardContent className="p-6 text-center">
+                <p className="text-gray-500 dark:text-gray-400">
+                  아직 파싱된 데이터가 없습니다. 위에서 파일을 업로드하고 "파싱 및 졸업요건 계산"을 눌러 주세요.
+                </p>
+              </CardContent>
+            </Card>
           );
         }
 
         return (
           <div className="flex flex-col gap-6">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              아래에서 파싱된 수강 내역을 확인하고, 필요하다면 직접 수정하거나 행을 추가/삭제할 수
-              있습니다.
-            </p>
+            {/* Section Header */}
+            <div>
+              <h2 className="text-foreground mb-1 text-xl font-semibold">📝 파싱 결과 확인 및 수정</h2>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                아래에서 파싱된 수강 내역을 확인하고, 필요하다면 직접 수정하거나 행을 추가/삭제할 수 있습니다.
+              </p>
+            </div>
 
-            {/* 입학년도 필드: inferEntryYear로 자동 채워주고, 수정 가능 */}
-            <Card className="transition-all hover:bg-secondary/10 hover:shadow-md">
+            {/* 입학년도/전공/부전공 카드 */}
+            <Card>
               <CardContent className="p-6">
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                  2018학번 이후만 현재 서비스 대상입니다.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                <div className="mb-4 flex items-center gap-2">
+                  <span className="text-foreground font-semibold">학적 정보</span>
+                  <span className="rounded bg-amber-100 px-2 py-0.5 text-xs text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
+                    2018학번 이후만 지원
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 items-end gap-6 md:grid-cols-3">
                   <div className="flex flex-col gap-2">
                     <Label htmlFor="entryYear">입학년도 (학번 기준)</Label>
                     <Input
@@ -216,6 +218,7 @@ export default function GraduationParsePage() {
               </CardContent>
             </Card>
 
+            {/* 수강 목록 테이블 */}
             <ParsedCourseEditableTable
               rows={rows}
               onChangeRow={handleChangeRow}
@@ -223,9 +226,15 @@ export default function GraduationParsePage() {
               onRemoveRow={handleRemoveRow}
             />
 
-            <div className="flex justify-center my-6">
-              <Button onClick={handleApplyAndGo} disabled={saving} className="bg-teal-600 hover:bg-teal-700 text-white">
-                {saving ? "저장 중..." : "수정 내용 적용 & 졸업요건 페이지로 이동"}
+            {/* CTA 버튼 */}
+            <div className="flex justify-center py-6">
+              <Button
+                onClick={handleApplyAndGo}
+                disabled={saving}
+                size="lg"
+                className="bg-[#0B62DA] text-white shadow-lg shadow-blue-500/25 hover:bg-[#0952B8]"
+              >
+                {saving ? '저장 중...' : '수정 내용 적용 & 졸업요건 페이지로 이동'}
               </Button>
             </div>
           </div>

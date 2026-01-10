@@ -2,22 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/router';
+import { IconUpload } from '@tabler/icons-react';
 
 import { Button } from '@components/ui/button';
+import { Card, CardContent } from '@components/ui/card';
 import Loading from '@components/loading';
 import { cn } from '@/lib/utils';
 
 import type { UserStatusType } from '@lib/types/index';
-import type {
-  GradStatusRequestBody,
-  GradStatusResponseType,
-  TakenCourseType,
-} from '@lib/types/grad';
-import {
-  gradStatusFetchFn,
-  inferEntryYear,
-  toTakenCourses,
-} from '@utils/graduation/grad-status-helper';
+import type { GradStatusRequestBody, GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
+import { gradStatusFetchFn, inferEntryYear, toTakenCourses } from '@utils/graduation/grad-status-helper';
 import { useGraduationStore } from '../../lib/stores/useGraduationStore';
 import { PARSED_EDITABLE_STATE_KEY } from '../../lib/stores/storage-key';
 import { uploadGradeReportViaApi } from '@utils/graduation/upload-grade-report-via-api';
@@ -25,17 +19,10 @@ import { uploadGradeReportViaApi } from '@utils/graduation/upload-grade-report-v
 type GradUploadPanelProps = {
   title?: string;
   redirectTo?: string;
-  children?: (ctx: {
-    parsed: UserStatusType | null;
-    gradStatus: GradStatusResponseType | null;
-  }) => React.ReactNode;
+  children?: (ctx: { parsed: UserStatusType | null; gradStatus: GradStatusResponseType | null }) => React.ReactNode;
 };
 
-export function GradUploadPanel({
-  title = '졸업요건 파서',
-  redirectTo,
-  children,
-}: GradUploadPanelProps) {
+export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, children }: GradUploadPanelProps) {
   const router = useRouter();
 
   const [file, setFile] = useState<File | null>(null);
@@ -63,8 +50,8 @@ export function GradUploadPanel({
     multiple: false,
     accept: {
       'application/vnd.ms-excel': ['.xls'],
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx']
-    }
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
+    },
   });
 
   const handleParse = async () => {
@@ -81,9 +68,7 @@ export function GradUploadPanel({
       const userMajor = (res as any).major || (res as any).department || undefined;
 
       if (!entryYear) {
-        setError(
-          '학번(입학년도)을 파싱할 수 없습니다. studentId 또는 entryYear 정보를 확인해주세요.'
-        );
+        setError('학번(입학년도)을 파싱할 수 없습니다. studentId 또는 entryYear 정보를 확인해주세요.');
       }
 
       const payload: GradStatusRequestBody = {
@@ -109,7 +94,7 @@ export function GradUploadPanel({
         parsed: res,
         takenCourses: tc,
         gradStatus: grad ?? null,
-        userMajor: ''
+        userMajor: '',
       });
 
       try {
@@ -128,11 +113,11 @@ export function GradUploadPanel({
         if (e.message === 'INVALID_GRADE_REPORT') {
           setError(
             'GIST 제우스 성적표 양식이 아닌 파일입니다.\n' +
-            '제우스 → 성적 → 개인성적조회 → "Report card(KOR)" 엑셀 파일을 다시 업로드해주세요.'
+              '제우스 → 성적 → 개인성적조회 → "Report card(KOR)" 엑셀 파일을 다시 업로드해주세요.',
           );
         } else if (e.message === 'UPLOAD_REQUEST_TIMEOUT') {
           setError(
-            '업로드/파싱 요청 시간이 초과되었습니다. 파일이 제우스 성적표 양식이 맞는지 확인하시고, 네트워크 상태를 점검한 후 다시 시도해주세요.'
+            '업로드/파싱 요청 시간이 초과되었습니다. 파일이 제우스 성적표 양식이 맞는지 확인하시고, 네트워크 상태를 점검한 후 다시 시도해주세요.',
           );
         } else {
           setError('파일을 처리하는 도중 예상치 못한 오류가 발생했습니다. 다시 시도해주세요.');
@@ -175,62 +160,90 @@ export function GradUploadPanel({
   if (!isHydrated) return null;
 
   return (
-    <div className="w-full mx-0 px-4">
-      <h2 className="text-2xl font-bold my-5">
-        {title}
-      </h2>
-
-      <div
-        {...getRootProps()}
-        className={cn(
-          "h-[140px] flex items-center justify-center border-2 border-dashed rounded-lg transition-colors cursor-pointer",
-          isDragActive ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" : "border-gray-300 dark:border-gray-700",
-          "hover:bg-gray-50 dark:hover:bg-slate-900"
-        )}
-        onClick={open} // Allow clicking the dropzone too
-      >
-        <input {...getInputProps()} />
-        <div className="text-center">
-          {!file ? (
-            <p className="text-muted-foreground text-sm">여기에 엑셀 파일을 드롭하거나 클릭하여 업로드해주세요.</p>
-          ) : (
-            <p className="text-sm font-medium">{file.name}</p>
-          )}
-        </div>
+    <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
+      {/* Header - Dashboard 스타일 */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-900 md:text-3xl dark:text-gray-100">📤 성적표 업로드</h1>
+        <p className="mt-1 text-gray-500 dark:text-gray-400">
+          GIST 제우스 성적표를 업로드하여 졸업요건을 분석해보세요.
+        </p>
       </div>
 
-      <div className="flex gap-2 mt-4 flex-wrap">
-        <Button onClick={open} variant="outline">
-          파일 선택
-        </Button>
-        <Button onClick={handleParse} disabled={!file || isParsing} className="bg-blue-600 hover:bg-blue-700 text-white">
-          파싱 및 졸업요건 계산
-        </Button>
-        <Button onClick={onDownload} disabled={!parsed} variant="outline">
-          JSON 다운로드
-        </Button>
-        <Button variant="outline" onClick={handleReset} className="text-gray-500">
-          리셋
-        </Button>
-      </div>
+      {/* Upload Card */}
+      <Card className="mb-6">
+        <CardContent className="p-6">
+          <div className="flex flex-col gap-4">
+            <div className="mb-2 flex items-center gap-2">
+              <IconUpload className="text-muted-foreground h-5 w-5" />
+              <span className="text-foreground font-semibold">파일 업로드</span>
+            </div>
+
+            <div
+              {...getRootProps()}
+              className={cn(
+                'flex h-[140px] cursor-pointer items-center justify-center rounded-lg border-2 border-dashed transition-colors',
+                isDragActive
+                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                  : 'border-gray-300 dark:border-gray-700',
+                'hover:bg-gray-50 dark:hover:bg-gray-800/50',
+              )}
+              onClick={open}
+            >
+              <input {...getInputProps()} />
+              <div className="px-4 text-center">
+                {!file ? (
+                  <div className="flex flex-col items-center gap-2">
+                    <IconUpload className="text-muted-foreground h-8 w-8" />
+                    <p className="text-muted-foreground text-sm">
+                      여기에 엑셀 파일을 드롭하거나 클릭하여 업로드해주세요.
+                    </p>
+                    <p className="text-muted-foreground text-xs">
+                      제우스 → 성적 → 개인성적조회 → "Report card(KOR)" 엑셀 파일
+                    </p>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <span className="text-foreground text-sm font-medium">{file.name}</span>
+                    <span className="text-xs text-emerald-600">✓ 선택됨</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <Button onClick={open} variant="outline" size="sm">
+                파일 선택
+              </Button>
+              <Button
+                onClick={handleParse}
+                disabled={!file || isParsing}
+                size="sm"
+                className="bg-[#0B62DA] text-white shadow-lg shadow-blue-500/25 hover:bg-[#0952B8]"
+              >
+                파싱 및 졸업요건 계산
+              </Button>
+              <Button onClick={onDownload} disabled={!parsed} variant="outline" size="sm">
+                JSON 다운로드
+              </Button>
+              <Button variant="outline" onClick={handleReset} size="sm" className="text-gray-500">
+                리셋
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {isParsing && <Loading content="파싱 중입니다..." />}
 
-      {isFetchingGradStatus && (
-        <div className="mt-2 text-sm text-muted-foreground">
-          졸업요건 계산 중입니다...
-        </div>
-      )}
+      {isFetchingGradStatus && <div className="text-muted-foreground mt-2 text-sm">졸업요건 계산 중입니다...</div>}
 
       {error && (
-        <div className="mt-4 p-3 bg-red-50 text-red-600 rounded-md text-sm whitespace-pre-line border border-red-200">
-          에러: {error}
+        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm whitespace-pre-line text-red-600 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400">
+          <span className="font-semibold">오류:</span> {error}
         </div>
       )}
 
-      <div className="h-6" />
-
-      {children && <div className="mt-4">{children({ parsed, gradStatus })}</div>}
+      {children && <div className="mt-6">{children({ parsed, gradStatus })}</div>}
     </div>
   );
 }

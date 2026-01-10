@@ -11,7 +11,7 @@ import { useMyCourseOverview } from '@hooks/useMyCourseOverview';
 import { TOTAL_REQUIRED_CREDITS } from '@const/grad-status-constants';
 import UploadEmptyState from '@components/graduation/upload-empty-state';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@components/ui/card';
 import { Progress } from '@components/ui/progress';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@components/ui/tooltip';
 
@@ -32,54 +32,38 @@ function OverallSemesterCard({
   avgCreditPerSemester: number;
   bestSemester: any | null;
 }) {
-  const rangeLabel =
-    start_y && start_s && end_y && end_s ? `${start_y}년 ${start_s} ~ ${end_y}년 ${end_s}` : '-';
+  const rangeLabel = start_y && start_s && end_y && end_s ? `${start_y}년 ${start_s} ~ ${end_y}년 ${end_s}` : '-';
 
-  const bestLabel = bestSemester
-    ? `${bestSemester.year}년 ${bestSemester.semester_str} (${bestSemester.grade.toFixed(2)} / 4.5)`
-    : '-';
+  const bestLabel = bestSemester ? `${bestSemester.year}년 ${bestSemester.semester_str}` : '-';
+
+  const bestGrade = bestSemester ? bestSemester.grade.toFixed(2) : null;
 
   return (
-    <Card className="h-full transition-all hover:bg-secondary/10 hover:shadow-md">
-      <CardContent className="p-6 flex flex-col justify-between h-full gap-4">
-        <h3 className="text-lg font-semibold text-foreground">
-          🗃️ 이수 학기 정보
-        </h3>
-        <div className="flex justify-center">
-          <span className="text-xl font-semibold whitespace-nowrap text-foreground">
-            {rangeLabel}
-          </span>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <div className="flex gap-2">
-            <span className="text-sm text-muted-foreground">
-              총 이수 학기:
-            </span>
-            <span className="text-sm font-semibold text-foreground">
-              {semesterCount}학기
-            </span>
-          </div>
-
-          <div className="flex gap-2">
-            <span className="text-sm text-muted-foreground">
-              학기당 평균 이수 학점:
-            </span>
-            <span className="text-sm font-semibold text-foreground">
-              {avgCreditPerSemester}학점
-            </span>
-          </div>
-
-          <div className="flex gap-2">
-            <span className="text-sm text-muted-foreground">
-              최고 학기:
-            </span>
-            <span className="text-sm font-semibold text-foreground">
-              {bestLabel}
-            </span>
-          </div>
-        </div>
+    <Card className="h-full p-0 shadow-none">
+      <CardHeader className="border-b border-slate-200 p-4">
+        <CardTitle className="text-base font-medium">이수 학기 정보</CardTitle>
+      </CardHeader>
+      <CardContent className="flex h-full flex-col p-4">
+        {/* 기간 표시 */}
+        <div className="text-foreground flex flex-col items-center justify-center text-lg font-bold">{rangeLabel}</div>
       </CardContent>
+      <CardFooter className="border-t border-slate-200 p-4">
+        {/* 핵심 통계 */}
+        <div className="my-auto flex w-full items-center justify-center">
+          <div className="text-center">
+            <div className="text-foreground text-2xl font-bold">{semesterCount}</div>
+            <div className="text-muted-foreground text-xs">총 학기</div>
+          </div>
+          <div className="border-border mx-4 border-x px-4 text-center">
+            <div className="text-foreground text-2xl font-bold">{avgCreditPerSemester}</div>
+            <div className="text-muted-foreground text-xs">평균 학점/학기</div>
+          </div>
+          <div className="text-center">
+            <div className="text-foreground text-lg font-bold">{bestLabel}</div>
+            {bestGrade && <div className="text-xs text-emerald-600 dark:text-emerald-400">최고 {bestGrade}</div>}
+          </div>
+        </div>
+      </CardFooter>
     </Card>
   );
 }
@@ -96,62 +80,56 @@ function OverallAcademicCard({
   progress: number; // 0~100
 }) {
   return (
-    <div className="flex flex-col gap-4">
-      <Card className="transition-all hover:bg-secondary/10 hover:shadow-md">
-        <CardContent className="p-6">
-          <h3 className="text-lg font-semibold text-foreground mb-1">
-            누적 이수 학점
-          </h3>
-          <div className="flex items-baseline gap-2 mb-2">
-            <span className="text-2xl font-bold text-foreground">{totalCredit}</span>
-            <span className="text-lg font-medium text-muted-foreground">/ {TOTAL_REQUIRED_CREDITS}</span>
-          </div>
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-muted-foreground">{progress.toFixed(2)}%</span>
+    <Card className="h-full p-0 shadow-none">
+      <CardHeader className="border-b border-slate-200 p-4">
+        <CardTitle className="text-base font-medium">학업 현황</CardTitle>
+      </CardHeader>
+      <CardContent className="flex h-full flex-col p-4">
+        {/* 두 개의 핵심 지표를 나란히 배치 */}
+        <div className="grid grid-cols-2 gap-6">
+          {/* 이수 학점 */}
+          <div>
+            <div className="flex items-baseline justify-center gap-1">
+              <span className="text-foreground text-3xl font-bold">{totalCredit}</span>
+              <span className="text-muted-foreground text-lg">/ {totalRequired}</span>
             </div>
-            <Progress value={progress} className="h-4" />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="transition-all hover:bg-secondary/10 hover:shadow-md">
-        <CardContent className="p-6 flex flex-col gap-2">
-          <h3 className="text-xl font-semibold text-foreground">
-            평균 학점
-          </h3>
-
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-foreground">
-              {averageGrade ?? '-'}
-            </span>
-            <span className="text-lg font-medium text-muted-foreground">
-              / 4.5
-            </span>
+            <div className="text-muted-foreground text-center text-xs">이수 학점</div>
           </div>
 
-          {averageGrade != null && (
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">
-                GPA(4.0 기준) 환산 : {convertGradeTo4Scale(averageGrade, 4.5)}
-              </span>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className="rounded-full bg-secondary p-1 cursor-help hover:bg-secondary/80 transition-colors">
-                      <HelpCircle className="h-3.5 w-3.5 text-muted-foreground" />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>정확하지 않으므로 참고용으로만 사용해주세요!</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+          {/* 평균 학점 */}
+          <div>
+            <div className="flex items-baseline justify-center gap-1">
+              <span className="text-foreground text-3xl font-bold">{averageGrade ?? '-'}</span>
+              <span className="text-muted-foreground text-lg">/ 4.5</span>
             </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+            <div className="text-muted-foreground mt-1 text-center text-xs">평균 학점</div>
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter className="border-t border-slate-200 p-4">
+        {/* GPA 환산 */}
+        {averageGrade != null && (
+          <>
+            <span className="text-muted-foreground mr-2 text-sm">
+              GPA 4.0 환산:{' '}
+              <span className="text-foreground font-medium">{convertGradeTo4Scale(averageGrade, 4.5)}</span>
+            </span>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="bg-secondary hover:bg-secondary/80 cursor-help rounded-full p-0.5 transition-colors">
+                    <HelpCircle className="text-muted-foreground h-3 w-3" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>정확하지 않으므로 참고용으로만 사용해주세요!</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </>
+        )}
+      </CardFooter>
+    </Card>
   );
 }
 
@@ -178,28 +156,42 @@ export default function My() {
   // 아직 업로드된 데이터가 없을 때
   if (!parsed || !parsed.userTakenCourseList?.length) {
     return (
-      <div className="container mx-auto max-w-5xl px-4 py-10">
-        <h2 className="text-2xl font-bold mb-8 text-foreground">
-          📑 수강현황
-        </h2>
+      <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-900 md:text-3xl dark:text-gray-100">📊 수강 현황</h1>
+          <p className="mt-1 text-gray-500 dark:text-gray-400">성적표를 업로드하면 학업 현황을 분석해드립니다.</p>
+        </div>
         <UploadEmptyState />
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto max-w-full px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4 mt-5 text-foreground">
-        📑 수강현황
-      </h2>
-
-      <div className="flex gap-4 mb-6 text-muted-foreground text-sm flex-wrap">
-        <span>학번: {studentId}</span>
-        <span>전공: {majorName}</span>
-        <span>입학년도: {entryYear}년</span>
+    <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-900 md:text-3xl dark:text-gray-100">📊 수강 현황</h1>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          {studentId && (
+            <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+              학번 {studentId}
+            </span>
+          )}
+          {majorName && (
+            <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+              {majorName}
+            </span>
+          )}
+          {entryYear && (
+            <span className="inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+              {entryYear}학번
+            </span>
+          )}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+      {/* Stats Cards */}
+      <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
         <OverallAcademicCard
           totalCredit={totalCredit}
           totalRequired={TOTAL_REQUIRED_CREDITS}
@@ -217,23 +209,15 @@ export default function My() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-6">
-          <CourseMyCreditChart data={courseListWithPeriod} />
-        </div>
-        <div className="lg:col-span-6">
-          <CourseMyGradeChart data={courseListWithPeriod} />
-        </div>
-        <div className="lg:col-span-12">
-          <CourseMyTableChart data={courseListWithPeriod} />
-        </div>
+      {/* Charts Section */}
+      <div className="mb-8 grid grid-cols-1 gap-6">
+        <CourseMyCreditChart data={courseListWithPeriod} />
+        <CourseMyGradeChart data={courseListWithPeriod} />
       </div>
 
-      <div className="h-16" />
-      <div className="mt-10 mb-12 pb-12 flex justify-center">
-        <p className="text-base text-muted-foreground text-center">
-          언제나 여러분의 성공적인 학업 여정을 응원합니다! 🎓🚀
-        </p>
+      {/* Table Section */}
+      <div className="mb-8">
+        <CourseMyTableChart data={courseListWithPeriod} />
       </div>
     </div>
   );

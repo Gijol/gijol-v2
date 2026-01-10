@@ -10,7 +10,7 @@ function TailwindNavLink({
   active,
   icon: Icon,
   badge,
-  variant = 'light'
+  variant = 'light',
 }: {
   label: string;
   href: string;
@@ -20,32 +20,26 @@ function TailwindNavLink({
   variant?: 'light' | 'dark';
 }) {
   const isDark = variant === 'dark';
-  
+
   return (
     <Link
       href={href}
       className={cn(
-        "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all my-0.5 no-underline",
-        isDark ? (
-          active
-            ? "bg-[#0B62DA] text-white"
-            : "text-gray-300 hover:bg-white/10 hover:text-white"
-        ) : (
-          active
-            ? "bg-blue-50 text-blue-700"
-            : "text-gray-700 hover:bg-gray-100"
-        )
+        'my-0.5 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-all',
+        isDark
+          ? active
+            ? 'bg-slate-800 text-blue-500'
+            : 'text-gray-300 hover:bg-white/10 hover:text-white'
+          : active
+            ? 'bg-blue-50 text-blue-700'
+            : 'text-gray-700 hover:bg-gray-100',
       )}
     >
-      <Icon 
-        size={20} 
+      <Icon
+        size={20}
         className={cn(
-          isDark ? (
-            active ? "text-white" : "text-gray-400"
-          ) : (
-            active ? "text-blue-700" : "text-gray-500"
-          )
-        )} 
+          isDark ? (active ? 'text-blue-500' : 'text-gray-400') : active ? 'text-blue-700' : 'text-gray-500',
+        )}
       />
       <span className="flex-1">{label}</span>
       {badge}
@@ -69,9 +63,5 @@ export function SidebarNavigation({ variant = 'light' }: { variant?: 'light' | '
     />
   ));
 
-  return (
-    <nav className="flex flex-col gap-1">
-      {links}
-    </nav>
-  );
+  return <nav className="flex flex-col gap-1">{links}</nav>;
 }
