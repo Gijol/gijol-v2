@@ -14,16 +14,11 @@ const TOTAL_REQUIRED_CREDITS = 130;
 export default function HomePage() {
   const { parsed, gradStatus } = useGraduationStore();
 
-  const courseListWithPeriod = useMemo(
-    () => buildCourseListWithPeriod(parsed),
-    [parsed]
-  );
+  const courseListWithPeriod = useMemo(() => buildCourseListWithPeriod(parsed), [parsed]);
 
   const overallAverageGrade = useMemo(
-    () => calcAverageGrade(
-      courseListWithPeriod.flatMap((t) => t.userTakenCourseList ?? [])
-    ),
-    [courseListWithPeriod]
+    () => calcAverageGrade(courseListWithPeriod.flatMap((t) => t.userTakenCourseList ?? [])),
+    [courseListWithPeriod],
   );
 
   // 1. Data Processing
@@ -31,18 +26,15 @@ export default function HomePage() {
   const totalCreditsEarned = overallProps?.totalCredits ?? 0;
   const totalPercentage = overallProps?.totalPercentage ?? 0;
 
-  const validTermGrades = courseListWithPeriod.filter(
-    (t) => t.grade && t.grade > 0
-  );
+  const validTermGrades = courseListWithPeriod.filter((t) => t.grade && t.grade > 0);
 
   const gradeDelta =
     validTermGrades.length >= 2
-      ? validTermGrades[validTermGrades.length - 1].grade -
-        validTermGrades[validTermGrades.length - 2].grade
+      ? validTermGrades[validTermGrades.length - 1].grade - validTermGrades[validTermGrades.length - 2].grade
       : null;
 
   const remainingCredits = Math.max(0, TOTAL_REQUIRED_CREDITS - totalCreditsEarned);
-  const completedCourses = courseListWithPeriod.flatMap(t => t.userTakenCourseList ?? []).length;
+  const completedCourses = courseListWithPeriod.flatMap((t) => t.userTakenCourseList ?? []).length;
 
   const requirements =
     overallProps?.categoriesArr.map(({ domain, status }) => {
@@ -59,7 +51,7 @@ export default function HomePage() {
       };
     }) ?? [];
 
-  const unsatisfiedRequirements = requirements.filter(r => !r.satisfied).length;
+  const unsatisfiedRequirements = requirements.filter((r) => !r.satisfied).length;
   const hasData = !!(parsed && gradStatus);
 
   // 2. Render
@@ -73,13 +65,9 @@ export default function HomePage() {
   }
 
   return (
-    <div className="w-full pb-8">
+    <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
       {/* 1. Header & Greeting */}
-      <WelcomeHeader 
-        name="서동호" 
-        remainingCredits={remainingCredits} 
-        hasData={true} 
-      />
+      <WelcomeHeader name="서동호" remainingCredits={remainingCredits} hasData={true} />
 
       {/* 2. Key Stats Row */}
       <StatsRow
@@ -91,17 +79,14 @@ export default function HomePage() {
       />
 
       {/* 3. Main Progress Section (2 Columns) */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
         <OverallProgressCard
           className="lg:col-span-2"
           totalPercentage={totalPercentage}
           totalCreditsEarned={totalCreditsEarned}
           totalRequiredCredits={TOTAL_REQUIRED_CREDITS}
         />
-        <GPACard
-          overallAverageGrade={overallAverageGrade}
-          gradeDelta={gradeDelta}
-        />
+        <GPACard overallAverageGrade={overallAverageGrade} gradeDelta={gradeDelta} />
       </div>
 
       {/* 4. Detailed Requirements List */}
