@@ -29,7 +29,7 @@ export default function DashboardFeatureCard({
         <div className="h-0.5 w-11 bg-slate-900 dark:bg-slate-100 mt-2" />
       </CardHeader>
       <CardContent>
-        <p className="min-h-[5rem] text-sm text-slate-500 dark:text-slate-400">
+        <p className="min-h-20 text-sm text-slate-500 dark:text-slate-400">
           <Balancer ratio={0.2}>{feat.description}</Balancer>
         </p>
         <div className="h-0.5 w-11 bg-slate-900 dark:bg-slate-100 mt-2 ml-auto mr-auto md:hidden" />

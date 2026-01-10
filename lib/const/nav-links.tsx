@@ -20,11 +20,6 @@ export const navLinks: NavLink[] = [
     href: '/dashboard/course/my',
     icon: IconClipboardList,
   },
-  {
-    label: '내 졸업요건',
-    href: '/dashboard/graduation',
-    icon: IconDeviceDesktopAnalytics,
-  },
   // {
   //   label: '강의 정보',
   //   href: '/dashboard/course/search',

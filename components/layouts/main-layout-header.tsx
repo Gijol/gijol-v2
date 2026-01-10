@@ -1,19 +1,38 @@
 import Link from 'next/link';
 
-
 export default function MainLayoutHeader() {
   return (
-    <header className="h-fit p-3 sticky top-0 bg-white dark:bg-slate-950 z-50 border-b border-gray-100 dark:border-gray-800">
-      <div className="max-w-[1023px] flex flex-row justify-between mx-auto h-full items-center">
-        <h2 className="m-0 font-bold text-xl">🎓 Gijol.v2</h2>
-        <div className="hidden sm:flex flex-row gap-2 items-center">
+    <header className="h-fit py-4 px-6 sticky top-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+      <div className="max-w-6xl flex flex-row justify-between mx-auto h-full items-center">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2 no-underline">
+          <div className="w-8 h-8 rounded-lg bg-[#0B62DA] flex items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-5 h-5"
+            >
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              <path d="M6 12v5c3 3 9 3 12 0v-5" />
+            </svg>
+          </div>
+          <span className="font-bold text-xl text-gray-900">GradPath</span>
+        </Link>
+
+        {/* Navigation */}
+        <div className="hidden sm:flex flex-row gap-1 items-center">
           <Link
             href="https://choieungi-project.notion.site/Q-A-9e325eabef4e479a8f47e95eb90bb344"
             rel="noreferrer"
             target="_blank"
-            className="no-underline h-full"
+            className="no-underline"
           >
-            <div className="h-fit px-3 py-2 no-underline text-gray-500 dark:text-gray-400 flex flex-col items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <div className="px-4 py-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium">
               자주 묻는 질문
             </div>
           </Link>
@@ -23,21 +42,21 @@ export default function MainLayoutHeader() {
             target="_blank"
             className="no-underline"
           >
-            <div className="h-fit px-3 py-2 no-underline text-gray-500 dark:text-gray-400 flex flex-col items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-base">
+            <div className="px-4 py-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium">
               팀 소개
             </div>
           </Link>
-          <Link
-            href="/dashboard"
-            rel="noreferrer"
-            target="_blank"
-            className="no-underline"
-          >
-            <div className="h-fit px-3 py-2 no-underline text-gray-500 dark:text-gray-400 flex flex-col items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              대쉬보드
+          <div className="w-px h-5 bg-gray-200 mx-2" />
+          <Link href="/dashboard" className="no-underline">
+            <div className="px-4 py-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium">
+              로그인
             </div>
           </Link>
-
+          <Link href="/dashboard" className="no-underline ml-2">
+            <div className="px-5 py-2.5 bg-[#0B62DA] hover:bg-[#0952B8] text-white rounded-lg transition-colors text-sm font-semibold">
+              시작하기
+            </div>
+          </Link>
         </div>
       </div>
     </header>

@@ -12,7 +12,7 @@ export function getPercentage(category?: SingleCategoryType): number {
   return pct >= 100 ? 100 : pct;
 }
 
-export function extractOverallStatus(status: GradStatusResponseType | undefined) {
+export function extractOverallStatus(status: GradStatusResponseType | null | undefined) {
   if (!status) return undefined;
 
   const totalCredits = status?.totalCredits;

@@ -34,9 +34,16 @@ export default function GraduationParsePage() {
   const [entryYear, setEntryYear] = useState<number>(2020);
   const [major, setMajor] = useState<string>('');
   const [minors, setMinors] = useState<string[]>([]);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   // parsed가 바뀌면 editable rows 초기화
   useEffect(() => {
+    if (!isHydrated) return; 
+
     if (parsed) {
       setRows(toEditableRows(parsed));
 
@@ -130,7 +137,7 @@ export default function GraduationParsePage() {
         userMajor,
       });
 
-      router.push('/dashboard/graduation');
+      router.push('/dashboard');
     } finally {
       setSaving(false);
     }
@@ -142,6 +149,8 @@ export default function GraduationParsePage() {
   return (
     <GradUploadPanel title="졸업요건 파서 · 파싱 결과 확인 및 수정">
       {({ parsed }) => {
+        if (!isHydrated) return null;
+
         if (!parsed) {
           return (
             <p className="text-gray-500 dark:text-gray-400">

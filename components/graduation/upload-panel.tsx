@@ -1,5 +1,5 @@
 // components/graduation/GradUploadPanel.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/router';
 
@@ -42,6 +42,11 @@ export function GradUploadPanel({
   const [isParsing, setIsParsing] = useState(false);
   const [isFetchingGradStatus, setIsFetchingGradStatus] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   const { parsed, gradStatus, setFromParsed, reset } = useGraduationStore();
 
@@ -166,6 +171,8 @@ export function GradUploadPanel({
       // ignore
     }
   };
+
+  if (!isHydrated) return null;
 
   return (
     <div className="w-full mx-0 px-4">

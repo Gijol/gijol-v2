@@ -1,19 +1,16 @@
 import React, { useRef } from 'react';
-import Image from 'next/image';
 import router from 'next/router';
 import {
   IconPackages,
   IconPresentationAnalytics,
-  IconUser
+  IconUser,
+  IconCalendarEvent
 } from '@tabler/icons-react';
-import { Button } from '@components/ui/button';
-import { MovingBorder as MovingBorderButton } from '@components/ui/moving-border';
-import { BackgroundBeams } from '@components/ui/background-beams'; 
-import { BentoGrid, BentoGridItem } from '@components/ui/bento-grid'; 
+
+import { HoverEffect } from '@components/ui/card-hover-effect';
+import { InfiniteMovingCards } from '@components/ui/infinite-moving-cards'; 
 
 import MainLayoutHeader from '@components/layouts/main-layout-header';
-
-import macImg from '/public/images/MacBookAir.png';
 
 export default function MainPage() {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -27,7 +24,7 @@ export default function MainPage() {
       name: '익명',
       title: '전기전자컴퓨터공학부 2학년',
       quote:
-        '학교 생활을 어느정도 지내다 보니, 3학년을 지나 4학년을 앞두고 있는데 지금까지 어떤 강의를 들었고, 앞으로 어떤 강의를 들어야 하는지 너무 막막했었어요. 그런데 Gijol 서비스를 이용하고 나니 길이 보이는 것 같아요! 이런 서비스 만들어주셔서 감사합니다!',
+        '학교 생활을 어느정도 지내다 보니, 3학년을 지나 4학년을 앞두고 있는데 지금까지 어떤 강의를 들었고, 앞으로 어떤 강의를 들어야 하는지 너무 막막했었어요. 그런데 Gijol 서비스를 이용하고 나니 길이 보이는 것 같아요!',
     },
     {
       name: '황인선',
@@ -41,131 +38,224 @@ export default function MainPage() {
       quote:
         '들은 과목이 너무 많아서 졸업을 위해 필요한게 무엇인지 정리하기 어려웠는데 한눈에 보기좋게 정리해 보여줘서 짱이다!',
     },
-     // Duplicate for better infinite scroll effect if needed, but component handles it by cloning
   ];
 
   const services = [
     {
       title: '졸업요건 확인하기',
-      description: '나의 졸업요건 충족 여부와 피드백을 받아보세요',
-      header: <SkeletonOne />,
-      icon: <IconPackages className="h-4 w-4 text-neutral-500" />,
+      description: '나의 졸업요건 충족 여부와 상세한 피드백을 받아보세요. 학사편람을 일일이 확인하지 않아도 됩니다.',
+      icon: <IconPackages className="h-6 w-6" strokeWidth={1.5} />,
     },
     {
-      title: '강의정보 확인하기',
-      description: '매 학기 열리는 강의 정보를 검색해보세요',
-      header: <SkeletonTwo />,
-      icon: <IconPresentationAnalytics className="h-4 w-4 text-neutral-500" />,
+      title: '강의정보 검색',
+      description: '매 학기 열리는 강의 정보를 빠르게 검색하고, 나에게 필요한 과목을 찾아보세요.',
+      icon: <IconPresentationAnalytics className="h-6 w-6" strokeWidth={1.5} />,
     },
     {
-      title: '내 정보 확인하기',
-      description: '나의 학적 정보와 이수 현황을 한눈에 확인하세요',
-      header: <SkeletonThree />,
-      icon: <IconUser className="h-4 w-4 text-neutral-500" />,
+      title: '내 정보 관리',
+      description: '나의 학적 정보와 이수 현황을 한눈에 확인하고 효율적으로 관리하세요.',
+      icon: <IconUser className="h-6 w-6" strokeWidth={1.5} />,
+    },
+    {
+      title: '학업 계획 수립',
+      description: '남은 학기 동안 들어야 할 과목을 계획하고 졸업까지의 로드맵을 세워보세요.',
+      icon: <IconCalendarEvent className="h-6 w-6" strokeWidth={1.5} />,
     },
   ];
 
   return (
-    <>
+    <div className="min-h-screen bg-[#F9FAFB]">
       <MainLayoutHeader />
 
-      {/* Hero Section with Background Beams */}
-      <div className="relative w-full h-[60rem] md:h-screen bg-neutral-950 flex flex-col items-center justify-center antialiased overflow-hidden">
-        <div className="max-w-2xl mx-auto p-4 relative z-10 w-full pt-20 md:pt-0">
-          <h1 className="relative z-10 text-5xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold tracking-tight">
-            학교 생활을 <br /> 더욱 편리하게
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent pointer-events-none" />
+        
+        <div className="max-w-6xl mx-auto px-6 pt-20 pb-24 relative">
+          {/* Badge */}
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
+              <span className="text-sm font-medium text-[#0B62DA]">✨ GIST 학부생을 위한 졸업 관리 플랫폼</span>
+            </div>
+          </div>
+
+          {/* Main Heading */}
+          <h1 className="text-4xl md:text-6xl font-bold text-center text-[#1D2530] leading-tight tracking-tight">
+            <span className="bg-gradient-to-r from-[#0B62DA] to-cyan-500 bg-clip-text text-transparent">졸업까지</span>의 모든 여정을
+            <br />
+            한눈에 관리하세요
           </h1>
-          <p className="text-neutral-500 max-w-lg mx-auto my-4 text-sm text-center relative z-10">
-            Gijol과 함께 복잡한 졸업 요건 계산부터 강의 정보 검색까지, 대학 생활의 모든 것을 똑똑하게 관리하세요.
+
+          {/* Description */}
+          <p className="mt-6 text-lg text-gray-600 max-w-2xl text-center mx-auto leading-relaxed">
+            성적표 업로드만으로 졸업요건 분석, 맞춤형 수강 추천,
+            <br className="hidden md:block" />
+            취업 연계 로드맵까지. GradPath가 함께합니다.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-10">
-            <MovingBorderButton
-              borderRadius="1.75rem"
-              className="bg-neutral-900 text-white border-neutral-800 font-semibold"
-              onClick={scrollIntoView}
-            >
-              기능 보러가기
-            </MovingBorderButton>
-            <MovingBorderButton
-              borderRadius="1.75rem"
-              className="bg-white text-black border-neutral-200 font-semibold"
-              containerClassName="bg-white text-black" 
+
+          {/* CTA Buttons */}
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center">
+            <button
               onClick={() => router.push('/dashboard')}
+              className="px-8 py-3.5 bg-[#0B62DA] hover:bg-[#0952B8] text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30"
             >
-              대쉬보드 이용하기
-            </MovingBorderButton>
+              무료로 시작하기 →
+            </button>
+            <button
+              onClick={scrollIntoView}
+              className="px-8 py-3.5 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded-xl border border-gray-200 transition-all duration-200"
+            >
+              기능 살펴보기
+            </button>
+          </div>
+
+          {/* Dashboard Preview */}
+          <div className="mt-16 relative">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#F9FAFB] via-transparent to-transparent z-10 pointer-events-none h-full" />
+            <div className="bg-[#1E293B] rounded-2xl shadow-2xl overflow-hidden border border-gray-800">
+              <div className="flex items-center gap-2 px-4 py-3 bg-[#0F172A] border-b border-gray-700">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                  <div className="w-3 h-3 rounded-full bg-green-500" />
+                </div>
+                <div className="flex-1 text-center">
+                  <span className="text-xs text-gray-400">GradPath Dashboard</span>
+                </div>
+              </div>
+              <div className="p-8">
+                {/* Mock Dashboard Content */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Progress Card */}
+                  <div className="bg-[#0F172A] rounded-xl p-6 border border-gray-700">
+                    <div className="text-sm text-gray-400 mb-2">총 이수 학점</div>
+                    <div className="text-3xl font-bold text-white mb-4">102 / 130</div>
+                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                      <div className="h-full w-[78%] bg-gradient-to-r from-[#0B62DA] to-cyan-400 rounded-full" />
+                    </div>
+                    <div className="text-xs text-gray-500 mt-2">78% 완료</div>
+                  </div>
+                  
+                  {/* Major Credits */}
+                  <div className="bg-[#0F172A] rounded-xl p-6 border border-gray-700">
+                    <div className="text-sm text-gray-400 mb-2">전공 학점</div>
+                    <div className="text-3xl font-bold text-white mb-4">45 / 54</div>
+                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                      <div className="h-full w-[83%] bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full" />
+                    </div>
+                    <div className="text-xs text-gray-500 mt-2">83% 완료</div>
+                  </div>
+                  
+                  {/* GPA Card */}
+                  <div className="bg-[#0F172A] rounded-xl p-6 border border-gray-700">
+                    <div className="text-sm text-gray-400 mb-2">누적 평점</div>
+                    <div className="text-3xl font-bold text-white mb-4">3.85 / 4.5</div>
+                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                      <div className="h-full w-[85%] bg-gradient-to-r from-amber-500 to-amber-400 rounded-full" />
+                    </div>
+                    <div className="text-xs text-gray-500 mt-2">상위 15%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        
-        {/* Mockup Image floating */}
-        <div className="relative z-10 mt-10 w-full max-w-[800px] px-4 hidden md:block">
-            <div style={{transform: 'perspective(1000px) rotateX(15deg) scale(0.9)', margin: 'auto'}}>
-                <Image
-                src={macImg}
-                alt="macbook air image"
-                width={800}
-                height={500}
-                className="drop-shadow-2xl mx-auto"
-                style={{
-                  filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.5))"
-                }}
-                />
-            </div>
-        </div>
-
-        <BackgroundBeams />
       </div>
 
-      {/* Features Section with Bento Grid */}
-      <div className="w-full bg-white dark:bg-black py-20" ref={targetRef}>
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-800 dark:text-neutral-200">
-            주요 기능 소개
-          </h2>
-          <BentoGrid>
-            {services.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                icon={item.icon}
-                className={i === 1 ? "md:col-span-1" : ""}
-              />
-            ))}
-          </BentoGrid>
+      {/* Features Section */}
+      <div className="max-w-5xl mx-auto px-6 py-20" ref={targetRef}>
+        <div className="text-center mb-4">
+          <span className="text-sm font-semibold text-[#0B62DA] tracking-wide">FEATURES</span>
         </div>
-      </div>
-
-      {/* Reviews Section with Infinite Moving Cards */}
-      <div className="h-[30rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-800 dark:text-neutral-200 z-10">
-          사용자 후기
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-[#1D2530] tracking-tight">
+          졸업 준비, 이제 쉽고 빠르게
         </h2>
-        {/* InfiniteMovingCards removed as component does not exist */}
-        {/* <InfiniteMovingCards
-          items={reviews}
-          direction="right"
-          speed="slow"
-        /> */}
+        <p className="mt-4 text-gray-600 text-center max-w-2xl mx-auto">
+          GradPath의 다양한 기능으로 복잡한 학사 관리를 간편하게 해결하세요
+        </p>
+        <HoverEffect
+          items={services.map((s) => ({
+            title: s.title,
+            description: s.description,
+            link: '#',
+            icon: s.icon,
+          }))}
+        />
       </div>
-    </>
+
+      {/* Reviews Section */}
+      <div className="py-20 bg-white border-y border-gray-100">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-4">
+            <span className="text-sm font-semibold text-[#0B62DA] tracking-wide">REVIEWS</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-[#1D2530] mb-12 tracking-tight">
+            학생들의 생생한 후기
+          </h2>
+          <InfiniteMovingCards items={reviews} direction="right" speed="slow" />
+        </div>
+      </div>
+
+      {/* Bottom CTA Section */}
+      <div className="bg-[#0F172A] py-24">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+            지금 바로 시작하세요
+          </h2>
+          <p className="text-lg text-gray-400 mb-10 max-w-xl mx-auto">
+            성적표 업로드 한 번으로 졸업까지의 모든 여정을 계획하고 관리할 수 있습니다.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+            <button
+              onClick={() => router.push('/dashboard')}
+              className="px-10 py-4 bg-[#0B62DA] hover:bg-[#0952B8] text-white font-semibold rounded-xl transition-all duration-200 text-lg"
+            >
+              무료로 시작하기
+            </button>
+            <button
+              onClick={() => router.push('/dashboard')}
+              className="px-10 py-4 bg-transparent hover:bg-white/10 text-white font-semibold rounded-xl border border-gray-600 transition-all duration-200 text-lg"
+            >
+              데모 보기
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-[#0F172A] border-t border-gray-800 py-12">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-[#0B62DA] flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-5 h-5"
+                >
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                </svg>
+              </div>
+              <span className="font-bold text-lg text-white">GradPath</span>
+            </div>
+            <div className="flex gap-6 text-sm text-gray-400">
+              <a href="#" className="hover:text-white transition-colors">이용약관</a>
+              <a href="#" className="hover:text-white transition-colors">개인정보처리방침</a>
+              <a href="https://choieungi-project.notion.site/Team-Gijol-e5e279e91a0646c2a84b548873601a3f" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">팀 소개</a>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
+            <p>© {new Date().getFullYear()} GradPath (Gijol). All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
-
-// Skeletons for Bento Grid placeholders
-const SkeletonOne = () => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100 items-center justify-center">
-    <IconPackages className="h-20 w-20 text-neutral-300 dark:text-neutral-700" />
-  </div>
-);
-const SkeletonTwo = () => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100 items-center justify-center">
-    <IconPresentationAnalytics className="h-20 w-20 text-neutral-300 dark:text-neutral-700" />
-  </div>
-);
-const SkeletonThree = () => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100 items-center justify-center">
-    <IconUser className="h-20 w-20 text-neutral-300 dark:text-neutral-700" />
-  </div>
-);

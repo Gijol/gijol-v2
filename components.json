@@ -7,7 +7,7 @@
     "config": "tailwind.config.js",
     "css": "public/global.css",
     "baseColor": "slate",
-    "cssVariables": false,
+    "cssVariables": true,
     "prefix": ""
   },
   "iconLibrary": "lucide",
