@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { IconUpload } from '@tabler/icons-react';
 
 import { Button } from '@components/ui/button';
-import { Card, CardContent } from '@components/ui/card';
+import { Card, CardContent, CardHeader } from '@components/ui/card';
 import Loading from '@components/loading';
 import { cn } from '@/lib/utils';
 
@@ -170,14 +170,15 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
       </div>
 
       {/* Upload Card */}
-      <Card className="mb-6">
+      <Card className="mb-6 p-0">
+        <CardHeader className="border-b border-slate-300 p-4">
+          <div className="flex items-center gap-2">
+            <IconUpload className="text-muted-foreground h-5 w-5" />
+            <span className="text-foreground font-semibold">파일 업로드</span>
+          </div>
+        </CardHeader>
         <CardContent className="p-6">
           <div className="flex flex-col gap-4">
-            <div className="mb-2 flex items-center gap-2">
-              <IconUpload className="text-muted-foreground h-5 w-5" />
-              <span className="text-foreground font-semibold">파일 업로드</span>
-            </div>
-
             <div
               {...getRootProps()}
               className={cn(
@@ -218,7 +219,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                 onClick={handleParse}
                 disabled={!file || isParsing}
                 size="sm"
-                className="bg-[#0B62DA] text-white shadow-lg shadow-blue-500/25 hover:bg-[#0952B8]"
+                className="bg-[#0B62DA] text-white hover:bg-[#0952B8]"
               >
                 파싱 및 졸업요건 계산
               </Button>

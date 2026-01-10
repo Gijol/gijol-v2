@@ -12,7 +12,7 @@ import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
 
 import { Input } from '@components/ui/input';
 import { Button } from '@components/ui/button';
-import { Card, CardContent } from '@components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
 import { Label } from '@components/ui/label';
 import { Combobox } from '@components/ui/combobox';
 import { MultiSelect } from '@components/ui/multi-select';
@@ -146,7 +146,7 @@ export default function GraduationParsePage() {
 
         if (!parsed) {
           return (
-            <Card className="border-dashed bg-gray-50 dark:bg-gray-800/30">
+            <Card className="border-dashed border-slate-300 bg-gray-50 dark:bg-gray-800/30">
               <CardContent className="p-6 text-center">
                 <p className="text-gray-500 dark:text-gray-400">
                   아직 파싱된 데이터가 없습니다. 위에서 파일을 업로드하고 "파싱 및 졸업요건 계산"을 눌러 주세요.
@@ -157,7 +157,7 @@ export default function GraduationParsePage() {
         }
 
         return (
-          <div className="flex flex-col gap-6">
+          <div className="mt-10 flex flex-col gap-6">
             {/* Section Header */}
             <div>
               <h2 className="text-foreground mb-1 text-xl font-semibold">📝 파싱 결과 확인 및 수정</h2>
@@ -167,14 +167,16 @@ export default function GraduationParsePage() {
             </div>
 
             {/* 입학년도/전공/부전공 카드 */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="mb-4 flex items-center gap-2">
+            <Card className="border-slate-300 p-0">
+              <CardHeader className="border-b border-slate-300 p-4">
+                <div className="flex items-center gap-2">
                   <span className="text-foreground font-semibold">학적 정보</span>
-                  <span className="rounded bg-amber-100 px-2 py-0.5 text-xs text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
-                    2018학번 이후만 지원
+                  <span className="rounded bg-red-100 px-2 py-0.5 text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">
+                    2018학번 이후만 지원됩니다!
                   </span>
                 </div>
+              </CardHeader>
+              <CardContent className="p-6">
                 <div className="grid grid-cols-1 items-end gap-6 md:grid-cols-3">
                   <div className="flex flex-col gap-2">
                     <Label htmlFor="entryYear">입학년도 (학번 기준)</Label>

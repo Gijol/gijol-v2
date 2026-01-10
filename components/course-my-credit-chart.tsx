@@ -25,8 +25,8 @@ export default function CourseMyCreditChart({ data }: { data: CourseListWithPeri
   const dataForTable = generateTableData(data);
 
   return (
-    <Card className="w-full py-0 shadow-none">
-      <CardHeader className="border-b border-slate-200 p-4">
+    <Card className="w-full border-slate-300 py-0 shadow-none">
+      <CardHeader className="border-b border-slate-300 p-4">
         <CardTitle className="text-base font-medium">📊 학기별 이수 학점</CardTitle>
       </CardHeader>
       <CardContent className="py-4 pr-4 pl-1">

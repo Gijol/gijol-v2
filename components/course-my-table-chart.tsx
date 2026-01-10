@@ -48,8 +48,8 @@ export default function CourseMyTableChart({ data }: { data: CourseListWithPerio
   const totalCredits = courseList.reduce((acc, course) => acc + (course.credit || 0), 0);
 
   return (
-    <Card className="w-full shadow-none">
-      <CardHeader className="pb-3">
+    <Card className="w-full border-slate-300 p-0 shadow-none">
+      <CardHeader className="border-b border-slate-300 p-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <CardTitle className="text-base font-medium">학기별 수강 과목</CardTitle>
@@ -58,10 +58,10 @@ export default function CourseMyTableChart({ data }: { data: CourseListWithPerio
             </span>
           </div>
           <Select value={cntPeriod} onValueChange={setCntPeriod}>
-            <SelectTrigger className="h-8 w-full text-sm sm:w-[160px]">
+            <SelectTrigger className="h-8 w-full border border-slate-200 text-sm sm:w-[160px]">
               <SelectValue placeholder="학기 선택" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="border border-slate-200">
               {dataForSelect.map((item) => (
                 <SelectItem key={item.value} value={item.value}>
                   {item.label}

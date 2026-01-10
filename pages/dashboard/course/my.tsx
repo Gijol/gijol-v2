@@ -39,22 +39,22 @@ function OverallSemesterCard({
   const bestGrade = bestSemester ? bestSemester.grade.toFixed(2) : null;
 
   return (
-    <Card className="h-full p-0 shadow-none">
-      <CardHeader className="border-b border-slate-200 p-4">
+    <Card className="h-full border-slate-300 p-0 shadow-none">
+      <CardHeader className="border-b border-slate-300 p-4">
         <CardTitle className="text-base font-medium">이수 학기 정보</CardTitle>
       </CardHeader>
       <CardContent className="flex h-full flex-col p-4">
         {/* 기간 표시 */}
         <div className="text-foreground flex flex-col items-center justify-center text-lg font-bold">{rangeLabel}</div>
       </CardContent>
-      <CardFooter className="border-t border-slate-200 p-4">
+      <CardFooter className="border-t border-slate-300 p-4">
         {/* 핵심 통계 */}
         <div className="my-auto flex w-full items-center justify-center">
           <div className="text-center">
             <div className="text-foreground text-2xl font-bold">{semesterCount}</div>
             <div className="text-muted-foreground text-xs">총 학기</div>
           </div>
-          <div className="border-border mx-4 border-x px-4 text-center">
+          <div className="mx-4 border-x border-slate-300 px-4 text-center">
             <div className="text-foreground text-2xl font-bold">{avgCreditPerSemester}</div>
             <div className="text-muted-foreground text-xs">평균 학점/학기</div>
           </div>
@@ -80,8 +80,8 @@ function OverallAcademicCard({
   progress: number; // 0~100
 }) {
   return (
-    <Card className="h-full p-0 shadow-none">
-      <CardHeader className="border-b border-slate-200 p-4">
+    <Card className="h-full border-slate-300 p-0 shadow-none">
+      <CardHeader className="border-b border-slate-300 p-4">
         <CardTitle className="text-base font-medium">학업 현황</CardTitle>
       </CardHeader>
       <CardContent className="flex h-full flex-col p-4">
@@ -106,7 +106,7 @@ function OverallAcademicCard({
           </div>
         </div>
       </CardContent>
-      <CardFooter className="border-t border-slate-200 p-4">
+      <CardFooter className="border-t border-slate-300 p-4">
         {/* GPA 환산 */}
         {averageGrade != null && (
           <>
