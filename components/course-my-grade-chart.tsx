@@ -15,12 +15,12 @@ const generateLineChartData = (courseListWithPeriod: CourseListWithPeriod[]) => 
   });
 };
 
-const chartConfig = {
+const chartConfig: ChartConfig = {
   grade: {
     label: '평균 학점',
     color: 'var(--chart-2)',
   },
-} satisfies ChartConfig;
+};
 
 export default function CourseMyGradeChart({ data }: { data: CourseListWithPeriod[] }) {
   const dataForLineChart = generateLineChartData(data);

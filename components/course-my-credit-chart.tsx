@@ -14,12 +14,12 @@ const generateTableData = (courseListWithPeriod: CourseListWithPeriod[]) => {
   });
 };
 
-const chartConfig = {
+const chartConfig: ChartConfig = {
   desktop: {
     label: 'Desktop',
     color: 'var(--chart-1)',
   },
-} satisfies ChartConfig;
+};
 
 export default function CourseMyCreditChart({ data }: { data: CourseListWithPeriod[] }) {
   const dataForTable = generateTableData(data);
