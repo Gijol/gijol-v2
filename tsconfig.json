@@ -23,6 +23,7 @@
       "@const/*": ["lib/const/*"],
       "@public/*": ["public/*"],
       "@components/*": ["components/*"],
+      "@features/*": ["features/*"],
       "@/*": ["./*"]
     }
   },

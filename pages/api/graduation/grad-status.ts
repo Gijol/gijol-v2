@@ -1,13 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type {
-  GradStatusRequestBody,
-  GradStatusResponseType,
-  TakenCourseType,
-} from '@lib/types/grad';
+import type { GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
 import { initialValue } from '@const/grad-status-constants';
-import { calculateGradStatusV2 } from '@utils/graduation/calculate-grad-status';
+import { uploadAndEvaluate } from 'features/graduation/usecases/uploadAndEvaluate';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // GET: return example/default grad status (useful for development/testing)
   if (req.method === 'GET') {
     try {
@@ -27,31 +23,28 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const body = req.body || {};
 
-    // Extract takenCourses from several possible shapes
-    let takenCourses: TakenCourseType[] = [];
-    if (Array.isArray(body.takenCourses)) takenCourses = body.takenCourses as TakenCourseType[];
-    else if (Array.isArray(body.courses)) takenCourses = body.courses as TakenCourseType[];
-    else if (Array.isArray(body.userTakenCourseList))
-      takenCourses = body.userTakenCourseList as TakenCourseType[];
-    else if (
-      body.userTakenCourseList?.takenCourses &&
-      Array.isArray(body.userTakenCourseList.takenCourses)
-    )
-      takenCourses = body.userTakenCourseList.takenCourses as TakenCourseType[];
+    // We can pass the body directly to uploadAndEvaluate, or do a minimal extraction here if needed.
+    // However, uploadAndEvaluate already handles various parsed shapes (UserTakenCourseListType, arrays, etc.)
+    // via its internal call to `parseRawToTakenCourses`.
+    // We just need to extract the metadata options explicitly if they are at the top level.
 
-    if (!Array.isArray(takenCourses)) {
-      return res.status(400).json({ error: 'Invalid payload: courses/takenCourses missing' });
+    const entryYear = typeof body.entryYear === 'number' ? body.entryYear : undefined;
+    const userMajor = typeof body.userMajor === 'string' ? body.userMajor : undefined;
+    const userMinors = Array.isArray(body.userMinors) ? (body.userMinors as string[]) : undefined;
+
+    const result = await uploadAndEvaluate(body, {
+      entryYear,
+      userMajor,
+      userMinors,
+    });
+
+    if (!result.success) {
+      return res.status(400).json({ error: result.errors?.join(', ') || 'Validation failed' });
     }
 
-    const requestBody: GradStatusRequestBody = {
-      entryYear: typeof body.entryYear === 'number' ? body.entryYear : 2020,
-      takenCourses,
-      userMajor: typeof body.userMajor === 'string' ? body.userMajor : undefined,
-      userMinors: Array.isArray(body.userMinors) ? (body.userMinors as string[]) : undefined,
-    };
-
-    const status = calculateGradStatusV2(requestBody);
-    return res.status(200).json(status as GradStatusResponseType);
+    // result.data is UIGradViewModel which extends GradStatusResponseType
+    // so it's safe to return directly.
+    return res.status(200).json(result.data!);
   } catch (err: any) {
     console.error('grad-status POST error', err);
     return res.status(500).json({ error: err?.message || String(err) });

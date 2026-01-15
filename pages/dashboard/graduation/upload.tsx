@@ -15,6 +15,7 @@ import { Button } from '@components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
 import { Label } from '@components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
+import { MultiSelect } from '@components/ui/multi-select';
 
 export default function GraduationParsePage() {
   const router = useRouter();
@@ -25,6 +26,7 @@ export default function GraduationParsePage() {
   // 입학년도 / 전공 / 부전공 입력 상태
   const [entryYear, setEntryYear] = useState<number>(2020);
   const [major, setMajor] = useState<string>('');
+  const [minors, setMinors] = useState<string[]>([]);
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
@@ -48,10 +50,12 @@ export default function GraduationParsePage() {
       // 전공 추론
       const parsedMajor = (parsed as any).major || (parsed as any).department || '';
       setMajor(parsedMajor);
+      setMinors([]); // Init minors as empty
     } else {
       setRows([]);
       setEntryYear(2020);
       setMajor('');
+      setMinors([]);
     }
   }, [parsed]);
 
@@ -110,7 +114,7 @@ export default function GraduationParsePage() {
         entryYear: finalEntryYear,
         takenCourses,
         userMajor,
-        userMinors: [],
+        userMinors: minors,
       };
 
       const grad = await gradStatusFetchFn(payload);
@@ -120,7 +124,7 @@ export default function GraduationParsePage() {
         takenCourses,
         gradStatus: grad,
         userMajor,
-        userMinors: [],
+        userMinors: minors,
         entryYear: finalEntryYear,
       });
 
@@ -203,6 +207,16 @@ export default function GraduationParsePage() {
                         ))}
                       </SelectContent>
                     </Select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <Label>부전공 (선택)</Label>
+                    <MultiSelect
+                      options={minorOptions}
+                      selected={minors}
+                      onChange={setMinors}
+                      placeholder="부전공을 선택하세요"
+                    />
                   </div>
                 </div>
               </CardContent>
