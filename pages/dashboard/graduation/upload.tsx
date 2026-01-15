@@ -15,7 +15,6 @@ import { Button } from '@components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
 import { Label } from '@components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
-import { MultiSelect } from '@components/ui/multi-select';
 
 export default function GraduationParsePage() {
   const router = useRouter();
@@ -26,7 +25,6 @@ export default function GraduationParsePage() {
   // 입학년도 / 전공 / 부전공 입력 상태
   const [entryYear, setEntryYear] = useState<number>(2020);
   const [major, setMajor] = useState<string>('');
-  const [minors, setMinors] = useState<string[]>([]);
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
@@ -50,15 +48,10 @@ export default function GraduationParsePage() {
       // 전공 추론
       const parsedMajor = (parsed as any).major || (parsed as any).department || '';
       setMajor(parsedMajor);
-
-      // 부전공: 배열 그대로 반영
-      const parsedMinors: string[] = (parsed as any).minors || (parsed as any).userMinors || [];
-      setMinors(parsedMinors);
     } else {
       setRows([]);
       setEntryYear(2020);
       setMajor('');
-      setMinors([]);
     }
   }, [parsed]);
 
@@ -113,12 +106,11 @@ export default function GraduationParsePage() {
 
       const userMajor = major || fallbackMajor;
 
-      const userMinors = minors;
       const payload = {
         entryYear: finalEntryYear,
         takenCourses,
         userMajor,
-        userMinors,
+        userMinors: [],
       };
 
       const grad = await gradStatusFetchFn(payload);
@@ -128,7 +120,7 @@ export default function GraduationParsePage() {
         takenCourses,
         gradStatus: grad,
         userMajor,
-        userMinors: minors,
+        userMinors: [],
         entryYear: finalEntryYear,
       });
 
@@ -211,16 +203,6 @@ export default function GraduationParsePage() {
                         ))}
                       </SelectContent>
                     </Select>
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <Label>부전공(선택)</Label>
-                    <MultiSelect
-                      options={minorOptions}
-                      selected={minors}
-                      onChange={setMinors}
-                      placeholder="부전공을 복수 선택하세요"
-                    />
                   </div>
                 </div>
               </CardContent>

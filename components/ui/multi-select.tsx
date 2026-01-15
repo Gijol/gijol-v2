@@ -51,6 +51,8 @@ interface MultiSelectProps
   hideSelectAll?: boolean;
   /** If true, hides the search input */
   hideClearAll?: boolean;
+  /** If true, hides the command search input */
+  hideSearch?: boolean;
   /** Custom empty state message */
   emptyMessage?: string;
 }
@@ -66,6 +68,7 @@ export function MultiSelect({
   variant,
   hideSelectAll = false,
   hideClearAll = false,
+  hideSearch = false,
   emptyMessage = '검색 결과가 없습니다.',
   ...props
 }: MultiSelectProps) {
@@ -202,7 +205,7 @@ export function MultiSelect({
       </PopoverTrigger>
       <PopoverContent className="w-[--radix-popover-trigger-width] border-slate-300 p-0" align="start">
         <Command>
-          <CommandInput placeholder="검색..." />
+          <CommandInput placeholder="검색..." className={hideSearch ? 'hidden' : ''} />
           <CommandList className="max-h-64 overflow-y-auto">
             <CommandEmpty>{emptyMessage}</CommandEmpty>
             {!hideSelectAll && (

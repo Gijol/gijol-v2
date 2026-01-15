@@ -3,12 +3,12 @@ import { IconUpload } from '@tabler/icons-react';
 import { Button } from '@components/ui/button';
 
 interface WelcomeHeaderProps {
-  entryYear?: number | null;
+  studentId: string | undefined;
   remainingCredits?: number;
   hasData: boolean;
 }
 
-export function WelcomeHeader({ entryYear, remainingCredits, hasData }: WelcomeHeaderProps) {
+export function WelcomeHeader({ studentId, remainingCredits, hasData }: WelcomeHeaderProps) {
   const router = useRouter();
 
   return (
@@ -16,7 +16,7 @@ export function WelcomeHeader({ entryYear, remainingCredits, hasData }: WelcomeH
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-bold text-gray-900 md:text-3xl">
-            {entryYear ? `안녕하세요, ${entryYear}학번님!` : '안녕하세요!'} 👋
+            {studentId ? `안녕하세요, ${studentId}님!` : '안녕하세요!'} 👋
           </h1>
           <p className="mt-1 text-gray-500">
             {hasData ? `졸업까지 ${remainingCredits}학점 남았습니다. 화이팅!` : '먼저 성적표를 업로드해주세요.'}
