@@ -1,207 +1,168 @@
-import React, { Suspense, useEffect, useState } from 'react';
-import CourseThumbnailWithDrawer from '@components/course-thumbnail-with-drawer';
-import { useCourseList } from '@hooks/course';
-import Loading from '@components/loading';
+import React, { useState, useMemo } from 'react';
+import { Input } from '@components/ui/input';
+import { Badge } from '@components/ui/badge';
+import { Card, CardContent } from '@components/ui/card';
+import { IconSearch, IconBook, IconFilter } from '@tabler/icons-react';
+import { getAllCourses, type CourseMaster } from '@const/course-master';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 
-import CourseSearchInput from '@components/course-search-input';
-import { FormProvider, useForm } from 'react-hook-form';
-import debounce from 'debounce';
-import { Loader2 } from 'lucide-react';
-
-import { Skeleton } from '@components/ui/skeleton';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@components/ui/pagination';
-
-export default function Index() {
-  // active page 관리
-  const [activePage, setPage] = useState(1);
-
-  // 강의 검색 단어 및 옵션 관리
-  const methods = useForm({
-    defaultValues: {
-      courseSearchCode: 'NONE',
-      courseSearchString: '',
-      pageSize: 20,
-    },
-  });
-
-  // 강의 리스트 관리
-  const { data, isLoading, isError, refetch, isFetching } = useCourseList(
-    activePage - 1,
-    methods.getValues('pageSize'),
-    methods.getValues('courseSearchCode'),
-    methods.getValues('courseSearchString')
-  );
-  // UI 업데이트 상태를 관리하는 상태 변수
-  const [isUpdating, setIsUpdating] = useState(false);
-  const inputValue = methods.watch('courseSearchString');
-
-  const debouncedFetch = debounce(() => {
-    refetch();
-    setPage(1);
-  }, 500);
-
-  // 강의 검색 단어가 변경되면 목록을 디바운스 업데이트
-  useEffect(() => {
-    setIsUpdating(true);
-    debouncedFetch();
-    return () => {
-      debouncedFetch.clear();
-    };
-  }, [inputValue, refetch]);
-
-  // 로딩 오버레이를 표시 관리
-  useEffect(() => {
-    if (!isLoading && !isFetching) {
-      setIsUpdating(false);
-    }
-  }, [isLoading, isFetching]);
-
-  // 컴포넌트가 언마운트되면 디바운스를 취소
-  useEffect(() => {
-    return () => {
-      debouncedFetch.clear();
-    };
-  }, []);
-
-  const onSubmit = () => {
-    setIsUpdating(true);
-    debouncedFetch();
-  };
-
-  const courses = data?.content.map((item) => {
+// 과목 레벨 표시용 헬퍼
+function getLevelBadge(level: number) {
+  if (level === 0)
     return (
-      <CourseThumbnailWithDrawer
-        key={item.id}
-        id={item.id}
-        code={item.courseCode}
-        title={item.courseName}
-        credit={item.courseCredit}
-        description={item.description}
-        tags={item.courseTags}
-        prerequisites={item.prerequisite}
-      />
+      <Badge variant="secondary" className="text-xs">
+        필수
+      </Badge>
     );
-  });
+  if (level >= 4000) return <Badge className="bg-purple-100 text-xs text-purple-700">4000단위</Badge>;
+  if (level >= 3000) return <Badge className="bg-indigo-100 text-xs text-indigo-700">3000단위</Badge>;
+  if (level >= 2000) return <Badge className="bg-blue-100 text-xs text-blue-700">2000단위</Badge>;
+  return <Badge className="bg-green-100 text-xs text-green-700">1000단위</Badge>;
+}
 
-  const totalPages = data?.totalPages ?? 10;
+// 학과별 색상
+function getDepartmentColor(department?: string) {
+  if (!department) return 'bg-gray-50 border-gray-200';
+  if (department.includes('전기전자컴퓨터')) return 'bg-blue-50/50 border-blue-200';
+  if (department.includes('신소재')) return 'bg-emerald-50/50 border-emerald-200';
+  if (department.includes('기계')) return 'bg-orange-50/50 border-orange-200';
+  if (department.includes('생명')) return 'bg-pink-50/50 border-pink-200';
+  if (department.includes('환경')) return 'bg-green-50/50 border-green-200';
+  if (department.includes('AI')) return 'bg-purple-50/50 border-purple-200';
+  return 'bg-gray-50 border-gray-200';
+}
 
-  // Simple pagination logic for demonstration. 
-  // For production with many pages, you'd want a more robust range generator.
-  const renderPaginationItems = () => {
-    const items = [];
-    const maxVisible = 5;
-    let start = Math.max(1, activePage - 2);
-    let end = Math.min(totalPages, start + maxVisible - 1);
+// 카테고리 필터 옵션
+const CATEGORY_OPTIONS = [
+  { value: 'all', label: '전체' },
+  { value: 'mandatory', label: '필수/공통' },
+  { value: 'humanities', label: '인문사회 (HUS/PPE)' },
+  { value: 'science', label: '기초과학' },
+  { value: 'major', label: '전공' },
+];
 
-    if (end - start < maxVisible - 1) {
-      start = Math.max(1, end - maxVisible + 1);
+export default function CourseSearchPage() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [category, setCategory] = useState('all');
+
+  // 전체 과목 데이터
+  const allCourses = useMemo(() => getAllCourses(), []);
+
+  // 검색 및 필터링된 과목
+  const filteredCourses = useMemo(() => {
+    let courses = allCourses;
+
+    // 카테고리 필터
+    if (category !== 'all') {
+      courses = courses.filter((c) => {
+        const code = c.courseCode;
+        switch (category) {
+          case 'mandatory':
+            return code.startsWith('UC') || code.startsWith('GS1');
+          case 'humanities':
+            return code.startsWith('HS');
+          case 'science':
+            return code.startsWith('GS') && !code.startsWith('GS1');
+          case 'major':
+            return ['EC', 'MA', 'MC', 'BS', 'EV', 'AI', 'PH', 'CH'].some((p) => code.startsWith(p));
+          default:
+            return true;
+        }
+      });
     }
 
-    if (start > 1) {
-      items.push(
-        <PaginationItem key={1}>
-          <PaginationLink onClick={() => setPage(1)} isActive={activePage === 1}>
-            1
-          </PaginationLink>
-        </PaginationItem>
+    // 검색어 필터
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      courses = courses.filter(
+        (c) =>
+          c.courseNameKo.toLowerCase().includes(query) ||
+          c.courseCode.toLowerCase().includes(query) ||
+          (c.department && c.department.toLowerCase().includes(query)),
       );
-      if (start > 2) {
-        items.push(<PaginationItem key="ellipsis-start"><PaginationEllipsis /></PaginationItem>);
-      }
     }
 
-    for (let i = start; i <= end; i++) {
-      items.push(
-        <PaginationItem key={i}>
-          <PaginationLink onClick={() => setPage(i)} isActive={activePage === i}>
-            {i}
-          </PaginationLink>
-        </PaginationItem>
-      );
-    }
-
-    if (end < totalPages) {
-      if (end < totalPages - 1) {
-        items.push(<PaginationItem key="ellipsis-end"><PaginationEllipsis /></PaginationItem>);
-      }
-      items.push(
-        <PaginationItem key={totalPages}>
-          <PaginationLink onClick={() => setPage(totalPages)} isActive={activePage === totalPages}>
-            {totalPages}
-          </PaginationLink>
-        </PaginationItem>
-      );
-    }
-
-    return items;
-  };
+    return courses;
+  }, [allCourses, searchQuery, category]);
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <div className="container mx-auto max-w-5xl px-4 pb-12">
-          <div className="mt-10 mb-6">
-            <h3 className="text-2xl font-bold">
-              강의 검색하기 🔍
-            </h3>
-          </div>
+    <div className="container mx-auto max-w-6xl px-4 pb-12">
+      {/* Header */}
+      <div className="mt-8 mb-8">
+        <h1 className="text-2xl font-bold text-gray-900">강의 검색</h1>
+        <p className="mt-1 text-sm text-gray-500">GIST 개설 강의 {allCourses.length}개 중 검색</p>
+      </div>
 
-          <div className="mb-6">
-            <CourseSearchInput />
-          </div>
-
-          <div className="relative min-h-[300px]">
-            {isUpdating && (
-              <div className="absolute inset-0 z-50 bg-white/50 dark:bg-black/50 flex items-center justify-center backdrop-blur-sm rounded-lg">
-                <Loader2 className="h-10 w-10 animate-spin text-primary" />
-              </div>
-            )}
-
-            {isError ? (
-              <div className="flex flex-col items-center justify-center h-40 text-muted-foreground">
-                <p className="text-lg">강의 정보를 불러오는데 실패했습니다...!</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {isLoading
-                  ? [...Array(9)].map((_, index) => <Skeleton key={index} className="h-[166px] w-full rounded-xl" />)
-                  : courses
-                }
-              </div>
-            )}
-          </div>
-
-          <div className="my-10 flex justify-center">
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    onClick={() => setPage(Math.max(1, activePage - 1))}
-                    className={activePage === 1 ? 'pointer-events-none opacity-50' : ''}
-                  />
-                </PaginationItem>
-
-                {renderPaginationItems()}
-
-                <PaginationItem>
-                  <PaginationNext
-                    onClick={() => setPage(Math.min(totalPages, activePage + 1))}
-                    className={activePage === totalPages ? 'pointer-events-none opacity-50' : ''}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </div>
+      {/* Search & Filter Bar */}
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row">
+        <div className="relative flex-1">
+          <IconSearch className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <Input
+            placeholder="과목명 또는 과목코드로 검색..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10"
+          />
         </div>
-      </form>
-    </FormProvider>
+        <Select value={category} onValueChange={setCategory}>
+          <SelectTrigger className="w-full sm:w-48">
+            <IconFilter className="mr-2 h-4 w-4 text-gray-400" />
+            <SelectValue placeholder="카테고리" />
+          </SelectTrigger>
+          <SelectContent>
+            {CATEGORY_OPTIONS.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Results Count */}
+      <div className="mb-4 text-sm text-gray-500">
+        검색 결과: <span className="font-medium text-gray-900">{filteredCourses.length}</span>개
+      </div>
+
+      {/* Course Grid */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {filteredCourses.map((course) => (
+          <Card
+            key={course.courseCode}
+            className={`transition-all hover:shadow-md ${getDepartmentColor(course.department)}`}
+          >
+            <CardContent className="p-4">
+              <div className="mb-2 flex items-start justify-between gap-2">
+                <div className="flex-1">
+                  <h3 className="line-clamp-1 font-medium text-gray-900">{course.courseNameKo}</h3>
+                  <p className="mt-0.5 font-mono text-xs text-gray-500">{course.courseCode}</p>
+                </div>
+                <Badge variant="outline" className="shrink-0 border-slate-300">
+                  {course.credits}학점
+                </Badge>
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                {getLevelBadge(course.level)}
+                {course.department && <span className="text-xs text-gray-500">{course.department}</span>}
+                {!course.isOffered && (
+                  <Badge variant="secondary" className="bg-gray-100 text-xs text-gray-500">
+                    미개설
+                  </Badge>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Empty State */}
+      {filteredCourses.length === 0 && (
+        <div className="flex flex-col items-center justify-center py-16 text-center">
+          <IconBook className="h-12 w-12 text-gray-300" />
+          <h3 className="mt-4 text-lg font-medium text-gray-900">검색 결과가 없습니다</h3>
+          <p className="mt-1 text-sm text-gray-500">다른 검색어나 카테고리를 시도해보세요</p>
+        </div>
+      )}
+    </div>
   );
 }

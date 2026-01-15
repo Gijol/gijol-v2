@@ -14,7 +14,7 @@ import { Input } from '@components/ui/input';
 import { Button } from '@components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
 import { Label } from '@components/ui/label';
-import { Combobox } from '@components/ui/combobox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { MultiSelect } from '@components/ui/multi-select';
 
 export default function GraduationParsePage() {
@@ -128,6 +128,8 @@ export default function GraduationParsePage() {
         takenCourses,
         gradStatus: grad,
         userMajor,
+        userMinors: minors,
+        entryYear: finalEntryYear,
       });
 
       router.push('/dashboard');
@@ -197,14 +199,18 @@ export default function GraduationParsePage() {
 
                   <div className="flex flex-col gap-2">
                     <Label>전공</Label>
-                    <Combobox
-                      options={majorOptions}
-                      value={major}
-                      onChange={setMajor}
-                      placeholder="전공을 선택하세요"
-                      searchPlaceholder="전공 검색..."
-                      emptyText="해당 전공이 없습니다"
-                    />
+                    <Select value={major} onValueChange={setMajor}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="전공을 선택하세요" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {majorOptions.map((opt) => (
+                          <SelectItem key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div className="flex flex-col gap-2">

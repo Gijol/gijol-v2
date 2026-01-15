@@ -10,18 +10,21 @@ export type GradStatusExtended = GradStatusResponseType & {
   fineGrainedRequirements?: FineGrainedRequirement[];
 };
 
-
 type GraduationState = {
   parsed: UserStatusType | null;
   takenCourses: TakenCourseType[];
   gradStatus: GradStatusExtended | null;
   userMajor: string;
+  userMinors: string[];
+  entryYear: number | null;
 
   setFromParsed: (args: {
     parsed: UserStatusType;
     takenCourses: TakenCourseType[];
     gradStatus: GradStatusResponseType | null;
     userMajor: string;
+    userMinors?: string[];
+    entryYear?: number;
   }) => void;
 
   reset: () => void;
@@ -34,14 +37,24 @@ export const useGraduationStore = create<GraduationState>()(
       takenCourses: [],
       gradStatus: null,
       userMajor: '',
+      userMinors: [],
+      entryYear: null,
 
-      setFromParsed: ({ parsed, takenCourses, gradStatus, userMajor }) =>
-        set({ parsed, takenCourses, gradStatus, userMajor }),
+      setFromParsed: ({ parsed, takenCourses, gradStatus, userMajor, userMinors, entryYear }) =>
+        set({
+          parsed,
+          takenCourses,
+          gradStatus,
+          userMajor,
+          userMinors: userMinors ?? [],
+          entryYear: entryYear ?? null,
+        }),
 
-      reset: () => set({ parsed: null, takenCourses: [], gradStatus: null, userMajor: '' }),
+      reset: () =>
+        set({ parsed: null, takenCourses: [], gradStatus: null, userMajor: '', userMinors: [], entryYear: null }),
     }),
     {
       name: PARSED_PROCESSED_STATE_KEY, // localStorage key
-    }
-  )
+    },
+  ),
 );

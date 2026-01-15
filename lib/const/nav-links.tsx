@@ -1,9 +1,4 @@
-import {
-  IconClipboardList,
-  IconDeviceDesktopAnalytics,
-  IconHome,
-  IconUpload,
-} from '@tabler/icons-react';
+import { IconClipboardList, IconDeviceDesktopAnalytics, IconHome, IconUpload, IconSearch } from '@tabler/icons-react';
 
 type NavLink = {
   label: string;
@@ -20,11 +15,11 @@ export const navLinks: NavLink[] = [
     href: '/dashboard/course/my',
     icon: IconClipboardList,
   },
-  // {
-  //   label: '강의 정보',
-  //   href: '/dashboard/course/search',
-  //   icon: IconChalkboard,
-  // },
+  {
+    label: '강의 검색',
+    href: '/dashboard/course/search',
+    icon: IconSearch,
+  },
   // {
   //   label: '졸업요건 확인서 만들기 ✨',
   //   href: '/dashboard/graduation/certificate-builder',
