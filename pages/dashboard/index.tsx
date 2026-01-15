@@ -9,14 +9,26 @@ import { useRecommendedCourses } from '@/lib/hooks/useRecommendedCourses';
 import { BentoGrid, BentoGridItem } from '@components/ui/bento-grid';
 import { Progress } from '@components/ui/progress';
 import { Badge } from '@components/ui/badge';
-import { IconUser, IconSchool, IconBook, IconCalendar, IconTrendingUp, IconAlertTriangle } from '@tabler/icons-react';
-import { MAJOR_OPTIONS } from '@const/major-minor-options';
+import {
+  IconUser,
+  IconSchool,
+  IconBook,
+  IconCalendar,
+  IconTrendingUp,
+  IconAlertTriangle,
+  IconChartBar,
+} from '@tabler/icons-react';
+import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 
 const TOTAL_REQUIRED_CREDITS = 130;
 
 // 전공 라벨 헬퍼
 function getMajorLabel(value: string): string {
   return MAJOR_OPTIONS.find((opt) => opt.value === value)?.label || value || '미선택';
+}
+
+function getMinorLabel(value: string): string {
+  return MINOR_OPTIONS.find((opt) => opt.value === value)?.label || value;
 }
 
 export default function HomePage() {
@@ -83,19 +95,58 @@ export default function HomePage() {
           className="md:col-span-1 md:row-span-1"
           title="내 정보"
           description={
-            <div className="mt-3 space-y-1">
-              <div className="flex items-center gap-2 text-sm">
-                <IconCalendar size={14} className="text-gray-400" />
-                <span className="w-10 text-gray-500">학번</span>
-                <span className="font-medium text-gray-800">{entryYear ? `${entryYear}학번` : '미입력'}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <IconBook size={14} className="text-gray-400" />
-                <span className="w-10 text-gray-500">전공</span>
-                <Badge variant="outline" className="border-blue-200 bg-blue-50 text-xs text-blue-700">
-                  {getMajorLabel(userMajor)}
-                </Badge>
-              </div>
+            <div className="mt-3">
+              <table className="w-full text-sm">
+                <tbody>
+                  <tr>
+                    <td className="w-20 py-1 text-gray-500">
+                      <div className="flex items-center gap-2">
+                        <IconCalendar size={14} className="text-gray-400" />
+                        <span>학번</span>
+                      </div>
+                    </td>
+                    <td className="py-1 font-medium text-gray-800">{entryYear ? `${entryYear}학번` : '미입력'}</td>
+                  </tr>
+                  <tr>
+                    <td className="py-1 text-gray-500">
+                      <div className="flex items-center gap-2">
+                        <IconBook size={14} className="text-gray-400" />
+                        <span>전공</span>
+                      </div>
+                    </td>
+                    <td className="py-1">
+                      <Badge variant="outline" className="border-blue-200 bg-blue-50 text-xs text-blue-700">
+                        {getMajorLabel(userMajor)}
+                      </Badge>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-1 align-top text-gray-500">
+                      <div className="flex items-center gap-2">
+                        <IconBook size={14} className="mt-0.5 text-gray-400" />
+                        <span>부전공</span>
+                      </div>
+                    </td>
+                    <td className="py-1">
+                      <div className="flex flex-wrap gap-1">
+                        {userMinors && userMinors.length > 0 ? (
+                          userMinors.map((m) => (
+                            <Badge
+                              key={m}
+                              variant="outline"
+                              className="border-orange-200 bg-orange-50 text-xs text-orange-700"
+                            >
+                              {getMinorLabel(m)}
+                            </Badge>
+                          ))
+                        ) : (
+                          <span className="text-xs text-gray-400">미선택</span>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           }
           icon={<IconUser className="h-4 w-4 text-blue-500" />}
@@ -147,7 +198,7 @@ export default function HomePage() {
               </div>
             </div>
           }
-          icon={<span className="text-sm">📊</span>}
+          icon={<IconChartBar className="h-4 w-4 text-blue-500" />}
         />
 
         {/* 수강 과목 수 */}

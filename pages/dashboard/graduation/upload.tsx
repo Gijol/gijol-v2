@@ -47,9 +47,19 @@ export default function GraduationParsePage() {
         setEntryYear(2020);
       }
 
-      // 전공 추론
+      // 전공 추론 (parsedMajor가 한글일 수 있으므로 MAJOR_OPTIONS에서 검색)
       const parsedMajor = (parsed as any).major || (parsed as any).department || '';
-      setMajor(parsedMajor);
+      let matchedMajor = parsedMajor;
+
+      // 만약 parsedMajor가 한글이라면(혹은 Code가 아니라면), Label로 검색
+      const foundOption = MAJOR_OPTIONS.find(
+        (opt) => opt.value === parsedMajor || opt.label.includes(parsedMajor) || parsedMajor.includes(opt.label),
+      );
+      if (foundOption) {
+        matchedMajor = foundOption.value;
+      }
+
+      setMajor(matchedMajor);
       setMinors([]); // Init minors as empty
     } else {
       setRows([]);

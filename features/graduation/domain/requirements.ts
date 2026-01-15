@@ -353,7 +353,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   // ===== 3. 기초과학 학점 =====
   const compProgCourses = findCoursesInSet(allCourses, SET_COMP_PROG);
   const tookCompProg = compProgCourses.length > 0;
-  const scienceCourses = allCourses.filter(isScienceCreditCourse);
+  const scienceCourses = grouped.scienceBasic ?? [];
   const scienceCredits = sumCredits(scienceCourses);
   const requiredScienceCredits = tookCompProg ? 17 : 18;
   const scienceSatisfied = scienceCredits >= requiredScienceCredits;

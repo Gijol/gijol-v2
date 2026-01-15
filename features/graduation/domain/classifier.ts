@@ -108,7 +108,10 @@ export function classifyCourse(course: TakenCourseType, userMajor?: string, user
 
   // 5) 기초과학
   if (SCIENCE_BASIC_CODES.has(code)) return 'scienceBasic';
-  if (/^(BS|CH|PH|MA|MM|MT)/.test(prefix)) return 'scienceBasic';
+  // Removed strict prefix check for BS|CH|PH|MA|MM|MT because user requested that
+  // if it's not the user's major/minor, it should be Free Elective, not Science Basic.
+  // Exception: Generic 'GS' Science courses should likely be in SCIENCE_BASIC_CODES anyway.
+
   if (SCIENCE_KEYWORDS.some((kw) => name.includes(kw))) return 'scienceBasic';
 
   // 6) 인문사회

@@ -82,13 +82,95 @@ export const evaluateGraduationStatus = async (
       grouped[key].push(course);
     }
   });
+  // 2.5. Re-balance Science Basic -> Free Electives (Overflow)
+  const scienceReqRule = ruleSet.categories.find((r) => r.key === 'scienceBasic');
+  if (scienceReqRule && grouped.scienceBasic.length > 0) {
+    // Determine required credits (17 or 18 based on Comp Prog logic, but simple rule check for now is usually static in ruleSet?
+    // Actually ruleSet has 'minCredits'. But 'requirements.ts' has dynamic logic for 17/18.
+    // We should roughly respect the max. Let's use 18 as safe upper bound or dynamic check?
+    // Helper to check Comp Prog
+    const hasCompProg = grouped.scienceBasic.some((c) => c.courseCode === 'GS1401' || c.courseCode === 'GS1490'); // Simplified check
+    const scienceReq = hasCompProg ? 17 : 18;
+
+    let currentScience = grouped.scienceBasic.reduce((acc, c) => acc + (c.credit || 0), 0);
+
+    if (currentScience > scienceReq) {
+      // Identify candidates to move (Non-Mandatory preferred)
+      // Mandatory: Calculus (1001, 1011), Core Math, Physics, Chem, Bio, Comp Prog.
+      // Basically GS courses are mostly mandatory or key basics.
+      // Candidates: Major courses classified as Science Basic (BS*, CH*, etc.)
+
+      // Sort strategies:
+      // 1. Move Major-like codes (BS, CH, PH, etc outside GS) first?
+      // 2. Just move anything that isn't strictly the 'Must' set?
+
+      const mustPrefixes = ['GS1', 'GS2', 'MM2', 'GS0']; // Heuristic for basic GS headers
+      const candidates = [];
+      const keeps = [];
+
+      for (const c of grouped.scienceBasic) {
+        // If it's a known MUST (Calculus etc, usually GS1xxx), keep it.
+        // Unless we have too many GS?
+        if (c.courseCode.startsWith('GS')) {
+          keeps.push(c);
+        } else {
+          candidates.push(c);
+        }
+      }
+
+      // If candidates (e.g. BS/CH major courses) exist, try to move them first
+      // Actually, we should just iterate and move if surplus.
+      // Let's reset and do a simpler specific sort.
+
+      // Sort: GS first (keep), then others.
+      grouped.scienceBasic.sort((a, b) => {
+        const aGS = a.courseCode.startsWith('GS');
+        const bGS = b.courseCode.startsWith('GS');
+        if (aGS && !bGS) return -1;
+        if (!aGS && bGS) return 1;
+        return 0;
+      });
+
+      const newScience = [];
+      const overflow = [];
+      let creditSum = 0;
+
+      for (const c of grouped.scienceBasic) {
+        if (creditSum + (c.credit || 0) <= scienceReq) {
+          newScience.push(c);
+          creditSum += c.credit || 0;
+        } else {
+          // Try to fill gap exactly?
+          // If adding this exceeds, do we add it?
+          // Usually yes, we satisfy >= Req.
+          // If we are at 16, need 18, and course is 3cr. Total 19. It stays.
+          if (creditSum < scienceReq) {
+            newScience.push(c);
+            creditSum += c.credit || 0;
+          } else {
+            overflow.push(c);
+          }
+        }
+      }
+
+      grouped.scienceBasic = newScience;
+      grouped.otherUncheckedClass.push(...overflow);
+    }
+  }
 
   // 3. Build Categories
   const graduationCategory = {} as GradCategoriesType;
 
   // Initialize with rules
   ruleSet.categories.forEach((rule) => {
-    graduationCategory[rule.key] = buildCategoryStatus(rule.key, grouped[rule.key] || [], rule.minCredits);
+    let minCredits = rule.minCredits;
+
+    // Dynamically update Minor requirement if user has selected minors
+    if (rule.key === 'minor' && userMinors && userMinors.length > 0) {
+      minCredits = userMinors.length * 15;
+    }
+
+    graduationCategory[rule.key] = buildCategoryStatus(rule.key, grouped[rule.key] || [], minCredits);
   });
 
   // Fill missing keys with default empty status
