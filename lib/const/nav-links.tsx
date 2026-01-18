@@ -1,4 +1,4 @@
-import { ClipboardList, Home, Upload, Search, Route, Award, LucideIcon } from 'lucide-react';
+import { ClipboardList, Home, Upload, Search, Route, Award, Calendar, LucideIcon } from 'lucide-react';
 
 type NavLink = {
   label: string;
@@ -19,6 +19,11 @@ export const navLinks: NavLink[] = [
     label: '강의 검색',
     href: '/dashboard/course/search',
     icon: Search,
+  },
+  {
+    label: '시간표 생성기',
+    href: '/dashboard/timetable',
+    icon: Calendar,
   },
   {
     label: '로드맵 (Beta)',

@@ -1,0 +1,154 @@
+import React from 'react';
+import { SectionOffering } from '@/lib/types/timetable';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Plus, Minus, AlertCircle, MapPin, User, Clock } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+
+interface CourseSectionItemProps {
+  section: SectionOffering;
+  isAdded: boolean;
+  isConflict: boolean;
+  onAdd: (section: SectionOffering) => void;
+  onRemove: (section: SectionOffering) => void;
+  onMouseEnter: (section: SectionOffering) => void;
+  onMouseLeave: () => void;
+}
+
+export function CourseSectionItem({
+  section,
+  isAdded,
+  isConflict,
+  onAdd,
+  onRemove,
+  onMouseEnter,
+  onMouseLeave,
+}: CourseSectionItemProps) {
+  const handleAction = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isAdded) {
+      onRemove(section);
+    } else if (!isConflict) {
+      onAdd(section);
+    }
+  };
+
+  const instructors = section.instructors.map((i) => i.name).join(', ') || '미지정';
+
+  return (
+    <div
+      className={cn(
+        'group relative flex w-full min-w-0 cursor-default flex-col overflow-hidden border-b p-5 transition-all duration-200',
+        isAdded ? 'bg-blue-50/40' : 'hover:bg-slate-50',
+        isConflict && !isAdded && 'bg-red-50/30 opacity-80',
+      )}
+      onMouseEnter={() => onMouseEnter(section)}
+      onMouseLeave={onMouseLeave}
+    >
+      {isAdded && <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-blue-500" />}
+
+      <div className="flex w-full min-w-0 items-start justify-between gap-4">
+        <div className="min-w-0 flex-1">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <h4 className="block w-50 cursor-help truncate text-[15px] leading-snug font-extrabold tracking-tight text-slate-900 transition-colors group-hover:text-blue-600">
+                {section.title}
+              </h4>
+            </TooltipTrigger>
+            <TooltipContent side="top" align="start" className="max-w-[300px] font-bold">
+              {section.title}
+            </TooltipContent>
+          </Tooltip>
+
+          <div className="mt-1 flex min-w-0 items-center gap-2">
+            <span className="shrink-0 font-mono text-[11px] font-black tracking-tight text-slate-400 uppercase">
+              {section.course_code}-{section.section}
+            </span>
+            <Badge
+              variant="outline"
+              className="h-5 shrink-0 truncate border-slate-200 bg-white px-2 py-0 text-[10px] font-black text-slate-500 uppercase"
+            >
+              {section.category}
+            </Badge>
+          </div>
+        </div>
+
+        <Button
+          size="sm"
+          variant={isAdded ? 'destructive' : isConflict ? 'secondary' : 'default'}
+          onClick={handleAction}
+          disabled={isConflict && !isAdded}
+          className={cn(
+            'h-10 shrink-0 px-4 text-xs font-black tracking-wider uppercase transition-all',
+            !isAdded && !isConflict && 'bg-blue-600 shadow-sm hover:bg-blue-700',
+          )}
+        >
+          {isAdded ? (
+            <>
+              <Minus className="mr-1.5 h-4 w-4" /> 삭제
+            </>
+          ) : isConflict ? (
+            <>
+              <AlertCircle className="mr-1.5 h-4 w-4" /> 중복
+            </>
+          ) : (
+            <>
+              <Plus className="mr-1.5 h-4 w-4" /> 추가
+            </>
+          )}
+        </Button>
+      </div>
+
+      <div className="mt-4 grid w-full min-w-0 grid-cols-2 gap-x-3 gap-y-2 text-xs">
+        <div className="flex min-w-0 items-center gap-2 overflow-hidden text-slate-600">
+          <User size={14} className="shrink-0 text-slate-400" />
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="cursor-help truncate font-bold">{instructors}</span>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" align="start" className="font-bold">
+              교수: {instructors}
+            </TooltipContent>
+          </Tooltip>
+        </div>
+        <div className="flex min-w-0 shrink-0 items-center gap-2 text-slate-600">
+          <Clock size={14} className="shrink-0 text-slate-400" />
+          <span className="shrink-0 font-bold">{section.hours.credits}학점</span>
+        </div>
+      </div>
+
+      <div className="mt-3 w-full min-w-0 space-y-1.5">
+        {section.meetings.map((m, idx) => (
+          <div
+            key={idx}
+            className="flex w-full min-w-0 items-center gap-2.5 overflow-hidden rounded-lg border border-slate-200/50 bg-slate-100/50 p-1.5 px-3 text-[11px] font-bold text-slate-500"
+          >
+            <span className="shrink-0 tracking-tight text-slate-800">{m.day}요일</span>
+            <span className="shrink-0 font-mono text-[10px] opacity-80">
+              {m.start} - {m.end}
+            </span>
+            {m.room && (
+              <div className="ml-auto flex min-w-0 items-center gap-1.5 overflow-hidden">
+                <MapPin size={12} className="shrink-0 text-slate-400" />
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="cursor-help truncate font-black tracking-tight text-slate-400">{m.room}</span>
+                  </TooltipTrigger>
+                  <TooltipContent side="left" className="font-bold">
+                    강의실: {m.room}
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            )}
+          </div>
+        ))}
+        {section.meetings.length === 0 && (
+          <div className="w-full truncate py-1.5 text-[11px] font-bold tracking-tight text-slate-300 uppercase italic">
+            비대면 또는 개별 연구 과목
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
