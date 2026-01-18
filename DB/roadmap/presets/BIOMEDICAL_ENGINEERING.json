@@ -1,0 +1,273 @@
+{
+  "meta": {
+    "major": "의생명공학과",
+    "track": "의생명공학 부전공"
+  },
+  "nodes": [
+    {
+      "id": "BE2101",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": {
+        "label": "의공학개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-1",
+        "courseCode": "BE2101"
+      }
+    },
+    {
+      "id": "BE2102",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 100 },
+      "data": {
+        "label": "의학 역할 과학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-1",
+        "courseCode": "BE2102"
+      }
+    },
+    {
+      "id": "BE2103",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 0 },
+      "data": {
+        "label": "의공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "BE2103"
+      }
+    },
+    {
+      "id": "BE2201",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 100 },
+      "data": {
+        "label": "분자생물",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "BE2201"
+      }
+    },
+    {
+      "id": "BE2202",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 200 },
+      "data": {
+        "label": "체제 시생명활학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "BE2202"
+      }
+    },
+    {
+      "id": "BE2203",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 300 },
+      "data": {
+        "label": "인간 유전학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "BE2203"
+      }
+    },
+    {
+      "id": "BE3101",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": {
+        "label": "바이오 의료발현체",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "BE3101"
+      }
+    },
+    {
+      "id": "BE3102",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 100 },
+      "data": {
+        "label": "의생명 인터페이스",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "BE3102"
+      }
+    },
+    {
+      "id": "BE3103",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 200 },
+      "data": {
+        "label": "의생 인체 코만장 실습연계",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "BE3103"
+      }
+    },
+    {
+      "id": "BE3104",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 300 },
+      "data": {
+        "label": "환경건강",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "BE3104"
+      }
+    },
+    {
+      "id": "BE3105",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 400 },
+      "data": {
+        "label": "의료정보학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "BE3105"
+      }
+    },
+    {
+      "id": "BE3106",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 500 },
+      "data": {
+        "label": "신경과학기술",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "BE3106"
+      }
+    },
+    {
+      "id": "BE3201",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": {
+        "label": "영상의학개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "BE3201"
+      }
+    },
+    {
+      "id": "BE3202",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 100 },
+      "data": {
+        "label": "바이오신호",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "BE3202"
+      }
+    },
+    {
+      "id": "BE3203",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 200 },
+      "data": {
+        "label": "BIOPH약물생체화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "BE3203"
+      }
+    },
+    {
+      "id": "BE3204",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 300 },
+      "data": {
+        "label": "이공지능학습",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "BE3204"
+      }
+    },
+    {
+      "id": "BE3205",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 400 },
+      "data": {
+        "label": "시사과학기",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "BE3205"
+      }
+    },
+    {
+      "id": "BE3206",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 500 },
+      "data": {
+        "label": "기능특화해학 I",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "BE3206"
+      }
+    },
+    {
+      "id": "BE4201",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": {
+        "label": "의생명3D프린팅과 실습",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "BE4201"
+      }
+    },
+    {
+      "id": "BE4202",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": {
+        "label": "이론가기전목학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "BE4202"
+      }
+    },
+    {
+      "id": "BE4211",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 200 },
+      "data": {
+        "label": "김동희",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "BE4211"
+      }
+    },
+    {
+      "id": "BE4203",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 0 },
+      "data": {
+        "label": "의약학공학약리/비전부 이용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "BE4203"
+      }
+    }
+  ],
+  "edges": []
+}

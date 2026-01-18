@@ -15,7 +15,8 @@
         "label": "일반화학 및 실험 I",
         "credits": 3,
         "category": "기초선택",
-        "semester": "1-1"
+        "semester": "1-1",
+        "courseCode": "GS1201"
       }
     },
     {
@@ -29,7 +30,8 @@
         "label": "일반화학 및 실험 II",
         "credits": 3,
         "category": "기초선택",
-        "semester": "1-2"
+        "semester": "1-2",
+        "courseCode": "GS1202"
       }
     },
     {
@@ -43,7 +45,8 @@
         "label": "유기화학 I",
         "credits": 3,
         "category": "전공핵심",
-        "semester": "2-1"
+        "semester": "2-1",
+        "courseCode": "BS2101"
       }
     },
     {
@@ -57,11 +60,12 @@
         "label": "분자생물학",
         "credits": 3,
         "category": "전공핵심",
-        "semester": "2-1"
+        "semester": "2-1",
+        "courseCode": "BS2102"
       }
     },
     {
-      "id": "BS4201",
+      "id": "BS2203",
       "type": "customCourseNode",
       "position": {
         "x": 500,
@@ -71,11 +75,12 @@
         "label": "발생생물학",
         "credits": 3,
         "category": "전공선택",
-        "semester": "2-1"
+        "semester": "2-1",
+        "courseCode": "BS2203"
       }
     },
     {
-      "id": "BS3113",
+      "id": "BS2104",
       "type": "customCourseNode",
       "position": {
         "x": 750,
@@ -85,11 +90,12 @@
         "label": "생화학 I",
         "credits": 3,
         "category": "전공핵심",
-        "semester": "2-2"
+        "semester": "2-2",
+        "courseCode": "BS2104"
       }
     },
     {
-      "id": "BS3202",
+      "id": "BS2202",
       "type": "customCourseNode",
       "position": {
         "x": 750,
@@ -99,11 +105,12 @@
         "label": "유전학",
         "credits": 3,
         "category": "전공선택",
-        "semester": "2-2"
+        "semester": "2-2",
+        "courseCode": "BS2202"
       }
     },
     {
-      "id": "BS2201",
+      "id": "BS2205",
       "type": "customCourseNode",
       "position": {
         "x": 750,
@@ -113,7 +120,8 @@
         "label": "생명정보학 개론",
         "credits": 3,
         "category": "전공선택",
-        "semester": "2-2"
+        "semester": "2-2",
+        "courseCode": "BS2205"
       }
     },
     {
@@ -127,7 +135,8 @@
         "label": "기초 해부조직학",
         "credits": 3,
         "category": "전공선택",
-        "semester": "2-2"
+        "semester": "2-2",
+        "courseCode": "BS2204"
       }
     },
     {
@@ -141,7 +150,8 @@
         "label": "세포생물학",
         "credits": 3,
         "category": "전공핵심",
-        "semester": "3-1"
+        "semester": "3-1",
+        "courseCode": "BS3105"
       }
     },
     {
@@ -155,7 +165,8 @@
         "label": "세포·발생생물실험",
         "credits": 3,
         "category": "전공핵심",
-        "semester": "3-1"
+        "semester": "3-1",
+        "courseCode": "BS3112"
       }
     },
     {
@@ -169,7 +180,8 @@
         "label": "미생물학",
         "credits": 3,
         "category": "전공선택",
-        "semester": "3-1"
+        "semester": "3-1",
+        "courseCode": "BS3201"
       }
     },
     {
@@ -183,7 +195,8 @@
         "label": "분자·세포작동원리와 이론",
         "credits": 3,
         "category": "전공선택",
-        "semester": "3-1"
+        "semester": "3-1",
+        "courseCode": "BS3210"
       }
     },
     {
@@ -197,7 +210,8 @@
         "label": "생물학 I",
         "credits": 3,
         "category": "전공핵심",
-        "semester": "3-2"
+        "semester": "3-2",
+        "courseCode": "BS3101"
       }
     },
     {
@@ -211,7 +225,8 @@
         "label": "유전체 기본 실습",
         "credits": 3,
         "category": "전공선택",
-        "semester": "3-2"
+        "semester": "3-2",
+        "courseCode": "BS3206"
       }
     },
     {
@@ -225,7 +240,8 @@
         "label": "생리학 I",
         "credits": 3,
         "category": "전공선택",
-        "semester": "3-2"
+        "semester": "3-2",
+        "courseCode": "BS3209"
       }
     },
     {
@@ -239,7 +255,8 @@
         "label": "약학개론 위한 실험모델",
         "credits": 2,
         "category": "전공선택",
-        "semester": "3-2"
+        "semester": "3-2",
+        "courseCode": "BS3211"
       }
     },
     {
@@ -253,7 +270,8 @@
         "label": "의약화학",
         "credits": 3,
         "category": "전공심화",
-        "semester": "4-1"
+        "semester": "4-1",
+        "courseCode": "BS4206"
       }
     },
     {
@@ -267,7 +285,8 @@
         "label": "의약 면역학",
         "credits": 3,
         "category": "전공심화",
-        "semester": "4-1"
+        "semester": "4-1",
+        "courseCode": "BS4213"
       }
     },
     {
@@ -281,7 +300,8 @@
         "label": "단백질 생명과학",
         "credits": 3,
         "category": "전공심화",
-        "semester": "4-1"
+        "semester": "4-1",
+        "courseCode": "BS4216"
       }
     },
     {
@@ -295,7 +315,8 @@
         "label": "암생물학",
         "credits": 3,
         "category": "전공심화",
-        "semester": "4-1"
+        "semester": "4-1",
+        "courseCode": "BS4219"
       }
     },
     {
@@ -309,7 +330,8 @@
         "label": "바이러스학",
         "credits": 3,
         "category": "전공심화",
-        "semester": "4-1"
+        "semester": "4-1",
+        "courseCode": "BS4223"
       }
     },
     {
@@ -323,11 +345,12 @@
         "label": "환경생태학",
         "credits": 3,
         "category": "전공선택",
-        "semester": "4-1"
+        "semester": "4-1",
+        "courseCode": "BS3205"
       }
     },
     {
-      "id": "BS9102",
+      "id": "AI9102",
       "type": "customCourseNode",
       "position": {
         "x": 1500,
@@ -337,11 +360,12 @@
         "label": "학사논문연구 I",
         "credits": 3,
         "category": "전공필수",
-        "semester": "4-1"
+        "semester": "4-1",
+        "courseCode": "AI9102"
       }
     },
     {
-      "id": "BS9103",
+      "id": "AI9103",
       "type": "customCourseNode",
       "position": {
         "x": 1750,
@@ -351,7 +375,8 @@
         "label": "학사논문연구 II",
         "credits": 3,
         "category": "전공필수",
-        "semester": "4-2"
+        "semester": "4-2",
+        "courseCode": "AI9103"
       }
     }
   ],

@@ -1,12 +1,14 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { CourseDB, filterCourses } from '@/lib/const/course-db';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Search, GripVertical, Menu, PanelLeftClose, PanelLeftOpen, Plus, Palette } from 'lucide-react';
+import { Search, GripVertical, Menu, PanelLeftClose, PanelLeftOpen, Plus, Palette, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
+const ITEMS_PER_PAGE = 50;
 
 interface RoadmapSidebarProps {
   courses: CourseDB[];
@@ -15,10 +17,43 @@ interface RoadmapSidebarProps {
 export const RoadmapSidebar = ({ courses }: RoadmapSidebarProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [query, setQuery] = useState('');
+  const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
-  const filteredCourses = useMemo(() => {
-    return filterCourses(courses, query).slice(0, 50);
+  // Filter all courses
+  const allFilteredCourses = useMemo(() => {
+    return filterCourses(courses, query);
   }, [courses, query]);
+
+  // Display only the current page of courses
+  const displayedCourses = useMemo(() => {
+    return allFilteredCourses.slice(0, displayCount);
+  }, [allFilteredCourses, displayCount]);
+
+  const hasMore = displayCount < allFilteredCourses.length;
+
+  // Reset display count when query changes
+  useEffect(() => {
+    setDisplayCount(ITEMS_PER_PAGE);
+  }, [query]);
+
+  // Infinite scroll with IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setDisplayCount((prev) => prev + ITEMS_PER_PAGE);
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasMore]);
 
   const onDragStart = (event: React.DragEvent, course: CourseDB) => {
     event.dataTransfer.setData('application/reactflow/course', JSON.stringify(course));
@@ -68,14 +103,16 @@ export const RoadmapSidebar = ({ courses }: RoadmapSidebarProps) => {
         </div>
         <div className="flex items-center justify-between px-1 text-[10px] text-gray-400">
           <span>드래그하여 추가하세요</span>
-          <span>{filteredCourses.length}개 발견</span>
+          <span>
+            {displayedCourses.length} / {allFilteredCourses.length}개
+          </span>
         </div>
       </div>
 
       {/* Course List - Compact Design */}
       <ScrollArea className="flex-1">
         <div className="space-y-1.5 p-2">
-          {filteredCourses.map((course) => (
+          {displayedCourses.map((course) => (
             <div
               key={course.courseUid}
               draggable
@@ -104,7 +141,16 @@ export const RoadmapSidebar = ({ courses }: RoadmapSidebarProps) => {
               <Plus className="h-3 w-3 text-transparent transition-colors group-hover:text-blue-400" />
             </div>
           ))}
-          {filteredCourses.length === 0 && (
+
+          {/* Load More Trigger */}
+          {hasMore && (
+            <div ref={loadMoreRef} className="flex items-center justify-center py-4">
+              <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
+              <span className="ml-2 text-xs text-gray-400">더 불러오는 중...</span>
+            </div>
+          )}
+
+          {displayedCourses.length === 0 && (
             <div className="py-12 text-center text-xs text-gray-400">검색 결과가 없습니다.</div>
           )}
         </div>

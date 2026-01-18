@@ -5,20 +5,27 @@
   },
   "nodes": [
     {
-      "id": "appliedCalculus",
+      "id": "GS1001",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 0 },
+      "position": {
+        "x": 0,
+        "y": 0
+      },
       "data": {
         "label": "미적분학과 응용",
         "credits": 3,
         "category": "교양",
-        "semester": "1-1"
+        "semester": "1-1",
+        "courseCode": "GS1001"
       }
     },
     {
       "id": "generalPhysics1",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 100 },
+      "position": {
+        "x": 0,
+        "y": 100
+      },
       "data": {
         "label": "일반물리학 및 연습",
         "credits": 3,
@@ -29,7 +36,10 @@
     {
       "id": "generalPhysicsLab1",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 200 },
+      "position": {
+        "x": 0,
+        "y": 200
+      },
       "data": {
         "label": "일반물리학 실험",
         "credits": 1,
@@ -37,11 +47,13 @@
         "semester": "1-1"
       }
     },
-
     {
       "id": "differentialEquations",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 0 },
+      "position": {
+        "x": 250,
+        "y": 0
+      },
       "data": {
         "label": "다변수해석학과 응용",
         "credits": 3,
@@ -52,7 +64,10 @@
     {
       "id": "generalPhysics2",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 100 },
+      "position": {
+        "x": 250,
+        "y": 100
+      },
       "data": {
         "label": "일반물리학 및 연습Ⅱ",
         "credits": 3,
@@ -63,7 +78,10 @@
     {
       "id": "generalPhysicsLab2",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 200 },
+      "position": {
+        "x": 250,
+        "y": 200
+      },
       "data": {
         "label": "일반물리학 실험Ⅱ",
         "credits": 1,
@@ -71,11 +89,13 @@
         "semester": "1-2"
       }
     },
-
     {
       "id": "linearAlgebra",
       "type": "customCourseNode",
-      "position": { "x": 500, "y": 0 },
+      "position": {
+        "x": 500,
+        "y": 0
+      },
       "data": {
         "label": "선형대수학과 응용",
         "credits": 3,
@@ -84,20 +104,27 @@
       }
     },
     {
-      "id": "modernPhysics",
+      "id": "PS2201",
       "type": "customCourseNode",
-      "position": { "x": 500, "y": 100 },
+      "position": {
+        "x": 500,
+        "y": 100
+      },
       "data": {
         "label": "현대물리 개론",
         "credits": 3,
         "category": "전공필수",
-        "semester": "2-1"
+        "semester": "2-1",
+        "courseCode": "PS2201"
       }
     },
     {
       "id": "electromagnetism1",
       "type": "customCourseNode",
-      "position": { "x": 500, "y": 200 },
+      "position": {
+        "x": 500,
+        "y": 200
+      },
       "data": {
         "label": "고전역학 및 연습",
         "credits": 3,
@@ -105,11 +132,13 @@
         "semester": "2-1"
       }
     },
-
     {
       "id": "statisticalPhysics",
       "type": "customCourseNode",
-      "position": { "x": 750, "y": 0 },
+      "position": {
+        "x": 750,
+        "y": 0
+      },
       "data": {
         "label": "미분방정식과 응용",
         "credits": 3,
@@ -120,7 +149,10 @@
     {
       "id": "quantumMechanics1",
       "type": "customCourseNode",
-      "position": { "x": 750, "y": 100 },
+      "position": {
+        "x": 750,
+        "y": 100
+      },
       "data": {
         "label": "수리물리Ⅰ",
         "credits": 3,
@@ -131,7 +163,10 @@
     {
       "id": "electromagnetism2",
       "type": "customCourseNode",
-      "position": { "x": 750, "y": 200 },
+      "position": {
+        "x": 750,
+        "y": 200
+      },
       "data": {
         "label": "전자기학 및 연습",
         "credits": 3,
@@ -139,11 +174,13 @@
         "semester": "2-2"
       }
     },
-
     {
       "id": "quantumMechanics2",
       "type": "customCourseNode",
-      "position": { "x": 1000, "y": 0 },
+      "position": {
+        "x": 1000,
+        "y": 0
+      },
       "data": {
         "label": "수리물리Ⅱ",
         "credits": 3,
@@ -152,32 +189,42 @@
       }
     },
     {
-      "id": "optics",
+      "id": "PS3205",
       "type": "customCourseNode",
-      "position": { "x": 1000, "y": 100 },
+      "position": {
+        "x": 1000,
+        "y": 100
+      },
       "data": {
         "label": "광학개론",
         "credits": 3,
         "category": "전공필수",
-        "semester": "3-1"
+        "semester": "3-1",
+        "courseCode": "PS3205"
       }
     },
     {
-      "id": "solidStatePhysics",
+      "id": "PS4207",
       "type": "customCourseNode",
-      "position": { "x": 1000, "y": 200 },
+      "position": {
+        "x": 1000,
+        "y": 200
+      },
       "data": {
         "label": "고체물리",
         "credits": 3,
         "category": "전공필수",
-        "semester": "3-1"
+        "semester": "3-1",
+        "courseCode": "PS4207"
       }
     },
-
     {
       "id": "physicsLab3",
       "type": "customCourseNode",
-      "position": { "x": 1250, "y": 0 },
+      "position": {
+        "x": 1250,
+        "y": 0
+      },
       "data": {
         "label": "물리실험Ⅲ",
         "credits": 3,
@@ -186,49 +233,63 @@
       }
     },
     {
-      "id": "semiconductorPhysics",
+      "id": "PS4202",
       "type": "customCourseNode",
-      "position": { "x": 1250, "y": 100 },
+      "position": {
+        "x": 1250,
+        "y": 100
+      },
       "data": {
         "label": "반도체 물리",
         "credits": 3,
         "category": "전공선택",
-        "semester": "3-2"
+        "semester": "3-2",
+        "courseCode": "PS4202"
       }
     },
-
     {
-      "id": "advancedQuantumPhysics",
+      "id": "PS4214",
       "type": "customCourseNode",
-      "position": { "x": 1500, "y": 0 },
+      "position": {
+        "x": 1500,
+        "y": 0
+      },
       "data": {
         "label": "고급양자물리",
         "credits": 3,
         "category": "전공선택",
-        "semester": "4-1"
+        "semester": "4-1",
+        "courseCode": "PS4214"
       }
     },
     {
-      "id": "plasmaPhysics",
+      "id": "PS4215",
       "type": "customCourseNode",
-      "position": { "x": 1500, "y": 100 },
+      "position": {
+        "x": 1500,
+        "y": 100
+      },
       "data": {
         "label": "플라즈마물리 개론",
         "credits": 3,
         "category": "전공선택",
-        "semester": "4-1"
+        "semester": "4-1",
+        "courseCode": "PS4215"
       }
     },
-
     {
-      "id": "nuclearPhysics",
+      "id": "PS4206",
       "type": "customCourseNode",
-      "position": { "x": 1750, "y": 0 },
+      "position": {
+        "x": 1750,
+        "y": 0
+      },
       "data": {
         "label": "핵 및 입자물리",
         "credits": 3,
         "category": "전공선택",
-        "semester": "4-2"
+        "semester": "4-2",
+        "courseCode": "PS4206"
       }
     }
   ],
@@ -242,16 +303,16 @@
       "label": "필수"
     },
     {
-      "id": "e_generalPhysics2_modernPhysics",
+      "id": "e_generalPhysics2_PS2201",
       "source": "generalPhysics2",
-      "target": "modernPhysics",
+      "target": "PS2201",
       "type": "smoothstep",
       "animated": false,
       "label": "필수"
     },
     {
-      "id": "e_modernPhysics_quantumMechanics1",
-      "source": "modernPhysics",
+      "id": "e_PS2201_quantumMechanics1",
+      "source": "PS2201",
       "target": "quantumMechanics1",
       "type": "smoothstep",
       "animated": false,
@@ -274,9 +335,9 @@
       "label": "필수"
     },
     {
-      "id": "e_optics_solidStatePhysics",
-      "source": "optics",
-      "target": "solidStatePhysics",
+      "id": "e_PS3205_PS4207",
+      "source": "PS3205",
+      "target": "PS4207",
       "type": "smoothstep",
       "animated": false,
       "label": "권장"

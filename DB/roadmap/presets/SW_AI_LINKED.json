@@ -1,0 +1,165 @@
+{
+  "meta": {
+    "major": "SW/AI연계교육",
+    "track": "SW/AI 연계강화 프로그램"
+  },
+  "nodes": [
+    {
+      "id": "GS1401",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": {
+        "label": "컴퓨터 프로그래밍",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1401"
+      }
+    },
+    {
+      "id": "GS1492",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 0 },
+      "data": {
+        "label": "Computational Thinking for Problem Solving",
+        "credits": 3,
+        "category": "MOOC",
+        "semester": "1-2",
+        "courseCode": "GS1492"
+      }
+    },
+    {
+      "id": "GS2420",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 100 },
+      "data": {
+        "label": "Algorithmic Thinking-Basic",
+        "credits": 3,
+        "category": "MOOC",
+        "semester": "1-2",
+        "courseCode": "GS2420"
+      }
+    },
+    {
+      "id": "GS2421",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 200 },
+      "data": {
+        "label": "Algorithmic Thinking-Advanced",
+        "credits": 3,
+        "category": "MOOC",
+        "semester": "1-2",
+        "courseCode": "GS2421"
+      }
+    },
+    {
+      "id": "GS1496",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": {
+        "label": "Math for ML : Linear Algebra",
+        "credits": 3,
+        "category": "MOOC",
+        "semester": "2-1",
+        "courseCode": "GS1496"
+      }
+    },
+    {
+      "id": "GS1498",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 100 },
+      "data": {
+        "label": "Math for ML : Multivariate Calculus",
+        "credits": 3,
+        "category": "MOOC",
+        "semester": "2-1",
+        "courseCode": "GS1498"
+      }
+    },
+    {
+      "id": "GS1497",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 200 },
+      "data": {
+        "label": "Math for ML : PCA",
+        "credits": 3,
+        "category": "MOOC",
+        "semester": "2-1",
+        "courseCode": "GS1497"
+      }
+    },
+    {
+      "id": "EC2008",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 300 },
+      "data": {
+        "label": "알고리즘 개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "EC2008"
+      }
+    },
+    {
+      "id": "MOOC_ML",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": {
+        "label": "Machine Learning Stanford",
+        "credits": 3,
+        "category": "MOOC",
+        "semester": "3-1",
+        "courseCode": "MOOC_ML"
+      }
+    },
+    {
+      "id": "AI_MATH",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 100 },
+      "data": {
+        "label": "AI 를 위한 수학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "AI_MATH"
+      }
+    },
+    {
+      "id": "GS2823",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 200 },
+      "data": {
+        "label": "수학의 위대한 순간들 – AI",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "3-1",
+        "courseCode": "GS2823"
+      }
+    },
+    {
+      "id": "AI_INTRO",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": {
+        "label": "인공지능 개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "AI_INTRO"
+      }
+    },
+    {
+      "id": "EC4013",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": {
+        "label": "기계학습 및 딥러닝",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EC4013"
+      }
+    }
+  ],
+  "edges": []
+}

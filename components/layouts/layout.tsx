@@ -172,9 +172,9 @@ export function Layout({ children }: { children: ReactNode }) {
 
         {/* Page Content */}
         <main
-          className={`flex-1 ${router.pathname === '/dashboard/roadmap' ? 'overflow-hidden p-0' : 'overflow-y-auto p-4 md:p-6'}`}
+          className={`flex-1 ${router.pathname.startsWith('/dashboard/roadmap') ? 'overflow-hidden p-0' : 'overflow-y-auto p-4 md:p-6'}`}
         >
-          <div className={`${router.pathname === '/dashboard/roadmap' ? 'h-full' : 'mx-auto max-w-7xl'}`}>
+          <div className={`${router.pathname.startsWith('/dashboard/roadmap') ? 'h-full' : 'mx-auto max-w-7xl'}`}>
             {children}
           </div>
         </main>

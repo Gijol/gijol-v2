@@ -1,223 +1,516 @@
 {
-  "meta": { "major": "화학과", "track": "유기/무기화학" },
+  "meta": {
+    "major": "화학과",
+    "track": "유기/무기화학"
+  },
   "nodes": [
     {
-      "id": "appliedCalculusGS1001",
+      "id": "GS1001",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 0 },
-      "data": { "label": "미적분학과 응용", "credits": 3, "category": "교양", "semester": "1-1" }
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "data": {
+        "label": "미적분학과 응용",
+        "credits": 3,
+        "category": "교양",
+        "semester": "1-1",
+        "courseCode": "GS1001"
+      }
     },
     {
       "id": "generalChemistry1GS1201",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 100 },
-      "data": { "label": "일반화학 및 연습", "credits": 3, "category": "교양", "semester": "1-1" }
+      "position": {
+        "x": 0,
+        "y": 100
+      },
+      "data": {
+        "label": "일반화학 및 연습",
+        "credits": 3,
+        "category": "교양",
+        "semester": "1-1"
+      }
     },
     {
       "id": "generalPhysics1GS1101",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 200 },
-      "data": { "label": "일반물리학 및 연습", "credits": 3, "category": "교양", "semester": "1-1" }
+      "position": {
+        "x": 0,
+        "y": 200
+      },
+      "data": {
+        "label": "일반물리학 및 연습",
+        "credits": 3,
+        "category": "교양",
+        "semester": "1-1"
+      }
     },
     {
       "id": "generalChemLab1GS1211",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 300 },
-      "data": { "label": "일반화학실험", "credits": 1, "category": "교양", "semester": "1-1" }
+      "position": {
+        "x": 0,
+        "y": 300
+      },
+      "data": {
+        "label": "일반화학실험",
+        "credits": 1,
+        "category": "교양",
+        "semester": "1-1"
+      }
     },
     {
       "id": "generalPhysicsLab1GS1111",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 400 },
-      "data": { "label": "일반물리학실험", "credits": 1, "category": "교양", "semester": "1-1" }
+      "position": {
+        "x": 0,
+        "y": 400
+      },
+      "data": {
+        "label": "일반물리학실험",
+        "credits": 1,
+        "category": "교양",
+        "semester": "1-1"
+      }
     },
-
     {
       "id": "differentialEquationsGS2002",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 0 },
-      "data": { "label": "미분방정식과 응용", "credits": 3, "category": "교양", "semester": "1-2" }
+      "position": {
+        "x": 250,
+        "y": 0
+      },
+      "data": {
+        "label": "미분방정식과 응용",
+        "credits": 3,
+        "category": "교양",
+        "semester": "1-2"
+      }
     },
     {
       "id": "generalChemistry2GS1202",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 100 },
-      "data": { "label": "일반화학 및 연습Ⅱ", "credits": 3, "category": "교양", "semester": "1-2" }
+      "position": {
+        "x": 250,
+        "y": 100
+      },
+      "data": {
+        "label": "일반화학 및 연습Ⅱ",
+        "credits": 3,
+        "category": "교양",
+        "semester": "1-2"
+      }
     },
     {
       "id": "generalPhysics2GS1102",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 200 },
-      "data": { "label": "일반물리학 및 연습Ⅱ", "credits": 3, "category": "교양", "semester": "1-2" }
+      "position": {
+        "x": 250,
+        "y": 200
+      },
+      "data": {
+        "label": "일반물리학 및 연습Ⅱ",
+        "credits": 3,
+        "category": "교양",
+        "semester": "1-2"
+      }
     },
     {
       "id": "generalChemLab2GS1212",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 300 },
-      "data": { "label": "일반화학실험Ⅱ", "credits": 1, "category": "교양", "semester": "1-2" }
+      "position": {
+        "x": 250,
+        "y": 300
+      },
+      "data": {
+        "label": "일반화학실험Ⅱ",
+        "credits": 1,
+        "category": "교양",
+        "semester": "1-2"
+      }
     },
     {
       "id": "generalPhysicsLab2GS1112",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 400 },
-      "data": { "label": "일반물리학실험Ⅱ", "credits": 1, "category": "교양", "semester": "1-2" }
+      "position": {
+        "x": 250,
+        "y": 400
+      },
+      "data": {
+        "label": "일반물리학실험Ⅱ",
+        "credits": 1,
+        "category": "교양",
+        "semester": "1-2"
+      }
     },
-
     {
       "id": "linearAlgebraGS2004",
       "type": "customCourseNode",
-      "position": { "x": 500, "y": 0 },
-      "data": { "label": "선형대수학과 응용", "credits": 3, "category": "교양", "semester": "2-1" }
+      "position": {
+        "x": 500,
+        "y": 0
+      },
+      "data": {
+        "label": "선형대수학과 응용",
+        "credits": 3,
+        "category": "교양",
+        "semester": "2-1"
+      }
     },
     {
       "id": "organicChemistry1CH2103",
       "type": "customCourseNode",
-      "position": { "x": 500, "y": 100 },
-      "data": { "label": "유기화학Ⅰ", "credits": 3, "category": "전공필수", "semester": "2-1" }
+      "position": {
+        "x": 500,
+        "y": 100
+      },
+      "data": {
+        "label": "유기화학Ⅰ",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1"
+      }
     },
     {
-      "id": "physicalChemistryACh2102",
+      "id": "CH2102",
       "type": "customCourseNode",
-      "position": { "x": 500, "y": 200 },
-      "data": { "label": "물리화학A", "credits": 3, "category": "전공필수", "semester": "2-1" }
+      "position": {
+        "x": 500,
+        "y": 200
+      },
+      "data": {
+        "label": "물리화학A",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "CH2102"
+      }
     },
     {
-      "id": "analyticalChemistryCH2101",
+      "id": "EV2208",
       "type": "customCourseNode",
-      "position": { "x": 500, "y": 300 },
-      "data": { "label": "분석화학", "credits": 3, "category": "전공필수", "semester": "2-1" }
+      "position": {
+        "x": 500,
+        "y": 300
+      },
+      "data": {
+        "label": "분석화학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "EV2208"
+      }
     },
-
     {
-      "id": "computerProgrammingGS1401",
+      "id": "GS1401",
       "type": "customCourseNode",
-      "position": { "x": 750, "y": 0 },
-      "data": { "label": "컴퓨터프로그래밍", "credits": 3, "category": "교양", "semester": "2-2" }
+      "position": {
+        "x": 750,
+        "y": 0
+      },
+      "data": {
+        "label": "컴퓨터프로그래밍",
+        "credits": 3,
+        "category": "교양",
+        "semester": "2-2",
+        "courseCode": "GS1401"
+      }
     },
     {
       "id": "organicChemistry2CH2201",
       "type": "customCourseNode",
-      "position": { "x": 750, "y": 100 },
-      "data": { "label": "유기화학Ⅱ", "credits": 3, "category": "전공필수", "semester": "2-2" }
+      "position": {
+        "x": 750,
+        "y": 100
+      },
+      "data": {
+        "label": "유기화학Ⅱ",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2"
+      }
     },
     {
-      "id": "physicalChemistryBCH2104",
+      "id": "CH2104",
       "type": "customCourseNode",
-      "position": { "x": 750, "y": 200 },
-      "data": { "label": "물리화학B", "credits": 3, "category": "전공필수", "semester": "2-2" }
+      "position": {
+        "x": 750,
+        "y": 200
+      },
+      "data": {
+        "label": "물리화학B",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2",
+        "courseCode": "CH2104"
+      }
     },
     {
       "id": "chemicalBioLabCH2105",
       "type": "customCourseNode",
-      "position": { "x": 750, "y": 300 },
-      "data": { "label": "화학생명실험", "credits": 3, "category": "전공필수", "semester": "2-2" }
+      "position": {
+        "x": 750,
+        "y": 300
+      },
+      "data": {
+        "label": "화학생명실험",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2"
+      }
     },
-
     {
       "id": "biochemistry1CH3106",
       "type": "customCourseNode",
-      "position": { "x": 1000, "y": 0 },
-      "data": { "label": "생화학Ⅰ", "credits": 3, "category": "전공필수", "semester": "3-1" }
+      "position": {
+        "x": 1000,
+        "y": 0
+      },
+      "data": {
+        "label": "생화학Ⅰ",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1"
+      }
     },
     {
       "id": "inorganicChemistry1CH3108",
       "type": "customCourseNode",
-      "position": { "x": 1000, "y": 100 },
-      "data": { "label": "무기화학Ⅰ", "credits": 3, "category": "전공필수", "semester": "3-1" }
+      "position": {
+        "x": 1000,
+        "y": 100
+      },
+      "data": {
+        "label": "무기화학Ⅰ",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1"
+      }
     },
     {
-      "id": "organometallicChemistryCH3111",
+      "id": "CH3111",
       "type": "customCourseNode",
-      "position": { "x": 1000, "y": 200 },
-      "data": { "label": "유기금속화학", "credits": 3, "category": "전공선택", "semester": "3-1" }
+      "position": {
+        "x": 1000,
+        "y": 200
+      },
+      "data": {
+        "label": "유기금속화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CH3111"
+      }
     },
     {
-      "id": "advancedChemLabCH3207",
+      "id": "CH3207",
       "type": "customCourseNode",
-      "position": { "x": 1000, "y": 300 },
-      "data": { "label": "고급화학실험", "credits": 3, "category": "전공선택", "semester": "3-1" }
+      "position": {
+        "x": 1000,
+        "y": 300
+      },
+      "data": {
+        "label": "고급화학실험",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CH3207"
+      }
     },
-
     {
       "id": "biochemistry2CH4219",
       "type": "customCourseNode",
-      "position": { "x": 1250, "y": 0 },
-      "data": { "label": "생화학Ⅱ", "credits": 3, "category": "전공필수", "semester": "3-2" }
+      "position": {
+        "x": 1250,
+        "y": 0
+      },
+      "data": {
+        "label": "생화학Ⅱ",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2"
+      }
     },
     {
-      "id": "instrumentalAnalysisCH4213",
+      "id": "CH4213",
       "type": "customCourseNode",
-      "position": { "x": 1250, "y": 100 },
-      "data": { "label": "기기분석", "credits": 3, "category": "전공선택", "semester": "3-2" }
+      "position": {
+        "x": 1250,
+        "y": 100
+      },
+      "data": {
+        "label": "기기분석",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "CH4213"
+      }
     },
     {
       "id": "inorganicChemistry2CH4208",
       "type": "customCourseNode",
-      "position": { "x": 1250, "y": 200 },
-      "data": { "label": "무기화학Ⅱ", "credits": 3, "category": "전공필수", "semester": "3-2" }
+      "position": {
+        "x": 1250,
+        "y": 200
+      },
+      "data": {
+        "label": "무기화학Ⅱ",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2"
+      }
     },
     {
-      "id": "physicalOrganicChemistryCH4205",
+      "id": "CH3205",
       "type": "customCourseNode",
-      "position": { "x": 1250, "y": 300 },
-      "data": { "label": "물리유기화학", "credits": 3, "category": "전공선택", "semester": "3-2" }
-    },
-
-    {
-      "id": "polymerChemistryMA3210",
-      "type": "customCourseNode",
-      "position": { "x": 1250, "y": 400 },
-      "data": { "label": "고분자화학", "credits": 3, "category": "교양", "semester": "3-2" }
-    },
-    {
-      "id": "instrumentalAnalysisMA3211",
-      "type": "customCourseNode",
-      "position": { "x": 1250, "y": 500 },
-      "data": { "label": "기기분석", "credits": 3, "category": "교양", "semester": "3-2" }
+      "position": {
+        "x": 1250,
+        "y": 300
+      },
+      "data": {
+        "label": "물리유기화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "CH3205"
+      }
     },
     {
-      "id": "biomaterialsMA3208",
+      "id": "MA3210",
       "type": "customCourseNode",
-      "position": { "x": 1250, "y": 600 },
-      "data": { "label": "생체재료", "credits": 3, "category": "교양", "semester": "3-2" }
-    },
-
-    {
-      "id": "organicSynthesisCH4216",
-      "type": "customCourseNode",
-      "position": { "x": 1500, "y": 0 },
-      "data": { "label": "유기합성화학", "credits": 3, "category": "전공선택", "semester": "4-1" }
-    },
-    {
-      "id": "organicSpectroscopyCH4201",
-      "type": "customCourseNode",
-      "position": { "x": 1500, "y": 100 },
-      "data": { "label": "유기분광학", "credits": 3, "category": "전공선택", "semester": "4-1" }
-    },
-
-    {
-      "id": "computationalChemistryCH4221",
-      "type": "customCourseNode",
-      "position": { "x": 1750, "y": 0 },
-      "data": { "label": "계산화학", "credits": 3, "category": "전공선택", "semester": "4-2" }
+      "position": {
+        "x": 1250,
+        "y": 400
+      },
+      "data": {
+        "label": "고분자화학",
+        "credits": 3,
+        "category": "교양",
+        "semester": "3-2",
+        "courseCode": "MA3210"
+      }
     },
     {
-      "id": "inorganicNanochemistryCH4224",
+      "id": "CH4213",
       "type": "customCourseNode",
-      "position": { "x": 1750, "y": 100 },
-      "data": { "label": "무기나노화학", "credits": 3, "category": "전공선택", "semester": "4-2" }
+      "position": {
+        "x": 1250,
+        "y": 500
+      },
+      "data": {
+        "label": "기기분석",
+        "credits": 3,
+        "category": "교양",
+        "semester": "3-2",
+        "courseCode": "CH4213"
+      }
     },
     {
-      "id": "bioOrganicChemBioPharmaCH4205",
+      "id": "MA3208",
       "type": "customCourseNode",
-      "position": { "x": 1750, "y": 200 },
-      "data": { "label": "생유기화학과 바이오의약품", "credits": 3, "category": "전공선택", "semester": "4-2" }
+      "position": {
+        "x": 1250,
+        "y": 600
+      },
+      "data": {
+        "label": "생체재료",
+        "credits": 3,
+        "category": "교양",
+        "semester": "3-2",
+        "courseCode": "MA3208"
+      }
     },
     {
-      "id": "medicinalChemistryBS4206",
+      "id": "CH4216",
       "type": "customCourseNode",
-      "position": { "x": 1750, "y": 300 },
-      "data": { "label": "의약화학", "credits": 3, "category": "교양", "semester": "4-2" }
+      "position": {
+        "x": 1500,
+        "y": 0
+      },
+      "data": {
+        "label": "유기합성화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "CH4216"
+      }
+    },
+    {
+      "id": "CH4201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1500,
+        "y": 100
+      },
+      "data": {
+        "label": "유기분광학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "CH4201"
+      }
+    },
+    {
+      "id": "CH4221",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1750,
+        "y": 0
+      },
+      "data": {
+        "label": "계산화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "CH4221"
+      }
+    },
+    {
+      "id": "CH4224",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1750,
+        "y": 100
+      },
+      "data": {
+        "label": "무기나노화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "CH4224"
+      }
+    },
+    {
+      "id": "CH4205",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1750,
+        "y": 200
+      },
+      "data": {
+        "label": "생유기화학과 바이오의약품",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "CH4205"
+      }
+    },
+    {
+      "id": "BS4206",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1750,
+        "y": 300
+      },
+      "data": {
+        "label": "의약화학",
+        "credits": 3,
+        "category": "교양",
+        "semester": "4-2",
+        "courseCode": "BS4206"
+      }
     }
   ],
   "edges": [

@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "major": "융합기술대학",
+    "track": "문화기술 부전공"
+  },
+  "nodes": [
+    {
+      "id": "CT3102",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": {
+        "label": "CT의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-2",
+        "courseCode": "CT3102"
+      }
+    },
+    {
+      "id": "CT3103",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 100 },
+      "data": {
+        "label": "신미디어 실험실습",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-2",
+        "courseCode": "CT3103"
+      }
+    },
+    {
+      "id": "CT4201",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 0 },
+      "data": {
+        "label": "SWVR 제작문화콘텐츠",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "CT4201"
+      }
+    },
+    {
+      "id": "CT4202",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 100 },
+      "data": {
+        "label": "현대예술의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "CT4202"
+      }
+    },
+    {
+      "id": "CT4203",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 200 },
+      "data": {
+        "label": "유저경험과 매체미디어체험술",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "CT4203"
+      }
+    },
+    {
+      "id": "CT4211",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 300 },
+      "data": {
+        "label": "3D데이터기술과 시뮬 및 클러스들의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "CT4211"
+      }
+    },
+    {
+      "id": "CT4204",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": {
+        "label": "인터랙 메디아콘텐츠",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "CT4204"
+      }
+    },
+    {
+      "id": "CT4205",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 100 },
+      "data": {
+        "label": "웹콘텐츠시스템 디자인및설계",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "CT4205"
+      }
+    },
+    {
+      "id": "CT4206",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 200 },
+      "data": {
+        "label": "바이오창업디자인UX설계",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "CT4206"
+      }
+    },
+    {
+      "id": "CT4212",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 300 },
+      "data": {
+        "label": "인간-인터미신 인터페이즈",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "CT4212"
+      }
+    },
+    {
+      "id": "CT4207",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": {
+        "label": "디지타 미디어콘텐츠",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CT4207"
+      }
+    },
+    {
+      "id": "CT4208",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 100 },
+      "data": {
+        "label": "과학에서의 프로그램밍",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CT4208"
+      }
+    },
+    {
+      "id": "CT4209",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 200 },
+      "data": {
+        "label": "신경망발달코공학의 응용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CT4209"
+      }
+    },
+    {
+      "id": "CT3011",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 300 },
+      "data": {
+        "label": "영상 커뮤니케이션",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CT3011"
+      }
+    },
+    {
+      "id": "CT4210",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": {
+        "label": "전반적 고려해야S&T 특화소레이션 실용화 방향",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "CT4210"
+      }
+    },
+    {
+      "id": "CT4101",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": {
+        "label": "비지니스혁신 프로젝팅",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "CT4101"
+      }
+    }
+  ],
+  "edges": []
+}

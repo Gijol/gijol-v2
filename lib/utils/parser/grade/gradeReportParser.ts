@@ -12,7 +12,6 @@ const VALUE_KEY = 'v';
 const START_INDEX = 3;
 
 export class GradeReportParser {
-
   public static readXlsxFile(filePath: string) {
     const workSheet = this.createSheet(filePath);
     let index = START_INDEX;
@@ -27,10 +26,7 @@ export class GradeReportParser {
       }
 
       if (this.isSeparatedByYear(workSheet, address(COURSE_NAME_CELL_INDEX, index))) {
-        [year, semester] = this.setYearAndSemester(
-          workSheet,
-          address(COURSE_NAME_CELL_INDEX, index)
-        );
+        [year, semester] = this.setYearAndSemester(workSheet, address(COURSE_NAME_CELL_INDEX, index));
       }
 
       if (this.notExistCodeRow(workSheet, address(CODE_CELL_INDEX, index))) {
@@ -47,34 +43,20 @@ export class GradeReportParser {
         continue;
       }
 
-      const isLetterGrade: boolean = ['A', 'B', 'C', 'D', 'F'].some((letterGrade) =>
-        grade.includes(letterGrade)
-      );
-      const canBeDuplicated = ['GS01', 'GS02', 'UC9331'].some((duplicatableCode) =>
-        code.includes(duplicatableCode)
-      );
+      const isLetterGrade: boolean = ['A', 'B', 'C', 'D', 'F'].some((letterGrade) => grade.includes(letterGrade));
+      const canBeDuplicated = ['GS01', 'GS02', 'UC9331'].some((duplicatableCode) => code.includes(duplicatableCode));
 
       // 🔥 코드 기반으로 HUS / PPE / GSC 전처리
       const type = this.getCourseTypeByCode(code, rawType);
 
-      const addedTakenCourse = new TakenCourse(
-        parseInt(year),
-        semester,
-        type,
-        code,
-        course,
-        parseInt(credit),
-        grade
-      );
+      const addedTakenCourse = new TakenCourse(parseInt(year), semester, type, code, course, parseInt(credit), grade);
 
       if (
         userTakenCourseList.some(
-          (takenCourse) => takenCourse.equals(addedTakenCourse) && isLetterGrade && !canBeDuplicated
+          (takenCourse) => takenCourse.equals(addedTakenCourse) && isLetterGrade && !canBeDuplicated,
         )
       ) {
-        userTakenCourseList = userTakenCourseList.filter(
-          (course) => !course.equals(addedTakenCourse)
-        );
+        userTakenCourseList = userTakenCourseList.filter((course) => !course.equals(addedTakenCourse));
       }
       userTakenCourseList.push(addedTakenCourse);
     }
@@ -116,9 +98,7 @@ export class GradeReportParser {
   private static setYearAndSemester(workSheet: WorkSheet, excelAddress: string) {
     const workSheetElement = this.accessValueOfWorkSheet(workSheet, excelAddress);
     const elementWithNoWhitespace = workSheetElement.trim();
-    const [year, semester] = elementWithNoWhitespace
-      .substring(1, elementWithNoWhitespace.length - 1)
-      .split('/');
+    const [year, semester] = elementWithNoWhitespace.substring(1, elementWithNoWhitespace.length - 1).split('/');
     return [year, semester];
   }
 

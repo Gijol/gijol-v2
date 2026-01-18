@@ -1,49 +1,93 @@
 {
-  "meta": { "major": "기초교육학부", "track": "융합설계" },
+  "meta": {
+    "major": "기초교육학부",
+    "track": "융합설계"
+  },
   "nodes": [
     {
       "id": "creativeDesign",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 0 },
-      "data": { "label": "창의설계입문", "credits": 3, "category": "전공필수", "semester": "1-1" }
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "data": {
+        "label": "창의설계입문",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-1"
+      }
     },
     {
-      "id": "engineeringDesign",
+      "id": "MC3208",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 0 },
-      "data": { "label": "공학설계", "credits": 3, "category": "전공필수", "semester": "1-2" }
+      "position": {
+        "x": 250,
+        "y": 0
+      },
+      "data": {
+        "label": "공학설계",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-2",
+        "courseCode": "MC3208"
+      }
     },
     {
       "id": "capstone1",
       "type": "customCourseNode",
-      "position": { "x": 500, "y": 0 },
-      "data": { "label": "캡스톤디자인 I", "credits": 3, "category": "전공필수", "semester": "2-1" }
+      "position": {
+        "x": 500,
+        "y": 0
+      },
+      "data": {
+        "label": "캡스톤디자인 I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1"
+      }
     },
     {
       "id": "capstone2",
       "type": "customCourseNode",
-      "position": { "x": 750, "y": 0 },
-      "data": { "label": "캡스톤디자인 II", "credits": 3, "category": "전공필수", "semester": "2-2" }
+      "position": {
+        "x": 750,
+        "y": 0
+      },
+      "data": {
+        "label": "캡스톤디자인 II",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2"
+      }
     },
     {
       "id": "graduationProject",
       "type": "customCourseNode",
-      "position": { "x": 1000, "y": 0 },
-      "data": { "label": "졸업설계프로젝트", "credits": 3, "category": "전공필수", "semester": "3-1" }
+      "position": {
+        "x": 1000,
+        "y": 0
+      },
+      "data": {
+        "label": "졸업설계프로젝트",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1"
+      }
     }
   ],
   "edges": [
     {
-      "id": "e_creativeDesign_engineeringDesign",
+      "id": "e_creativeDesign_MC3208",
       "source": "creativeDesign",
-      "target": "engineeringDesign",
+      "target": "MC3208",
       "type": "smoothstep",
       "animated": false,
       "label": "필수"
     },
     {
-      "id": "e_engineeringDesign_capstone1",
-      "source": "engineeringDesign",
+      "id": "e_MC3208_capstone1",
+      "source": "MC3208",
       "target": "capstone1",
       "type": "smoothstep",
       "animated": false

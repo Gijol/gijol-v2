@@ -1,0 +1,1378 @@
+﻿course_code,applies_from_admission_year,applies_to_admission_year,is_offered,is_required,category_override,subcategory_override,counting_policy,term_recommendation,prerequisites,corequisites,remarks,source_handbook_year
+GS2006,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1001,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS2007,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1011,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS3001,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS2001,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS3012,2018,2020,TRUE,,,,,,,,course_type_raw=수학; department=; page=22,2020
+GS2002,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS3015,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS2004,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS4002,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS4003,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS2013,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS4004,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS4005,2018,2020,TRUE,,,,,,,,course_type_raw=물리학; department=; page=22,2020
+GS1103,2018,2020,TRUE,,,,,,,,course_type_raw=물리학; department=; page=22,2020
+GS4006,2018,2020,TRUE,,,,,,,,course_type_raw=기초필수; department=; page=22,2020
+GS1111,2018,2020,TRUE,,,,,,,,course_type_raw=기초필수; department=; page=22,2020
+GS4007,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS4008,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1203,2018,2020,TRUE,,,,,,,,course_type_raw=화학; department=; page=22,2020
+GS4009,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1211,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS4010,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1301,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS4015,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1302,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS4016,2018,2020,TRUE,,,,,,,,course_type_raw=생명; department=; page=22,2020
+GS1303,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS4017,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1311,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS4018,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS4019,2018,2020,TRUE,,,,,,,,course_type_raw=전컴; department=; page=22,2020
+GS1401,2018,2020,TRUE,,,,,,,,course_type_raw=전컴; department=; page=22,2020
+GS1102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1511,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1104,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1512,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1112,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1513,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS2104,2018,2020,TRUE,,,,,,,,course_type_raw=글쓰기; department=; page=22,2020
+GS1531,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1204,2018,2020,TRUE,,,,,,,,course_type_raw=언어필수; department=; page=22,2020
+GS1532,2018,2020,TRUE,,,,,,,,course_type_raw=언어필수; department=; page=22,2020
+GS1212,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1533,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS2204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1601,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS2206,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS1603,2018,2020,TRUE,,,,,,,,course_type_raw=영어; department=; page=22,2020
+GS1321,2018,2020,TRUE,,,,,,,,course_type_raw=영어; department=; page=22,2020
+GS2652,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS2303,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS2311,2018,2020,TRUE,,,,,,,,course_type_raw=SW필수; department=; page=22,2020
+GS1490,2018,2020,TRUE,,,,,,,,course_type_raw=SW필수; department=; page=22,2020
+GS3301,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS3311,2018,2020,TRUE,,,,,,,,course_type_raw=GS0101~GS0114; department=; page=22,2020
+GS4301,2018,2020,TRUE,,,,,,,,course_type_raw=예체능필수; department=; page=22,2020
+GS1402,2018,2020,TRUE,,,,,,,,course_type_raw=GS0201~GS0212; department=; page=22,2020
+GS2407,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=22,2020
+GS2408,2018,2020,TRUE,,,,,,,,course_type_raw=세미나필수; department=; page=22,2020
+GS1901,2018,2020,TRUE,,,,,,,,course_type_raw=세미나필수; department=; page=22,2020
+GS1431,2018,2020,TRUE,,,,,,,,course_type_raw=기계; department=; page=23,2020
+GS2524,2018,2020,TRUE,,,,,,,,course_type_raw=기계; department=; page=23,2020
+GS1451,2018,2020,TRUE,,,,,,,,course_type_raw=소재; department=; page=23,2020
+GS2525,2018,2020,TRUE,,,,,,,,course_type_raw=소재; department=; page=23,2020
+GS1471,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2526,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2472,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2544,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2473,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2601,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2474,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2602,2018,2020,TRUE,,,,,,,,course_type_raw=환경; department=; page=23,2020
+GS2835,2018,2020,TRUE,,,,,,,,course_type_raw=기초선택; department=; page=23,2020
+GS2603,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2836,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2611,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3804,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2612,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS4471,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2613,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2806,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2614,2018,2020,TRUE,,,,,,,,course_type_raw=기타; department=; page=23,2020
+GS2809,2018,2020,TRUE,,,,,,,,course_type_raw=기타; department=; page=23,2020
+GS2615,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2811,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2616,2018,2020,TRUE,,,,,,,,course_type_raw=화학; department=; page=23,2020
+GS2202,2018,2020,TRUE,,,,,,,,course_type_raw=화학; department=; page=23,2020
+GS2471,2018,2020,TRUE,,,,,,,,course_type_raw=지구환경; department=; page=23,2020
+GS2618,2018,2020,TRUE,,,,,,,,course_type_raw=지구환경; department=; page=23,2020
+GS1605,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2621,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS1606,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2625,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2651,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2627,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2653,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2814,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3501,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2654,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3502,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3504,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2655,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3651,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3601,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS1491,2018,2020,TRUE,,,,,,,,course_type_raw=SW선택; department=; page=23,2020
+GS3602,2018,2020,TRUE,,,,,,,,course_type_raw=SW선택; department=; page=23,2020
+GS2501,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3603,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2503,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3604,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2505,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3621,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2506,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3623,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2507,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3624,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2509,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3626,2018,2020,TRUE,,,,,,,,course_type_raw=인문선택; department=; page=23,2020
+GS2510,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3662,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2511,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3801,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2512,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3802,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2521,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3803,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2522,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS3901,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2523,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=23,2020
+GS2620,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2762,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2661,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2763,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2701,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2765,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2702,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2781,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2703,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2782,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2704,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2783,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2705,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2784,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2706,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2785,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2707,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2786,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2708,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2787,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2709,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2788,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2724,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2803,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2725,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2812,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2726,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2831,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2727,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2832,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2728,2018,2020,TRUE,,,,,,,,course_type_raw=인문선택; department=; page=24,2020
+GS2833,2018,2020,TRUE,,,,,,,,course_type_raw=인문선택; department=; page=24,2020
+GS2730,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2834,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2731,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2732,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3631,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2733,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3632,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2734,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3633,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2735,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3663,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2736,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3721,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2742,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3751,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2743,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3752,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2747,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3753,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2748,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3762,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2750,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3763,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2751,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3764,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2752,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS3861,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2761,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS4741,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS4761,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS4762,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=24,2020
+GS2541,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS2101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2542,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS2102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2543,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS2103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS3101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2791,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS3103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS3104,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2792,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS3105,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2793,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS3106,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2804,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS3107,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2810,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2815,2018,2020,TRUE,,,,,,,,course_type_raw=인문선택; department=GIST대학 공통과목 과목구분; page=25,2020
+PS2201,2018,2020,TRUE,,,,,,,,course_type_raw=인문선택; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2816,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS2202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2817,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS3202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2818,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS3203,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2819,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS3205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2821,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS3206,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2822,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2931,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4203,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS2932,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+GS3566,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4206,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4207,2018,2020,TRUE,,,,,,,,course_type_raw=[ GIST대학 공통과목 ]; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4208,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4209,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+UC0201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4211,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+UC0202,2018,2020,TRUE,,,,,,,,course_type_raw=대학공통; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4212,2018,2020,TRUE,,,,,,,,course_type_raw=대학공통; department=GIST대학 공통과목 과목구분; page=25,2020
+UC0203,2018,2020,TRUE,,,,,,,,course_type_raw=(선택); department=GIST대학 공통과목 과목구분; page=25,2020
+PS4213,2018,2020,TRUE,,,,,,,,course_type_raw=(선택); department=GIST대학 공통과목 과목구분; page=25,2020
+UC0301,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4214,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4215,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+UC0901,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS4216,2018,2020,TRUE,,,,,,,,course_type_raw=대학공통; department=GIST대학 공통과목 과목구분; page=25,2020
+PS9101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+UC9331,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS9102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+PS9103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=GIST대학 공통과목 과목구분; page=25,2020
+BS2101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH2101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS2102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH2102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS3101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH2103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS3105,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH2104,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS3111,2018,2020,TRUE,,,,,,,,course_type_raw=전공필수; department=; page=26,2020
+CH2105,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS3112,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH3104,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS3113,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH3106,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS2201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH3107,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS3201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH2106,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS3202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH2201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS3204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS3205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH3205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH3207,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH4205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH4211,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH4212,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4205,2018,2020,TRUE,,,,,,,,course_type_raw=전공선택; department=; page=26,2020
+CH4213,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4206,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH4216,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4207,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH4219,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4211,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4212,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH4220,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4213,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH4221,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4214,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH4222,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH4223,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4215,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+CH9101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4216,2018,2020,TRUE,,,,,,,,course_type_raw=연구; department=; page=26,2020
+CH9102,2018,2020,TRUE,,,,,,,,course_type_raw=연구; department=; page=26,2020
+CH9103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4217,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS4218,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS9101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS9102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+BS9103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=26,2020
+EC3101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC2100,2018,2020,TRUE,,,,,,,,course_type_raw=전공필수; department=; page=27,2020
+EC3102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC2101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC2105,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC2102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC2201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC2103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC2202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC3212,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC2203,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC2204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC3201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC2205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC3202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC2206,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC3203,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC3204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC3202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC3205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC3204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC3206,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC3206,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC3207,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC3207,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC3212,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC3208,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC3214,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC3209,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC3215,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC3211,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC3216,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC3218,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4203,2018,2020,TRUE,,,,,,,,course_type_raw=전공선택; department=; page=27,2020
+MC4205,2018,2020,TRUE,,,,,,,,course_type_raw=전공선택; department=; page=27,2020
+EC4204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4206,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4208,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4206,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4209,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4207,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4211,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4208,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4209,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4212,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4210,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4213,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4211,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4215,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4212,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4216,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4213,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4219,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4214,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4215,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC4221,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4216,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC9101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4217,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC9102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4218,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC9103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4219,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+MC9104,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4301,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC4302,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC9101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EC9102,2018,2020,TRUE,,,,,,,,course_type_raw=연구; department=; page=27,2020
+EC9103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=27,2020
+EV3101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA2101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV3106,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA2102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV3111,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA2103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4106,2018,2020,TRUE,,,,,,,,course_type_raw=전공필수; department=; page=28,2020
+MA2104,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4107,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA3104,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV2208,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA3105,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV2209,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA2201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV2210,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA2202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV2211,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA3203,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV3205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA3204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV3213,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA3207,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV3214,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA3208,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV3215,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA3209,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV3216,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA3210,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV3217,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA3211,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV3219,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV3220,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4203,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4203,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4204,2018,2020,TRUE,,,,,,,,course_type_raw=전공선택; department=; page=28,2020
+MA4207,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4208,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4209,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4209,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4211,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4211,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4212,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4212,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4213,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4213,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4214,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4214,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4215,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4215,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4216,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4217,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4217,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4218,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4218,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4221,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4219,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4222,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4220,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4223,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA4221,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV4224,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA9101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV9101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA9102,2018,2020,TRUE,,,,,,,,course_type_raw=연구; department=; page=28,2020
+EV9102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+MA9103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+EV9103,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=28,2020
+CT4101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM2001,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+CT4201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM2002,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+CT4301,2018,2020,TRUE,,,,,,,,course_type_raw=필수 (I); department=; page=29,2020
+MM2004,2018,2020,TRUE,,,,,,,,course_type_raw=필수 (I); department=; page=29,2020
+CT4302,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM2011,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+CT2501,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4004,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+CT2502,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM3001,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+CT2503,2018,2020,TRUE,,,,,,,,course_type_raw=필수 (II); department=; page=29,2020
+MM4002,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+CT2504,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM2006,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+CT2505,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM2007,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+CT2506,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM3012,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+CT4504,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM3015,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+CT4506,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4003,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+ET2101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4005,2018,2020,TRUE,,,,,,,,course_type_raw=수학; department=; page=29,2020
+ET4102,2018,2020,TRUE,,,,,,,,course_type_raw=수학; department=; page=29,2020
+ET4201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4006,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+ET4302,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4007,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+ET4303,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4008,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+ET4304,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4009,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+ET4306,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4010,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+ET4501,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+IR4201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4015,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+IR4202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4016,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+IR4203,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4017,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+IR4204,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+IR4205,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4018,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+IR4206,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MM4019,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+IR2201,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MD2101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+IR2202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+IR3202,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MD4101,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+IR3203,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MD4102,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+IR4207,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MD4301,2018,2020,TRUE,,,,,,,,course_type_raw=의생명; department=; page=29,2020
+IR4208,2018,2020,TRUE,,,,,,,,course_type_raw=의생명; department=; page=29,2020
+MD4302,2018,2020,TRUE,,,,,,,,course_type_raw=공학 부전공; department=; page=29,2020
+IR4209,2018,2020,TRUE,,,,,,,,course_type_raw=공학 부전공; department=; page=29,2020
+MD4303,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MD4501,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MD4502,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+MD4601,2018,2020,TRUE,,,,,,,,course_type_raw=; department=; page=29,2020
+UC0901,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=40,2025
+UC0903,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=40,2025
+UC9331,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=40,2025
+UC0038,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=40,2025
+UC0039,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=40,2025
+UC0201,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=40,2025
+UC0202,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=40,2025
+UC0203,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=40,2025
+UC0204,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=40,2025
+UC0301,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=40,2025
+UC0613,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=선택; department=; page=40,2025
+UC0615,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=40,2025
+UC0621,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=40,2025
+UC0623,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=40,2025
+UC0624,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=40,2025
+UC0629,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=40,2025
+UC0630,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=40,2025
+UC0631,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=40,2025
+GS1001,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=41,2025
+GS2001,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=수학; department=; page=41,2025
+GS2002,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=수학; department=; page=41,2025
+GS2004,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=41,2025
+GS1401,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=전컴; department=; page=41,2025
+GS1301,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=41,2025
+GS1302,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=생명; department=; page=41,2025
+GS1311,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=기초; department=; page=41,2025
+GS1101,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=41,2025
+GS1103,2021,,TRUE,,,,,2025-1,,,course_type_raw=물리학; department=; page=41,2025
+GS1111,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=41,2025
+GS1201,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=41,2025
+GS1203,2021,,FALSE,,,,,,,,course_type_raw=화학; department=; page=41,2025
+GS1211,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=화학; department=; page=41,2025
+GS1213,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=41,2025
+GS1511,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=41,2025
+GS1512,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=41,2025
+GS1513,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=41,2025
+GS1531,2021,,FALSE,,,,,,,,course_type_raw=글쓰기; department=; page=41,2025
+GS1532,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=41,2025
+GS1533,2021,,TRUE,,,,,2025-2,,,course_type_raw=언어; department=; page=41,2025
+GS1535,2021,,TRUE,,,,,2025-2,,,course_type_raw=필수; department=; page=41,2025
+GS1607,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=영어; department=; page=41,2025
+GS2652,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=영어; department=; page=41,2025
+GS1902,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=41,2025
+GS1903,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=한국어; department=; page=41,2025
+GS1904,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=41,2025
+GS1490,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=41,2025
+GS1499,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=SW필수; department=; page=41,2025
+GS0101,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=41,2025
+GS0201,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=41,2025
+GS1901,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=41,2025
+UC0902,2021,,TRUE,,,,,2025-2,,,course_type_raw=세미나필수; department=; page=41,2025
+GS2408,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=42,2025
+GS2409,2021,,TRUE,,,,,2025-2,,,course_type_raw=전컴; department=; page=42,2025
+GS3401,2021,,TRUE,,,,,2025-2,,,course_type_raw=전컴; department=; page=42,2025
+GS3402,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=42,2025
+GS1451,2021,,TRUE,,,,,2025-2,,,course_type_raw=소재; department=; page=42,2025
+GS1431,2021,,FALSE,,,,,,,,course_type_raw=기계; department=; page=42,2025
+GS1432,2021,,TRUE,,,,,2025-2,,,course_type_raw=기계; department=; page=42,2025
+GS1471,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=42,2025
+GS2471,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=42,2025
+GS2472,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=42,2025
+GS2473,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=42,2025
+GS2474,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=42,2025
+GS2475,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=42,2025
+GS2476,2021,,TRUE,,,,,2025-2,,,course_type_raw=환경; department=; page=42,2025
+GS2835,2021,,TRUE,,,,,2025-2,,,course_type_raw=환경; department=; page=42,2025
+GS2836,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=42,2025
+GS2934,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=42,2025
+GS2935,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=42,2025
+GS3804,2021,,TRUE,,,,,2025-1,,,course_type_raw=기초; department=; page=42,2025
+GS4471,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=42,2025
+GS4472,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=42,2025
+GS1304,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=42,2025
+GS1321,2021,,FALSE,,,,,,,,course_type_raw=생명; department=; page=42,2025
+GS1322,2021,,TRUE,,,,,2025-2,,,course_type_raw=생명; department=; page=42,2025
+GS4301,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=42,2025
+GS1102,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=42,2025
+GS1104,2021,,TRUE,,,,,2025-2,,,course_type_raw=물리; department=; page=42,2025
+GS1112,2021,,TRUE,,,,,2025-2,,,course_type_raw=물리; department=; page=42,2025
+GS2104,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=42,2025
+GS1202,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=42,2025
+GS1204,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=42,2025
+GS1205,2021,,FALSE,,,,,,,,course_type_raw=화학; department=; page=42,2025
+GS1212,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=42,2025
+GS2206,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=42,2025
+GS2806,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=42,2025
+GS2809,2021,,TRUE,,,,,2025-1,,,course_type_raw=기타; department=; page=42,2025
+GS2811,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=42,2025
+GS1605,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=43,2025
+GS1606,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=43,2025
+GS2651,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+GS2653,2021,,TRUE,,,,,2025-2,,,course_type_raw=영어; department=; page=43,2025
+GS2654,2021,,FALSE,,,,,,,,course_type_raw=언어; department=; page=43,2025
+GS2655,2021,,TRUE,,,,,2025-1,,,course_type_raw=선택; department=; page=43,2025
+GS3651,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+GS1905,2021,,FALSE,,,,,,,,course_type_raw=한국어; department=; page=43,2025
+GS1906,2021,,FALSE,,,,,,,,course_type_raw=한국어; department=; page=43,2025
+GS1421,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=43,2025
+GS1491,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=43,2025
+GS1496,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+GS1497,2021,,FALSE,,,,,,,,course_type_raw=SW선택; department=; page=43,2025
+GS1498,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+GS2420,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+GS2421,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=43,2025
+GS2422,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=43,2025
+HS2502,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=43,2025
+HS2503,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=43,2025
+HS2505,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+HS2506,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=43,2025
+HS2507,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+HS2509,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+HS2510,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+HS2511,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=43,2025
+HS2512,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=43,2025
+HS2521,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=43,2025
+HS2522,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+HS2523,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+HS2524,2021,,FALSE,,,,,,,,course_type_raw=인문; department=; page=43,2025
+HS2525,2021,,FALSE,,,,,,,,course_type_raw=HUS; department=; page=43,2025
+HS2526,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=43,2025
+HS2544,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=43,2025
+HS2581,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=43,2025
+HS2582,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=43,2025
+HS2601,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=43,2025
+HS2602,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=43,2025
+HS2603,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+HS2605,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=43,2025
+HS2611,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=43,2025
+HS2612,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=43,2025
+HS2613,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=43,2025
+HS2614,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=44,2025
+HS2615,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2616,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2617,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2618,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2621,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2625,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2627,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2656,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=44,2025
+HS2723,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2814,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS3501,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=44,2025
+HS3502,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=44,2025
+HS3504,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS3505,2021,,FALSE,,,,,,,,course_type_raw=HUS; department=; page=44,2025
+HS3601,2021,,FALSE,,,,,,,,course_type_raw=HUS; department=; page=44,2025
+HS3602,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS3603,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS3604,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS3605,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS3621,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS3623,2021,,FALSE,,,,,,,,course_type_raw=인문; department=; page=44,2025
+HS3624,2021,,FALSE,,,,,,,,course_type_raw=인문; department=; page=44,2025
+HS3625,2021,,FALSE,,,,,,,,course_type_raw=선택; department=; page=44,2025
+HS3626,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS3662,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS3802,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=44,2025
+HS3803,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS3901,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS4611,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=44,2025
+HS2620,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=44,2025
+HS2661,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=44,2025
+HS2701,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2702,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=44,2025
+HS2703,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2704,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=44,2025
+HS2705,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2706,2021,,FALSE,,,,,,,,course_type_raw=PPE; department=; page=44,2025
+HS2707,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=44,2025
+HS2708,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2709,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2721,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2722,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=44,2025
+HS2724,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=44,2025
+HS2726,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=44,2025
+HS2727,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2730,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2732,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2733,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2734,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=45,2025
+HS2739,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2742,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=45,2025
+HS2743,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=45,2025
+HS2747,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2748,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2749,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=45,2025
+HS2750,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=45,2025
+HS2751,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2752,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2753,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2754,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2761,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2762,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2763,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2765,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2767,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2781,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2782,2021,,FALSE,,,,,,,,course_type_raw=인문; department=; page=45,2025
+HS2783,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2784,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2787,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=45,2025
+HS2788,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=45,2025
+HS2789,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=45,2025
+HS2794,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2795,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=45,2025
+HS2796,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2797,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=45,2025
+HS2803,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2832,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS2833,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=45,2025
+HS2834,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=45,2025
+HS2839,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=45,2025
+HS3631,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS3632,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=45,2025
+HS3633,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS3663,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS3721,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS3722,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=45,2025
+HS3725,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=45,2025
+HS3728,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=45,2025
+HS3735,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=46,2025
+HS3736,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=46,2025
+HS3737,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS3752,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=46,2025
+HS3753,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS3754,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS3762,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS3763,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS3764,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS3765,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS3766,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=46,2025
+HS3767,2021,,FALSE,,,,,,,,course_type_raw=PPE; department=; page=46,2025
+HS3785,2021,,TRUE,,,,,2025-1,,,course_type_raw=PPE; department=; page=46,2025
+HS3786,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS3801,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS3831,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=46,2025
+HS3838,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS3839,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=46,2025
+HS3861,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS4610,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+HS4710,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=46,2025
+HS4741,2021,,TRUE,,,,,2025-1,,,course_type_raw=인문; department=; page=46,2025
+HS4762,2021,,TRUE,,,,,2025-1,,,course_type_raw=인문; department=; page=46,2025
+HS4837,2021,,FALSE,,,,,,,,course_type_raw=선택; department=; page=46,2025
+GS1541,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=46,2025
+GS1750,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2541,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=46,2025
+GS2542,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=46,2025
+GS2543,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=46,2025
+GS2545,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=46,2025
+GS2791,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2792,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2793,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2801,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2802,2021,,FALSE,,,,,,,,course_type_raw=GSC; department=; page=46,2025
+GS2804,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2807,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2810,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2812,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2815,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2816,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2817,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2818,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2819,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2821,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=46,2025
+GS2822,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2823,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2824,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2825,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2840,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2911,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2912,2021,,FALSE,,,,,,,,course_type_raw=인문; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2913,2021,,FALSE,,,,,,,,course_type_raw=인문; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2921,2021,,FALSE,,,,,,,,course_type_raw=선택; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2922,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2931,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2932,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS2933,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS3506,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+GS3507,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2507,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2509,2021,,FALSE,,,,,,,,course_type_raw=부전공; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2521,2021,,TRUE,,,,,2025-1,,,course_type_raw=필수; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2602,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2503,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2506,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2511,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2512,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2522,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2525,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2526,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2612,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2613,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2614,2021,,TRUE,,,,,2025-1,,,course_type_raw=부전공; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2616,2021,,TRUE,,,,,2025-2,,,course_type_raw=선택; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2618,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH2656,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH3501,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH3502,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH3504,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH3505,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH3602,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH3605,2021,,FALSE,,,,,,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+LH3802,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=인문사회과학 부전공 q 문학과 역사; page=47,2025
+PP2704,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=부전공; department=; page=48,2025
+PP2763,2021,,FALSE,,,,,,,,course_type_raw=부전공; department=; page=48,2025
+PP2765,2021,,FALSE,,,,,,,,course_type_raw=필수; department=; page=48,2025
+PP2616,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=48,2025
+PP2701,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+PP2702,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=48,2025
+PP2703,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+PP2724,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+PP2734,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=48,2025
+PP2761,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+PP2787,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=48,2025
+PP2788,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+PP2812,2021,,FALSE,,,,,,,,course_type_raw=부전공; department=; page=48,2025
+PP3632,2021,,TRUE,,,,,2025-2,,,course_type_raw=부전공; department=; page=48,2025
+PP3721,2021,,FALSE,,,,,,,,course_type_raw=선택; department=; page=48,2025
+PP3725,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+PP3735,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=48,2025
+PP3765,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+PP3767,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+PP3785,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=48,2025
+PP3786,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+PP3831,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=48,2025
+PP3838,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+PP4762,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=48,2025
+EB2750,2021,,TRUE,,,,,2025-1,,,course_type_raw=부전공; department=; page=48,2025
+EB3722,2021,,TRUE,,,,,2025-2,,,course_type_raw=부전공; department=; page=48,2025
+EB3737,2021,,FALSE,,,,,,,,course_type_raw=필수; department=; page=48,2025
+EB2724,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=48,2025
+EB2726,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=48,2025
+EB2730,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+EB2732,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+EB2733,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+EB2739,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+EB2751,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+EB2752,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+EB2753,2021,,FALSE,,,,,,,,course_type_raw=부전공; department=; page=48,2025
+EB2754,2021,,FALSE,,,,,,,,course_type_raw=선택; department=; page=48,2025
+EB3721,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+EB3725,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=48,2025
+EB3735,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=48,2025
+EB3736,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=48,2025
+EB3752,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=48,2025
+EB3753,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+EB3754,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+EB3765,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=48,2025
+SS2752,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+SS2803,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+SS2812,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+SS2814,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+SS2822,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+SS2832,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+SS2833,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=49,2025
+SS2834,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=49,2025
+SS2839,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=49,2025
+SS2840,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=49,2025
+SS3631,2021,,FALSE,,,,,,,,course_type_raw=부전공; department=; page=49,2025
+SS3633,2021,,FALSE,,,,,,,,course_type_raw=부전공; department=; page=49,2025
+SS3663,2021,,FALSE,,,,,,,,course_type_raw=선택; department=; page=49,2025
+SS3767,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+SS3801,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+SS3802,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=49,2025
+SS3831,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=49,2025
+SS3838,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+SS3839,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=49,2025
+SS4471,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+SS4741,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=49,2025
+SS4762,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=49,2025
+SS4837,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+MB2627,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+MB2661,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=; page=49,2025
+MB2732,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+MB2733,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+MB2742,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=49,2025
+MB2743,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=49,2025
+MB2748,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+MB2749,2021,,TRUE,,,,,2025-2,,,course_type_raw=부전공; department=; page=49,2025
+MB3631,2021,,FALSE,,,,,,,,course_type_raw=부전공; department=; page=49,2025
+MB3632,2021,,TRUE,,,,,2025-2,,,course_type_raw=선택; department=; page=49,2025
+MB3633,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+MB3663,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+MB3764,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+MB3766,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=49,2025
+MB3767,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+MB3861,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=49,2025
+MB4741,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=49,2025
+EC3101,2021,,FALSE,,,,,,,,course_type_raw=전공; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3102,2021,,TRUE,,,,,2025-1,,,course_type_raw=필수; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC2105,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC2107,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC2201,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC2202,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC2203,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC2204,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC2205,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC2206,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC2207,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3202,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3204,2021,,FALSE,,,,,,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3206,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3207,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3212,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3214,2021,,FALSE,,,,,,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3215,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3216,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3218,2021,,TRUE,,,,,2025-2,,,course_type_raw=전공; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3219,2021,,FALSE,,,,,,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3220,2021,,FALSE,,,,,,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC3221,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4202,2021,,FALSE,,,,,,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4203,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4204,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4205,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4206,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4207,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4209,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4210,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4211,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4212,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4213,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4214,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4215,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4216,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 전기전자컴퓨터공학과; page=50,2025
+EC4218,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=51,2025
+EC4219,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=51,2025
+EC4220,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=51,2025
+EC4221,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=51,2025
+EC4222,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=51,2025
+EC4301,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=51,2025
+EC4302,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=51,2025
+EC4304,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=51,2025
+EC4306,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=51,2025
+EC4307,2021,,FALSE,,,,,,,,course_type_raw=전공; department=; page=51,2025
+EC4308,2021,,TRUE,,,,,2025-2,,,course_type_raw=선택; department=; page=51,2025
+EC4309,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=51,2025
+EC4310,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=51,2025
+EC4311,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=51,2025
+EC4312,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=51,2025
+EC4313,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=51,2025
+EC4314,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=51,2025
+EC4315,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=51,2025
+EC4316,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=51,2025
+EC4317,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=51,2025
+EC9102,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=연구; department=; page=51,2025
+EC9103,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=연구; department=; page=51,2025
+AI2003,2021,,FALSE,,,,,,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI2004,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI2050,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI2051,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI2601,2021,,FALSE,,,,,,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI3001,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI3003,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI3004,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI3501,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI3601,2021,,FALSE,,,,,,,,course_type_raw=전공선택; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI4003,2021,,TRUE,,,,,2025-2,,,course_type_raw=전공선택; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI4004,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI4021,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI4028,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI4031,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI4311,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI4501,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI4601,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI4801,2021,,FALSE,,,,,,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI4802,2021,,FALSE,,,,,,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI9102,2021,,FALSE,,,,,,,,course_type_raw=연구; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI9103,2021,,FALSE,,,,,,,,course_type_raw=연구; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI4020,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI3050,2021,,FALSE,,,,,,,,course_type_raw=; department=정보컴퓨팅대학 AI융합학과; page=52,2025
+AI3202,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=53,2025
+AI3301,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=53,2025
+AI4005,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=53,2025
+AI4012,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=53,2025
+AI4014,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=53,2025
+AI4050,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=53,2025
+AI4312,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=53,2025
+AI4450,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=53,2025
+AI4701,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=53,2025
+CT4101,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT4102,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT4201,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT4202,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT4203,2021,,TRUE,,,,,2025-1,,,course_type_raw=부전공; department=q 문화기술 부전공; page=54,2025
+CT4301,2021,,TRUE,,,,,2025-1,,,course_type_raw=필수; department=q 문화기술 부전공; page=54,2025
+CT4302,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT4303,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT4304,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT4305,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT2501,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT2502,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT2504,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT2505,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT2506,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT2521,2021,,TRUE,,,,,2025-1,,,course_type_raw=부전공; department=q 문화기술 부전공; page=54,2025
+CT2544,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=부전공; department=q 문화기술 부전공; page=54,2025
+CT2661,2021,,TRUE,,,,,2025-1,,,course_type_raw=선택; department=q 문화기술 부전공; page=54,2025
+CT2824,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT2832,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT4310,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT4504,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+CT4506,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+IR4201,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+IR4202,2021,,TRUE,,,,,2025-1,,,course_type_raw=부전공; department=q 문화기술 부전공; page=54,2025
+IR4203,2021,,TRUE,,,,,2025-1,,,course_type_raw=필수; department=q 문화기술 부전공; page=54,2025
+IR4205,2021,,TRUE,,,,,2025-2,,,course_type_raw=(택3); department=q 문화기술 부전공; page=54,2025
+IR4206,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+IR2201,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+IR2202,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+IR3202,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+IR3203,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+IR4207,2021,,FALSE,,,,,,,,course_type_raw=부전공; department=q 문화기술 부전공; page=54,2025
+IR4208,2021,,TRUE,,,,,2025-1,,,course_type_raw=선택; department=q 문화기술 부전공; page=54,2025
+IR4209,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+IR4307,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+IR4310,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+IR4602,2021,,FALSE,,,,,,,,course_type_raw=; department=q 문화기술 부전공; page=54,2025
+SE1101,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE2101,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE2102,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE2103,2021,,TRUE,,,,,2025-1,,,course_type_raw=전공; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE2104,2021,,TRUE,,,,,2025-1,,,course_type_raw=필수; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE2105,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE2201,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE3101,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE2202,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE2203,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE2204,2021,,TRUE,,,,,2025-1,,,course_type_raw=전공; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE2205,2021,,FALSE,,,,,,,,course_type_raw=; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+SE2206,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=정보컴퓨팅대학 반도체공학과; page=55,2025
+PS2101,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS2102,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS2103,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS3103,2021,,TRUE,,,,,2025-1,,,course_type_raw=전공; department=자연과학대학 물리·광과학과; page=56,2025
+PS3104,2021,,TRUE,,,,,2025-2,,,course_type_raw=필수; department=자연과학대학 물리·광과학과; page=56,2025
+PS3105,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS3106,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS3107,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS2201,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS2202,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS3202,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS3203,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS3205,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS3206,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4202,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4203,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4204,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4205,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4206,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4207,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4208,2021,,TRUE,,,,,2025-1,,,course_type_raw=전공; department=자연과학대학 물리·광과학과; page=56,2025
+PS4209,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4211,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4212,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4213,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4214,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4215,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4216,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4217,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4218,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4219,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4220,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS4221,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS9102,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+PS9103,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=연구; department=자연과학대학 물리·광과학과; page=56,2025
+PS9301,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 물리·광과학과; page=56,2025
+CH2101,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH2102,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH2103,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH2104,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH2105,2021,,TRUE,,,,,2025-2,,,course_type_raw=전공; department=자연과학대학 화학과; page=57,2025
+CH3104,2021,,FALSE,,,,,,,,course_type_raw=필수; department=자연과학대학 화학과; page=57,2025
+CH3106,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH3107,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH3208,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH2201,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH2301,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH2401,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH3111,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH3205,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH3207,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH3209,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH3210,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH3401,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH3402,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4201,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4205,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4208,2021,,TRUE,,,,,2025-2,,,course_type_raw=전공; department=자연과학대학 화학과; page=57,2025
+CH4211,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4212,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4213,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4216,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4219,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4220,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4221,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4222,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4223,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4224,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4801,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH4803,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 화학과; page=57,2025
+CH9102,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=연구; department=자연과학대학 화학과; page=57,2025
+CH9103,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=연구; department=자연과학대학 화학과; page=57,2025
+MM2001,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM2002,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM2004,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM2011,2021,,FALSE,,,,,,,,course_type_raw=전공; department=자연과학대학 수리과학과; page=58,2025
+MM3101,2021,,TRUE,,,,,2025-1,,,course_type_raw=전공; department=자연과학대학 수리과학과; page=58,2025
+MM3201,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3203,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4901,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM2701,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3202,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3204,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3301,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3450,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3451,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3601,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3602,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3603,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3604,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3650,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM3750,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4101,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4201,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4301,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4302,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4401,2021,,FALSE,,,,,,,,course_type_raw=전공; department=자연과학대학 수리과학과; page=58,2025
+MM4402,2021,,TRUE,,,,,2025-2,,,course_type_raw=전공; department=자연과학대학 수리과학과; page=58,2025
+MM4403,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4404,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4450,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4501,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4502,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4601,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4602,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4603,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4604,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4605,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4650,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4651,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4652,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4653,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4654,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4750,2021,,FALSE,,,,,,,,course_type_raw=; department=자연과학대학 수리과학과; page=58,2025
+MM4752,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=59,2025
+MM4902,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=59,2025
+MA2101,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA2102,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA2103,2021,,TRUE,,,,,2025-1,,,course_type_raw=전공; department=공과대학 신소재공학과; page=60,2025
+MA2104,2021,,TRUE,,,,,2025-2,,,course_type_raw=필수; department=공과대학 신소재공학과; page=60,2025
+MA3104,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA3105,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA2201,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA2202,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA2203,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA2204,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA3203,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA3204,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA3208,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA3209,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA3210,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA3211,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA3212,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA3213,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4202,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4203,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4205,2021,,FALSE,,,,,,,,course_type_raw=전공; department=공과대학 신소재공학과; page=60,2025
+MA4207,2021,,FALSE,,,,,,,,course_type_raw=선택; department=공과대학 신소재공학과; page=60,2025
+MA4208,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4209,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4211,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4212,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4213,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4217,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4219,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4220,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4221,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4222,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4223,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4224,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4225,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4226,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4227,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA4228,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 신소재공학과; page=60,2025
+MA9102,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=연구; department=공과대학 신소재공학과; page=60,2025
+MA9103,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=연구; department=공과대학 신소재공학과; page=60,2025
+MC2100,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC2101,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC2102,2021,,TRUE,,,,,2025-2,,,course_type_raw=전공; department=공과대학 기계로봇공학과; page=61,2025
+MC2103,2021,,TRUE,,,,,2025-2,,,course_type_raw=필수; department=공과대학 기계로봇공학과; page=61,2025
+MC3106,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3107,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC2201,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC2202,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC2203,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC2204,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC2205,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3201,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3202,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3203,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3204,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3205,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3206,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3208,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3211,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3213,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3214,2021,,FALSE,,,,,,,,course_type_raw=전공; department=공과대학 기계로봇공학과; page=61,2025
+MC3215,2021,,TRUE,,,,,2025-1,,,course_type_raw=선택; department=공과대학 기계로봇공학과; page=61,2025
+MC3216,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3217,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3218,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC3219,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4202,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4204,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4205,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4206,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4208,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4210,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4212,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4214,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4215,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4220,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4221,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 기계로봇공학과; page=61,2025
+MC4224,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC4225,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC4228,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC4229,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC4230,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC4231,2021,,TRUE,,,,,2025-2,,,course_type_raw=전공; department=공과대학 환경·에너지공학과; page=62,2025
+MC4232,2021,,FALSE,,,,,,,,course_type_raw=전공; department=공과대학 환경·에너지공학과; page=62,2025
+MC4233,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC4234,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC4235,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC4236,2021,,FALSE,,,,,,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC4237,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC4238,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC4239,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+MC9102,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=연구; department=공과대학 환경·에너지공학과; page=62,2025
+MC9103,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=연구; department=공과대학 환경·에너지공학과; page=62,2025
+EV3101,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV3106,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV3111,2021,,TRUE,,,,,2025-2,,,course_type_raw=전공; department=공과대학 환경·에너지공학과; page=62,2025
+EV3112,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV4107,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV2208,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV2209,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV2210,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV2211,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV2212,2021,,TRUE,,,,,2025-2,,,course_type_raw=전공; department=공과대학 환경·에너지공학과; page=62,2025
+EV2213,2021,,TRUE,,,,,2025-1,,,course_type_raw=전공; department=공과대학 환경·에너지공학과; page=62,2025
+EV2214,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV2215,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV2216,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV2217,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV3205,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV3214,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=공과대학 환경·에너지공학과; page=62,2025
+EV3216,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=63,2025
+EV3217,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=63,2025
+EV3219,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=63,2025
+EV3223,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=63,2025
+EV4202,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4203,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4204,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4209,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=63,2025
+EV4213,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4214,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=63,2025
+EV4216,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=63,2025
+EV4217,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4221,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=63,2025
+EV4222,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4223,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=63,2025
+EV4224,2021,,FALSE,,,,,,,,course_type_raw=전공; department=; page=63,2025
+EV4226,2021,,TRUE,,,,,2025-1,,,course_type_raw=선택; department=; page=63,2025
+EV4227,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4228,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=63,2025
+EV4229,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=63,2025
+EV4230,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=63,2025
+EV4231,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=63,2025
+EV4232,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4233,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=63,2025
+EV4234,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4235,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=63,2025
+EV4236,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=; page=63,2025
+EV4237,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4238,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4239,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4240,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4241,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV4242,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=; page=63,2025
+EV4243,2021,,FALSE,,,,,,,,course_type_raw=; department=; page=63,2025
+EV9102,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=연구; department=; page=63,2025
+EV9103,2021,,TRUE,,,,,2025-1;2025-2,,,course_type_raw=연구; department=; page=63,2025
+BS2102,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS2103,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS2104,2021,,TRUE,,,,,2025-1,,,course_type_raw=전공; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3101,2021,,TRUE,,,,,2025-2,,,course_type_raw=필수; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3105,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3112,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS2101,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS2201,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS2202,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS2203,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS2204,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS2205,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS2206,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3201,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3204,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3205,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3206,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3208,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3209,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3211,2021,,FALSE,,,,,,,,course_type_raw=전공; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3212,2021,,FALSE,,,,,,,,course_type_raw=선택; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS3213,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4206,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4211,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4213,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4214,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4215,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4216,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4217,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4218,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4219,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4223,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4224,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS4240,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS9102,2021,,TRUE,,,,,2025-1,,,course_type_raw=연구; department=생명·의과학융합대학 생명과학과; page=64,2025
+BS9103,2021,,TRUE,,,,,2025-1,,,course_type_raw=연구; department=생명·의과학융합대학 생명과학과; page=64,2025
+MD2101,2021,,TRUE,,,,,2025-2,,,course_type_raw=부전공 필수; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4101,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4102,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4106,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4301,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4302,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4303,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4401,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4402,2021,,TRUE,,,,,2025-2,,,course_type_raw=부전공 선택; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4403,2021,,TRUE,,,,,2025-1,,,course_type_raw=부전공 선택; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4404,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4501,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4502,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4503,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4504,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4505,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+MD4601,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE2301,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE3301,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE4102,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE4201,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE4302,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE4303,2021,,FALSE,,,,,,,,course_type_raw=부전공; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE4304,2021,,TRUE,,,,,2025-1,,,course_type_raw=선택; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE4306,2021,,TRUE,,,,,2025-1,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE4308,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE4309,2021,,TRUE,,,,,2025-2,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE4310,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025
+FE4501,2021,,FALSE,,,,,,,,course_type_raw=; department=생명·의과학융합대학 의생명공학과; page=65,2025

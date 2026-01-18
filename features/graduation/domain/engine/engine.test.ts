@@ -13,11 +13,44 @@ describe('Graduation Engine (Real Logic)', () => {
           courseName: 'Computer Architecture',
           courseCode: 'GS1401',
           credit: 3,
+          grade: 'A+',
         }, // Computer Programming (Science Basic)
-        { year: 2020, semester: '1', courseType: '전공', courseName: 'Calculus', courseCode: 'GS1001', credit: 3 }, // Calculus (Science Basic)
-        { year: 2020, semester: '1', courseType: '교양', courseName: 'English I', courseCode: 'GS1601', credit: 2 }, // English I (Language)
-        { year: 2020, semester: '1', courseType: '교양', courseName: 'Writing', courseCode: 'GS1511', credit: 2 }, // Writing (Language)
-        { year: 2021, semester: '1', courseType: '전공', courseName: 'Algorithm', courseCode: 'CS300', credit: 3 }, // Major (CS prefix but GS1401 is science basic)
+        {
+          year: 2020,
+          semester: '1',
+          courseType: '전공',
+          courseName: 'Calculus',
+          courseCode: 'GS1001',
+          credit: 3,
+          grade: 'A+',
+        }, // Calculus (Science Basic)
+        {
+          year: 2020,
+          semester: '1',
+          courseType: '교양',
+          courseName: 'English I',
+          courseCode: 'GS1601',
+          credit: 2,
+          grade: 'A+',
+        }, // English I (Language)
+        {
+          year: 2020,
+          semester: '1',
+          courseType: '교양',
+          courseName: 'Writing',
+          courseCode: 'GS1511',
+          credit: 2,
+          grade: 'A+',
+        }, // Writing (Language)
+        {
+          year: 2021,
+          semester: '1',
+          courseType: '전공',
+          courseName: 'Algorithm',
+          courseCode: 'CS300',
+          credit: 3,
+          grade: 'A+',
+        }, // Major (CS prefix but GS1401 is science basic)
       ],
     };
 

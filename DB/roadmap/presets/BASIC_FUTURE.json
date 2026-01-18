@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "major": "기초교육학부",
+    "track": "인문사회 부전공: 마음과 행동"
+  },
+  "nodes": [
+    {
+      "id": "HS2742",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": {
+        "label": "인간의 마음과 행동 1",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "1-1",
+        "courseCode": "HS2742"
+      }
+    },
+    {
+      "id": "HS2743",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 100 },
+      "data": {
+        "label": "사이버심리학",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "1-1",
+        "courseCode": "HS2743"
+      }
+    },
+    {
+      "id": "HS2744",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 0 },
+      "data": {
+        "label": "행동 경제학",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "1-2",
+        "courseCode": "HS2744"
+      }
+    },
+    {
+      "id": "HS2745",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 100 },
+      "data": {
+        "label": "언어와 마음",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "1-2",
+        "courseCode": "HS2745"
+      }
+    },
+    {
+      "id": "HS2746",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 200 },
+      "data": {
+        "label": "인간의 음성 언어의인지과학습론",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "1-2",
+        "courseCode": "HS2746"
+      }
+    },
+    {
+      "id": "HS2747",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": {
+        "label": "마음과 미래와 행동",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "2-1",
+        "courseCode": "HS2747"
+      }
+    },
+    {
+      "id": "HS2748",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 100 },
+      "data": {
+        "label": "행동경제심리를연구대화(심화)",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "2-1",
+        "courseCode": "HS2748"
+      }
+    },
+    {
+      "id": "HS2749",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 200 },
+      "data": {
+        "label": "종교와 과학",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "2-1",
+        "courseCode": "HS2749"
+      }
+    },
+    {
+      "id": "HS2750",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 300 },
+      "data": {
+        "label": "낮인 인지",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "2-2",
+        "courseCode": "HS2750"
+      }
+    },
+    {
+      "id": "HS3761",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": {
+        "label": "과학철학특강",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "3-1",
+        "courseCode": "HS3761"
+      }
+    },
+    {
+      "id": "HS3762",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 100 },
+      "data": {
+        "label": "신경과학과 법",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "3-1",
+        "courseCode": "HS3762"
+      }
+    },
+    {
+      "id": "HS3764",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 200 },
+      "data": {
+        "label": "인지공학/아이디어창출 및 실습",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "3-1",
+        "courseCode": "HS3764"
+      }
+    },
+    {
+      "id": "HS3765",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": {
+        "label": "MOOC 지정 인지신경과학",
+        "credits": 3,
+        "category": "MOOC",
+        "semester": "4-1",
+        "courseCode": "HS3765"
+      }
+    },
+    {
+      "id": "HS3766",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": {
+        "label": "기술철학/사회(선택)",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "4-1",
+        "courseCode": "HS3766"
+      }
+    },
+    {
+      "id": "HS3763",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 200 },
+      "data": {
+        "label": "현대윤리교육",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "4-1",
+        "courseCode": "HS3763"
+      }
+    },
+    {
+      "id": "HS3767",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 300 },
+      "data": {
+        "label": "도덕적 진보",
+        "credits": 3,
+        "category": "인문선택",
+        "semester": "4-1",
+        "courseCode": "HS3767"
+      }
+    }
+  ],
+  "edges": []
+}

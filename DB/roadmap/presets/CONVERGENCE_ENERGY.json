@@ -1,0 +1,297 @@
+{
+  "meta": {
+    "major": "융합기술대학",
+    "track": "에너지 부전공"
+  },
+  "nodes": [
+    {
+      "id": "GS1101",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": {
+        "label": "일반물리학 및 실험 I",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1101"
+      }
+    },
+    {
+      "id": "GS1111",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 100 },
+      "data": {
+        "label": "일반물리학실험 I",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1111"
+      }
+    },
+    {
+      "id": "GS1201",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 200 },
+      "data": {
+        "label": "일반화학 및 연습 I",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1201"
+      }
+    },
+    {
+      "id": "GS1211",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 300 },
+      "data": {
+        "label": "일반화학 실험 I",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1211"
+      }
+    },
+    {
+      "id": "FE2101",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 0 },
+      "data": {
+        "label": "플라즈마",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "FE2101"
+      }
+    },
+    {
+      "id": "FE2102",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 100 },
+      "data": {
+        "label": "융합전자기학 II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "FE2102"
+      }
+    },
+    {
+      "id": "FE3101",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 200 },
+      "data": {
+        "label": "최신에너지",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "FE3101"
+      }
+    },
+    {
+      "id": "FE3102",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 300 },
+      "data": {
+        "label": "에너지의 미래사회",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "FE3102"
+      }
+    },
+    {
+      "id": "FE3103",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": {
+        "label": "분석화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "FE3103"
+      }
+    },
+    {
+      "id": "FE3104",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 100 },
+      "data": {
+        "label": "프로그래밍 언어와 시뮬레이션",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "FE3104"
+      }
+    },
+    {
+      "id": "FE3105",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 200 },
+      "data": {
+        "label": "에너지의생태 지속가능성",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "FE3105"
+      }
+    },
+    {
+      "id": "FE3106",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 300 },
+      "data": {
+        "label": "기기분석",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "FE3106"
+      }
+    },
+    {
+      "id": "FE3107",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 400 },
+      "data": {
+        "label": "전자회로의개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "FE3107"
+      }
+    },
+    {
+      "id": "FE3108",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 500 },
+      "data": {
+        "label": "대응을 위한 스마트 그리드와 전력시장의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "FE3108"
+      }
+    },
+    {
+      "id": "FE4101",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": {
+        "label": "자동제어",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "FE4101"
+      }
+    },
+    {
+      "id": "FE4102",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 100 },
+      "data": {
+        "label": "에너지 소재",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "FE4102"
+      }
+    },
+    {
+      "id": "FE4103",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 200 },
+      "data": {
+        "label": "반도체시스템",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "FE4103"
+      }
+    },
+    {
+      "id": "FE4104",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 300 },
+      "data": {
+        "label": "반도체소재학과 Spice 시뮬레이션 기반 디자인",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "FE4104"
+      }
+    },
+    {
+      "id": "FE4105",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 400 },
+      "data": {
+        "label": "단위시스템공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "FE4105"
+      }
+    },
+    {
+      "id": "FE4201",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": {
+        "label": "에너지 전력계획학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "FE4201"
+      }
+    },
+    {
+      "id": "FE4202",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": {
+        "label": "에너지의 공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "FE4202"
+      }
+    },
+    {
+      "id": "FE4203",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 200 },
+      "data": {
+        "label": "태양에너지의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "FE4203"
+      }
+    },
+    {
+      "id": "FE4204",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 300 },
+      "data": {
+        "label": "에너지시스템 응용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "FE4204"
+      }
+    },
+    {
+      "id": "FE4205",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 400 },
+      "data": {
+        "label": "신재생에너지 기초",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "FE4205"
+      }
+    }
+  ],
+  "edges": []
+}
