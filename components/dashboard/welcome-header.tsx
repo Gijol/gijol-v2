@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { IconUpload } from '@tabler/icons-react';
+import { Upload } from 'lucide-react';
 import { Button } from '@components/ui/button';
 
 interface WelcomeHeaderProps {
@@ -27,7 +27,7 @@ export function WelcomeHeader({ studentId, remainingCredits, hasData }: WelcomeH
           className="bg-[#0B62DA] text-white shadow-lg shadow-blue-500/25 hover:bg-[#0952B8]"
           onClick={() => router.push('/dashboard/graduation/upload')}
         >
-          <IconUpload className="mr-2 h-5 w-5" />
+          <Upload className="mr-2 h-5 w-5" />
           {hasData ? '성적표 업데이트' : '성적표 업로드하기'}
         </Button>
       </div>

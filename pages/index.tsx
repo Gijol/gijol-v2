@@ -1,14 +1,9 @@
 import React, { useRef } from 'react';
 import router from 'next/router';
-import {
-  IconPackages,
-  IconPresentationAnalytics,
-  IconUser,
-  IconCalendarEvent
-} from '@tabler/icons-react';
+import { Package, BarChart, User, Calendar } from 'lucide-react';
 
 import { HoverEffect } from '@components/ui/card-hover-effect';
-import { InfiniteMovingCards } from '@components/ui/infinite-moving-cards'; 
+import { InfiniteMovingCards } from '@components/ui/infinite-moving-cards';
 
 import MainLayoutHeader from '@components/layouts/main-layout-header';
 
@@ -44,22 +39,22 @@ export default function MainPage() {
     {
       title: '졸업요건 확인하기',
       description: '나의 졸업요건 충족 여부와 상세한 피드백을 받아보세요. 학사편람을 일일이 확인하지 않아도 됩니다.',
-      icon: <IconPackages className="h-6 w-6" strokeWidth={1.5} />,
+      icon: <Package className="h-6 w-6" strokeWidth={1.5} />,
     },
     {
       title: '강의정보 검색',
       description: '매 학기 열리는 강의 정보를 빠르게 검색하고, 나에게 필요한 과목을 찾아보세요.',
-      icon: <IconPresentationAnalytics className="h-6 w-6" strokeWidth={1.5} />,
+      icon: <BarChart className="h-6 w-6" strokeWidth={1.5} />,
     },
     {
       title: '내 정보 관리',
       description: '나의 학적 정보와 이수 현황을 한눈에 확인하고 효율적으로 관리하세요.',
-      icon: <IconUser className="h-6 w-6" strokeWidth={1.5} />,
+      icon: <User className="h-6 w-6" strokeWidth={1.5} />,
     },
     {
       title: '학업 계획 수립',
       description: '남은 학기 동안 들어야 할 과목을 계획하고 졸업까지의 로드맵을 세워보세요.',
-      icon: <IconCalendarEvent className="h-6 w-6" strokeWidth={1.5} />,
+      icon: <Calendar className="h-6 w-6" strokeWidth={1.5} />,
     },
   ];
 
@@ -70,55 +65,56 @@ export default function MainPage() {
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent pointer-events-none" />
-        
-        <div className="max-w-6xl mx-auto px-6 pt-20 pb-24 relative">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent" />
+
+        <div className="relative mx-auto max-w-6xl px-6 pt-20 pb-24">
           {/* Badge */}
-          <div className="flex justify-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
+          <div className="mb-8 flex justify-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2">
               <span className="text-sm font-medium text-[#0B62DA]">✨ GIST 학부생을 위한 졸업 관리 플랫폼</span>
             </div>
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl font-bold text-center text-[#1D2530] leading-tight tracking-tight">
-            <span className="bg-gradient-to-r from-[#0B62DA] to-cyan-500 bg-clip-text text-transparent">졸업까지</span>의 모든 여정을
+          <h1 className="text-center text-4xl leading-tight font-bold tracking-tight text-[#1D2530] md:text-6xl">
+            <span className="bg-gradient-to-r from-[#0B62DA] to-cyan-500 bg-clip-text text-transparent">졸업까지</span>
+            의 모든 여정을
             <br />
             한눈에 관리하세요
           </h1>
 
           {/* Description */}
-          <p className="mt-6 text-lg text-gray-600 max-w-2xl text-center mx-auto leading-relaxed">
+          <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-gray-600">
             성적표 업로드만으로 졸업요건 분석, 맞춤형 수강 추천,
             <br className="hidden md:block" />
             취업 연계 로드맵까지. GradPath가 함께합니다.
           </p>
 
           {/* CTA Buttons */}
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center">
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <button
               onClick={() => router.push('/dashboard')}
-              className="px-8 py-3.5 bg-[#0B62DA] hover:bg-[#0952B8] text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30"
+              className="rounded-xl bg-[#0B62DA] px-8 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/25 transition-all duration-200 hover:bg-[#0952B8] hover:shadow-xl hover:shadow-blue-500/30"
             >
               무료로 시작하기 →
             </button>
             <button
               onClick={scrollIntoView}
-              className="px-8 py-3.5 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded-xl border border-gray-200 transition-all duration-200"
+              className="rounded-xl border border-gray-200 bg-white px-8 py-3.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-50"
             >
               기능 살펴보기
             </button>
           </div>
 
           {/* Dashboard Preview */}
-          <div className="mt-16 relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-[#F9FAFB] via-transparent to-transparent z-10 pointer-events-none h-full" />
-            <div className="bg-[#1E293B] rounded-2xl shadow-2xl overflow-hidden border border-gray-800">
-              <div className="flex items-center gap-2 px-4 py-3 bg-[#0F172A] border-b border-gray-700">
+          <div className="relative mt-16">
+            <div className="pointer-events-none absolute inset-0 z-10 h-full bg-gradient-to-t from-[#F9FAFB] via-transparent to-transparent" />
+            <div className="overflow-hidden rounded-2xl border border-gray-800 bg-[#1E293B] shadow-2xl">
+              <div className="flex items-center gap-2 border-b border-gray-700 bg-[#0F172A] px-4 py-3">
                 <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                  <div className="w-3 h-3 rounded-full bg-green-500" />
+                  <div className="h-3 w-3 rounded-full bg-red-500" />
+                  <div className="h-3 w-3 rounded-full bg-yellow-500" />
+                  <div className="h-3 w-3 rounded-full bg-green-500" />
                 </div>
                 <div className="flex-1 text-center">
                   <span className="text-xs text-gray-400">GradPath Dashboard</span>
@@ -126,35 +122,35 @@ export default function MainPage() {
               </div>
               <div className="p-8">
                 {/* Mock Dashboard Content */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                   {/* Progress Card */}
-                  <div className="bg-[#0F172A] rounded-xl p-6 border border-gray-700">
-                    <div className="text-sm text-gray-400 mb-2">총 이수 학점</div>
-                    <div className="text-3xl font-bold text-white mb-4">102 / 130</div>
-                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                      <div className="h-full w-[78%] bg-gradient-to-r from-[#0B62DA] to-cyan-400 rounded-full" />
+                  <div className="rounded-xl border border-gray-700 bg-[#0F172A] p-6">
+                    <div className="mb-2 text-sm text-gray-400">총 이수 학점</div>
+                    <div className="mb-4 text-3xl font-bold text-white">102 / 130</div>
+                    <div className="h-2 overflow-hidden rounded-full bg-gray-700">
+                      <div className="h-full w-[78%] rounded-full bg-gradient-to-r from-[#0B62DA] to-cyan-400" />
                     </div>
-                    <div className="text-xs text-gray-500 mt-2">78% 완료</div>
+                    <div className="mt-2 text-xs text-gray-500">78% 완료</div>
                   </div>
-                  
+
                   {/* Major Credits */}
-                  <div className="bg-[#0F172A] rounded-xl p-6 border border-gray-700">
-                    <div className="text-sm text-gray-400 mb-2">전공 학점</div>
-                    <div className="text-3xl font-bold text-white mb-4">45 / 54</div>
-                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                      <div className="h-full w-[83%] bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full" />
+                  <div className="rounded-xl border border-gray-700 bg-[#0F172A] p-6">
+                    <div className="mb-2 text-sm text-gray-400">전공 학점</div>
+                    <div className="mb-4 text-3xl font-bold text-white">45 / 54</div>
+                    <div className="h-2 overflow-hidden rounded-full bg-gray-700">
+                      <div className="h-full w-[83%] rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400" />
                     </div>
-                    <div className="text-xs text-gray-500 mt-2">83% 완료</div>
+                    <div className="mt-2 text-xs text-gray-500">83% 완료</div>
                   </div>
-                  
+
                   {/* GPA Card */}
-                  <div className="bg-[#0F172A] rounded-xl p-6 border border-gray-700">
-                    <div className="text-sm text-gray-400 mb-2">누적 평점</div>
-                    <div className="text-3xl font-bold text-white mb-4">3.85 / 4.5</div>
-                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                      <div className="h-full w-[85%] bg-gradient-to-r from-amber-500 to-amber-400 rounded-full" />
+                  <div className="rounded-xl border border-gray-700 bg-[#0F172A] p-6">
+                    <div className="mb-2 text-sm text-gray-400">누적 평점</div>
+                    <div className="mb-4 text-3xl font-bold text-white">3.85 / 4.5</div>
+                    <div className="h-2 overflow-hidden rounded-full bg-gray-700">
+                      <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-amber-500 to-amber-400" />
                     </div>
-                    <div className="text-xs text-gray-500 mt-2">상위 15%</div>
+                    <div className="mt-2 text-xs text-gray-500">상위 15%</div>
                   </div>
                 </div>
               </div>
@@ -164,14 +160,14 @@ export default function MainPage() {
       </div>
 
       {/* Features Section */}
-      <div className="max-w-5xl mx-auto px-6 py-20" ref={targetRef}>
-        <div className="text-center mb-4">
-          <span className="text-sm font-semibold text-[#0B62DA] tracking-wide">FEATURES</span>
+      <div className="mx-auto max-w-5xl px-6 py-20" ref={targetRef}>
+        <div className="mb-4 text-center">
+          <span className="text-sm font-semibold tracking-wide text-[#0B62DA]">FEATURES</span>
         </div>
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-[#1D2530] tracking-tight">
+        <h2 className="text-center text-3xl font-bold tracking-tight text-[#1D2530] md:text-4xl">
           졸업 준비, 이제 쉽고 빠르게
         </h2>
-        <p className="mt-4 text-gray-600 text-center max-w-2xl mx-auto">
+        <p className="mx-auto mt-4 max-w-2xl text-center text-gray-600">
           GradPath의 다양한 기능으로 복잡한 학사 관리를 간편하게 해결하세요
         </p>
         <HoverEffect
@@ -185,12 +181,12 @@ export default function MainPage() {
       </div>
 
       {/* Reviews Section */}
-      <div className="py-20 bg-white border-y border-gray-100">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-4">
-            <span className="text-sm font-semibold text-[#0B62DA] tracking-wide">REVIEWS</span>
+      <div className="border-y border-gray-100 bg-white py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mb-4 text-center">
+            <span className="text-sm font-semibold tracking-wide text-[#0B62DA]">REVIEWS</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-[#1D2530] mb-12 tracking-tight">
+          <h2 className="mb-12 text-center text-3xl font-bold tracking-tight text-[#1D2530] md:text-4xl">
             학생들의 생생한 후기
           </h2>
           <InfiniteMovingCards items={reviews} direction="right" speed="slow" />
@@ -199,23 +195,21 @@ export default function MainPage() {
 
       {/* Bottom CTA Section */}
       <div className="bg-[#0F172A] py-24">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-            지금 바로 시작하세요
-          </h2>
-          <p className="text-lg text-gray-400 mb-10 max-w-xl mx-auto">
+        <div className="mx-auto max-w-4xl px-6 text-center">
+          <h2 className="mb-6 text-3xl font-bold tracking-tight text-white md:text-5xl">지금 바로 시작하세요</h2>
+          <p className="mx-auto mb-10 max-w-xl text-lg text-gray-400">
             성적표 업로드 한 번으로 졸업까지의 모든 여정을 계획하고 관리할 수 있습니다.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <button
               onClick={() => router.push('/dashboard')}
-              className="px-10 py-4 bg-[#0B62DA] hover:bg-[#0952B8] text-white font-semibold rounded-xl transition-all duration-200 text-lg"
+              className="rounded-xl bg-[#0B62DA] px-10 py-4 text-lg font-semibold text-white transition-all duration-200 hover:bg-[#0952B8]"
             >
               무료로 시작하기
             </button>
             <button
               onClick={() => router.push('/dashboard')}
-              className="px-10 py-4 bg-transparent hover:bg-white/10 text-white font-semibold rounded-xl border border-gray-600 transition-all duration-200 text-lg"
+              className="rounded-xl border border-gray-600 bg-transparent px-10 py-4 text-lg font-semibold text-white transition-all duration-200 hover:bg-white/10"
             >
               데모 보기
             </button>
@@ -224,11 +218,11 @@ export default function MainPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-[#0F172A] border-t border-gray-800 py-12">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+      <footer className="border-t border-gray-800 bg-[#0F172A] py-12">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#0B62DA] flex items-center justify-center">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0B62DA]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -237,21 +231,32 @@ export default function MainPage() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="w-5 h-5"
+                  className="h-5 w-5"
                 >
                   <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
                   <path d="M6 12v5c3 3 9 3 12 0v-5" />
                 </svg>
               </div>
-              <span className="font-bold text-lg text-white">GradPath</span>
+              <span className="text-lg font-bold text-white">GradPath</span>
             </div>
             <div className="flex gap-6 text-sm text-gray-400">
-              <a href="#" className="hover:text-white transition-colors">이용약관</a>
-              <a href="#" className="hover:text-white transition-colors">개인정보처리방침</a>
-              <a href="https://choieungi-project.notion.site/Team-Gijol-e5e279e91a0646c2a84b548873601a3f" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">팀 소개</a>
+              <a href="#" className="transition-colors hover:text-white">
+                이용약관
+              </a>
+              <a href="#" className="transition-colors hover:text-white">
+                개인정보처리방침
+              </a>
+              <a
+                href="https://choieungi-project.notion.site/Team-Gijol-e5e279e91a0646c2a84b548873601a3f"
+                target="_blank"
+                rel="noreferrer"
+                className="transition-colors hover:text-white"
+              >
+                팀 소개
+              </a>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
+          <div className="mt-8 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
             <p>© {new Date().getFullYear()} GradPath (Gijol). All rights reserved.</p>
           </div>
         </div>

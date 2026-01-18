@@ -1,4 +1,4 @@
-import { IconTrendingUp } from '@tabler/icons-react';
+import { TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface GPACardProps {
@@ -14,7 +14,7 @@ export function GPACard({ overallAverageGrade, gradeDelta, className }: GPACardP
         <span className="text-xs font-bold tracking-wider text-gray-500 uppercase">누적 GPA</span>
         {gradeDelta !== null && (
           <div className="flex items-center gap-1">
-            <IconTrendingUp size={16} color={gradeDelta >= 0 ? '#2fb344' : '#f03e3e'} />
+            <TrendingUp size={16} color={gradeDelta >= 0 ? '#2fb344' : '#f03e3e'} />
             <span className={cn('text-sm font-bold', gradeDelta >= 0 ? 'text-emerald-600' : 'text-red-600')}>
               {gradeDelta >= 0 ? '+' : ''}
               {gradeDelta.toFixed(2)}

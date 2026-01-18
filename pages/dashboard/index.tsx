@@ -9,15 +9,7 @@ import { useRecommendedCourses } from '@/lib/hooks/useRecommendedCourses';
 import { BentoGrid, BentoGridItem } from '@components/ui/bento-grid';
 import { Progress } from '@components/ui/progress';
 import { Badge } from '@components/ui/badge';
-import {
-  IconUser,
-  IconSchool,
-  IconBook,
-  IconCalendar,
-  IconTrendingUp,
-  IconAlertTriangle,
-  IconChartBar,
-} from '@tabler/icons-react';
+import { User, School, Book, Calendar, TrendingUp, AlertTriangle, BarChart } from 'lucide-react';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 
 const TOTAL_REQUIRED_CREDITS = 130;
@@ -101,16 +93,16 @@ export default function HomePage() {
                   <tr>
                     <td className="w-20 py-1 text-gray-500">
                       <div className="flex items-center gap-2">
-                        <IconCalendar size={14} className="text-gray-400" />
+                        <Calendar size={14} className="text-gray-500" />
                         <span>학번</span>
                       </div>
                     </td>
-                    <td className="py-1 font-medium text-gray-800">{entryYear ? `${entryYear}학번` : '미입력'}</td>
+                    <td className="py-1 font-bold text-gray-900">{entryYear ? `${entryYear}학번` : '미입력'}</td>
                   </tr>
                   <tr>
                     <td className="py-1 text-gray-500">
                       <div className="flex items-center gap-2">
-                        <IconBook size={14} className="text-gray-400" />
+                        <Book size={14} className="text-gray-500" />
                         <span>전공</span>
                       </div>
                     </td>
@@ -123,7 +115,7 @@ export default function HomePage() {
                   <tr>
                     <td className="py-1 align-top text-gray-500">
                       <div className="flex items-center gap-2">
-                        <IconBook size={14} className="mt-0.5 text-gray-400" />
+                        <Book size={14} className="mt-0.5 text-gray-500" />
                         <span>부전공</span>
                       </div>
                     </td>
@@ -140,7 +132,7 @@ export default function HomePage() {
                             </Badge>
                           ))
                         ) : (
-                          <span className="text-xs text-gray-400">미선택</span>
+                          <span className="text-xs text-gray-500">미선택</span>
                         )}
                       </div>
                     </td>
@@ -149,7 +141,7 @@ export default function HomePage() {
               </table>
             </div>
           }
-          icon={<IconUser className="h-4 w-4 text-blue-500" />}
+          icon={<User className="h-4 w-4 text-blue-500" />}
         />
 
         {/* 총 이수학점 + 졸업 진행률 */}
@@ -160,45 +152,45 @@ export default function HomePage() {
             <div className="mt-3">
               <div className="flex items-baseline gap-3">
                 <span className="text-4xl font-bold text-blue-600">{totalCreditsEarned}</span>
-                <span className="text-lg font-medium text-gray-400">/ {TOTAL_REQUIRED_CREDITS}학점</span>
-                <span className="ml-auto text-2xl font-bold text-gray-700">{totalPercentage}%</span>
+                <span className="text-lg font-medium text-gray-500">/ {TOTAL_REQUIRED_CREDITS}학점</span>
+                <span className="ml-auto text-2xl font-bold text-gray-900">{totalPercentage}%</span>
               </div>
               <Progress value={totalPercentage} className="mt-3 h-3" />
             </div>
           }
-          icon={<IconSchool className="h-4 w-4 text-blue-500" />}
+          icon={<School className="h-4 w-4 text-blue-500" />}
         />
 
         {/* 하단 Row: GPA, 수강 과목 수, 남은 학점, 미충족 영역 */}
 
         {/* 학점 평균 */}
         <BentoGridItem
-          className="md:col-span-1 md:row-span-1"
+          className="text-gray-900 md:col-span-1 md:row-span-1"
           title={<div>학점 평균</div>}
           description={
             <div>
               <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-bold text-gray-800">{(overallAverageGrade ?? 0).toFixed(2)}</span>
-                <span className="text-sm text-gray-400">/ 4.5</span>
+                <span className="text-3xl font-bold text-gray-900">{(overallAverageGrade ?? 0).toFixed(2)}</span>
+                <span className="text-sm text-gray-500">/ 4.5</span>
               </div>
               <div>
                 {gradeDelta !== null ? (
                   <div
                     className={`flex items-center gap-1 text-xs ${gradeDelta >= 0 ? 'text-green-600' : 'text-red-500'}`}
                   >
-                    <IconTrendingUp size={12} />
+                    <TrendingUp size={12} />
                     <span>
                       {gradeDelta >= 0 ? '+' : ''}
                       {gradeDelta.toFixed(2)}
                     </span>
                   </div>
                 ) : (
-                  <span className="text-xs text-gray-400">누적 학점 평균</span>
+                  <span className="text-xs text-gray-500">누적 학점 평균</span>
                 )}
               </div>
             </div>
           }
-          icon={<IconChartBar className="h-4 w-4 text-blue-500" />}
+          icon={<BarChart className="h-4 w-4 text-blue-500" />}
         />
 
         {/* 수강 과목 수 */}
@@ -208,12 +200,12 @@ export default function HomePage() {
           description={
             <div>
               <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-bold text-indigo-600">{completedCourses}</span>
-                <span className="text-xs text-slate-500">과목</span>
+                <span className="text-3xl font-bold text-gray-900">{completedCourses}</span>
+                <span className="text-xs text-gray-500">과목</span>
               </div>
             </div>
           }
-          icon={<IconBook className="h-4 w-4 text-indigo-500" />}
+          icon={<Book className="h-4 w-4 text-gray-500" />}
         />
 
         {/* 남은 학점 */}
@@ -222,16 +214,16 @@ export default function HomePage() {
           title={<div>남은 학점</div>}
           description={
             <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-bold text-gray-700">{remainingCredits}</span>
-              <span className="text-sm text-gray-400">학점</span>
+              <span className="text-3xl font-bold text-gray-900">{remainingCredits}</span>
+              <span className="text-xs text-gray-500">학점</span>
             </div>
           }
-          icon={<IconBook className="h-4 w-4 text-gray-500" />}
+          icon={<Book className="h-4 w-4 text-gray-500" />}
         />
 
         {/* 미충족 영역 + 화살표 */}
         <BentoGridItem
-          className="md:col-span-1 md:row-span-1"
+          className={`md:col-span-1 md:row-span-1 ${unsatisfiedRequirements > 0 ? 'border-amber-500' : 'border-green-500'}`}
           title={<div>미충족 영역</div>}
           description={
             <div>
@@ -241,7 +233,7 @@ export default function HomePage() {
                 >
                   {unsatisfiedRequirements}
                 </span>
-                <span className="text-sm text-gray-400">개</span>
+                <span className="text-sm text-gray-500">개</span>
               </div>
 
               <div className="flex items-center gap-1 text-xs">
@@ -254,9 +246,7 @@ export default function HomePage() {
             </div>
           }
           icon={
-            <IconAlertTriangle
-              className={`h-4 w-4 ${unsatisfiedRequirements > 0 ? 'text-amber-500' : 'text-green-500'}`}
-            />
+            <AlertTriangle className={`h-4 w-4 ${unsatisfiedRequirements > 0 ? 'text-amber-500' : 'text-green-500'}`} />
           }
         />
       </BentoGrid>

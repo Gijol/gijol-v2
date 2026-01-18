@@ -1,0 +1,170 @@
+{
+  "meta": { "major": "기초교육학부", "track": "수학 부전공" },
+  "nodes": [
+    {
+      "id": "calculusGS1001",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": { "label": "미적분학", "credits": 3, "category": "교양", "semester": "1-1" }
+    },
+
+    {
+      "id": "basicDiffEqLinearAlgebraGS2013",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 0 },
+      "data": { "label": "기초미분방정식과 선형대수의 응용", "credits": 3, "category": "교양", "semester": "1-2" }
+    },
+    {
+      "id": "multivariableCalculusAppliedGSMm2001",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 100 },
+      "data": { "label": "다변수해석학과 응용", "credits": 3, "category": "교양", "semester": "1-2" }
+    },
+
+    {
+      "id": "linearAlgebraAppliedGSMm2004",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": { "label": "선형대수학과 응용", "credits": 3, "category": "전공필수", "semester": "2-1" }
+    },
+    {
+      "id": "diffEqAppliedGSMm2002",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 100 },
+      "data": { "label": "미분방정식과 응용", "credits": 3, "category": "전공필수", "semester": "2-1" }
+    },
+
+    {
+      "id": "modernAlgebraGSMm4004",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": { "label": "현대대수학", "credits": 3, "category": "전공필수", "semester": "2-2" }
+    },
+    {
+      "id": "analysisAppliedGSMm3001",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 100 },
+      "data": { "label": "해석학과 응용", "credits": 3, "category": "전공필수", "semester": "2-2" }
+    },
+    {
+      "id": "complexAnalysisAppliedGSMm4002",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 200 },
+      "data": { "label": "복소함수학과 응용", "credits": 3, "category": "전공필수", "semester": "2-2" }
+    },
+
+    {
+      "id": "mathModelingGSMm3012",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": { "label": "수학적 모델링", "credits": 3, "category": "전공선택", "semester": "3-1" }
+    },
+    {
+      "id": "probabilityStatisticsGSMm3015",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": { "label": "확률과 통계", "credits": 3, "category": "전공선택", "semester": "3-1" }
+    },
+
+    {
+      "id": "numberTheoryAppliedGSMm4006",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 0 },
+      "data": { "label": "정수론과 응용", "credits": 3, "category": "전공선택", "semester": "3-2" }
+    },
+    {
+      "id": "graphTheoryGSMm4009",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 100 },
+      "data": { "label": "그래프이론", "credits": 3, "category": "전공선택", "semester": "3-2" }
+    },
+    {
+      "id": "topologyIntroGSMm4016",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 200 },
+      "data": { "label": "위상수학 개론", "credits": 3, "category": "전공선택", "semester": "3-2" }
+    },
+    {
+      "id": "monteCarloMethodsAppliedGSMm4008",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 300 },
+      "data": { "label": "몬테카를로 방법론과 응용", "credits": 3, "category": "전공선택", "semester": "3-2" }
+    },
+    {
+      "id": "scientificComputingGSMm4015",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 400 },
+      "data": { "label": "과학계산", "credits": 3, "category": "전공선택", "semester": "3-2" }
+    },
+    {
+      "id": "mathematicaSymbolicComputationGSMm4017",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 500 },
+      "data": { "label": "매스메티카와 기호계산", "credits": 3, "category": "전공선택", "semester": "3-2" }
+    },
+
+    {
+      "id": "cryptographyPlanned",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 0 },
+      "data": { "label": "암호학(필수 예정)", "credits": 3, "category": "전공선택", "semester": "4-1" }
+    },
+    {
+      "id": "probabilityTheoryGSMm4019",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 100 },
+      "data": { "label": "확률론", "credits": 3, "category": "전공선택", "semester": "4-1" }
+    },
+    {
+      "id": "geometry1GSMm4007",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 200 },
+      "data": { "label": "기하학Ⅰ", "credits": 3, "category": "전공선택", "semester": "4-1" }
+    },
+    {
+      "id": "mlForMathTopicsGSMm4018",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 300 },
+      "data": { "label": "수리과학주제를 위한 머신러닝", "credits": 3, "category": "전공선택", "semester": "4-1" }
+    },
+
+    {
+      "id": "differentialGeometryPlanned",
+      "type": "customCourseNode",
+      "position": { "x": 1750, "y": 0 },
+      "data": { "label": "미분기하학(필수 예정)", "credits": 3, "category": "전공선택", "semester": "4-2" }
+    },
+    {
+      "id": "scientificComputingProgrammingGSMm4005",
+      "type": "customCourseNode",
+      "position": { "x": 1750, "y": 100 },
+      "data": { "label": "과학계산 프로그래밍", "credits": 3, "category": "전공선택", "semester": "4-2" }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_calculusGS1001_basicDiffEqLinearAlgebraGS2013",
+      "source": "calculusGS1001",
+      "target": "basicDiffEqLinearAlgebraGS2013",
+      "type": "smoothstep",
+      "animated": false,
+      "label": "권장"
+    },
+    {
+      "id": "e_linearAlgebraAppliedGSMm2004_modernAlgebraGSMm4004",
+      "source": "linearAlgebraAppliedGSMm2004",
+      "target": "modernAlgebraGSMm4004",
+      "type": "smoothstep",
+      "animated": false,
+      "label": "권장"
+    },
+    {
+      "id": "e_probabilityStatisticsGSMm3015_scientificComputingGSMm4015",
+      "source": "probabilityStatisticsGSMm3015",
+      "target": "scientificComputingGSMm4015",
+      "type": "smoothstep",
+      "animated": false,
+      "label": "권장"
+    }
+  ]
+}

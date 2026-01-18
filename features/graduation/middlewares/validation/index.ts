@@ -64,14 +64,76 @@ export const validateTakenCourses = (input: UserTakenCourseListType): Validation
  * Does strict type preservation (cannot add/remove fields).
  */
 export const normalizeTakenCourses = (input: UserTakenCourseListType): UserTakenCourseListType => {
-  const normalizedCourses: TakenCourseType[] = input.takenCourses.map((c) => ({
+  // 1. First pass: normalize strings
+  let normalizedCourses: TakenCourseType[] = input.takenCourses.map((c) => ({
     ...c,
     courseName: c.courseName?.trim() || '',
     courseCode: c.courseCode?.trim() || '',
     semester: c.semester?.trim() || '',
     courseType: c.courseType?.trim() || '기타',
-    // Fallback logic could go here if needed
+    grade: c.grade?.trim().toUpperCase() || '',
   }));
 
-  return { takenCourses: normalizedCourses };
+  // 2. Filter out F grades
+  normalizedCourses = normalizedCourses.filter((c) => c.grade !== 'F');
+
+  // 3. Handle Retakes: Deduplicate by courseCode, keeping the one with better grade/info
+  // Defines grade priority for sorting
+  const gradeRank: Record<string, number> = {
+    'A+': 100,
+    A0: 95,
+    'A-': 90,
+    'B+': 85,
+    B0: 80,
+    'B-': 75,
+    'C+': 70,
+    C0: 65,
+    'C-': 60,
+    'D+': 55,
+    D0: 50,
+    S: 45, // S is usually passing, treat as reasonable
+    U: 0,
+    F: -1,
+  };
+
+  const getRank = (g: string) => gradeRank[g] || 0;
+
+  // List of courses that can be taken multiple times (Colloquium, etc)
+  // For now, only adding UC9331 as explicitly known repeatable requirement
+  const REPEATABLE_CODES = new Set(['UC9331']);
+
+  const validMap = new Map<string, TakenCourseType>();
+  const repeatableCourses: TakenCourseType[] = [];
+
+  normalizedCourses.forEach((course) => {
+    const code = course.courseCode;
+    if (!code) return; // Skip if no code
+
+    if (REPEATABLE_CODES.has(code)) {
+      repeatableCourses.push(course);
+      return;
+    }
+
+    if (validMap.has(code)) {
+      const existing = validMap.get(code)!;
+      const currentRank = getRank(course.grade || '');
+      const existingRank = getRank(existing.grade || '');
+
+      // Keep the one with higher rank
+      if (currentRank > existingRank) {
+        validMap.set(code, course);
+      } else if (currentRank === existingRank) {
+        // Tie-breaker: prefer recent year/semester
+        if (course.year > existing.year) {
+          validMap.set(code, course);
+        } else if (course.year === existing.year && course.semester > existing.semester) {
+          validMap.set(code, course);
+        }
+      }
+    } else {
+      validMap.set(code, course);
+    }
+  });
+
+  return { takenCourses: [...Array.from(validMap.values()), ...repeatableCourses] };
 };

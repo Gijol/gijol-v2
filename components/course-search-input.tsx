@@ -1,15 +1,9 @@
 import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@components/ui/popover';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { Separator } from '@components/ui/separator';
-import { IconAdjustments, IconSearch } from '@tabler/icons-react';
+import { SlidersHorizontal, Search } from 'lucide-react';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useCourseList } from '@hooks/course';
@@ -51,34 +45,34 @@ export default function CourseSearchInput() {
   };
 
   return (
-    <div className="flex justify-center items-center mb-8 gap-4">
+    <div className="mb-8 flex items-center justify-center gap-4">
       <div className="relative w-[540px]">
-        <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
         <Input
           id="course-search"
           placeholder="강의코드, 강의명으로 검색해주세요!"
-          className="pl-10 h-[50px] rounded-full border-2 hover:border-blue-500 transition-colors"
+          className="h-[50px] rounded-full border-2 pl-10 transition-colors hover:border-blue-500"
           {...register('courseSearchString')}
         />
       </div>
 
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="secondary" className="rounded-full h-[50px] px-6">
+          <Button variant="secondary" className="h-[50px] rounded-full px-6">
             검색 옵션
-            <IconAdjustments className="ml-2 h-5 w-5" />
+            <SlidersHorizontal className="ml-2 h-5 w-5" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[300px]" align="end">
           <div className="space-y-4">
             <div>
-              <h4 className="font-medium mb-2 leading-none">옵션</h4>
+              <h4 className="mb-2 leading-none font-medium">옵션</h4>
               <Separator />
             </div>
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                <label className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   HUS, PPE, 또는 부전공
                 </label>
                 <Controller
@@ -102,7 +96,7 @@ export default function CourseSearchInput() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                <label className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   몇 개씩 검색할까요?
                 </label>
                 <Controller
@@ -120,7 +114,11 @@ export default function CourseSearchInput() {
               </div>
 
               <div className="flex gap-2">
-                <Button variant="outline" className="flex-1 text-red-500 hover:text-red-700 hover:bg-red-50" onClick={handleReset}>
+                <Button
+                  variant="outline"
+                  className="flex-1 text-red-500 hover:bg-red-50 hover:text-red-700"
+                  onClick={handleReset}
+                >
                   초기화
                 </Button>
                 <Button type="submit" className="flex-1">

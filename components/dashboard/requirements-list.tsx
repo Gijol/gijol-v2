@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { IconAlertTriangle, IconCircleCheck, IconBooks, IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import { AlertTriangle, CircleCheck, Library, ChevronDown, ChevronUp } from 'lucide-react';
 import { Progress } from '@components/ui/progress';
 import { Badge } from '@components/ui/badge';
 import { ScrollArea } from '@components/ui/scroll-area';
@@ -37,7 +37,7 @@ function RecommendedCoursesSection({ courses }: { courses: RecommendedCourse[] }
   return (
     <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
       <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-blue-800">
-        <IconBooks size={16} />
+        <Library size={16} />
         추천 과목
         <span className="text-xs font-normal text-blue-600">({courses.length}개)</span>
       </h4>
@@ -66,12 +66,12 @@ function RecommendedCoursesSection({ courses }: { courses: RecommendedCourse[] }
         >
           {expanded ? (
             <>
-              <IconChevronUp size={16} className="mr-1" />
+              <ChevronUp size={16} className="mr-1" />
               접기
             </>
           ) : (
             <>
-              <IconChevronDown size={16} className="mr-1" />
+              <ChevronDown size={16} className="mr-1" />
               더보기 ({courses.length - INITIAL_SHOW_COUNT}개)
             </>
           )}
@@ -106,9 +106,9 @@ export function RequirementsList({ requirements, className }: RequirementsListPr
                   <div className="mb-3 flex items-start justify-between">
                     <div className="flex items-center gap-2">
                       {req.satisfied ? (
-                        <IconCircleCheck size={20} className="text-emerald-600" />
+                        <CircleCheck size={20} className="text-emerald-600" />
                       ) : (
-                        <IconAlertTriangle size={20} className="text-amber-500" />
+                        <AlertTriangle size={20} className="text-amber-500" />
                       )}
                       <span className="font-bold text-gray-900">{req.domain}</span>
                     </div>
@@ -136,9 +136,9 @@ export function RequirementsList({ requirements, className }: RequirementsListPr
                 <SheetHeader className="border-b border-gray-50 pb-4">
                   <div className="flex items-center gap-2">
                     {req.satisfied ? (
-                      <IconCircleCheck size={24} className="text-emerald-600" />
+                      <CircleCheck size={24} className="text-emerald-600" />
                     ) : (
-                      <IconAlertTriangle size={24} className="text-amber-500" />
+                      <AlertTriangle size={24} className="text-amber-500" />
                     )}
                     <SheetTitle className="text-xl">{req.domain}</SheetTitle>
                   </div>
@@ -185,7 +185,7 @@ export function RequirementsList({ requirements, className }: RequirementsListPr
                       return (
                         <div className="mb-6 rounded-lg border border-amber-100 bg-amber-50 p-4">
                           <h4 className="mb-2 flex items-center gap-2 text-sm font-semibold text-amber-800">
-                            <IconAlertTriangle size={16} />
+                            <AlertTriangle size={16} />
                             미충족 사항
                           </h4>
                           <ul className="space-y-1.5">

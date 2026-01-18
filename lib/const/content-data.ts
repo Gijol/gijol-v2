@@ -1,11 +1,4 @@
-import {
-  IconCertificate,
-  IconChalkboard,
-  IconClipboardList,
-  IconDeviceDesktopAnalytics,
-  IconListSearch,
-  IconThumbUp,
-} from '@tabler/icons-react';
+import { Award, Presentation, ClipboardList, MonitorCheck, FileSearch, ThumbsUp } from 'lucide-react';
 
 export const homeContents = {
   main: {
@@ -14,22 +7,21 @@ export const homeContents = {
       {
         title: '내 수강현황',
         description: '개인 수강 현황을 시각화해서 보여주는 서비스입니다!',
-        icon: IconClipboardList,
+        icon: ClipboardList,
         route: `/dashboard/course/my`,
         with_auth: true,
       },
       {
         title: '내 졸업요건',
-        description:
-          '개인 수강정보를 기반으로 졸업요건 충족 여부를 확인하여 그 결과와 강의 추천까지 해드립니다!',
-        icon: IconDeviceDesktopAnalytics,
+        description: '개인 수강정보를 기반으로 졸업요건 충족 여부를 확인하여 그 결과와 강의 추천까지 해드립니다!',
+        icon: MonitorCheck,
         route: `/dashboard/graduation`,
         with_auth: true,
       },
       {
         title: '강의 정보 확인하기',
         description: '2023년도 학사편람을 기반으로 한 강의 정보를 확인하세요!',
-        icon: IconChalkboard,
+        icon: Presentation,
         route: `/dashboard/course/search`,
         with_auth: false,
       },
@@ -44,18 +36,17 @@ export const homeContents = {
       {
         title: '강의 추천 기능',
         description: '유저 정보 기반으로 학번별, 전공별, 난이도별 추천이 이뤄질 것으로 예상됩니다!',
-        icon: IconThumbUp,
+        icon: ThumbsUp,
       },
       {
         title: '강의 검색 기능',
-        description:
-          '강의 난이도, 학기별 오픈 여부, 수강생 수 등의 정보를 확인할 수 있을 것으로 예상됩니다!',
-        icon: IconListSearch,
+        description: '강의 난이도, 학기별 오픈 여부, 수강생 수 등의 정보를 확인할 수 있을 것으로 예상됩니다!',
+        icon: FileSearch,
       },
       {
         title: '졸업요건 확인서 발급하기',
         description: '졸업 전에 제출하는 졸업요건 이수 확인서를 발급하세요!',
-        icon: IconCertificate,
+        icon: Award,
         route: `/dashboard/graduation/certificate`,
         with_auth: false,
       },

@@ -1,4 +1,4 @@
-import { CategoryKey } from '@utils/graduation/grad-rules';
+import { CategoryKey } from '@features/graduation/domain';
 
 // 세부 요건 단위: 그래프/다이어그램/시간표 추천에 공통으로 쓸 수 있는 정보
 export type RequirementImportance = 'must' | 'should';

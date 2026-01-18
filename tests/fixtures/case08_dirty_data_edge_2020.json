@@ -1,0 +1,68 @@
+{
+  "studentId": "20201234",
+  "userTakenCourseList": [
+    {
+      "courseCode": "GS1001",
+      "courseName": "미적분학과 응용",
+      "courseType": "M",
+      "credit": 3,
+      "grade": "C0",
+      "semester": "1학기",
+      "year": 2020
+    },
+    {
+      "courseCode": "GS1101",
+      "courseName": "일반물리학 및 연습 I",
+      "courseType": "M",
+      "credit": 3,
+      "grade": "W",
+      "semester": "1학기",
+      "year": 2020
+    },
+    {
+      "courseCode": "GS1111",
+      "courseName": "일반물리학 실험 I",
+      "courseType": "M",
+      "credit": 1,
+      "grade": "B+",
+      "semester": "1학기",
+      "year": 2020
+    },
+    {
+      "courseCode": "GS0104",
+      "courseName": "배드민턴",
+      "courseType": "M",
+      "credit": 0,
+      "grade": "A0",
+      "semester": "2학기",
+      "year": 2020
+    },
+    {
+      "courseCode": "EC9999",
+      "courseName": "특별연구(인턴십)",
+      "courseType": "X",
+      "credit": 6,
+      "grade": "S",
+      "semester": "계절학기",
+      "year": 2023
+    },
+    {
+      "courseCode": "UC9331",
+      "courseName": "GIST대학 콜로퀴움",
+      "courseType": "E",
+      "credit": 0,
+      "grade": "S",
+      "semester": "1학기",
+      "year": 2022
+    },
+    {
+      "courseCode": "UC9331",
+      "courseName": "GIST대학 콜로퀴움",
+      "courseType": "E",
+      "credit": 0,
+      "grade": "S",
+      "semester": "2학기",
+      "year": 2022
+    }
+  ]
+}

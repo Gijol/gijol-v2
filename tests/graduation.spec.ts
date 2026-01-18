@@ -37,5 +37,29 @@ describe('Graduation Logic (20205098)', () => {
 
     expect(husReq?.acquiredCredits).toBeGreaterThan(0);
     expect(ppeReq?.acquiredCredits).toBeGreaterThan(0);
+    expect(ppeReq?.acquiredCredits).toBeGreaterThan(0);
+  });
+
+  it('should classify MOOC courses as free electives', async () => {
+    const inputWithMooc = JSON.parse(JSON.stringify(input));
+    inputWithMooc.userTakenCourseList.push({
+      year: 2023,
+      semester: '1',
+      courseType: '전선',
+      courseName: 'MOOC: Artificial Intelligence',
+      courseCode: 'GS9999',
+      credit: 1,
+      grade: 'S',
+    });
+
+    const result = await uploadAndEvaluate(inputWithMooc);
+    const data = result.data;
+    if (!data) throw new Error('No data returned');
+
+    const freeElectives = data.graduationCategory.otherUncheckedClass.userTakenCoursesList.takenCourses;
+    const mooc = freeElectives.find((c) => c.courseName === 'MOOC: Artificial Intelligence');
+
+    expect(mooc).toBeDefined();
+    expect(mooc?.courseCode).toBe('GS9999');
   });
 });

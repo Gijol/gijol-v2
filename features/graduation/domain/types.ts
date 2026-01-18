@@ -12,6 +12,7 @@ export interface TakenCourseType {
   courseName: string;
   courseCode: string;
   credit: number;
+  grade: string;
 }
 
 export interface UserTakenCourseListType {

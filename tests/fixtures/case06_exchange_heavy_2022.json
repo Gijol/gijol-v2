@@ -1,0 +1,95 @@
+{
+  "studentId": "20228088",
+  "userTakenCourseList": [
+    {
+      "courseCode": "GS1601",
+      "courseName": "영어 Ⅰ: 신입생 영어",
+      "courseType": "M",
+      "credit": 2,
+      "grade": "A0",
+      "semester": "1학기",
+      "year": 2022
+    },
+    {
+      "courseCode": "GS2652",
+      "courseName": "영어 II : 이공계 글쓰기 입문",
+      "courseType": "M",
+      "credit": 2,
+      "grade": "A0",
+      "semester": "2학기",
+      "year": 2022
+    },
+    {
+      "courseCode": "UCEX001",
+      "courseName": "Introduction to Data Science(UC Berkeley)",
+      "courseType": "E",
+      "credit": 4,
+      "grade": "A-",
+      "semester": "여름학기",
+      "year": 2023
+    },
+    {
+      "courseCode": "UCEX002",
+      "courseName": "Linear Algebra(UC Berkeley)",
+      "courseType": "E",
+      "credit": 4,
+      "grade": "B+",
+      "semester": "여름학기",
+      "year": 2023
+    },
+    {
+      "courseCode": "UCEX003",
+      "courseName": "Product Design Sprint(UC Berkeley)",
+      "courseType": "E",
+      "credit": 3,
+      "grade": "A0",
+      "semester": "여름학기",
+      "year": 2023
+    },
+    {
+      "courseCode": "UCEX101",
+      "courseName": "Human-Computer Interaction(Exchange)",
+      "courseType": "E",
+      "credit": 3,
+      "grade": "A+",
+      "semester": "1학기",
+      "year": 2024
+    },
+    {
+      "courseCode": "UCEX102",
+      "courseName": "Entrepreneurship & Innovation(Exchange)",
+      "courseType": "E",
+      "credit": 3,
+      "grade": "A0",
+      "semester": "1학기",
+      "year": 2024
+    },
+    {
+      "courseCode": "UCEX201",
+      "courseName": "Natural Language Processing(Exchange)",
+      "courseType": "E",
+      "credit": 3,
+      "grade": "B0",
+      "semester": "2학기",
+      "year": 2024
+    },
+    {
+      "courseCode": "UCEX202",
+      "courseName": "Computer Vision(Exchange)",
+      "courseType": "E",
+      "credit": 3,
+      "grade": "B+",
+      "semester": "2학기",
+      "year": 2024
+    },
+    {
+      "courseCode": "UC9331",
+      "courseName": "GIST대학 콜로퀴움",
+      "courseType": "E",
+      "credit": 0,
+      "grade": "S",
+      "semester": "2학기",
+      "year": 2024
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "major": "기초교육학부(인문사회)",
+    "track": "문학과 역사"
+  },
+  "nodes": [
+    {
+      "id": "understandingPoetry",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": {
+        "label": "(MOOC 지정) 시의 이해",
+        "credits": 3,
+        "category": "general",
+        "semester": "1-1"
+      }
+    },
+    {
+      "id": "englishReadings",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 100 },
+      "data": {
+        "label": "영문학작품의 이해",
+        "credits": 3,
+        "category": "general",
+        "semester": "1-1"
+      }
+    },
+    {
+      "id": "understandingKoreanHistory",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 200 },
+      "data": {
+        "label": "한국사의 이해",
+        "credits": 3,
+        "category": "general",
+        "semester": "1-1"
+      }
+    },
+    {
+      "id": "understandingKoreanNovel",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 300 },
+      "data": {
+        "label": "한국현대소설의 이해",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "1-1"
+      }
+    },
+
+    {
+      "id": "koreanModernPoetry",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 0 },
+      "data": {
+        "label": "한국현대시의 사회적 성찰",
+        "credits": 3,
+        "category": "general",
+        "semester": "1-2"
+      }
+    },
+    {
+      "id": "modernNovelReading",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 100 },
+      "data": {
+        "label": "현대소설 읽기",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "1-2"
+      }
+    },
+    {
+      "id": "literatureAndMedia",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 200 },
+      "data": {
+        "label": "문학과 언어들",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "1-2"
+      }
+    },
+
+    {
+      "id": "koreanClassicalNovel",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": {
+        "label": "한국고소설의 이해",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "2-1"
+      }
+    },
+    {
+      "id": "earlyModernNovel",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 100 },
+      "data": {
+        "label": "초기근대소설",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "2-1"
+      }
+    },
+    {
+      "id": "genderAndNarrative",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 200 },
+      "data": {
+        "label": "계몽과 젠더, 여성 서사",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "2-1"
+      }
+    },
+
+    {
+      "id": "koreanContemporaryHistory",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": {
+        "label": "한국현대사의 쟁점",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "2-2"
+      }
+    },
+    {
+      "id": "criticismAndCulture",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 100 },
+      "data": {
+        "label": "비평과 문화이론",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "2-2"
+      }
+    },
+    {
+      "id": "modernLiteraryFormation",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 200 },
+      "data": {
+        "label": "현대시의 형성과 전개",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "2-2"
+      }
+    },
+
+    {
+      "id": "theoriesOfLiterature",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": {
+        "label": "이상문학과 이론",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "3-1"
+      }
+    },
+    {
+      "id": "koreanModernHistory",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": {
+        "label": "한국근현대사",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "3-1"
+      }
+    },
+    {
+      "id": "scienceAndLiterature",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 200 },
+      "data": {
+        "label": "과학과 문학",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "3-1"
+      }
+    },
+    {
+      "id": "warAndHumans",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 300 },
+      "data": {
+        "label": "전쟁과 인간",
+        "credits": 3,
+        "category": "general",
+        "semester": "3-1"
+      }
+    },
+
+    {
+      "id": "poetrySpecialLecture",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 0 },
+      "data": {
+        "label": "시창작 특강",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "3-2"
+      }
+    },
+    {
+      "id": "twentiethCenturyKorean",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 100 },
+      "data": {
+        "label": "20세기 한국어문학",
+        "credits": 3,
+        "category": "major_elective",
+        "semester": "3-2"
+      }
+    }
+  ],
+  "edges": []
+}

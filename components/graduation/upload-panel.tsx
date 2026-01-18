@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/router';
-import { IconUpload } from '@tabler/icons-react';
+import { Upload } from 'lucide-react';
 
 import { Button } from '@components/ui/button';
 import { Card, CardContent, CardHeader } from '@components/ui/card';
@@ -173,7 +173,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
       <Card className="mb-6 p-0">
         <CardHeader className="border-b border-slate-300 p-4">
           <div className="flex items-center gap-2">
-            <IconUpload className="text-muted-foreground h-5 w-5" />
+            <Upload className="text-muted-foreground h-5 w-5" />
             <span className="text-foreground font-semibold">파일 업로드</span>
           </div>
         </CardHeader>
@@ -194,7 +194,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
               <div className="px-4 text-center">
                 {!file ? (
                   <div className="flex flex-col items-center gap-2">
-                    <IconUpload className="text-muted-foreground h-8 w-8" />
+                    <Upload className="text-muted-foreground h-8 w-8" />
                     <p className="text-muted-foreground text-sm">
                       여기에 엑셀 파일을 드롭하거나 클릭하여 업로드해주세요.
                     </p>

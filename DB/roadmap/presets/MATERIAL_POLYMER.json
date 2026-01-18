@@ -1,0 +1,211 @@
+{
+  "meta": { "major": "신소재공학부", "track": "고분자재료 분야" },
+  "nodes": [
+    {
+      "id": "GS1201",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": { "label": "일반화학 및 실험 1", "credits": 3, "category": "기초필수", "semester": "1-1" }
+    },
+    {
+      "id": "GS1101",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 100 },
+      "data": { "label": "일반물리학 및 실험 1", "credits": 3, "category": "기초필수", "semester": "1-1" }
+    },
+    {
+      "id": "GS1211",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 200 },
+      "data": { "label": "일반화학실험 1", "credits": 1, "category": "기초필수", "semester": "1-1" }
+    },
+    {
+      "id": "GS1111",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 300 },
+      "data": { "label": "일반물리학실험 1", "credits": 1, "category": "기초필수", "semester": "1-1" }
+    },
+    {
+      "id": "GS1001",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 500 },
+      "data": { "label": "미적분학과 응용", "credits": 3, "category": "기초필수", "semester": "1-1" }
+    },
+    {
+      "id": "GS1401",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 600 },
+      "data": { "label": "컴퓨터 프로그래밍", "credits": 3, "category": "기초필수", "semester": "1-1" }
+    },
+    {
+      "id": "GS1490",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 700 },
+      "data": { "label": "소프트웨어 기초와 코딩", "credits": 2, "category": "기초필수", "semester": "1-1" }
+    },
+
+    {
+      "id": "GS1545",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 0 },
+      "data": { "label": "소재와미래 과학기술", "credits": 1, "category": "기초선택", "semester": "1-2" }
+    },
+    {
+      "id": "GS1202",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 100 },
+      "data": { "label": "일반화학 및 실험 2", "credits": 3, "category": "기초필수", "semester": "1-2" }
+    },
+    {
+      "id": "GS1102",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 200 },
+      "data": { "label": "일반물리학 및 실험 2", "credits": 3, "category": "기초필수", "semester": "1-2" }
+    },
+    {
+      "id": "GS1212",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 300 },
+      "data": { "label": "일반화학실험 2", "credits": 1, "category": "기초필수", "semester": "1-2" }
+    },
+    {
+      "id": "GS1112",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 400 },
+      "data": { "label": "일반물리학실험 2", "credits": 1, "category": "기초필수", "semester": "1-2" }
+    },
+    {
+      "id": "GS2002",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 600 },
+      "data": { "label": "미분방정식과 응용", "credits": 3, "category": "기초필수", "semester": "1-2" }
+    },
+    {
+      "id": "GS2004",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 700 },
+      "data": { "label": "선형대수학과 응용", "credits": 3, "category": "기초필수", "semester": "1-2" }
+    },
+    {
+      "id": "GS2001",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 800 },
+      "data": { "label": "다변수해석학과 응용", "credits": 3, "category": "기초필수", "semester": "1-2" }
+    },
+
+    {
+      "id": "MA2101",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": { "label": "재료과학", "credits": 3, "category": "전공핵심", "semester": "2-1" }
+    },
+    {
+      "id": "MA2102",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 100 },
+      "data": { "label": "열역학", "credits": 3, "category": "전공핵심", "semester": "2-1" }
+    },
+    {
+      "id": "MA2103",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 200 },
+      "data": { "label": "유기재료화학", "credits": 3, "category": "전공핵심", "semester": "2-1" }
+    },
+    {
+      "id": "CH2103",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 400 },
+      "data": { "label": "유기화학 I", "credits": 3, "category": "타전공", "semester": "2-1" }
+    },
+
+    {
+      "id": "MA2104",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": { "label": "고분자화학", "credits": 3, "category": "전공핵심", "semester": "2-2" }
+    },
+    {
+      "id": "CH2201",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 400 },
+      "data": { "label": "유기화학 II", "credits": 3, "category": "타전공", "semester": "2-2" }
+    },
+    {
+      "id": "CH3106",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 500 },
+      "data": { "label": "생화학 I", "credits": 3, "category": "타전공", "semester": "2-2" }
+    },
+
+    {
+      "id": "MA3211",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": { "label": "기기분석", "credits": 3, "category": "전공심화", "semester": "3-1" }
+    },
+    {
+      "id": "MA3210",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": { "label": "고분자화학", "credits": 3, "category": "전공심화", "semester": "3-1" }
+    },
+
+    {
+      "id": "MA3105",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 0 },
+      "data": { "label": "유기재료실험", "credits": 3, "category": "전공심화", "semester": "3-2" }
+    },
+    {
+      "id": "MA3208",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 200 },
+      "data": { "label": "생체재료", "credits": 3, "category": "전공심화", "semester": "3-2" }
+    },
+
+    {
+      "id": "MA4205",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 0 },
+      "data": { "label": "고분자합성", "credits": 3, "category": "전공심화", "semester": "4-1" }
+    },
+    {
+      "id": "MA4220",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 100 },
+      "data": { "label": "고분자구조 및 특성", "credits": 3, "category": "전공심화", "semester": "4-1" }
+    },
+    {
+      "id": "MA4207",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 300 },
+      "data": { "label": "의료고분자", "credits": 3, "category": "전공심화", "semester": "4-1" }
+    },
+    {
+      "id": "MA4223",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 400 },
+      "data": { "label": "생화학특론", "credits": 3, "category": "전공심화", "semester": "4-1" }
+    },
+
+    {
+      "id": "MA4222",
+      "type": "customCourseNode",
+      "position": { "x": 1750, "y": 0 },
+      "data": { "label": "고분자분석", "credits": 3, "category": "전공심화", "semester": "4-2" }
+    },
+    {
+      "id": "MA4219",
+      "type": "customCourseNode",
+      "position": { "x": 1750, "y": 100 },
+      "data": { "label": "프린팅일렉트로닉스", "credits": 3, "category": "전공심화", "semester": "4-2" }
+    },
+    {
+      "id": "MA4209",
+      "type": "customCourseNode",
+      "position": { "x": 1750, "y": 200 },
+      "data": { "label": "나노바이오재료", "credits": 3, "category": "전공심화", "semester": "4-2" }
+    }
+  ],
+  "edges": []
+}

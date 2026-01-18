@@ -1,0 +1,172 @@
+{
+  "meta": { "major": "생명과학부", "track": "연구분야별" },
+  "nodes": [
+    {
+      "id": "BS2101",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": { "label": "유기화학 I", "credits": 3, "category": "Common Core", "semester": "G1" }
+    },
+    {
+      "id": "BS2102",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 0 },
+      "data": { "label": "분자생물학", "credits": 3, "category": "Common Core", "semester": "G2" }
+    },
+    {
+      "id": "BS3111",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": { "label": "생화학·분자생물실험", "credits": 3, "category": "Common Core", "semester": "G3" }
+    },
+    {
+      "id": "BS3101",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": { "label": "생물학 I", "credits": 3, "category": "Common Core", "semester": "G4" }
+    },
+    {
+      "id": "BS3105",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": { "label": "생물학 II", "credits": 3, "category": "Common Core", "semester": "G5" }
+    },
+    {
+      "id": "BS3105_cell",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 0 },
+      "data": { "label": "세포생물학", "credits": 3, "category": "Common Core", "semester": "G6" }
+    },
+    {
+      "id": "BS3112",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 0 },
+      "data": { "label": "세포·발생생물실험", "credits": 3, "category": "Common Core", "semester": "G7" }
+    },
+
+    {
+      "id": "BS2205",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 200 },
+      "data": { "label": "생명정보학 개론", "credits": 3, "category": "Basics", "semester": "G1" }
+    },
+    {
+      "id": "BS3202",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 200 },
+      "data": { "label": "유전학", "credits": 3, "category": "Basics", "semester": "G2" }
+    },
+    {
+      "id": "BS2201",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 200 },
+      "data": { "label": "생화학의 공학적 이해", "credits": 3, "category": "Basics", "semester": "G3" }
+    },
+    {
+      "id": "BS2204",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 200 },
+      "data": { "label": "기초 해부조직학", "credits": 3, "category": "Basics", "semester": "G7" }
+    },
+
+    {
+      "id": "BS3210",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 400 },
+      "data": { "label": "분자-세포작동원리 및 이론", "credits": 3, "category": "Core Electives", "semester": "G1" }
+    },
+    {
+      "id": "BS4223",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 400 },
+      "data": { "label": "바이러스학", "credits": 3, "category": "Core Electives", "semester": "G2" }
+    },
+    {
+      "id": "BS4215",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 400 },
+      "data": { "label": "대사학", "credits": 3, "category": "Core Electives", "semester": "G4" }
+    },
+    {
+      "id": "BS4214",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 400 },
+      "data": { "label": "기초 구조생물학", "credits": 3, "category": "Core Electives", "semester": "G5" }
+    },
+    {
+      "id": "BS4201",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 400 },
+      "data": { "label": "발생생물학", "credits": 3, "category": "Core Electives", "semester": "G6" }
+    },
+    {
+      "id": "BS4204",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 400 },
+      "data": { "label": "신경생물학", "credits": 3, "category": "Core Electives", "semester": "G7" }
+    },
+
+    {
+      "id": "BS4218",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 600 },
+      "data": { "label": "리보솜 생물학", "credits": 3, "category": "Advanced Core Electives", "semester": "G2" }
+    },
+    {
+      "id": "BS4206",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 600 },
+      "data": { "label": "의약화학", "credits": 3, "category": "Advanced Core Electives", "semester": "G4" }
+    },
+    {
+      "id": "BS4213",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 600 },
+      "data": { "label": "의약 면역학", "credits": 3, "category": "Advanced Core Electives", "semester": "G5" }
+    },
+    {
+      "id": "BS4219",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 600 },
+      "data": { "label": "암생물학", "credits": 3, "category": "Advanced Core Electives", "semester": "G6" }
+    },
+    {
+      "id": "BS4217",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 600 },
+      "data": { "label": "생리학 II", "credits": 3, "category": "Advanced Core Electives", "semester": "G7" }
+    },
+
+    {
+      "id": "BS4240",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 800 },
+      "data": {
+        "label": "생물정보학 바이오인포매틱스 산책",
+        "credits": 3,
+        "category": "Advanced Electives",
+        "semester": "G2"
+      }
+    },
+    {
+      "id": "BS4216",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 800 },
+      "data": { "label": "단백질 생명과학", "credits": 3, "category": "Advanced Electives", "semester": "G5" }
+    },
+    {
+      "id": "BS3211",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 800 },
+      "data": { "label": "약학개론 위한 실험모델", "credits": 2, "category": "Advanced Electives", "semester": "G7" }
+    },
+
+    {
+      "id": "BS3205",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 1000 },
+      "data": { "label": "환경생태학", "credits": 3, "category": "Additional Electives", "semester": "G5" }
+    }
+  ],
+  "edges": []
+}

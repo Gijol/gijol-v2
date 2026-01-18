@@ -1,0 +1,285 @@
+{
+  "meta": {
+    "major": "물리·광과학과",
+    "track": null
+  },
+  "nodes": [
+    {
+      "id": "appliedCalculus",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": {
+        "label": "미적분학과 응용",
+        "credits": 3,
+        "category": "교양",
+        "semester": "1-1"
+      }
+    },
+    {
+      "id": "generalPhysics1",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 100 },
+      "data": {
+        "label": "일반물리학 및 연습",
+        "credits": 3,
+        "category": "교양",
+        "semester": "1-1"
+      }
+    },
+    {
+      "id": "generalPhysicsLab1",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 200 },
+      "data": {
+        "label": "일반물리학 실험",
+        "credits": 1,
+        "category": "교양",
+        "semester": "1-1"
+      }
+    },
+
+    {
+      "id": "differentialEquations",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 0 },
+      "data": {
+        "label": "다변수해석학과 응용",
+        "credits": 3,
+        "category": "교양",
+        "semester": "1-2"
+      }
+    },
+    {
+      "id": "generalPhysics2",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 100 },
+      "data": {
+        "label": "일반물리학 및 연습Ⅱ",
+        "credits": 3,
+        "category": "교양",
+        "semester": "1-2"
+      }
+    },
+    {
+      "id": "generalPhysicsLab2",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 200 },
+      "data": {
+        "label": "일반물리학 실험Ⅱ",
+        "credits": 1,
+        "category": "교양",
+        "semester": "1-2"
+      }
+    },
+
+    {
+      "id": "linearAlgebra",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": {
+        "label": "선형대수학과 응용",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1"
+      }
+    },
+    {
+      "id": "modernPhysics",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 100 },
+      "data": {
+        "label": "현대물리 개론",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1"
+      }
+    },
+    {
+      "id": "electromagnetism1",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 200 },
+      "data": {
+        "label": "고전역학 및 연습",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1"
+      }
+    },
+
+    {
+      "id": "statisticalPhysics",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": {
+        "label": "미분방정식과 응용",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2"
+      }
+    },
+    {
+      "id": "quantumMechanics1",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 100 },
+      "data": {
+        "label": "수리물리Ⅰ",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2"
+      }
+    },
+    {
+      "id": "electromagnetism2",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 200 },
+      "data": {
+        "label": "전자기학 및 연습",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2"
+      }
+    },
+
+    {
+      "id": "quantumMechanics2",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": {
+        "label": "수리물리Ⅱ",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1"
+      }
+    },
+    {
+      "id": "optics",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": {
+        "label": "광학개론",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1"
+      }
+    },
+    {
+      "id": "solidStatePhysics",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 200 },
+      "data": {
+        "label": "고체물리",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1"
+      }
+    },
+
+    {
+      "id": "physicsLab3",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 0 },
+      "data": {
+        "label": "물리실험Ⅲ",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2"
+      }
+    },
+    {
+      "id": "semiconductorPhysics",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 100 },
+      "data": {
+        "label": "반도체 물리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2"
+      }
+    },
+
+    {
+      "id": "advancedQuantumPhysics",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 0 },
+      "data": {
+        "label": "고급양자물리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1"
+      }
+    },
+    {
+      "id": "plasmaPhysics",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 100 },
+      "data": {
+        "label": "플라즈마물리 개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1"
+      }
+    },
+
+    {
+      "id": "nuclearPhysics",
+      "type": "customCourseNode",
+      "position": { "x": 1750, "y": 0 },
+      "data": {
+        "label": "핵 및 입자물리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_generalPhysics1_generalPhysics2",
+      "source": "generalPhysics1",
+      "target": "generalPhysics2",
+      "type": "smoothstep",
+      "animated": false,
+      "label": "필수"
+    },
+    {
+      "id": "e_generalPhysics2_modernPhysics",
+      "source": "generalPhysics2",
+      "target": "modernPhysics",
+      "type": "smoothstep",
+      "animated": false,
+      "label": "필수"
+    },
+    {
+      "id": "e_modernPhysics_quantumMechanics1",
+      "source": "modernPhysics",
+      "target": "quantumMechanics1",
+      "type": "smoothstep",
+      "animated": false,
+      "label": "필수"
+    },
+    {
+      "id": "e_quantumMechanics1_quantumMechanics2",
+      "source": "quantumMechanics1",
+      "target": "quantumMechanics2",
+      "type": "smoothstep",
+      "animated": false,
+      "label": "필수"
+    },
+    {
+      "id": "e_electromagnetism1_electromagnetism2",
+      "source": "electromagnetism1",
+      "target": "electromagnetism2",
+      "type": "smoothstep",
+      "animated": false,
+      "label": "필수"
+    },
+    {
+      "id": "e_optics_solidStatePhysics",
+      "source": "optics",
+      "target": "solidStatePhysics",
+      "type": "smoothstep",
+      "animated": false,
+      "label": "권장"
+    }
+  ]
+}

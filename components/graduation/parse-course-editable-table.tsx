@@ -5,7 +5,7 @@ import { ScrollArea } from '@components/ui/scroll-area';
 import { Input } from '@components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { Button } from '@components/ui/button';
-import { IconTrash, IconPlus } from '@tabler/icons-react';
+import { Trash2, Plus } from 'lucide-react';
 import type { EditableCourseRow } from '@lib/types/graduation-editable';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@components/ui/tooltip';
 
@@ -122,7 +122,7 @@ export function ParsedCourseEditableTable({ rows, onChangeRow, onAddRow, onRemov
                       className="h-8 w-8 text-red-500 hover:bg-red-50 hover:text-red-700"
                       onClick={() => onRemoveRow(row.id)}
                     >
-                      <IconTrash size={16} />
+                      <Trash2 size={16} />
                     </Button>
                   </div>
                 </TableCell>
@@ -136,7 +136,7 @@ export function ParsedCourseEditableTable({ rows, onChangeRow, onAddRow, onRemov
         <Tooltip>
           <TooltipTrigger asChild>
             <Button onClick={onAddRow} variant="outline" size="icon" className="h-9 w-9">
-              <IconPlus size={18} />
+              <Plus size={18} />
             </Button>
           </TooltipTrigger>
           <TooltipContent>

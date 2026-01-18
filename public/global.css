@@ -30,7 +30,7 @@
     --accent: oklch(0.97 0 0);
     --accent-foreground: oklch(0.205 0 0);
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
+    --border: oklch(86.9% 0.022 252.894);
     --input: oklch(0.922 0 0);
     --ring: oklch(0.708 0 0);
     --chart-1: oklch(80.3% 0.112 244.86);
@@ -117,6 +117,21 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Brand Colors - Certificate Builder Design System */
+  --color-brand-primary: oklch(0.68 0.16 230);
+  --color-brand-primary-hover: oklch(0.6 0.16 232);
+  --color-brand-primary-soft: oklch(0.95 0.03 220);
+  --color-brand-primary-muted: oklch(0.9 0.05 225);
+
+  /* Success Colors */
+  --color-success: oklch(0.72 0.2 145);
+  --color-success-foreground: #ffffff;
+  --color-success-soft: #dcfce7;
+
+  /* Warning */
+  --color-warning: #f59e0b;
+  --color-warning-soft: #fef3c7;
 
   /* Border radius mappings */
   --radius-sm: calc(var(--radius) - 4px);

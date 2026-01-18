@@ -74,6 +74,11 @@ export function classifyCourse(course: TakenCourseType, userMajor?: string, user
     return 'minor';
   }
 
+  // 1.5) MOOC -> 자유학점
+  if (name.includes('mooc')) {
+    return 'otherUncheckedClass';
+  }
+
   // 2) 기타 필수 (논문연구/새내기/전공탐색/경제/창의함양/콜로퀴움)
   if (ETC_MANDATORY_CODES.has(code)) return 'etcMandatory';
   if (THESIS_SUFFIXES.some((suf) => code.endsWith(suf))) return 'etcMandatory';

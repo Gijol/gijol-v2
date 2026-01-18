@@ -1,0 +1,150 @@
+{
+  "meta": { "major": "기계공학부", "track": null },
+  "nodes": [
+    {
+      "id": "GS1101",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": { "label": "일반물리학 및 실험 I", "credits": 3, "category": "기초필수", "semester": "1-1" }
+    },
+    {
+      "id": "GS1111",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 100 },
+      "data": { "label": "일반물리학실험 I", "credits": 1, "category": "기초필수", "semester": "1-1" }
+    },
+
+    {
+      "id": "GS1001",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 600 },
+      "data": { "label": "미적분학과 응용", "credits": 3, "category": "기초필수", "semester": "1-1" }
+    },
+    {
+      "id": "GS2001",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 600 },
+      "data": { "label": "다변수해석학과 응용", "credits": 3, "category": "기초필수", "semester": "1-2" }
+    },
+    {
+      "id": "GS2002",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 600 },
+      "data": { "label": "미분방정식과 응용", "credits": 3, "category": "기초필수", "semester": "2-1" }
+    },
+    {
+      "id": "GS2004",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 600 },
+      "data": { "label": "선형대수학과 응용", "credits": 3, "category": "기초필수", "semester": "2-2" }
+    },
+
+    {
+      "id": "MC2100",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": { "label": "열역학 I", "credits": 3, "category": "전공필수", "semester": "2-1" }
+    },
+    {
+      "id": "MC2102",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": { "label": "유체역학 I", "credits": 3, "category": "전공필수", "semester": "2-2" }
+    },
+    {
+      "id": "MC2101",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 200 },
+      "data": { "label": "고체역학 I", "credits": 3, "category": "전공필수", "semester": "2-1" }
+    },
+    {
+      "id": "MC2103",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 200 },
+      "data": { "label": "동역학", "credits": 3, "category": "전공필수", "semester": "2-2" }
+    },
+
+    {
+      "id": "MC2204",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 100 },
+      "data": { "label": "열역학 II", "credits": 3, "category": "전공핵심", "semester": "2-2" }
+    },
+    {
+      "id": "MC2205",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 300 },
+      "data": { "label": "고체역학 II", "credits": 3, "category": "전공핵심", "semester": "2-2" }
+    },
+
+    {
+      "id": "MC2214",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": { "label": "유체역학 II", "credits": 3, "category": "전공핵심", "semester": "3-1" }
+    },
+    {
+      "id": "MC3214",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": { "label": "유체역학 실험", "credits": 3, "category": "전공핵심", "semester": "3-1" }
+    },
+    {
+      "id": "MC3001",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 200 },
+      "data": { "label": "열전달", "credits": 3, "category": "전공핵심", "semester": "3-1" }
+    },
+    {
+      "id": "MC3204",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 400 },
+      "data": { "label": "공학해석", "credits": 3, "category": "전공핵심", "semester": "3-1" }
+    },
+    {
+      "id": "MC3106",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 500 },
+      "data": { "label": "기계공학 실험 I", "credits": 3, "category": "전공핵심", "semester": "3-1" }
+    },
+
+    {
+      "id": "MC3216",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 0 },
+      "data": { "label": "자동제어", "credits": 3, "category": "전공핵심", "semester": "3-2" }
+    },
+    {
+      "id": "MC3202",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 200 },
+      "data": { "label": "진동학", "credits": 3, "category": "전공핵심", "semester": "3-2" }
+    },
+    {
+      "id": "MS2111",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 400 },
+      "data": { "label": "컴퓨터 이용 설계 및 생산", "credits": 3, "category": "전공핵심", "semester": "3-2" }
+    },
+    {
+      "id": "MC3107",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 500 },
+      "data": { "label": "기계공학 실험 II", "credits": 3, "category": "전공핵심", "semester": "3-2" }
+    },
+
+    {
+      "id": "MC4216",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 0 },
+      "data": { "label": "학사논문연구 I", "credits": 3, "category": "연구", "semester": "4-1" }
+    },
+    {
+      "id": "MO9103",
+      "type": "customCourseNode",
+      "position": { "x": 1750, "y": 0 },
+      "data": { "label": "학사논문연구 II", "credits": 3, "category": "연구", "semester": "4-2" }
+    }
+  ],
+  "edges": []
+}

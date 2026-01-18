@@ -1,0 +1,589 @@
+{
+  "languageBasic": {
+    "messages": [
+      "충족됨 — 최소 7학점, 현재 7학점"
+    ],
+    "minConditionCredits": 7,
+    "satisfied": true,
+    "totalCredits": 7,
+    "userTakenCoursesList": {
+      "takenCourses": [
+        {
+          "courseCode": "GS1601",
+          "courseName": "영어 Ⅰ: 신입생 영어",
+          "courseType": "M",
+          "credit": 2,
+          "grade": "A0",
+          "semester": "1학기",
+          "year": 2020
+        },
+        {
+          "courseCode": "GS1513",
+          "courseName": "글쓰기의 기초: 창의적 글쓰기",
+          "courseType": "M",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "1학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "GS2652",
+          "courseName": "영어 II : 이공계 글쓰기 입문",
+          "courseType": "M",
+          "credit": 2,
+          "grade": "A0",
+          "semester": "1학기",
+          "year": 2021
+        }
+      ]
+    }
+  },
+  "humanities": {
+    "messages": [
+      "충족됨 — 최소 24학점, 현재 33학점"
+    ],
+    "minConditionCredits": 24,
+    "satisfied": true,
+    "totalCredits": 33,
+    "userTakenCoursesList": {
+      "takenCourses": [
+        {
+          "courseCode": "GS2734",
+          "courseName": "행복의 조건",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "1학기",
+          "year": 2020
+        },
+        {
+          "courseCode": "GS2731",
+          "courseName": "미시경제학",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "1학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "GS3786",
+          "courseName": "정치경제론",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A+",
+          "semester": "1학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "GS2544",
+          "courseName": "문화콘텐츠의 이해",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "1학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "GS2614",
+          "courseName": "초기 근대의 서양",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "1학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "GS2475",
+          "courseName": "환경오염",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "2학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "GS2707",
+          "courseName": "오타쿠 대중문화론",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "2학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "GS2743",
+          "courseName": "인간의 마음과 행동 2",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "C+",
+          "semester": "2학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "GS0700",
+          "courseName": "Game Theory in the Social Sciences(UC Berkeley)",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "여름학기",
+          "year": 2023
+        },
+        {
+          "courseCode": "GS2505",
+          "courseName": "과학사",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "2학기",
+          "year": 2023
+        },
+        {
+          "courseCode": "GS2503",
+          "courseName": "환경과학",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "1학기",
+          "year": 2023
+        }
+      ]
+    }
+  },
+  "scienceBasic": {
+    "messages": [
+      "충족됨 — 최소 17학점, 현재 19학점"
+    ],
+    "minConditionCredits": 17,
+    "satisfied": true,
+    "totalCredits": 19,
+    "userTakenCoursesList": {
+      "takenCourses": [
+        {
+          "courseCode": "GS1001",
+          "courseName": "미적분학과 응용",
+          "courseType": "M",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "1학기",
+          "year": 2020
+        },
+        {
+          "courseCode": "GS1101",
+          "courseName": "일반물리학 및 연습 I",
+          "courseType": "M",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "1학기",
+          "year": 2020
+        },
+        {
+          "courseCode": "GS1111",
+          "courseName": "일반물리학 실험 I",
+          "courseType": "M",
+          "credit": 1,
+          "grade": "B0",
+          "semester": "1학기",
+          "year": 2020
+        },
+        {
+          "courseCode": "GS1201",
+          "courseName": "일반화학 및 연습 I",
+          "courseType": "M",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "1학기",
+          "year": 2020
+        },
+        {
+          "courseCode": "GS1302",
+          "courseName": "인간 생물학",
+          "courseType": "M",
+          "credit": 3,
+          "grade": "A+",
+          "semester": "1학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "GS2001",
+          "courseName": "다변수해석학과 응용",
+          "courseType": "M",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "1학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "GS1301",
+          "courseName": "생물학",
+          "courseType": "M",
+          "credit": 3,
+          "grade": "A+",
+          "semester": "2학기",
+          "year": 2021
+        }
+      ]
+    }
+  },
+  "major": {
+    "messages": [
+      "충족됨 — 최소 36학점, 현재 37학점"
+    ],
+    "minConditionCredits": 36,
+    "satisfied": true,
+    "totalCredits": 37,
+    "userTakenCoursesList": {
+      "takenCourses": [
+        {
+          "courseCode": "EC2202",
+          "courseName": "자료 구조",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "1학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "EC2206",
+          "courseName": "알고리즘 개론",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A+",
+          "semester": "2학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "EC3204",
+          "courseName": "프로그래밍 언어 및 컴파일러",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "2학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "EC4206",
+          "courseName": "컴퓨터 네트워킹",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "2학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "EC3102",
+          "courseName": "컴퓨터 시스템 이론 및 실험",
+          "courseType": "M",
+          "credit": 4,
+          "grade": "A0",
+          "semester": "1학기",
+          "year": 2023
+        },
+        {
+          "courseCode": "EC3216",
+          "courseName": "오토마타 이론",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "1학기",
+          "year": 2023
+        },
+        {
+          "courseCode": "EC4219",
+          "courseName": "소프트웨어공학 및 프로젝트",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "1학기",
+          "year": 2023
+        },
+        {
+          "courseCode": "EC4212",
+          "courseName": "Discrete Mathematics and Probability Theory(UC Berkeley)",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "여름학기",
+          "year": 2023
+        },
+        {
+          "courseCode": "EC3202",
+          "courseName": "데이터베이스",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A+",
+          "semester": "1학기",
+          "year": 2024
+        },
+        {
+          "courseCode": "EC4201",
+          "courseName": "인공지능",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "2학기",
+          "year": 2024
+        },
+        {
+          "courseCode": "EC4301",
+          "courseName": "머신러닝",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "2학기",
+          "year": 2024
+        },
+        {
+          "courseCode": "EC4204",
+          "courseName": "컴퓨터 보안",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "B0",
+          "semester": "2학기",
+          "year": 2024
+        }
+      ]
+    }
+  },
+  "minor": {
+    "messages": [
+      "필수 이수학점이 없는 영역입니다."
+    ],
+    "minConditionCredits": 0,
+    "satisfied": true,
+    "totalCredits": 0,
+    "userTakenCoursesList": {
+      "takenCourses": []
+    }
+  },
+  "etcMandatory": {
+    "messages": [
+      "미충족 — 최소 8학점 필요, 현재 7학점 (부족 1학점)"
+    ],
+    "minConditionCredits": 8,
+    "satisfied": false,
+    "totalCredits": 7,
+    "userTakenCoursesList": {
+      "takenCourses": [
+        {
+          "courseCode": "GS1901",
+          "courseName": "GIST 새내기",
+          "courseType": "M",
+          "credit": 1,
+          "grade": "S",
+          "semester": "1학기",
+          "year": 2020
+        },
+        {
+          "courseCode": "UC0901",
+          "courseName": "과학기술과 경제",
+          "courseType": "E",
+          "credit": 1,
+          "grade": "S",
+          "semester": "1학기",
+          "year": 2020
+        },
+        {
+          "courseCode": "UC0202",
+          "courseName": "창의함양",
+          "courseType": "E",
+          "credit": 1,
+          "grade": "S",
+          "semester": "2학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "EC9102",
+          "courseName": "학사논문연구 I",
+          "courseType": "E",
+          "credit": 2,
+          "grade": "S",
+          "semester": "1학기",
+          "year": 2024
+        },
+        {
+          "courseCode": "EC9103",
+          "courseName": "학사논문연구 II",
+          "courseType": "E",
+          "credit": 2,
+          "grade": "S",
+          "semester": "2학기",
+          "year": 2024
+        },
+        {
+          "courseCode": "UC9331",
+          "courseName": "GIST대학 콜로퀴움",
+          "courseType": "E",
+          "credit": 0,
+          "grade": "S",
+          "semester": "2학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "UC9331",
+          "courseName": "GIST대학 콜로퀴움",
+          "courseType": "E",
+          "credit": 0,
+          "grade": "S",
+          "semester": "1학기",
+          "year": 2023
+        },
+        {
+          "courseCode": "UC9331",
+          "courseName": "GIST대학 콜로퀴움",
+          "courseType": "E",
+          "credit": 0,
+          "grade": "S",
+          "semester": "2학기",
+          "year": 2023
+        }
+      ]
+    }
+  },
+  "otherUncheckedClass": {
+    "messages": [
+      "필수 이수학점이 없는 영역입니다."
+    ],
+    "minConditionCredits": 0,
+    "satisfied": true,
+    "totalCredits": 31,
+    "userTakenCoursesList": {
+      "takenCourses": [
+        {
+          "courseCode": "GS0104",
+          "courseName": "배드민턴",
+          "courseType": "M",
+          "credit": 0,
+          "grade": "S",
+          "semester": "1학기",
+          "year": 2020
+        },
+        {
+          "courseCode": "GS0211",
+          "courseName": "드로잉",
+          "courseType": "M",
+          "credit": 0,
+          "grade": "S",
+          "semester": "1학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "BS2204",
+          "courseName": "기초 해부조직학",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "2학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "GS0102",
+          "courseName": "테니스",
+          "courseType": "M",
+          "credit": 0,
+          "grade": "S",
+          "semester": "2학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "MD2101",
+          "courseName": "의공학 입문",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A+",
+          "semester": "2학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "GS3401",
+          "courseName": "(MOOC 지정) 프론트엔드 웹 개발",
+          "courseType": "E",
+          "credit": 2,
+          "grade": "S",
+          "semester": "2학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "CT4202",
+          "courseName": "영상 커뮤니케이션",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A0",
+          "semester": "1학기",
+          "year": 2023
+        },
+        {
+          "courseCode": "CT4203",
+          "courseName": "아트앤테크놀로지",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "1학기",
+          "year": 2023
+        },
+        {
+          "courseCode": "CT4305",
+          "courseName": "서비스러닝 프로젝트",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A+",
+          "semester": "1학기",
+          "year": 2023
+        },
+        {
+          "courseCode": "GS0212",
+          "courseName": "서양음악의 이해",
+          "courseType": "E",
+          "credit": 1,
+          "grade": "S",
+          "semester": "1학기",
+          "year": 2024
+        },
+        {
+          "courseCode": "GS1311",
+          "courseName": "일반생물학 실험",
+          "courseType": "M",
+          "credit": 1,
+          "grade": "B+",
+          "semester": "2학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "GS1401",
+          "courseName": "컴퓨터 프로그래밍",
+          "courseType": "M",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "2학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "GS2002",
+          "courseName": "미분방정식과 응용",
+          "courseType": "M",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "2학기",
+          "year": 2021
+        },
+        {
+          "courseCode": "GS2004",
+          "courseName": "선형대수학과 응용",
+          "courseType": "M",
+          "credit": 3,
+          "grade": "B+",
+          "semester": "1학기",
+          "year": 2022
+        },
+        {
+          "courseCode": "GS2408",
+          "courseName": "객체 지향 프로그래밍",
+          "courseType": "E",
+          "credit": 3,
+          "grade": "A+",
+          "semester": "1학기",
+          "year": 2022
+        }
+      ]
+    }
+  }
+}

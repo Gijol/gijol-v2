@@ -1,4 +1,3 @@
-import { GradeReportParser } from '../parser/grade/gradeReportParser';
 import { GradStatusResponseType, SingleCategoryType } from '@lib/types/grad';
 
 export function getPercentage(category?: SingleCategoryType): number {
@@ -116,12 +115,7 @@ export function getFeedbackNumbers(status: GradStatusResponseType) {
   return l1 + l2 + l3 + l4 + l5 + l6 + l7;
 }
 
-export function createSpecificStatusMessage(
-  satisfied: boolean,
-  percentage: number,
-  total: number,
-  my: number
-) {
+export function createSpecificStatusMessage(satisfied: boolean, percentage: number, total: number, my: number) {
   if (satisfied) {
     return '전부 들으셨습니다!';
   } else {
@@ -136,7 +130,7 @@ export function createSpecificStatusMessage(
 }
 
 const satisfaction = ['satisfied', 'unSatisfied', 'notRequired'] as const;
-type Satisfaction = typeof satisfaction[number];
+type Satisfaction = (typeof satisfaction)[number];
 export function verifyStatus(status: boolean | undefined, title: string): Satisfaction {
   return !!status ? 'satisfied' : title === '부전공' ? 'notRequired' : 'unSatisfied';
 }

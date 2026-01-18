@@ -1,4 +1,4 @@
-import { IconSchool, IconBook, IconAlertTriangle } from '@tabler/icons-react';
+import { School, Book, AlertTriangle } from 'lucide-react';
 import { StatCard } from '@components/ui/stat-card';
 
 interface StatsRowProps {
@@ -21,21 +21,21 @@ export function StatsRow({
         value={`${totalCreditsEarned}`}
         subtitle={`/ ${totalRequiredCredits}학점`}
         variant="blue"
-        icon={<IconSchool className="h-5 w-5" />}
+        icon={<School className="h-5 w-5" />}
       />
       <StatCard
         title="남은 학점"
         value={`${remainingCredits}`}
         subtitle="졸업까지"
         variant="gray"
-        icon={<IconBook className="h-5 w-5" />}
+        icon={<Book className="h-5 w-5" />}
       />
       <StatCard
         title="미충족 요건"
         value={`${unsatisfiedRequirements}`}
         subtitle="카테고리"
         variant="yellow"
-        icon={<IconAlertTriangle className="h-5 w-5" />}
+        icon={<AlertTriangle className="h-5 w-5" />}
       />
     </div>
   );

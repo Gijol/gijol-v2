@@ -1,0 +1,337 @@
+{
+  "meta": {
+    "major": "전기전자컴퓨터공학부",
+    "track": "AI 분야"
+  },
+  "nodes": [
+    {
+      "id": "GS1401",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 0 },
+      "data": {
+        "label": "컴퓨터 프로그래밍",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "description": "컴퓨터 프로그램에 대한 기초 지식과 문제해결 능력 습득을 목표로 하며 C 언어의 기본 문법과 배열 등을 다룬다."
+      }
+    },
+    {
+      "id": "GS1001",
+      "type": "customCourseNode",
+      "position": { "x": 0, "y": 100 },
+      "data": {
+        "label": "미적분학과 응용",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "description": "일변수 함수의 미적분학 기본 개념을 배우고 응용으로 확장하며, 기본 미분방정식과 무한수열/급수 수렴 등을 다룬다."
+      }
+    },
+
+    {
+      "id": "GS1401_1_2",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 0 },
+      "data": {
+        "label": "컴퓨터 프로그래밍",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-2",
+        "description": "컴퓨터 프로그램에 대한 기초 지식과 문제해결 능력 습득을 목표로 하며 C 언어의 기본 문법과 배열 등을 다룬다."
+      }
+    },
+    {
+      "id": "GS2001",
+      "type": "customCourseNode",
+      "position": { "x": 250, "y": 100 },
+      "data": {
+        "label": "다변수해석학과 응용",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-2"
+      }
+    },
+
+    {
+      "id": "GS2408",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 0 },
+      "data": {
+        "label": "객체 지향 프로그래밍",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "2-1",
+        "description": "자바 기반으로 클래스/캡슐화/다형성/상속 등 객체지향 핵심 개념과 GUI, 병행 프로그래밍 기초를 다룬다."
+      }
+    },
+    {
+      "id": "EC2202",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 100 },
+      "data": {
+        "label": "자료 구조",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "description": "객체지향 기법(상속/추상/캡슐화 등)과 함께 배열, 연결리스트, 스택, 큐 등 핵심 자료구조를 다룬다."
+      }
+    },
+    {
+      "id": "GS2004",
+      "type": "customCourseNode",
+      "position": { "x": 500, "y": 200 },
+      "data": {
+        "label": "선형대수학과 응용",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "2-1"
+      }
+    },
+
+    {
+      "id": "EC2206",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 0 },
+      "data": {
+        "label": "알고리즘 개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2"
+      }
+    },
+    {
+      "id": "EC2204",
+      "type": "customCourseNode",
+      "position": { "x": 750, "y": 100 },
+      "data": {
+        "label": "컴퓨터 구조",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "description": "명령어 집합 기반으로 컴퓨터 구조/동작/설계 원리를 이해하고 성능 관점에서 파이프라이닝, 캐시 등 고급 기법을 다룬다."
+      }
+    },
+
+    {
+      "id": "EC3216",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 0 },
+      "data": {
+        "label": "오토마타 이론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1"
+      }
+    },
+    {
+      "id": "GS3015",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": {
+        "label": "확률과 통계",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "3-1"
+      }
+    },
+    {
+      "id": "EC4212",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 200 },
+      "data": {
+        "label": "이산수학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "description": "논리/증명, 정수론, 그래프, 트리 등 이산적 대상을 중심으로 컴퓨터과학 기초 수학을 학습한다."
+      }
+    },
+    {
+      "id": "EC3102",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 300 },
+      "data": {
+        "label": "컴퓨터 시스템 이론 및 실험",
+        "credits": 4,
+        "category": "전공필수",
+        "semester": "3-1",
+        "description": "컴퓨터 시스템 전반을 시스템 관점에서 이해하고 실제 프로그래밍 경험을 통해 OS/네트워킹 등과 연계해 학습한다."
+      }
+    },
+    {
+      "id": "EC4210",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 400 },
+      "data": {
+        "label": "랜덤 프로세스",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "description": "전기전자/컴퓨터 분야에서 필요한 랜덤 프로세스의 기본 개념을 다룬다."
+      }
+    },
+    {
+      "id": "EC4205",
+      "type": "customCourseNode",
+      "position": { "x": 1000, "y": 500 },
+      "data": {
+        "label": "운영체제",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1"
+      }
+    },
+
+    {
+      "id": "EC4207",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 0 },
+      "data": {
+        "label": "그래프 이론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "description": "그래프의 기본 개념과 트리, 매칭, 연결성 등 컴퓨터/네트워크 이론 기반이 되는 성질을 학습한다."
+      }
+    },
+    {
+      "id": "EC4206",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 100 },
+      "data": {
+        "label": "컴퓨터 네트워킹",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "description": "데이터통신 기초와 최신 기술을 다루며 네트워크 프로토콜/구조 및 IP 기반 네트워크 설계 원리를 학습한다."
+      }
+    },
+    {
+      "id": "EC4204",
+      "type": "customCourseNode",
+      "position": { "x": 1250, "y": 200 },
+      "data": {
+        "label": "데이터베이스 시스템",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "description": "데이터 모델링, 질의 언어, 관계형/객체지향 데이터베이스 등 데이터베이스 기본 개념과 구현 주제를 다룬다."
+      }
+    },
+
+    {
+      "id": "EC9102",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 0 },
+      "data": {
+        "label": "학사논문연구 I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "4-1"
+      }
+    },
+    {
+      "id": "EC4209",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 100 },
+      "data": {
+        "label": "인공 지능",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "description": "탐색/지식표현 등 AI 기본 개념과 하위 분야를 소개하며 지능형 에이전트, 탐색 등의 필수 개념을 다룬다."
+      }
+    },
+    {
+      "id": "EC4213",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 200 },
+      "data": {
+        "label": "기계학습 및 딥러닝",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1"
+      }
+    },
+    {
+      "id": "EC4215",
+      "type": "customCourseNode",
+      "position": { "x": 1500, "y": 300 },
+      "data": {
+        "label": "컴퓨터 그래픽스",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1"
+      }
+    },
+
+    {
+      "id": "EC9103",
+      "type": "customCourseNode",
+      "position": { "x": 1750, "y": 0 },
+      "data": {
+        "label": "학사논문연구 II",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "4-2"
+      }
+    },
+    {
+      "id": "EC4216",
+      "type": "customCourseNode",
+      "position": { "x": 1750, "y": 100 },
+      "data": {
+        "label": "컴퓨터 비전",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "description": "전통적 접근부터 머신러닝 기반 최신 접근까지 컴퓨터 비전의 핵심 개념과 응용(자율주행, AR 등)을 다룬다."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_GS1401_1_2_GS2408",
+      "source": "GS1401_1_2",
+      "target": "GS2408",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "e_GS1401_1_2_EC2202",
+      "source": "GS1401_1_2",
+      "target": "EC2202",
+      "type": "smoothstep",
+      "animated": false
+    },
+
+    { "id": "e_GS2408_EC2206", "source": "GS2408", "target": "EC2206", "type": "smoothstep", "animated": false },
+    { "id": "e_EC2202_EC2206", "source": "EC2202", "target": "EC2206", "type": "smoothstep", "animated": false },
+
+    { "id": "e_EC2206_EC3216", "source": "EC2206", "target": "EC3216", "type": "smoothstep", "animated": false },
+    { "id": "e_EC3216_EC9102", "source": "EC3216", "target": "EC9102", "type": "smoothstep", "animated": false },
+
+    { "id": "e_GS2004_EC4212", "source": "GS2004", "target": "EC4212", "type": "smoothstep", "animated": false },
+    { "id": "e_GS2004_EC3102", "source": "GS2004", "target": "EC3102", "type": "smoothstep", "animated": false },
+
+    { "id": "e_EC4212_EC4207", "source": "EC4212", "target": "EC4207", "type": "smoothstep", "animated": false },
+
+    { "id": "e_GS3015_EC4209", "source": "GS3015", "target": "EC4209", "type": "smoothstep", "animated": false },
+    { "id": "e_GS3015_EC4213", "source": "GS3015", "target": "EC4213", "type": "smoothstep", "animated": false },
+
+    { "id": "e_EC3102_EC4209", "source": "EC3102", "target": "EC4209", "type": "smoothstep", "animated": false },
+    { "id": "e_EC4207_EC4209", "source": "EC4207", "target": "EC4209", "type": "smoothstep", "animated": false },
+
+    { "id": "e_EC3102_EC4213", "source": "EC3102", "target": "EC4213", "type": "smoothstep", "animated": false },
+    { "id": "e_EC4210_EC4213", "source": "EC4210", "target": "EC4213", "type": "smoothstep", "animated": false },
+    { "id": "e_EC4206_EC4213", "source": "EC4206", "target": "EC4213", "type": "smoothstep", "animated": false },
+
+    { "id": "e_EC2204_EC4205", "source": "EC2204", "target": "EC4205", "type": "smoothstep", "animated": false },
+    { "id": "e_EC4205_EC4204", "source": "EC4205", "target": "EC4204", "type": "smoothstep", "animated": false },
+
+    { "id": "e_EC4206_EC4215", "source": "EC4206", "target": "EC4215", "type": "smoothstep", "animated": false },
+    { "id": "e_EC4215_EC4216", "source": "EC4215", "target": "EC4216", "type": "smoothstep", "animated": false },
+    { "id": "e_EC4213_EC4216", "source": "EC4213", "target": "EC4216", "type": "smoothstep", "animated": false }
+  ]
+}
