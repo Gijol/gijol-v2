@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { promises as fs } from 'fs';
 import path from 'path';
-import type { RoadmapData } from '@/types/roadmap';
+import type { RoadmapData } from '@/lib/types/roadmap';
 
 type ErrorResponse = {
   error: string;

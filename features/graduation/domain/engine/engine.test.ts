@@ -1,5 +1,5 @@
 import { evaluateGraduationStatus } from './index';
-import { UserTakenCourseListType } from '@lib/types/grad';
+import { UserTakenCourseListType } from '../types';
 
 describe('Graduation Engine (Real Logic)', () => {
   it('should correctly evaluate graduation status with real course codes', async () => {

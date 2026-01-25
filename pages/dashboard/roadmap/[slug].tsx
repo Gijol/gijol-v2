@@ -28,7 +28,7 @@ import { RoadmapProvider, useRoadmapContext } from '@/features/roadmap/RoadmapCo
 import { Button } from '@/components/ui/button';
 import { Eye, Edit3, Download, Save } from 'lucide-react';
 
-import type { RoadmapData, CourseNodeData } from '@/lib/types/roadmap';
+import type { RoadmapData, CourseNodeData } from '@/features/roadmap/types';
 import type { CourseDB } from '@/lib/const/course-db';
 
 // Register custom node types
@@ -62,7 +62,7 @@ function layoutNodesBySemester(nodes: RoadmapData['nodes']): Node<CourseNodeData
   const semesterGroups: Record<string, RoadmapData['nodes']> = {};
 
   nodes.forEach((node) => {
-    const semester = node.data.semester;
+    const semester = node.data.semester || '';
     if (!semesterGroups[semester]) {
       semesterGroups[semester] = [];
     }

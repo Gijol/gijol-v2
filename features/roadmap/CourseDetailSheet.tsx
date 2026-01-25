@@ -4,7 +4,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Book, Clock, Building2, Calendar, Info } from 'lucide-react';
-import type { CourseNodeData } from '@/types/roadmap';
+import type { CourseNodeData } from '@/features/roadmap/types';
 import type { CourseDB } from '@/lib/const/course-db';
 
 interface CourseDetailSheetProps {
@@ -30,7 +30,9 @@ export function CourseDetailSheet({ course, open, onOpenChange, courses }: Cours
   useEffect(() => {
     if (course && courses.length > 0) {
       const found = courses.find(
-        (c) => c.primaryCourseCode === course.courseCode || c.aliasCodes?.includes(course.courseCode),
+        (c) =>
+          !!course.courseCode &&
+          (c.primaryCourseCode === course.courseCode || c.aliasCodes?.includes(course.courseCode)),
       );
       setCourseDetails(found || null);
     } else {

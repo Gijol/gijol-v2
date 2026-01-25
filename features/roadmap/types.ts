@@ -1,12 +1,24 @@
-import { Node } from 'reactflow';
-import { CourseDB } from '@/lib/const/course-db';
+import { Node, Edge } from 'reactflow';
 
-export type CourseStatus = 'taken' | 'planning' | 'fail';
+export type CourseStatus = 'COMPLETED' | 'AVAILABLE' | 'LOCKED';
 
-export interface CourseNodeData extends CourseDB {
-  status: 'taken' | 'planning' | 'fail';
-  semester?: string; // e.g. "2023-1" or "1-1" (Freshman Spring)
+export interface CourseNodeData {
+  label: string;
+  credits: number; // displayed as "3학점"
+  category: string; // e.g. "전공필수"
+  courseCode?: string; // Optional based on usage in CourseDetailSheet and JSON data
+  semester?: string;
+  status: CourseStatus;
 }
 
 // React Flow Node with our custom data
 export type CourseNodeType = Node<CourseNodeData>;
+
+export interface RoadmapData {
+  meta: {
+    major: string;
+    track: string;
+  };
+  nodes: CourseNodeType[];
+  edges: Edge[];
+}

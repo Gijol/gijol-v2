@@ -73,7 +73,11 @@ const RoadmapFlow = ({ courses }: RoadmapPageProps) => {
         position,
         data: {
           ...courseData,
-          status: 'planning',
+          label: courseData.displayTitleKo,
+          credits: courseData.creditHours,
+          courseCode: courseData.primaryCourseCode,
+          category: '전공', // Default category
+          status: 'AVAILABLE',
         },
       };
 

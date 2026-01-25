@@ -1,5 +1,5 @@
 // features/roadmap/fetcher.ts
-import type { RoadmapData } from '@/types/roadmap';
+import type { RoadmapData } from '@/features/roadmap/types';
 
 /**
  * Fetches roadmap data from the API by slug

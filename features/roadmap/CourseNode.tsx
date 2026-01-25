@@ -17,21 +17,20 @@ const CourseNode = ({ data, selected }: NodeProps<CourseNodeData>) => {
 
       <div className="flex flex-col gap-2 p-3">
         <div className="flex items-start justify-between">
-          <span className="text-muted-foreground bg-muted rounded px-1 font-mono text-[10px]">
-            {data.primaryCourseCode}
-          </span>
+          <span className="text-muted-foreground bg-muted rounded px-1 font-mono text-[10px]">{data.courseCode}</span>
           <Badge variant="outline" className="h-4 px-1 text-[10px]">
-            {data.creditHours}학점
+            {data.credits}학점
           </Badge>
         </div>
 
-        <div className="line-clamp-2 text-sm leading-tight font-bold">{data.displayTitleKo}</div>
+        <div className="line-clamp-2 text-sm leading-tight font-bold">{data.label}</div>
 
+        {/* departmentContext is not available in CourseNodeData
         {data.departmentContext && (
           <div className="text-muted-foreground truncate text-[10px]">
             {data.departmentContext.split('|').pop()?.trim()}
           </div>
-        )}
+        )} */}
       </div>
 
       <Handle type="source" position={Position.Right} className="!bg-muted-foreground h-3 w-3" />

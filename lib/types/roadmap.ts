@@ -1,11 +1,12 @@
-// types/roadmap.ts
+export type CourseStatus = 'COMPLETED' | 'AVAILABLE' | 'LOCKED';
+
 export interface CourseNodeData {
-  courseCode: string; // Course code for lookup in course-db (e.g., "GS1401", "EC2202")
+  courseCode?: string; // Made optional to match features/roadmap/types
   label: string;
   credits: number;
   category: string;
-  semester: string;
-  status?: 'COMPLETED' | 'AVAILABLE' | 'LOCKED';
+  semester?: string;
+  status: CourseStatus;
   description?: string;
 }
 
