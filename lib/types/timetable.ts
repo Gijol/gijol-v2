@@ -50,6 +50,7 @@ export interface TimetableSpan extends TimeSpan {
   sectionId: string; // Composite key usually: `${course_code}-${section}`
   color?: string; // For coloring different courses distinctively
   room?: string | null;
+  title?: string; // Course title
 }
 
 export interface SelectedSection {

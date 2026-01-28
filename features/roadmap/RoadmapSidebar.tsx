@@ -4,7 +4,17 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Search, GripVertical, Menu, PanelLeftClose, PanelLeftOpen, Plus, Palette, Loader2 } from 'lucide-react';
+import {
+  Search,
+  GripVertical,
+  Menu,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Plus,
+  Palette,
+  Loader2,
+  Trash2,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -12,9 +22,19 @@ const ITEMS_PER_PAGE = 50;
 
 interface RoadmapSidebarProps {
   courses: CourseDB[];
+  savedRoadmaps?: Array<{
+    id: string;
+    name: string;
+    timestamp: number;
+    nodes: any[];
+    edges: any[];
+  }>;
+  onLoad?: (data: any) => void;
+  onDelete?: (id: string) => void;
+  onClearAll?: () => void;
 }
 
-export const RoadmapSidebar = ({ courses }: RoadmapSidebarProps) => {
+export const RoadmapSidebar = ({ courses, savedRoadmaps = [], onLoad, onDelete, onClearAll }: RoadmapSidebarProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [query, setQuery] = useState('');
   const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
@@ -101,6 +121,50 @@ export const RoadmapSidebar = ({ courses }: RoadmapSidebarProps) => {
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
+
+        {/* Saved Roadmaps Section */}
+        {savedRoadmaps && savedRoadmaps.length > 0 && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between px-1">
+              <span className="text-xs font-semibold text-gray-700">저장된 로드맵</span>
+              {onClearAll && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 px-2 text-xs text-red-600 hover:bg-red-50 hover:text-red-700"
+                  onClick={onClearAll}
+                >
+                  <Trash2 className="mr-1 h-3 w-3" />
+                  모두 삭제
+                </Button>
+              )}
+            </div>
+            <div className="max-h-32 space-y-1 overflow-y-auto">
+              {savedRoadmaps.slice(0, 10).map((saved) => (
+                <div
+                  key={saved.id}
+                  className="flex items-center justify-between rounded border border-slate-200 bg-slate-50 px-2 py-1.5 text-xs hover:bg-slate-100"
+                >
+                  <button
+                    className="min-w-0 flex-1 truncate text-left font-medium text-gray-700 hover:text-blue-600"
+                    onClick={() => onLoad?.(saved)}
+                  >
+                    {saved.name}
+                  </button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-5 w-5 shrink-0 text-gray-400 hover:text-red-600"
+                    onClick={() => onDelete?.(saved.id)}
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="flex items-center justify-between px-1 text-[10px] text-gray-400">
           <span>드래그하여 추가하세요</span>
           <span>

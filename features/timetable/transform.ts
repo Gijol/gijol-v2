@@ -40,6 +40,7 @@ export function meetingToSpan(
   sectionId: string,
   type: TimetableSpan['type'] = 'scheduled',
   color?: string,
+  title?: string,
 ): TimetableSpan {
   return {
     nanoid: uuidv4(), // Generate unique ID for the span
@@ -52,5 +53,6 @@ export function meetingToSpan(
     sectionId,
     room: meeting.room,
     color,
+    title,
   };
 }

@@ -281,6 +281,10 @@ const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
         onConnect={onConnect}
         onNodeDragStart={onNodeDragStart} // Attach usage
         nodeTypes={nodeTypes}
+        nodesDraggable={!isViewMode}
+        nodesConnectable={!isViewMode}
+        elementsSelectable={!isViewMode}
+        panOnDrag={isViewMode ? true : [1, 2]}
       >
         <Background gap={20} color="#e2e8f0" />
         <Controls className="fill-white" />

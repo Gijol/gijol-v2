@@ -3,6 +3,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { TimetableSpan } from '@/lib/types/timetable';
 import { timeToMinutes, DAY_TO_INT } from '@/features/timetable/transform';
+import { parseColor } from '@/features/timetable/selectors';
 import { X } from 'lucide-react';
 
 function cn(...inputs: ClassValue[]) {
@@ -18,22 +19,24 @@ interface AvailabilityWithPreviewProps {
   days?: string[];
   className?: string;
   onRemoveSpan?: (sectionId: string) => void;
+  onSpanClick?: (sectionId: string) => void;
+  hideWeekends?: boolean; // For mobile view
 }
 
 const DEFAULT_START = '08:30';
 const DEFAULT_END = '18:30';
 const DEFAULT_INCREMENT = 30;
-// Full Korean Day Names
-const DEFAULT_DAYS = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+// Short Korean Day Names
+const DEFAULT_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
 const DAY_MAP_SHORT: Record<string, string> = {
-  일요일: 'SUN',
-  월요일: 'MON',
-  화요일: 'TUE',
-  수요일: 'WED',
-  목요일: 'THU',
-  금요일: 'FRI',
-  토요일: 'SAT',
+  일: 'SUN',
+  월: 'MON',
+  화: 'TUE',
+  수: 'WED',
+  목: 'THU',
+  금: 'FRI',
+  토: 'SAT',
 };
 
 export function AvailabilityWithPreview({
@@ -45,15 +48,19 @@ export function AvailabilityWithPreview({
   days = DEFAULT_DAYS,
   className,
   onRemoveSpan,
+  onSpanClick,
+  hideWeekends = false,
 }: AvailabilityWithPreviewProps) {
+  // Filter out weekends on mobile if hideWeekends is true
+  const displayDays = hideWeekends ? days.filter((day) => day !== '일' && day !== '토') : days;
   const startMin = timeToMinutes(startTime);
   const endMin = timeToMinutes(endTime);
   const totalMinutes = endMin - startMin;
   const rowCount = Math.ceil(totalMinutes / timeIncrements);
 
-  const ROW_HEIGHT = 28;
-  const HEADER_HEIGHT = 48;
-  const TIME_COL_WIDTH = 64;
+  const ROW_HEIGHT = hideWeekends ? 30 : 36; // Expanded row height for 9:00~18:30 range
+  const HEADER_HEIGHT = hideWeekends ? 36 : 48; // Smaller on mobile
+  const TIME_COL_WIDTH = hideWeekends ? 40 : 64; // Smaller on mobile
 
   const getSpanStyle = (span: TimetableSpan) => {
     const spanStartMin = timeToMinutes(span.start_time);
@@ -93,7 +100,7 @@ export function AvailabilityWithPreview({
       <div className="flex border-b border-slate-300" style={{ height: HEADER_HEIGHT }}>
         <div className="shrink-0 border-r border-slate-300 bg-slate-50/50" style={{ width: TIME_COL_WIDTH }} />
         <div className="flex flex-1 overflow-hidden">
-          {days.map((day) => (
+          {displayDays.map((day) => (
             <div
               key={day}
               className="flex flex-1 items-center justify-center border-r border-slate-300 text-sm font-bold text-slate-900 last:border-r-0"
@@ -149,7 +156,7 @@ export function AvailabilityWithPreview({
           </div>
 
           <div className="absolute inset-0 flex">
-            {days.map((day) => {
+            {displayDays.map((day) => {
               const dayKey = DAY_MAP_SHORT[day];
               const dayInt = DAY_TO_INT[dayKey];
 
@@ -174,44 +181,56 @@ export function AvailabilityWithPreview({
                   {dayScheduled.map((span) => {
                     const style = getSpanStyle(span);
                     if (!style) return null;
+
+                    // Parse color string to get bg and border colors
+                    const colors = parseColor(span.color || '');
+
+                    // Check if the current span is being hovered (in parent scope) - strictly, this is local hover
+                    // We rely on group/span and hover effects
                     return (
                       <div
                         key={span.nanoid}
-                        className="group/span absolute inset-x-1 z-10 flex flex-col overflow-hidden rounded-sm border-2 p-2 shadow-sm transition-all"
+                        className="group/span absolute inset-x-0.5 z-10 flex cursor-pointer flex-col overflow-hidden rounded-md border-2 p-1.5 shadow-sm transition-all hover:z-50 hover:scale-[1.02] hover:shadow-lg hover:ring-2 hover:ring-offset-1"
                         style={{
                           ...style,
-                          backgroundColor: '#D1FAE5',
-                          borderColor: '#10B981',
-                          color: '#064E3B',
+                          backgroundColor: colors.bg, // Use direct color from palette (already light)
+                          borderColor: colors.border,
+                          // Optional: define a custom property for ring color if needed, or use tailwind arbitrary value
+                          // ringColor: colors.border -> handled via style if needed or just use border color for ring?
+                          // Tailwind ring util defaults to blue-500. We can set the CSS var:
+                          ['--tw-ring-color' as any]: colors.border,
                         }}
+                        onClick={() => onSpanClick?.(span.sectionId)}
                       >
+                        {/* Top: Course Code + Remove Button */}
                         <div className="flex items-start justify-between">
-                          <span className="text-[12px] leading-tight font-bold opacity-80">{span.start_time}</span>
+                          <span className="font-mono text-xs font-black text-slate-700 uppercase">
+                            {span.courseCode}
+                          </span>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               onRemoveSpan?.(span.sectionId);
                             }}
-                            className="rounded p-0.5 opacity-0 transition-opacity group-hover/span:opacity-100 hover:bg-black/5"
+                            className="rounded p-0.5 opacity-0 transition-opacity group-hover/span:opacity-100 hover:bg-black/10"
+                            style={{ color: colors.border }}
                           >
                             <X size={14} />
                           </button>
                         </div>
 
-                        <div className="flex flex-1 flex-col justify-center">
-                          <div className="flex items-center gap-1 text-[10px] font-bold opacity-70">
-                            <span>⏰</span> {calculateDurationHours(span.start_time, span.end_time)}
+                        {/* Middle: Title */}
+                        <div className="flex min-h-0 flex-1 flex-col justify-center overflow-hidden">
+                          <div className="line-clamp-3 overflow-hidden text-sm leading-tight font-extrabold text-ellipsis text-slate-800">
+                            {span.title || span.courseCode}
                           </div>
-                          <div className="mt-1 truncate text-[13px] leading-tight font-black">{span.courseCode}</div>
-                          {span.room && (
-                            <div className="mt-0.5 truncate text-[9px] font-black uppercase opacity-70">
-                              {span.room}
-                            </div>
-                          )}
                         </div>
 
+                        {/* Bottom: Time */}
                         <div className="mt-auto">
-                          <span className="text-[12px] leading-tight font-bold opacity-80">{span.end_time}</span>
+                          <span className="text-[11px] font-bold text-slate-500">
+                            {span.start_time} ~ {span.end_time}
+                          </span>
                         </div>
                       </div>
                     );

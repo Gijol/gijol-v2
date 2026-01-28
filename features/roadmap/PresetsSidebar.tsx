@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 
-import { Map, ChevronRight, ChevronDown, Loader2, Plus } from 'lucide-react';
+import { Map, ChevronRight, ChevronDown, Loader2, Plus, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { PresetInfo } from '@/pages/api/roadmap/presets';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@components/ui/collapsible';
@@ -108,6 +108,21 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
   const [presets, setPresets] = useState<PresetInfo[]>([]);
   const [loading, setLoading] = useState(true);
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    // Load collapse state from localStorage
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('presets-sidebar-collapsed');
+      return saved === 'true';
+    }
+    return false;
+  });
+
+  // Save collapse state to localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('presets-sidebar-collapsed', String(isCollapsed));
+    }
+  }, [isCollapsed]);
 
   useEffect(() => {
     fetch('/api/roadmap/presets')
@@ -180,12 +195,44 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
     }
   });
 
+  // Collapsed state UI
+  if (isCollapsed) {
+    return (
+      <div
+        className={cn(
+          'flex h-full w-12 flex-col items-center gap-4 border-r bg-white py-4 transition-all duration-300 ease-in-out',
+          className,
+        )}
+      >
+        <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(false)} className="h-8 w-8">
+          <PanelLeftOpen className="h-5 w-5 text-gray-500" />
+        </Button>
+        <div
+          className="font-mono text-xs tracking-widest text-slate-600 uppercase"
+          style={{ writingMode: 'vertical-lr' }}
+        >
+          COURSE PRESETS
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={cn('flex h-full w-[280px] flex-col border-r bg-white', className)}>
+    <div
+      className={cn(
+        'flex h-full w-[280px] flex-col border-r bg-white transition-all duration-300 ease-in-out',
+        className,
+      )}
+    >
       {/* Header */}
-      <div className="flex items-center gap-2 border-b bg-slate-50/50 p-3">
-        <Map className="h-4 w-4 text-blue-500" />
-        <h2 className="text-sm font-semibold">로드맵 프리셋</h2>
+      <div className="flex items-center justify-between border-b bg-slate-50/50 p-3">
+        <div className="flex items-center gap-2">
+          <Map className="h-4 w-4 text-blue-500" />
+          <h2 className="text-sm font-semibold">로드맵 프리셋</h2>
+        </div>
+        <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(true)} className="h-7 w-7">
+          <PanelLeftClose className="h-4 w-4 text-gray-500" />
+        </Button>
       </div>
 
       {/* Create Button */}
