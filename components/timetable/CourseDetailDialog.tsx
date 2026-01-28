@@ -62,16 +62,9 @@ export function CourseDetailDialog({ open, onOpenChange, sectionId }: CourseDeta
         <div className="border-b-4 px-6 pt-6 pb-4" style={{ borderBottomColor: colors.border }}>
           <DialogHeader>
             <DialogDescription className="flex items-center gap-2">
-              <span
-                className="rounded-full px-2 py-0.5 font-mono text-xs font-black uppercase"
-                style={{
-                  backgroundColor: colors.bg,
-                  color: colors.border,
-                }}
-              >
-                {section.course_code}
+              <span className="rounded-md border border-slate-300 bg-slate-100 px-2 py-0.5 font-mono text-sm font-black tracking-tight text-slate-800">
+                {section.course_code}-{section.section}
               </span>
-              <span className="text-xs font-bold text-slate-400">{section.section}</span>
             </DialogDescription>
             <DialogTitle className="text-xl font-black tracking-tight text-slate-900">{section.title}</DialogTitle>
           </DialogHeader>
@@ -88,7 +81,7 @@ export function CourseDetailDialog({ open, onOpenChange, sectionId }: CourseDeta
             </span>
             <span className="flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-bold text-blue-600">
               <GraduationCap size={14} />
-              {section.hours.credits}학점
+              {section.hours?.credits ?? 0}학점
             </span>
             {section.language && (
               <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-bold text-amber-600">

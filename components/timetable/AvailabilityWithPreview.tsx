@@ -112,7 +112,7 @@ export function AvailabilityWithPreview({
       </div>
 
       {/* Body */}
-      <div className="relative flex flex-1 overflow-hidden">
+      <div className="scrollbar-hide relative flex min-h-0 flex-1 overflow-auto">
         {/* Time Axis */}
         <div
           className="relative z-10 shrink-0 border-r border-slate-300 bg-slate-50/50"
@@ -265,6 +265,58 @@ export function AvailabilityWithPreview({
           </div>
         </div>
       </div>
+
+      {/* Off-Grid Courses Section (no time or outside grid hours) */}
+      {(() => {
+        const offGridSpans = scheduledSpans.filter((span) => {
+          // Check if span has no valid time or is outside grid range
+          if (!span.start_time || !span.end_time) return true;
+          const spanStartMin = timeToMinutes(span.start_time);
+          const spanEndMin = timeToMinutes(span.end_time);
+          // Outside grid range
+          return spanEndMin <= startMin || spanStartMin >= endMin;
+        });
+
+        if (offGridSpans.length === 0) return null;
+
+        return (
+          <div className="shrink-0 border-t border-slate-200 bg-amber-50/50 px-4 py-2">
+            <div className="flex items-center gap-2">
+              <span className="shrink-0 text-[10px] font-black tracking-wider text-amber-600 uppercase">
+                시간 외 과목
+              </span>
+              <div className="flex flex-1 flex-wrap items-center gap-1.5 overflow-hidden">
+                {offGridSpans.map((span) => {
+                  const colors = parseColor(span.color || '');
+                  return (
+                    <div
+                      key={span.nanoid}
+                      className="group flex cursor-pointer items-center gap-1 rounded-md border px-2 py-0.5 transition-all hover:shadow-sm"
+                      style={{
+                        backgroundColor: colors.bg,
+                        borderColor: colors.border,
+                      }}
+                      onClick={() => onSpanClick?.(span.sectionId)}
+                    >
+                      <span className="text-[10px] font-bold text-slate-700">{span.courseCode}</span>
+                      <span className="max-w-[80px] truncate text-[10px] text-slate-500">{span.title}</span>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onRemoveSpan?.(span.sectionId);
+                        }}
+                        className="ml-0.5 rounded p-0.5 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/10"
+                      >
+                        <X size={10} />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Legend Footer */}
       <div className="shrink-0 border-t border-slate-200 bg-slate-50 p-2 px-4">

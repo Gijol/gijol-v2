@@ -3,8 +3,26 @@ import { meetingToSpan } from './transform';
 
 /**
  * Converts a selected section into a list of TimetableSpans.
+ * If the section has no meetings, creates a placeholder span for off-grid display.
  */
 export function sectionToSpans(selected: SelectedSection, type: TimetableSpan['type'] = 'scheduled'): TimetableSpan[] {
+  // If no meetings, create a placeholder span for off-grid section
+  if (selected.section.meetings.length === 0) {
+    return [
+      {
+        nanoid: `${selected.id}-placeholder`,
+        week_day: -1, // Invalid day signals no time slot
+        start_time: '',
+        end_time: '',
+        courseCode: selected.section.course_code,
+        sectionId: selected.id,
+        type,
+        color: selected.color,
+        title: selected.section.title,
+      },
+    ];
+  }
+
   return selected.section.meetings.map((meeting) =>
     meetingToSpan(meeting, selected.section.course_code, selected.id, type, selected.color, selected.section.title),
   );

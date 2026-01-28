@@ -16,7 +16,7 @@ export function SelectedSectionList({ hideResetButton = false }: SelectedSection
   const setPreview = useTimetableStore((state) => state.setPreview);
   const clearPreview = useTimetableStore((state) => state.clearPreview);
 
-  const totalCredits = selectedSections.reduce((sum, s) => sum + s.section.hours.credits, 0);
+  const totalCredits = selectedSections.reduce((sum, s) => sum + (s.section.hours?.credits ?? 0), 0);
 
   if (selectedSections.length === 0) {
     return (
@@ -80,7 +80,7 @@ export function SelectedSectionList({ hideResetButton = false }: SelectedSection
                   </span>
                 </TableCell>
                 <TableCell className="py-3 text-center">
-                  <span className="font-bold text-slate-600">{section.hours.credits}</span>
+                  <span className="font-bold text-slate-600">{section.hours?.credits ?? 0}</span>
                 </TableCell>
                 <TableCell className="py-3">
                   <Button

@@ -610,7 +610,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "MON",
+              "start": "10:30",
+              "end": "12:00",
+              "room": null
+            },
+            {
+              "day": "WED",
+              "start": "10:30",
+              "end": "12:00",
+              "room": null
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -637,7 +650,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "MON",
+              "start": "13:00",
+              "end": "14:00",
+              "room": null
+            },
+            {
+              "day": "WED",
+              "start": "13:00",
+              "end": "14:00",
+              "room": null
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -664,7 +690,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "TUE",
+              "start": "10:30",
+              "end": "12:00",
+              "room": null
+            },
+            {
+              "day": "THU",
+              "start": "10:30",
+              "end": "12:00",
+              "room": null
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -691,7 +730,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "TUE",
+              "start": "10:30",
+              "end": "12:00",
+              "room": "실험동물자원센터(111)"
+            },
+            {
+              "day": "THU",
+              "start": "10:30",
+              "end": "12:00",
+              "room": "실험동물자원센터(111)"
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -718,7 +770,14 @@
             "lab_hours": 4,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "TUE",
+              "start": "13:00",
+              "end": "19:00",
+              "room": null
+            }
+          ],
           "capacity": 10,
           "syllabus": "view",
           "video": null,
@@ -740,7 +799,14 @@
             "lab_hours": 4,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "FRI",
+              "start": "13:00",
+              "end": "19:00",
+              "room": null
+            }
+          ],
           "capacity": 10,
           "syllabus": "view",
           "video": null,
@@ -767,7 +833,14 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "MON",
+              "start": "14:30",
+              "end": "16:00",
+              "room": "생명과학부(326)"
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -794,7 +867,14 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "FRI",
+              "start": "09:00",
+              "end": "12:00",
+              "room": "생명과학부(223)"
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -821,7 +901,14 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "MON",
+              "start": "19:00",
+              "end": "22:00",
+              "room": "생명과학부(223)"
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -848,7 +935,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "MON",
+              "start": "13:00",
+              "end": "14:30",
+              "room": "생명과학부(326)"
+            },
+            {
+              "day": "WED",
+              "start": "13:00",
+              "end": "14:30",
+              "room": "생명과학부(326)"
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -875,7 +975,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "MON",
+              "start": "16:00",
+              "end": "17:30",
+              "room": null
+            },
+            {
+              "day": "WED",
+              "start": "16:00",
+              "end": "17:30",
+              "room": null
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -3464,13 +3577,13 @@
               "day": "MON",
               "start": "16:00",
               "end": "17:30",
-              "room": null
+              "room": "전기전자컴퓨터공학부B(B203)"
             },
             {
               "day": "WED",
               "start": "16:00",
               "end": "17:30",
-              "room": null
+              "room": "전기전자컴퓨터공학부B(B203)"
             }
           ],
           "capacity": 40,
@@ -3639,19 +3752,19 @@
               "day": "MON",
               "start": "09:00",
               "end": "10:00",
-              "room": null
-            },
-            {
-              "day": "TUE",
-              "start": "13:00",
-              "end": "17:00",
-              "room": null
+              "room": "지스트대학C동(203)"
             },
             {
               "day": "WED",
               "start": "09:00",
               "end": "10:00",
-              "room": null
+              "room": "지스트대학C동(203)"
+            },
+            {
+              "day": "WED",
+              "start": "13:00",
+              "end": "17:00",
+              "room": "지스트대학C동(203)"
             }
           ],
           "capacity": 20,
@@ -3689,19 +3802,19 @@
               "day": "MON",
               "start": "09:00",
               "end": "10:00",
-              "room": null
+              "room": "지스트대학C동(203)"
             },
             {
               "day": "WED",
               "start": "09:00",
               "end": "10:00",
-              "room": null
+              "room": "지스트대학C동(203)"
             },
             {
-              "day": "WED",
+              "day": "FRI",
               "start": "13:00",
               "end": "17:00",
-              "room": null
+              "room": "지스트대학C동(203)"
             }
           ],
           "capacity": 20,
@@ -3736,22 +3849,22 @@
           },
           "meetings": [
             {
-              "day": "MON",
+              "day": "TUE",
               "start": "09:00",
               "end": "10:00",
-              "room": null
+              "room": "지스트대학C동(203)"
             },
             {
-              "day": "WED",
-              "start": "09:00",
-              "end": "10:00",
-              "room": null
+              "day": "TUE",
+              "start": "13:00",
+              "end": "17:00",
+              "room": "지스트대학C동(203)"
             },
             {
               "day": "THU",
-              "start": "13:00",
-              "end": "17:00",
-              "room": null
+              "start": "09:00",
+              "end": "10:00",
+              "room": "지스트대학C동(203)"
             }
           ],
           "capacity": 20,
@@ -4109,13 +4222,13 @@
               "day": "MON",
               "start": "13:00",
               "end": "14:30",
-              "room": null
+              "room": "전기전자컴퓨터공학부B(B203)"
             },
             {
               "day": "WED",
               "start": "13:00",
               "end": "14:30",
-              "room": null
+              "room": "전기전자컴퓨터공학부B(B203)"
             }
           ],
           "capacity": 30,
@@ -4284,13 +4397,13 @@
               "day": "TUE",
               "start": "14:30",
               "end": "16:00",
-              "room": null
+              "room": "전기전자컴퓨터공학부B(B203)"
             },
             {
               "day": "THU",
               "start": "14:30",
               "end": "16:00",
-              "room": null
+              "room": "전기전자컴퓨터공학부B(B203)"
             }
           ],
           "capacity": 10,
@@ -5088,13 +5201,13 @@
           },
           "meetings": [
             {
-              "day": "TUE",
+              "day": "MON",
               "start": "13:00",
               "end": "14:30",
               "room": null
             },
             {
-              "day": "THU",
+              "day": "WED",
               "start": "13:00",
               "end": "14:30",
               "room": null
@@ -7154,19 +7267,19 @@
               "day": "TUE",
               "start": "09:00",
               "end": "10:30",
-              "room": "지스트대학A동(115)"
+              "room": "지스트대학A동(115)\n지스트대학A동(222)"
             },
             {
               "day": "TUE",
               "start": "18:30",
               "end": "19:30",
-              "room": "지스트대학A동(222)"
+              "room": "지스트대학A동(115)\n지스트대학A동(222)"
             },
             {
               "day": "THU",
               "start": "09:00",
               "end": "10:30",
-              "room": "지스트대학A동(222)"
+              "room": "지스트대학A동(115)\n지스트대학A동(222)"
             }
           ],
           "capacity": 1,
@@ -8027,12 +8140,6 @@
           },
           "meetings": [
             {
-              "day": "MON",
-              "start": "17:30",
-              "end": "18:30",
-              "room": null
-            },
-            {
               "day": "TUE",
               "start": "10:30",
               "end": "12:00",
@@ -8042,6 +8149,12 @@
               "day": "THU",
               "start": "10:30",
               "end": "12:00",
+              "room": null
+            },
+            {
+              "day": "THU",
+              "start": "17:30",
+              "end": "18:30",
               "room": null
             }
           ],
@@ -8073,12 +8186,6 @@
           },
           "meetings": [
             {
-              "day": "MON",
-              "start": "17:30",
-              "end": "18:30",
-              "room": null
-            },
-            {
               "day": "TUE",
               "start": "13:00",
               "end": "14:30",
@@ -8088,6 +8195,12 @@
               "day": "THU",
               "start": "13:00",
               "end": "14:30",
+              "room": null
+            },
+            {
+              "day": "THU",
+              "start": "17:30",
+              "end": "18:30",
               "room": null
             }
           ],
@@ -8661,7 +8774,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "TUE",
+              "start": "10:30",
+              "end": "12:00",
+              "room": null
+            },
+            {
+              "day": "THU",
+              "start": "10:30",
+              "end": "12:00",
+              "room": null
+            }
+          ],
           "capacity": 30,
           "syllabus": "view",
           "video": null,
@@ -8683,7 +8809,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "TUE",
+              "start": "13:00",
+              "end": "14:30",
+              "room": null
+            },
+            {
+              "day": "THU",
+              "start": "13:00",
+              "end": "14:30",
+              "room": null
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -8710,7 +8849,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "MON",
+              "start": "13:00",
+              "end": "14:30",
+              "room": null
+            },
+            {
+              "day": "WED",
+              "start": "13:00",
+              "end": "14:30",
+              "room": null
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -8737,7 +8889,14 @@
             "lab_hours": 2,
             "credits": 1
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "TUE",
+              "start": "16:00",
+              "end": "18:00",
+              "room": null
+            }
+          ],
           "capacity": 4,
           "syllabus": "view",
           "video": null,
@@ -8759,7 +8918,14 @@
             "lab_hours": 2,
             "credits": 1
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "WED",
+              "start": "16:00",
+              "end": "18:00",
+              "room": null
+            }
+          ],
           "capacity": 4,
           "syllabus": "view",
           "video": null,
@@ -8781,7 +8947,14 @@
             "lab_hours": 2,
             "credits": 1
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "FRI",
+              "start": "10:00",
+              "end": "12:00",
+              "room": null
+            }
+          ],
           "capacity": 4,
           "syllabus": "view",
           "video": null,
@@ -8803,7 +8976,14 @@
             "lab_hours": 2,
             "credits": 1
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "FRI",
+              "start": "14:00",
+              "end": "16:00",
+              "room": null
+            }
+          ],
           "capacity": 4,
           "syllabus": "view",
           "video": null,
@@ -10795,19 +10975,19 @@
               "day": "TUE",
               "start": "10:30",
               "end": "12:00",
-              "room": "지스트대학A동(225)"
+              "room": "지스트대학A동(225)\n자연과학동(203)"
             },
             {
               "day": "THU",
               "start": "10:30",
               "end": "12:00",
-              "room": "자연과학동(203)"
+              "room": "지스트대학A동(225)\n자연과학동(203)"
             },
             {
               "day": "THU",
               "start": "17:30",
               "end": "18:30",
-              "room": "자연과학동(203)"
+              "room": "지스트대학A동(225)\n자연과학동(203)"
             }
           ],
           "capacity": 45,
@@ -10850,19 +11030,19 @@
               "day": "MON",
               "start": "14:30",
               "end": "16:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             },
             {
               "day": "WED",
               "start": "14:30",
               "end": "16:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             },
             {
               "day": "WED",
               "start": "16:00",
               "end": "17:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             }
           ],
           "capacity": 20,
@@ -10900,19 +11080,19 @@
               "day": "MON",
               "start": "14:30",
               "end": "16:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             },
             {
               "day": "WED",
               "start": "14:30",
               "end": "16:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             },
             {
               "day": "WED",
               "start": "17:00",
               "end": "18:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             }
           ],
           "capacity": 20,
@@ -10950,19 +11130,19 @@
               "day": "TUE",
               "start": "14:30",
               "end": "16:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             },
             {
               "day": "THU",
               "start": "14:30",
               "end": "16:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             },
             {
               "day": "THU",
               "start": "16:00",
               "end": "17:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             }
           ],
           "capacity": 20,
@@ -11000,19 +11180,19 @@
               "day": "TUE",
               "start": "14:30",
               "end": "16:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             },
             {
               "day": "THU",
               "start": "14:30",
               "end": "16:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             },
             {
               "day": "THU",
               "start": "17:00",
               "end": "18:00",
-              "room": null
+              "room": "지스트대학C동(108)"
             }
           ],
           "capacity": 20,
@@ -11660,15 +11840,15 @@
           },
           "meetings": [
             {
-              "day": "TUE",
-              "start": "09:00",
-              "end": "10:30",
+              "day": "MON",
+              "start": "10:30",
+              "end": "12:00",
               "room": null
             },
             {
-              "day": "THU",
-              "start": "09:00",
-              "end": "10:30",
+              "day": "WED",
+              "start": "10:30",
+              "end": "12:00",
               "room": null
             }
           ],
@@ -11703,7 +11883,14 @@
             "lab_hours": 0,
             "credits": 2
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "MON",
+              "start": "19:30",
+              "end": "21:30",
+              "room": null
+            }
+          ],
           "capacity": 35,
           "syllabus": "view",
           "video": null,
@@ -11730,7 +11917,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "MON",
+              "start": "14:30",
+              "end": "16:00",
+              "room": null
+            },
+            {
+              "day": "WED",
+              "start": "14:30",
+              "end": "16:00",
+              "room": null
+            }
+          ],
           "capacity": 30,
           "syllabus": "view",
           "video": null,
@@ -11757,7 +11957,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "MON",
+              "start": "16:00",
+              "end": "17:30",
+              "room": null
+            },
+            {
+              "day": "WED",
+              "start": "16:00",
+              "end": "17:30",
+              "room": null
+            }
+          ],
           "capacity": 30,
           "syllabus": "view",
           "video": null,
@@ -11784,7 +11997,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "TUE",
+              "start": "09:00",
+              "end": "10:30",
+              "room": null
+            },
+            {
+              "day": "THU",
+              "start": "09:00",
+              "end": "10:30",
+              "room": null
+            }
+          ],
           "capacity": 30,
           "syllabus": "view",
           "video": null,
@@ -12081,7 +12307,20 @@
             "lab_hours": 0,
             "credits": 3
           },
-          "meetings": [],
+          "meetings": [
+            {
+              "day": "MON",
+              "start": "13:00",
+              "end": "14:00",
+              "room": null
+            },
+            {
+              "day": "WED",
+              "start": "13:00",
+              "end": "14:00",
+              "room": null
+            }
+          ],
           "capacity": 0,
           "syllabus": "view",
           "video": null,
@@ -12788,7 +13027,7 @@
               "day": "TUE",
               "start": "13:00",
               "end": "18:00",
-              "room": "지스트대학C동(205)"
+              "room": "지스트대학C동(205)\n지스트대학C동(206)"
             }
           ],
           "capacity": 12,
@@ -12826,7 +13065,7 @@
               "day": "FRI",
               "start": "13:00",
               "end": "18:00",
-              "room": "지스트대학C동(205)"
+              "room": "지스트대학C동(205)\n지스트대학C동(206)"
             }
           ],
           "capacity": 12,
@@ -14017,19 +14256,19 @@
               "day": "TUE",
               "start": "10:30",
               "end": "12:00",
-              "room": "지스트대학A동(225)"
+              "room": "지스트대학A동(225)\n자연과학동(203)"
             },
             {
               "day": "THU",
               "start": "10:30",
               "end": "12:00",
-              "room": "자연과학동(203)"
+              "room": "지스트대학A동(225)\n자연과학동(203)"
             },
             {
               "day": "THU",
               "start": "17:30",
               "end": "18:30",
-              "room": "자연과학동(203)"
+              "room": "지스트대학A동(225)\n자연과학동(203)"
             }
           ],
           "capacity": 45,
@@ -14067,19 +14306,19 @@
               "day": "TUE",
               "start": "14:30",
               "end": "16:00",
-              "room": "지스트대학A동(225)"
+              "room": "지스트대학A동(225)\n지스트대학A동(227)"
             },
             {
               "day": "THU",
               "start": "14:30",
               "end": "16:00",
-              "room": "지스트대학A동(227)"
+              "room": "지스트대학A동(225)\n지스트대학A동(227)"
             },
             {
               "day": "THU",
               "start": "18:30",
               "end": "19:30",
-              "room": "지스트대학A동(227)"
+              "room": "지스트대학A동(225)\n지스트대학A동(227)"
             }
           ],
           "capacity": 43,
@@ -14731,15 +14970,15 @@
           },
           "meetings": [
             {
-              "day": "TUE",
-              "start": "09:00",
-              "end": "10:30",
+              "day": "MON",
+              "start": "10:30",
+              "end": "12:00",
               "room": null
             },
             {
-              "day": "THU",
-              "start": "09:00",
-              "end": "10:30",
+              "day": "WED",
+              "start": "10:30",
+              "end": "12:00",
               "room": null
             }
           ],
@@ -15237,13 +15476,13 @@
           },
           "meetings": [
             {
-              "day": "MON",
+              "day": "TUE",
               "start": "10:30",
               "end": "12:00",
               "room": null
             },
             {
-              "day": "WED",
+              "day": "THU",
               "start": "10:30",
               "end": "12:00",
               "room": null
@@ -15474,13 +15713,13 @@
               "day": "MON",
               "start": "16:00",
               "end": "17:30",
-              "room": null
+              "room": "전기전자컴퓨터공학부B(B203)"
             },
             {
               "day": "WED",
               "start": "16:00",
               "end": "17:30",
-              "room": null
+              "room": "전기전자컴퓨터공학부B(B203)"
             }
           ],
           "capacity": 40,
@@ -15827,14 +16066,14 @@
           "meetings": [
             {
               "day": "MON",
-              "start": "13:00",
-              "end": "15:00",
+              "start": "12:30",
+              "end": "14:30",
               "room": null
             },
             {
               "day": "WED",
-              "start": "13:00",
-              "end": "15:00",
+              "start": "12:30",
+              "end": "14:30",
               "room": null
             }
           ],

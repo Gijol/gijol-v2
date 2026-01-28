@@ -9,7 +9,7 @@ import { useTimetableStore } from '@/lib/stores/timetable.store';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { ListChecks, Menu, FolderOpen, Plus } from 'lucide-react';
+import { ListChecks, Menu, FolderOpen, Plus, RotateCcw } from 'lucide-react';
 
 interface TimetableLayoutProps {
   sections: SectionOffering[];
@@ -62,9 +62,10 @@ export function TimetableLayout({ sections }: TimetableLayoutProps) {
                 <Button
                   onClick={handleNewTimetable}
                   variant="outline"
-                  className="flex items-center gap-2 border-slate-300 font-bold tracking-tight hover:border-green-500 hover:bg-green-50 hover:text-green-600"
+                  className="flex items-center gap-2 border-slate-300 font-bold tracking-tight hover:border-red-500 hover:bg-red-50 hover:text-red-600"
                 >
-                  <Plus size={18} />새 시간표
+                  <RotateCcw size={18} />
+                  시간표 초기화
                 </Button>
                 <Button
                   onClick={() => setIsSavedTimetablesDialogOpen(true)}
@@ -118,9 +119,9 @@ export function TimetableLayout({ sections }: TimetableLayoutProps) {
                 onClick={handleNewTimetable}
                 size="sm"
                 variant="outline"
-                className="border-slate-300 font-bold tracking-tight hover:border-green-500 hover:bg-green-50"
+                className="border-slate-300 font-bold tracking-tight hover:border-red-500 hover:bg-red-50 hover:text-red-500"
               >
-                <Plus size={16} />
+                <RotateCcw size={16} />
               </Button>
               <Button
                 onClick={() => setIsSavedTimetablesDialogOpen(true)}

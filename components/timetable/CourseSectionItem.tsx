@@ -25,6 +25,7 @@ interface CourseSectionItemProps {
   onMouseEnter: (section: SectionOffering) => void;
   onMouseLeave: () => void;
   compact?: boolean; // For mobile view
+  hideBorder?: boolean; // Hide bottom border for last item
 }
 
 export function CourseSectionItem({
@@ -36,6 +37,7 @@ export function CourseSectionItem({
   onMouseEnter,
   onMouseLeave,
   compact = false,
+  hideBorder = false,
 }: CourseSectionItemProps) {
   const handleAction = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -61,7 +63,8 @@ export function CourseSectionItem({
     return (
       <div
         className={cn(
-          'group relative flex w-full min-w-0 cursor-default flex-col overflow-hidden border-b p-3 transition-all duration-200',
+          'group relative flex w-full min-w-0 cursor-default flex-col overflow-hidden p-3 transition-all duration-200',
+          !hideBorder && 'border-b border-slate-200',
           isAdded ? 'bg-blue-50/40' : 'hover:bg-slate-50',
           isConflict && !isAdded && 'bg-red-50/30 opacity-80',
         )}
@@ -80,7 +83,7 @@ export function CourseSectionItem({
                 variant="outline"
                 className="h-4 shrink-0 border-slate-200 bg-white px-1.5 py-0 text-[9px] font-bold text-slate-500 uppercase"
               >
-                {section.hours.credits}학점
+                {section.hours?.credits ?? 0}학점
               </Badge>
             </div>
             <h4 className="mt-0.5 truncate text-[13px] leading-tight font-bold text-slate-900">{section.title}</h4>
@@ -131,7 +134,8 @@ export function CourseSectionItem({
   return (
     <div
       className={cn(
-        'group relative flex w-full min-w-0 cursor-default flex-col overflow-hidden border-b p-5 transition-all duration-200',
+        'group relative flex w-full min-w-0 cursor-default flex-col overflow-hidden p-5 transition-all duration-200',
+        !hideBorder && 'border-b border-slate-200',
         isAdded ? 'bg-blue-50/40' : 'hover:bg-slate-50',
         isConflict && !isAdded && 'bg-red-50/30 opacity-80',
       )}
@@ -197,7 +201,7 @@ export function CourseSectionItem({
           <span className="font-bold">{instructors}</span>
         </div>
         <div className="flex min-w-0 shrink-0 items-center gap-2 text-slate-600">
-          <span className="shrink-0 font-bold">{section.hours.credits}학점</span>
+          <span className="shrink-0 font-bold">{section.hours?.credits ?? 0}학점</span>
         </div>
       </div>
 
@@ -205,7 +209,7 @@ export function CourseSectionItem({
         {section.meetings.map((m, idx) => (
           <div
             key={idx}
-            className="flex w-full min-w-0 items-center gap-2.5 overflow-hidden rounded-lg border border-slate-200/50 bg-slate-100/50 p-1.5 px-3 text-[11px] font-bold text-slate-500"
+            className="flex w-full min-w-0 items-center gap-2.5 overflow-hidden rounded-lg border border-slate-300 bg-slate-100/50 p-1.5 px-3 text-[11px] font-bold text-slate-500"
           >
             <span className="shrink-0 tracking-tight text-slate-800">{DAY_TO_KOREAN[m.day] || m.day}요일</span>
             <span className="shrink-0 font-mono text-[10px] opacity-80">

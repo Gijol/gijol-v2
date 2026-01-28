@@ -243,3 +243,12 @@
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
     -webkit-text-fill-color: inherit !important;
 } */
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
