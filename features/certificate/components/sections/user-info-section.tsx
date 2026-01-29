@@ -124,6 +124,48 @@ export function UserInfoSection() {
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="USER.minorMajor"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>부전공</FormLabel>
+              <FormControl>
+                <Input placeholder="부전공명 (선택)" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="USER.doubleMajor"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>복수전공</FormLabel>
+              <FormControl>
+                <Input placeholder="복수전공명 (선택)" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="USER.intensiveMajor"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>심화전공</FormLabel>
+              <FormControl>
+                <Input placeholder="심화전공명 (선택)" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </div>
     </div>
   );

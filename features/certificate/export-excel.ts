@@ -1,5 +1,6 @@
 import ExcelJS from 'exceljs';
 import { MAP_2021 } from './mapping/after_2021';
+import { MAP_2018_TO_2020 } from './mapping/2018_to_2020';
 
 import { CertificateFormValues, CreditValue } from './schema';
 
@@ -27,7 +28,21 @@ export async function generateCertificateExcel(formData: CertificateFormData, is
     throw new Error('Worksheet not found in template');
   }
 
-  const mapping = MAP_2021;
+  // Select mapping based on student year
+  const mapping = isAfter2021 ? MAP_2021 : MAP_2018_TO_2020;
+
+  // Set sheet background to white
+  worksheet.eachRow((row) => {
+    row.eachCell((cell) => {
+      if (!cell.fill || cell.fill.type !== 'pattern') {
+        cell.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb: 'FFFFFFFF' },
+        };
+      }
+    });
+  });
 
   // 1. Basic Info
   setCellValue(worksheet, mapping.basicInfo.major, formData.USER.affiliation);
@@ -42,17 +57,19 @@ export async function generateCertificateExcel(formData: CertificateFormData, is
   setCellValue(worksheet, mapping.dateFields.title, titleText);
 
   // 3. Composites
-  setCellValue(worksheet, mapping.composites.majorDetails, formData.USER.majorDetails);
+  // C5: Major details format - 부전공/복수전공/심화전공
+  const majorDetailsText = `*(부전공: ${formData.USER.minorMajor || '                '} / 복수전공: ${formData.USER.doubleMajor || '                '} / 심화전공: ${formData.USER.intensiveMajor || '                '})`;
+  setCellValue(worksheet, mapping.composites.majorDetails, majorDetailsText);
 
   // Summer session format
   if (formData.OU.summerSession.credits) {
-    const summerText = `${formData.OU.summerSession.credits}학점 / ${formData.OU.summerSession.university} / ${formData.OU.summerSession.subjects.join(', ')} / ${formData.OU.summerSession.semester}`;
+    const summerText = `* 해외대학 여름학기 파견 이수(인정) 교과목 및 학점: ${formData.OU.summerSession.credits}학점 (파견대학명: ${formData.OU.summerSession.university || '            '} / 교과목명: ${formData.OU.summerSession.subjects.join(', ') || '                 '} /파견학기: ${formData.OU.summerSession.semester || '              '})`;
     setCellValue(worksheet, mapping.composites.summerSession, summerText);
   }
 
-  // Study abroad format
+  // Study abroad format (SAP)
   if (formData.OU.studyAbroad.credits) {
-    const abroadText = `${formData.OU.studyAbroad.credits}학점 / ${formData.OU.studyAbroad.university} / ${formData.OU.studyAbroad.subjects.join(', ')} / ${formData.OU.studyAbroad.semester}`;
+    const abroadText = `* Study Abroad Program 이수(인정) 교과목 및 학점: ${formData.OU.studyAbroad.credits}학점 (파견대학명: ${formData.OU.studyAbroad.university || '            '} / 교과목명: ${formData.OU.studyAbroad.subjects.join(', ') || '                 '} /파견학기: ${formData.OU.studyAbroad.semester || '               '})`;
     setCellValue(worksheet, mapping.composites.studyAbroad, abroadText);
   }
 
@@ -62,8 +79,17 @@ export async function generateCertificateExcel(formData: CertificateFormData, is
   setCreditValues(worksheet, mapping.credits.basic_humanities, formData.B_C.humanitiesAndSocial);
   setCreditValues(worksheet, mapping.credits.basic_software, formData.B_C.software);
   setCreditValues(worksheet, mapping.credits.basic_basicScience, formData.B_C.basicScience);
-  setCreditValues(worksheet, mapping.credits.basic_gistFreshman, formData.B_C.gistFreshman);
-  setCreditValues(worksheet, mapping.credits.basic_majorExploration, formData.B_C.gistMajorExploration);
+
+  // Handle different field names between 2018-2020 and 2021+ mappings
+  if (isAfter2021) {
+    const map2021 = mapping as typeof MAP_2021;
+    setCreditValues(worksheet, map2021.credits.basic_gistFreshman, formData.B_C.gistFreshman);
+    setCreditValues(worksheet, map2021.credits.basic_majorExploration, formData.B_C.gistMajorExploration);
+  } else {
+    // 2018-2020 uses basic_gistFreshmanSeminar instead (combined as freshman seminar)
+    const map2018 = mapping as typeof MAP_2018_TO_2020;
+    setCreditValues(worksheet, map2018.credits.basic_gistFreshmanSeminar, formData.B_C.freshmanSeminar);
+  }
 
   // Major/Research/Free credits
   setCreditValues(worksheet, mapping.credits.major_required, formData.M_R_F.majorRequired);
@@ -83,11 +109,16 @@ export async function generateCertificateExcel(formData: CertificateFormData, is
 
   // 6. Signature
   const today = new Date();
-  const signatureText = `${formData.USER.name} (인)\n${today.getFullYear()}. ${String(today.getMonth() + 1).padStart(2, '0')}. ${String(today.getDate()).padStart(2, '0')}`;
-  // For signature, correct newlines are important. ExcelJS handles strings as is.
-  // If we want actual rich text or specific alignment, we can set that on the cell style.
-  // For now, simple value replacement is likely enough if the cell has wrapText: true.
-  setCellValue(worksheet, mapping.signature.applicant, signatureText);
+  const dateStr = `${today.getFullYear()}.  ${String(today.getMonth() + 1).padStart(2, '0')}.  ${String(today.getDate()).padStart(2, '0')}.`;
+  const signatureText = `${dateStr}\n\n신청자: ${formData.USER.name}                    (인)`;
+
+  const signatureCell = worksheet.getCell(mapping.signature.applicant);
+  signatureCell.value = signatureText;
+  signatureCell.alignment = {
+    horizontal: 'center',
+    vertical: 'middle',
+    wrapText: true,
+  };
 
   // Generate output
   const buffer = await workbook.xlsx.writeBuffer();

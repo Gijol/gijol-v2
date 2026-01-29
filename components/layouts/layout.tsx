@@ -2,6 +2,8 @@ import { ReactNode, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { SidebarNavigation } from './layout-navbar';
+import { DataManagementSection } from './data-management-section';
+import { UploadBanner } from './upload-banner';
 import { Sheet, SheetContent } from '@components/ui/sheet';
 import { Menu } from 'lucide-react';
 import { Button } from '@components/ui/button';
@@ -52,7 +54,7 @@ export function Layout({ children }: { children: ReactNode }) {
           </div>
           {!isCollapsed && (
             <div>
-              <span className="text-lg font-bold text-white">GradPath</span>
+              <span className="text-lg font-bold text-white">Gijol</span>
               <p className="text-xs text-gray-400">졸업 관리 시스템</p>
             </div>
           )}
@@ -97,44 +99,8 @@ export function Layout({ children }: { children: ReactNode }) {
           <SidebarNavigation variant="dark" isCollapsed={isCollapsed} />
         </div>
 
-        {/* User Section */}
-        <div className="border-t border-gray-800 p-4">
-          <div className={cn('flex items-center rounded-lg py-2', isCollapsed ? 'justify-center px-0' : 'gap-3 px-2')}>
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0B62DA] text-sm font-semibold text-white">
-              서
-            </div>
-            {!isCollapsed && (
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium text-white">서동호</p>
-                <p className="truncate text-xs text-gray-400">sfdw2010@gmail.com</p>
-              </div>
-            )}
-          </div>
-          <Link
-            href="/"
-            className={cn(
-              'mt-3 flex items-center rounded-lg py-2 text-sm text-red-400 no-underline transition-colors hover:bg-red-500/10 hover:text-red-300',
-              isCollapsed ? 'justify-center px-0' : 'gap-2 px-2',
-            )}
-            title="로그아웃"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-              <polyline points="16 17 21 12 16 7" />
-              <line x1="21" y1="12" x2="9" y2="12" />
-            </svg>
-            {!isCollapsed && <span>로그아웃</span>}
-          </Link>
-        </div>
+        {/* 데이터 관리 Section */}
+        <DataManagementSection isCollapsed={isCollapsed} />
       </aside>
 
       {/* Main Content Area */}
@@ -163,12 +129,15 @@ export function Layout({ children }: { children: ReactNode }) {
                 <path d="M6 12v5c3 3 9 3 12 0v-5" />
               </svg>
             </div>
-            <span className="text-lg font-bold text-gray-900">GradPath</span>
+            <span className="text-lg font-bold text-gray-900">Gijol</span>
           </Link>
           <Button variant="ghost" size="icon" className="text-gray-500" onClick={() => setMobileOpen(true)}>
             <Menu className="h-5 w-5" />
           </Button>
         </header>
+
+        {/* Upload Banner */}
+        <UploadBanner />
 
         {/* Page Content */}
         <main
@@ -200,24 +169,16 @@ export function Layout({ children }: { children: ReactNode }) {
                 <path d="M6 12v5c3 3 9 3 12 0v-5" />
               </svg>
             </div>
-            <span className="text-lg font-bold text-white">GradPath</span>
+            <span className="text-lg font-bold text-white">Gijol</span>
           </div>
 
           <div className="p-4">
             <SidebarNavigation variant="dark" />
           </div>
 
-          {/* User Section */}
-          <div className="absolute right-0 bottom-0 left-0 border-t border-gray-800 p-4">
-            <div className="flex items-center gap-3 px-2 py-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0B62DA] text-sm font-semibold text-white">
-                서
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium text-white">서동호</p>
-                <p className="truncate text-xs text-gray-400">sfdw2010@gmail.com</p>
-              </div>
-            </div>
+          {/* 데이터 관리 Section */}
+          <div className="absolute right-0 bottom-0 left-0">
+            <DataManagementSection isCollapsed={false} />
           </div>
         </SheetContent>
       </Sheet>

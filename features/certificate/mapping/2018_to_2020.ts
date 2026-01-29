@@ -1,4 +1,4 @@
-export const MAP_2021 = {
+export const MAP_2018_TO_2020 = {
   // 1. 단순 텍스트 매핑 (Cell Address)
   basicInfo: {
     major: 'C4', // 소속

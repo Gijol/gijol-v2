@@ -149,6 +149,7 @@ const SET_SW_BASIC = new Set(['GS1490']);
 const SET_FRESHMAN = new Set(['GS1901', 'GS9301']);
 const SET_EXPLORATION = new Set(['UC0902']);
 const SET_COLLOQUIUM = new Set(['UC9331']);
+const SET_SCIENCE_ECONOMY = new Set(['GS1701', 'UC0901']); // 과학기술과 경제
 
 const RESEARCH_I_SUFFIX = '9102';
 const RESEARCH_II_SUFFIX = '9103';
@@ -524,6 +525,30 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
       : `콜로퀴움을 ${2 - colloquiumCount}회 더 이수해야 합니다.`,
     matchedCourses: colloquiumMatched,
     relatedCoursePatterns: { codePrefixes: Array.from(SET_COLLOQUIUM) },
+  });
+
+  // ===== 6-1. 과학기술과 경제 (1학점 필수) =====
+  const scienceEconomyCourses = findCoursesInSet(allCourses, SET_SCIENCE_ECONOMY);
+  const scienceEconomyMatched = scienceEconomyCourses.map(toMatchedInfo);
+  const scienceEconomyTaken = scienceEconomyCourses.length > 0;
+
+  reqs.push({
+    id: 'etc-science-economy',
+    categoryKey: 'etcMandatory',
+    label: courseBasedLabel('과학기술과 경제', scienceEconomyMatched, scienceEconomyTaken),
+    requiredCredits: 1,
+    acquiredCredits: scienceEconomyTaken ? 1 : 0,
+    missingCredits: scienceEconomyTaken ? 0 : 1,
+    satisfied: scienceEconomyTaken,
+    importance: 'must',
+    hint: courseBasedHint(
+      scienceEconomyMatched,
+      scienceEconomyTaken,
+      '{year}년 {semester}에 {course}를 이수했습니다.',
+      'GS1701 과학기술과 경제(1학점)를 필수로 이수해야 합니다.',
+    ),
+    matchedCourses: scienceEconomyMatched,
+    relatedCoursePatterns: { codePrefixes: Array.from(SET_SCIENCE_ECONOMY) },
   });
 
   // ===== 7. 예체능 =====

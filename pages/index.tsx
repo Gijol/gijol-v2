@@ -1,17 +1,19 @@
+'use client';
+
 import React, { useRef } from 'react';
 import router from 'next/router';
-import { Package, BarChart, User, Calendar } from 'lucide-react';
+import { Package, BarChart, Calendar, GraduationCap, Map, Clock, FileCheck, BookOpen, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-import { HoverEffect } from '@components/ui/card-hover-effect';
 import { InfiniteMovingCards } from '@components/ui/infinite-moving-cards';
-
 import MainLayoutHeader from '@components/layouts/main-layout-header';
+import { cn } from '@/lib/utils';
 
 export default function MainPage() {
   const targetRef = useRef<HTMLDivElement>(null);
 
   const scrollIntoView = () => {
-    targetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    targetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const reviews = [
@@ -35,26 +37,48 @@ export default function MainPage() {
     },
   ];
 
-  const services = [
+  const features = [
     {
-      title: '졸업요건 확인하기',
-      description: '나의 졸업요건 충족 여부와 상세한 피드백을 받아보세요. 학사편람을 일일이 확인하지 않아도 됩니다.',
-      icon: <Package className="h-6 w-6" strokeWidth={1.5} />,
+      title: '졸업요건 분석',
+      description: '성적표 업로드 한 번으로 졸업요건 충족 여부를 자동 분석합니다.',
+      icon: <GraduationCap className="h-6 w-6" />,
+      gradient: 'from-blue-500 to-cyan-500',
+      size: 'large',
     },
     {
-      title: '강의정보 검색',
-      description: '매 학기 열리는 강의 정보를 빠르게 검색하고, 나에게 필요한 과목을 찾아보세요.',
-      icon: <BarChart className="h-6 w-6" strokeWidth={1.5} />,
+      title: '시간표 생성기',
+      description: '드래그 앤 드롭으로 다음 학기 시간표를 간편하게 계획하세요.',
+      icon: <Clock className="h-6 w-6" />,
+      gradient: 'from-violet-500 to-purple-500',
+      size: 'normal',
     },
     {
-      title: '내 정보 관리',
-      description: '나의 학적 정보와 이수 현황을 한눈에 확인하고 효율적으로 관리하세요.',
-      icon: <User className="h-6 w-6" strokeWidth={1.5} />,
+      title: '로드맵 빌더',
+      description: '졸업까지의 수강 계획을 시각적으로 구성하고 관리합니다.',
+      icon: <Map className="h-6 w-6" />,
+      gradient: 'from-emerald-500 to-teal-500',
+      size: 'normal',
     },
     {
-      title: '학업 계획 수립',
-      description: '남은 학기 동안 들어야 할 과목을 계획하고 졸업까지의 로드맵을 세워보세요.',
-      icon: <Calendar className="h-6 w-6" strokeWidth={1.5} />,
+      title: '강의 검색',
+      description: '학기별 개설 과목을 빠르게 검색하고 필터링하세요.',
+      icon: <BarChart className="h-6 w-6" />,
+      gradient: 'from-orange-500 to-amber-500',
+      size: 'normal',
+    },
+    {
+      title: '졸업요건 가이드',
+      description: '학번별 졸업요건을 한눈에 확인하고 비교해보세요.',
+      icon: <BookOpen className="h-6 w-6" />,
+      gradient: 'from-pink-500 to-rose-500',
+      size: 'normal',
+    },
+    {
+      title: '확인서 생성기',
+      description: '졸업 이수요건 확인서를 엑셀 파일로 자동 생성합니다.',
+      icon: <FileCheck className="h-6 w-6" />,
+      gradient: 'from-indigo-500 to-blue-500',
+      size: 'large',
     },
   ];
 
@@ -70,33 +94,54 @@ export default function MainPage() {
         <div className="relative mx-auto max-w-6xl px-6 pt-20 pb-24">
           {/* Badge */}
           <div className="mb-8 flex justify-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2"
+            >
               <span className="text-sm font-medium text-[#0B62DA]">✨ GIST 학부생을 위한 졸업 관리 플랫폼</span>
-            </div>
+            </motion.div>
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-center text-4xl leading-tight font-bold tracking-tight text-[#1D2530] md:text-6xl">
-            <span className="bg-gradient-to-r from-[#0B62DA] to-cyan-500 bg-clip-text text-transparent">졸업까지</span>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-center text-4xl leading-tight font-bold tracking-tight text-[#1D2530] md:text-6xl"
+          >
+            <span className="bg-linear-to-r from-[#0B62DA] to-cyan-500 bg-clip-text text-transparent">졸업까지</span>
             의 모든 여정을
             <br />
             한눈에 관리하세요
-          </h1>
+          </motion.h1>
 
           {/* Description */}
-          <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-gray-600">
-            성적표 업로드만으로 졸업요건 분석, 맞춤형 수강 추천,
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-gray-600"
+          >
+            성적표 업로드로 졸업요건 분석, 맞춤형 수강 추천,
             <br className="hidden md:block" />
-            취업 연계 로드맵까지. GradPath가 함께합니다.
-          </p>
+            강의 로드맵까지. Gijol이 함께합니다.
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          >
             <button
               onClick={() => router.push('/dashboard')}
-              className="rounded-xl bg-[#0B62DA] px-8 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/25 transition-all duration-200 hover:bg-[#0952B8] hover:shadow-xl hover:shadow-blue-500/30"
+              className="group rounded-xl bg-[#0B62DA] px-8 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/25 transition-all duration-200 hover:bg-[#0952B8] hover:shadow-xl hover:shadow-blue-500/30"
             >
-              무료로 시작하기 →
+              바로 시작하기
+              <ArrowRight className="ml-2 inline-block h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
             <button
               onClick={scrollIntoView}
@@ -104,11 +149,16 @@ export default function MainPage() {
             >
               기능 살펴보기
             </button>
-          </div>
+          </motion.div>
 
           {/* Dashboard Preview */}
-          <div className="relative mt-16">
-            <div className="pointer-events-none absolute inset-0 z-10 h-full bg-gradient-to-t from-[#F9FAFB] via-transparent to-transparent" />
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="relative mt-16"
+          >
+            <div className="pointer-events-none absolute inset-0 z-10 h-full bg-linear-to-t from-[#F9FAFB] via-transparent to-transparent" />
             <div className="overflow-hidden rounded-2xl border border-gray-800 bg-[#1E293B] shadow-2xl">
               <div className="flex items-center gap-2 border-b border-gray-700 bg-[#0F172A] px-4 py-3">
                 <div className="flex gap-2">
@@ -117,7 +167,7 @@ export default function MainPage() {
                   <div className="h-3 w-3 rounded-full bg-green-500" />
                 </div>
                 <div className="flex-1 text-center">
-                  <span className="text-xs text-gray-400">GradPath Dashboard</span>
+                  <span className="text-xs text-gray-400">Gijol Dashboard</span>
                 </div>
               </div>
               <div className="p-8">
@@ -128,7 +178,7 @@ export default function MainPage() {
                     <div className="mb-2 text-sm text-gray-400">총 이수 학점</div>
                     <div className="mb-4 text-3xl font-bold text-white">102 / 130</div>
                     <div className="h-2 overflow-hidden rounded-full bg-gray-700">
-                      <div className="h-full w-[78%] rounded-full bg-gradient-to-r from-[#0B62DA] to-cyan-400" />
+                      <div className="h-full w-[78%] rounded-full bg-linear-to-r from-[#0B62DA] to-cyan-400" />
                     </div>
                     <div className="mt-2 text-xs text-gray-500">78% 완료</div>
                   </div>
@@ -138,7 +188,7 @@ export default function MainPage() {
                     <div className="mb-2 text-sm text-gray-400">전공 학점</div>
                     <div className="mb-4 text-3xl font-bold text-white">45 / 54</div>
                     <div className="h-2 overflow-hidden rounded-full bg-gray-700">
-                      <div className="h-full w-[83%] rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400" />
+                      <div className="h-full w-[83%] rounded-full bg-linear-to-r from-emerald-500 to-emerald-400" />
                     </div>
                     <div className="mt-2 text-xs text-gray-500">83% 완료</div>
                   </div>
@@ -148,19 +198,19 @@ export default function MainPage() {
                     <div className="mb-2 text-sm text-gray-400">누적 평점</div>
                     <div className="mb-4 text-3xl font-bold text-white">3.85 / 4.5</div>
                     <div className="h-2 overflow-hidden rounded-full bg-gray-700">
-                      <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-amber-500 to-amber-400" />
+                      <div className="h-full w-[85%] rounded-full bg-linear-to-r from-amber-500 to-amber-400" />
                     </div>
                     <div className="mt-2 text-xs text-gray-500">상위 15%</div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Features Section */}
-      <div className="mx-auto max-w-5xl px-6 py-20" ref={targetRef}>
+      {/* Features Section - Bento Grid Style */}
+      <div className="mx-auto max-w-6xl px-6 py-24" ref={targetRef}>
         <div className="mb-4 text-center">
           <span className="text-sm font-semibold tracking-wide text-[#0B62DA]">FEATURES</span>
         </div>
@@ -168,16 +218,47 @@ export default function MainPage() {
           졸업 준비, 이제 쉽고 빠르게
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-gray-600">
-          GradPath의 다양한 기능으로 복잡한 학사 관리를 간편하게 해결하세요
+          Gijol의 다양한 기능으로 복잡한 학사 관리를 간편하게 해결하세요
         </p>
-        <HoverEffect
-          items={services.map((s) => ({
-            title: s.title,
-            description: s.description,
-            link: '#',
-            icon: s.icon,
-          }))}
-        />
+
+        {/* Bento Grid */}
+        <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className={cn(
+                'group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:border-gray-300 hover:shadow-xl',
+                feature.size === 'large' && 'md:col-span-2 lg:col-span-1',
+              )}
+            >
+              {/* Gradient background on hover */}
+              <div
+                className={cn(
+                  'absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-300 group-hover:opacity-5',
+                  feature.gradient,
+                )}
+              />
+
+              {/* Icon */}
+              <div
+                className={cn(
+                  'mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br text-white transition-transform duration-300 group-hover:scale-110',
+                  feature.gradient,
+                )}
+              >
+                {feature.icon}
+              </div>
+
+              {/* Content */}
+              <h3 className="mb-2 text-lg font-bold text-gray-900">{feature.title}</h3>
+              <p className="text-sm leading-relaxed text-gray-600">{feature.description}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       {/* Reviews Section */}
@@ -194,26 +275,41 @@ export default function MainPage() {
       </div>
 
       {/* Bottom CTA Section */}
-      <div className="bg-[#0F172A] py-24">
-        <div className="mx-auto max-w-4xl px-6 text-center">
-          <h2 className="mb-6 text-3xl font-bold tracking-tight text-white md:text-5xl">지금 바로 시작하세요</h2>
-          <p className="mx-auto mb-10 max-w-xl text-lg text-gray-400">
+      <div className="relative overflow-hidden bg-[#0F172A] py-24">
+        {/* Gradient orbs */}
+        <div className="absolute top-0 left-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-blue-500/20 blur-3xl" />
+        <div className="absolute right-1/4 bottom-0 h-96 w-96 translate-x-1/2 rounded-full bg-cyan-500/20 blur-3xl" />
+
+        <div className="relative mx-auto max-w-4xl px-6 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="mb-6 text-3xl font-bold tracking-tight text-white md:text-5xl"
+          >
+            지금 바로 시작하세요
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="mx-auto mb-10 max-w-xl text-lg text-gray-400"
+          >
             성적표 업로드 한 번으로 졸업까지의 모든 여정을 계획하고 관리할 수 있습니다.
-          </p>
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <button
-              onClick={() => router.push('/dashboard')}
-              className="rounded-xl bg-[#0B62DA] px-10 py-4 text-lg font-semibold text-white transition-all duration-200 hover:bg-[#0952B8]"
-            >
-              무료로 시작하기
-            </button>
-            <button
-              onClick={() => router.push('/dashboard')}
-              className="rounded-xl border border-gray-600 bg-transparent px-10 py-4 text-lg font-semibold text-white transition-all duration-200 hover:bg-white/10"
-            >
-              데모 보기
-            </button>
-          </div>
+          </motion.p>
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+            onClick={() => router.push('/dashboard')}
+            className="group rounded-xl bg-[#0B62DA] px-10 py-4 text-lg font-semibold text-white transition-all duration-200 hover:bg-[#0952B8]"
+          >
+            무료로 시작하기
+            <ArrowRight className="ml-2 inline-block h-5 w-5 transition-transform group-hover:translate-x-1" />
+          </motion.button>
         </div>
       </div>
 
@@ -237,7 +333,7 @@ export default function MainPage() {
                   <path d="M6 12v5c3 3 9 3 12 0v-5" />
                 </svg>
               </div>
-              <span className="text-lg font-bold text-white">GradPath</span>
+              <span className="text-lg font-bold text-white">Gijol</span>
             </div>
             <div className="flex gap-6 text-sm text-gray-400">
               <a href="#" className="transition-colors hover:text-white">
@@ -257,7 +353,7 @@ export default function MainPage() {
             </div>
           </div>
           <div className="mt-8 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
-            <p>© {new Date().getFullYear()} GradPath (Gijol). All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Gijol. All rights reserved.</p>
           </div>
         </div>
       </footer>

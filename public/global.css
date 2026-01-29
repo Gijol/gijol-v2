@@ -252,3 +252,18 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+/* Subtle pulse animation for CTA buttons */
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    box-shadow: 0 10px 15px -3px rgb(59 130 246 / 0.25);
+  }
+  50% {
+    box-shadow: 0 10px 15px -3px rgb(59 130 246 / 0.4);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}

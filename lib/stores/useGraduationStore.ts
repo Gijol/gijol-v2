@@ -17,6 +17,7 @@ type GraduationState = {
   userMajor: string;
   userMinors: string[];
   entryYear: number | null;
+  lastUploadDate: string | null; // ISO date string
 
   setFromParsed: (args: {
     parsed: UserStatusType;
@@ -39,6 +40,7 @@ export const useGraduationStore = create<GraduationState>()(
       userMajor: '',
       userMinors: [],
       entryYear: null,
+      lastUploadDate: null,
 
       setFromParsed: ({ parsed, takenCourses, gradStatus, userMajor, userMinors, entryYear }) =>
         set({
@@ -48,10 +50,19 @@ export const useGraduationStore = create<GraduationState>()(
           userMajor,
           userMinors: userMinors ?? [],
           entryYear: entryYear ?? null,
+          lastUploadDate: new Date().toISOString(),
         }),
 
       reset: () =>
-        set({ parsed: null, takenCourses: [], gradStatus: null, userMajor: '', userMinors: [], entryYear: null }),
+        set({
+          parsed: null,
+          takenCourses: [],
+          gradStatus: null,
+          userMajor: '',
+          userMinors: [],
+          entryYear: null,
+          lastUploadDate: null,
+        }),
     }),
     {
       name: PARSED_PROCESSED_STATE_KEY, // localStorage key

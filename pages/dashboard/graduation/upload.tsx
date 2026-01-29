@@ -6,6 +6,7 @@ import type { EditableCourseRow } from '@lib/types/graduation-editable';
 import { applyEditableRowsToUserStatus, toEditableRows } from '@utils/graduation/parse-to-editable-rows';
 import { ParsedCourseEditableTable } from '@components/graduation/parse-course-editable-table';
 import { GradUploadPanel } from '@components/graduation/upload-panel';
+import { UploadResultSkeleton } from '@components/graduation/upload-skeleton';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
 
@@ -148,15 +149,20 @@ export default function GraduationParsePage() {
 
   return (
     <GradUploadPanel>
-      {({ parsed }) => {
+      {({ parsed, isParsing }) => {
         if (!isHydrated) return null;
+
+        // 파싱 중일 때 스켈레톤 UI 표시
+        if (isParsing) {
+          return <UploadResultSkeleton />;
+        }
 
         if (!parsed) {
           return (
             <Card className="border-dashed border-slate-300 bg-gray-50 dark:bg-gray-800/30">
               <CardContent className="p-6 text-center">
                 <p className="text-gray-500 dark:text-gray-400">
-                  아직 파싱된 데이터가 없습니다. 위에서 파일을 업로드하고 "파싱 및 졸업요건 계산"을 눌러 주세요.
+                  아직 분석된 데이터가 없습니다. 위에서 파일을 업로드하고 "성적표 분석하기"를 눌러 주세요.
                 </p>
               </CardContent>
             </Card>

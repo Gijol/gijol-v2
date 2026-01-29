@@ -15,6 +15,9 @@ export const getDefaultFormValues = (): CertificateFormValues => ({
     name: '',
     contact: '',
     majorDetails: '',
+    minorMajor: '',
+    doubleMajor: '',
+    intensiveMajor: '',
   },
   B_C: {
     languageBasics: getDefaultCreditValues(),

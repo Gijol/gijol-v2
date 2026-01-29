@@ -70,6 +70,7 @@ const SummaryView = dynamic(
 );
 
 import { SidebarStepper } from '@/features/certificate/components/sidebar-stepper';
+import { SectionNotesCollapsible } from '@/features/certificate/components/section-notes-collapsible';
 
 // Loading components
 const SectionLoader = () => (
@@ -356,8 +357,18 @@ export default function CertificateBuilder() {
                 <h2 className="mt-1 text-2xl font-bold text-gray-900">{currentSection}</h2>
               </div>
 
-              {/* Section Content */}
+              {/* Global Notice Banner */}
+              <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
+                <p>
+                  <strong>📝 안내:</strong> 본 생성기는 기본 포맷을 작성합니다. 상세 내용은 다운로드 후 직접
+                  수정해주세요.
+                </p>
+              </div>
 
+              {/* Section Notes */}
+              <SectionNotesCollapsible stepIndex={currentStep} />
+
+              {/* Section Content */}
               <div className="animate-in fade-in slide-in-from-right-4 duration-300">
                 {currentStep === 0 && <UserInfoSection />}
                 {currentStep === 1 && <BasicCreditsSection isLaterThan2021={isLaterThan2021} />}

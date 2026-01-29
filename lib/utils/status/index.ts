@@ -1,8 +1,4 @@
-import {
-  CourseWithGradeStatusType,
-  SemesterStatusType,
-  UserTakenCourseWithGradeType,
-} from '@lib/types/score-status';
+import { CourseWithGradeStatusType, SemesterStatusType, UserTakenCourseWithGradeType } from '@lib/types/score-status';
 import { UserTakenCourse } from '../../types';
 
 export type CourseListWithPeriod = {
@@ -14,8 +10,9 @@ export type CourseListWithPeriod = {
 };
 
 export const getSortedCourseStatus = (data: UserTakenCourseWithGradeType | undefined) => {
-  const semesterList: SemesterStatusType[] | undefined =
-    data?.userTakenCourseBySemesterResponses?.sort((a, b) => a.year - b.year);
+  const semesterList: SemesterStatusType[] | undefined = data?.userTakenCourseBySemesterResponses?.sort(
+    (a, b) => a.year - b.year,
+  );
   const initYear = semesterList?.at(0)?.year as number;
   const finalYear = semesterList?.at(-1)?.year as number;
   const semesters = ['1학기', '여름학기', '2학기', '겨울학기'];
@@ -24,9 +21,7 @@ export const getSortedCourseStatus = (data: UserTakenCourseWithGradeType | undef
 
   Array.from({ length: finalYear - initYear + 1 }, (_, i) => initYear + i).forEach((year) => {
     semesters.forEach((semesterName, j) => {
-      const semesterData = semesterList?.find(
-        (course) => course.year === year && course.semester === semesterName
-      );
+      const semesterData = semesterList?.find((course) => course.year === year && course.semester === semesterName);
       result.push({
         year,
         semester_idx: j,
@@ -53,8 +48,10 @@ export const getCntTab = (href: string) => {
       return '강의 정보';
     case '/dashboard/user-info':
       return '내 정보';
+    case '/dashboard/graduation/requirements-guide':
+      return '졸업요건 안내 📖';
     case '/dashboard/graduation/certificate-builder':
-      return '졸업요건 확인서 만들기 ✨';
+      return '이수요건 확인서 ✨';
     case '/dashboard/course/timetable':
       return '시간표 제작하기 ✨';
     default:

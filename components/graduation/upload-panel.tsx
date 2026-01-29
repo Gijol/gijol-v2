@@ -2,11 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/router';
-import { Upload } from 'lucide-react';
+import { Upload, Sparkles, Download, RotateCcw, FileSpreadsheet } from 'lucide-react';
 
 import { Button } from '@components/ui/button';
 import { Card, CardContent, CardHeader } from '@components/ui/card';
-import Loading from '@components/loading';
 import { cn } from '@/lib/utils';
 
 import type { UserStatusType } from '@lib/types/index';
@@ -19,7 +18,11 @@ import { uploadGradeReportViaApi } from '@utils/graduation/upload-grade-report-v
 type GradUploadPanelProps = {
   title?: string;
   redirectTo?: string;
-  children?: (ctx: { parsed: UserStatusType | null; gradStatus: GradStatusResponseType | null }) => React.ReactNode;
+  children?: (ctx: {
+    parsed: UserStatusType | null;
+    gradStatus: GradStatusResponseType | null;
+    isParsing: boolean;
+  }) => React.ReactNode;
 };
 
 export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, children }: GradUploadPanelProps) {
@@ -211,32 +214,56 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              <Button onClick={open} variant="outline" size="sm">
-                파일 선택
-              </Button>
+            {/* 버튼 그룹 - 주요 액션과 보조 액션 분리 */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              {/* 주요 액션: 분석하기 버튼 */}
               <Button
                 onClick={handleParse}
                 disabled={!file || isParsing}
-                size="sm"
-                className="bg-[#0B62DA] text-white hover:bg-[#0952B8]"
+                size="lg"
+                className={cn(
+                  'group relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25 transition-all duration-300 hover:from-blue-700 hover:to-indigo-700 hover:shadow-xl hover:shadow-blue-500/30',
+                  file && !isParsing && 'animate-pulse-subtle',
+                )}
               >
-                파싱 및 졸업요건 계산
+                <Sparkles className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
+                {isParsing ? '분석 중...' : '성적표 분석하기'}
               </Button>
-              <Button onClick={onDownload} disabled={!parsed} variant="outline" size="sm">
-                JSON 다운로드
-              </Button>
-              <Button variant="outline" onClick={handleReset} size="sm" className="text-gray-500">
-                리셋
-              </Button>
+
+              {/* 보조 액션 그룹 */}
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={open} variant="outline" size="sm" className="gap-1.5">
+                  <FileSpreadsheet className="h-4 w-4" />
+                  파일 선택
+                </Button>
+                <Button onClick={onDownload} disabled={!parsed} variant="outline" size="sm" className="gap-1.5">
+                  <Download className="h-4 w-4" />
+                  JSON 다운로드
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleReset}
+                  size="sm"
+                  className="gap-1.5 text-gray-500 hover:text-gray-700"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                  리셋
+                </Button>
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {isParsing && <Loading content="파싱 중입니다..." />}
-
-      {isFetchingGradStatus && <div className="text-muted-foreground mt-2 text-sm">졸업요건 계산 중입니다...</div>}
+      {/* 파싱/계산 상태 표시 (간소화) */}
+      {(isParsing || isFetchingGradStatus) && (
+        <div className="mt-4 flex items-center gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/20">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
+          <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+            {isParsing ? '성적표를 분석하고 있어요...' : '졸업요건을 계산하고 있어요...'}
+          </span>
+        </div>
+      )}
 
       {error && (
         <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm whitespace-pre-line text-red-600 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400">
@@ -244,7 +271,9 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
         </div>
       )}
 
-      {children && <div className="mt-6">{children({ parsed, gradStatus })}</div>}
+      {children && (
+        <div className="mt-6">{children({ parsed, gradStatus, isParsing: isParsing || isFetchingGradStatus })}</div>
+      )}
     </div>
   );
 }
