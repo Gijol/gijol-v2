@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 
 import { gradStatusFetchFn, inferEntryYear, toTakenCourses } from '@utils/graduation/grad-status-helper';
 import type { EditableCourseRow } from '@lib/types/graduation-editable';
-import { v4 as uuid } from 'uuid';
 import { applyEditableRowsToUserStatus, toEditableRows } from '@utils/graduation/parse-to-editable-rows';
 import { ParsedCourseEditableTable } from '@components/graduation/parse-course-editable-table';
 import { GradUploadPanel } from '@components/graduation/upload-panel';
@@ -77,7 +76,7 @@ export default function GraduationParsePage() {
     setRows((prev) => [
       ...prev,
       {
-        id: uuid(),
+        id: crypto.randomUUID(),
         year: '',
         semester: '',
         courseType: '',

@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check, Menu } from 'lucide-react';
+import dynamic from 'next/dynamic';
 
 import { certificateFormSchema, CertificateFormValues } from '@/features/certificate/schema';
 import { SECTION_TITLES } from '@/features/certificate/consts';
@@ -16,19 +17,72 @@ import { Form } from '@/components/ui/form';
 import { useToast } from '@/components/ui/use-toast';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
-// Section Components
-import { UserInfoSection } from '@/features/certificate/components/sections/user-info-section';
-import { BasicCreditsSection } from '@/features/certificate/components/sections/basic-credits-section';
-import { MajorCreditsSection } from '@/features/certificate/components/sections/major-credits-section';
-import { NoCreditSection } from '@/features/certificate/components/sections/no-credit-section';
-import { OtherCreditsSection } from '@/features/certificate/components/sections/other-credits-section';
-import { ReviewSection } from '@/features/certificate/components/sections/review-section';
+// Dynamic Section Components - loaded lazily
+const UserInfoSection = dynamic(
+  () =>
+    import('@/features/certificate/components/sections/user-info-section').then((mod) => ({
+      default: mod.UserInfoSection,
+    })),
+  { loading: () => <SectionLoader /> },
+);
+const BasicCreditsSection = dynamic(
+  () =>
+    import('@/features/certificate/components/sections/basic-credits-section').then((mod) => ({
+      default: mod.BasicCreditsSection,
+    })),
+  { loading: () => <SectionLoader /> },
+);
+const MajorCreditsSection = dynamic(
+  () =>
+    import('@/features/certificate/components/sections/major-credits-section').then((mod) => ({
+      default: mod.MajorCreditsSection,
+    })),
+  { loading: () => <SectionLoader /> },
+);
+const NoCreditSection = dynamic(
+  () =>
+    import('@/features/certificate/components/sections/no-credit-section').then((mod) => ({
+      default: mod.NoCreditSection,
+    })),
+  { loading: () => <SectionLoader /> },
+);
+const OtherCreditsSection = dynamic(
+  () =>
+    import('@/features/certificate/components/sections/other-credits-section').then((mod) => ({
+      default: mod.OtherCreditsSection,
+    })),
+  { loading: () => <SectionLoader /> },
+);
+const ReviewSection = dynamic(
+  () =>
+    import('@/features/certificate/components/sections/review-section').then((mod) => ({ default: mod.ReviewSection })),
+  { loading: () => <SectionLoader /> },
+);
 
-// View & UI Components
-import { LandingView } from '@/features/certificate/components/views/landing-view';
-import { SummaryView } from '@/features/certificate/components/views/summary-view';
+// View Components - views are also dynamically imported
+const LandingView = dynamic(
+  () => import('@/features/certificate/components/views/landing-view').then((mod) => ({ default: mod.LandingView })),
+  { loading: () => <PageLoader /> },
+);
+const SummaryView = dynamic(
+  () => import('@/features/certificate/components/views/summary-view').then((mod) => ({ default: mod.SummaryView })),
+  { loading: () => <PageLoader /> },
+);
+
 import { SidebarStepper } from '@/features/certificate/components/sidebar-stepper';
-import { Menu } from 'lucide-react';
+
+// Loading components
+const SectionLoader = () => (
+  <div className="flex h-48 items-center justify-center">
+    <div className="h-6 w-6 animate-spin rounded-full border-2 border-slate-300 border-t-blue-500" />
+  </div>
+);
+
+const PageLoader = () => (
+  <div className="flex min-h-screen items-center justify-center">
+    <div className="h-8 w-8 animate-spin rounded-full border-4 border-slate-300 border-t-blue-500" />
+  </div>
+);
 
 export default function CertificateBuilder() {
   const {
