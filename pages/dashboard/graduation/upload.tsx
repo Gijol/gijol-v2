@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import { gradStatusFetchFn, inferEntryYear, toTakenCourses } from '@utils/graduation/grad-status-helper';
 import type { EditableCourseRow } from '@lib/types/graduation-editable';
 import { applyEditableRowsToUserStatus, toEditableRows } from '@utils/graduation/parse-to-editable-rows';
-import { ParsedCourseEditableTable } from '@components/graduation/parse-course-editable-table';
-import { GradUploadPanel } from '@components/graduation/upload-panel';
-import { UploadResultSkeleton } from '@components/graduation/upload-skeleton';
+import { ParsedCourseEditableTable } from '@/features/graduation/components/parse-course-editable-table';
+import { GradUploadPanel } from '@/features/graduation/components/upload-panel';
+import { UploadResultSkeleton } from '@/features/graduation/components/upload-skeleton';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
 

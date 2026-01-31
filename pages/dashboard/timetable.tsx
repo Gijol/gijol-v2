@@ -4,7 +4,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import { GetStaticProps } from 'next';
 import { SectionOffering } from '@/lib/types/timetable';
-import { TimetableLayout } from '@/components/timetable/TimetableLayout';
+import { TimetableLayout } from '@/features/timetable/components/TimetableLayout';
 
 interface TimetablePageProps {
   sections: SectionOffering[];

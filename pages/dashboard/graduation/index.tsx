@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { extractOverallStatus, getPercentage } from '@utils/graduation/grad-formatter';
-import UploadEmptyState from '@components/graduation/upload-empty-state';
+import UploadEmptyState from '@/features/graduation/components/upload-empty-state';
 import { AlertTriangle, CircleCheck, TrendingUp } from 'lucide-react';
 import { buildCourseListWithPeriod, calcAverageGrade } from '@utils/course/analytics';
 import { useGraduationStore } from '../../../lib/stores/useGraduationStore';

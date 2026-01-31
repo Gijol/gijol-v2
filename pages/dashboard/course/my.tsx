@@ -5,28 +5,28 @@ import { HelpCircle } from 'lucide-react';
 import { convertGradeTo4Scale, CourseListWithPeriod } from '@utils/status';
 import { useMyCourseOverview } from '@hooks/useMyCourseOverview';
 import { TOTAL_REQUIRED_CREDITS } from '@const/grad-status-constants';
-import UploadEmptyState from '@components/graduation/upload-empty-state';
+import UploadEmptyState from '@/features/graduation/components/upload-empty-state';
 
 import dynamic from 'next/dynamic';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@components/ui/card';
 import { Progress } from '@components/ui/progress';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@components/ui/tooltip';
 
-const CourseMyGradeChart = dynamic(() => import('@components/course-my-grade-chart'), {
+const CourseMyGradeChart = dynamic(() => import('@/features/courses/components/course-my-grade-chart'), {
   loading: () => <div className="h-[250px] w-full animate-pulse rounded-lg bg-gray-100 dark:bg-gray-800" />,
   ssr: false,
 });
-const CourseMyTableChart = dynamic(() => import('@components/course-my-table-chart'), {
+const CourseMyTableChart = dynamic(() => import('@/features/courses/components/course-my-table-chart'), {
   loading: () => <div className="h-[400px] w-full animate-pulse rounded-lg bg-gray-100 dark:bg-gray-800" />,
   ssr: false,
 });
-const CourseMyCreditChart = dynamic(() => import('@components/course-my-credit-chart'), {
+const CourseMyCreditChart = dynamic(() => import('@/features/courses/components/course-my-credit-chart'), {
   loading: () => <div className="h-[300px] w-full animate-pulse rounded-lg bg-gray-100 dark:bg-gray-800" />,
   ssr: false,
 });
 
-import OverallSemesterCard from '@components/course-my-overall-semester-card';
-import OverallAcademicCard from '@components/course-my-overall-academic-card';
+import OverallSemesterCard from '@/features/courses/components/course-my-overall-semester-card';
+import OverallAcademicCard from '@/features/courses/components/course-my-overall-academic-card';
 
 export default function My() {
   const {

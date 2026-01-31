@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, Table
 import { ScrollArea } from '@components/ui/scroll-area';
 import { RingProgress } from '@components/ui/ring-progress';
 import { AlertCircle, CircleCheck } from 'lucide-react';
-import { SingleCategoryType } from '../lib/types/grad';
+import { SingleCategoryType } from '@/lib/types/grad';
 import { createSpecificStatusMessage, getDomainColor } from '@utils/graduation/grad-formatter';
 import { cn } from '@/lib/utils';
 

@@ -4,7 +4,7 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
 import { CourseListWithPeriod } from '@utils/status';
 
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from './ui/chart';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@components/ui/chart';
 
 const generateLineChartData = (courseListWithPeriod: CourseListWithPeriod[]) => {
   return courseListWithPeriod.map((periodWithList: any) => {

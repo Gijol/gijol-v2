@@ -1,6 +1,6 @@
 // features/roadmap/RoadmapFlowClient.tsx
 // Separated client-side ReactFlow component for code-splitting
-import React, { useEffect, useMemo, useCallback } from 'react';
+import React, { useEffect, useMemo, useCallback, useState } from 'react';
 import ReactFlow, {
   ReactFlowProvider,
   useNodesState,
@@ -24,7 +24,7 @@ import { CourseDetailSheet } from '@/features/roadmap/CourseDetailSheet';
 import { CourseEditSheet } from '@/features/roadmap/CourseEditSheet';
 import { useRoadmapContext } from '@/features/roadmap/RoadmapContext';
 import { Button } from '@/components/ui/button';
-import { Eye, Edit3, Download } from 'lucide-react';
+import { Eye, Edit3, Download, Grab, MousePointer2 } from 'lucide-react';
 
 import type { RoadmapData, CourseNodeData } from '@/features/roadmap/types';
 import type { CourseDB } from '@/lib/const/course-db';
@@ -33,6 +33,12 @@ import type { CourseDB } from '@/lib/const/course-db';
 const nodeTypes = {
   customCourseNode: PresetCourseNode,
   semesterHeader: SemesterHeaderNode,
+};
+
+import DynamicEdge from '@/features/roadmap/DynamicEdge';
+
+const edgeTypes = {
+  dynamic: DynamicEdge,
 };
 
 // Constants for layout
@@ -145,11 +151,15 @@ export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
   const { fitView } = useReactFlow();
   const { isViewMode, setIsViewMode, selectedCourse, setSelectedCourse, sheetOpen, setSheetOpen } = useRoadmapContext();
 
+  // Pan mode state for edit mode (grab mode vs pointer mode)
+  const [isPanMode, setIsPanMode] = useState(false);
+
   const { initialNodes, initialEdges } = useMemo(() => {
     const headerNodes = createHeaderNodes();
     const courseNodes = layoutNodesBySemester(roadmapData.nodes);
     const edges = roadmapData.edges.map((edge) => ({
       ...edge,
+      type: 'dynamic',
       style: { stroke: '#94a3b8', strokeWidth: 2 },
     }));
 
@@ -222,7 +232,7 @@ export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
     (params: Connection | Edge) => {
       if (!isViewMode) takeSnapshot({ nodes, edges });
       setEdges((eds) =>
-        addEdge({ ...params, type: 'smoothstep', animated: false, style: { stroke: '#94a3b8', strokeWidth: 2 } }, eds),
+        addEdge({ ...params, type: 'dynamic', animated: false, style: { stroke: '#94a3b8', strokeWidth: 2 } }, eds),
       );
     },
     [setEdges, isViewMode, nodes, edges, takeSnapshot],
@@ -268,15 +278,19 @@ export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
       <ReactFlow
         nodes={nodes}
         edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
+        onNodesChange={isViewMode ? undefined : onNodesChange}
+        onEdgesChange={isViewMode ? undefined : onEdgesChange}
+        onConnect={isViewMode ? undefined : onConnect}
         onNodeDragStart={onNodeDragStart}
         nodeTypes={nodeTypes}
-        nodesDraggable={!isViewMode}
+        edgeTypes={edgeTypes}
+        nodesDraggable={!isViewMode && !isPanMode}
         nodesConnectable={!isViewMode}
-        elementsSelectable={!isViewMode}
-        panOnDrag={isViewMode ? true : [1, 2]}
+        elementsSelectable={!isViewMode && !isPanMode}
+        edgesFocusable={!isViewMode}
+        edgesUpdatable={!isViewMode}
+        panOnDrag={isViewMode ? true : isPanMode ? true : [1, 2]}
+        selectionOnDrag={!isViewMode && !isPanMode}
       >
         <Background gap={20} color="#e2e8f0" />
         <Controls className="fill-white" />
@@ -320,6 +334,30 @@ export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
               </>
             )}
           </div>
+
+          {/* Interaction Mode Toggle (Edit mode only) */}
+          {!isViewMode && (
+            <div className="flex items-center gap-1 rounded-lg border bg-white/90 p-1.5 shadow-sm backdrop-blur">
+              <Button
+                size="sm"
+                variant={!isPanMode ? 'default' : 'ghost'}
+                onClick={() => setIsPanMode(false)}
+                className="h-8 w-8 p-0"
+                title="포인터 모드 (노드 선택/이동)"
+              >
+                <MousePointer2 className="h-4 w-4" />
+              </Button>
+              <Button
+                size="sm"
+                variant={isPanMode ? 'default' : 'ghost'}
+                onClick={() => setIsPanMode(true)}
+                className="h-8 w-8 p-0"
+                title="손 모드 (화면 이동)"
+              >
+                <Grab className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
 
           {/* Info Panel */}
           <div className="rounded-lg border bg-white/90 p-4 shadow-sm backdrop-blur">

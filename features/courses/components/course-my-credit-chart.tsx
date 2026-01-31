@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
 import { CourseListWithPeriod } from '@utils/status';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from './ui/chart';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@components/ui/chart';
 
 const generateTableData = (courseListWithPeriod: CourseListWithPeriod[]) => {
   return courseListWithPeriod.map((periodWithList: CourseListWithPeriod) => {

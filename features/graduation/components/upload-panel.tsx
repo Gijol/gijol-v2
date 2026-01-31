@@ -11,8 +11,8 @@ import { cn } from '@/lib/utils';
 import type { UserStatusType } from '@lib/types/index';
 import type { GradStatusRequestBody, GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
 import { gradStatusFetchFn, inferEntryYear, toTakenCourses } from '@utils/graduation/grad-status-helper';
-import { useGraduationStore } from '../../lib/stores/useGraduationStore';
-import { PARSED_EDITABLE_STATE_KEY } from '../../lib/stores/storage-key';
+import { useGraduationStore } from '@/lib/stores/useGraduationStore';
+import { PARSED_EDITABLE_STATE_KEY } from '@/lib/stores/storage-key';
 import { uploadGradeReportViaApi } from '@utils/graduation/upload-grade-report-via-api';
 
 type GradUploadPanelProps = {
