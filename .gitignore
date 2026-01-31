@@ -43,3 +43,9 @@ storybook-static
 
 # llm
 /llm
+
+# Admin pages - local only, backup to private repo
+/pages/admin/
+/pages/api/admin/
+/features/admin/
+backup-admin.sh
