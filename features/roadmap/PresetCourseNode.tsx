@@ -22,11 +22,16 @@ const statusColors: Record<string, string> = {
   LOCKED: 'opacity-60 grayscale',
 };
 
-const PresetCourseNode = ({ data, selected }: NodeProps<CourseNodeData>) => {
-  const { isViewMode, setSelectedCourse, setSheetOpen } = useRoadmapContext();
+const PresetCourseNode = ({ id, data, selected }: NodeProps<CourseNodeData>) => {
+  const { isViewMode, setSelectedCourse, setSheetOpen, isNodeHighlighted, highlightState } = useRoadmapContext();
 
   const categoryStyle = categoryColors[data.category] || 'bg-gray-100 border-gray-300 text-gray-800';
   const statusStyle = data.status ? statusColors[data.status] : '';
+
+  // Check if this node is highlighted (hovered or connected to hovered node)
+  const isHighlighted = isNodeHighlighted(id);
+  const hasActiveHighlight = highlightState.hoveredNodeId !== null;
+  const isHoveredNode = highlightState.hoveredNodeId === id;
 
   const handleClick = () => {
     setSelectedCourse(data);
@@ -47,10 +52,14 @@ const PresetCourseNode = ({ data, selected }: NodeProps<CourseNodeData>) => {
       <div
         onClick={handleClick}
         className={cn(
-          'h-full min-w-[200px] rounded-lg border-2 bg-white shadow-md transition-all',
+          'h-full min-w-[200px] rounded-lg border-2 bg-white shadow-md transition-all duration-200',
           selected ? 'border-primary ring-primary/50 ring-2' : 'border-slate-200',
           statusStyle,
           isViewMode && 'cursor-pointer hover:border-blue-400 hover:shadow-lg',
+          // Highlight styles for view mode hover
+          isViewMode && hasActiveHighlight && !isHighlighted && 'opacity-30',
+          isViewMode && isHoveredNode && 'border-blue-500 ring-2 ring-blue-400 shadow-lg scale-[1.02] z-10',
+          isViewMode && isHighlighted && !isHoveredNode && 'border-amber-400 ring-2 ring-amber-300 shadow-lg',
         )}
         style={{ width: '100%', height: '100%' }}
       >

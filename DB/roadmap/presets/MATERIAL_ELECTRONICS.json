@@ -5,14 +5,23 @@
   },
   "nodes": [
     {
+      "id": "GS1451",
+      "type": "customCourseNode",
+      "position": { "x": 150, "y": 50 },
+      "data": {
+        "label": "소재와미래 과학기술",
+        "credits": 1,
+        "category": "기초선택",
+        "semester": "1-2",
+        "courseCode": "GS1451"
+      }
+    },
+    {
       "id": "GS1201",
       "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 0
-      },
+      "position": { "x": 0, "y": 130 },
       "data": {
-        "label": "일반화학 및 실험 1",
+        "label": "일반화학 및 연습 1",
         "credits": 3,
         "category": "기초필수",
         "semester": "1-1",
@@ -20,14 +29,23 @@
       }
     },
     {
+      "id": "GS1202",
+      "type": "customCourseNode",
+      "position": { "x": 150, "y": 130 },
+      "data": {
+        "label": "일반화학 및 연습 2",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1202"
+      }
+    },
+    {
       "id": "GS1101",
       "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 100
-      },
+      "position": { "x": 0, "y": 210 },
       "data": {
-        "label": "일반물리학 및 실험 1",
+        "label": "일반물리학 및 연습 1",
         "credits": 3,
         "category": "기초필수",
         "semester": "1-1",
@@ -35,12 +53,21 @@
       }
     },
     {
+      "id": "GS1102",
+      "type": "customCourseNode",
+      "position": { "x": 150, "y": 210 },
+      "data": {
+        "label": "일반물리학 및 연습 2",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1102"
+      }
+    },
+    {
       "id": "GS1211",
       "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 200
-      },
+      "position": { "x": 0, "y": 290 },
       "data": {
         "label": "일반화학실험 1",
         "credits": 1,
@@ -50,12 +77,21 @@
       }
     },
     {
+      "id": "GS1212",
+      "type": "customCourseNode",
+      "position": { "x": 150, "y": 290 },
+      "data": {
+        "label": "일반화학실험 2",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1212"
+      }
+    },
+    {
       "id": "GS1111",
       "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 300
-      },
+      "position": { "x": 0, "y": 370 },
       "data": {
         "label": "일반물리학실험 1",
         "credits": 1,
@@ -65,12 +101,21 @@
       }
     },
     {
+      "id": "GS1112",
+      "type": "customCourseNode",
+      "position": { "x": 150, "y": 370 },
+      "data": {
+        "label": "일반물리학실험 2",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1112"
+      }
+    },
+    {
       "id": "GS1001",
       "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 500
-      },
+      "position": { "x": 0, "y": 480 },
       "data": {
         "label": "미적분학과 응용",
         "credits": 3,
@@ -82,10 +127,7 @@
     {
       "id": "GS1401",
       "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 600
-      },
+      "position": { "x": 0, "y": 560 },
       "data": {
         "label": "컴퓨터 프로그래밍",
         "credits": 3,
@@ -97,12 +139,9 @@
     {
       "id": "GS1490",
       "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 700
-      },
+      "position": { "x": 0, "y": 640 },
       "data": {
-        "label": "소프트웨어 기초와 코딩",
+        "label": "소프트웨어 기초와코딩",
         "credits": 2,
         "category": "기초필수",
         "semester": "1-1",
@@ -110,132 +149,45 @@
       }
     },
     {
-      "id": "GS1451",
-      "type": "customCourseNode",
-      "position": {
-        "x": 250,
-        "y": 0
-      },
-      "data": {
-        "label": "소재와미래 과학기술",
-        "credits": 1,
-        "category": "기초선택",
-        "semester": "1-2",
-        "courseCode": "GS1451"
-      }
-    },
-    {
-      "id": "GS1202",
-      "type": "customCourseNode",
-      "position": {
-        "x": 250,
-        "y": 100
-      },
-      "data": {
-        "label": "일반화학 및 실험 2",
-        "credits": 3,
-        "category": "기초필수",
-        "semester": "1-2",
-        "courseCode": "GS1202"
-      }
-    },
-    {
-      "id": "GS1102",
-      "type": "customCourseNode",
-      "position": {
-        "x": 250,
-        "y": 200
-      },
-      "data": {
-        "label": "일반물리학 및 실험 2",
-        "credits": 3,
-        "category": "기초필수",
-        "semester": "1-2",
-        "courseCode": "GS1102"
-      }
-    },
-    {
-      "id": "GS1212",
-      "type": "customCourseNode",
-      "position": {
-        "x": 250,
-        "y": 300
-      },
-      "data": {
-        "label": "일반화학실험 2",
-        "credits": 1,
-        "category": "기초필수",
-        "semester": "1-2",
-        "courseCode": "GS1212"
-      }
-    },
-    {
-      "id": "GS1112",
-      "type": "customCourseNode",
-      "position": {
-        "x": 250,
-        "y": 400
-      },
-      "data": {
-        "label": "일반물리학실험 2",
-        "credits": 1,
-        "category": "기초필수",
-        "semester": "1-2",
-        "courseCode": "GS1112"
-      }
-    },
-    {
       "id": "GS2002",
       "type": "customCourseNode",
-      "position": {
-        "x": 250,
-        "y": 600
-      },
+      "position": { "x": 300, "y": 480 },
       "data": {
         "label": "미분방정식과 응용",
         "credits": 3,
         "category": "기초필수",
-        "semester": "1-2",
+        "semester": "2-1",
         "courseCode": "GS2002"
       }
     },
     {
       "id": "GS2004",
       "type": "customCourseNode",
-      "position": {
-        "x": 250,
-        "y": 700
-      },
+      "position": { "x": 300, "y": 560 },
       "data": {
         "label": "선형대수학과 응용",
         "credits": 3,
         "category": "기초필수",
-        "semester": "1-2",
+        "semester": "2-1",
         "courseCode": "GS2004"
       }
     },
     {
       "id": "GS2001",
       "type": "customCourseNode",
-      "position": {
-        "x": 250,
-        "y": 800
-      },
+      "position": { "x": 300, "y": 640 },
       "data": {
         "label": "다변수해석학과 응용",
         "credits": 3,
         "category": "기초필수",
-        "semester": "1-2",
+        "semester": "2-1",
         "courseCode": "GS2001"
       }
     },
     {
       "id": "MA2101",
       "type": "customCourseNode",
-      "position": {
-        "x": 500,
-        "y": 0
-      },
+      "position": { "x": 300, "y": 50 },
       "data": {
         "label": "재료과학",
         "credits": 3,
@@ -247,10 +199,7 @@
     {
       "id": "MA2102",
       "type": "customCourseNode",
-      "position": {
-        "x": 500,
-        "y": 100
-      },
+      "position": { "x": 300, "y": 210 },
       "data": {
         "label": "열역학",
         "credits": 3,
@@ -262,10 +211,7 @@
     {
       "id": "MA2201",
       "type": "customCourseNode",
-      "position": {
-        "x": 750,
-        "y": 0
-      },
+      "position": { "x": 450, "y": 130 },
       "data": {
         "label": "재료물리화학",
         "credits": 3,
@@ -277,10 +223,7 @@
     {
       "id": "MA2202",
       "type": "customCourseNode",
-      "position": {
-        "x": 750,
-        "y": 100
-      },
+      "position": { "x": 450, "y": 370 },
       "data": {
         "label": "재료물리",
         "credits": 3,
@@ -290,12 +233,21 @@
       }
     },
     {
+      "id": "MA3207",
+      "type": "customCourseNode",
+      "position": { "x": 600, "y": 50 },
+      "data": {
+        "label": "재료전기화학",
+        "credits": 3,
+        "category": "전공심화",
+        "semester": "3-1",
+        "courseCode": "MA3207"
+      }
+    },
+    {
       "id": "MA3209",
       "type": "customCourseNode",
-      "position": {
-        "x": 1000,
-        "y": 0
-      },
+      "position": { "x": 600, "y": 210 },
       "data": {
         "label": "재료역학입문",
         "credits": 3,
@@ -307,10 +259,7 @@
     {
       "id": "MA3204",
       "type": "customCourseNode",
-      "position": {
-        "x": 1000,
-        "y": 100
-      },
+      "position": { "x": 600, "y": 290 },
       "data": {
         "label": "상변태",
         "credits": 3,
@@ -322,10 +271,7 @@
     {
       "id": "MA4213",
       "type": "customCourseNode",
-      "position": {
-        "x": 1000,
-        "y": 200
-      },
+      "position": { "x": 600, "y": 370 },
       "data": {
         "label": "기초 양자역학",
         "credits": 3,
@@ -337,10 +283,7 @@
     {
       "id": "MA3212",
       "type": "customCourseNode",
-      "position": {
-        "x": 1000,
-        "y": 300
-      },
+      "position": { "x": 600, "y": 450 },
       "data": {
         "label": "나노과학개론",
         "credits": 3,
@@ -352,10 +295,7 @@
     {
       "id": "MA3104",
       "type": "customCourseNode",
-      "position": {
-        "x": 1000,
-        "y": 400
-      },
+      "position": { "x": 600, "y": 530 },
       "data": {
         "label": "전자재료실험",
         "credits": 3,
@@ -367,10 +307,7 @@
     {
       "id": "MA3203",
       "type": "customCourseNode",
-      "position": {
-        "x": 1250,
-        "y": 0
-      },
+      "position": { "x": 750, "y": 210 },
       "data": {
         "label": "재료의 결정구조",
         "credits": 3,
@@ -382,12 +319,9 @@
     {
       "id": "MA4208",
       "type": "customCourseNode",
-      "position": {
-        "x": 1250,
-        "y": 100
-      },
+      "position": { "x": 750, "y": 370 },
       "data": {
-        "label": "재료의 전기적성질",
+        "label": "재료의전기적성질",
         "credits": 3,
         "category": "전공심화",
         "semester": "3-2",
@@ -397,14 +331,11 @@
     {
       "id": "EC3206",
       "type": "customCourseNode",
-      "position": {
-        "x": 1250,
-        "y": 400
-      },
+      "position": { "x": 750, "y": 610 },
       "data": {
         "label": "반도체재료및소자",
         "credits": 3,
-        "category": "전공심화",
+        "category": "연계과목",
         "semester": "3-2",
         "courseCode": "EC3206"
       }
@@ -412,10 +343,7 @@
     {
       "id": "MA4217",
       "type": "customCourseNode",
-      "position": {
-        "x": 1500,
-        "y": 0
-      },
+      "position": { "x": 900, "y": 50 },
       "data": {
         "label": "에너지소재",
         "credits": 3,
@@ -427,10 +355,7 @@
     {
       "id": "MA4202",
       "type": "customCourseNode",
-      "position": {
-        "x": 1500,
-        "y": 100
-      },
+      "position": { "x": 900, "y": 130 },
       "data": {
         "label": "박막공학",
         "credits": 3,
@@ -442,10 +367,7 @@
     {
       "id": "MA4221",
       "type": "customCourseNode",
-      "position": {
-        "x": 1500,
-        "y": 200
-      },
+      "position": { "x": 900, "y": 210 },
       "data": {
         "label": "통계열역학",
         "credits": 3,
@@ -457,10 +379,7 @@
     {
       "id": "MA4203",
       "type": "customCourseNode",
-      "position": {
-        "x": 1500,
-        "y": 400
-      },
+      "position": { "x": 900, "y": 530 },
       "data": {
         "label": "반도체공학",
         "credits": 3,
@@ -470,27 +389,9 @@
       }
     },
     {
-      "id": "FE4501",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1500,
-        "y": 500
-      },
-      "data": {
-        "label": "태양전지의이해",
-        "credits": 3,
-        "category": "전공심화",
-        "semester": "4-1",
-        "courseCode": "FE4501"
-      }
-    },
-    {
       "id": "MA4218",
       "type": "customCourseNode",
-      "position": {
-        "x": 1750,
-        "y": 100
-      },
+      "position": { "x": 1050, "y": 130 },
       "data": {
         "label": "표면물리화학",
         "credits": 3,
@@ -498,7 +399,223 @@
         "semester": "4-2",
         "courseCode": "MA4218"
       }
+    },
+    {
+      "id": "FE4501",
+      "type": "customCourseNode",
+      "position": { "x": 1050, "y": 530 },
+      "data": {
+        "label": "태양전지의이해",
+        "credits": 3,
+        "category": "연계과목",
+        "semester": "4-2",
+        "courseCode": "FE4501"
+      }
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "id": "edge-GS1201-GS1202",
+      "source": "GS1201",
+      "target": "GS1202",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-GS1101-GS1102",
+      "source": "GS1101",
+      "target": "GS1102",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-GS1211-GS1212",
+      "source": "GS1211",
+      "target": "GS1212",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-GS1111-GS1112",
+      "source": "GS1111",
+      "target": "GS1112",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2101-MA2201",
+      "source": "MA2101",
+      "target": "MA2201",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2101-MA3207",
+      "source": "MA2101",
+      "target": "MA3207",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2101-MA3209",
+      "source": "MA2101",
+      "target": "MA3209",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2101-MA3204",
+      "source": "MA2101",
+      "target": "MA3204",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2101-MA4213",
+      "source": "MA2101",
+      "target": "MA4213",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2101-MA3212",
+      "source": "MA2101",
+      "target": "MA3212",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2101-MA3104",
+      "source": "MA2101",
+      "target": "MA3104",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2102-MA2201",
+      "source": "MA2102",
+      "target": "MA2201",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2102-MA3209",
+      "source": "MA2102",
+      "target": "MA3209",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2102-MA3204",
+      "source": "MA2102",
+      "target": "MA3204",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2201-MA3207",
+      "source": "MA2201",
+      "target": "MA3207",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2201-MA4202",
+      "source": "MA2201",
+      "target": "MA4202",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2202-MA4213",
+      "source": "MA2202",
+      "target": "MA4213",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA2202-MA4208",
+      "source": "MA2202",
+      "target": "MA4208",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA3207-MA4217",
+      "source": "MA3207",
+      "target": "MA4217",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA3209-MA3203",
+      "source": "MA3209",
+      "target": "MA3203",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA3209-MA4221",
+      "source": "MA3209",
+      "target": "MA4221",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA4213-MA4208",
+      "source": "MA4213",
+      "target": "MA4208",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA4208-MA4203",
+      "source": "MA4208",
+      "target": "MA4203",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA4208-FE4501",
+      "source": "MA4208",
+      "target": "FE4501",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA3212-MA4203",
+      "source": "MA3212",
+      "target": "MA4203",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA3104-EC3206",
+      "source": "MA3104",
+      "target": "EC3206",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-EC3206-MA4203",
+      "source": "EC3206",
+      "target": "MA4203",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-EC3206-FE4501",
+      "source": "EC3206",
+      "target": "FE4501",
+      "type": "smoothstep",
+      "animated": false
+    },
+    {
+      "id": "edge-MA4202-MA4218",
+      "source": "MA4202",
+      "target": "MA4218",
+      "type": "smoothstep",
+      "animated": false
+    }
+  ]
 }

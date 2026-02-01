@@ -14,6 +14,7 @@ import ReactFlow, {
   Edge,
   Connection,
   addEdge,
+  MarkerType,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
@@ -44,8 +45,8 @@ const edgeTypes = {
 // Constants for layout
 const NODE_WIDTH = 200;
 const NODE_HEIGHT = 120;
-const COLUMN_GAP = 40;
-const ROW_GAP = 20;
+const COLUMN_GAP = 60; // Increased for better edge routing
+const ROW_GAP = 40; // Increased to prevent node-edge overlap
 const HEADER_HEIGHT = 60;
 const SEMESTER_WIDTH = NODE_WIDTH + COLUMN_GAP;
 
@@ -61,8 +62,74 @@ const SEMESTER_COLUMNS = [
   { semester: '4-2', label: '2학기', year: 4 },
 ];
 
-// Auto-layout nodes by semester to prevent overlapping
-function layoutNodesBySemester(nodes: RoadmapData['nodes']): Node<CourseNodeData>[] {
+// Barycenter algorithm for edge crossing minimization
+function optimizeNodeOrder(
+  nodes: RoadmapData['nodes'],
+  edges: RoadmapData['edges'],
+  semesterGroups: Record<string, RoadmapData['nodes']>,
+): Record<string, RoadmapData['nodes']> {
+  // Build adjacency maps
+  const incomingEdges: Record<string, string[]> = {};
+  const outgoingEdges: Record<string, string[]> = {};
+
+  edges.forEach((edge) => {
+    if (!incomingEdges[edge.target]) incomingEdges[edge.target] = [];
+    if (!outgoingEdges[edge.source]) outgoingEdges[edge.source] = [];
+    incomingEdges[edge.target].push(edge.source);
+    outgoingEdges[edge.source].push(edge.target);
+  });
+
+  // Create node position map for barycenter calculation
+  const nodePositions: Record<string, number> = {};
+
+  // Initialize positions based on original order
+  Object.entries(semesterGroups).forEach(([semester, semNodes]) => {
+    semNodes.forEach((node, idx) => {
+      nodePositions[node.id] = idx;
+    });
+  });
+
+  // Iterate through semesters left to right, then right to left (2 passes)
+  for (let pass = 0; pass < 3; pass++) {
+    const semesterOrder = pass % 2 === 0 ? SEMESTER_COLUMNS : [...SEMESTER_COLUMNS].reverse();
+
+    semesterOrder.forEach((col) => {
+      const semNodes = semesterGroups[col.semester];
+      if (!semNodes || semNodes.length <= 1) return;
+
+      // Calculate barycenter for each node
+      const barycenters: { node: RoadmapData['nodes'][0]; barycenter: number }[] = semNodes.map((node) => {
+        const incoming = incomingEdges[node.id] || [];
+        const outgoing = outgoingEdges[node.id] || [];
+        const connectedNodes = [...incoming, ...outgoing];
+
+        if (connectedNodes.length === 0) {
+          return { node, barycenter: nodePositions[node.id] };
+        }
+
+        const avgPosition = connectedNodes.reduce((sum, id) => sum + (nodePositions[id] ?? 0), 0) / connectedNodes.length;
+        return { node, barycenter: avgPosition };
+      });
+
+      // Sort by barycenter
+      barycenters.sort((a, b) => a.barycenter - b.barycenter);
+
+      // Update positions and reorder in group
+      semesterGroups[col.semester] = barycenters.map((item, idx) => {
+        nodePositions[item.node.id] = idx;
+        return item.node;
+      });
+    });
+  }
+
+  return semesterGroups;
+}
+
+// Auto-layout nodes by semester with edge crossing minimization
+function layoutNodesBySemester(
+  nodes: RoadmapData['nodes'],
+  edges: RoadmapData['edges'] = [],
+): Node<CourseNodeData>[] {
   const semesterGroups: Record<string, RoadmapData['nodes']> = {};
 
   nodes.forEach((node) => {
@@ -73,10 +140,13 @@ function layoutNodesBySemester(nodes: RoadmapData['nodes']): Node<CourseNodeData
     semesterGroups[semester].push(node);
   });
 
+  // Optimize node order to minimize edge crossings
+  const optimizedGroups = optimizeNodeOrder(nodes, edges, semesterGroups);
+
   const layoutedNodes: Node<CourseNodeData>[] = [];
 
   SEMESTER_COLUMNS.forEach((col, colIndex) => {
-    const columnNodes = semesterGroups[col.semester] || [];
+    const columnNodes = optimizedGroups[col.semester] || [];
     const xPosition = colIndex * SEMESTER_WIDTH + 20;
 
     columnNodes.forEach((node, rowIndex) => {
@@ -149,18 +219,26 @@ export interface RoadmapFlowProps {
 
 export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
   const { fitView } = useReactFlow();
-  const { isViewMode, setIsViewMode, selectedCourse, setSelectedCourse, sheetOpen, setSheetOpen } = useRoadmapContext();
+  const { isViewMode, setIsViewMode, selectedCourse, setSelectedCourse, sheetOpen, setSheetOpen, setHoveredNode } =
+    useRoadmapContext();
 
   // Pan mode state for edit mode (grab mode vs pointer mode)
   const [isPanMode, setIsPanMode] = useState(false);
 
   const { initialNodes, initialEdges } = useMemo(() => {
     const headerNodes = createHeaderNodes();
-    const courseNodes = layoutNodesBySemester(roadmapData.nodes);
+    const courseNodes = layoutNodesBySemester(roadmapData.nodes, roadmapData.edges);
     const edges = roadmapData.edges.map((edge) => ({
       ...edge,
       type: 'dynamic',
       style: { stroke: '#94a3b8', strokeWidth: 2 },
+      markerEnd: {
+        type: MarkerType.ArrowClosed,
+        width: 15,
+        height: 15,
+        color: '#94a3b8',
+      },
+      zIndex: 0, // Edges behind nodes
     }));
 
     return {
@@ -251,6 +329,35 @@ export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
     setSelectedCourse(newData);
   };
 
+  // Handle node hover for highlighting connected nodes and edges (View mode only)
+  const onNodeMouseEnter = useCallback(
+    (_event: React.MouseEvent, node: Node) => {
+      if (!isViewMode || node.type === 'semesterHeader') return;
+
+      // Find connected edges and nodes
+      const connectedEdgeIds: string[] = [];
+      const connectedNodeIds: string[] = [];
+
+      edges.forEach((edge) => {
+        if (edge.source === node.id) {
+          connectedEdgeIds.push(edge.id);
+          connectedNodeIds.push(edge.target);
+        } else if (edge.target === node.id) {
+          connectedEdgeIds.push(edge.id);
+          connectedNodeIds.push(edge.source);
+        }
+      });
+
+      setHoveredNode(node.id, connectedNodeIds, connectedEdgeIds);
+    },
+    [isViewMode, edges, setHoveredNode],
+  );
+
+  const onNodeMouseLeave = useCallback(() => {
+    if (!isViewMode) return;
+    setHoveredNode(null);
+  }, [isViewMode, setHoveredNode]);
+
   // Export current roadmap state to JSON
   const handleExport = useCallback(() => {
     const exportData = {
@@ -282,6 +389,8 @@ export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
         onEdgesChange={isViewMode ? undefined : onEdgesChange}
         onConnect={isViewMode ? undefined : onConnect}
         onNodeDragStart={onNodeDragStart}
+        onNodeMouseEnter={onNodeMouseEnter}
+        onNodeMouseLeave={onNodeMouseLeave}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         nodesDraggable={!isViewMode && !isPanMode}
