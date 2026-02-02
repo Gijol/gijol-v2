@@ -30,13 +30,16 @@ export const navLinks: NavLink[] = [
     icon: Route,
   },
   {
-    label: '졸업요건 안내 📖',
-    href: '/dashboard/graduation/requirements-guide',
-    icon: BookOpen,
-  },
-  {
     label: '이수요건 확인서 ✨',
     href: '/dashboard/graduation/certificate-builder',
     icon: Award,
+  },
+];
+
+export const guideLinks: NavLink[] = [
+  {
+    label: '졸업요건 안내 📖',
+    href: '/dashboard/graduation/requirements-guide',
+    icon: BookOpen,
   },
 ];
