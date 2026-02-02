@@ -1,0 +1,673 @@
+{
+  "meta": {
+    "major": "기초교육학부",
+    "track": "마음과 행동"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "GS(MB)2742",
+      "type": "customCourseNode",
+      "position": {
+        "x": 25.999999609387487,
+        "y": 89.99999864787958
+      },
+      "data": {
+        "label": "인간의 마음과 행동1",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-1",
+        "courseCode": "GS(MB)2742"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 25.999999609387487,
+        "y": 89.99999864787958
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)2661",
+      "type": "customCourseNode",
+      "position": {
+        "x": 25.999999609387487,
+        "y": 221.99999816712568
+      },
+      "data": {
+        "label": "논리학입문",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-1",
+        "courseCode": "GS(MB)2661"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 25.999999609387487,
+        "y": 221.99999816712568
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)2743",
+      "type": "customCourseNode",
+      "position": {
+        "x": 277.9999995793403,
+        "y": 91.99999861783249
+      },
+      "data": {
+        "label": "인간의 마음과 행동2",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-2",
+        "courseCode": "GS(MB)2743"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 277.9999995793403,
+        "y": 91.99999861783249
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)2732",
+      "type": "customCourseNode",
+      "position": {
+        "x": 277.9999995793403,
+        "y": 223.9999981370786
+      },
+      "data": {
+        "label": "행동경제학1",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-2",
+        "courseCode": "GS(MB)2732"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 277.9999995793403,
+        "y": 223.9999981370786
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)2627",
+      "type": "customCourseNode",
+      "position": {
+        "x": 541.9999993690103,
+        "y": 95.99999855773825
+      },
+      "data": {
+        "label": "신화와 원형상징",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "GS(MB)2627"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 541.9999993690103,
+        "y": 95.99999855773825
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)2748",
+      "type": "customCourseNode",
+      "position": {
+        "x": 541.9999993690103,
+        "y": 227.99999807698435
+      },
+      "data": {
+        "label": "언어와 마음",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "GS(MB)2748"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 541.9999993690103,
+        "y": 227.99999807698435
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)입문",
+      "type": "customCourseNode",
+      "position": {
+        "x": 541.9999993690103,
+        "y": 363.9999975361363
+      },
+      "data": {
+        "label": "인간의 본성: 인간학입문",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "2-1",
+        "courseCode": "편성예정"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 541.9999993690103,
+        "y": 363.9999975361363
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)2733",
+      "type": "customCourseNode",
+      "position": {
+        "x": 803.9999991887278,
+        "y": 99.99999849764401
+      },
+      "data": {
+        "label": "행동경제학2",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2",
+        "courseCode": "GS(MB)2733"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 803.9999991887278,
+        "y": 99.99999849764401
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)방법론",
+      "type": "customCourseNode",
+      "position": {
+        "x": 803.9999991887278,
+        "y": 231.99999801689012
+      },
+      "data": {
+        "label": "행동과학 연구방법론",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "2-2",
+        "courseCode": "편성예정"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 803.9999991887278,
+        "y": 231.99999801689012
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3631",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1055.9999991586808,
+        "y": 99.99999849764401
+      },
+      "data": {
+        "label": "마음과 컴퓨터",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "GS(MB)3631"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1055.9999991586808,
+        "y": 99.99999849764401
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3633",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1055.9999991586808,
+        "y": 231.99999801689012
+      },
+      "data": {
+        "label": "과학철학특강",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "GS(MB)3633"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1055.9999991586808,
+        "y": 231.99999801689012
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3663",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1055.9999991586808,
+        "y": 367.99999747604204
+      },
+      "data": {
+        "label": "종교와 과학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "GS(MB)3663"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1055.9999991586808,
+        "y": 367.99999747604204
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3764",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1059.9999990985864,
+        "y": 509.9999968450526
+      },
+      "data": {
+        "label": "뇌와 인지",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "GS(MB)3764"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1059.9999990985864,
+        "y": 509.9999968450526
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3832",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1319.999998948351,
+        "y": 101.99999846759687
+      },
+      "data": {
+        "label": "합리적 판단과 선택",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "GS(MB)3832"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1319.999998948351,
+        "y": 101.99999846759687
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3861",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1319.999998948351,
+        "y": 233.99999798684297
+      },
+      "data": {
+        "label": "신경과학과 법",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "GS(MB)3861"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1319.999998948351,
+        "y": 233.99999798684297
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3766",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1319.999998948351,
+        "y": 369.9999974459949
+      },
+      "data": {
+        "label": "인지심리학 및 실험",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "GS(MB)3766"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1319.999998948351,
+        "y": 369.9999974459949
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MM)3767",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1579.9999987981157,
+        "y": 103.99999843754975
+      },
+      "data": {
+        "label": "(MOOC 지정) 인공지능 로봇의 윤리",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "4-1",
+        "courseCode": "GS(MM)3767"
+      },
+      "selected": false,
+      "width": 256,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1579.9999987981157,
+        "y": 103.99999843754975
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)공학",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1579.9999987981157,
+        "y": 235.99999795679585
+      },
+      "data": {
+        "label": "인지공학",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "4-1",
+        "courseCode": "편성예정"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1579.9999987981157,
+        "y": 235.99999795679585
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)4741",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1843.999998587786,
+        "y": 103.99999843754975
+      },
+      "data": {
+        "label": "기술정보사회의 심리학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "4-2",
+        "courseCode": "GS(MB)4741"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1843.999998587786,
+        "y": 103.99999843754975
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)진화",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1843.999998587786,
+        "y": 235.99999795679585
+      },
+      "data": {
+        "label": "도덕의 진화",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "4-2",
+        "courseCode": "편성예정"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1843.999998587786,
+        "y": 235.99999795679585
+      },
+      "dragging": false
+    }
+  ],
+  "edges": []
+}

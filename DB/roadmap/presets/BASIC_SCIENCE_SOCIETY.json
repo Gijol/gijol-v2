@@ -1,0 +1,742 @@
+{
+  "meta": {
+    "major": "기초교육학부",
+    "track": "과학기술과 사회(인문사회 부전공)"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "GS(SS)1033",
+      "type": "customCourseNode",
+      "position": {
+        "x": 281.3398199019921,
+        "y": 94.01945970597586
+      },
+      "data": {
+        "label": "비판적 디자인",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-2",
+        "courseCode": "GS(SS)2833"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 281.3398199019921,
+        "y": 94.01945970597586
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)2030",
+      "type": "customCourseNode",
+      "position": {
+        "x": 543.5275276416555,
+        "y": 94.01945970597586
+      },
+      "data": {
+        "label": "과학기술과 사회",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(SS)2803"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 543.5275276416555,
+        "y": 94.01945970597586
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)2032",
+      "type": "customCourseNode",
+      "position": {
+        "x": 547.0097298529879,
+        "y": 230.58258292496652
+      },
+      "data": {
+        "label": "기술과 문화",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(SS)2832"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 547.0097298529879,
+        "y": 230.58258292496652
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)2034",
+      "type": "customCourseNode",
+      "position": {
+        "x": 548.7508309586544,
+        "y": 368.88680724962336
+      },
+      "data": {
+        "label": "역사 속의 과학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(SS)2834"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 548.7508309586544,
+        "y": 368.88680724962336
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)2038",
+      "type": "customCourseNode",
+      "position": {
+        "x": 550.4919320643205,
+        "y": 503.7088293629477
+      },
+      "data": {
+        "label": "인간의 미래",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(SS)2839"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 550.4919320643205,
+        "y": 503.7088293629477
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3014",
+      "type": "customCourseNode",
+      "position": {
+        "x": 798.7508309586542,
+        "y": 94.44105290879867
+      },
+      "data": {
+        "label": "유토피아 픽션과 테크놀로지",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(SS)2814"
+      },
+      "selected": false,
+      "width": 205,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 798.7508309586542,
+        "y": 94.44105290879867
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3172",
+      "type": "customCourseNode",
+      "position": {
+        "x": 802.2330331699866,
+        "y": 232.32368403063273
+      },
+      "data": {
+        "label": "기술혁신전략",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(SS)2752"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 802.2330331699866,
+        "y": 232.32368403063273
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3022",
+      "type": "customCourseNode",
+      "position": {
+        "x": 803.9741342756531,
+        "y": 370.6279083552896
+      },
+      "data": {
+        "label": "AI와 나",
+        "credits": 2,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(SS)2822"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 803.9741342756531,
+        "y": 370.6279083552896
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3031",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1072.8388865682793,
+        "y": 651.8031511538651
+      },
+      "data": {
+        "label": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "GS(SS)3831"
+      },
+      "selected": false,
+      "width": 331,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1072.8388865682793,
+        "y": 651.8031511538651
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3021",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1061.1639232511363,
+        "y": 98.7152428272318
+      },
+      "data": {
+        "label": "마음과 컴퓨터",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(SS)3631"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1061.1639232511363,
+        "y": 98.7152428272318
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3026",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1062.9050243568029,
+        "y": 237.01946715188865
+      },
+      "data": {
+        "label": "종교와 과학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(SS)3663"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1062.9050243568029,
+        "y": 237.01946715188865
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3139",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1064.646125462469,
+        "y": 371.841489265213
+      },
+      "data": {
+        "label": "과학자 문학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(SS)3802"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1064.646125462469,
+        "y": 371.841489265213
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3212",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1069.8694287794676,
+        "y": 511.88681469553603
+      },
+      "data": {
+        "label": "생명윤리와 법",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(SS)2812"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1069.8694287794676,
+        "y": 511.88681469553603
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3033",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1323.126246437981,
+        "y": 94.01945970597592
+      },
+      "data": {
+        "label": "과학철학 특강",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(SS)3633"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1323.126246437981,
+        "y": 94.01945970597592
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1326.6084486493135,
+        "y": 230.58258292496657
+      },
+      "data": {
+        "label": "과학기술과 젠더",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(SS)3801"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1326.6084486493135,
+        "y": 230.58258292496657
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3188",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1328.34954975498,
+        "y": 368.8868072496234
+      },
+      "data": {
+        "label": "과학기술정책의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(SS)3838"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1328.34954975498,
+        "y": 368.8868072496234
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3199",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1330.090650860646,
+        "y": 503.70882936294777
+      },
+      "data": {
+        "label": "질병과 사회",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(SS)3839"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1330.090650860646,
+        "y": 503.70882936294777
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3172_2",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1581.8317519663124,
+        "y": 94.01945970597592
+      },
+      "data": {
+        "label": "인공지능 로봇의 법",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "GS(SS)4762"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1581.8317519663124,
+        "y": 94.01945970597592
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1585.3139541776447,
+        "y": 230.58258292496657
+      },
+      "data": {
+        "label": "과학기술법정책",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "4-1",
+        "courseCode": "편성예정"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1585.3139541776447,
+        "y": 230.58258292496657
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3141",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840.5372574946437,
+        "y": 97.50166191730835
+      },
+      "data": {
+        "label": "기술정보사회의 심리학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "GS(SS)4741"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1840.5372574946437,
+        "y": 97.50166191730835
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3147",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1844.019459705976,
+        "y": 234.064785136299
+      },
+      "data": {
+        "label": "인류세의 우리",
+        "credits": 1,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "GS(SS)4471"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1844.019459705976,
+        "y": 234.064785136299
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3197",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1845.7605608116426,
+        "y": 372.36900946095585
+      },
+      "data": {
+        "label": "(MOOC) 인공지능 윤리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "GS(SS)3767"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1845.7605608116426,
+        "y": 372.36900946095585
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(SS)3187",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1847.5016619173086,
+        "y": 507.1910315742802
+      },
+      "data": {
+        "label": "과학기술과 사회",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "GS(SS)4837"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1847.5016619173086,
+        "y": 507.1910315742802
+      },
+      "dragging": false
+    }
+  ],
+  "edges": []
+}

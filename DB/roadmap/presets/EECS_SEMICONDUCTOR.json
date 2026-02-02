@@ -1,0 +1,969 @@
+{
+  "meta": {
+    "major": "전기전자컴퓨터공학부",
+    "track": "반도체·광 분야"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "GS1101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 20,
+        "y": 90
+      },
+      "data": {
+        "label": "일반물리학 및 실험 I",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1101"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS1102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 280,
+        "y": 90
+      },
+      "data": {
+        "label": "일반물리학 및 실험 II",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1102"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "PS2102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 90
+      },
+      "data": {
+        "label": "전자기학 및 연습 I",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "2-1",
+        "courseCode": "PS2102"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "dragging": false
+    },
+    {
+      "id": "GS3015_2_1",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 250
+      },
+      "data": {
+        "label": "확률과 통계",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "2-1",
+        "courseCode": "GS3015_2_1"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS2002",
+      "type": "customCourseNode",
+      "position": {
+        "x": 798.8203837759077,
+        "y": 252.3318098559892
+      },
+      "data": {
+        "label": "미분방정식과 응용",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "2-1",
+        "courseCode": "GS2002"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 798.8203837759077,
+        "y": 252.3318098559892
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS2004",
+      "type": "customCourseNode",
+      "position": {
+        "x": 798.9616848372584,
+        "y": 95.54376144801495
+      },
+      "data": {
+        "label": "선형대수학과 응용",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "2-1",
+        "courseCode": "GS2004"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 798.9616848372584,
+        "y": 95.54376144801495
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC2203",
+      "type": "customCourseNode",
+      "position": {
+        "x": 542.6390158453344,
+        "y": 415.95711440522575
+      },
+      "data": {
+        "label": "디지털설계",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "EC2203"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 542.6390158453344,
+        "y": 415.95711440522575
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC2105",
+      "type": "customCourseNode",
+      "position": {
+        "x": 539.1568135816872,
+        "y": 761.3124968161469
+      },
+      "data": {
+        "label": "공학전자기학 I",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "EC2105"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 539.1568135816872,
+        "y": 761.3124968161469
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC2205",
+      "type": "customCourseNode",
+      "position": {
+        "x": 791.2397660456843,
+        "y": 760.9342979524207
+      },
+      "data": {
+        "label": "공학전자기학 II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "EC2205"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 791.2397660456843,
+        "y": 760.9342979524207
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC2201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 797.3609841546659,
+        "y": 414.93849033339
+      },
+      "data": {
+        "label": "회로이론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "EC2201"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 797.3609841546659,
+        "y": 414.93849033339
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS3103",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060,
+        "y": 90
+      },
+      "data": {
+        "label": "양자물리 및 연습 I",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "3-1",
+        "courseCode": "PS3103"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EE3301",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1061.5539049687086,
+        "y": 242.999999894835
+      },
+      "data": {
+        "label": "산업용 회로의 이해",
+        "credits": 3,
+        "category": "타전공1",
+        "semester": "3-1",
+        "courseCode": "FE3301"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1061.5539049687086,
+        "y": 242.999999894835
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC3207",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1062.46820629147,
+        "y": 413.78771421413734
+      },
+      "data": {
+        "label": "전자회로",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "EC3207"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1062.46820629147,
+        "y": 413.78771421413734
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC3214",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1034.9293494693245,
+        "y": 926.2199770205427
+      },
+      "data": {
+        "label": "마이크로프로세서 및 임베디드 시스템",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "EC3214"
+      },
+      "width": 266,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1034.9293494693245,
+        "y": 926.2199770205427
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS3105",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 90
+      },
+      "data": {
+        "label": "열역학 및 통계물리",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "3-2",
+        "courseCode": "PS3105"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC3206",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1327.304599668812,
+        "y": 570.224186016643
+      },
+      "data": {
+        "label": "반도체 재료 및 소자",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "EC3206"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1327.304599668812,
+        "y": 570.224186016643
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC3212",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1324.9833810911857,
+        "y": 412.4682062914702
+      },
+      "data": {
+        "label": "고급전자회로",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "EC3212"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1324.9833810911857,
+        "y": 412.4682062914702
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC4309",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1587.6763495845162,
+        "y": 411.741479828558
+      },
+      "data": {
+        "label": "집적회로 설계 기초",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EC4309"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1587.6763495845162,
+        "y": 411.741479828558
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4207",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1578.868914871352,
+        "y": 93.25845344123928
+      },
+      "data": {
+        "label": "고체물리",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "4-1",
+        "courseCode": "PS4207"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1578.868914871352,
+        "y": 93.25845344123928
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC4203",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1565.4942011444236,
+        "y": 673.2482008547114
+      },
+      "data": {
+        "label": "초고주파공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EC4203"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1565.4942011444236,
+        "y": 673.2482008547114
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC4202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1842.4188111985118,
+        "y": 411.9280262432272
+      },
+      "data": {
+        "label": "디지털 집적회로",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EC4202"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1842.4188111985118,
+        "y": 411.9280262432272
+      },
+      "dragging": false
+    },
+    {
+      "id": "AI9102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1598.1885989074276,
+        "y": 922.4960051036106
+      },
+      "data": {
+        "label": "학사논문연구 I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "4-1",
+        "courseCode": "AI9102"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1598.1885989074276,
+        "y": 922.4960051036106
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC3101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1340.9728573442994,
+        "y": 926.6863541955325
+      },
+      "data": {
+        "label": "전자공학실험",
+        "credits": 4,
+        "category": "전공필수",
+        "semester": "4-1",
+        "courseCode": "EC3101"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1340.9728573442994,
+        "y": 926.6863541955325
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE4304",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1583.603955497228,
+        "y": 242.73595699943598
+      },
+      "data": {
+        "label": "전력전자공학",
+        "credits": 3,
+        "category": "타전공1",
+        "semester": "4-1",
+        "courseCode": "FE4304"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1583.603955497228,
+        "y": 242.73595699943598
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC4308",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840.278147789813,
+        "y": 570.7122137393073
+      },
+      "data": {
+        "label": "반도체 공정기초",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EC4308"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1840.278147789813,
+        "y": 570.7122137393073
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC4214",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1844.1324877716856,
+        "y": 759.5307245303046
+      },
+      "data": {
+        "label": "광공학개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EC4214"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1844.1324877716856,
+        "y": 759.5307245303046
+      },
+      "dragging": false
+    },
+    {
+      "id": "AI9103",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1849.094299453714,
+        "y": 920.7964859835968
+      },
+      "data": {
+        "label": "학사논문연구 II",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "4-2",
+        "courseCode": "AI9103"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1849.094299453714,
+        "y": 920.7964859835968
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_EC2201_EC3207",
+      "source": "EC2201",
+      "target": "EC3207",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "e_EC3207_EC3212",
+      "source": "EC3207",
+      "target": "EC3212",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "source": "EE3301",
+      "sourceHandle": null,
+      "target": "FE4304",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EE3301-FE4304"
+    },
+    {
+      "source": "EC3212",
+      "sourceHandle": null,
+      "target": "EC4309",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EC3212-EC4309"
+    },
+    {
+      "source": "EC4309",
+      "sourceHandle": null,
+      "target": "EC4202",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EC4309-EC4202"
+    },
+    {
+      "source": "EC3206",
+      "sourceHandle": null,
+      "target": "EC4308",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EC3206-EC4308"
+    },
+    {
+      "source": "EC3207",
+      "sourceHandle": null,
+      "target": "EC3206",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EC3207-EC3206"
+    },
+    {
+      "source": "EC2203",
+      "sourceHandle": null,
+      "target": "EC2201",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EC2203-EC2201"
+    },
+    {
+      "source": "EC2105",
+      "sourceHandle": null,
+      "target": "EC2205",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EC2105-EC2205",
+      "selected": false
+    },
+    {
+      "source": "EC2205",
+      "sourceHandle": null,
+      "target": "EC4203",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EC2205-EC4203",
+      "selected": false
+    },
+    {
+      "source": "EC2201",
+      "sourceHandle": null,
+      "target": "EC4203",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EC2201-EC4203"
+    },
+    {
+      "source": "EC2205",
+      "sourceHandle": null,
+      "target": "EC4214",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EC2205-EC4214"
+    }
+  ]
+}

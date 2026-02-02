@@ -1,0 +1,1262 @@
+{
+  "meta": {
+    "major": "물리·광과학과",
+    "track": "전공 이수 체계도"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "GS1001",
+      "type": "customCourseNode",
+      "position": {
+        "x": 18.484283447152393,
+        "y": 100
+      },
+      "data": {
+        "label": "미적분학과 응용",
+        "credits": 3,
+        "category": "타전공1",
+        "semester": "1-1",
+        "courseCode": "GS1001"
+      },
+      "selected": false,
+      "positionAbsolute": {
+        "x": 18.484283447152393,
+        "y": 100
+      },
+      "dragging": false,
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS1101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 21.515716552847607,
+        "y": 226.67288208132277
+      },
+      "data": {
+        "label": "일반물리학 및 연습I",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1101"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 21.515716552847607,
+        "y": 226.67288208132277
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1103",
+      "type": "customCourseNode",
+      "position": {
+        "x": 21.515716552847607,
+        "y": 360.42402433250425
+      },
+      "data": {
+        "label": "고급일반물리학 및 연습I",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1103"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 21.515716552847607,
+        "y": 360.42402433250425
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1111",
+      "type": "customCourseNode",
+      "position": {
+        "x": 32.071779775594905,
+        "y": 1054.4669052092368
+      },
+      "data": {
+        "label": "일반물리학 실험I",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1111"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 32.071779775594905,
+        "y": 1054.4669052092368
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS2001",
+      "type": "customCourseNode",
+      "position": {
+        "x": 280,
+        "y": 100
+      },
+      "data": {
+        "label": "다변수해석학과 응용",
+        "credits": 3,
+        "category": "타전공1",
+        "semester": "1-2",
+        "courseCode": "GS2001"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "GS1102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 281.5157165528476,
+        "y": 226.67288208132277
+      },
+      "data": {
+        "label": "일반물리학 및 연습II",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "1-2",
+        "courseCode": "GS1102"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 281.5157165528476,
+        "y": 226.67288208132277
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1104",
+      "type": "customCourseNode",
+      "position": {
+        "x": 281.5157165528476,
+        "y": 360.42402433250425
+      },
+      "data": {
+        "label": "고급일반물리학 및 연습II",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "1-2",
+        "courseCode": "GS1104"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 281.5157165528476,
+        "y": 360.42402433250425
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1112",
+      "type": "customCourseNode",
+      "position": {
+        "x": 285.4742402613779,
+        "y": 1057.1059210149233
+      },
+      "data": {
+        "label": "일반물리학 실험II",
+        "credits": 1,
+        "category": "기초선택",
+        "semester": "1-2",
+        "courseCode": "GS1112"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 285.4742402613779,
+        "y": 1057.1059210149233
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS2004",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 100
+      },
+      "data": {
+        "label": "선형대수학과 응용",
+        "credits": 3,
+        "category": "타전공1",
+        "semester": "2-1",
+        "courseCode": "GS2004"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "PS2201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 541.5157165528476,
+        "y": 226.67288208132277
+      },
+      "data": {
+        "label": "현대물리 개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "PS2201"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 541.5157165528476,
+        "y": 226.67288208132277
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS2101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 541.5157165528476,
+        "y": 360.42402433250425
+      },
+      "data": {
+        "label": "고전역학 및 연습I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "PS2101"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 541.5157165528476,
+        "y": 360.42402433250425
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS2102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 548.1132560670646,
+        "y": 498.133690292216
+      },
+      "data": {
+        "label": "전자기학 및 연습I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "PS2102"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 548.1132560670646,
+        "y": 498.133690292216
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS2002",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 100
+      },
+      "data": {
+        "label": "미분방정식과 응용",
+        "credits": 3,
+        "category": "타전공1",
+        "semester": "2-2",
+        "courseCode": "GS2002"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "PS2202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 801.5157165528476,
+        "y": 226.67288208132277
+      },
+      "data": {
+        "label": "고전역학 및 연습II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "PS2202"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 801.5157165528476,
+        "y": 226.67288208132277
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS3107",
+      "type": "customCourseNode",
+      "position": {
+        "x": 801.5157165528476,
+        "y": 360.42402433250425
+      },
+      "data": {
+        "label": "수리물리 I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2",
+        "courseCode": "PS3107"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 801.5157165528476,
+        "y": 360.42402433250425
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS2103",
+      "type": "customCourseNode",
+      "position": {
+        "x": 808.1132560670646,
+        "y": 498.133690292216
+      },
+      "data": {
+        "label": "전자기학 및 연습II",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2",
+        "courseCode": "PS2103"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 808.1132560670646,
+        "y": 498.133690292216
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC3207",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060,
+        "y": 100
+      },
+      "data": {
+        "label": "(PS3202공유) 전자회로",
+        "credits": 3,
+        "category": "타전공1",
+        "semester": "3-1",
+        "courseCode": "EC3207"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "PS3206",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1061.5157165528476,
+        "y": 226.67288208132277
+      },
+      "data": {
+        "label": "수리물리 II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "PS3206"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1061.5157165528476,
+        "y": 226.67288208132277
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS3103",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1064.1547323585346,
+        "y": 357.7850085268174
+      },
+      "data": {
+        "label": "양자물리 및 연습I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "PS3103"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1064.1547323585346,
+        "y": 357.7850085268174
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS3205",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1062.835224455691,
+        "y": 496.88026353867156
+      },
+      "data": {
+        "label": "광학개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "PS3205"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1062.835224455691,
+        "y": 496.88026353867156
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4209",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1064.1547323585344,
+        "y": 657.0215638467213
+      },
+      "data": {
+        "label": "일반 상대론 개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "PS4209"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1064.1547323585344,
+        "y": 657.0215638467213
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS3105",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1326.7937481642211,
+        "y": 356.465500623974
+      },
+      "data": {
+        "label": "열역학 및 통계물리",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "PS3105"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1326.7937481642211,
+        "y": 356.465500623974
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS3104",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1326.7937481642211,
+        "y": 494.1751665836856
+      },
+      "data": {
+        "label": "양자물리 및 연습II",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "PS3104"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1326.7937481642211,
+        "y": 494.1751665836856
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS3203",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1326.7937481642211,
+        "y": 627.926308834867
+      },
+      "data": {
+        "label": "AI시대의 전산물리학 I",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "PS3203"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1326.7937481642211,
+        "y": 627.926308834867
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4208",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1330.7522718727514,
+        "y": 770.9140064059524
+      },
+      "data": {
+        "label": "천체물리 개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "PS4208"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1330.7522718727514,
+        "y": 770.9140064059524
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS3106",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1334.7107955812821,
+        "y": 1056.4085574841263
+      },
+      "data": {
+        "label": "물리실험 I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "PS3106"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1334.7107955812821,
+        "y": 1056.4085574841263
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4214",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 210
+      },
+      "data": {
+        "label": "고급 양자 물리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "PS4214"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "PS4207",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 346.1165165849933
+      },
+      "data": {
+        "label": "고체물리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "PS4207"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1580,
+        "y": 346.1165165849933
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4217",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1583.4822022113322,
+        "y": 487.45633648698504
+      },
+      "data": {
+        "label": "양자광학 및 원자물리학 입문",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "PS4217"
+      },
+      "width": 210,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1583.4822022113322,
+        "y": 487.45633648698504
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4219",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1586.9644044226648,
+        "y": 627.0550552833107
+      },
+      "data": {
+        "label": "AI시대의 전산물리학 II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "PS4219"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1586.9644044226648,
+        "y": 627.0550552833107
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4211",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1592.1877077396634,
+        "y": 768.3948751853027
+      },
+      "data": {
+        "label": "고급역학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "PS4211"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1592.1877077396634,
+        "y": 768.3948751853027
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4220",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1593.9288088453295,
+        "y": 913.216897298627
+      },
+      "data": {
+        "label": "유체물리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "PS4220"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1593.9288088453295,
+        "y": 913.216897298627
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4206",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840,
+        "y": 210
+      },
+      "data": {
+        "label": "핵 및 입자물리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "PS4206"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "PS4216",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840,
+        "y": 346.1165165849933
+      },
+      "data": {
+        "label": "고체물리학 특론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "PS4216"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1840,
+        "y": 346.1165165849933
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1843.4822022113322,
+        "y": 487.45633648698504
+      },
+      "data": {
+        "label": "반도체 물리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "PS4202"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1843.4822022113322,
+        "y": 487.45633648698504
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4215",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1846.9644044226648,
+        "y": 627.0550552833107
+      },
+      "data": {
+        "label": "플라즈마물리 개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "PS4215"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1846.9644044226648,
+        "y": 627.0550552833107
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4218",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1852.1877077396634,
+        "y": 768.3948751853027
+      },
+      "data": {
+        "label": "양자정보물리학 입문",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "PS4218"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1852.1877077396634,
+        "y": 768.3948751853027
+      },
+      "dragging": false
+    },
+    {
+      "id": "PS4204",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1592.6662440823334,
+        "y": 1053.0847350000288
+      },
+      "data": {
+        "label": "물리실험 II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "PS4204"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1592.6662440823334,
+        "y": 1053.0847350000288
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-PS2101-PS3107",
+      "source": "PS2101",
+      "target": "PS3107",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "edge-PS2102-PS2103",
+      "source": "PS2102",
+      "target": "PS2103",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "edge-PS2103-PS3103",
+      "source": "PS2103",
+      "target": "PS3103",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "edge-PS2103-PS3205",
+      "source": "PS2103",
+      "target": "PS3205",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "edge-PS3103-PS3104",
+      "source": "PS3103",
+      "target": "PS3104",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "edge-PS3104-PS4207",
+      "source": "PS3104",
+      "target": "PS4207",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "edge-PS4214-PS4206",
+      "source": "PS4214",
+      "target": "PS4206",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "edge-PS4207-PS4216",
+      "source": "PS4207",
+      "target": "PS4216",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "edge-PS3203-PS4219",
+      "source": "PS3203",
+      "target": "PS4219",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "edge-GS1112-PS3106",
+      "source": "GS1112",
+      "target": "PS3106",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "source": "PS4207",
+      "sourceHandle": null,
+      "target": "PS4202",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-PS4207-PS4202"
+    }
+  ]
+}

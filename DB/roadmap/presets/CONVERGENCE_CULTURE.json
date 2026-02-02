@@ -1,0 +1,660 @@
+{
+  "meta": {
+    "major": "융합기술원",
+    "track": "문화기술 부전공"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "CT-UNDERSTANDING",
+      "type": "customCourseNode",
+      "position": {
+        "x": 286.56312321899077,
+        "y": 94.0194597059758
+      },
+      "data": {
+        "label": "CT의 이해",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "1-2",
+        "courseCode": "과목코드 미정"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 286.56312321899077,
+        "y": 94.0194597059758
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT2506",
+      "type": "customCourseNode",
+      "position": {
+        "x": 541.5275277017495,
+        "y": 231.76055972994567
+      },
+      "data": {
+        "label": "신화와 원형상징",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "CT2506"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 541.5275277017495,
+        "y": 231.76055972994567
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT2501",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800.4919320643203,
+        "y": 95.76056081164205
+      },
+      "data": {
+        "label": "오타쿠 대중문화론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "CT2501"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 800.4919320643203,
+        "y": 95.76056081164205
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT2502",
+      "type": "customCourseNode",
+      "position": {
+        "x": 798.4919321244142,
+        "y": 231.76055972994567
+      },
+      "data": {
+        "label": "현대예술의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "CT2502"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 798.4919321244142,
+        "y": 231.76055972994567
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT2504",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800.4919320643203,
+        "y": 367.7605586482493
+      },
+      "data": {
+        "label": "유토피아 픽션과 테크놀로지",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "CT2504"
+      },
+      "selected": false,
+      "width": 205,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 800.4919320643203,
+        "y": 367.7605586482493
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT2505",
+      "type": "customCourseNode",
+      "position": {
+        "x": 802.4919320042261,
+        "y": 509.76055738627025
+      },
+      "data": {
+        "label": "과학기술과 사회: 두 문화의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "CT2505"
+      },
+      "selected": false,
+      "width": 233,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 802.4919320042261,
+        "y": 509.76055738627025
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4203",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060.9385386983176,
+        "y": 95.76056081164205
+      },
+      "data": {
+        "label": "아트앤 테크놀로지",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CT4203"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1060.9385386983176,
+        "y": 95.76056081164205
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1058.9385387584116,
+        "y": 231.76055972994567
+      },
+      "data": {
+        "label": "정보시각화 방법과 디자인 사고",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CT4102"
+      },
+      "selected": false,
+      "width": 224,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1058.9385387584116,
+        "y": 231.76055972994567
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060.9385386983176,
+        "y": 367.7605586482493
+      },
+      "data": {
+        "label": "아이디어와 디지털 표현",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CT4101"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1060.9385386983176,
+        "y": 367.7605586482493
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4301",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1062.9385386382235,
+        "y": 509.76055738627025
+      },
+      "data": {
+        "label": "인간-컴퓨터 상호작용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CT4301"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1062.9385386382235,
+        "y": 509.76055738627025
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1064.938538578129,
+        "y": 649.7605561843856
+      },
+      "data": {
+        "label": "영상 커뮤니케이션",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CT4202"
+      },
+      "selected": false,
+      "width": 459,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1064.938538578129,
+        "y": 649.7605561843856
+      },
+      "dragging": false,
+      "style": {
+        "width": 459,
+        "height": 113
+      },
+      "resizing": false
+    },
+    {
+      "id": "CT4304",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1317.6440442867429,
+        "y": 231.76055972994567
+      },
+      "data": {
+        "label": "피지컬 컴퓨팅 스튜디오",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "CT4304"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1317.6440442867429,
+        "y": 231.76055972994567
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4504",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1319.644044226649,
+        "y": 367.7605586482493
+      },
+      "data": {
+        "label": "과학계산 프로그래밍",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "CT4504"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1319.644044226649,
+        "y": 367.7605586482493
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4506",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1321.6440441665547,
+        "y": 509.76055738627025
+      },
+      "data": {
+        "label": "몬테카를로 방법론과 응용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "CT4506"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1321.6440441665547,
+        "y": 509.76055738627025
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1578.880599407787,
+        "y": 101.0385923437209
+      },
+      "data": {
+        "label": "컴퓨터 그래픽스",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "CT4201"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1578.880599407787,
+        "y": 101.0385923437209
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4302",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1576.880599467881,
+        "y": 237.0385912620245
+      },
+      "data": {
+        "label": "문화기술을 위한 인공지능 설계",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "CT4302"
+      },
+      "selected": false,
+      "width": 224,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1576.880599467881,
+        "y": 237.0385912620245
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4310",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580.8805993476929,
+        "y": 515.0385889183491
+      },
+      "data": {
+        "label": "인간-AI상호작용: Special Topics on XR and Digital Twin",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "CT4310"
+      },
+      "selected": false,
+      "width": 393,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1580.8805993476929,
+        "y": 515.0385889183491
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4303",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1838.880599107316,
+        "y": 99.03859240381513
+      },
+      "data": {
+        "label": "게임인공지능",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "CT4303"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1838.880599107316,
+        "y": 99.03859240381513
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4305",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580.7245055845547,
+        "y": 365.3902129086605
+      },
+      "data": {
+        "label": "서비스러닝 프로젝트",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "CT4305"
+      },
+      "selected": false,
+      "width": 457,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1580.7245055845547,
+        "y": 365.3902129086605
+      },
+      "dragging": false,
+      "style": {
+        "width": 457,
+        "height": 113
+      },
+      "resizing": false
+    }
+  ],
+  "edges": []
+}

@@ -1,0 +1,834 @@
+{
+  "meta": {
+    "major": "융합기술원",
+    "track": "에너지 부전공"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "GS1101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 20,
+        "y": 148
+      },
+      "data": {
+        "label": "일반물리학 및 연습 I",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1101"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 20,
+        "y": 148
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 20,
+        "y": 282
+      },
+      "data": {
+        "label": "일반화학 및 연습 I",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1201"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 20,
+        "y": 282
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 280,
+        "y": 148
+      },
+      "data": {
+        "label": "일반물리학 및 연습 II",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1102"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 280,
+        "y": 148
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 280,
+        "y": 282
+      },
+      "data": {
+        "label": "일반화학 및 연습 II",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1202"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 280,
+        "y": 282
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH2102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 98
+      },
+      "data": {
+        "label": "물리학A",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "2-1",
+        "courseCode": "CH2102"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 540,
+        "y": 98
+      },
+      "dragging": false
+    },
+    {
+      "id": "FEZ301",
+      "type": "customCourseNode",
+      "position": {
+        "x": 542,
+        "y": 514
+      },
+      "data": {
+        "label": "회로이론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "FE2301/EC2201"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 542,
+        "y": 514
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE2101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 542,
+        "y": 646
+      },
+      "data": {
+        "label": "에너지와 미래사회",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "FE2101"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 542,
+        "y": 646
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC2205",
+      "type": "customCourseNode",
+      "position": {
+        "x": 802,
+        "y": 230
+      },
+      "data": {
+        "label": "공학전자기학 II",
+        "credits": 3,
+        "category": "타전공1",
+        "semester": "2-2",
+        "courseCode": "EC2205"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 802,
+        "y": 230
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE3301",
+      "type": "customCourseNode",
+      "position": {
+        "x": 804,
+        "y": 512
+      },
+      "data": {
+        "label": "산업용 회로의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "FE3301"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 804,
+        "y": 512
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH2101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1062,
+        "y": 96
+      },
+      "data": {
+        "label": "분석화학",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "3-1",
+        "courseCode": "CH2101"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1062,
+        "y": 96
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC3204",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1062,
+        "y": 230
+      },
+      "data": {
+        "label": "프로그래밍 언어 및 컴파일러",
+        "credits": 3,
+        "category": "타전공1",
+        "semester": "3-1",
+        "courseCode": "EC3204"
+      },
+      "selected": false,
+      "width": 210,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1062,
+        "y": 230
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA3207",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1066,
+        "y": 364
+      },
+      "data": {
+        "label": "재료전기화학",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "3-1",
+        "courseCode": "MA3207"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1066,
+        "y": 364
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE4201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1330,
+        "y": 504
+      },
+      "data": {
+        "label": "에너지변환과 저장",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "FE4201"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1330,
+        "y": 504
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE4303",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1330,
+        "y": 635.0291742986766
+      },
+      "data": {
+        "label": "전력경제와 경영과학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "FE4303"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1330,
+        "y": 635.0291742986766
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE3101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1331.7411011318236,
+        "y": 762.6278935396804
+      },
+      "data": {
+        "label": "대통령을 위한 에너지 강의",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "FE3101"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1331.7411011318236,
+        "y": 762.6278935396804
+      },
+      "dragging": false
+    },
+    {
+      "id": "MC4216",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 230
+      },
+      "data": {
+        "label": "자동제어",
+        "credits": 3,
+        "category": "타전공1",
+        "semester": "3-2",
+        "courseCode": "MC4216"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1320,
+        "y": 230
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA3211",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1325.515716575619,
+        "y": 364
+      },
+      "data": {
+        "label": "기기분석",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "3-2",
+        "courseCode": "MA3211"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1325.515716575619,
+        "y": 364
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE4102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1590,
+        "y": 502
+      },
+      "data": {
+        "label": "에너지 공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "FE4102"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1590,
+        "y": 502
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE4304",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1590,
+        "y": 631.0291742986766
+      },
+      "data": {
+        "label": "전력전자공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "FE4304"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1590,
+        "y": 631.0291742986766
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE4302",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1591.7411011318236,
+        "y": 760.6278935396804
+      },
+      "data": {
+        "label": "스마트 그리드와 전력전자 응용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "FE4302"
+      },
+      "selected": false,
+      "width": 224,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1591.7411011318236,
+        "y": 760.6278935396804
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE4310",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1591.7411011318236,
+        "y": 887.910791900822
+      },
+      "data": {
+        "label": "인간-AI상호작용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "FE4310"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1591.7411011318236,
+        "y": 887.910791900822
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE4306",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1593.2568177074427,
+        "y": 1022.7722731400586
+      },
+      "data": {
+        "label": "전력시스템공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "FE4306"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1593.2568177074427,
+        "y": 1022.7722731400586
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA4217",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1586.0000001802828,
+        "y": 365.00000001502355
+      },
+      "data": {
+        "label": "에너지 소재",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "4-1",
+        "courseCode": "MA4217"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1586.0000001802828,
+        "y": 365.00000001502355
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE4501",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1850.0000001802828,
+        "y": 503.00000001502355
+      },
+      "data": {
+        "label": "태양전지의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "FE4501"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1850.0000001802828,
+        "y": 503.00000001502355
+      },
+      "dragging": false
+    },
+    {
+      "id": "MS5142",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1850,
+        "y": 364
+      },
+      "data": {
+        "label": "에너지 전기화학",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "4-2",
+        "courseCode": "MS5142"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1850,
+        "y": 364
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE4307",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1852,
+        "y": 756
+      },
+      "data": {
+        "label": "배전 시스템 공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "FE4307"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1852,
+        "y": 756
+      },
+      "dragging": false
+    },
+    {
+      "id": "FE4308",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1854,
+        "y": 886
+      },
+      "data": {
+        "label": "전력변화 시스템의 기초",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "FE4308"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1854,
+        "y": 886
+      },
+      "dragging": false
+    }
+  ],
+  "edges": []
+}

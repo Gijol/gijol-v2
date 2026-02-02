@@ -1,0 +1,651 @@
+{
+  "meta": {
+    "major": "기초교육학부",
+    "track": "인문사회 부전공: 법·정치·사회"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "GS(PP)2704",
+      "type": "customCourseNode",
+      "position": {
+        "x": 20,
+        "y": 100
+      },
+      "data": {
+        "label": "기업과 사회 I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-1",
+        "courseCode": "GS(PP)2704"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2761",
+      "type": "customCourseNode",
+      "position": {
+        "x": 20,
+        "y": 220
+      },
+      "data": {
+        "label": "인권법",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-1",
+        "courseCode": "GS(PP)2761"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2763",
+      "type": "customCourseNode",
+      "position": {
+        "x": 280,
+        "y": 100
+      },
+      "data": {
+        "label": "현대법학의 이해",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-2",
+        "courseCode": "GS(PP)2763"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2788",
+      "type": "customCourseNode",
+      "position": {
+        "x": 280,
+        "y": 220
+      },
+      "data": {
+        "label": "민주주의론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-2",
+        "courseCode": "GS(PP)2788"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2734",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 100
+      },
+      "data": {
+        "label": "행복의 조건",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(PP)2734"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2765",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 220
+      },
+      "data": {
+        "label": "헌법과 국가",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "GS(PP)2765"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2701",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 340
+      },
+      "data": {
+        "label": "한국사회의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(PP)2701"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2616",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 460
+      },
+      "data": {
+        "label": "장기 19세기 서양 역사",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(PP)2616"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2724",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 100
+      },
+      "data": {
+        "label": "거시경제학원론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(PP)2724"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2787",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 220
+      },
+      "data": {
+        "label": "한국정치론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(PP)2787"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2812",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 340
+      },
+      "data": {
+        "label": "생명윤리와 법",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(PP)2812"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2702",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 460
+      },
+      "data": {
+        "label": "미국사회의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(PP)2702"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3725",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060,
+        "y": 100
+      },
+      "data": {
+        "label": "사회복지와 재정",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(PP)3725"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3785",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060,
+        "y": 220
+      },
+      "data": {
+        "label": "국가와 시민사회론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(PP)3785"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3721",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060,
+        "y": 340
+      },
+      "data": {
+        "label": "교육의 경제학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(PP)3721"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3831",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1059.9999999999998,
+        "y": 465.7434917577276
+      },
+      "data": {
+        "label": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(PP)3831"
+      },
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1059.9999999999998,
+        "y": 465.7434917577276
+      },
+      "dragging": false,
+      "width": 248,
+      "height": 113,
+      "style": {
+        "width": 248,
+        "height": 113
+      },
+      "resizing": false
+    },
+    {
+      "id": "GS(PP)2703",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 100
+      },
+      "data": {
+        "label": "세계화와 발전",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(PP)2703"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3632",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 220
+      },
+      "data": {
+        "label": "합리적 판단과 선택",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(PP)3632"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3765",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 340
+      },
+      "data": {
+        "label": "재정학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(PP)3765"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3838",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 460
+      },
+      "data": {
+        "label": "과학기술정책의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(PP)3838"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "TBD_STLP",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 100
+      },
+      "data": {
+        "label": "과학기술법정책",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "4-1",
+        "courseCode": "편성예정"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": true,
+      "dragging": false
+    },
+    {
+      "id": "GS(PP)4762",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 220
+      },
+      "data": {
+        "label": "인공지능 로봇의 법",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "GS(PP)4762"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3786",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 340
+      },
+      "data": {
+        "label": "정치경제론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "GS(PP)3786"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3735",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 460
+      },
+      "data": {
+        "label": "한국의 경제발전",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "GS(PP)3735"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3767",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840,
+        "y": 100
+      },
+      "data": {
+        "label": "(MOOC 지정) 인공지능 로봇의 윤리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "GS(PP)3767"
+      },
+      "width": 256,
+      "height": 113
+    }
+  ],
+  "edges": []
+}

@@ -1,0 +1,512 @@
+{
+  "meta": {
+    "major": "융합기술원",
+    "track": "지능로봇 부전공"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "IR2201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 543.5275276416553,
+        "y": 102.7249652343069
+      },
+      "data": {
+        "label": "회로이론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "IR2201"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 543.5275276416553,
+        "y": 102.7249652343069
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR2202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 801.1061104058929,
+        "y": 105.71910585206538
+      },
+      "data": {
+        "label": "동역학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "IR2202"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 801.1061104058929,
+        "y": 105.71910585206538
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR3203",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060.9385386983179,
+        "y": 104.46606633997311
+      },
+      "data": {
+        "label": "마이크로프로세서 및 응용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "IR3203"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1060.9385386983179,
+        "y": 104.46606633997311
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR4208",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1062.454255251165,
+        "y": 239.32754705546625
+      },
+      "data": {
+        "label": "로봇운동학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "IR4208"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1062.454255251165,
+        "y": 239.32754705546625
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR4203",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1063.9699718040126,
+        "y": 375.7047443238068
+      },
+      "data": {
+        "label": "인간 컴퓨터 상호작용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "IR4203"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1063.9699718040126,
+        "y": 375.7047443238068
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR3202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1321.3851453323152,
+        "y": 104.46606633997311
+      },
+      "data": {
+        "label": "시스템 모델링 및 제어",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "IR3202"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1321.3851453323152,
+        "y": 104.46606633997311
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR4202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1322.9008618851624,
+        "y": 239.32754705546625
+      },
+      "data": {
+        "label": "메카트로닉스",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "IR4202"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1322.9008618851624,
+        "y": 239.32754705546625
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR4207",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1581.8317519663126,
+        "y": 106.2071674456393
+      },
+      "data": {
+        "label": "자동제어",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "IR4207"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1581.8317519663126,
+        "y": 106.2071674456393
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR4201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1583.3474685191597,
+        "y": 241.06864816113244
+      },
+      "data": {
+        "label": "딥러닝",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "IR4201"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1583.3474685191597,
+        "y": 241.06864816113244
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR4205",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1587.8946181777021,
+        "y": 380.477278535168
+      },
+      "data": {
+        "label": "로봇공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "IR4205"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1587.8946181777021,
+        "y": 380.477278535168
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR4310",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1592.4417678362445,
+        "y": 518.3701923563561
+      },
+      "data": {
+        "label": "인간-AI상호작용: Special Topics on XR and Digital Twin",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "IR4310"
+      },
+      "selected": false,
+      "width": 393,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1592.4417678362445,
+        "y": 518.3701923563561
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR4209",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1841.0683072862164,
+        "y": 106.2071674456393
+      },
+      "data": {
+        "label": "로봇제어",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "IR4209"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1841.0683072862164,
+        "y": 106.2071674456393
+      },
+      "dragging": false
+    },
+    {
+      "id": "IR4206",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1842.5840238390635,
+        "y": 241.06864816113244
+      },
+      "data": {
+        "label": "인공지능기반 창의적 로봇 융합 시스템 설계",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "IR4206"
+      },
+      "selected": false,
+      "width": 304,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1842.5840238390635,
+        "y": 241.06864816113244
+      },
+      "dragging": false
+    }
+  ],
+  "edges": []
+}

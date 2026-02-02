@@ -1,120 +1,263 @@
-import { homeContents } from '@const/content-data';
+import { useMemo } from 'react';
+import { NextSeo } from 'next-seo';
+import { useGraduationStore } from '../../lib/stores/useGraduationStore';
+import { extractOverallStatus, getPercentage } from '@utils/graduation/grad-formatter';
+import { buildCourseListWithPeriod, calcAverageGrade } from '@utils/course/analytics';
+import { WelcomeHeader } from '@components/dashboard/welcome-header';
+import { EmptyState } from '@components/dashboard/empty-state';
+import { RequirementsList } from '@components/dashboard/requirements-list';
+import { useRecommendedCourses } from '@/lib/hooks/useRecommendedCourses';
+import { BentoGrid, BentoGridItem } from '@components/ui/bento-grid';
+import { Progress } from '@components/ui/progress';
+import { Badge } from '@components/ui/badge';
+import { User, School, Book, Calendar, TrendingUp, AlertTriangle, BarChart } from 'lucide-react';
+import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 
-import {
-  Button,
-  Container,
-  Group,
-  List,
-  Paper,
-  ScrollArea,
-  SimpleGrid,
-  Space,
-  Text,
-  ThemeIcon,
-} from '@mantine/core';
+const TOTAL_REQUIRED_CREDITS = 130;
 
-import DashboardHeroHeader from '@components/dashboard-hero-header';
-import DashboardFeatureCard from '@components/dashboard-feature-card';
-import { IconCheck, IconUpload } from '@tabler/icons-react';
-import { useRouter } from 'next/router';
+// 전공 라벨 헬퍼
+function getMajorLabel(value: string): string {
+  return MAJOR_OPTIONS.find((opt) => opt.value === value)?.label || value || '미선택';
+}
+
+function getMinorLabel(value: string): string {
+  return MINOR_OPTIONS.find((opt) => opt.value === value)?.label || value;
+}
 
 export default function HomePage() {
-  const router = useRouter();
-  const cntFeatures = homeContents.main.cntFeatures;
-  const futureFeatures = homeContents.main.betaFeatures;
+  const { parsed, gradStatus, userMajor, userMinors, entryYear } = useGraduationStore();
+  const { getRecommendationsForDomain } = useRecommendedCourses();
+
+  const courseListWithPeriod = useMemo(() => buildCourseListWithPeriod(parsed), [parsed]);
+
+  const overallAverageGrade = useMemo(
+    () => calcAverageGrade(courseListWithPeriod.flatMap((t) => t.userTakenCourseList ?? [])),
+    [courseListWithPeriod],
+  );
+
+  // Data Processing
+  const overallProps = extractOverallStatus(gradStatus);
+  const totalCreditsEarned = overallProps?.totalCredits ?? 0;
+  const totalPercentage = overallProps?.totalPercentage ?? 0;
+
+  const validTermGrades = courseListWithPeriod.filter((t) => t.grade && t.grade > 0);
+  const gradeDelta =
+    validTermGrades.length >= 2
+      ? validTermGrades[validTermGrades.length - 1].grade - validTermGrades[validTermGrades.length - 2].grade
+      : null;
+
+  const remainingCredits = Math.max(0, TOTAL_REQUIRED_CREDITS - totalCreditsEarned);
+  const completedCourses = courseListWithPeriod.flatMap((t) => t.userTakenCourseList ?? []).length;
+
+  const requirements =
+    overallProps?.categoriesArr.map(({ domain, status }) => ({
+      domain,
+      required: status?.minConditionCredits ?? 0,
+      earned: status?.totalCredits ?? 0,
+      percentage: getPercentage(status),
+      satisfied: status?.satisfied ?? false,
+      messages: status?.messages ?? [],
+      courses: status?.userTakenCoursesList?.takenCourses ?? [],
+      recommendedCourses: getRecommendationsForDomain(domain),
+    })) ?? [];
+
+  const unsatisfiedRequirements = requirements.filter((r) => !r.satisfied).length;
+  const hasData = !!(parsed && gradStatus);
+
+  // Empty State
+  if (!hasData) {
+    return (
+      <div className="w-full">
+        <NextSeo title="대시보드" description="졸업 현황을 한눈에 확인하세요" noindex />
+        <WelcomeHeader studentId={parsed?.studentId} hasData={false} />
+        <EmptyState />
+      </div>
+    );
+  }
+
   return (
-    <ScrollArea h="fit-content">
-      <DashboardHeroHeader />
-      <Container size="lg">
-        {/* ▶️ ZEUS 엑셀 업로드 안내 박스 */}
-        <Paper
-          radius="md"
-          p="lg"
-          mt={40}
-          sx={(theme) => ({
-            borderColor: theme.colors.red[6],
-            borderWidth: 1,
-            borderStyle: 'solid',
-            backgroundColor: theme.colors.red[0],
-          })}
-        >
-          <Group position="apart" align="flex-start">
-            <div>
-              <Text size="lg" fw={700} mb={6} color="red.6">
-                먼저 성적표 엑셀을 업로드해주세요
-              </Text>
-              <Text size="sm" c="dimmed" mb="xs">
-                현재 Gijol-v2는 <b>로그인 없이</b> 동작하며, 한 번의 엑셀 업로드로
-                <b> 졸업요건 확인</b>과 <b>내 수강현황</b>을 확인할 수 있습니다.
-              </Text>
+    <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
+      <NextSeo title="대시보드" description="졸업 현황을 한눈에 확인하세요" noindex />
+      {/* Header */}
+      <WelcomeHeader studentId={parsed.studentId} remainingCredits={remainingCredits} hasData={true} />
 
-              <Text size="sm" fw={500} mt="xs" mb={4}>
-                ✅ 업로드해야 하는 파일 (ZEUS 기준):
-              </Text>
-              <List
-                size="sm"
-                spacing={4}
-                icon={
-                  <ThemeIcon size={18} radius="xl">
-                    <IconCheck size={12} />
-                  </ThemeIcon>
-                }
-              >
-                <List.Item>학교 제우스(Zeus) 시스템 접속</List.Item>
-                <List.Item>
-                  상단 메뉴에서 <b>성적 &gt; 개인성적조회</b>로 이동
-                </List.Item>
-                <List.Item>
-                  화면 <b>상단 우측</b>에 있는 <b>“Report card (KOR)”</b> 버튼 클릭
-                </List.Item>
-                <List.Item>다운로드된 엑셀 파일을 Gijol에서 업로드</List.Item>
-              </List>
+      {/* BentoGrid Dashboard */}
+      <BentoGrid className="mb-8 md:auto-rows-[11rem] lg:grid-cols-4">
+        {/* 상단 Row: 내 정보 + 졸업 진행률 */}
+
+        {/* 내 정보 - 학번, 전공, 부전공 */}
+        <BentoGridItem
+          className="md:col-span-1 md:row-span-1"
+          title="내 정보"
+          description={
+            <div className="mt-3">
+              <table className="w-full text-sm">
+                <tbody>
+                  <tr>
+                    <td className="w-20 py-1 text-gray-500">
+                      <div className="flex items-center gap-2">
+                        <Calendar size={14} className="text-gray-500" />
+                        <span>학번</span>
+                      </div>
+                    </td>
+                    <td className="py-1 font-bold text-gray-900">{entryYear ? `${entryYear}학번` : '미입력'}</td>
+                  </tr>
+                  <tr>
+                    <td className="py-1 text-gray-500">
+                      <div className="flex items-center gap-2">
+                        <Book size={14} className="text-gray-500" />
+                        <span>전공</span>
+                      </div>
+                    </td>
+                    <td className="py-1">
+                      <Badge variant="outline" className="border-blue-200 bg-blue-50 text-xs text-blue-700">
+                        {getMajorLabel(userMajor)}
+                      </Badge>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-1 align-top text-gray-500">
+                      <div className="flex items-center gap-2">
+                        <Book size={14} className="mt-0.5 text-gray-500" />
+                        <span>부전공</span>
+                      </div>
+                    </td>
+                    <td className="py-1">
+                      <div className="flex flex-wrap gap-1">
+                        {userMinors && userMinors.length > 0 ? (
+                          userMinors.map((m) => (
+                            <Badge
+                              key={m}
+                              variant="outline"
+                              className="border-orange-200 bg-orange-50 text-xs text-orange-700"
+                            >
+                              {getMinorLabel(m)}
+                            </Badge>
+                          ))
+                        ) : (
+                          <span className="text-xs text-gray-500">미선택</span>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <Button
-              size="lg"
-              radius="md"
-              leftIcon={<IconUpload size="1.2rem" />}
-              variant="gradient"
-              gradient={{ from: 'indigo', to: 'cyan' }}
-              sx={{
-                fontWeight: 700,
-                animation: 'pulse 1.8s infinite',
-                '@keyframes pulse': {
-                  '0%': { boxShadow: '0 0 0 0 rgba(0, 122, 255, .4)' },
-                  '70%': { boxShadow: '0 0 0 12px rgba(0, 122, 255, 0)' },
-                  '100%': { boxShadow: '0 0 0 0 rgba(0, 122, 255, 0)' },
-                },
-              }}
-              onClick={() => router.push('/dashboard/graduation/upload')}
-            >
-              업로드하러 가기
-            </Button>{' '}
-          </Group>
-        </Paper>
+          }
+          icon={<User className="h-4 w-4 text-blue-500" />}
+        />
 
-        <Space h={32} />
+        {/* 총 이수학점 + 졸업 진행률 */}
+        <BentoGridItem
+          className="md:col-span-3 md:row-span-1"
+          title={<div>이수 진행률</div>}
+          description={
+            <div className="mt-3">
+              <div className="flex items-baseline gap-3">
+                <span className="text-4xl font-bold text-blue-600">{totalCreditsEarned}</span>
+                <span className="text-lg font-medium text-gray-500">/ {TOTAL_REQUIRED_CREDITS}학점</span>
+                <span className="ml-auto text-2xl font-bold text-gray-900">{totalPercentage}%</span>
+              </div>
+              <Progress value={totalPercentage} className="mt-3 h-3" />
+            </div>
+          }
+          icon={<School className="h-4 w-4 text-blue-500" />}
+        />
 
-        {/* 🔹 지금 이용 가능한 기능들 (졸업요건 / 수강현황) */}
-        <Text size={24} my="md" fw={600}>
-          지금 이용 가능한 서비스
-        </Text>
-        <Text size="sm" c="dimmed" mb="sm">
-          성적표 엑셀을 업로드하면, 아래 기능들을 바로 사용하실 수 있어요.
-        </Text>
-        <SimpleGrid
-          cols={3}
-          spacing="xl"
-          breakpoints={[
-            { maxWidth: 'md', cols: 2, spacing: 'xl' },
-            { maxWidth: 'xs', cols: 1, spacing: 'xl' },
-          ]}
-        >
-          {cntFeatures.map((feat) => (
-            <DashboardFeatureCard key={feat.title} feat={feat} />
-          ))}
-        </SimpleGrid>
-        <Space h={96} />
-      </Container>
-    </ScrollArea>
+        {/* 하단 Row: GPA, 수강 과목 수, 남은 학점, 미충족 영역 */}
+
+        {/* 학점 평균 */}
+        <BentoGridItem
+          className="text-gray-900 md:col-span-1 md:row-span-1"
+          title={<div>학점 평균</div>}
+          description={
+            <div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl font-bold text-gray-900">{(overallAverageGrade ?? 0).toFixed(2)}</span>
+                <span className="text-sm text-gray-500">/ 4.5</span>
+              </div>
+              <div>
+                {gradeDelta !== null ? (
+                  <div
+                    className={`flex items-center gap-1 text-xs ${gradeDelta >= 0 ? 'text-green-600' : 'text-red-500'}`}
+                  >
+                    <TrendingUp size={12} />
+                    <span>
+                      {gradeDelta >= 0 ? '+' : ''}
+                      {gradeDelta.toFixed(2)}
+                    </span>
+                  </div>
+                ) : (
+                  <span className="text-xs text-gray-500">누적 학점 평균</span>
+                )}
+              </div>
+            </div>
+          }
+          icon={<BarChart className="h-4 w-4 text-blue-500" />}
+        />
+
+        {/* 수강 과목 수 */}
+        <BentoGridItem
+          className="md:col-span-1 md:row-span-1"
+          title={<div>수강 과목 수</div>}
+          description={
+            <div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl font-bold text-gray-900">{completedCourses}</span>
+                <span className="text-xs text-gray-500">과목</span>
+              </div>
+            </div>
+          }
+          icon={<Book className="h-4 w-4 text-gray-500" />}
+        />
+
+        {/* 남은 학점 */}
+        <BentoGridItem
+          className="md:col-span-1 md:row-span-1"
+          title={<div>남은 학점</div>}
+          description={
+            <div className="flex items-baseline gap-1">
+              <span className="text-3xl font-bold text-gray-900">{remainingCredits}</span>
+              <span className="text-xs text-gray-500">학점</span>
+            </div>
+          }
+          icon={<Book className="h-4 w-4 text-gray-500" />}
+        />
+
+        {/* 미충족 영역 + 화살표 */}
+        <BentoGridItem
+          className={`md:col-span-1 md:row-span-1 ${unsatisfiedRequirements > 0 ? 'border-amber-500' : 'border-green-500'}`}
+          title={<div>미충족 영역</div>}
+          description={
+            <div>
+              <div className="flex items-baseline gap-1">
+                <span
+                  className={`text-3xl font-bold ${unsatisfiedRequirements > 0 ? 'text-amber-500' : 'text-green-500'}`}
+                >
+                  {unsatisfiedRequirements}
+                </span>
+                <span className="text-sm text-gray-500">개</span>
+              </div>
+
+              <div className="flex items-center gap-1 text-xs">
+                {unsatisfiedRequirements > 0 ? (
+                  <span className="text-amber-600">아래에서 확인하세요!</span>
+                ) : (
+                  <span className="text-green-600">모두 충족 🎉</span>
+                )}
+              </div>
+            </div>
+          }
+          icon={
+            <AlertTriangle className={`h-4 w-4 ${unsatisfiedRequirements > 0 ? 'text-amber-500' : 'text-green-500'}`} />
+          }
+        />
+      </BentoGrid>
+
+      {/* Detailed Requirements List */}
+      <div className="mb-8">
+        <RequirementsList requirements={requirements} />
+      </div>
+    </div>
   );
 }

@@ -1,0 +1,811 @@
+{
+  "meta": {
+    "major": "의생명공학과",
+    "track": "의생명공학 부전공"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "MD4601",
+      "type": "customCourseNode",
+      "position": {
+        "x": 22.6343143736608,
+        "y": 88.79615638897718
+      },
+      "data": {
+        "label": "의학용어",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "1-1",
+        "courseCode": "MD4601"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 22.6343143736608,
+        "y": 88.79615638897718
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4503",
+      "type": "customCourseNode",
+      "position": {
+        "x": 279.59871879632556,
+        "y": 88.79615638897718
+      },
+      "data": {
+        "label": "의학 행동 과학",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "1-2",
+        "courseCode": "MD4503"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 279.59871879632556,
+        "y": 88.79615638897718
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD5031",
+      "type": "customCourseNode",
+      "position": {
+        "x": 538.3042243246566,
+        "y": 88.79615638897718
+      },
+      "data": {
+        "label": "의공학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "MD5031"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 538.3042243246566,
+        "y": 88.79615638897718
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD5101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 541.786426588304,
+        "y": 221.8770778936286
+      },
+      "data": {
+        "label": "의과학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "MD5101"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 541.786426588304,
+        "y": 221.8770778936286
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD5603",
+      "type": "customCourseNode",
+      "position": {
+        "x": 541.786426588304,
+        "y": 356.69910053010375
+      },
+      "data": {
+        "label": "의학 세포생물학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "MD5603"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 541.786426588304,
+        "y": 356.69910053010375
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4502",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540.0453254564802,
+        "y": 488.03892090293147
+      },
+      "data": {
+        "label": "인간 유전학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "MD4502"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 540.0453254564802,
+        "y": 488.03892090293147
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD5601",
+      "type": "customCourseNode",
+      "position": {
+        "x": 802.2330331699866,
+        "y": 90.53725749464337
+      },
+      "data": {
+        "label": "의학기초 생화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "MD5601"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 802.2330331699866,
+        "y": 90.53725749464337
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD5002",
+      "type": "customCourseNode",
+      "position": {
+        "x": 805.715235433634,
+        "y": 223.6181789992948
+      },
+      "data": {
+        "label": "의생명 연구방법론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "MD5002"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 805.715235433634,
+        "y": 223.6181789992948
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD6403",
+      "type": "customCourseNode",
+      "position": {
+        "x": 805.715235433634,
+        "y": 358.44020163576994
+      },
+      "data": {
+        "label": "광유전학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "MD6403"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 805.715235433634,
+        "y": 358.44020163576994
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4501",
+      "type": "customCourseNode",
+      "position": {
+        "x": 803.9741343018102,
+        "y": 489.78002200859765
+      },
+      "data": {
+        "label": "신경과학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "MD4501"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 803.9741343018102,
+        "y": 489.78002200859765
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 805.7152354336338,
+        "y": 622.860943513249
+      },
+      "data": {
+        "label": "신경과학기술",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "MD4101"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 805.7152354336338,
+        "y": 622.860943513249
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4401",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1057.4563365654578,
+        "y": 90.53725749464337
+      },
+      "data": {
+        "label": "분자생물학의 실질적 이해 I",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "MD4401"
+      },
+      "selected": false,
+      "width": 201,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1057.4563365654578,
+        "y": 90.53725749464337
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060.9385388291053,
+        "y": 223.6181789992948
+      },
+      "data": {
+        "label": "임상 신경 과학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "MD4102"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1060.9385388291053,
+        "y": 223.6181789992948
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4302",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060.9385388291053,
+        "y": 358.44020163576994
+      },
+      "data": {
+        "label": "의료영상",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "MD4302"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1060.9385388291053,
+        "y": 358.44020163576994
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4303",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1059.1974376972814,
+        "y": 489.78002200859765
+      },
+      "data": {
+        "label": "의생명광학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "MD4303"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1059.1974376972814,
+        "y": 489.78002200859765
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD5304",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1321.385145620048,
+        "y": 95.76056089011468
+      },
+      "data": {
+        "label": "바이오통계",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "MD5304"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1321.385145620048,
+        "y": 95.76056089011468
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4402",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1324.8673478836954,
+        "y": 228.8414823947661
+      },
+      "data": {
+        "label": "분자생물학의 실질적 이해 II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "MD4402"
+      },
+      "selected": false,
+      "width": 205,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1324.8673478836954,
+        "y": 228.8414823947661
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD6505",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1324.8673478836954,
+        "y": 363.66350503124124
+      },
+      "data": {
+        "label": "마이크로바이옴&정밀의학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "MD6505"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1324.8673478836954,
+        "y": 363.66350503124124
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD6310",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1323.1262467518716,
+        "y": 495.00332540406896
+      },
+      "data": {
+        "label": "신경광자학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "MD6310"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1323.1262467518716,
+        "y": 495.00332540406896
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD6504",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1324.8673478836952,
+        "y": 628.0842469087204
+      },
+      "data": {
+        "label": "지질대사",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "MD6504"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1324.8673478836952,
+        "y": 628.0842469087204
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD5051",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1326.6084490155188,
+        "y": 762.9062695451955
+      },
+      "data": {
+        "label": "기능해부생리학 I",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "MD5051"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1326.6084490155188,
+        "y": 762.9062695451955
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4301",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580.0906512791669,
+        "y": 94.01945975829096
+      },
+      "data": {
+        "label": "의생명신호처리론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MD4301"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1580.0906512791669,
+        "y": 94.01945975829096
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD5314",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1583.5728535428143,
+        "y": 227.1003812629424
+      },
+      "data": {
+        "label": "의료기기설계",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MD5314"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1583.5728535428143,
+        "y": 227.1003812629424
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4106",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1583.5728535428143,
+        "y": 361.92240389941753
+      },
+      "data": {
+        "label": "감염학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MD4106"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1583.5728535428143,
+        "y": 361.92240389941753
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD6305",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1842.278359201933,
+        "y": 92.27835862646722
+      },
+      "data": {
+        "label": "레이저와 생체조직 간의 상호작용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "MD6305"
+      },
+      "selected": false,
+      "width": 238,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1842.278359201933,
+        "y": 92.27835862646722
+      },
+      "dragging": false
+    },
+    {
+      "id": "MD4504",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1845.7605614655804,
+        "y": 225.35928013111865
+      },
+      "data": {
+        "label": "일주기 생체 리듬",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "MD4504"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1845.7605614655804,
+        "y": 225.35928013111865
+      },
+      "dragging": false
+    }
+  ],
+  "edges": []
+}

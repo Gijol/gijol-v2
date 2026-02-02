@@ -1,0 +1,366 @@
+# GRADUATION REQUIREMENT VERIFICATION INSTRUCTIONS (RULE-ENGINE SPEC)
+# Target: GIST Undergraduate Graduation Check
+# Base cohort rules: 2021+
+# Overrides: 2018–2020 cohort differences
+#
+# This document fuses:
+# (A) Cohort graduation requirement rules (credit rules + non-credit rules)
+# (B) CSV-based course resolution + diff/exception handling procedure
+#
+# Source prompt reference (CSV integration + resolution principles):
+# :contentReference[oaicite:0]{index=0}
+
+============================================================
+0) REQUIRED INPUTS (RUNTIME)
+============================================================
+
+0.1 Student Profile
+- admissionYear: number (e.g., 2019, 2021)
+- expectedGraduationSemester: string (optional; used for "Thesis Research II must be taken in grad semester")
+- gpa: number (optional but recommended)
+- totalEarnedCredits: number (optional; can be computed from takenCourses if complete)
+
+0.2 Student Taken Courses (Transcript-like)
+- takenCourses: array of objects:
+  {
+    courseCode: string,
+    courseName: string (optional),
+    credits: number,
+    year: number,
+    term: string,          // e.g., "봄", "가을", "여름", etc.
+    grade: string|number,  // optional; for pass/fail or GPA filtering if needed
+    isPassed: boolean      // recommended. If absent, infer by grade rules configured elsewhere.
+  }
+
+0.3 Course Data from Handbooks (CSV-derived)
+- CSV #1: courses_master_from_handbooks_2020_2025.csv  (Master dictionary)
+- CSV #2: course_applicability_2018-2020_vs_2021plus.csv (Cohort applicability rules)
+
+============================================================
+1) COHORT SELECTION (BASE + OVERRIDES)
+============================================================
+
+1.1 Determine cohortKey from admissionYear:
+- if admissionYear >= 2021: cohortKey = "2021+"
+- else if 2018 <= admissionYear <= 2020: cohortKey = "2018-2020"
+- else: cohortKey = "UNKNOWN" (still attempt evaluation; produce warnings)
+
+1.2 Base rule set is ALWAYS "2021+".
+- For cohortKey == "2018-2020", apply ONLY these overrides:
+  (a) Non-credit mandatory requirements exist:
+      - Arts practice + Physical education semester requirements:
+        * admissionYear in {2018, 2019}: 4 semesters each
+        * admissionYear == 2020: 2 semesters each
+  (b) Common course naming difference:
+      - 2018-2020: "Freshman Seminar" (1 credit, 1-1)
+      - 2021+: replaced by "GIST Freshman Seminar"(1-1) and "GIST Major Exploration"(1-2)
+  (c) Free elective subtotal credit range:
+      - 2018-2020: 30–39
+      - 2021+: 29–38
+  (d) Everything else remains same unless explicitly overridden by CSV applicability (course-by-course).
+
+============================================================
+2) DATA MODEL (IN-MEMORY OBJECTS)
+============================================================
+
+2.1 CourseMaster (from Master CSV)
+{
+  courseCode,
+  nameKo,
+  nameEn,
+  credits,
+  hours: { lecture, lab },
+  level,
+  defaultCategory,
+  defaultSubcategory,
+  department,
+  notes
+}
+
+2.2 CourseRule (cohort-resolved applicability)
+{
+  courseCode,
+  cohort: "2018-2020" | "2021+",
+  admissionYearRange: { from, toOrNull },
+  offered: boolean|null,
+  required: boolean|null,
+  category: string|null,        // resolved = override ?? master.defaultCategory ?? null
+  subcategory: string|null,     // resolved = override ?? master.defaultSubcategory ?? null
+  countingPolicy: string|null,  // e.g. NORMAL, EXCLUDE_FROM_FREE_ELECTIVE, OVERFLOW_TO_FREE_ELECTIVE, ...
+  termRecommendation: string|null,
+  prerequisites: string[]|null,
+  corequisites: string[]|null,
+  source: { handbookYear, remarks }
+}
+
+2.3 CourseResolved
+{
+  course: CourseMaster,
+  rule: CourseRule
+}
+
+2.4 Resolved Maps (per cohort)
+- resolved2018_2020: Map<courseCode, CourseResolved>
+- resolved2021plus:  Map<courseCode, CourseResolved>
+
+============================================================
+3) CSV RESOLUTION PROCEDURE (DETERMINISTIC)
+============================================================
+
+3.1 Parse CSVs
+- Normalize course_code strings (trim, uppercase if policy, remove zero-width spaces).
+- Normalize credits to number (allow 0).
+- Normalize boolean-like strings: "TRUE"/"FALSE", "Y"/"N", "1"/"0" => booleans.
+- applies_to_admission_year empty => Infinity.
+
+3.2 Join key policy
+- Join ONLY by course_code. Never merge by course name.
+
+3.3 Rule matching for a target cohort admissionYear (studentAdmissionYear)
+For each course_code:
+- Collect applicability rows where:
+  applies_from_admission_year <= studentAdmissionYear <= applies_to_admission_year(or Infinity)
+
+If multiple rows match:
+  1) Prefer narrower admission year range (to-from is smallest)
+  2) Prefer source_handbook_year closest to cohort:
+     - target 2018-2020 => prefer 2020
+     - target 2021+     => prefer 2025
+  3) If still tied, prefer is_required == TRUE
+  4) If still tied, sort by applies_from_admission_year desc and take first
+If still ambiguous after deterministic sort, select first but record a conflict warning.
+
+3.4 Missing cases
+- Master exists, no applicability row matched:
+  - Create rule: offered=null, required=null, category/subcategory from master, plus warning: "NO_APPLICABILITY_FOR_COHORT"
+- Applicability exists, master missing:
+  - Create stub master with nameKo="(MISSING IN MASTER)" and warning: "MISSING_IN_MASTER"
+
+3.5 Produce resolved maps
+- For cohortKey "2018-2020": build resolved2018_2020 using 2018-2020 admissionYear selection
+- For cohortKey "2021+": build resolved2021plus using admissionYear selection
+
+============================================================
+4) GRADUATION CHECK CORE (CREDIT ENGINE)
+============================================================
+
+4.1 Requirement Buckets (EVALUATION TARGETS)
+Define evaluation buckets. Bucket names should be stable identifiers (frontend-safe).
+
+A) GLOBAL TOTALS
+- TOTAL_CREDITS_MIN = 130
+- COURSEWORK_CREDITS_MIN = 124
+
+B) BASIC_LIBERAL (Subtotal: 50–53 for 2021+)
+- LANG_BASIC_REQUIRED = 7  (English 4, Writing 3)
+- HUS_PPE_HUMSOC_REQUIRED = 24  (HUS 6 includes, PPE 6 includes)
+- SOFTWARE_REQUIRED = 0–2 (with "Software Fundamentals and Coding" 2 mandatory; exempt if "Computer Programming" taken)
+- BASIC_SCI_REQUIRED = 17–18 (Math 6; from CS/Bio/Phys/Chem set: pick >=9; labs required if Bio/Phys/Chem selected)
+- GIST_FRESHMAN_REQUIRED = 1 (1-1)
+- GIST_MAJOR_EXPL_REQUIRED = 1 (1-2)
+- BASIC_LIBERAL_SUBTOTAL_TARGET = 50–53
+
+C) MAJOR
+- MAJOR_MIN = 36 (Materials: 30)
+- MAJOR_COUNTED_MAX = 42 (cap: do not count beyond 42 toward graduation requirement satisfaction)
+
+D) RESEARCH
+- THESIS_RESEARCH_TOTAL = 6
+  - THESIS_RESEARCH_I = 3
+  - THESIS_RESEARCH_II = 3
+  - THESIS_RESEARCH_II must be taken in expected graduation semester (if expectedGraduationSemester provided)
+
+E) FREE_ELECTIVE
+- UNIVERSITY_COMMON_MIN = 1 (must include "Science, Technology and Economy" 1 credit at least once)
+  - SocialService + OverseasService combined counted max 1
+  - Creativity counted max 1
+- HUMSOC_OVERFLOW_MAX = 12 (credits beyond required 24 can count up to 12 toward graduation)
+- COMBINED_FREE_POOL_MINMAX:
+  - 2021+: 29–38
+  - 2018-2020: 30–39
+  - Materials exception: 30–45
+- EXCLUSIONS:
+  - Humanities&Social minor credits excluded
+  - Minor credits that are shared/overlapped with Humanities&Social excluded
+
+F) NON-CREDIT (2018–2020 ONLY)
+- ARTS_PRACTICE_SEMESTERS: 4 (2018-2019) or 2 (2020)
+- PE_SEMESTERS:            4 (2018-2019) or 2 (2020)
+
+4.2 Course classification for each taken course
+For each takenCourse:
+- Lookup courseResolved by cohortKey:
+  - if cohortKey == "2021+": use resolved2021plus[courseCode]
+  - if cohortKey == "2018-2020": use resolved2018_2020[courseCode]
+  - if cohortKey == "UNKNOWN": attempt both (prefer 2021+) and warn.
+
+Resolve fields:
+- resolvedCategory = rule.category ?? master.defaultCategory ?? null
+- resolvedSubcategory = rule.subcategory ?? master.defaultSubcategory ?? null
+- countingPolicy = rule.countingPolicy ?? "NORMAL"
+
+If no resolved record exists:
+- Mark course as UNMAPPED with warning: "COURSE_CODE_NOT_FOUND"
+- Still count credits only toward TOTAL_CREDITS, but not toward any bucket unless a fallback policy exists.
+
+4.3 Counting policy semantics (minimum set)
+Implement counting behaviors driven by countingPolicy string from CSV.
+At minimum support:
+
+- NORMAL:
+  - Count credits toward its resolvedCategory/Subcategory bucket and also toward TOTAL_CREDITS/COURSEWORK as applicable.
+
+- EXCLUDE_FROM_GRADUATION_TOTAL:
+  - Do not count toward TOTAL_CREDITS/COURSEWORK.
+  - Still show in UI as taken but excluded.
+
+- EXCLUDE_FROM_FREE_ELECTIVE:
+  - If course falls into free elective pool by category, do not count it toward FREE_ELECTIVE.
+  - It may still count toward other explicitly required buckets if it is required there (category-defined).
+
+- OVERFLOW_TO_FREE_ELECTIVE:
+  - If course is in a required bucket that has already met its minimum, overflow remaining credits (or the entire course if policy says so) into FREE_ELECTIVE pool.
+  - If the course is required and minimum not met yet, count toward the required bucket first.
+
+- CAP_AT_MAX:
+  - For buckets with max cap (e.g., MAJOR 42), count up to max, overflow remainder to FREE_ELECTIVE if allowed; otherwise ignore overflow and warn.
+
+If unknown countingPolicy:
+- Treat as NORMAL but record warning: "UNKNOWN_COUNTING_POLICY:<value>"
+
+4.4 Mandatory course presence checks
+Hard requirements (must be satisfied explicitly):
+- "Science, Technology and Economy" taken >= 1 time (credit 1)
+- For 2021+: GIST Freshman Seminar (1) and GIST Major Exploration (1)
+- For 2018-2020: Freshman Seminar (1) instead of the 2-course split
+- Thesis Research I and II credits and presence (and term constraint for II if expectedGraduationSemester provided)
+
+If course_code mapping for these courses is not stable:
+- Use CSV category/required flags when present.
+- Otherwise maintain a curated alias list or official course_code list (recommended as separate config).
+- If mandatory cannot be verified due to missing mapping, mark status as "UNCERTAIN" and warn: "MANDATORY_COURSE_UNVERIFIABLE"
+
+4.5 Bucket accumulation algorithm (single pass)
+Initialize accumulators:
+- totals: totalCredits, courseworkCredits
+- buckets: map bucketName => { creditsCounted, courses[] }
+- special counters: serviceCreditsCounted, creativityCreditsCounted, humsocOverflowCounted, majorCountedCredits
+
+For each passed takenCourse:
+1) Determine resolvedCategory/subcategory and countingPolicy.
+2) Update TOTAL and COURSEWORK unless excluded.
+3) Update the most specific bucket first:
+   - If resolvedCategory maps to one of the required buckets (LANG_BASIC, HUMSOC, SOFTWARE, BASIC_SCI, MAJOR, RESEARCH, UNIVERSITY_COMMON, etc.), apply its rule.
+   - Apply caps/overflow semantics (e.g., MAJOR max 42).
+4) If course is not in a required bucket (or overflow), place into FREE_ELECTIVE pool unless excluded.
+5) Apply sub-caps:
+   - HUMSOC overflow max 12: count only up to 12 in overflow portion.
+   - Social/Overseas service max 1 (combined).
+   - Creativity max 1.
+6) Track per-requirement evidence (store courseCodes and countedCredits per bucket for UI explanation).
+
+4.6 Basic science lab constraint (rule-based validation)
+When student satisfies BASIC_SCI selection:
+- If Biology/Physics/Chemistry selection credits were used to meet the >=9 selection:
+  - verify corresponding lab course(s) exist (1 credit each as applicable).
+If not found:
+- Mark BASIC_SCI requirement as NOT satisfied and add warning: "MISSING_REQUIRED_LAB_FOR_SELECTED_SCIENCE"
+
+(Implementation note: enforce using subcategory or course list from CSV; if not possible, mark UNCERTAIN.)
+
+4.7 Major minimum + cap handling
+- Determine major minimum:
+  - If student major is Materials Science: MAJOR_MIN=30 else 36
+  - If student major is unknown: compute both and flag as "MAJOR_MIN_DEPENDS_ON_MAJOR" warning.
+- Count major credits up to 42.
+- If major credits exceed 42:
+  - keep 42 in MAJOR bucket
+  - overflow to FREE_ELECTIVE only if allowed by countingPolicy; else ignore overflow and warn.
+
+4.8 Free elective range check
+After accumulation:
+- Evaluate FREE_ELECTIVE pool against cohort range:
+  - 2021+: 29–38
+  - 2018-2020: 30–39
+  - Materials: 30–45
+If student exceeds max:
+- If rules allow exceeding max (the rule text says "이상" in some places, but also states caps; treat as requirement satisfaction: meeting minimum is primary)
+- Recommended: enforce MIN strictly; treat MAX as "counted toward graduation requirement" cap only when explicitly specified.
+- If max is explicitly a cap in rule text, cap counted credits and move overflow to "EXCESS_NOT_COUNTED" list with warning.
+
+(If you choose strict caps, make it consistent across categories and surface in UI.)
+
+4.9 Non-credit semester requirements (2018–2020 only)
+If cohortKey == "2018-2020":
+- Verify Arts practice semesters requirement
+- Verify PE semesters requirement
+These cannot be derived from credit-only transcript reliably unless such activities appear as 0-credit courses or separate records.
+Therefore:
+- If dataset includes 0-credit records with identifiable category/subcategory for Arts/PE, count unique semesters taken.
+- Else mark as "UNCERTAIN" with warning: "NON_CREDIT_REQUIREMENT_DATA_MISSING"
+
+============================================================
+5) OUTPUT CONTRACT (WHAT THE ENGINE MUST RETURN)
+============================================================
+
+Return an object with:
+- cohortKey
+- satisfied: boolean (overall)
+- totals:
+  - totalCredits
+  - courseworkCredits
+  - gpa (if provided) and gpaSatisfied boolean or null
+- requirementStatus: per bucket:
+  {
+    bucketId,
+    minCredits,
+    maxCreditsOrNull,
+    countedCredits,
+    satisfied: boolean|"UNCERTAIN",
+    evidenceCourseCodes: string[],
+    messages: string[]   // human-readable warnings/explanations
+  }
+- unmappedCourses: courseCodes list
+- warnings: normalized warning objects (code + details)
+
+============================================================
+6) UI-FACING VALIDATIONS / WARNINGS (MUST IMPLEMENT)
+============================================================
+
+Data integrity warnings (from CSV resolution):
+- EMPTY_COURSE_CODE
+- NON_UNIQUE_MASTER_COURSE_CODE
+- INVALID_YEAR_RANGE(from>to)
+- MULTIPLE_APPLICABILITY_TIE(courseCode, candidates)
+- MISSING_IN_MASTER(courseCode)
+- NO_APPLICABILITY_FOR_COHORT(courseCode, cohortKey)
+- SUSPICIOUS_CREDIT_MISMATCH(courseCode, masterCredits, ruleSourceCreditsIfAny)
+
+Graduation evaluation warnings:
+- COURSE_CODE_NOT_FOUND(courseCode)
+- UNKNOWN_COUNTING_POLICY(value)
+- MANDATORY_COURSE_UNVERIFIABLE(courseNameOrKey)
+- MISSING_REQUIRED_LAB_FOR_SELECTED_SCIENCE
+- MAJOR_MIN_DEPENDS_ON_MAJOR
+- NON_CREDIT_REQUIREMENT_DATA_MISSING
+- THESIS_II_NOT_IN_EXPECTED_GRAD_SEMESTER (if expectedGraduationSemester provided)
+
+============================================================
+7) EXCEPTION HANDLING VIA DIFF (COHORT DIFFERENCES)
+============================================================
+
+Maintain a diff artifact (computed from resolved2018_2020 vs resolved2021plus) to drive exceptions:
+- added_in_2021plus
+- removed_after_2020
+- changed_between_cohorts (credits/required/category/subcategory/countingPolicy/offered/termRecommendation)
+- conflicts_or_ambiguities
+
+During evaluation:
+- If a courseCode is "removed_after_2020" but appears in transcript for 2021+ student:
+  - still count as taken; apply countingPolicy fallback; warn: "COURSE_NOT_EXPECTED_FOR_COHORT"
+- If a courseCode is "added_in_2021plus" but appears for 2018-2020 student:
+  - apply 2018-2020 rule resolution; if none, treat as UNMAPPED with warning.
+
+============================================================
+END OF INSTRUCTIONS
+============================================================
