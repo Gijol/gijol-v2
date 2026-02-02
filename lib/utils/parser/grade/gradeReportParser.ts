@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { read, WorkSheet } from 'xlsx';
 import { TakenCourse } from './TakenCourse';
+import { HUS_COURSES, PPE_COURSES, GSC_COURSES } from '@const/course-code-classification';
 
 const TYPE_CELL_INDEX = 'A';
 const CODE_CELL_INDEX = 'B';
@@ -25,17 +26,14 @@ export class GradeReportParser {
       }
 
       if (this.isSeparatedByYear(workSheet, address(COURSE_NAME_CELL_INDEX, index))) {
-        [year, semester] = this.setYearAndSemester(
-          workSheet,
-          address(COURSE_NAME_CELL_INDEX, index)
-        );
+        [year, semester] = this.setYearAndSemester(workSheet, address(COURSE_NAME_CELL_INDEX, index));
       }
 
       if (this.notExistCodeRow(workSheet, address(CODE_CELL_INDEX, index))) {
         continue;
       }
 
-      const type = this.accessValueOfWorkSheet(workSheet, address(TYPE_CELL_INDEX, index));
+      const rawType = this.accessValueOfWorkSheet(workSheet, address(TYPE_CELL_INDEX, index));
       const code = this.accessValueOfWorkSheet(workSheet, address(CODE_CELL_INDEX, index));
       const course = this.accessValueOfWorkSheet(workSheet, address(COURSE_NAME_CELL_INDEX, index));
       const credit = this.accessValueOfWorkSheet(workSheet, address(CREDIT_CELL_INDEX, index));
@@ -45,35 +43,41 @@ export class GradeReportParser {
         continue;
       }
 
-      const isLetterGrade: boolean = ['A', 'B', 'C', 'D', 'F'].some((letterGrade) =>
-        grade.includes(letterGrade)
-      );
-      const canBeDuplicated = ['GS01', 'GS02', 'UC9331'].some((duplicatableCode) =>
-        code.includes(duplicatableCode)
-      );
-      const addedTakenCourse = new TakenCourse(
-        parseInt(year),
-        semester,
-        type,
-        code,
-        course,
-        parseInt(credit),
-        grade
-      );
+      const isLetterGrade: boolean = ['A', 'B', 'C', 'D', 'F'].some((letterGrade) => grade.includes(letterGrade));
+      const canBeDuplicated = ['GS01', 'GS02', 'UC9331'].some((duplicatableCode) => code.includes(duplicatableCode));
+
+      // 🔥 코드 기반으로 HUS / PPE / GSC 전처리
+      const type = this.getCourseTypeByCode(code, rawType);
+
+      const addedTakenCourse = new TakenCourse(parseInt(year), semester, type, code, course, parseInt(credit), grade);
 
       if (
         userTakenCourseList.some(
-          (takenCourse) => takenCourse.equals(addedTakenCourse) && isLetterGrade && !canBeDuplicated
+          (takenCourse) => takenCourse.equals(addedTakenCourse) && isLetterGrade && !canBeDuplicated,
         )
       ) {
-        userTakenCourseList = userTakenCourseList.filter(
-          (course) => !course.equals(addedTakenCourse)
-        );
+        userTakenCourseList = userTakenCourseList.filter((course) => !course.equals(addedTakenCourse));
       }
       userTakenCourseList.push(addedTakenCourse);
     }
     const studentId = this.parseStudentId(workSheet);
     return { studentId, userTakenCourseList };
+  }
+
+  /**
+   * 코드 기반으로 HUS / PPE / GSC 타입을 결정.
+   * - 코드가 해당 리스트에 있으면 HUS / PPE / GSC 반환
+   * - 아니면 기존 엑셀의 type 값을 그대로 사용
+   */
+  private static getCourseTypeByCode(code: string, fallbackType: string): string {
+    const trimmedCode = code.trim();
+
+    if (HUS_COURSES.has(trimmedCode)) return 'HUS';
+    if (PPE_COURSES.has(trimmedCode)) return 'PPE';
+    if (GSC_COURSES.has(trimmedCode)) return 'GSC';
+
+    // 코드 매칭 안 되면 기존 이수구분(or 빈 문자열) 유지
+    return fallbackType;
   }
 
   private static isEndOfCode(workSheet: WorkSheet, excelAddress: string) {
@@ -94,9 +98,7 @@ export class GradeReportParser {
   private static setYearAndSemester(workSheet: WorkSheet, excelAddress: string) {
     const workSheetElement = this.accessValueOfWorkSheet(workSheet, excelAddress);
     const elementWithNoWhitespace = workSheetElement.trim();
-    const [year, semester] = elementWithNoWhitespace
-      .substring(1, elementWithNoWhitespace.length - 1)
-      .split('/');
+    const [year, semester] = elementWithNoWhitespace.substring(1, elementWithNoWhitespace.length - 1).split('/');
     return [year, semester];
   }
 

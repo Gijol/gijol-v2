@@ -1,9 +1,5 @@
+import { CourseWithGradeStatusType, SemesterStatusType, UserTakenCourseWithGradeType } from '@lib/types/score-status';
 import { UserTakenCourse } from '../../types';
-import {
-  CourseWithGradeStatusType,
-  SemesterStatusType,
-  UserTakenCourseWithGradeType,
-} from '@lib/types/score-status';
 
 export type CourseListWithPeriod = {
   year: number;
@@ -14,28 +10,27 @@ export type CourseListWithPeriod = {
 };
 
 export const getSortedCourseStatus = (data: UserTakenCourseWithGradeType | undefined) => {
-  const semesterList: SemesterStatusType[] | undefined =
-    data?.userTakenCourseBySemesterResponses?.sort((a, b) => a.year - b.year);
+  const semesterList: SemesterStatusType[] | undefined = data?.userTakenCourseBySemesterResponses?.sort(
+    (a, b) => a.year - b.year,
+  );
   const initYear = semesterList?.at(0)?.year as number;
   const finalYear = semesterList?.at(-1)?.year as number;
   const semesters = ['1학기', '여름학기', '2학기', '겨울학기'];
 
-  let result: CourseListWithPeriod[] = [];
+  const result: CourseListWithPeriod[] = [];
 
-  for (let year = initYear; year <= finalYear; year++) {
-    for (const j in semesters) {
-      const cnt = semesterList
-        ?.filter((course) => course.year === year && course.semester === semesters[j])
-        .at(0);
+  Array.from({ length: finalYear - initYear + 1 }, (_, i) => initYear + i).forEach((year) => {
+    semesters.forEach((semesterName, j) => {
+      const semesterData = semesterList?.find((course) => course.year === year && course.semester === semesterName);
       result.push({
         year,
-        semester_idx: parseInt(j),
-        semester_str: semesters[j],
-        grade: cnt?.averageGradeBySemester ?? 0,
-        userTakenCourseList: cnt?.coursesAndGradeResponses,
+        semester_idx: j,
+        semester_str: semesterName,
+        grade: semesterData?.averageGradeBySemester ?? 0,
+        userTakenCourseList: semesterData?.coursesAndGradeResponses,
       });
-    }
-  }
+    });
+  });
   return result;
 };
 
@@ -45,14 +40,18 @@ export const getCntTab = (href: string) => {
       return '홈';
     case '/dashboard/graduation':
       return '내 졸업요건';
+    case '/dashboard/graduation/upload':
+      return '파일 업로드';
     case '/dashboard/course/my':
       return '내 수강현황';
     case '/dashboard/course/search':
       return '강의 정보';
     case '/dashboard/user-info':
       return '내 정보';
+    case '/dashboard/graduation/requirements-guide':
+      return '졸업요건 안내 📖';
     case '/dashboard/graduation/certificate-builder':
-      return '졸업요건 확인서 만들기 ✨';
+      return '이수요건 확인서 ✨';
     case '/dashboard/course/timetable':
       return '시간표 제작하기 ✨';
     default:
@@ -63,11 +62,12 @@ export const getCntTab = (href: string) => {
 export const getUserScoreFromTakenCourseList = (list: Array<UserTakenCourse>) => {
   let totalGrade = 0;
   let totalCredit = 0;
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < list.length; i++) {
-    const credit = list[i].credit;
+    const { credit } = list[i];
     const grade = gradeToNumber(list[i].grade);
 
-    if (!isNaN(credit) && !isNaN(grade)) {
+    if (!Number.isNaN(credit) && !Number.isNaN(grade)) {
       totalCredit += credit;
       totalGrade += credit * grade;
     }

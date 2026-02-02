@@ -1,123 +1,94 @@
-import {
-  Badge,
-  Button,
-  createStyles,
-  Divider,
-  Group,
-  MediaQuery,
-  Paper,
-  Progress,
-  Stack,
-  Tabs,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
+import { Badge } from '@components/ui/badge';
+import { Button } from '@components/ui/button';
+import { Card } from '@components/ui/card';
+import { Progress } from '@components/ui/progress';
+import { Separator } from '@components/ui/separator';
+import { FileCheck, FileDown } from 'lucide-react';
 import { Dispatch, SetStateAction } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { IconFileCheck, IconFileDownload } from '@tabler/icons-react';
-import { section_titles, SectionTitleType } from '@const/grad-certificate-inputs';
+import { cn } from '@/lib/utils';
+
+// Section titles defined locally to avoid importing from grad-certificate-inputs
+const section_titles = [
+  '신청자 정보',
+  '기초 및 교양 학점',
+  '전공 | 연구 | 자유선택 학점',
+  '무학점 필수',
+  '기타 학점',
+] as const;
+
+type SectionTitleType = (typeof section_titles)[number];
 
 export default function CertificateSectionPanel({
   activeTab,
   setActiveTab,
+  onSave,
+  onReset,
+  onSubmit,
 }: {
   activeTab: SectionTitleType;
   setActiveTab: Dispatch<SetStateAction<SectionTitleType>>;
+  onSave?: () => void;
+  onReset?: () => void;
+  onSubmit?: () => void;
 }) {
-  const theme = useMantineTheme();
-  const { classes } = useStyles();
-  const { getValues } = useFormContext();
   return (
-    <Stack spacing={0}>
-      <Paper p="md" withBorder radius="md">
-        <Group position="apart" mb="lg">
-          <Text component="h3" my={0}>
-            ✍️ 입력 완성도
-          </Text>
+    <div className="flex flex-col gap-0">
+      <div className="mb-4 rounded-md border border-gray-200 bg-white/50 p-4">
+        <div className="mb-4 flex items-center justify-between">
+          <h3 className="m-0 text-base font-semibold">✍️ 입력 완성도</h3>
           <Badge>80%</Badge>
-        </Group>
-        <Progress value={80} />
-      </Paper>
-      <Tabs.List className={classes.menu_list}>
+        </div>
+        <Progress value={80} className="h-2" />
+      </div>
+
+      <div className="flex flex-col gap-1">
         {section_titles.map((title) => (
-          <Tabs.Tab
+          <button
             key={title}
-            value={title}
-            className={classes.menu_tab}
             onClick={() => setActiveTab(title)}
-            bg={activeTab === title ? 'gray.1' : 'transparent'}
+            className={cn(
+              'relative rounded-md px-4 py-3 text-left text-sm font-medium transition-all',
+              activeTab === title
+                ? 'bg-blue-50 font-semibold text-blue-700 before:absolute before:top-1/2 before:left-0 before:h-6 before:w-1 before:-translate-y-1/2 before:rounded-r-full before:bg-blue-500'
+                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800',
+            )}
           >
-            <Text align="left">{title}</Text>
-          </Tabs.Tab>
+            {title}
+          </button>
         ))}
-      </Tabs.List>
-      <MediaQuery styles={{ display: 'none' }} smallerThan="xl">
-        <div className={classes.menu_list}>
-          <Divider my="xs" />
-          <Group spacing="xs" grow>
-            <Button
-              color="teal"
-              variant="light"
-              className={classes.save_button}
-              leftIcon={<IconFileCheck size={20} />}
-            >
-              임시저장
-            </Button>
-            <Button
-              color="red"
-              variant="light"
-              className={classes.reset_button}
-              leftIcon={<IconFileDownload size={20} color={theme.colors.red[6]} />}
-            >
-              리셋하기
-            </Button>
-          </Group>
+      </div>
+
+      <div className="mt-4 hidden xl:block">
+        <Separator className="my-2" />
+        <div className="mb-2 flex gap-2">
           <Button
-            type="submit"
-            color="dark"
-            className={classes.generate_button}
-            leftIcon={<IconFileDownload size={20} />}
-            onClick={() => console.log(getValues())}
+            variant="outline"
+            className="flex-1 border-teal-500 bg-teal-50/50 text-teal-600 hover:bg-teal-50 hover:text-teal-700"
+            onClick={onSave}
           >
-            PDF 생성하기
+            <FileCheck size={20} className="mr-2" />
+            임시저장
+          </Button>
+          <Button
+            variant="outline"
+            className="flex-1 border-red-500 bg-red-50/50 text-red-600 hover:bg-red-50 hover:text-red-700"
+            onClick={onReset}
+          >
+            <FileDown size={20} className="mr-2 text-red-600" />
+            리셋하기
           </Button>
         </div>
-      </MediaQuery>
-    </Stack>
+        <Button
+          type="button"
+          className="w-full bg-gray-900 text-white hover:bg-gray-800 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-200"
+          onClick={onSubmit}
+        >
+          <FileDown size={20} className="mr-2" />
+          PDF 생성하기
+        </Button>
+      </div>
+    </div>
   );
 }
 
-const useStyles = createStyles((theme) => ({
-  menu_list: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  menu_tab: {
-    backgroundColor: 'unset', // override default styles
-    border: 'none',
-    fontSize: '15px',
-    fontWeight: 500,
-    padding: '12.5px 16px',
-    marginTop: theme.spacing.xs,
-    borderRadius: theme.radius.md,
-    '&:hover': {
-      backgroundColor: theme.colors.gray[1],
-      cursor: 'pointer',
-    },
-  },
-  save_button: {
-    border: ` 1px solid ${theme.colors.teal[6]}`,
-    borderRadius: theme.radius.md,
-    height: '2.5rem',
-  },
-  reset_button: {
-    border: ` 1px solid ${theme.colors.red[6]}`,
-    borderRadius: theme.radius.md,
-    height: '2.5rem',
-  },
-  generate_button: {
-    marginTop: theme.spacing.xs,
-    borderRadius: theme.radius.md,
-    height: '2.5rem',
-  },
-}));
+export { section_titles, type SectionTitleType };

@@ -1,0 +1,1059 @@
+{
+  "meta": {
+    "major": "신소재공학부",
+    "track": "고분자재료 분야"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "GS1201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 22,
+        "y": 227.99999999999994
+      },
+      "data": {
+        "label": "일반화학 및 연습 1",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1201"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 22,
+        "y": 227.99999999999994
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 23,
+        "y": 370
+      },
+      "data": {
+        "label": "일반물리학 및 연습 1",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1101"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 23,
+        "y": 370
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1211",
+      "type": "customCourseNode",
+      "position": {
+        "x": 22,
+        "y": 509
+      },
+      "data": {
+        "label": "일반화학실험 1",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1211"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 22,
+        "y": 509
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1111",
+      "type": "customCourseNode",
+      "position": {
+        "x": 25,
+        "y": 653
+      },
+      "data": {
+        "label": "일반물리학실험 1",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1111"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 25,
+        "y": 653
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1451",
+      "type": "customCourseNode",
+      "position": {
+        "x": 281,
+        "y": 91.99999999999991
+      },
+      "data": {
+        "label": "소재와미래과학기술",
+        "credits": 1,
+        "category": "기초선택",
+        "semester": "1-2",
+        "courseCode": "GS1451"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 281,
+        "y": 91.99999999999991
+      }
+    },
+    {
+      "id": "GS1202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 282,
+        "y": 227.99999999999994
+      },
+      "data": {
+        "label": "일반화학 및 연습 2",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1202"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 282,
+        "y": 227.99999999999994
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 283,
+        "y": 370
+      },
+      "data": {
+        "label": "일반물리학 및 연습 2",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1102"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 283,
+        "y": 370
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1212",
+      "type": "customCourseNode",
+      "position": {
+        "x": 282,
+        "y": 509
+      },
+      "data": {
+        "label": "일반화학실험 2",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1212"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 282,
+        "y": 509
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1112",
+      "type": "customCourseNode",
+      "position": {
+        "x": 285,
+        "y": 653
+      },
+      "data": {
+        "label": "일반물리학실험 2",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1112"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 285,
+        "y": 653
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA2101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 230
+      },
+      "data": {
+        "label": "재료과학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "MA2101"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "MA2102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 373.00000000000006
+      },
+      "data": {
+        "label": "열역학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "MA2102"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 540,
+        "y": 373.00000000000006
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA2103",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 513
+      },
+      "data": {
+        "label": "유기재료화학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "MA2103"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 540,
+        "y": 513
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH2103",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 653
+      },
+      "data": {
+        "label": "유기화학 I",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "2-1",
+        "courseCode": "CH2103"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 540,
+        "y": 653
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA2104",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 513
+      },
+      "data": {
+        "label": "고분자과학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2",
+        "courseCode": "MA2104"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 800,
+        "y": 513
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH2201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 653
+      },
+      "data": {
+        "label": "유기화학 II",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "2-2",
+        "courseCode": "CH2201"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 800,
+        "y": 653
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH3106",
+      "type": "customCourseNode",
+      "position": {
+        "x": 802.2973967030912,
+        "y": 798.1375208741853
+      },
+      "data": {
+        "label": "생화학 I",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "2-2",
+        "courseCode": "CH3106"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 802.2973967030912,
+        "y": 798.1375208741853
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA3210",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 230
+      },
+      "data": {
+        "label": "고분자화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "MA3210"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "MA3211",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1062.6390158056868,
+        "y": 513.3363793364838
+      },
+      "data": {
+        "label": "기기분석",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "MA3211"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1062.6390158056868,
+        "y": 513.3363793364838
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA3105",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1322.6390158056868,
+        "y": 513.3363793364838
+      },
+      "data": {
+        "label": "유기재료실험",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "MA3105"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1322.6390158056868,
+        "y": 513.3363793364838
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA3208",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1322.6390158056868,
+        "y": 663.3363793364838
+      },
+      "data": {
+        "label": "생체재료",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "MA3208"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1322.6390158056868,
+        "y": 663.3363793364838
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA4205",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 230
+      },
+      "data": {
+        "label": "고분자합성",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MA4205"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "MA4220",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1581.3195079028437,
+        "y": 370.14130030804967
+      },
+      "data": {
+        "label": "고분자구조 및 특성",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MA4220"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1581.3195079028437,
+        "y": 370.14130030804967
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA4207",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1582.6390158056868,
+        "y": 663.3363793364838
+      },
+      "data": {
+        "label": "의료용고분자",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MA4207"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1582.6390158056868,
+        "y": 663.3363793364838
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA4223",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1583.95852370853,
+        "y": 807.4362033530637
+      },
+      "data": {
+        "label": "생화학특론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MA4223"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1583.95852370853,
+        "y": 807.4362033530637
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA4222",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840,
+        "y": 230
+      },
+      "data": {
+        "label": "고분자분석",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "MA4222"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "MA4219",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1841.3195079028437,
+        "y": 370.14130030804967
+      },
+      "data": {
+        "label": "프린터블일렉트로닉스",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "MA4219"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1841.3195079028437,
+        "y": 370.14130030804967
+      },
+      "dragging": false
+    },
+    {
+      "id": "MA4209",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1845.278031611374,
+        "y": 515.560632227473
+      },
+      "data": {
+        "label": "나노바이오재료",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "MA4209"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1845.278031611374,
+        "y": 515.560632227473
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_MA2103_MA2104",
+      "source": "MA2103",
+      "target": "MA2104",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "e_CH2103_CH2201",
+      "source": "CH2103",
+      "target": "CH2201",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "e_MA2104_MA3210",
+      "source": "MA2104",
+      "target": "MA3210",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "e_MA2104_MA3211",
+      "source": "MA2104",
+      "target": "MA3211",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "e_MA2104_MA3208",
+      "source": "MA2104",
+      "target": "MA3208",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "e_MA3211_MA3105",
+      "source": "MA3211",
+      "target": "MA3105",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "e_MA3210_MA4205",
+      "source": "MA3210",
+      "target": "MA4205",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "e_MA3210_MA4220",
+      "source": "MA3210",
+      "target": "MA4220",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "e_CH3106_MA3208",
+      "source": "CH3106",
+      "target": "MA3208",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "e_MA3208_MA4207",
+      "source": "MA3208",
+      "target": "MA4207",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "e_MA4205_MA4222",
+      "source": "MA4205",
+      "target": "MA4222",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "source": "MA3208",
+      "sourceHandle": null,
+      "target": "MA4209",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MA3208-MA4209"
+    },
+    {
+      "source": "MA4220",
+      "sourceHandle": null,
+      "target": "MA4219",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MA4220-MA4219"
+    },
+    {
+      "source": "MA3208",
+      "sourceHandle": null,
+      "target": "MA4223",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MA3208-MA4223"
+    },
+    {
+      "source": "CH2201",
+      "sourceHandle": null,
+      "target": "MA2104",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-CH2201-MA2104"
+    }
+  ]
+}

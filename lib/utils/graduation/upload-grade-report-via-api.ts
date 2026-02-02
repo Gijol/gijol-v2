@@ -1,4 +1,4 @@
-import { notifications } from '@mantine/notifications';
+import { toast } from '@components/ui/use-toast';
 import type { UserStatusType } from '@lib/types/index';
 
 type UploadErrorResponse = {
@@ -39,32 +39,32 @@ export async function uploadGradeReportViaApi(file: File): Promise<UserStatusTyp
       const code = errBody?.error || 'UNKNOWN_ERROR';
 
       if (code === 'INVALID_GRADE_REPORT') {
-        notifications.show({
-          color: 'red',
+        toast({
+          variant: 'destructive',
           title: '성적표 형식 오류',
-          message:
+          description:
             '업로드하신 파일이 GIST 제우스 성적표 양식과 다릅니다.\n' +
             '제우스 → 성적 → 개인성적조회 → 우측 상단 "Report card(KOR)" 버튼으로 받은 원본 엑셀 파일을 다시 업로드해주세요.',
         });
       } else if (code === 'PARSE_TIMEOUT') {
-        notifications.show({
-          color: 'red',
+        toast({
+          variant: 'destructive',
           title: '파싱 시간 초과',
-          message:
+          description:
             '성적표를 파싱하는 데 시간이 너무 오래 걸립니다.\n' +
             '파일이 손상되었거나 Report card(KOR) 양식이 아닐 수 있습니다. 다시 확인해주세요.',
         });
       } else if (code === 'NO_FILE') {
-        notifications.show({
-          color: 'red',
+        toast({
+          variant: 'destructive',
           title: '파일 없음',
-          message: '업로드된 파일이 없습니다. 다시 시도해주세요.',
+          description: '업로드된 파일이 없습니다. 다시 시도해주세요.',
         });
       } else {
-        notifications.show({
-          color: 'red',
+        toast({
+          variant: 'destructive',
           title: '업로드/파싱 오류',
-          message:
+          description:
             errBody?.message ||
             '성적표 파일을 처리하는 도중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
         });
@@ -81,10 +81,10 @@ export async function uploadGradeReportViaApi(file: File): Promise<UserStatusTyp
     // fetch 타임아웃 (AbortController)
     if (e?.name === 'AbortError') {
       console.error('[uploadGradeReportViaApi] fetch aborted by timeout');
-      notifications.show({
-        color: 'red',
+      toast({
+        variant: 'destructive',
         title: '요청 시간 초과',
-        message:
+        description:
           '성적표 업로드/파싱 요청이 너무 오래 걸립니다.\n' +
           '네트워크 상태를 확인하거나, 잠시 후 다시 시도해주세요.',
       });
@@ -94,10 +94,10 @@ export async function uploadGradeReportViaApi(file: File): Promise<UserStatusTyp
     console.error('[uploadGradeReportViaApi] unexpected error', e);
 
     // 여기서도 generic fallback 알림
-    notifications.show({
-      color: 'red',
+    toast({
+      variant: 'destructive',
       title: '업로드 실패',
-      message: '성적표 업로드 도중 오류가 발생했습니다. 다시 시도해주세요.',
+      description: '성적표 업로드 도중 오류가 발생했습니다. 다시 시도해주세요.',
     });
 
     throw e;

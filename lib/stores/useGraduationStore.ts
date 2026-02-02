@@ -3,16 +3,29 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { UserStatusType } from '@lib/types/index';
 import type { GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
+import { FineGrainedRequirement } from '@lib/types/grad-requirements';
+import { PARSED_PROCESSED_STATE_KEY } from './storage-key';
+
+export type GradStatusExtended = GradStatusResponseType & {
+  fineGrainedRequirements?: FineGrainedRequirement[];
+};
 
 type GraduationState = {
   parsed: UserStatusType | null;
   takenCourses: TakenCourseType[];
-  gradStatus: GradStatusResponseType | null;
+  gradStatus: GradStatusExtended | null;
+  userMajor: string;
+  userMinors: string[];
+  entryYear: number | null;
+  lastUploadDate: string | null; // ISO date string
 
   setFromParsed: (args: {
     parsed: UserStatusType;
     takenCourses: TakenCourseType[];
     gradStatus: GradStatusResponseType | null;
+    userMajor: string;
+    userMinors?: string[];
+    entryYear?: number;
   }) => void;
 
   reset: () => void;
@@ -24,14 +37,35 @@ export const useGraduationStore = create<GraduationState>()(
       parsed: null,
       takenCourses: [],
       gradStatus: null,
+      userMajor: '',
+      userMinors: [],
+      entryYear: null,
+      lastUploadDate: null,
 
-      setFromParsed: ({ parsed, takenCourses, gradStatus }) =>
-        set({ parsed, takenCourses, gradStatus }),
+      setFromParsed: ({ parsed, takenCourses, gradStatus, userMajor, userMinors, entryYear }) =>
+        set({
+          parsed,
+          takenCourses,
+          gradStatus,
+          userMajor,
+          userMinors: userMinors ?? [],
+          entryYear: entryYear ?? null,
+          lastUploadDate: new Date().toISOString(),
+        }),
 
-      reset: () => set({ parsed: null, takenCourses: [], gradStatus: null }),
+      reset: () =>
+        set({
+          parsed: null,
+          takenCourses: [],
+          gradStatus: null,
+          userMajor: '',
+          userMinors: [],
+          entryYear: null,
+          lastUploadDate: null,
+        }),
     }),
     {
-      name: 'gijol_grad_state_v1', // localStorage key
-    }
-  )
+      name: PARSED_PROCESSED_STATE_KEY, // localStorage key
+    },
+  ),
 );

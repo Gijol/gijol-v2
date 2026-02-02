@@ -1,0 +1,369 @@
+{
+  "meta": {
+    "major": "기초교육학부",
+    "track": "인문사회 부전공: 경제·경영"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": { "x": 20, "y": 0 },
+      "data": { "label": "1학년", "isYearHeader": true, "width": 460 },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": { "x": 540, "y": 0 },
+      "data": { "label": "2학년", "isYearHeader": true, "width": 460 },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": { "x": 1060, "y": 0 },
+      "data": { "label": "3학년", "isYearHeader": true, "width": 460 },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": { "x": 1580, "y": 0 },
+      "data": { "label": "4학년", "isYearHeader": true, "width": 460 },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": { "x": 20, "y": 40 },
+      "data": { "label": "1학기", "isYearHeader": false, "width": 200 },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": { "x": 280, "y": 40 },
+      "data": { "label": "2학기", "isYearHeader": false, "width": 200 },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": { "x": 540, "y": 40 },
+      "data": { "label": "1학기", "isYearHeader": false, "width": 200 },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": { "x": 800, "y": 40 },
+      "data": { "label": "2학기", "isYearHeader": false, "width": 200 },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": { "x": 1060, "y": 40 },
+      "data": { "label": "1학기", "isYearHeader": false, "width": 200 },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": { "x": 1320, "y": 40 },
+      "data": { "label": "2학기", "isYearHeader": false, "width": 200 },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": { "x": 1580, "y": 40 },
+      "data": { "label": "1학기", "isYearHeader": false, "width": 200 },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": { "x": 1840, "y": 40 },
+      "data": { "label": "2학기", "isYearHeader": false, "width": 200 },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "GS(EB)2739",
+      "type": "customCourseNode",
+      "position": { "x": 20, "y": 100 },
+      "data": {
+        "label": "미시경제학원론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-1",
+        "courseCode": "GS(EB)2739"
+      }
+    },
+    {
+      "id": "GS(EB)2750",
+      "type": "customCourseNode",
+      "position": { "x": 20, "y": 220 },
+      "data": {
+        "label": "경영학원론",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-1",
+        "courseCode": "GS(EB)2750"
+      }
+    },
+    {
+      "id": "TBD_MACRO_PRIN",
+      "type": "customCourseNode",
+      "position": { "x": 280, "y": 100 },
+      "data": {
+        "label": "거시경제학원론",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "1-2",
+        "courseCode": "편성예정"
+      }
+    },
+    {
+      "id": "GS(EB)2751",
+      "type": "customCourseNode",
+      "position": { "x": 280, "y": 220 },
+      "data": {
+        "label": "전략경영 I",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-2",
+        "courseCode": "GS(EB)2751"
+      }
+    },
+    {
+      "id": "GS(EB)3722",
+      "type": "customCourseNode",
+      "position": { "x": 540, "y": 100 },
+      "data": {
+        "label": "미시경제론",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "GS(EB)3722"
+      }
+    },
+    {
+      "id": "GS(EB)2732",
+      "type": "customCourseNode",
+      "position": { "x": 540, "y": 220 },
+      "data": {
+        "label": "행동경제학 1",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(EB)2732"
+      }
+    },
+    {
+      "id": "GS(EB)2726",
+      "type": "customCourseNode",
+      "position": { "x": 540, "y": 340 },
+      "data": {
+        "label": "글로벌경제의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(EB)2726"
+      }
+    },
+    {
+      "id": "GS(EB)2730",
+      "type": "customCourseNode",
+      "position": { "x": 540, "y": 460 },
+      "data": {
+        "label": "해외경제론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(EB)2730"
+      }
+    },
+    {
+      "id": "GS(EB)2752",
+      "type": "customCourseNode",
+      "position": { "x": 540, "y": 580 },
+      "data": {
+        "label": "기술혁신전략",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(EB)2752"
+      }
+    },
+    {
+      "id": "GS(EB)3737",
+      "type": "customCourseNode",
+      "position": { "x": 800, "y": 100 },
+      "data": {
+        "label": "거시경제론",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2",
+        "courseCode": "GS(EB)3737"
+      }
+    },
+    {
+      "id": "GS(EB)3725",
+      "type": "customCourseNode",
+      "position": { "x": 800, "y": 220 },
+      "data": {
+        "label": "사회복지와 재정",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(EB)3725"
+      }
+    },
+    {
+      "id": "GS(EB)2733",
+      "type": "customCourseNode",
+      "position": { "x": 800, "y": 340 },
+      "data": {
+        "label": "행동경제학 2",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(EB)2733"
+      }
+    },
+    {
+      "id": "GS(EB)2753",
+      "type": "customCourseNode",
+      "position": { "x": 800, "y": 460 },
+      "data": {
+        "label": "기술벤처창업론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(EB)2753"
+      }
+    },
+    {
+      "id": "GS(EB)3735",
+      "type": "customCourseNode",
+      "position": { "x": 1060, "y": 100 },
+      "data": {
+        "label": "한국의 경제발전",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(EB)3735"
+      }
+    },
+    {
+      "id": "GS(EB)3752",
+      "type": "customCourseNode",
+      "position": { "x": 1060, "y": 220 },
+      "data": {
+        "label": "전략경영 II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(EB)3752"
+      }
+    },
+    {
+      "id": "GS(EB)3721",
+      "type": "customCourseNode",
+      "position": { "x": 1320, "y": 100 },
+      "data": {
+        "label": "교육의 경제학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(EB)3721"
+      }
+    },
+    {
+      "id": "GS(EB)3736",
+      "type": "customCourseNode",
+      "position": { "x": 1320, "y": 220 },
+      "data": {
+        "label": "통일독일과 남북통일",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(EB)3736"
+      }
+    },
+    {
+      "id": "GS(EB)3765",
+      "type": "customCourseNode",
+      "position": { "x": 1320, "y": 340 },
+      "data": {
+        "label": "재정학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(EB)3765"
+      }
+    },
+    {
+      "id": "GS(EB)3751",
+      "type": "customCourseNode",
+      "position": { "x": 1320, "y": 460 },
+      "data": {
+        "label": "소셜네트워크와 기업행동",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(EB)3751"
+      }
+    },
+    {
+      "id": "GS(EB)3753_4_2",
+      "type": "customCourseNode",
+      "position": { "x": 1840, "y": 100 },
+      "data": {
+        "label": "기업집단의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "GS(EB)3753"
+      }
+    }
+  ],
+  "edges": []
+}

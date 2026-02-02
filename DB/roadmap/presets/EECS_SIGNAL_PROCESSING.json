@@ -1,0 +1,887 @@
+{
+  "meta": {
+    "major": "전기전자컴퓨터공학부",
+    "track": "신호처리 분야"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "GS3015",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 90
+      },
+      "data": {
+        "label": "확률과 통계",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "2-1",
+        "courseCode": "GS3015"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS2004",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 250
+      },
+      "data": {
+        "label": "선형대수학과 응용",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "2-1",
+        "courseCode": "GS2004"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC2202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 410
+      },
+      "data": {
+        "label": "자료구조",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "EC2202"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC2203",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 570
+      },
+      "data": {
+        "label": "디지털설계",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "EC2203"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS2408",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 730
+      },
+      "data": {
+        "label": "객체지향 프로그래밍",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "2-1",
+        "courseCode": "GS2408"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS2001",
+      "type": "customCourseNode",
+      "position": {
+        "x": 802.0000000000009,
+        "y": 730.9999999999994
+      },
+      "data": {
+        "label": "다변수해석학과 응용",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "2-1",
+        "courseCode": "GS2001"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 802.0000000000009,
+        "y": 730.9999999999994
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC2201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 90
+      },
+      "data": {
+        "label": "회로이론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "EC2201"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC2206",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 410
+      },
+      "data": {
+        "label": "알고리즘 개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "EC2206"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC2204",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 570
+      },
+      "data": {
+        "label": "컴퓨터구조",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "EC2204"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS3001",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 890
+      },
+      "data": {
+        "label": "해석학과 응용",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "2-2",
+        "courseCode": "GS3001"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC3102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060,
+        "y": 90
+      },
+      "data": {
+        "label": "컴퓨터 시스템 이론 및 실험",
+        "credits": 4,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "EC3102"
+      },
+      "width": 201,
+      "height": 113
+    },
+    {
+      "id": "EC3202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1057.7026032969088,
+        "y": 248.85130164845447
+      },
+      "data": {
+        "label": "신호 및 시스템",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "EC3202"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1057.7026032969088,
+        "y": 248.85130164845447
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC3207",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060,
+        "y": 410
+      },
+      "data": {
+        "label": "전자회로",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "EC3207"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC3216",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1063.4460950546368,
+        "y": 571.1486983515455
+      },
+      "data": {
+        "label": "오토마타이론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "EC3216"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1063.4460950546368,
+        "y": 571.1486983515455
+      },
+      "dragging": false
+    },
+    {
+      "id": "EC3101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 90
+      },
+      "data": {
+        "label": "전자공학 실험",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "EC3101"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS2002",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 410
+      },
+      "data": {
+        "label": "미분방정식과 응용",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "3-2",
+        "courseCode": "GS2002"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC3213",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 570
+      },
+      "data": {
+        "label": "통신공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "EC3213"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC3215",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 730
+      },
+      "data": {
+        "label": "시스템 프로그래밍",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "EC3215"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC3204",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 890
+      },
+      "data": {
+        "label": "프로그래밍 언어 및 컴파일러",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "EC3204"
+      },
+      "width": 210,
+      "height": 113
+    },
+    {
+      "id": "EC9102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 90
+      },
+      "data": {
+        "label": "학사논문 연구 I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "4-1",
+        "courseCode": "EC9102"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC4211",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 250
+      },
+      "data": {
+        "label": "디지털신호처리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EC4211"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC4210",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 410
+      },
+      "data": {
+        "label": "랜덤 프로세스",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EC4210"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC4213",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 570
+      },
+      "data": {
+        "label": "기계학습 및 딥러닝",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EC4213"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC4209",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 730
+      },
+      "data": {
+        "label": "인공지능",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EC4209"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC4215",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 890
+      },
+      "data": {
+        "label": "컴퓨터그래픽스",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EC4215"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC4212",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 1050
+      },
+      "data": {
+        "label": "이산수학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EC4212"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC9103",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840,
+        "y": 90
+      },
+      "data": {
+        "label": "학사논문 연구 II",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "4-2",
+        "courseCode": "EC9103"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC4204",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840,
+        "y": 570
+      },
+      "data": {
+        "label": "데이터베이스",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EC4204"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EC4207",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840,
+        "y": 730
+      },
+      "data": {
+        "label": "그래프 이론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EC4207"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS4002",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840,
+        "y": 890
+      },
+      "data": {
+        "label": "복소함수학 및 응용",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "4-2",
+        "courseCode": "GS4002"
+      },
+      "width": 200,
+      "height": 113
+    }
+  ],
+  "edges": [
+    {
+      "id": "reactflow__edge-GS2004-EC4213",
+      "source": "GS2004",
+      "target": "EC4213",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "reactflow__edge-EC3202-EC4211",
+      "source": "EC3202",
+      "target": "EC4211",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "reactflow__edge-EC3202-EC4210",
+      "source": "EC3202",
+      "target": "EC4210",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "source": "GS3015",
+      "sourceHandle": null,
+      "target": "EC3202",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-GS3015-EC3202"
+    },
+    {
+      "source": "GS2002",
+      "sourceHandle": null,
+      "target": "EC4210",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-GS2002-EC4210"
+    },
+    {
+      "source": "EC3202",
+      "sourceHandle": null,
+      "target": "EC4213",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EC3202-EC4213"
+    },
+    {
+      "source": "GS2004",
+      "sourceHandle": null,
+      "target": "EC4211",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-GS2004-EC4211"
+    },
+    {
+      "source": "GS2004",
+      "sourceHandle": null,
+      "target": "EC4210",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-GS2004-EC4210"
+    },
+    {
+      "source": "GS2002",
+      "sourceHandle": null,
+      "target": "EC4211",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-GS2002-EC4211"
+    },
+    {
+      "source": "GS2002",
+      "sourceHandle": null,
+      "target": "EC4213",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-GS2002-EC4213"
+    }
+  ]
+}

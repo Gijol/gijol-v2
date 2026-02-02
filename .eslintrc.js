@@ -17,5 +17,10 @@ module.exports = {
   },
   rules: {
     'react/react-in-jsx-scope': 'off',
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': [
+      'error',
+      { variables: false, functions: false, classes: false },
+    ],
   },
 };

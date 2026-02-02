@@ -1,0 +1,650 @@
+{
+  "meta": {
+    "major": "기초교육학부(인문사회)",
+    "track": "문학과 역사"
+  },
+  "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "HS2501",
+      "type": "customCourseNode",
+      "position": {
+        "x": 22.6343143736608,
+        "y": 87.05505528331094
+      },
+      "data": {
+        "label": "(MOOC 지정) 시의 이해",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-1",
+        "courseCode": "HS2501"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 22.6343143736608,
+        "y": 87.05505528331094
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2502",
+      "type": "customCourseNode",
+      "position": {
+        "x": -32.3656856263392,
+        "y": 219.3948751853029
+      },
+      "data": {
+        "label": "영웅과 반영웅: 서구근대문학의 이해",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-1",
+        "courseCode": "GS(LH)2502"
+      },
+      "selected": false,
+      "width": 256,
+      "height": 113,
+      "positionAbsolute": {
+        "x": -32.3656856263392,
+        "y": 219.3948751853029
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2602",
+      "type": "customCourseNode",
+      "position": {
+        "x": 22.6343143736608,
+        "y": 350.47579619296107
+      },
+      "data": {
+        "label": "한국사의 이해",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-1",
+        "courseCode": "GS(LH)2602"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 22.6343143736608,
+        "y": 350.47579619296107
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2503",
+      "type": "customCourseNode",
+      "position": {
+        "x": 24.375415479326875,
+        "y": 490.5211216232841
+      },
+      "data": {
+        "label": "한국현대소설의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-1",
+        "courseCode": "GS(LH)2503"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 24.375415479326875,
+        "y": 490.5211216232841
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2504",
+      "type": "customCourseNode",
+      "position": {
+        "x": 281.33981990199186,
+        "y": 92.27835860030962
+      },
+      "data": {
+        "label": "한국현대소설의 사회적 성찰",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "1-2",
+        "courseCode": "GS(LH)2504"
+      },
+      "selected": false,
+      "width": 205,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 281.33981990199186,
+        "y": 92.27835860030962
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2505",
+      "type": "customCourseNode",
+      "position": {
+        "x": 281.33981990199186,
+        "y": 223.6181785023016
+      },
+      "data": {
+        "label": "현대시 읽기",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-2",
+        "courseCode": "GS(LH)2511"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 281.33981990199186,
+        "y": 223.6181785023016
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2506",
+      "type": "customCourseNode",
+      "position": {
+        "x": 281.33981990199186,
+        "y": 356.69909950995975
+      },
+      "data": {
+        "label": "문학과 연인들",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "1-2",
+        "courseCode": "GS(LH)2526"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 281.33981990199186,
+        "y": 356.69909950995975
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2601",
+      "type": "customCourseNode",
+      "position": {
+        "x": 538.3042243246568,
+        "y": 95.76056081164205
+      },
+      "data": {
+        "label": "한국소설속의 여성들",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(LH)2512"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 538.3042243246568,
+        "y": 95.76056081164205
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2507",
+      "type": "customCourseNode",
+      "position": {
+        "x": 538.3042243246568,
+        "y": 227.10038071363402
+      },
+      "data": {
+        "label": "초기근대의 서양",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(LH)2614"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 538.3042243246568,
+        "y": 227.10038071363402
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2508",
+      "type": "customCourseNode",
+      "position": {
+        "x": 523.3711457545651,
+        "y": 357.8839050182011
+      },
+      "data": {
+        "label": "개성과 정체성: 영미 성장기 문학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "GS(LH)2522"
+      },
+      "selected": false,
+      "width": 233,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 523.3711457545651,
+        "y": 357.8839050182011
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2603",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800.4919320643203,
+        "y": 95.76056081164205
+      },
+      "data": {
+        "label": "한국현대시인론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(LH)2606"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 800.4919320643203,
+        "y": 95.76056081164205
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2509",
+      "type": "customCourseNode",
+      "position": {
+        "x": 769.4770765725912,
+        "y": 228.24907906517956
+      },
+      "data": {
+        "label": "근대의 모험: 서구근대문학의 이해 II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(LH)2525"
+      },
+      "selected": false,
+      "width": 256,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 769.4770765725912,
+        "y": 228.24907906517956
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS2510",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800.4919320643203,
+        "y": 360.1813017212922
+      },
+      "data": {
+        "label": "현대서양의 형성과 전개",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(LH)2613"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 800.4919320643203,
+        "y": 360.1813017212922
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS3501",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1059.197437592651,
+        "y": 99.24276302297449
+      },
+      "data": {
+        "label": "이상문학과 과학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(LH)3501"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1059.197437592651,
+        "y": 99.24276302297449
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS3601",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1059.197437592651,
+        "y": 230.58258292496646
+      },
+      "data": {
+        "label": "한국 근현대 작가론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(LH)3601"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1059.197437592651,
+        "y": 230.58258292496646
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS3503",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1059.197437592651,
+        "y": 363.6635039326246
+      },
+      "data": {
+        "label": "과학자 문학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(LH)3503"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1059.197437592651,
+        "y": 363.6635039326246
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS3602",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060.9385386983172,
+        "y": 503.70882936294765
+      },
+      "data": {
+        "label": "전쟁과 인간",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "3-1",
+        "courseCode": "편성예정"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1060.9385386983172,
+        "y": 503.70882936294765
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS3502",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1317.902943120982,
+        "y": 102.72496523430698
+      },
+      "data": {
+        "label": "시창작 특강",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(LH)3502"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1317.902943120982,
+        "y": 102.72496523430698
+      },
+      "dragging": false
+    },
+    {
+      "id": "HS3504",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1317.902943120982,
+        "y": 234.06478513629895
+      },
+      "data": {
+        "label": "20세기 한국여성작가론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(LH)3505"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1317.902943120982,
+        "y": 234.06478513629895
+      },
+      "dragging": false
+    }
+  ],
+  "edges": []
+}
