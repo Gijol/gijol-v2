@@ -41,7 +41,7 @@ export const SEO = {
     },
     {
       rel: 'apple-touch-icon',
-      href: '/apple-touch-icon.png',
+      href: '/images/gijol_3d_icon.png',
     },
     {
       rel: 'manifest',

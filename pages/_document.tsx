@@ -9,6 +9,8 @@ export default function Document() {
         <meta name="theme-color" content="#0B62DA" />
         <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#0B62DA" media="(prefers-color-scheme: dark)" />
+        <link rel="apple-touch-icon" href="/images/gijol_3d_icon.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/images/gijol_3d_icon.png" />
       </Head>
       <body className="antialiased">
         <Main />
