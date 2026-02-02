@@ -107,7 +107,8 @@ function optimizeNodeOrder(
           return { node, barycenter: nodePositions[node.id] };
         }
 
-        const avgPosition = connectedNodes.reduce((sum, id) => sum + (nodePositions[id] ?? 0), 0) / connectedNodes.length;
+        const avgPosition =
+          connectedNodes.reduce((sum, id) => sum + (nodePositions[id] ?? 0), 0) / connectedNodes.length;
         return { node, barycenter: avgPosition };
       });
 
@@ -250,6 +251,9 @@ export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
 
   // Pan mode state for edit mode (grab mode vs pointer mode)
   const [isPanMode, setIsPanMode] = useState(false);
+
+  // Environment check
+  const isDev = process.env.NODE_ENV === 'development';
 
   const { initialNodes, initialEdges } = useMemo(() => {
     const headerNodes = createHeaderNodes();
@@ -429,46 +433,52 @@ export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
       >
         <Background gap={20} color="#e2e8f0" />
         <Controls className="fill-white" />
-        <MiniMap className="rounded-lg border shadow-sm" pannable zoomable />
+        <MiniMap
+          className="!h-[75px] !w-[100px] rounded-lg border shadow-sm md:!h-[150px] md:!w-[200px]"
+          pannable
+          zoomable
+        />
 
         {/* Mode Toggle & Info Panel */}
         <Panel position="top-right" className="flex flex-col gap-2">
           {/* Action Buttons */}
-          <div className="flex items-center gap-2 rounded-lg border bg-white/90 p-2 shadow-sm backdrop-blur">
-            <Button
-              size="sm"
-              variant={isViewMode ? 'default' : 'outline'}
-              onClick={() => setIsViewMode(true)}
-              className="h-8"
-            >
-              <Eye className="mr-1.5 h-4 w-4" />
-              View
-            </Button>
-            <Button
-              size="sm"
-              variant={!isViewMode ? 'default' : 'outline'}
-              onClick={() => setIsViewMode(false)}
-              className="h-8"
-            >
-              <Edit3 className="mr-1.5 h-4 w-4" />
-              Edit
-            </Button>
+          {isDev && (
+            <div className="flex items-center gap-2 rounded-lg border bg-white/90 p-2 shadow-sm backdrop-blur">
+              <Button
+                size="sm"
+                variant={isViewMode ? 'default' : 'outline'}
+                onClick={() => setIsViewMode(true)}
+                className="h-8"
+              >
+                <Eye className="mr-1.5 h-4 w-4" />
+                View
+              </Button>
+              <Button
+                size="sm"
+                variant={!isViewMode ? 'default' : 'outline'}
+                onClick={() => setIsViewMode(false)}
+                className="h-8"
+              >
+                <Edit3 className="mr-1.5 h-4 w-4" />
+                Edit
+              </Button>
 
-            {!isViewMode && (
-              <>
-                <div className="mx-1 h-4 w-px bg-gray-300" />
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={handleExport}
-                  className="h-8 border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
-                >
-                  <Download className="mr-1.5 h-4 w-4" />
-                  Export JSON
-                </Button>
-              </>
-            )}
-          </div>
+              {!isViewMode && (
+                <>
+                  <div className="mx-1 h-4 w-px bg-gray-300" />
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={handleExport}
+                    className="h-8 border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
+                  >
+                    <Download className="mr-1.5 h-4 w-4" />
+                    Export JSON
+                  </Button>
+                </>
+              )}
+            </div>
+          )}
 
           {/* Interaction Mode Toggle (Edit mode only) */}
           {!isViewMode && (
@@ -495,19 +505,21 @@ export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
           )}
 
           {/* Info Panel */}
-          <div className="rounded-lg border bg-white/90 p-4 shadow-sm backdrop-blur">
-            <h1 className="text-lg font-bold text-gray-800">{roadmapData.meta.major}</h1>
-            {roadmapData.meta.track && <p className="text-sm text-gray-500">{roadmapData.meta.track}</p>}
-            <div className="mt-2 flex gap-4 text-xs text-gray-400">
-              <span>{nodes.filter((n) => n.type !== 'semesterHeader').length}개 과목</span>
-              <span>{edges.length}개 연결</span>
-            </div>
-            <div className="mt-2 text-xs text-gray-400">
-              {isViewMode ? (
-                '노드 클릭 시 상세정보 표시'
-              ) : (
-                <span className="font-medium text-blue-600">편집 모드: 노드 클릭하여 수정, 핸들 드래그하여 연결</span>
-              )}
+          <div className="rounded-lg border bg-white/90 p-3 shadow-sm backdrop-blur md:p-4">
+            <h1 className="text-sm font-bold text-gray-800 md:text-lg">{roadmapData.meta.major}</h1>
+            <div className="hidden md:block">
+              {roadmapData.meta.track && <p className="text-sm text-gray-500">{roadmapData.meta.track}</p>}
+              <div className="mt-2 flex gap-4 text-xs text-gray-400">
+                <span>{nodes.filter((n) => n.type !== 'semesterHeader').length}개 과목</span>
+                <span>{edges.length}개 연결</span>
+              </div>
+              <div className="mt-2 text-xs text-gray-400">
+                {isViewMode ? (
+                  '노드 클릭 시 상세정보 표시'
+                ) : (
+                  <span className="font-medium text-blue-600">편집 모드: 노드 클릭하여 수정, 핸들 드래그하여 연결</span>
+                )}
+              </div>
             </div>
           </div>
         </Panel>
