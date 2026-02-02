@@ -118,6 +118,11 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /* Font Family Mappings */
+  --font-sans:
+    var(--font-atoz), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+
   /* Brand Colors - Certificate Builder Design System */
   --color-brand-primary: oklch(0.68 0.16 230);
   --color-brand-primary-hover: oklch(0.6 0.16 232);

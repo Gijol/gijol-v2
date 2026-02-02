@@ -36,10 +36,11 @@ export default async function handler(req: NextRequest) {
   // 간단하게 Noto Sans KR 하나만 써도 됩니다. 여기서는 Noto Sans KR Bold를 메인으로 씁니다.
   // 2. 폰트 데이터 로딩
   // 에이투지체 (AtoZ Font) 로컬 파일 로딩
-  const fontDataRegular = await fetch(new URL('../../public/fonts/에이투지체-4Regular.ttf', import.meta.url)).then(
-    (res) => res.arrayBuffer(),
+  // Vercel Edge Runtime에서는 public 폴더 접근 시 절대 경로(URL)를 사용해야 함
+  const fontDataRegular = await fetch(new URL(`${protocol}//${host}/fonts/에이투지체-4Regular.ttf`)).then((res) =>
+    res.arrayBuffer(),
   );
-  const fontDataBold = await fetch(new URL('../../public/fonts/에이투지체-7Bold.ttf', import.meta.url)).then((res) =>
+  const fontDataBold = await fetch(new URL(`${protocol}//${host}/fonts/에이투지체-7Bold.ttf`)).then((res) =>
     res.arrayBuffer(),
   );
 
