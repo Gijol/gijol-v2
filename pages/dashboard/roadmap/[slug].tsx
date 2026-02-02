@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 
 import { getRoadmapData } from '@/features/roadmap/fetcher';
 import { PresetsSidebar } from '@/features/roadmap/PresetsSidebar';
@@ -89,6 +90,26 @@ export default function RoadmapPresetPage() {
 
   if (!roadmapData) {
     return null;
+  }
+
+  // BIOSCIENCE_RESEARCH -> Render static image
+  if (slug === 'BIOSCIENCE_RESEARCH') {
+    return (
+      <RoadmapProvider>
+        <div className="flex h-full w-full">
+          <PresetsSidebar />
+          <div className="relative flex-1 bg-slate-50">
+            <Image
+              src="/images/BIOSCIENCE_RESEARCH_DIAGRAM.png"
+              alt="연구분야별 이수체계"
+              fill
+              style={{ objectFit: 'contain' }}
+              priority
+            />
+          </div>
+        </div>
+      </RoadmapProvider>
+    );
   }
 
   return (

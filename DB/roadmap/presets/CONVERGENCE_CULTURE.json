@@ -1,7 +1,7 @@
 {
   "meta": {
-    "major": "기초교육학부(인문사회)",
-    "track": "문학과 역사"
+    "major": "융합기술원",
+    "track": "문화기술 부전공"
   },
   "nodes": [
     {
@@ -209,441 +209,451 @@
       "height": 30
     },
     {
-      "id": "HS2501",
+      "id": "CT-UNDERSTANDING",
       "type": "customCourseNode",
       "position": {
-        "x": 22.6343143736608,
-        "y": 87.05505528331094
+        "x": 286.56312321899077,
+        "y": 94.0194597059758
       },
       "data": {
-        "label": "(MOOC 지정) 시의 이해",
+        "label": "CT의 이해",
         "credits": 3,
-        "category": "전공필수",
-        "semester": "1-1",
-        "courseCode": "HS2501"
+        "category": "편성예정",
+        "semester": "1-2",
+        "courseCode": "과목코드 미정"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 22.6343143736608,
-        "y": 87.05505528331094
+        "x": 286.56312321899077,
+        "y": 94.0194597059758
       },
       "dragging": false
     },
     {
-      "id": "HS2502",
+      "id": "CT2506",
       "type": "customCourseNode",
       "position": {
-        "x": -32.3656856263392,
-        "y": 219.3948751853029
+        "x": 541.5275277017495,
+        "y": 231.76055972994567
       },
       "data": {
-        "label": "영웅과 반영웅: 서구근대문학의 이해",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "1-1",
-        "courseCode": "GS(LH)2502"
-      },
-      "selected": false,
-      "width": 256,
-      "height": 113,
-      "positionAbsolute": {
-        "x": -32.3656856263392,
-        "y": 219.3948751853029
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2602",
-      "type": "customCourseNode",
-      "position": {
-        "x": 22.6343143736608,
-        "y": 350.47579619296107
-      },
-      "data": {
-        "label": "한국사의 이해",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "1-1",
-        "courseCode": "GS(LH)2602"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 22.6343143736608,
-        "y": 350.47579619296107
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2503",
-      "type": "customCourseNode",
-      "position": {
-        "x": 24.375415479326875,
-        "y": 490.5211216232841
-      },
-      "data": {
-        "label": "한국현대소설의 이해",
+        "label": "신화와 원형상징",
         "credits": 3,
         "category": "전공선택",
-        "semester": "1-1",
-        "courseCode": "GS(LH)2503"
+        "semester": "2-1",
+        "courseCode": "CT2506"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 24.375415479326875,
-        "y": 490.5211216232841
+        "x": 541.5275277017495,
+        "y": 231.76055972994567
       },
       "dragging": false
     },
     {
-      "id": "HS2504",
+      "id": "CT2501",
       "type": "customCourseNode",
       "position": {
-        "x": 281.33981990199186,
-        "y": 92.27835860030962
+        "x": 800.4919320643203,
+        "y": 95.76056081164205
       },
       "data": {
-        "label": "한국현대소설의 사회적 성찰",
+        "label": "오타쿠 대중문화론",
         "credits": 3,
-        "category": "전공필수",
-        "semester": "1-2",
-        "courseCode": "GS(LH)2504"
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "CT2501"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 800.4919320643203,
+        "y": 95.76056081164205
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT2502",
+      "type": "customCourseNode",
+      "position": {
+        "x": 798.4919321244142,
+        "y": 231.76055972994567
+      },
+      "data": {
+        "label": "현대예술의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "CT2502"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 798.4919321244142,
+        "y": 231.76055972994567
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT2504",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800.4919320643203,
+        "y": 367.7605586482493
+      },
+      "data": {
+        "label": "유토피아 픽션과 테크놀로지",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "CT2504"
       },
       "selected": false,
       "width": 205,
       "height": 113,
       "positionAbsolute": {
-        "x": 281.33981990199186,
-        "y": 92.27835860030962
+        "x": 800.4919320643203,
+        "y": 367.7605586482493
       },
       "dragging": false
     },
     {
-      "id": "HS2505",
+      "id": "CT2505",
       "type": "customCourseNode",
       "position": {
-        "x": 281.33981990199186,
-        "y": 223.6181785023016
+        "x": 802.4919320042261,
+        "y": 509.76055738627025
       },
       "data": {
-        "label": "현대시 읽기",
+        "label": "과학기술과 사회: 두 문화의 이해",
         "credits": 3,
         "category": "전공선택",
-        "semester": "1-2",
-        "courseCode": "GS(LH)2511"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 281.33981990199186,
-        "y": 223.6181785023016
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2506",
-      "type": "customCourseNode",
-      "position": {
-        "x": 281.33981990199186,
-        "y": 356.69909950995975
-      },
-      "data": {
-        "label": "문학과 연인들",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "1-2",
-        "courseCode": "GS(LH)2526"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 281.33981990199186,
-        "y": 356.69909950995975
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2601",
-      "type": "customCourseNode",
-      "position": {
-        "x": 538.3042243246568,
-        "y": 95.76056081164205
-      },
-      "data": {
-        "label": "한국소설속의 여성들",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "2-1",
-        "courseCode": "GS(LH)2512"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 538.3042243246568,
-        "y": 95.76056081164205
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2507",
-      "type": "customCourseNode",
-      "position": {
-        "x": 538.3042243246568,
-        "y": 227.10038071363402
-      },
-      "data": {
-        "label": "초기근대의 서양",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "2-1",
-        "courseCode": "GS(LH)2614"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 538.3042243246568,
-        "y": 227.10038071363402
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2508",
-      "type": "customCourseNode",
-      "position": {
-        "x": 523.3711457545651,
-        "y": 357.8839050182011
-      },
-      "data": {
-        "label": "개성과 정체성: 영미 성장기 문학",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "2-1",
-        "courseCode": "GS(LH)2522"
+        "semester": "2-2",
+        "courseCode": "CT2505"
       },
       "selected": false,
       "width": 233,
       "height": 113,
       "positionAbsolute": {
-        "x": 523.3711457545651,
-        "y": 357.8839050182011
+        "x": 802.4919320042261,
+        "y": 509.76055738627025
       },
       "dragging": false
     },
     {
-      "id": "HS2603",
+      "id": "CT4203",
       "type": "customCourseNode",
       "position": {
-        "x": 800.4919320643203,
+        "x": 1060.9385386983176,
         "y": 95.76056081164205
       },
       "data": {
-        "label": "한국현대시인론",
+        "label": "아트앤 테크놀로지",
         "credits": 3,
         "category": "전공선택",
-        "semester": "2-2",
-        "courseCode": "GS(LH)2606"
+        "semester": "3-1",
+        "courseCode": "CT4203"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 800.4919320643203,
+        "x": 1060.9385386983176,
         "y": 95.76056081164205
       },
       "dragging": false
     },
     {
-      "id": "HS2509",
+      "id": "CT4102",
       "type": "customCourseNode",
       "position": {
-        "x": 769.4770765725912,
-        "y": 228.24907906517956
+        "x": 1058.9385387584116,
+        "y": 231.76055972994567
       },
       "data": {
-        "label": "근대의 모험: 서구근대문학의 이해 II",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "2-2",
-        "courseCode": "GS(LH)2525"
-      },
-      "selected": false,
-      "width": 256,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 769.4770765725912,
-        "y": 228.24907906517956
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2510",
-      "type": "customCourseNode",
-      "position": {
-        "x": 800.4919320643203,
-        "y": 360.1813017212922
-      },
-      "data": {
-        "label": "현대서양의 형성과 전개",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "2-2",
-        "courseCode": "GS(LH)2613"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 800.4919320643203,
-        "y": 360.1813017212922
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS3501",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1059.197437592651,
-        "y": 99.24276302297449
-      },
-      "data": {
-        "label": "이상문학과 과학",
+        "label": "정보시각화 방법과 디자인 사고",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-1",
-        "courseCode": "GS(LH)3501"
+        "courseCode": "CT4102"
       },
       "selected": false,
-      "width": 200,
+      "width": 224,
       "height": 113,
       "positionAbsolute": {
-        "x": 1059.197437592651,
-        "y": 99.24276302297449
+        "x": 1058.9385387584116,
+        "y": 231.76055972994567
       },
       "dragging": false
     },
     {
-      "id": "HS3601",
+      "id": "CT4101",
       "type": "customCourseNode",
       "position": {
-        "x": 1059.197437592651,
-        "y": 230.58258292496646
+        "x": 1060.9385386983176,
+        "y": 367.7605586482493
       },
       "data": {
-        "label": "한국 근현대 작가론",
+        "label": "아이디어와 디지털 표현",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-1",
-        "courseCode": "GS(LH)3601"
+        "courseCode": "CT4101"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 1059.197437592651,
-        "y": 230.58258292496646
+        "x": 1060.9385386983176,
+        "y": 367.7605586482493
       },
       "dragging": false
     },
     {
-      "id": "HS3503",
+      "id": "CT4301",
       "type": "customCourseNode",
       "position": {
-        "x": 1059.197437592651,
-        "y": 363.6635039326246
+        "x": 1062.9385386382235,
+        "y": 509.76055738627025
       },
       "data": {
-        "label": "과학자 문학",
+        "label": "인간-컴퓨터 상호작용",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-1",
-        "courseCode": "GS(LH)3503"
+        "courseCode": "CT4301"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 1059.197437592651,
-        "y": 363.6635039326246
+        "x": 1062.9385386382235,
+        "y": 509.76055738627025
       },
       "dragging": false
     },
     {
-      "id": "HS3602",
+      "id": "CT4202",
       "type": "customCourseNode",
       "position": {
-        "x": 1060.9385386983172,
-        "y": 503.70882936294765
+        "x": 1064.938538578129,
+        "y": 649.7605561843856
       },
       "data": {
-        "label": "전쟁과 인간",
+        "label": "영상 커뮤니케이션",
         "credits": 3,
-        "category": "편성예정",
+        "category": "전공선택",
         "semester": "3-1",
-        "courseCode": "편성예정"
+        "courseCode": "CT4202"
       },
       "selected": false,
-      "width": 200,
+      "width": 459,
       "height": 113,
       "positionAbsolute": {
-        "x": 1060.9385386983172,
-        "y": 503.70882936294765
+        "x": 1064.938538578129,
+        "y": 649.7605561843856
       },
-      "dragging": false
+      "dragging": false,
+      "style": {
+        "width": 459,
+        "height": 113
+      },
+      "resizing": false
     },
     {
-      "id": "HS3502",
+      "id": "CT4304",
       "type": "customCourseNode",
       "position": {
-        "x": 1317.902943120982,
-        "y": 102.72496523430698
+        "x": 1317.6440442867429,
+        "y": 231.76055972994567
       },
       "data": {
-        "label": "시창작 특강",
+        "label": "피지컬 컴퓨팅 스튜디오",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-2",
-        "courseCode": "GS(LH)3502"
+        "courseCode": "CT4304"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 1317.902943120982,
-        "y": 102.72496523430698
+        "x": 1317.6440442867429,
+        "y": 231.76055972994567
       },
       "dragging": false
     },
     {
-      "id": "HS3504",
+      "id": "CT4504",
       "type": "customCourseNode",
       "position": {
-        "x": 1317.902943120982,
-        "y": 234.06478513629895
+        "x": 1319.644044226649,
+        "y": 367.7605586482493
       },
       "data": {
-        "label": "20세기 한국여성작가론",
+        "label": "과학계산 프로그래밍",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-2",
-        "courseCode": "GS(LH)3505"
+        "courseCode": "CT4504"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 1317.902943120982,
-        "y": 234.06478513629895
+        "x": 1319.644044226649,
+        "y": 367.7605586482493
       },
       "dragging": false
+    },
+    {
+      "id": "CT4506",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1321.6440441665547,
+        "y": 509.76055738627025
+      },
+      "data": {
+        "label": "몬테카를로 방법론과 응용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "CT4506"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1321.6440441665547,
+        "y": 509.76055738627025
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1578.880599407787,
+        "y": 101.0385923437209
+      },
+      "data": {
+        "label": "컴퓨터 그래픽스",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "CT4201"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1578.880599407787,
+        "y": 101.0385923437209
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4302",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1576.880599467881,
+        "y": 237.0385912620245
+      },
+      "data": {
+        "label": "문화기술을 위한 인공지능 설계",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "CT4302"
+      },
+      "selected": false,
+      "width": 224,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1576.880599467881,
+        "y": 237.0385912620245
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4310",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580.8805993476929,
+        "y": 515.0385889183491
+      },
+      "data": {
+        "label": "인간-AI상호작용: Special Topics on XR and Digital Twin",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "CT4310"
+      },
+      "selected": false,
+      "width": 393,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1580.8805993476929,
+        "y": 515.0385889183491
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4303",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1838.880599107316,
+        "y": 99.03859240381513
+      },
+      "data": {
+        "label": "게임인공지능",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "CT4303"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1838.880599107316,
+        "y": 99.03859240381513
+      },
+      "dragging": false
+    },
+    {
+      "id": "CT4305",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580.7245055845547,
+        "y": 365.3902129086605
+      },
+      "data": {
+        "label": "서비스러닝 프로젝트",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "CT4305"
+      },
+      "selected": false,
+      "width": 457,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1580.7245055845547,
+        "y": 365.3902129086605
+      },
+      "dragging": false,
+      "style": {
+        "width": 457,
+        "height": 113
+      },
+      "resizing": false
     }
   ],
   "edges": []

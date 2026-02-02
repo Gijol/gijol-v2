@@ -36,21 +36,21 @@ const TRACK_DISPLAY_NAMES: Record<string, string> = {
   EECS_AI: 'AI 분야',
   EECS_CORE: 'CS 코어 분야',
   EECS_SEMICONDUCTOR: '반도체/광 분야',
-  'EECS_SIGNAL_PROCESSING,json': '신호처리 분야',
+  EECS_SIGNAL_PROCESSING: '신호처리 분야',
   // Materials
   MATERIAL_ELECTRONICS: '전자재료 분야',
   MATERIAL_POLYMER: '고분자재료 분야',
   // Mechanical
-  MECHANICAL_ENGINEERING: '기계공학부 기본 이수체계',
+  MECHANICAL_ENGINEERING: '기본 이수체계',
   MECHANICAL_ENGINEERING_ADVANCED: '전공선택(심화) 과목 선후수 관계',
   // Earth
-  EARTH_ENGINEERING: '지구환경공학부 이수체계',
+  EARTH_ENGINEERING: '기본 이수체계',
   // Bioscience
   BIOSCIENCE_ODD_YEAR: '홀수년 입학생 이수체계',
   BIOSCIENCE_EVEN_YEAR: '짝수년 입학생 이수체계',
   BIOSCIENCE_RESEARCH: '연구분야별 이수체계',
   // Physics
-  PHYSICAL_OPTICS: '물리광과학과 이수체계',
+  PHYSICAL_OPTICS: '기본 이수체계',
   // Chemistry
   CHEMISTRY_PHYSICAL_ANALYTICS: '물리/분석화학 분야',
   CHEMISTRY_ORGANIC_INORGANIC: '유기/무기화학 분야',
@@ -59,21 +59,19 @@ const TRACK_DISPLAY_NAMES: Record<string, string> = {
   MATH_MINOR: '수학 부전공',
   BASIC_CREATIVE_DESIGN: '융합 부전공',
   BASIC_ECONOMICS: '경제·경영 부전공',
-  BASIC_SCIENCE_AI: '과학기술·AI 부전공',
+  BASIC_SCIENCE_SOCIETY: '과학기술·사회 부전공',
   BASIC_FUTURE: '미래형 부전공',
-  BASIC_LITERATURE_HISTORY: '문학과 역사',
-  HUMANITIES_LITERATURE_HISTORY: '문학과 역사',
-  HUMANITIES_LAW_POLITICS: '법과 정치',
+  BASIC_LITERATURE_HISTORY: '문학과 역사 부전공',
+  BASIC_LAW_POLITICS: '법과 정치 부전공',
+  BASIC_HEART: '마음과 행동 부전공',
   // Biomedical
-  BIOMEDICAL_ENGINEERING: '의생명공학과 이수체계',
+  BIOMEDICAL_ENGINEERING: '기본 이수체계',
   // Convergence Tech
-  CONVERGENCE_ENERGY: '융합기술대학 공통 이수체계',
-  CONVERGENCE_MECHANICAL: '기계 부전공',
-  CONVERGENCE_MATERIALS: '재료 부전공',
+  CONVERGENCE_ENERGY: '에너지 부전공',
+  CONVERGENCE_CULTURE: '문화기술 부전공',
+  CONVERGENCE_ROBOT: '지능로봇 부전공',
   // AI Convergence
-  AI_CONVERGENCE: 'AI 융합 부전공',
-  // SW/AI
-  SW_AI_LINKED: '교과 로드맵',
+  CONVERGENCE_AI: 'AI 융합 부전공',
 };
 
 // Map presets to their canonical major categories
@@ -87,11 +85,10 @@ function getCanonicalMajor(preset: PresetInfo): string {
   if (slug.startsWith('BIOSCIENCE')) return '생명과학부';
   if (slug.startsWith('PHYSICAL') || slug === 'PHYSICAL_OPTICS') return '물리·광과학과';
   if (slug.startsWith('CHEMISTRY')) return '화학과';
-  if (slug.startsWith('BASIC') || slug.startsWith('HUMANITIES') || slug === 'MATH_MINOR') return '기초교육학부';
+  if (slug.startsWith('BASIC') || slug === 'MATH_MINOR') return '기초교육학부';
   if (slug.startsWith('BIOMEDICAL')) return '의생명공학과';
-  if (slug.startsWith('CONVERGENCE')) return '융합기술대학';
+  if (slug.startsWith('CONVERGENCE')) return '융합기술원';
   if (slug === 'AI_CONVERGENCE') return 'AI융합학과';
-  if (slug === 'SW_AI_LINKED') return 'SW/AI 연계교육';
 
   return preset.major || '기타';
 }

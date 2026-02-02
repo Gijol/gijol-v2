@@ -1,75 +1,306 @@
 {
   "meta": {
     "major": "지구·환경공학부",
-    "track": null
+    "track": "전공 이수 체계도"
   },
   "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
     {
       "id": "GS1101",
       "type": "customCourseNode",
       "position": {
-        "x": 0,
-        "y": 0
+        "x": 20,
+        "y": 100
       },
       "data": {
-        "label": "일반물리학 및 실험 1",
+        "label": "일반물리학 및 연습 1",
         "credits": 3,
         "category": "기초필수",
         "semester": "1-1",
         "courseCode": "GS1101"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113
     },
     {
       "id": "GS1111",
       "type": "customCourseNode",
       "position": {
-        "x": 0,
-        "y": 100
+        "x": 20,
+        "y": 223.19507922667117
       },
       "data": {
-        "label": "일반물리학실험 1",
+        "label": "일반물리학 실험 1",
         "credits": 1,
         "category": "기초필수",
         "semester": "1-1",
         "courseCode": "GS1111"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 20,
+        "y": 223.19507922667117
+      },
+      "dragging": false
     },
     {
       "id": "GS1201",
       "type": "customCourseNode",
       "position": {
-        "x": 0,
-        "y": 200
+        "x": 21.31950792266707,
+        "y": 350.34868222134367
       },
       "data": {
-        "label": "일반화학 및 실험 1",
+        "label": "일반화학 및 연습 1",
         "credits": 3,
         "category": "기초필수",
         "semester": "1-1",
         "courseCode": "GS1201"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 21.31950792266707,
+        "y": 350.34868222134367
+      },
+      "dragging": false
     },
     {
       "id": "GS1211",
       "type": "customCourseNode",
       "position": {
-        "x": 0,
-        "y": 300
+        "x": 21.31950792266707,
+        "y": 474.863269370682
       },
       "data": {
-        "label": "일반화학실험 1",
+        "label": "일반화학 실험 1",
         "credits": 1,
         "category": "기초필수",
         "semester": "1-1",
         "courseCode": "GS1211"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 21.31950792266707,
+        "y": 474.863269370682
+      },
+      "dragging": false
     },
     {
       "id": "GS1001",
       "type": "customCourseNode",
       "position": {
-        "x": 0,
-        "y": 500
+        "x": 23.95852376800144,
+        "y": 859.5131810102229
       },
       "data": {
         "label": "미적분학과 응용",
@@ -77,74 +308,234 @@
         "category": "기초필수",
         "semester": "1-1",
         "courseCode": "GS1001"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 23.95852376800144,
+        "y": 859.5131810102229
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1490",
+      "type": "customCourseNode",
+      "position": {
+        "x": 23.278031690668513,
+        "y": 984.4462598046626
+      },
+      "data": {
+        "label": "소프트웨어 기초와 코딩",
+        "credits": 2,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1490"
+      },
+      "selected": false,
+      "width": 202,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 23.278031690668513,
+        "y": 984.4462598046626
+      },
+      "dragging": false,
+      "style": {
+        "width": 202,
+        "height": 113
+      },
+      "resizing": false
+    },
+    {
+      "id": "GS2809",
+      "type": "customCourseNode",
+      "position": {
+        "x": 26.25592050560749,
+        "y": 1112.8254337055114
+      },
+      "data": {
+        "label": "아름다운 지구",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "1-1",
+        "courseCode": "GS2809"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 26.25592050560749,
+        "y": 1112.8254337055114
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1471",
+      "type": "customCourseNode",
+      "position": {
+        "x": 28.55331724321377,
+        "y": 1244.65070271277
+      },
+      "data": {
+        "label": "지구환경공학 개론 / 실습",
+        "credits": 2,
+        "category": "기초선택",
+        "semester": "1-1",
+        "courseCode": "GS1471"
+      },
+      "selected": false,
+      "width": 460,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 28.55331724321377,
+        "y": 1244.65070271277
+      },
+      "dragging": false,
+      "style": {
+        "width": 460,
+        "height": 113
+      },
+      "resizing": false
     },
     {
       "id": "GS1102",
       "type": "customCourseNode",
       "position": {
-        "x": 250,
-        "y": 0
+        "x": 280,
+        "y": 100
       },
       "data": {
-        "label": "일반물리학 및 실험 2",
+        "label": "일반물리학 및 연습 2",
         "credits": 3,
         "category": "기초필수",
         "semester": "1-2",
         "courseCode": "GS1102"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113
     },
     {
       "id": "GS1112",
       "type": "customCourseNode",
       "position": {
-        "x": 250,
-        "y": 100
+        "x": 280,
+        "y": 223.19507922667117
       },
       "data": {
-        "label": "일반물리학실험 2",
+        "label": "일반물리학 실험 2",
         "credits": 1,
         "category": "기초필수",
         "semester": "1-2",
         "courseCode": "GS1112"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 280,
+        "y": 223.19507922667117
+      },
+      "dragging": false
     },
     {
       "id": "GS1202",
       "type": "customCourseNode",
       "position": {
-        "x": 250,
-        "y": 200
+        "x": 281.31950792266707,
+        "y": 350.34868222134367
       },
       "data": {
-        "label": "일반화학 및 실험 2",
+        "label": "일반화학 및 연습 2",
         "credits": 3,
         "category": "기초필수",
         "semester": "1-2",
         "courseCode": "GS1202"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 281.31950792266707,
+        "y": 350.34868222134367
+      },
+      "dragging": false
     },
     {
       "id": "GS1212",
       "type": "customCourseNode",
       "position": {
-        "x": 250,
-        "y": 300
+        "x": 281.31950792266707,
+        "y": 474.863269370682
       },
       "data": {
-        "label": "일반화학실험 2",
+        "label": "일반화학 실험 2",
         "credits": 1,
         "category": "기초필수",
         "semester": "1-2",
         "courseCode": "GS1212"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 281.31950792266707,
+        "y": 474.863269370682
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1302",
+      "type": "customCourseNode",
+      "position": {
+        "x": 283.95852376800144,
+        "y": 600.6973644426874
+      },
+      "data": {
+        "label": "생물학",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1302"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 283.95852376800144,
+        "y": 600.6973644426874
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1311",
+      "type": "customCourseNode",
+      "position": {
+        "x": 283.9585237680012,
+        "y": 727.85096743736
+      },
+      "data": {
+        "label": "일반생물학 실험",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1311"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 283.9585237680012,
+        "y": 727.85096743736
+      },
+      "dragging": false
     },
     {
       "id": "GS2001",
       "type": "customCourseNode",
       "position": {
-        "x": 250,
-        "y": 600
+        "x": 283.95852376800144,
+        "y": 858.9630942000339
       },
       "data": {
         "label": "다변수해석학과 응용",
@@ -152,83 +543,1188 @@
         "category": "기초필수",
         "semester": "1-2",
         "courseCode": "GS2001"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 283.95852376800144,
+        "y": 858.9630942000339
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1401",
+      "type": "customCourseNode",
+      "position": {
+        "x": 283.95852376800144,
+        "y": 983.8961729944737
+      },
+      "data": {
+        "label": "컴퓨터 프로그래밍",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1401"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 283.95852376800144,
+        "y": 983.8961729944737
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS2475",
+      "type": "customCourseNode",
+      "position": {
+        "x": 286.2559205056075,
+        "y": 1112.2753468953224
+      },
+      "data": {
+        "label": "환경오염",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "1-2",
+        "courseCode": "GS2475"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 286.2559205056075,
+        "y": 1112.2753468953224
+      },
+      "dragging": false
     },
     {
       "id": "EV3101",
       "type": "customCourseNode",
       "position": {
-        "x": 500,
-        "y": 0
+        "x": 540,
+        "y": 100
       },
       "data": {
         "label": "환경공학",
         "credits": 3,
-        "category": "전공선택",
+        "category": "전공필수",
         "semester": "2-1",
         "courseCode": "EV3101"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EV2213",
+      "type": "customCourseNode",
+      "position": {
+        "x": 533.0355954727052,
+        "y": 597.7282935418623
+      },
+      "data": {
+        "label": "유기화학 I",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "EV2213"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 533.0355954727052,
+        "y": 597.7282935418623
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS2002",
+      "type": "customCourseNode",
+      "position": {
+        "x": 533.0355954727052,
+        "y": 797.7282935418623
+      },
+      "data": {
+        "label": "미분방정식과 응용",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "2-1",
+        "courseCode": "GS2002"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 533.0355954727052,
+        "y": 797.7282935418623
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS2474",
+      "type": "customCourseNode",
+      "position": {
+        "x": 529.5533932090575,
+        "y": 1110.8998671104064
+      },
+      "data": {
+        "label": "지속가능한 발전시대",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "2-1",
+        "courseCode": "GS2474"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 529.5533932090575,
+        "y": 1110.8998671104064
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV2211",
+      "type": "customCourseNode",
+      "position": {
+        "x": 531.2944943408816,
+        "y": 1248.71215918764
+      },
+      "data": {
+        "label": "기후변화의 이해",
+        "credits": 3,
+        "category": "MOOC",
+        "semester": "2-1",
+        "courseCode": "EV2211"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 531.2944943408816,
+        "y": 1248.71215918764
+      },
+      "dragging": false
     },
     {
       "id": "EV3111",
       "type": "customCourseNode",
       "position": {
-        "x": 750,
-        "y": 0
+        "x": 798.4842834243811,
+        "y": 104.54714972685696
       },
       "data": {
         "label": "지구시스템과학",
         "credits": 3,
-        "category": "전공선택",
+        "category": "전공필수",
         "semester": "2-2",
         "courseCode": "EV3111"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 798.4842834243811,
+        "y": 104.54714972685696
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV2208",
+      "type": "customCourseNode",
+      "position": {
+        "x": 796.8395629070051,
+        "y": 353.13517056235276
+      },
+      "data": {
+        "label": "분석화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "EV2208"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 796.8395629070051,
+        "y": 353.13517056235276
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV2212",
+      "type": "customCourseNode",
+      "position": {
+        "x": 794.776696604529,
+        "y": 596.7444278960844
+      },
+      "data": {
+        "label": "유전학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "EV2212"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 794.776696604529,
+        "y": 596.7444278960844
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS2004",
+      "type": "customCourseNode",
+      "position": {
+        "x": 796.5177977363526,
+        "y": 797.2363607189734
+      },
+      "data": {
+        "label": "선형대수학과 응용",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "2-2",
+        "courseCode": "GS2004"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 796.5177977363526,
+        "y": 797.2363607189734
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV2210",
+      "type": "customCourseNode",
+      "position": {
+        "x": 794.776696604529,
+        "y": 954.2007652462684
+      },
+      "data": {
+        "label": "유체역학 I",
+        "credits": 3,
+        "category": "MOOC",
+        "semester": "2-2",
+        "courseCode": "EV2210"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 794.776696604529,
+        "y": 954.2007652462684
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS2825",
+      "type": "customCourseNode",
+      "position": {
+        "x": 793.0355954727052,
+        "y": 1109.4240686417397
+      },
+      "data": {
+        "label": "연구자되기",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "2-2",
+        "courseCode": "GS2825"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 793.0355954727052,
+        "y": 1109.4240686417397
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS2836",
+      "type": "customCourseNode",
+      "position": {
+        "x": 796.5177977363526,
+        "y": 1247.7282935418625
+      },
+      "data": {
+        "label": "기후변화와 미래기술",
+        "credits": 3,
+        "category": "MOOC",
+        "semester": "2-2",
+        "courseCode": "GS2836"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 796.5177977363526,
+        "y": 1247.7282935418625
+      },
+      "dragging": false
     },
     {
       "id": "EV3106",
       "type": "customCourseNode",
       "position": {
-        "x": 1000,
-        "y": 0
+        "x": 1064.3837404884666,
+        "y": 103.76956213766675
       },
       "data": {
-        "label": "환경실험실습 1",
+        "label": "환경분석실험 1",
         "credits": 3,
         "category": "전공필수",
         "semester": "3-1",
         "courseCode": "EV3106"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1064.3837404884666,
+        "y": 103.76956213766675
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV3223",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1067.741101131824,
+        "y": 353.41101131823757
+      },
+      "data": {
+        "label": "생화학 I",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "EV3223"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1067.741101131824,
+        "y": 353.41101131823757
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV3217",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1070,
+        "y": 599.2427645139542
+      },
+      "data": {
+        "label": "미생물학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "EV3217"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1070,
+        "y": 599.2427645139542
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4229",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1063.4129321661908,
+        "y": 798.3487368090125
+      },
+      "data": {
+        "label": "에너지화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "EV4229"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1063.4129321661908,
+        "y": 798.3487368090125
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV3219",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1070,
+        "y": 1100
+      },
+      "data": {
+        "label": "수리물리 1",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "EV3219"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1070,
+        "y": 1100
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS3804",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1072,
+        "y": 1358
+      },
+      "data": {
+        "label": "현대고급기기분석",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "3-1",
+        "courseCode": "GS3804"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1072,
+        "y": 1358
+      },
+      "dragging": false
     },
     {
       "id": "EV4107",
       "type": "customCourseNode",
       "position": {
-        "x": 1250,
-        "y": 0
+        "x": 1323.2568177074431,
+        "y": 103.93297137605703
       },
       "data": {
-        "label": "환경실험실습 2",
+        "label": "환경분석실험 2",
         "credits": 3,
         "category": "전공필수",
         "semester": "3-2",
         "courseCode": "EV4107"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1323.2568177074431,
+        "y": 103.93297137605703
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4226",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1325.2233033954712,
+        "y": 232.63431471370876
+      },
+      "data": {
+        "label": "상하수도공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "EV4226"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 1325.2233033954712,
+        "y": 232.63431471370876
       }
+    },
+    {
+      "id": "EV4213",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1324.9644045272948,
+        "y": 353.0809215046513
+      },
+      "data": {
+        "label": "환경독성학기초",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "EV4213"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1324.9644045272948,
+        "y": 353.0809215046513
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV3205",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1326.7683719615943,
+        "y": 599.1749217669546
+      },
+      "data": {
+        "label": "환경생태학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "EV3205"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1326.7683719615943,
+        "y": 599.1749217669546
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV2209",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1329.2233033954712,
+        "y": 727.1003826231341
+      },
+      "data": {
+        "label": "환경모니터링",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "EV2209"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1329.2233033954712,
+        "y": 727.1003826231341
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV3222",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1328.9979188392663,
+        "y": 844.0681353488399
+      },
+      "data": {
+        "label": "환경재료공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "EV3222"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1328.9979188392663,
+        "y": 844.0681353488399
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4228",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1330.5177977363523,
+        "y": 962.822022636475
+      },
+      "data": {
+        "label": "환경열역학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "EV4228"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1330.5177977363523,
+        "y": 962.822022636475
+      },
+      "dragging": false
     },
     {
       "id": "EV4106",
       "type": "customCourseNode",
       "position": {
-        "x": 1500,
-        "y": 0
+        "x": 1580,
+        "y": 100
       },
       "data": {
         "label": "지구환경이동현상",
         "credits": 3,
-        "category": "전공선택",
+        "category": "전공필수",
         "semester": "4-1",
         "courseCode": "EV4106"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "EV4230",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1578,
+        "y": 232
+      },
+      "data": {
+        "label": "멤브레인 과학기술",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EV4230"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1578,
+        "y": 232
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4216",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1576,
+        "y": 352
+      },
+      "data": {
+        "label": "환경화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EV4216"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1576,
+        "y": 352
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4232",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1574.517797736352,
+        "y": 473.22330339547136
+      },
+      "data": {
+        "label": "물리화학적 처리공정",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EV4232"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1574.517797736352,
+        "y": 473.22330339547136
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1578,
+        "y": 596
+      },
+      "data": {
+        "label": "생지화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EV4202"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1578,
+        "y": 596
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4215",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1582,
+        "y": 728.9685668487621
+      },
+      "data": {
+        "label": "지구·환경과학 통계",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EV4215"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1582,
+        "y": 728.9685668487621
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4209",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1582,
+        "y": 846.5471497268569
+      },
+      "data": {
+        "label": "전기화학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EV4209"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1582,
+        "y": 846.5471497268569
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4227",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1582,
+        "y": 962
+      },
+      "data": {
+        "label": "화학반응공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EV4227"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1582,
+        "y": 962
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4214",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1584,
+        "y": 1094
+      },
+      "data": {
+        "label": "대기화학과 기후변화",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EV4214"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1584,
+        "y": 1094
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4211",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1584,
+        "y": 1228
+      },
+      "data": {
+        "label": "대기오염공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "EV4211"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1584,
+        "y": 1228
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS4471",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 1360
+      },
+      "data": {
+        "label": "인류세의 우리",
+        "credits": 1,
+        "category": "기초선택",
+        "semester": "4-1",
+        "courseCode": "GS4471"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1580,
+        "y": 1360
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4231",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1834.5177977363523,
+        "y": 235.1715735685442
+      },
+      "data": {
+        "label": "해수담수화공학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EV4231"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1834.5177977363523,
+        "y": 235.1715735685442
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4212",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1834.5177977363523,
+        "y": 345.1715735685442
+      },
+      "data": {
+        "label": "수화학기초",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EV4212"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1834.5177977363523,
+        "y": 345.1715735685442
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4223",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1834.5177977363523,
+        "y": 471.1715735685442
+      },
+      "data": {
+        "label": "기기분석",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EV4223"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1834.5177977363523,
+        "y": 471.1715735685442
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4234",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1834.5177977363523,
+        "y": 599.1715735685442
+      },
+      "data": {
+        "label": "지구물질과학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EV4234"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1834.5177977363523,
+        "y": 599.1715735685442
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1838.5177977363523,
+        "y": 729.1087072660682
+      },
+      "data": {
+        "label": "지구환경시스템모델링",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EV4201"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1838.5177977363523,
+        "y": 729.1087072660682
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4204",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1838.5177977363523,
+        "y": 845.1715735685442
+      },
+      "data": {
+        "label": "환경공정단위조작",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EV4204"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1838.5177977363523,
+        "y": 845.1715735685442
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4233",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1841.54923088759,
+        "y": 963.655856992925
+      },
+      "data": {
+        "label": "환경분리기술",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EV4233"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1841.54923088759,
+        "y": 963.655856992925
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4224",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840.5177977363523,
+        "y": 1097.1715735685443
+      },
+      "data": {
+        "label": "대기질자료분석과 응용",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EV4224"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1840.5177977363523,
+        "y": 1097.1715735685443
+      },
+      "dragging": false
+    },
+    {
+      "id": "EV4222",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840.5177977363523,
+        "y": 1231.1715735685443
+      },
+      "data": {
+        "label": "대기질연구최신동향",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "EV4222"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1840.5177977363523,
+        "y": 1231.1715735685443
+      },
+      "dragging": false
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "id": "edge-GS1001-GS2001",
+      "source": "GS1001",
+      "target": "GS2001",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "source": "EV2211",
+      "sourceHandle": null,
+      "target": "GS2836",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EV2211-GS2836"
+    },
+    {
+      "source": "EV3106",
+      "sourceHandle": null,
+      "target": "EV4107",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EV3106-EV4107"
+    },
+    {
+      "source": "EV2208",
+      "sourceHandle": null,
+      "target": "EV4216",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EV2208-EV4216",
+      "selected": false
+    },
+    {
+      "source": "EV3111",
+      "sourceHandle": null,
+      "target": "EV4227",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EV3111-EV4227",
+      "selected": false
+    },
+    {
+      "source": "EV3111",
+      "sourceHandle": null,
+      "target": "EV4228",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EV3111-EV4228",
+      "selected": false
+    },
+    {
+      "source": "EV2210",
+      "sourceHandle": null,
+      "target": "EV4106",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-EV2210-EV4106"
+    }
+  ]
 }

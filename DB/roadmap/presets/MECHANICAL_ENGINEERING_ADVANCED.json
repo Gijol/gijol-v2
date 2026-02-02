@@ -1,285 +1,922 @@
 {
   "meta": {
     "major": "기계공학부",
-    "track": "전공선택심화 과목 선후수 관계"
+    "track": "전공선택(심화) 과목 선후수 관계"
   },
   "nodes": [
     {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
       "id": "MC2102",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 0 },
+      "position": {
+        "x": 540,
+        "y": 200
+      },
       "data": {
         "label": "유체역학 I",
         "credits": 3,
         "category": "전공필수",
         "semester": "2-2",
         "courseCode": "MC2102"
-      }
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "MC2100",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 100 },
+      "position": {
+        "x": 540,
+        "y": 350
+      },
       "data": {
         "label": "열역학 I",
         "credits": 3,
         "category": "전공필수",
         "semester": "2-1",
         "courseCode": "MC2100"
-      }
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "MC2103",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 550
+      },
+      "data": {
+        "label": "동역학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2",
+        "courseCode": "MC2103"
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "MC2101",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 200 },
+      "position": {
+        "x": 542,
+        "y": 882
+      },
       "data": {
         "label": "고체역학 I",
         "credits": 3,
         "category": "전공필수",
         "semester": "2-1",
         "courseCode": "MC2101"
-      }
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 542,
+        "y": 882
+      },
+      "dragging": false
     },
     {
-      "id": "MC3710",
+      "id": "MC3215",
       "type": "customCourseNode",
-      "position": { "x": 0, "y": 300 },
+      "position": {
+        "x": 1060,
+        "y": 300
+      },
       "data": {
-        "label": "고체역학 II",
-        "credits": 3,
-        "category": "전공핵심",
-        "semester": "2-2",
-        "courseCode": "MC3710"
-      }
-    },
-    {
-      "id": "MC4210",
-      "type": "customCourseNode",
-      "position": { "x": 250, "y": 0 },
-      "data": {
-        "label": "응용열전달",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "3-1",
-        "courseCode": "MC4210"
-      }
-    },
-    {
-      "id": "MC3214",
-      "type": "customCourseNode",
-      "position": { "x": 250, "y": 100 },
-      "data": {
-        "label": "유체역학 II",
-        "credits": 3,
-        "category": "전공핵심",
-        "semester": "3-1",
-        "courseCode": "MC3214"
-      }
-    },
-    {
-      "id": "MC4223",
-      "type": "customCourseNode",
-      "position": { "x": 250, "y": 200 },
-      "data": {
-        "label": "기계 시험 및 시스템",
+        "label": "기계 신호 및 시스템",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-1",
-        "courseCode": "MC4223"
-      }
+        "courseCode": "MC3215"
+      },
+      "width": 200,
+      "height": 113
     },
     {
-      "id": "MC4201",
+      "id": "MC3205",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 300 },
+      "position": {
+        "x": 1060.0000000000005,
+        "y": 547.0058593822416
+      },
       "data": {
-        "label": "마이크로 유체역학 및 실험",
+        "label": "마이크로 프로세서 및 응용",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-1",
-        "courseCode": "MC4201"
-      }
+        "courseCode": "MC3205"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1060.0000000000005,
+        "y": 547.0058593822416
+      },
+      "dragging": false
     },
     {
-      "id": "MC4229",
+      "id": "MC3206",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 400 },
+      "position": {
+        "x": 1061.5157165528478,
+        "y": 712.163024910717
+      },
       "data": {
         "label": "재료과학",
         "credits": 3,
+        "category": "타전공1",
+        "semester": "3-1",
+        "courseCode": "MC3206"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1061.5157165528478,
+        "y": 712.163024910717
+      },
+      "dragging": false
+    },
+    {
+      "id": "MC3209",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060.0000000000002,
+        "y": 878.8359069920398
+      },
+      "data": {
+        "label": "창의공학",
+        "credits": 3,
         "category": "전공선택",
         "semester": "3-1",
-        "courseCode": "MC4229"
-      }
+        "courseCode": "MC3209"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1060.0000000000002,
+        "y": 878.8359069920398
+      },
+      "dragging": false
     },
     {
-      "id": "MC4209",
+      "id": "MC3203",
       "type": "customCourseNode",
-      "position": { "x": 250, "y": 500 },
+      "position": {
+        "x": 1320.0000000000005,
+        "y": 547.0058593822416
+      },
       "data": {
-        "label": "점탄성학",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "3-1",
-        "courseCode": "MC4209"
-      }
-    },
-    {
-      "id": "MC4230",
-      "type": "customCourseNode",
-      "position": { "x": 500, "y": 0 },
-      "data": {
-        "label": "로봇공학",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "3-2",
-        "courseCode": "MC4230"
-      }
-    },
-    {
-      "id": "MC4216",
-      "type": "customCourseNode",
-      "position": { "x": 500, "y": 100 },
-      "data": {
-        "label": "시스템최적설계 및 해석",
+        "label": "시스템모델링 및 제어",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-2",
-        "courseCode": "MC4216"
-      }
+        "courseCode": "MC3203"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1320.0000000000005,
+        "y": 547.0058593822416
+      },
+      "dragging": false
     },
     {
-      "id": "MC4215",
+      "id": "MC3213",
       "type": "customCourseNode",
-      "position": { "x": 500, "y": 200 },
+      "position": {
+        "x": 1321.5157165528478,
+        "y": 712.163024910717
+      },
       "data": {
-        "label": "기계소음해석",
+        "label": "기계요소설계",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-2",
-        "courseCode": "MC4215"
-      }
+        "courseCode": "MC3213"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1321.5157165528478,
+        "y": 712.163024910717
+      },
+      "dragging": false
     },
     {
-      "id": "MC4228",
+      "id": "MC3208",
       "type": "customCourseNode",
-      "position": { "x": 500, "y": 300 },
+      "position": {
+        "x": 1320.0000000000002,
+        "y": 878.8359069920398
+      },
       "data": {
-        "label": "유한요소해석",
+        "label": "공학설계",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-2",
-        "courseCode": "MC4228"
-      }
-    },
-    {
-      "id": "MC4233",
-      "type": "customCourseNode",
-      "position": { "x": 500, "y": 400 },
-      "data": {
-        "label": "마이크로나노 재조합실험",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "3-2",
-        "courseCode": "MC4233"
-      }
-    },
-    {
-      "id": "MC4240",
-      "type": "customCourseNode",
-      "position": { "x": 500, "y": 500 },
-      "data": {
-        "label": "그래피컬시스템설계 프로그래밍 Lab+CAE",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "3-2",
-        "courseCode": "MC4240"
-      }
+        "courseCode": "MC3208"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1320.0000000000002,
+        "y": 878.8359069920398
+      },
+      "dragging": false
     },
     {
       "id": "MC4234",
       "type": "customCourseNode",
-      "position": { "x": 500, "y": 600 },
+      "position": {
+        "x": 1580,
+        "y": 106.00000186292141
+      },
       "data": {
-        "label": "MEMS/NEMS실험",
+        "label": "응용열전달",
         "credits": 3,
         "category": "전공선택",
-        "semester": "3-2",
+        "semester": "4-1",
         "courseCode": "MC4234"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1580,
+        "y": 106.00000186292141
+      },
+      "dragging": false
     },
     {
-      "id": "MC4227",
+      "id": "MC4204",
       "type": "customCourseNode",
-      "position": { "x": 750, "y": 0 },
+      "position": {
+        "x": 1582.4842833870584,
+        "y": 391.3457635917502
+      },
       "data": {
-        "label": "센서공학적용",
+        "label": "로봇공학",
         "credits": 3,
-        "category": "전공선택",
+        "category": "타전공1",
         "semester": "4-1",
-        "courseCode": "MC4227"
-      }
-    },
-    {
-      "id": "MC4239",
-      "type": "customCourseNode",
-      "position": { "x": 750, "y": 100 },
-      "data": {
-        "label": "지능형 로봇 제어",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "4-1",
-        "courseCode": "MC4239"
-      }
-    },
-    {
-      "id": "MC4235",
-      "type": "customCourseNode",
-      "position": { "x": 750, "y": 200 },
-      "data": {
-        "label": "엠보디케이밸믹",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "4-1",
-        "courseCode": "MC4235"
-      }
+        "courseCode": "MC4204"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1582.4842833870584,
+        "y": 391.3457635917502
+      },
+      "dragging": false
     },
     {
       "id": "MC4221",
       "type": "customCourseNode",
-      "position": { "x": 750, "y": 300 },
+      "position": {
+        "x": 1580.0000000000005,
+        "y": 547.0058593822416
+      },
       "data": {
-        "label": "생체역학공학",
+        "label": "기계인공지능",
         "credits": 3,
         "category": "전공선택",
         "semester": "4-1",
         "courseCode": "MC4221"
-      }
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1580.0000000000005,
+        "y": 547.0058593822416
+      },
+      "dragging": false
     },
     {
-      "id": "MC4222",
+      "id": "MC4202",
       "type": "customCourseNode",
-      "position": { "x": 1000, "y": 0 },
+      "position": {
+        "x": 1581.5157165528478,
+        "y": 835.9674987970616
+      },
       "data": {
-        "label": "마이크로제작작업",
+        "label": "유한요소해석",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MC4202"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1581.5157165528478,
+        "y": 835.9674987970616
+      },
+      "dragging": false
+    },
+    {
+      "id": "MC4208",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1563.327117918677,
+        "y": 1139.5391540818143
+      },
+      "data": {
+        "label": "그래픽컬시스템 디자인프로그래밍",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MC4208"
+      },
+      "width": 243,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1563.327117918677,
+        "y": 1139.5391540818143
+      },
+      "dragging": false
+    },
+    {
+      "id": "MC4210",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1582.0000038760782,
+        "y": 238.0000001802827
+      },
+      "data": {
+        "label": "전산유체역학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MC4210"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1582.0000038760782,
+        "y": 238.0000001802827
+      },
+      "dragging": false
+    },
+    {
+      "id": "MC4229",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580.8124694630737,
+        "y": 692.5146484556043
+      },
+      "data": {
+        "label": "이동로봇",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MC4229"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1580.8124694630737,
+        "y": 692.5146484556043
+      },
+      "dragging": false
+    },
+    {
+      "id": "MC4205",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580.812469463073,
+        "y": 989.539154081814
+      },
+      "data": {
+        "label": "정밀설계원리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MC4205"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1580.812469463073,
+        "y": 989.539154081814
+      },
+      "dragging": false
+    },
+    {
+      "id": "MC4206",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1582.3281860159211,
+        "y": 1295.6579590251094
+      },
+      "data": {
+        "label": "MEMS/NEMS원리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "MC4206"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1582.3281860159211,
+        "y": 1295.6579590251094
+      },
+      "dragging": false
+    },
+    {
+      "id": "MC4224",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1844,
+        "y": 106
+      },
+      "data": {
+        "label": "미세유체역학",
         "credits": 3,
         "category": "전공선택",
         "semester": "4-2",
-        "courseCode": "MC4222"
-      }
+        "courseCode": "MC4224"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1844,
+        "y": 106
+      },
+      "dragging": false
     },
     {
-      "id": "MC4226",
+      "id": "MC4230",
       "type": "customCourseNode",
-      "position": { "x": 1000, "y": 100 },
+      "position": {
+        "x": 1831.0314331056952,
+        "y": 834.847625756523
+      },
+      "data": {
+        "label": "생체모방공학 개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "MC4230"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": true,
+      "positionAbsolute": {
+        "x": 1831.0314331056952,
+        "y": 834.847625756523
+      },
+      "dragging": false
+    },
+    {
+      "id": "MC4212",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1833.5157165528476,
+        "y": 989.5205078378458
+      },
       "data": {
         "label": "최적설계",
         "credits": 3,
         "category": "전공선택",
         "semester": "4-2",
-        "courseCode": "MC4226"
-      }
+        "courseCode": "MC4212"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1833.5157165528476,
+        "y": 989.5205078378458
+      },
+      "dragging": false
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "id": "e_MC2102_MC4234",
+      "source": "MC2102",
+      "target": "MC4234",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "e_MC2102_MC4210",
+      "source": "MC2102",
+      "target": "MC4210",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "e_MC2100_MC4234",
+      "source": "MC2100",
+      "target": "MC4234",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "e_MC2103_MC3215",
+      "source": "MC2103",
+      "target": "MC3215",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "e_MC2103_MC4230",
+      "source": "MC2103",
+      "target": "MC4230",
+      "type": "dynamic",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "source": "MC2103",
+      "sourceHandle": null,
+      "target": "MC3205",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MC2103-MC3205"
+    },
+    {
+      "source": "MC2103",
+      "sourceHandle": null,
+      "target": "MC3203",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MC2103-MC3203"
+    },
+    {
+      "source": "MC2103",
+      "sourceHandle": null,
+      "target": "MC4229",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MC2103-MC4229"
+    },
+    {
+      "source": "MC2103",
+      "sourceHandle": null,
+      "target": "MC4205",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MC2103-MC4205"
+    },
+    {
+      "source": "MC2102",
+      "sourceHandle": null,
+      "target": "MC4224",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MC2102-MC4224"
+    },
+    {
+      "source": "MC2101",
+      "sourceHandle": null,
+      "target": "MC3213",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MC2101-MC3213"
+    },
+    {
+      "source": "MC2101",
+      "sourceHandle": null,
+      "target": "MC4202",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MC2101-MC4202"
+    },
+    {
+      "source": "MC2101",
+      "sourceHandle": null,
+      "target": "MC4205",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MC2101-MC4205"
+    },
+    {
+      "source": "MC2101",
+      "sourceHandle": null,
+      "target": "MC4206",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-MC2101-MC4206"
+    }
+  ]
 }

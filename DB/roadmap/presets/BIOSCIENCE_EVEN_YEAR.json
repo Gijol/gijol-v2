@@ -5,26 +5,249 @@
   },
   "nodes": [
     {
-      "id": "GS1201",
-      "type": "customCourseNode",
+      "id": "year-header-1",
+      "type": "semesterHeader",
       "position": {
-        "x": 0,
+        "x": 20,
         "y": 0
       },
       "data": {
-        "label": "일반화학 및 실험 I",
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "GS1201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 18.47311091733968,
+        "y": 232.23339438941292
+      },
+      "data": {
+        "label": "일반화학 및 연습 I",
         "credits": 3,
         "category": "기초선택",
         "semester": "1-1",
         "courseCode": "GS1201"
-      }
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS1301/1302",
+      "type": "customCourseNode",
+      "position": {
+        "x": 15.834095072005425,
+        "y": 92.36555458669835
+      },
+      "data": {
+        "label": "생물학/인간생물학 중 택1",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1301/1302"
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "GS1202",
       "type": "customCourseNode",
       "position": {
-        "x": 250,
-        "y": 0
+        "x": 279.0291742986765,
+        "y": 372.10123419212744
       },
       "data": {
         "label": "일반화학 및 실험 II",
@@ -32,44 +255,118 @@
         "category": "기초선택",
         "semester": "1-2",
         "courseCode": "GS1202"
-      }
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS1311",
+      "type": "customCourseNode",
+      "position": {
+        "x": 280.3486822213438,
+        "y": 100.28260212270098
+      },
+      "data": {
+        "label": "일반생물학실험",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS1311"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS1304(GS2303)",
+      "type": "customCourseNode",
+      "position": {
+        "x": 277.70966637600986,
+        "y": 236.19191815741428
+      },
+      "data": {
+        "label": "현대생명과학의 이해",
+        "credits": 1,
+        "category": "기초선택",
+        "semester": "1-2",
+        "courseCode": "GS1304(GS2303)"
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS2101",
       "type": "customCourseNode",
       "position": {
-        "x": 500,
-        "y": 0
+        "x": 538.2657297573467,
+        "y": 96.32407835469968
       },
       "data": {
         "label": "유기화학 I",
         "credits": 3,
-        "category": "전공핵심",
+        "category": "전공필수",
         "semester": "2-1",
         "courseCode": "BS2101"
-      }
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS2102",
       "type": "customCourseNode",
       "position": {
-        "x": 500,
-        "y": 100
+        "x": 542.2586042343116,
+        "y": 252.15561961428756
       },
       "data": {
         "label": "분자생물학",
         "credits": 3,
-        "category": "전공핵심",
+        "category": "전공필수",
         "semester": "2-1",
         "courseCode": "BS2102"
-      }
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "BS2103/BS3111",
+      "type": "customCourseNode",
+      "position": {
+        "x": 797.6494728411444,
+        "y": 249.8451728260285
+      },
+      "data": {
+        "label": "생화학/분자생물학 실험",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2",
+        "courseCode": "BS2103/BS3111"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "BS2203",
+      "type": "customCourseNode",
+      "position": {
+        "x": 537.6181087187622,
+        "y": 400.3148536818212
+      },
+      "data": {
+        "label": "발생생물학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-1",
+        "courseCode": "BS2203"
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS2205",
       "type": "customCourseNode",
       "position": {
-        "x": 500,
-        "y": 200
+        "x": 537.6181087187622,
+        "y": 500.3148536818212
       },
       "data": {
         "label": "생명정보학 개론",
@@ -77,29 +374,33 @@
         "category": "전공선택",
         "semester": "2-1",
         "courseCode": "BS2205"
-      }
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS2104",
       "type": "customCourseNode",
       "position": {
-        "x": 750,
-        "y": 0
+        "x": 797.5022852160164,
+        "y": 102.92161796803526
       },
       "data": {
         "label": "생화학 I",
         "credits": 3,
-        "category": "전공핵심",
+        "category": "전공필수",
         "semester": "2-2",
         "courseCode": "BS2104"
-      }
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS2202",
       "type": "customCourseNode",
       "position": {
-        "x": 750,
-        "y": 100
+        "x": 795.5140772687371,
+        "y": 398.22814094625556
       },
       "data": {
         "label": "유전학",
@@ -107,14 +408,33 @@
         "category": "전공선택",
         "semester": "2-2",
         "courseCode": "BS2202"
-      }
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "BS2205",
+      "type": "customCourseNode",
+      "position": {
+        "x": 801.1742247571999,
+        "y": 550.6747477371979
+      },
+      "data": {
+        "label": "생명정보학 개론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "BS2205"
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS2204",
       "type": "customCourseNode",
       "position": {
-        "x": 750,
-        "y": 200
+        "x": 801.8254437376572,
+        "y": 705.5162633935499
       },
       "data": {
         "label": "기초 해부조직학",
@@ -122,59 +442,50 @@
         "category": "전공선택",
         "semester": "2-2",
         "courseCode": "BS2204"
-      }
-    },
-    {
-      "id": "BS3204",
-      "type": "customCourseNode",
-      "position": {
-        "x": 750,
-        "y": 300
       },
-      "data": {
-        "label": "생화학·분자생물실험",
-        "credits": 3,
-        "category": "전공핵심",
-        "semester": "2-2",
-        "courseCode": "BS3204"
-      }
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS3105",
       "type": "customCourseNode",
       "position": {
-        "x": 1000,
-        "y": 0
+        "x": 1059.5637155615495,
+        "y": 105.64939118091931
       },
       "data": {
         "label": "세포생물학",
         "credits": 3,
-        "category": "전공핵심",
+        "category": "전공필수",
         "semester": "3-1",
         "courseCode": "BS3105"
-      }
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS3112",
       "type": "customCourseNode",
       "position": {
-        "x": 1000,
-        "y": 100
+        "x": 1061.3048166933736,
+        "y": 254.4002228719844
       },
       "data": {
         "label": "세포·발생생물실험",
         "credits": 3,
-        "category": "전공핵심",
+        "category": "전공필수",
         "semester": "3-1",
         "courseCode": "BS3112"
-      }
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS3201",
       "type": "customCourseNode",
       "position": {
-        "x": 1000,
-        "y": 200
+        "x": 1058.6658008480397,
+        "y": 397.9277511675784
       },
       "data": {
         "label": "미생물학",
@@ -182,44 +493,124 @@
         "category": "전공선택",
         "semester": "3-1",
         "courseCode": "BS3201"
-      }
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "BS3210",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1059.5637155615493,
+        "y": 551.9018862541149
+      },
+      "data": {
+        "label": "분자-세포 작동원리 및 이론",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "BS3210"
+      },
+      "width": 202,
+      "height": 113
+    },
+    {
+      "id": "BS3204",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060.0400370587474,
+        "y": 704.6822023678512
+      },
+      "data": {
+        "label": "생물물리 화학입문",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "BS3204"
+      },
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1060.0400370587474,
+        "y": 704.6822023678512
+      },
+      "dragging": false,
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS3101",
       "type": "customCourseNode",
       "position": {
-        "x": 1250,
-        "y": 0
+        "x": 1323.126247536598,
+        "y": 104.46606790942542
       },
       "data": {
-        "label": "생물학 I",
+        "label": "생화학 II",
         "credits": 3,
-        "category": "전공핵심",
+        "category": "전공필수",
         "semester": "3-2",
         "courseCode": "BS3101"
-      }
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS3206",
       "type": "customCourseNode",
       "position": {
-        "x": 1250,
-        "y": 100
+        "x": 1324.8673486684215,
+        "y": 251.47579846866688
       },
       "data": {
-        "label": "유전체 기본 실습",
+        "label": "유전체학 개론 및 실습",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-2",
         "courseCode": "BS3206"
-      }
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "BS4218",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1587.8295383619134,
+        "y": 841.5539642579879
+      },
+      "data": {
+        "label": "리보핵산 생물학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "BS4218"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "BS3208/BS4205",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1324.6084498002451,
+        "y": 403.2363607189735
+      },
+      "data": {
+        "label": "면역학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "BS3208/BS4205"
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS3211",
       "type": "customCourseNode",
       "position": {
-        "x": 1250,
-        "y": 200
+        "x": 1324.8673487080687,
+        "y": 552.4656950536918
       },
       "data": {
         "label": "약학개론 위한 실험모델",
@@ -227,112 +618,202 @@
         "category": "전공선택",
         "semester": "3-2",
         "courseCode": "BS3211"
-      }
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS4206",
       "type": "customCourseNode",
       "position": {
-        "x": 1500,
-        "y": 0
+        "x": 1583.4856597275016,
+        "y": 103.40396831032336
       },
       "data": {
         "label": "의약화학",
         "credits": 3,
-        "category": "전공심화",
+        "category": "전공선택",
         "semester": "4-1",
         "courseCode": "BS4206"
-      }
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS4213",
       "type": "customCourseNode",
       "position": {
-        "x": 1500,
-        "y": 100
+        "x": 1583.4856597275016,
+        "y": 253.54526937167384
       },
       "data": {
-        "label": "의약 면역학",
+        "label": "의약 면역화학",
         "credits": 3,
-        "category": "전공심화",
+        "category": "전공선택",
         "semester": "4-1",
         "courseCode": "BS4213"
-      }
+      },
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS4216",
       "type": "customCourseNode",
       "position": {
-        "x": 1500,
-        "y": 200
+        "x": 1585.4456740401142,
+        "y": 397.56535232404264
       },
       "data": {
-        "label": "단백질 생명과학",
+        "label": "단백질과 생명과학",
         "credits": 3,
-        "category": "전공심화",
+        "category": "전공선택",
         "semester": "4-1",
         "courseCode": "BS4216"
-      }
+      },
+      "width": 200,
+      "height": 113
     },
     {
-      "id": "BS4214",
+      "id": "BS4219",
       "type": "customCourseNode",
       "position": {
-        "x": 1750,
-        "y": 0
+        "x": 1587.4604166479235,
+        "y": 547.5971967949988
       },
       "data": {
-        "label": "기초 구조생물학",
+        "label": "암생물학",
         "credits": 3,
         "category": "전공선택",
-        "semester": "4-2",
-        "courseCode": "BS4214"
-      }
+        "semester": "4-1",
+        "courseCode": "BS4219"
+      },
+      "width": 200,
+      "height": 113
     },
     {
-      "id": "BS4240",
+      "id": "BS4223",
       "type": "customCourseNode",
       "position": {
-        "x": 1750,
-        "y": 200
+        "x": 1586.8169292288494,
+        "y": 692.7178744892454
       },
       "data": {
-        "label": "생물정보학 바이오인포매틱스 산책",
+        "label": "바이러스학",
         "credits": 3,
         "category": "전공선택",
-        "semester": "4-2",
-        "courseCode": "BS4240"
-      }
+        "semester": "4-1",
+        "courseCode": "BS4223"
+      },
+      "width": 200,
+      "height": 113
     },
     {
-      "id": "AI9102",
+      "id": "BS3205",
       "type": "customCourseNode",
       "position": {
-        "x": 1500,
-        "y": 900
+        "x": 1334.8260670680233,
+        "y": 987.9218826283081
+      },
+      "data": {
+        "label": "환경생태학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "BS3205"
+      },
+      "width": 200,
+      "height": 113,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1334.8260670680233,
+        "y": 987.9218826283081
+      },
+      "dragging": false
+    },
+    {
+      "id": "BS9102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1590.4496052400123,
+        "y": 988.3636202347213
       },
       "data": {
         "label": "학사논문연구 I",
         "credits": 3,
         "category": "전공필수",
         "semester": "4-1",
-        "courseCode": "AI9102"
-      }
+        "courseCode": "BS9102"
+      },
+      "width": 200,
+      "height": 113
     },
     {
-      "id": "AI9103",
+      "id": "BS9103",
       "type": "customCourseNode",
       "position": {
-        "x": 1750,
-        "y": 900
+        "x": 1852.4756145328683,
+        "y": 985.7246044290343
       },
       "data": {
         "label": "학사논문연구 II",
         "credits": 3,
         "category": "전공필수",
         "semester": "4-2",
-        "courseCode": "AI9103"
-      }
+        "courseCode": "BS9103"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "BS4217",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1841.7918855920889,
+        "y": 101.9666525903788
+      },
+      "data": {
+        "label": "생리학 II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "BS4217"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "BS42415",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1844.146362465356,
+        "y": 254.4512061369956
+      },
+      "data": {
+        "label": "대사학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "BS42415"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "BS4240/LS5240",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1843.7073243213072,
+        "y": 399.73628358563633
+      },
+      "data": {
+        "label": "생물학도를 위한 바이오 인포매틱스 강좌",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "BS4240/LS5240"
+      },
+      "width": 285,
+      "height": 113
     }
   ],
   "edges": []

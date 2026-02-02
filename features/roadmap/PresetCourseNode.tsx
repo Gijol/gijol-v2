@@ -12,8 +12,10 @@ const categoryColors: Record<string, string> = {
   기초선택: 'bg-cyan-100 border-cyan-300 text-cyan-800',
   전공필수: 'bg-purple-100 border-purple-300 text-purple-800',
   전공선택: 'bg-green-100 border-green-300 text-green-800',
-  교양필수: 'bg-orange-100 border-orange-300 text-orange-800',
-  교양선택: 'bg-yellow-100 border-yellow-300 text-yellow-800',
+  MOOC: 'bg-indigo-100 border-indigo-300 text-indigo-800',
+  타전공1: 'bg-rose-100 border-rose-300 text-rose-800',
+  타전공2: 'bg-pink-100 border-pink-300 text-pink-800',
+  편성예정: 'bg-slate-100 border-slate-300 text-slate-600',
 };
 
 const statusColors: Record<string, string> = {
@@ -58,12 +60,12 @@ const PresetCourseNode = ({ id, data, selected }: NodeProps<CourseNodeData>) => 
           isViewMode && 'cursor-pointer hover:border-blue-400 hover:shadow-lg',
           // Highlight styles for view mode hover
           isViewMode && hasActiveHighlight && !isHighlighted && 'opacity-30',
-          isViewMode && isHoveredNode && 'border-blue-500 ring-2 ring-blue-400 shadow-lg scale-[1.02] z-10',
-          isViewMode && isHighlighted && !isHoveredNode && 'border-amber-400 ring-2 ring-amber-300 shadow-lg',
+          isViewMode && isHoveredNode && 'z-10 scale-[1.02] border-blue-500 shadow-lg ring-2 ring-blue-400',
+          isViewMode && isHighlighted && !isHoveredNode && 'border-amber-400 shadow-lg ring-2 ring-amber-300',
         )}
         style={{ width: '100%', height: '100%' }}
       >
-        <Handle type="target" position={Position.Left} className="!h-3 !w-3 !border-2 !border-white !bg-slate-400" />
+        <Handle type="target" position={Position.Left} className="h-3! w-3! border-2! border-white! bg-slate-400!" />
 
         <div className="flex h-full flex-col gap-1.5 p-3">
           {/* Category Badge & Course Code */}
@@ -84,7 +86,7 @@ const PresetCourseNode = ({ id, data, selected }: NodeProps<CourseNodeData>) => 
           <div className="text-xs text-gray-500">{data.semester} 학기</div>
         </div>
 
-        <Handle type="source" position={Position.Right} className="!h-3 !w-3 !border-2 !border-white !bg-slate-400" />
+        <Handle type="source" position={Position.Right} className="h-3! w-3! border-2! border-white! bg-slate-400!" />
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "major": "기초교육학부(인문사회)",
-    "track": "문학과 역사"
+    "major": "기초교육학부",
+    "track": "인문사회 부전공: 법·정치·사회"
   },
   "nodes": [
     {
@@ -209,441 +209,442 @@
       "height": 30
     },
     {
-      "id": "HS2501",
+      "id": "GS(PP)2704",
       "type": "customCourseNode",
       "position": {
-        "x": 22.6343143736608,
-        "y": 87.05505528331094
+        "x": 20,
+        "y": 100
       },
       "data": {
-        "label": "(MOOC 지정) 시의 이해",
+        "label": "기업과 사회 I",
         "credits": 3,
         "category": "전공필수",
         "semester": "1-1",
-        "courseCode": "HS2501"
+        "courseCode": "GS(PP)2704"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 22.6343143736608,
-        "y": 87.05505528331094
-      },
-      "dragging": false
+      "height": 113
     },
     {
-      "id": "HS2502",
+      "id": "GS(PP)2761",
       "type": "customCourseNode",
       "position": {
-        "x": -32.3656856263392,
-        "y": 219.3948751853029
+        "x": 20,
+        "y": 220
       },
       "data": {
-        "label": "영웅과 반영웅: 서구근대문학의 이해",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "1-1",
-        "courseCode": "GS(LH)2502"
-      },
-      "selected": false,
-      "width": 256,
-      "height": 113,
-      "positionAbsolute": {
-        "x": -32.3656856263392,
-        "y": 219.3948751853029
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2602",
-      "type": "customCourseNode",
-      "position": {
-        "x": 22.6343143736608,
-        "y": 350.47579619296107
-      },
-      "data": {
-        "label": "한국사의 이해",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "1-1",
-        "courseCode": "GS(LH)2602"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 22.6343143736608,
-        "y": 350.47579619296107
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2503",
-      "type": "customCourseNode",
-      "position": {
-        "x": 24.375415479326875,
-        "y": 490.5211216232841
-      },
-      "data": {
-        "label": "한국현대소설의 이해",
+        "label": "인권법",
         "credits": 3,
         "category": "전공선택",
         "semester": "1-1",
-        "courseCode": "GS(LH)2503"
+        "courseCode": "GS(PP)2761"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 24.375415479326875,
-        "y": 490.5211216232841
-      },
-      "dragging": false
+      "height": 113
     },
     {
-      "id": "HS2504",
+      "id": "GS(PP)2763",
       "type": "customCourseNode",
       "position": {
-        "x": 281.33981990199186,
-        "y": 92.27835860030962
+        "x": 280,
+        "y": 100
       },
       "data": {
-        "label": "한국현대소설의 사회적 성찰",
+        "label": "현대법학의 이해",
         "credits": 3,
         "category": "전공필수",
         "semester": "1-2",
-        "courseCode": "GS(LH)2504"
+        "courseCode": "GS(PP)2763"
       },
-      "selected": false,
-      "width": 205,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 281.33981990199186,
-        "y": 92.27835860030962
-      },
-      "dragging": false
+      "width": 200,
+      "height": 113
     },
     {
-      "id": "HS2505",
+      "id": "GS(PP)2788",
       "type": "customCourseNode",
       "position": {
-        "x": 281.33981990199186,
-        "y": 223.6181785023016
+        "x": 280,
+        "y": 220
       },
       "data": {
-        "label": "현대시 읽기",
+        "label": "민주주의론",
         "credits": 3,
         "category": "전공선택",
         "semester": "1-2",
-        "courseCode": "GS(LH)2511"
+        "courseCode": "GS(PP)2788"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 281.33981990199186,
-        "y": 223.6181785023016
-      },
-      "dragging": false
+      "height": 113
     },
     {
-      "id": "HS2506",
+      "id": "GS(PP)2734",
       "type": "customCourseNode",
       "position": {
-        "x": 281.33981990199186,
-        "y": 356.69909950995975
+        "x": 540,
+        "y": 100
       },
       "data": {
-        "label": "문학과 연인들",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "1-2",
-        "courseCode": "GS(LH)2526"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 281.33981990199186,
-        "y": 356.69909950995975
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2601",
-      "type": "customCourseNode",
-      "position": {
-        "x": 538.3042243246568,
-        "y": 95.76056081164205
-      },
-      "data": {
-        "label": "한국소설속의 여성들",
+        "label": "행복의 조건",
         "credits": 3,
         "category": "전공선택",
         "semester": "2-1",
-        "courseCode": "GS(LH)2512"
+        "courseCode": "GS(PP)2734"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 538.3042243246568,
-        "y": 95.76056081164205
-      },
-      "dragging": false
+      "height": 113
     },
     {
-      "id": "HS2507",
+      "id": "GS(PP)2765",
       "type": "customCourseNode",
       "position": {
-        "x": 538.3042243246568,
-        "y": 227.10038071363402
+        "x": 540,
+        "y": 220
       },
       "data": {
-        "label": "초기근대의 서양",
+        "label": "헌법과 국가",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "GS(PP)2765"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)2701",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 340
+      },
+      "data": {
+        "label": "한국사회의 이해",
         "credits": 3,
         "category": "전공선택",
         "semester": "2-1",
-        "courseCode": "GS(LH)2614"
+        "courseCode": "GS(PP)2701"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 538.3042243246568,
-        "y": 227.10038071363402
-      },
-      "dragging": false
+      "height": 113
     },
     {
-      "id": "HS2508",
+      "id": "GS(PP)2616",
       "type": "customCourseNode",
       "position": {
-        "x": 523.3711457545651,
-        "y": 357.8839050182011
+        "x": 540,
+        "y": 460
       },
       "data": {
-        "label": "개성과 정체성: 영미 성장기 문학",
+        "label": "장기 19세기 서양 역사",
         "credits": 3,
         "category": "전공선택",
         "semester": "2-1",
-        "courseCode": "GS(LH)2522"
+        "courseCode": "GS(PP)2616"
       },
-      "selected": false,
-      "width": 233,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 523.3711457545651,
-        "y": 357.8839050182011
-      },
-      "dragging": false
+      "width": 200,
+      "height": 113
     },
     {
-      "id": "HS2603",
+      "id": "GS(PP)2724",
       "type": "customCourseNode",
       "position": {
-        "x": 800.4919320643203,
-        "y": 95.76056081164205
+        "x": 800,
+        "y": 100
       },
       "data": {
-        "label": "한국현대시인론",
+        "label": "거시경제학원론",
         "credits": 3,
         "category": "전공선택",
         "semester": "2-2",
-        "courseCode": "GS(LH)2606"
+        "courseCode": "GS(PP)2724"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 800.4919320643203,
-        "y": 95.76056081164205
-      },
-      "dragging": false
+      "height": 113
     },
     {
-      "id": "HS2509",
+      "id": "GS(PP)2787",
       "type": "customCourseNode",
       "position": {
-        "x": 769.4770765725912,
-        "y": 228.24907906517956
+        "x": 800,
+        "y": 220
       },
       "data": {
-        "label": "근대의 모험: 서구근대문학의 이해 II",
+        "label": "한국정치론",
         "credits": 3,
         "category": "전공선택",
         "semester": "2-2",
-        "courseCode": "GS(LH)2525"
+        "courseCode": "GS(PP)2787"
       },
-      "selected": false,
-      "width": 256,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 769.4770765725912,
-        "y": 228.24907906517956
-      },
-      "dragging": false
+      "width": 200,
+      "height": 113
     },
     {
-      "id": "HS2510",
+      "id": "GS(PP)2812",
       "type": "customCourseNode",
       "position": {
-        "x": 800.4919320643203,
-        "y": 360.1813017212922
+        "x": 800,
+        "y": 340
       },
       "data": {
-        "label": "현대서양의 형성과 전개",
+        "label": "생명윤리와 법",
         "credits": 3,
         "category": "전공선택",
         "semester": "2-2",
-        "courseCode": "GS(LH)2613"
+        "courseCode": "GS(PP)2812"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 800.4919320643203,
-        "y": 360.1813017212922
-      },
-      "dragging": false
+      "height": 113
     },
     {
-      "id": "HS3501",
+      "id": "GS(PP)2702",
       "type": "customCourseNode",
       "position": {
-        "x": 1059.197437592651,
-        "y": 99.24276302297449
+        "x": 800,
+        "y": 460
       },
       "data": {
-        "label": "이상문학과 과학",
+        "label": "미국사회의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "2-2",
+        "courseCode": "GS(PP)2702"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3725",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060,
+        "y": 100
+      },
+      "data": {
+        "label": "사회복지와 재정",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-1",
-        "courseCode": "GS(LH)3501"
+        "courseCode": "GS(PP)3725"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 1059.197437592651,
-        "y": 99.24276302297449
-      },
-      "dragging": false
+      "height": 113
     },
     {
-      "id": "HS3601",
+      "id": "GS(PP)3785",
       "type": "customCourseNode",
       "position": {
-        "x": 1059.197437592651,
-        "y": 230.58258292496646
+        "x": 1060,
+        "y": 220
       },
       "data": {
-        "label": "한국 근현대 작가론",
+        "label": "국가와 시민사회론",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-1",
-        "courseCode": "GS(LH)3601"
+        "courseCode": "GS(PP)3785"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 1059.197437592651,
-        "y": 230.58258292496646
-      },
-      "dragging": false
+      "height": 113
     },
     {
-      "id": "HS3503",
+      "id": "GS(PP)3721",
       "type": "customCourseNode",
       "position": {
-        "x": 1059.197437592651,
-        "y": 363.6635039326246
+        "x": 1060,
+        "y": 340
       },
       "data": {
-        "label": "과학자 문학",
+        "label": "교육의 경제학",
         "credits": 3,
         "category": "전공선택",
         "semester": "3-1",
-        "courseCode": "GS(LH)3503"
+        "courseCode": "GS(PP)3721"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 1059.197437592651,
-        "y": 363.6635039326246
-      },
-      "dragging": false
+      "height": 113
     },
     {
-      "id": "HS3602",
+      "id": "GS(PP)3831",
       "type": "customCourseNode",
       "position": {
-        "x": 1060.9385386983172,
-        "y": 503.70882936294765
+        "x": 1059.9999999999998,
+        "y": 465.7434917577276
       },
       "data": {
-        "label": "전쟁과 인간",
+        "label": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "GS(PP)3831"
+      },
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1059.9999999999998,
+        "y": 465.7434917577276
+      },
+      "dragging": false,
+      "width": 248,
+      "height": 113,
+      "style": {
+        "width": 248,
+        "height": 113
+      },
+      "resizing": false
+    },
+    {
+      "id": "GS(PP)2703",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 100
+      },
+      "data": {
+        "label": "세계화와 발전",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(PP)2703"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3632",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 220
+      },
+      "data": {
+        "label": "합리적 판단과 선택",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(PP)3632"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3765",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 340
+      },
+      "data": {
+        "label": "재정학",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(PP)3765"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3838",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 460
+      },
+      "data": {
+        "label": "과학기술정책의 이해",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "GS(PP)3838"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "TBD_STLP",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 100
+      },
+      "data": {
+        "label": "과학기술법정책",
         "credits": 3,
         "category": "편성예정",
-        "semester": "3-1",
+        "semester": "4-1",
         "courseCode": "편성예정"
       },
-      "selected": false,
       "width": 200,
       "height": 113,
-      "positionAbsolute": {
-        "x": 1060.9385386983172,
-        "y": 503.70882936294765
-      },
+      "selected": true,
       "dragging": false
     },
     {
-      "id": "HS3502",
+      "id": "GS(PP)4762",
       "type": "customCourseNode",
       "position": {
-        "x": 1317.902943120982,
-        "y": 102.72496523430698
+        "x": 1580,
+        "y": 220
       },
       "data": {
-        "label": "시창작 특강",
+        "label": "인공지능 로봇의 법",
         "credits": 3,
         "category": "전공선택",
-        "semester": "3-2",
-        "courseCode": "GS(LH)3502"
+        "semester": "4-1",
+        "courseCode": "GS(PP)4762"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 1317.902943120982,
-        "y": 102.72496523430698
-      },
-      "dragging": false
+      "height": 113
     },
     {
-      "id": "HS3504",
+      "id": "GS(PP)3786",
       "type": "customCourseNode",
       "position": {
-        "x": 1317.902943120982,
-        "y": 234.06478513629895
+        "x": 1580,
+        "y": 340
       },
       "data": {
-        "label": "20세기 한국여성작가론",
+        "label": "정치경제론",
         "credits": 3,
         "category": "전공선택",
-        "semester": "3-2",
-        "courseCode": "GS(LH)3505"
+        "semester": "4-1",
+        "courseCode": "GS(PP)3786"
       },
-      "selected": false,
       "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 1317.902943120982,
-        "y": 234.06478513629895
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3735",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1580,
+        "y": 460
       },
-      "dragging": false
+      "data": {
+        "label": "한국의 경제발전",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-1",
+        "courseCode": "GS(PP)3735"
+      },
+      "width": 200,
+      "height": 113
+    },
+    {
+      "id": "GS(PP)3767",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840,
+        "y": 100
+      },
+      "data": {
+        "label": "(MOOC 지정) 인공지능 로봇의 윤리",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "4-2",
+        "courseCode": "GS(PP)3767"
+      },
+      "width": 256,
+      "height": 113
     }
   ],
   "edges": []

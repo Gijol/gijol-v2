@@ -125,14 +125,40 @@ function optimizeNodeOrder(
   return semesterGroups;
 }
 
+// Check if node has valid custom position (not default/auto-generated)
+function hasCustomPosition(node: RoadmapData['nodes'][0]): boolean {
+  // If position exists and is not at origin (0,0), consider it custom
+  return !!(node.position && (node.position.x !== 0 || node.position.y !== 0));
+}
+
 // Auto-layout nodes by semester with edge crossing minimization
+// Preserves existing positions if available
 function layoutNodesBySemester(
   nodes: RoadmapData['nodes'],
   edges: RoadmapData['edges'] = [],
+  preservePositions = true,
 ): Node<CourseNodeData>[] {
+  // Check if any course nodes have custom positions
+  const courseNodes = nodes.filter((n) => n.type !== 'semesterHeader');
+  const hasAnyCustomPosition = preservePositions && courseNodes.some(hasCustomPosition);
+
+  // If positions are preserved and exist, use them directly
+  if (hasAnyCustomPosition) {
+    return courseNodes.map((node) => ({
+      id: node.id,
+      type: node.type || 'customCourseNode',
+      position: node.position || { x: 0, y: 0 },
+      data: {
+        ...node.data,
+        courseCode: node.data.courseCode || node.id,
+      },
+    }));
+  }
+
+  // Otherwise, apply auto-layout algorithm
   const semesterGroups: Record<string, RoadmapData['nodes']> = {};
 
-  nodes.forEach((node) => {
+  courseNodes.forEach((node) => {
     const semester = node.data.semester || '';
     if (!semesterGroups[semester]) {
       semesterGroups[semester] = [];
@@ -141,7 +167,7 @@ function layoutNodesBySemester(
   });
 
   // Optimize node order to minimize edge crossings
-  const optimizedGroups = optimizeNodeOrder(nodes, edges, semesterGroups);
+  const optimizedGroups = optimizeNodeOrder(courseNodes, edges, semesterGroups);
 
   const layoutedNodes: Node<CourseNodeData>[] = [];
 

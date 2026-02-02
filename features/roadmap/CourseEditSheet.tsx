@@ -20,12 +20,10 @@ const CATEGORIES = [
   '기초선택',
   '전공필수',
   '전공선택',
-  '전공핵심',
-  '전공심화',
-  '교양필수',
-  '교양선택',
   'MOOC',
-  '일반선택',
+  '타전공1',
+  '타전공2',
+  '편성예정',
 ];
 
 export function CourseEditSheet({ course, open, onOpenChange, onSave }: CourseEditSheetProps) {

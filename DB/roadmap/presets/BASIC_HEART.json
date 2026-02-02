@@ -1,7 +1,7 @@
 {
   "meta": {
-    "major": "기초교육학부(인문사회)",
-    "track": "문학과 역사"
+    "major": "기초교육학부",
+    "track": "마음과 행동"
   },
   "nodes": [
     {
@@ -209,439 +209,462 @@
       "height": 30
     },
     {
-      "id": "HS2501",
+      "id": "GS(MB)2742",
       "type": "customCourseNode",
       "position": {
-        "x": 22.6343143736608,
-        "y": 87.05505528331094
+        "x": 25.999999609387487,
+        "y": 89.99999864787958
       },
       "data": {
-        "label": "(MOOC 지정) 시의 이해",
+        "label": "인간의 마음과 행동1",
         "credits": 3,
         "category": "전공필수",
         "semester": "1-1",
-        "courseCode": "HS2501"
+        "courseCode": "GS(MB)2742"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 22.6343143736608,
-        "y": 87.05505528331094
+        "x": 25.999999609387487,
+        "y": 89.99999864787958
       },
       "dragging": false
     },
     {
-      "id": "HS2502",
+      "id": "GS(MB)2661",
       "type": "customCourseNode",
       "position": {
-        "x": -32.3656856263392,
-        "y": 219.3948751853029
+        "x": 25.999999609387487,
+        "y": 221.99999816712568
       },
       "data": {
-        "label": "영웅과 반영웅: 서구근대문학의 이해",
+        "label": "논리학입문",
         "credits": 3,
         "category": "전공필수",
         "semester": "1-1",
-        "courseCode": "GS(LH)2502"
-      },
-      "selected": false,
-      "width": 256,
-      "height": 113,
-      "positionAbsolute": {
-        "x": -32.3656856263392,
-        "y": 219.3948751853029
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2602",
-      "type": "customCourseNode",
-      "position": {
-        "x": 22.6343143736608,
-        "y": 350.47579619296107
-      },
-      "data": {
-        "label": "한국사의 이해",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "1-1",
-        "courseCode": "GS(LH)2602"
+        "courseCode": "GS(MB)2661"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 22.6343143736608,
-        "y": 350.47579619296107
+        "x": 25.999999609387487,
+        "y": 221.99999816712568
       },
       "dragging": false
     },
     {
-      "id": "HS2503",
+      "id": "GS(MB)2743",
       "type": "customCourseNode",
       "position": {
-        "x": 24.375415479326875,
-        "y": 490.5211216232841
+        "x": 277.9999995793403,
+        "y": 91.99999861783249
       },
       "data": {
-        "label": "한국현대소설의 이해",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "1-1",
-        "courseCode": "GS(LH)2503"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 24.375415479326875,
-        "y": 490.5211216232841
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2504",
-      "type": "customCourseNode",
-      "position": {
-        "x": 281.33981990199186,
-        "y": 92.27835860030962
-      },
-      "data": {
-        "label": "한국현대소설의 사회적 성찰",
+        "label": "인간의 마음과 행동2",
         "credits": 3,
         "category": "전공필수",
         "semester": "1-2",
-        "courseCode": "GS(LH)2504"
+        "courseCode": "GS(MB)2743"
       },
       "selected": false,
-      "width": 205,
+      "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 281.33981990199186,
-        "y": 92.27835860030962
+        "x": 277.9999995793403,
+        "y": 91.99999861783249
       },
       "dragging": false
     },
     {
-      "id": "HS2505",
+      "id": "GS(MB)2732",
       "type": "customCourseNode",
       "position": {
-        "x": 281.33981990199186,
-        "y": 223.6181785023016
+        "x": 277.9999995793403,
+        "y": 223.9999981370786
       },
       "data": {
-        "label": "현대시 읽기",
+        "label": "행동경제학1",
         "credits": 3,
-        "category": "전공선택",
+        "category": "전공필수",
         "semester": "1-2",
-        "courseCode": "GS(LH)2511"
+        "courseCode": "GS(MB)2732"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 281.33981990199186,
-        "y": 223.6181785023016
+        "x": 277.9999995793403,
+        "y": 223.9999981370786
       },
       "dragging": false
     },
     {
-      "id": "HS2506",
+      "id": "GS(MB)2627",
       "type": "customCourseNode",
       "position": {
-        "x": 281.33981990199186,
-        "y": 356.69909950995975
+        "x": 541.9999993690103,
+        "y": 95.99999855773825
       },
       "data": {
-        "label": "문학과 연인들",
+        "label": "신화와 원형상징",
         "credits": 3,
-        "category": "전공선택",
-        "semester": "1-2",
-        "courseCode": "GS(LH)2526"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 281.33981990199186,
-        "y": 356.69909950995975
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2601",
-      "type": "customCourseNode",
-      "position": {
-        "x": 538.3042243246568,
-        "y": 95.76056081164205
-      },
-      "data": {
-        "label": "한국소설속의 여성들",
-        "credits": 3,
-        "category": "전공선택",
+        "category": "전공필수",
         "semester": "2-1",
-        "courseCode": "GS(LH)2512"
+        "courseCode": "GS(MB)2627"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 538.3042243246568,
-        "y": 95.76056081164205
+        "x": 541.9999993690103,
+        "y": 95.99999855773825
       },
       "dragging": false
     },
     {
-      "id": "HS2507",
+      "id": "GS(MB)2748",
       "type": "customCourseNode",
       "position": {
-        "x": 538.3042243246568,
-        "y": 227.10038071363402
+        "x": 541.9999993690103,
+        "y": 227.99999807698435
       },
       "data": {
-        "label": "초기근대의 서양",
+        "label": "언어와 마음",
         "credits": 3,
-        "category": "전공선택",
+        "category": "전공필수",
         "semester": "2-1",
-        "courseCode": "GS(LH)2614"
+        "courseCode": "GS(MB)2748"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 538.3042243246568,
-        "y": 227.10038071363402
+        "x": 541.9999993690103,
+        "y": 227.99999807698435
       },
       "dragging": false
     },
     {
-      "id": "HS2508",
+      "id": "GS(MB)입문",
       "type": "customCourseNode",
       "position": {
-        "x": 523.3711457545651,
-        "y": 357.8839050182011
+        "x": 541.9999993690103,
+        "y": 363.9999975361363
       },
       "data": {
-        "label": "개성과 정체성: 영미 성장기 문학",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "2-1",
-        "courseCode": "GS(LH)2522"
-      },
-      "selected": false,
-      "width": 233,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 523.3711457545651,
-        "y": 357.8839050182011
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2603",
-      "type": "customCourseNode",
-      "position": {
-        "x": 800.4919320643203,
-        "y": 95.76056081164205
-      },
-      "data": {
-        "label": "한국현대시인론",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "2-2",
-        "courseCode": "GS(LH)2606"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 800.4919320643203,
-        "y": 95.76056081164205
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2509",
-      "type": "customCourseNode",
-      "position": {
-        "x": 769.4770765725912,
-        "y": 228.24907906517956
-      },
-      "data": {
-        "label": "근대의 모험: 서구근대문학의 이해 II",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "2-2",
-        "courseCode": "GS(LH)2525"
-      },
-      "selected": false,
-      "width": 256,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 769.4770765725912,
-        "y": 228.24907906517956
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS2510",
-      "type": "customCourseNode",
-      "position": {
-        "x": 800.4919320643203,
-        "y": 360.1813017212922
-      },
-      "data": {
-        "label": "현대서양의 형성과 전개",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "2-2",
-        "courseCode": "GS(LH)2613"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 800.4919320643203,
-        "y": 360.1813017212922
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS3501",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1059.197437592651,
-        "y": 99.24276302297449
-      },
-      "data": {
-        "label": "이상문학과 과학",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "3-1",
-        "courseCode": "GS(LH)3501"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 1059.197437592651,
-        "y": 99.24276302297449
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS3601",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1059.197437592651,
-        "y": 230.58258292496646
-      },
-      "data": {
-        "label": "한국 근현대 작가론",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "3-1",
-        "courseCode": "GS(LH)3601"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 1059.197437592651,
-        "y": 230.58258292496646
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS3503",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1059.197437592651,
-        "y": 363.6635039326246
-      },
-      "data": {
-        "label": "과학자 문학",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "3-1",
-        "courseCode": "GS(LH)3503"
-      },
-      "selected": false,
-      "width": 200,
-      "height": 113,
-      "positionAbsolute": {
-        "x": 1059.197437592651,
-        "y": 363.6635039326246
-      },
-      "dragging": false
-    },
-    {
-      "id": "HS3602",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1060.9385386983172,
-        "y": 503.70882936294765
-      },
-      "data": {
-        "label": "전쟁과 인간",
+        "label": "인간의 본성: 인간학입문",
         "credits": 3,
         "category": "편성예정",
-        "semester": "3-1",
+        "semester": "2-1",
         "courseCode": "편성예정"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 1060.9385386983172,
-        "y": 503.70882936294765
+        "x": 541.9999993690103,
+        "y": 363.9999975361363
       },
       "dragging": false
     },
     {
-      "id": "HS3502",
+      "id": "GS(MB)2733",
       "type": "customCourseNode",
       "position": {
-        "x": 1317.902943120982,
-        "y": 102.72496523430698
+        "x": 803.9999991887278,
+        "y": 99.99999849764401
       },
       "data": {
-        "label": "시창작 특강",
+        "label": "행동경제학2",
         "credits": 3,
-        "category": "전공선택",
-        "semester": "3-2",
-        "courseCode": "GS(LH)3502"
+        "category": "전공필수",
+        "semester": "2-2",
+        "courseCode": "GS(MB)2733"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 1317.902943120982,
-        "y": 102.72496523430698
+        "x": 803.9999991887278,
+        "y": 99.99999849764401
       },
       "dragging": false
     },
     {
-      "id": "HS3504",
+      "id": "GS(MB)방법론",
       "type": "customCourseNode",
       "position": {
-        "x": 1317.902943120982,
-        "y": 234.06478513629895
+        "x": 803.9999991887278,
+        "y": 231.99999801689012
       },
       "data": {
-        "label": "20세기 한국여성작가론",
+        "label": "행동과학 연구방법론",
         "credits": 3,
-        "category": "전공선택",
-        "semester": "3-2",
-        "courseCode": "GS(LH)3505"
+        "category": "편성예정",
+        "semester": "2-2",
+        "courseCode": "편성예정"
       },
       "selected": false,
       "width": 200,
       "height": 113,
       "positionAbsolute": {
-        "x": 1317.902943120982,
-        "y": 234.06478513629895
+        "x": 803.9999991887278,
+        "y": 231.99999801689012
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3631",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1055.9999991586808,
+        "y": 99.99999849764401
+      },
+      "data": {
+        "label": "마음과 컴퓨터",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "GS(MB)3631"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1055.9999991586808,
+        "y": 99.99999849764401
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3633",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1055.9999991586808,
+        "y": 231.99999801689012
+      },
+      "data": {
+        "label": "과학철학특강",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "GS(MB)3633"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1055.9999991586808,
+        "y": 231.99999801689012
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3663",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1055.9999991586808,
+        "y": 367.99999747604204
+      },
+      "data": {
+        "label": "종교와 과학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "GS(MB)3663"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1055.9999991586808,
+        "y": 367.99999747604204
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3764",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1059.9999990985864,
+        "y": 509.9999968450526
+      },
+      "data": {
+        "label": "뇌와 인지",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "GS(MB)3764"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1059.9999990985864,
+        "y": 509.9999968450526
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3832",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1319.999998948351,
+        "y": 101.99999846759687
+      },
+      "data": {
+        "label": "합리적 판단과 선택",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "GS(MB)3832"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1319.999998948351,
+        "y": 101.99999846759687
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3861",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1319.999998948351,
+        "y": 233.99999798684297
+      },
+      "data": {
+        "label": "신경과학과 법",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "GS(MB)3861"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1319.999998948351,
+        "y": 233.99999798684297
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)3766",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1319.999998948351,
+        "y": 369.9999974459949
+      },
+      "data": {
+        "label": "인지심리학 및 실험",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-2",
+        "courseCode": "GS(MB)3766"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1319.999998948351,
+        "y": 369.9999974459949
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MM)3767",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1579.9999987981157,
+        "y": 103.99999843754975
+      },
+      "data": {
+        "label": "(MOOC 지정) 인공지능 로봇의 윤리",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "4-1",
+        "courseCode": "GS(MM)3767"
+      },
+      "selected": false,
+      "width": 256,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1579.9999987981157,
+        "y": 103.99999843754975
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)공학",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1579.9999987981157,
+        "y": 235.99999795679585
+      },
+      "data": {
+        "label": "인지공학",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "4-1",
+        "courseCode": "편성예정"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1579.9999987981157,
+        "y": 235.99999795679585
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)4741",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1843.999998587786,
+        "y": 103.99999843754975
+      },
+      "data": {
+        "label": "기술정보사회의 심리학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "4-2",
+        "courseCode": "GS(MB)4741"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1843.999998587786,
+        "y": 103.99999843754975
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS(MB)진화",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1843.999998587786,
+        "y": 235.99999795679585
+      },
+      "data": {
+        "label": "도덕의 진화",
+        "credits": 3,
+        "category": "편성예정",
+        "semester": "4-2",
+        "courseCode": "편성예정"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1843.999998587786,
+        "y": 235.99999795679585
       },
       "dragging": false
     }

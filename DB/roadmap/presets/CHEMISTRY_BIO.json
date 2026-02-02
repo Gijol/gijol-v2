@@ -1,434 +1,396 @@
 {
   "meta": {
     "major": "화학과",
-    "track": "생명화학"
+    "track": "생명화학 분야"
   },
   "nodes": [
+    {
+      "id": "year-header-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 0
+      },
+      "data": {
+        "label": "1학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "2학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-3",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 0
+      },
+      "data": {
+        "label": "3학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "year-header-4",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 0
+      },
+      "data": {
+        "label": "4학년",
+        "isYearHeader": true,
+        "width": 460
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 460,
+      "height": 36
+    },
+    {
+      "id": "semester-header-1-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 20,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-1-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 280,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 540,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-2-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 800,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1060,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-3-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1320,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-1",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1580,
+        "y": 40
+      },
+      "data": {
+        "label": "1학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "semester-header-4-2",
+      "type": "semesterHeader",
+      "position": {
+        "x": 1840,
+        "y": 40
+      },
+      "data": {
+        "label": "2학기",
+        "isYearHeader": false,
+        "width": 200
+      },
+      "draggable": false,
+      "selectable": false,
+      "width": 200,
+      "height": 30
+    },
     {
       "id": "GS1001",
       "type": "customCourseNode",
       "position": {
-        "x": 0,
-        "y": 0
+        "x": 20,
+        "y": 100
       },
       "data": {
         "label": "미적분학과 응용",
         "credits": 3,
-        "category": "교양",
+        "category": "기초필수",
         "semester": "1-1",
         "courseCode": "GS1001"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113
     },
     {
-      "id": "generalChemistry1GS1201",
+      "id": "GS2002",
       "type": "customCourseNode",
       "position": {
-        "x": 0,
+        "x": 280,
         "y": 100
-      },
-      "data": {
-        "label": "일반화학 및 연습",
-        "credits": 3,
-        "category": "교양",
-        "semester": "1-1"
-      }
-    },
-    {
-      "id": "generalPhysics1GS1101",
-      "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 200
-      },
-      "data": {
-        "label": "일반물리학 및 연습",
-        "credits": 3,
-        "category": "교양",
-        "semester": "1-1"
-      }
-    },
-    {
-      "id": "GS1301",
-      "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 300
-      },
-      "data": {
-        "label": "생물학",
-        "credits": 3,
-        "category": "교양",
-        "semester": "1-1",
-        "courseCode": "GS1301"
-      }
-    },
-    {
-      "id": "generalChemLab1GS1211",
-      "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 400
-      },
-      "data": {
-        "label": "일반화학실험",
-        "credits": 1,
-        "category": "교양",
-        "semester": "1-1"
-      }
-    },
-    {
-      "id": "generalPhysicsLab1GS1111",
-      "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 500
-      },
-      "data": {
-        "label": "일반물리학실험",
-        "credits": 1,
-        "category": "교양",
-        "semester": "1-1"
-      }
-    },
-    {
-      "id": "GS1311",
-      "type": "customCourseNode",
-      "position": {
-        "x": 0,
-        "y": 600
-      },
-      "data": {
-        "label": "일반생물학실험",
-        "credits": 1,
-        "category": "교양",
-        "semester": "1-1",
-        "courseCode": "GS1311"
-      }
-    },
-    {
-      "id": "differentialEquationsGS2002",
-      "type": "customCourseNode",
-      "position": {
-        "x": 250,
-        "y": 0
       },
       "data": {
         "label": "미분방정식과 응용",
         "credits": 3,
-        "category": "교양",
-        "semester": "1-2"
-      }
-    },
-    {
-      "id": "generalChemistry2GS1202",
-      "type": "customCourseNode",
-      "position": {
-        "x": 250,
-        "y": 100
+        "category": "기초필수",
+        "semester": "1-2",
+        "courseCode": "GS2002"
       },
-      "data": {
-        "label": "일반화학 및 연습Ⅱ",
-        "credits": 3,
-        "category": "교양",
-        "semester": "1-2"
-      }
-    },
-    {
-      "id": "generalChemLab2GS1212",
-      "type": "customCourseNode",
-      "position": {
-        "x": 250,
-        "y": 200
-      },
-      "data": {
-        "label": "일반화학실험Ⅱ",
-        "credits": 1,
-        "category": "교양",
-        "semester": "1-2"
-      }
-    },
-    {
-      "id": "organicChemistry1CH2103",
-      "type": "customCourseNode",
-      "position": {
-        "x": 500,
-        "y": 0
-      },
-      "data": {
-        "label": "유기화학Ⅰ",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "2-1"
-      }
-    },
-    {
-      "id": "CH2102",
-      "type": "customCourseNode",
-      "position": {
-        "x": 500,
-        "y": 100
-      },
-      "data": {
-        "label": "물리화학A",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "2-1",
-        "courseCode": "CH2102"
-      }
-    },
-    {
-      "id": "BS2102",
-      "type": "customCourseNode",
-      "position": {
-        "x": 500,
-        "y": 200
-      },
-      "data": {
-        "label": "분자생물학",
-        "credits": 3,
-        "category": "교양",
-        "semester": "2-1",
-        "courseCode": "BS2102"
-      }
-    },
-    {
-      "id": "EV2208",
-      "type": "customCourseNode",
-      "position": {
-        "x": 500,
-        "y": 300
-      },
-      "data": {
-        "label": "분석화학",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "2-1",
-        "courseCode": "EV2208"
-      }
+      "selected": false,
+      "width": 200,
+      "height": 113
     },
     {
       "id": "GS1401",
       "type": "customCourseNode",
       "position": {
-        "x": 750,
-        "y": 0
+        "x": 800,
+        "y": 100
       },
       "data": {
         "label": "컴퓨터프로그래밍",
         "credits": 3,
-        "category": "교양",
+        "category": "기초필수",
         "semester": "2-2",
         "courseCode": "GS1401"
-      }
-    },
-    {
-      "id": "organicChemistry2CH2201",
-      "type": "customCourseNode",
-      "position": {
-        "x": 750,
-        "y": 100
       },
-      "data": {
-        "label": "유기화학Ⅱ",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "2-2"
-      }
-    },
-    {
-      "id": "CH2104",
-      "type": "customCourseNode",
-      "position": {
-        "x": 750,
-        "y": 200
-      },
-      "data": {
-        "label": "물리화학B",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "2-2",
-        "courseCode": "CH2104"
-      }
-    },
-    {
-      "id": "chemicalBioLabCH2105",
-      "type": "customCourseNode",
-      "position": {
-        "x": 750,
-        "y": 300
-      },
-      "data": {
-        "label": "화학생명실험",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "2-2"
-      }
+      "selected": false,
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS3105",
       "type": "customCourseNode",
       "position": {
-        "x": 1000,
-        "y": 0
+        "x": 1060,
+        "y": 100
       },
       "data": {
         "label": "세포생물학",
         "credits": 3,
-        "category": "교양",
+        "category": "타전공2",
         "semester": "3-1",
         "courseCode": "BS3105"
-      }
-    },
-    {
-      "id": "biochemistry1CH3106",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1000,
-        "y": 100
       },
-      "data": {
-        "label": "생화학Ⅰ",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "3-1"
-      }
-    },
-    {
-      "id": "inorganicChemistry1CH3108",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1000,
-        "y": 200
-      },
-      "data": {
-        "label": "무기화학Ⅰ",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "3-1"
-      }
-    },
-    {
-      "id": "CH3207",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1000,
-        "y": 300
-      },
-      "data": {
-        "label": "고급화학실험",
-        "credits": 3,
-        "category": "전공선택",
-        "semester": "3-1",
-        "courseCode": "CH3207"
-      }
-    },
-    {
-      "id": "biochemProteinSeparationLabBS3112",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1000,
-        "y": 400
-      },
-      "data": {
-        "label": "생화학·단백질분리실험",
-        "credits": 3,
-        "category": "교양",
-        "semester": "3-1"
-      }
+      "selected": false,
+      "width": 200,
+      "height": 113
     },
     {
       "id": "BS3201",
       "type": "customCourseNode",
       "position": {
-        "x": 1250,
-        "y": 0
+        "x": 1320,
+        "y": 100
       },
       "data": {
         "label": "미생물학",
         "credits": 3,
-        "category": "교양",
+        "category": "타전공2",
         "semester": "3-2",
         "courseCode": "BS3201"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113
     },
     {
-      "id": "BS3204",
+      "id": "BS4216",
       "type": "customCourseNode",
       "position": {
-        "x": 1250,
+        "x": 1586,
+        "y": 102
+      },
+      "data": {
+        "label": "단백질과 생명과학",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "4-1",
+        "courseCode": "BS4216"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1586,
+        "y": 102
+      },
+      "dragging": false
+    },
+    {
+      "id": "BS4205",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1840,
         "y": 100
       },
       "data": {
-        "label": "생물물리화학입문",
+        "label": "면역학",
         "credits": 3,
-        "category": "교양",
-        "semester": "3-2",
-        "courseCode": "BS3204"
-      }
+        "category": "타전공2",
+        "semester": "4-2",
+        "courseCode": "BS4205"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113
     },
     {
-      "id": "biochemistry2CH4219",
+      "id": "CH2103",
       "type": "customCourseNode",
       "position": {
-        "x": 1250,
-        "y": 200
+        "x": 540,
+        "y": 271.9999999999999
       },
       "data": {
-        "label": "생화학Ⅱ",
-        "credits": 3,
-        "category": "전공필수",
-        "semester": "3-2"
-      }
-    },
-    {
-      "id": "inorganicChemistry2CH4208",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1250,
-        "y": 300
-      },
-      "data": {
-        "label": "무기화학Ⅱ",
+        "label": "유기화학I",
         "credits": 3,
         "category": "전공필수",
-        "semester": "3-2"
-      }
+        "semester": "2-1",
+        "courseCode": "CH2103"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 540,
+        "y": 271.9999999999999
+      },
+      "dragging": false
     },
     {
-      "id": "CH4213",
+      "id": "CH2201",
       "type": "customCourseNode",
       "position": {
-        "x": 1250,
-        "y": 400
+        "x": 800,
+        "y": 271.9999999999999
       },
       "data": {
-        "label": "기기분석",
+        "label": "유기화학II",
         "credits": 3,
         "category": "전공선택",
-        "semester": "3-2",
-        "courseCode": "CH4213"
-      }
-    },
-    {
-      "id": "proteinLifeScienceBS4216",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1500,
-        "y": 0
+        "semester": "2-2",
+        "courseCode": "CH2201"
       },
-      "data": {
-        "label": "단백질 생명과학",
-        "credits": 3,
-        "category": "교양",
-        "semester": "4-1"
-      }
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 800,
+        "y": 271.9999999999999
+      },
+      "dragging": false
     },
     {
       "id": "CH4212",
       "type": "customCourseNode",
       "position": {
-        "x": 1500,
-        "y": 100
+        "x": 1580,
+        "y": 404.00000000000006
       },
       "data": {
         "label": "양자화학",
@@ -436,59 +398,45 @@
         "category": "전공선택",
         "semester": "4-1",
         "courseCode": "CH4212"
-      }
-    },
-    {
-      "id": "BS4214",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1500,
-        "y": 200
       },
-      "data": {
-        "label": "기초구조생물학",
-        "credits": 3,
-        "category": "교양",
-        "semester": "4-1",
-        "courseCode": "BS4214"
-      }
-    },
-    {
-      "id": "BS3208",
-      "type": "customCourseNode",
-      "position": {
-        "x": 1750,
-        "y": 0
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1580,
+        "y": 404.00000000000006
       },
-      "data": {
-        "label": "면역학",
-        "credits": 3,
-        "category": "교양",
-        "semester": "4-2",
-        "courseCode": "BS3208"
-      }
+      "dragging": false
     },
     {
       "id": "CH4205",
       "type": "customCourseNode",
       "position": {
-        "x": 1750,
-        "y": 100
+        "x": 1838,
+        "y": 269.99999999999994
       },
       "data": {
-        "label": "생유기화학과 바이오의약품",
+        "label": "생유기화학과 바이오 의약품",
         "credits": 3,
         "category": "전공선택",
         "semester": "4-2",
         "courseCode": "CH4205"
-      }
+      },
+      "selected": false,
+      "width": 205,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1838,
+        "y": 269.99999999999994
+      },
+      "dragging": false
     },
     {
       "id": "CH4221",
       "type": "customCourseNode",
       "position": {
-        "x": 1750,
-        "y": 200
+        "x": 1840,
+        "y": 399.9999999999999
       },
       "data": {
         "label": "계산화학",
@@ -496,14 +444,22 @@
         "category": "전공선택",
         "semester": "4-2",
         "courseCode": "CH4221"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1840,
+        "y": 399.9999999999999
+      },
+      "dragging": false
     },
     {
       "id": "CH4224",
       "type": "customCourseNode",
       "position": {
-        "x": 1750,
-        "y": 300
+        "x": 1838,
+        "y": 527.9999999999999
       },
       "data": {
         "label": "무기나노화학",
@@ -511,14 +467,206 @@
         "category": "전공선택",
         "semester": "4-2",
         "courseCode": "CH4224"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1838,
+        "y": 527.9999999999999
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH2102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 403.9999999999999
+      },
+      "data": {
+        "label": "물리화학A",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "CH2102"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 540,
+        "y": 403.9999999999999
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH2104",
+      "type": "customCourseNode",
+      "position": {
+        "x": 800,
+        "y": 403.9999999999999
+      },
+      "data": {
+        "label": "물리화학B",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2",
+        "courseCode": "CH2104"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 800,
+        "y": 403.9999999999999
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH3108",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1060,
+        "y": 403.9999999999999
+      },
+      "data": {
+        "label": "무기화학I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "CH3108"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1060,
+        "y": 403.9999999999999
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH4208",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1320,
+        "y": 403.9999999999999
+      },
+      "data": {
+        "label": "무기화학II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "CH4208"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1320,
+        "y": 403.9999999999999
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1201",
+      "type": "customCourseNode",
+      "position": {
+        "x": 18,
+        "y": 662
+      },
+      "data": {
+        "label": "일반화학 및 연습I",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1201"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 18,
+        "y": 662
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1202",
+      "type": "customCourseNode",
+      "position": {
+        "x": 278,
+        "y": 662
+      },
+      "data": {
+        "label": "일반화학 및 연습II",
+        "credits": 3,
+        "category": "기초선택",
+        "semester": "1-2",
+        "courseCode": "GS1202"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 278,
+        "y": 662
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH3106",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1058,
+        "y": 662
+      },
+      "data": {
+        "label": "생화학I",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "3-1",
+        "courseCode": "CH3106"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1058,
+        "y": 662
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH4219",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1318,
+        "y": 662
+      },
+      "data": {
+        "label": "생화학II",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "CH4219"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1318,
+        "y": 662
+      },
+      "dragging": false
     },
     {
       "id": "CH4223",
       "type": "customCourseNode",
       "position": {
-        "x": 1750,
-        "y": 400
+        "x": 1838,
+        "y": 656
       },
       "data": {
         "label": "생분석화학",
@@ -526,41 +674,468 @@
         "category": "전공선택",
         "semester": "4-2",
         "courseCode": "CH4223"
-      }
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1838,
+        "y": 656
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1301",
+      "type": "customCourseNode",
+      "position": {
+        "x": 20,
+        "y": 798
+      },
+      "data": {
+        "label": "생물학",
+        "credits": 3,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1301"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 20,
+        "y": 798
+      },
+      "dragging": false
+    },
+    {
+      "id": "BS2102",
+      "type": "customCourseNode",
+      "position": {
+        "x": 540,
+        "y": 798
+      },
+      "data": {
+        "label": "분자생물학",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "2-1",
+        "courseCode": "BS2102"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 540,
+        "y": 798
+      },
+      "dragging": false
+    },
+    {
+      "id": "BS3204",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1318.2588988681764,
+        "y": 793.2944943408812
+      },
+      "data": {
+        "label": "생물물리화학입문",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "3-2",
+        "courseCode": "BS3204"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1318.2588988681764,
+        "y": 793.2944943408812
+      },
+      "dragging": false
+    },
+    {
+      "id": "BS4214",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1838.258898868176,
+        "y": 793.5987192410039
+      },
+      "data": {
+        "label": "기초구조생물학",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "4-2",
+        "courseCode": "BS4214"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1838.258898868176,
+        "y": 793.5987192410039
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1211",
+      "type": "customCourseNode",
+      "position": {
+        "x": 24,
+        "y": 986
+      },
+      "data": {
+        "label": "일반화학실험I",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1211"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 24,
+        "y": 986
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1212",
+      "type": "customCourseNode",
+      "position": {
+        "x": 284,
+        "y": 986
+      },
+      "data": {
+        "label": "일반화학실험II",
+        "credits": 1,
+        "category": "기초선택",
+        "semester": "1-2",
+        "courseCode": "GS1212"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 284,
+        "y": 986
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH2101",
+      "type": "customCourseNode",
+      "position": {
+        "x": 544,
+        "y": 986
+      },
+      "data": {
+        "label": "분석화학",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-1",
+        "courseCode": "CH2101"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 544,
+        "y": 986
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH2105",
+      "type": "customCourseNode",
+      "position": {
+        "x": 804,
+        "y": 986
+      },
+      "data": {
+        "label": "화학합성실험",
+        "credits": 3,
+        "category": "전공필수",
+        "semester": "2-2",
+        "courseCode": "CH2105"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 804,
+        "y": 986
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH3207",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1064,
+        "y": 956
+      },
+      "data": {
+        "label": "고급화학실험",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-1",
+        "courseCode": "CH3207"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1064,
+        "y": 956
+      },
+      "dragging": false
+    },
+    {
+      "id": "CH4213",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1322,
+        "y": 954
+      },
+      "data": {
+        "label": "기기분석",
+        "credits": 3,
+        "category": "전공선택",
+        "semester": "3-2",
+        "courseCode": "CH4213"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1322,
+        "y": 954
+      },
+      "dragging": false
+    },
+    {
+      "id": "GS1311",
+      "type": "customCourseNode",
+      "position": {
+        "x": 26,
+        "y": 1116
+      },
+      "data": {
+        "label": "일반생물학실험",
+        "credits": 1,
+        "category": "기초필수",
+        "semester": "1-1",
+        "courseCode": "GS1311"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 26,
+        "y": 1116
+      },
+      "dragging": false
+    },
+    {
+      "id": "BS3112",
+      "type": "customCourseNode",
+      "position": {
+        "x": 1066,
+        "y": 1086
+      },
+      "data": {
+        "label": "생화학·분자생물학실험",
+        "credits": 3,
+        "category": "타전공2",
+        "semester": "3-1",
+        "courseCode": "BS3112"
+      },
+      "selected": false,
+      "width": 200,
+      "height": 113,
+      "positionAbsolute": {
+        "x": 1066,
+        "y": 1086
+      },
+      "dragging": false
     }
   ],
   "edges": [
     {
-      "id": "e_GS1301_BS2102",
+      "id": "edge-GS1201-GS1202",
+      "source": "GS1201",
+      "target": "GS1202",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "edge-GS1301-BS2102",
       "source": "GS1301",
       "target": "BS2102",
-      "type": "smoothstep",
+      "type": "dynamic",
       "animated": false,
-      "label": "권장"
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
     },
     {
-      "id": "e_organicChemistry1CH2103_organicChemistry2CH2201",
-      "source": "organicChemistry1CH2103",
-      "target": "organicChemistry2CH2201",
-      "type": "smoothstep",
+      "id": "edge-GS1211-GS1212",
+      "source": "GS1211",
+      "target": "GS1212",
+      "type": "dynamic",
       "animated": false,
-      "label": "필수"
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
     },
     {
-      "id": "e_inorganicChemistry1CH3108_inorganicChemistry2CH4208",
-      "source": "inorganicChemistry1CH3108",
-      "target": "inorganicChemistry2CH4208",
-      "type": "smoothstep",
+      "id": "edge-GS1212-CH2101",
+      "source": "GS1212",
+      "target": "CH2101",
+      "type": "dynamic",
       "animated": false,
-      "label": "필수"
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
     },
     {
-      "id": "e_biochemistry1CH3106_biochemistry2CH4219",
-      "source": "biochemistry1CH3106",
-      "target": "biochemistry2CH4219",
-      "type": "smoothstep",
+      "id": "edge-CH2105-CH3207",
+      "source": "CH2105",
+      "target": "CH3207",
+      "type": "dynamic",
       "animated": false,
-      "label": "필수"
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "edge-CH2105-BS3112",
+      "source": "CH2105",
+      "target": "BS3112",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "id": "edge-CH3106-CH4219",
+      "source": "CH3106",
+      "target": "CH4219",
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#94a3b8"
+      },
+      "zIndex": 0,
+      "selected": false
+    },
+    {
+      "source": "GS1311",
+      "sourceHandle": null,
+      "target": "CH2101",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-GS1311-CH2101",
+      "selected": false
+    },
+    {
+      "source": "GS1202",
+      "sourceHandle": null,
+      "target": "CH3106",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-GS1202-CH3106",
+      "selected": false
+    },
+    {
+      "source": "CH3207",
+      "sourceHandle": null,
+      "target": "CH4213",
+      "targetHandle": null,
+      "type": "dynamic",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-CH3207-CH4213",
+      "selected": false
     }
   ]
 }

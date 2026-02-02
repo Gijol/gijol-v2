@@ -19,8 +19,10 @@ const categoryColors: Record<string, string> = {
   기초선택: 'bg-cyan-100 text-cyan-800',
   전공필수: 'bg-purple-100 text-purple-800',
   전공선택: 'bg-green-100 text-green-800',
-  교양필수: 'bg-orange-100 text-orange-800',
-  교양선택: 'bg-yellow-100 text-yellow-800',
+  MOOC: 'bg-indigo-100 text-indigo-800',
+  타전공1: 'bg-rose-100 text-rose-800',
+  타전공2: 'bg-pink-100 text-pink-800',
+  편성예정: 'bg-slate-100 text-slate-600',
 };
 
 export function CourseDetailSheet({ course, open, onOpenChange, courses }: CourseDetailSheetProps) {
