@@ -37,10 +37,10 @@ export default async function handler(req: NextRequest) {
   // 2. 폰트 데이터 로딩
   // 에이투지체 (AtoZ Font) 로컬 파일 로딩
   // Vercel Edge Runtime에서는 public 폴더 접근 시 절대 경로(URL)를 사용해야 함
-  const fontDataRegular = await fetch(new URL(`${protocol}//${host}/fonts/에이투지체-4Regular.ttf`)).then((res) =>
+  const fontDataRegular = await fetch(new URL(`${protocol}//${host}/fonts/AtoZ-Regular.ttf`)).then((res) =>
     res.arrayBuffer(),
   );
-  const fontDataBold = await fetch(new URL(`${protocol}//${host}/fonts/에이투지체-7Bold.ttf`)).then((res) =>
+  const fontDataBold = await fetch(new URL(`${protocol}//${host}/fonts/AtoZ-Bold.ttf`)).then((res) =>
     res.arrayBuffer(),
   );
 

@@ -14,12 +14,12 @@ import localFont from 'next/font/local';
 const myFont = localFont({
   src: [
     {
-      path: '../public/fonts/에이투지체-4Regular.ttf',
+      path: '../public/fonts/AtoZ-Regular.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../public/fonts/에이투지체-7Bold.ttf',
+      path: '../public/fonts/AtoZ-Bold.ttf',
       weight: '700',
       style: 'normal',
     },
