@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function MainLayoutHeader() {
   return (
@@ -6,21 +7,13 @@ export default function MainLayoutHeader() {
       <div className="mx-auto flex h-full max-w-6xl flex-row items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 no-underline">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0B62DA]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-5 w-5"
-            >
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-              <path d="M6 12v5c3 3 9 3 12 0v-5" />
-            </svg>
-          </div>
+          <Image
+            src="/images/gijol_3d_icon.png"
+            alt="Gijol"
+            width={38}
+            height={38}
+            className="drop-shadow-md transition-transform duration-200 hover:scale-110"
+          />
           <span className="text-xl font-bold text-gray-900">Gijol</span>
         </Link>
 

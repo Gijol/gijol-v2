@@ -40,8 +40,14 @@ export const SEO = {
       type: 'image/svg+xml',
     },
     {
+      rel: 'icon',
+      href: '/favicon-32x32.png',
+      sizes: '32x32',
+      type: 'image/png',
+    },
+    {
       rel: 'apple-touch-icon',
-      href: '/images/gijol_3d_icon.png',
+      href: '/apple-touch-icon.png',
     },
     {
       rel: 'manifest',

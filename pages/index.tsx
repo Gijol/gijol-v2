@@ -4,7 +4,8 @@ import React, { useRef } from 'react';
 import router from 'next/router';
 import { Package, BarChart, Calendar, GraduationCap, Map, Clock, FileCheck, BookOpen, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { NextSeo, OrganizationJsonLd } from 'next-seo';
+import { NextSeo, OrganizationJsonLd, WebPageJsonLd } from 'next-seo';
+import Image from 'next/image';
 import Head from 'next/head';
 
 import { InfiniteMovingCards } from '@components/ui/infinite-moving-cards';
@@ -94,7 +95,12 @@ export default function MainPage() {
         type="Organization"
         name="Gijol"
         url="https://gijol.vercel.app"
-        logo="https://gijol.vercel.app/favicon.svg"
+        logo="https://gijol.vercel.app/images/gijol_3d_icon.png"
+      />
+      <WebPageJsonLd
+        id="https://gijol.vercel.app"
+        name="Gijol - 졸업 관리 시스템"
+        description="GIST 학부생을 위한 졸업 요건 분석 및 로드맵 관리 플랫폼"
       />
       <Head>
         <script
@@ -351,21 +357,7 @@ export default function MainPage() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0B62DA]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5"
-                >
-                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                </svg>
-              </div>
+              <Image src="/images/gijol_3d_icon.png" alt="Gijol" width={36} height={36} className="drop-shadow-lg" />
               <span className="text-lg font-bold text-white">Gijol</span>
             </div>
             <div className="flex gap-6 text-sm text-gray-400">

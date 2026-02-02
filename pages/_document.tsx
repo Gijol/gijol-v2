@@ -7,10 +7,9 @@ export default function Document() {
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="theme-color" content="#0B62DA" />
-        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content="#0B62DA" media="(prefers-color-scheme: dark)" />
-        <link rel="apple-touch-icon" href="/images/gijol_3d_icon.png" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/images/gijol_3d_icon.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       </Head>
       <body className="antialiased">
         <Main />

@@ -1,6 +1,7 @@
 import { ReactNode, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 import { SidebarNavigation } from './layout-navbar';
 import { DataManagementSection } from './data-management-section';
 import { UploadBanner } from './upload-banner';
@@ -37,21 +38,13 @@ export function Layout({ children }: { children: ReactNode }) {
             isCollapsed ? 'justify-center px-0' : 'gap-3 px-5',
           )}
         >
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#0B62DA]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-5 w-5"
-            >
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-              <path d="M6 12v5c3 3 9 3 12 0v-5" />
-            </svg>
-          </div>
+          <Image
+            src="/images/gijol_3d_icon.png"
+            alt="Gijol"
+            width={42}
+            height={42}
+            className="drop-shadow-lg transition-transform duration-200 hover:scale-110"
+          />
           {!isCollapsed && (
             <div>
               <span className="text-lg font-bold text-white">Gijol</span>
@@ -114,21 +107,7 @@ export function Layout({ children }: { children: ReactNode }) {
         {/* Top Header (Mobile only shows hamburger) */}
         <header className="flex h-[60px] shrink-0 items-center justify-between border-b border-gray-200 bg-white px-4 xl:hidden">
           <Link href="/dashboard" className="flex items-center gap-2 no-underline">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0B62DA]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4"
-              >
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                <path d="M6 12v5c3 3 9 3 12 0v-5" />
-              </svg>
-            </div>
+            <Image src="/images/gijol_3d_icon.png" alt="Gijol" width={34} height={34} className="drop-shadow-sm" />
             <span className="text-lg font-bold text-gray-900">Gijol</span>
           </Link>
           <Button variant="ghost" size="icon" className="text-gray-500" onClick={() => setMobileOpen(true)}>
@@ -154,21 +133,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <SheetContent side="left" className="w-72 border-gray-800 bg-[#0F172A] p-0">
           {/* Logo */}
           <div className="flex items-center gap-3 border-b border-gray-800 px-5 py-5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0B62DA]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-5 w-5"
-              >
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                <path d="M6 12v5c3 3 9 3 12 0v-5" />
-              </svg>
-            </div>
+            <Image src="/images/gijol_3d_icon.png" alt="Gijol" width={40} height={40} className="drop-shadow-md" />
             <span className="text-lg font-bold text-white">Gijol</span>
           </div>
 
