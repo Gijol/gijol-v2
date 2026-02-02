@@ -6,6 +6,14 @@ import { Upload, Sparkles, Download, RotateCcw, FileSpreadsheet } from 'lucide-r
 
 import { Button } from '@components/ui/button';
 import { Card, CardContent, CardHeader } from '@components/ui/card';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
 import type { UserStatusType } from '@lib/types/index';
@@ -182,6 +190,140 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
         </CardHeader>
         <CardContent className="p-6">
           <div className="flex flex-col gap-4">
+            {/* 도움말 버튼 */}
+            <div className="flex justify-end">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="h-auto p-0 text-sm font-normal text-blue-500 hover:bg-transparent hover:text-blue-600"
+                  >
+                    어떤 파일을 올려야 하나요?
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-h-[80vh] max-w-[90%] overflow-y-auto sm:max-w-[500px]">
+                  <DialogHeader>
+                    <DialogTitle>성적표 파일 업로드 가이드</DialogTitle>
+                    <DialogDescription>
+                      아래 순서에 따라 엑셀 파일을 다운로드하고 업로드해주세요.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-6 py-4">
+                    {/* Step 1 */}
+                    <div className="space-y-2">
+                      <h3 className="flex items-center gap-2 font-semibold">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-600">
+                          1
+                        </span>
+                        ZEUS 시스템에 접속해주세요
+                      </h3>
+                      <p className="text-muted-foreground pl-8 text-sm">
+                        먼저{' '}
+                        <a
+                          href="https://zeus.gist.ac.kr"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-500 underline underline-offset-4 hover:text-blue-600"
+                        >
+                          zeus.gist.ac.kr
+                        </a>
+                        에 접속하여 로그인해주세요.
+                      </p>
+                    </div>
+
+                    {/* Step 2 */}
+                    <div className="space-y-2">
+                      <h3 className="flex items-center gap-2 font-semibold">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-600">
+                          2
+                        </span>
+                        개인성적조회 페이지로 이동해주세요
+                      </h3>
+                      <p className="text-muted-foreground pl-8 text-sm">
+                        왼쪽 메뉴에서 <strong>[성적]</strong> 탭을 클릭한 후,{' '}
+                        <strong>[개인성적조회]</strong> 버튼을 눌러주세요.
+                      </p>
+                      <div className="mt-2 pl-8">
+                        <img
+                          src="/images/explainPic2.png"
+                          alt="성적 탭에서 개인성적조회 메뉴 위치"
+                          className="w-full rounded-md border shadow-sm"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Step 3 */}
+                    <div className="space-y-2">
+                      <h3 className="flex items-center gap-2 font-semibold">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-600">
+                          3
+                        </span>
+                        엑셀 파일로 저장해주세요
+                      </h3>
+                      <p className="text-muted-foreground pl-8 text-sm">
+                        화면 상단에 보이는 <strong>[Report card(KOR)]</strong> 버튼을 클릭하면
+                        엑셀 파일이 다운로드됩니다.
+                      </p>
+                      <div className="mt-2 pl-8">
+                        <img
+                          src="/images/explainPic3.png"
+                          alt="엑셀 저장 버튼 위치"
+                          className="w-full rounded-md border shadow-sm"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Step 4 */}
+                    <div className="space-y-2">
+                      <h3 className="flex items-center gap-2 font-semibold">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-600">
+                          4
+                        </span>
+                        다운로드 받은 파일을 업로드해주세요
+                      </h3>
+                      <p className="text-muted-foreground pl-8 text-sm">
+                        다운로드 받은 <strong>Report card(KOR)</strong> 엑셀 파일을 이 페이지에
+                        드래그하거나 클릭하여 업로드해주세요.
+                      </p>
+                    </div>
+
+                    {/* 주의사항 */}
+                    <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/20">
+                      <div className="flex gap-3">
+                        <div className="mt-0.5 shrink-0 text-red-500">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                          </svg>
+                        </div>
+                        <div className="text-sm">
+                          <h4 className="mb-1 font-semibold text-red-600 dark:text-red-400">
+                            주의사항
+                          </h4>
+                          <p className="text-red-600/90 dark:text-red-400/90">
+                            반드시 위 경로를 통해 다운로드 받은 엑셀 파일이어야 합니다. 다른 경로의
+                            파일이나 임의로 수정한 파일은 정상적으로 인식되지 않아 서비스 이용이
+                            불가능할 수 있어요. 꼭 확인 부탁드려요!
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+
             <div
               {...getRootProps()}
               className={cn(
