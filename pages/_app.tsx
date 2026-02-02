@@ -9,6 +9,24 @@ import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'; // Or keep if dev
 
+import localFont from 'next/font/local';
+
+const myFont = localFont({
+  src: [
+    {
+      path: '../public/fonts/에이투지체-4Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/에이투지체-7Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-atoz',
+});
+
 import { Layout } from '@components/layouts/layout';
 import { ThemeProvider } from '@components/theme-provider';
 import { Toaster } from '@components/ui/toaster';
@@ -24,10 +42,12 @@ export default function App({ Component, pageProps }: AppProps) {
       <DefaultSeo {...SEO} />
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} forcedTheme="light">
         <QueryClientProvider client={queryClient}>
-          <Layout>
-            <Component {...pageProps} />
-            <Toaster />
-          </Layout>
+          <main className={myFont.className}>
+            <Layout>
+              <Component {...pageProps} />
+              <Toaster />
+            </Layout>
+          </main>
           {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
         </QueryClientProvider>
       </ThemeProvider>
