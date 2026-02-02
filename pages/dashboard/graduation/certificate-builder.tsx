@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { NextSeo } from 'next-seo';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ChevronRight, ChevronLeft, Check, Menu } from 'lucide-react';
@@ -300,6 +301,7 @@ export default function CertificateBuilder() {
 
   return (
     <div className="min-h-screen bg-gray-50/50">
+      <NextSeo title="확인서 생성기" description="졸업요건 확인서를 자동으로 생성하세요" noindex />
       <Form {...form}>
         <form className="flex min-h-screen">
           {/* Desktop Sidebar (Hidden on Mobile) */}

@@ -4,6 +4,8 @@ import React, { useRef } from 'react';
 import router from 'next/router';
 import { Package, BarChart, Calendar, GraduationCap, Map, Clock, FileCheck, BookOpen, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { NextSeo, OrganizationJsonLd } from 'next-seo';
+import Head from 'next/head';
 
 import { InfiniteMovingCards } from '@components/ui/infinite-moving-cards';
 import MainLayoutHeader from '@components/layouts/main-layout-header';
@@ -84,6 +86,37 @@ export default function MainPage() {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB]">
+      <NextSeo
+        title="홈"
+        description="GIST 학부생을 위한 졸업 요건 분석 및 로드맵 관리 플랫폼. 성적표 하나로 졸업 준비 끝!"
+      />
+      <OrganizationJsonLd
+        type="Organization"
+        name="Gijol"
+        url="https://gijol.vercel.app"
+        logo="https://gijol.vercel.app/favicon.svg"
+      />
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebApplication',
+              name: 'Gijol',
+              description: 'GIST 학부생을 위한 졸업 요건 분석 및 로드맵 관리 플랫폼',
+              url: 'https://gijol.vercel.app',
+              applicationCategory: 'EducationalApplication',
+              operatingSystem: 'Web',
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'KRW',
+              },
+            }),
+          }}
+        />
+      </Head>
       <MainLayoutHeader />
 
       {/* Hero Section */}

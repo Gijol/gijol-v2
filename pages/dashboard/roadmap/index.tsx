@@ -1,12 +1,14 @@
 // pages/dashboard/roadmap/index.tsx
 // Roadmap index page - shows sidebar with presets and an intro canvas
 import React from 'react';
+import { NextSeo } from 'next-seo';
 import { Map, ArrowRight } from 'lucide-react';
 import { PresetsSidebar } from '@/features/roadmap/PresetsSidebar';
 
 export default function RoadmapPage() {
   return (
     <div className="flex h-full w-full">
+      <NextSeo title="로드맵" description="수강 로드맵을 확인하고 계획하세요" noindex />
       {/* Sidebar with presets */}
       <PresetsSidebar />
 

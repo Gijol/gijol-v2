@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@components/ui/card';
 import { Button } from '@components/ui/button';
 import { Textarea } from '@components/ui/textarea';
@@ -135,9 +135,7 @@ export default function GraduationLabPage() {
 
   return (
     <div className="container mx-auto space-y-8 py-10">
-      <Head>
-        <title>Graduation Logic Lab - Architecture V2</title>
-      </Head>
+      <NextSeo title="Graduation Logic Lab" description="졸업 로직 테스트 페이지" noindex />
 
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold">🧪 Graduation Architecture Lab</h1>

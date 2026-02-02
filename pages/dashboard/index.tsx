@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { NextSeo } from 'next-seo';
 import { useGraduationStore } from '../../lib/stores/useGraduationStore';
 import { extractOverallStatus, getPercentage } from '@utils/graduation/grad-formatter';
 import { buildCourseListWithPeriod, calcAverageGrade } from '@utils/course/analytics';
@@ -67,6 +68,7 @@ export default function HomePage() {
   if (!hasData) {
     return (
       <div className="w-full">
+        <NextSeo title="대시보드" description="졸업 현황을 한눈에 확인하세요" noindex />
         <WelcomeHeader studentId={parsed?.studentId} hasData={false} />
         <EmptyState />
       </div>
@@ -75,6 +77,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
+      <NextSeo title="대시보드" description="졸업 현황을 한눈에 확인하세요" noindex />
       {/* Header */}
       <WelcomeHeader studentId={parsed.studentId} remainingCredits={remainingCredits} hasData={true} />
 

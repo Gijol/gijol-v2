@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import path from 'path';
 import fs from 'fs/promises';
 import { GetStaticProps } from 'next';
@@ -13,9 +13,7 @@ interface TimetablePageProps {
 export default function TimetablePage({ sections }: TimetablePageProps) {
   return (
     <>
-      <Head>
-        <title>시간표 생성기 | Gijol</title>
-      </Head>
+      <NextSeo title="시간표 생성기" description="드래그 앤 드롭으로 시간표를 만들어보세요" noindex />
       <div className="fixed inset-0 top-[60px] flex flex-col overflow-hidden bg-slate-100 transition-all duration-300 xl:top-0 xl:left-[256px]">
         <TimetableLayout sections={sections} />
       </div>

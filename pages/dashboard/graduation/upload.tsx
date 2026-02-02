@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
 import { gradStatusFetchFn, inferEntryYear, toTakenCourses } from '@utils/graduation/grad-status-helper';
@@ -148,7 +149,9 @@ export default function GraduationParsePage() {
   const minorOptions = MINOR_OPTIONS;
 
   return (
-    <GradUploadPanel>
+    <>
+      <NextSeo title="성적표 업로드" description="성적표를 업로드하여 졸업요건을 분석하세요" noindex />
+      <GradUploadPanel>
       {({ parsed, isParsing }) => {
         if (!isHydrated) return null;
 
@@ -260,5 +263,6 @@ export default function GraduationParsePage() {
         );
       }}
     </GradUploadPanel>
+    </>
   );
 }

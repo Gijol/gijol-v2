@@ -1,5 +1,6 @@
 // pages/dashboard/roadmap/[slug].tsx
 import React, { useEffect, useState } from 'react';
+import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
@@ -114,6 +115,7 @@ export default function RoadmapPresetPage() {
 
   return (
     <RoadmapProvider>
+      <NextSeo title={`${slug} 로드맵`} description="학과별 수강 로드맵을 확인하세요" noindex />
       <div className="flex h-full w-full">
         <PresetsSidebar />
         <div className="flex-1">

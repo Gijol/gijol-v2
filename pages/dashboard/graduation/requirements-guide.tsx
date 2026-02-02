@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { NextSeo } from 'next-seo';
 import { ArrowRight, BookOpen, CheckCircle2, FileSpreadsheet, ExternalLink, Scale, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 export default function RequirementsGuidePage() {
   return (
     <div className="mx-auto max-w-4xl space-y-8 pb-12">
+      <NextSeo title="졸업요건 안내" description="학번별 졸업요건을 확인하세요" noindex />
       {/* Hero Section */}
       <div className="rounded-2xl bg-linear-to-r from-blue-600 to-indigo-600 p-8 text-white shadow-lg">
         <div className="flex items-center gap-3">

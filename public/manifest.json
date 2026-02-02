@@ -1,0 +1,21 @@
+{
+  "name": "Gijol - 졸업 관리 시스템",
+  "short_name": "Gijol",
+  "description": "GIST 학부생을 위한 졸업 관리 서비스",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0B62DA",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ko",
+  "categories": ["education", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

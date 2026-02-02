@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { NextSeo } from 'next-seo';
 import { extractOverallStatus, getPercentage } from '@utils/graduation/grad-formatter';
 import UploadEmptyState from '@/features/graduation/components/upload-empty-state';
 import { AlertTriangle, CircleCheck, TrendingUp } from 'lucide-react';
@@ -113,6 +114,7 @@ export default function GraduationStatusPage() {
 
   return (
     <div className="w-full pt-0 pb-8">
+      <NextSeo title="졸업요건 분석" description="영역별 졸업요건 충족 현황을 확인하세요" noindex />
       <div className="mb-6 flex flex-col gap-6">
         <div className="flex items-start justify-between">
           <div>

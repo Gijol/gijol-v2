@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /dashboard/*
+
+# Host
+Host: https://gijol.vercel.app
+
+# Sitemaps
+Sitemap: https://gijol.vercel.app/sitemap.xml

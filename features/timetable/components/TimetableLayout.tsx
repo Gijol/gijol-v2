@@ -52,7 +52,7 @@ export function TimetableLayout({ sections }: TimetableLayoutProps) {
             <div className="mb-4 flex shrink-0 items-center justify-between px-2">
               <div>
                 <h1 className="flex items-center gap-2 text-2xl font-black tracking-tight text-slate-900">
-                  ⏰ 시간표 빌더 <span className="text-lg font-normal text-slate-300">TIMETABLE BUILDER</span>
+                  ⏰ 시간표 빌더
                 </h1>
                 <p className="text-xs font-bold text-slate-500">
                   시간 중복을 확인하며 나만의 완벽한 학기 시간표를 짜보세요

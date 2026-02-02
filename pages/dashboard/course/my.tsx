@@ -1,4 +1,5 @@
 import React from 'react';
+import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { HelpCircle } from 'lucide-react';
 
@@ -52,6 +53,7 @@ export default function My() {
   if (!parsed || !parsed.userTakenCourseList?.length) {
     return (
       <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
+        <NextSeo title="수강 현황" description="내 수강 현황을 확인하세요" noindex />
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 md:text-3xl dark:text-gray-100">📊 수강 현황</h1>
           <p className="mt-1 text-gray-500 dark:text-gray-400">성적표를 업로드하면 학업 현황을 분석해드립니다.</p>
@@ -63,6 +65,7 @@ export default function My() {
 
   return (
     <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
+      <NextSeo title="수강 현황" description="내 수강 현황을 확인하세요" noindex />
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900 md:text-3xl dark:text-gray-100">📊 수강 현황</h1>

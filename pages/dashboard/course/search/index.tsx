@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { NextSeo } from 'next-seo';
 import { GetStaticProps } from 'next';
 import { Input } from '@components/ui/input';
 import { Badge } from '@components/ui/badge';
@@ -167,6 +168,7 @@ export default function CourseSearchPage() {
 
   return (
     <div className="container mx-auto max-w-6xl px-4 pb-12">
+      <NextSeo title="강의 검색" description="GIST 개설 강의를 검색하세요" noindex />
       {/* Header */}
       <div className="mt-8 mb-8">
         <h1 className="text-2xl font-bold text-gray-900">강의 검색</h1>

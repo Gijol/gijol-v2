@@ -1,3 +1,5 @@
+import { DefaultSeo } from 'next-seo';
+import { SEO } from '../seo.config';
 import '../public/global.css';
 import { useState } from 'react';
 import Head from 'next/head';
@@ -17,10 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>학교 생활을 편리하게, Gijol</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-        <link rel="shortcut icon" href="/public/images/tossfaceCap.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </Head>
+      <DefaultSeo {...SEO} />
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} forcedTheme="light">
         <QueryClientProvider client={queryClient}>
           <Layout>

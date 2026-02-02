@@ -1,6 +1,7 @@
 // pages/dashboard/roadmap/create.tsx
 // Roadmap creation page - allows users to create their own custom roadmap
 import React, { useState, useEffect } from 'react';
+import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 
 import { CourseDB } from '@/lib/const/course-db';
@@ -28,5 +29,10 @@ export default function RoadmapCreatePage() {
       .catch((err) => console.error(err));
   }, []);
 
-  return <CreateRoadmapFlowWithProvider courses={courses} />;
+  return (
+    <>
+      <NextSeo title="로드맵 만들기" description="나만의 수강 로드맵을 만들어보세요" noindex />
+      <CreateRoadmapFlowWithProvider courses={courses} />
+    </>
+  );
 }
