@@ -1,19 +1,22 @@
+// Base URL for the application - dynamically set based on environment
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://gijol.vercel.app';
+
 export const SEO = {
   titleTemplate: '%s | Gijol',
   defaultTitle: 'Gijol - 졸업 관리 시스템',
   description:
     'GIST 학부생을 위한 졸업 요건 분석 및 로드맵 관리 플랫폼. 성적표 업로드 하나로 졸업까지의 여정을 관리하세요.',
-  canonical: 'https://gijol.vercel.app',
+  canonical: BASE_URL,
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
-    url: 'https://gijol.vercel.app',
+    url: BASE_URL,
     title: 'Gijol - 졸업 관리 시스템',
     description: '성적표 업로드로 졸업요건 분석, 맞춤형 수강 추천, 강의 로드맵까지. GIST 학생들을 위한 필수 서비스.',
     siteName: 'Gijol',
     images: [
       {
-        url: 'https://gijol.vercel.app/api/og',
+        url: `${BASE_URL}/api/og`,
         width: 1200,
         height: 630,
         alt: 'Gijol - 졸업 관리 시스템',

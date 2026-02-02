@@ -9,7 +9,7 @@ module.exports = withBundleAnalyzer({
 
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: ['gijol.vercel.app'],
+    domains: ['gijol.vercel.app', 'gijol-dev.vercel.app'],
   },
 
   eslint: {
