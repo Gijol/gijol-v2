@@ -19,6 +19,7 @@ import {
   HUMANITY_KEYWORDS,
   ZERO_CREDIT_PE_PREFIX,
   COMMON_MAJOR_PREFIXES,
+  ALL_HUMANITIES_COURSES,
 } from './constants';
 
 // ===== Helper Functions =====
@@ -123,8 +124,7 @@ export function classifyCourse(course: TakenCourseType, userMajor?: string, user
   if (
     /^(HS|EB|LH|MB|PP|SS)/.test(prefix) ||
     HUMANITY_KEYWORDS.some((kw) => name.includes(kw)) ||
-    /^GS2/.test(code) ||
-    /^GS3/.test(code)
+    ALL_HUMANITIES_COURSES.has(code)
   ) {
     return 'humanities';
   }

@@ -23,7 +23,6 @@ llm
 docs
 scripts
 LEGACY_FLOW.md
-debug_case01.json
 .storybook
 
 # IDE & Tools
