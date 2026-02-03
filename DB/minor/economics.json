@@ -1,21 +1,42 @@
 {
   "Major Mandatory": [
     {
-      "courseCode": "GS(EB)2750",
+      "courseCode": "GS2750",
       "courseName": "경영학원론",
       "credits": 3,
       "category": "전공필수",
       "classification": "Major Mandatory"
     },
     {
-      "courseCode": "GS(EB)3722",
+      "courseCode": "EB2750",
+      "courseName": "경영학원론",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS3722",
       "courseName": "미시경제론",
       "credits": 3,
       "category": "전공필수",
       "classification": "Major Mandatory"
     },
     {
-      "courseCode": "GS(EB)3737",
+      "courseCode": "EB3722",
+      "courseName": "미시경제론",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS3737",
+      "courseName": "거시경제론",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "EB3737",
       "courseName": "거시경제론",
       "credits": 3,
       "category": "전공필수",
@@ -24,112 +45,224 @@
   ],
   "Major Elective": [
     {
-      "courseCode": "GS(EB)2739",
+      "courseCode": "GS2739",
       "courseName": "미시경제학원론",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)2751",
+      "courseCode": "EB2739",
+      "courseName": "미시경제학원론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2751",
       "courseName": "전략경영 I",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)2732",
+      "courseCode": "EB2751",
+      "courseName": "전략경영 I",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2732",
       "courseName": "행동경제학 1",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)2726",
+      "courseCode": "EB2732",
+      "courseName": "행동경제학 1",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2726",
       "courseName": "글로벌경제의 이해",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)2730",
+      "courseCode": "EB2726",
+      "courseName": "글로벌경제의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2730",
       "courseName": "해외경제론",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)2752",
+      "courseCode": "EB2730",
+      "courseName": "해외경제론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2752",
       "courseName": "기술혁신전략",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)3725",
+      "courseCode": "EB2752",
+      "courseName": "기술혁신전략",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3725",
       "courseName": "사회복지와 재정",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)2733",
+      "courseCode": "EB3725",
+      "courseName": "사회복지와 재정",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2733",
       "courseName": "행동경제학 2",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)2753",
+      "courseCode": "EB2733",
+      "courseName": "행동경제학 2",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2753",
       "courseName": "기술벤처창업론",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)3735",
+      "courseCode": "EB2753",
+      "courseName": "기술벤처창업론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3735",
       "courseName": "한국의 경제발전",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)3752",
+      "courseCode": "EB3735",
+      "courseName": "한국의 경제발전",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3752",
       "courseName": "전략경영 II",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)3721",
+      "courseCode": "EB3752",
+      "courseName": "전략경영 II",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3721",
       "courseName": "교육의 경제학",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)3736",
+      "courseCode": "EB3721",
+      "courseName": "교육의 경제학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3736",
       "courseName": "통일독일과 남북통일",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)3765",
+      "courseCode": "EB3736",
+      "courseName": "통일독일과 남북통일",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3765",
       "courseName": "재정학",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)3751",
+      "courseCode": "EB3765",
+      "courseName": "재정학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3751",
       "courseName": "소셜네트워크와 기업행동",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(EB)3753",
+      "courseCode": "EB3751",
+      "courseName": "소셜네트워크와 기업행동",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3753",
+      "courseName": "기업집단의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EB3753",
       "courseName": "기업집단의 이해",
       "credits": 3,
       "category": "전공선택",

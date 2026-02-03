@@ -8,21 +8,42 @@
       "classification": "Major Mandatory"
     },
     {
-      "courseCode": "GS(LH)2502",
+      "courseCode": "GS2502",
       "courseName": "영웅과 반영웅: 서구근대문학의 이해",
       "credits": 3,
       "category": "전공필수",
       "classification": "Major Mandatory"
     },
     {
-      "courseCode": "GS(LH)2602",
+      "courseCode": "LH2502",
+      "courseName": "영웅과 반영웅: 서구근대문학의 이해",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS2602",
       "courseName": "한국사의 이해",
       "credits": 3,
       "category": "전공필수",
       "classification": "Major Mandatory"
     },
     {
-      "courseCode": "GS(LH)2504",
+      "courseCode": "LH2602",
+      "courseName": "한국사의 이해",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS2504",
+      "courseName": "한국현대소설의 사회적 성찰",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "LH2504",
       "courseName": "한국현대소설의 사회적 성찰",
       "credits": 3,
       "category": "전공필수",
@@ -31,98 +52,196 @@
   ],
   "Major Elective": [
     {
-      "courseCode": "GS(LH)2503",
+      "courseCode": "GS2503",
       "courseName": "한국현대소설의 이해",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)2511",
+      "courseCode": "LH2503",
+      "courseName": "한국현대소설의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2511",
       "courseName": "현대시 읽기",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)2526",
+      "courseCode": "LH2511",
+      "courseName": "현대시 읽기",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2526",
       "courseName": "문학과 연인들",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)2512",
+      "courseCode": "LH2526",
+      "courseName": "문학과 연인들",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2512",
       "courseName": "한국소설속의 여성들",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)2614",
+      "courseCode": "LH2512",
+      "courseName": "한국소설속의 여성들",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2614",
       "courseName": "초기근대의 서양",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)2522",
+      "courseCode": "LH2614",
+      "courseName": "초기근대의 서양",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2522",
       "courseName": "개성과 정체성: 영미 성장기 문학",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)2606",
+      "courseCode": "LH2522",
+      "courseName": "개성과 정체성: 영미 성장기 문학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2606",
       "courseName": "한국현대시인론",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)2525",
+      "courseCode": "LH2606",
+      "courseName": "한국현대시인론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2525",
       "courseName": "근대의 모험: 서구근대문학의 이해 II",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)2613",
+      "courseCode": "LH2525",
+      "courseName": "근대의 모험: 서구근대문학의 이해 II",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2613",
       "courseName": "현대서양의 형성과 전개",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)3501",
+      "courseCode": "LH2613",
+      "courseName": "현대서양의 형성과 전개",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3501",
       "courseName": "이상문학과 과학",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)3601",
+      "courseCode": "LH3501",
+      "courseName": "이상문학과 과학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3601",
       "courseName": "한국 근현대 작가론",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)3503",
+      "courseCode": "LH3601",
+      "courseName": "한국 근현대 작가론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3503",
       "courseName": "과학자 문학",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)3502",
+      "courseCode": "LH3503",
+      "courseName": "과학자 문학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3502",
       "courseName": "시창작 특강",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(LH)3505",
+      "courseCode": "LH3502",
+      "courseName": "시창작 특강",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3505",
+      "courseName": "20세기 한국여성작가론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "LH3505",
       "courseName": "20세기 한국여성작가론",
       "credits": 3,
       "category": "전공선택",

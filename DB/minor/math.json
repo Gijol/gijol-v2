@@ -8,7 +8,14 @@
       "classification": "Basic Mandatory"
     },
     {
-      "courseCode": "GS(MM)2001",
+      "courseCode": "GS2001",
+      "courseName": "다변수해석학과 응용",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "MM2001",
       "courseName": "다변수해석학과 응용",
       "credits": 3,
       "category": "기초필수",
@@ -17,35 +24,70 @@
   ],
   "Major Mandatory": [
     {
-      "courseCode": "GS(MM)2004",
+      "courseCode": "GS2004",
       "courseName": "선형대수학과 응용",
       "credits": 3,
       "category": "전공필수",
       "classification": "Major Mandatory"
     },
     {
-      "courseCode": "GS(MM)2002",
+      "courseCode": "MM2004",
+      "courseName": "선형대수학과 응용",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS2002",
       "courseName": "미분방정식과 응용",
       "credits": 3,
       "category": "전공필수",
       "classification": "Major Mandatory"
     },
     {
-      "courseCode": "GS(MM)4004",
+      "courseCode": "MM2002",
+      "courseName": "미분방정식과 응용",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS4004",
       "courseName": "현대대수학",
       "credits": 3,
       "category": "전공필수",
       "classification": "Major Mandatory"
     },
     {
-      "courseCode": "GS(MM)3001",
+      "courseCode": "MM4004",
+      "courseName": "현대대수학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS3001",
       "courseName": "해석학과 응용",
       "credits": 3,
       "category": "전공필수",
       "classification": "Major Mandatory"
     },
     {
-      "courseCode": "GS(MM)4002",
+      "courseCode": "MM3001",
+      "courseName": "해석학과 응용",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS4002",
+      "courseName": "복소함수학과 응용",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MM4002",
       "courseName": "복소함수학과 응용",
       "credits": 3,
       "category": "전공필수",
@@ -54,77 +96,154 @@
   ],
   "Major Elective": [
     {
-      "courseCode": "GS(MM)3012",
+      "courseCode": "GS3012",
       "courseName": "수학적 모델링",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(MM)3015",
+      "courseCode": "MM3012",
+      "courseName": "수학적 모델링",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3015",
       "courseName": "확률과 통계",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(MM)4006",
+      "courseCode": "MM3015",
+      "courseName": "확률과 통계",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4006",
       "courseName": "정수론과 응용",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(MM)4009",
+      "courseCode": "MM4006",
+      "courseName": "정수론과 응용",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4009",
       "courseName": "그래프이론",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(MM)4016",
+      "courseCode": "MM4009",
+      "courseName": "그래프이론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4016",
       "courseName": "위상수학 개론",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(MM)4008",
+      "courseCode": "MM4016",
+      "courseName": "위상수학 개론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4008",
       "courseName": "몬테카를로 방법론과 응용",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(MM)4015",
+      "courseCode": "MM4008",
+      "courseName": "몬테카를로 방법론과 응용",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4015",
       "courseName": "과학계산",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(MM)4017",
+      "courseCode": "MM4015",
+      "courseName": "과학계산",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4017",
       "courseName": "매스매티카와 기호계산",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(MM)4019",
+      "courseCode": "MM4017",
+      "courseName": "매스매티카와 기호계산",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4019",
       "courseName": "확률론",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(MM)4007",
+      "courseCode": "MM4019",
+      "courseName": "확률론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4007",
       "courseName": "기하학 I",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(MM)4005",
+      "courseCode": "MM4007",
+      "courseName": "기하학 I",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4005",
+      "courseName": "과학계산 프로그래밍",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MM4005",
       "courseName": "과학계산 프로그래밍",
       "credits": 3,
       "category": "전공선택",
@@ -138,7 +257,14 @@
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(MM)4018",
+      "courseCode": "GS4018",
+      "courseName": "수리과학주제를 위한 매스매티카",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MM4018",
       "courseName": "수리과학주제를 위한 매스매티카",
       "credits": 3,
       "category": "전공선택",

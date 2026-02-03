@@ -1,7 +1,14 @@
 {
   "Major Mandatory": [
     {
-      "courseCode": "GS(SS)3831",
+      "courseCode": "GS3831",
+      "courseName": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "SS3831",
       "courseName": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
       "credits": 3,
       "category": "전공필수",
@@ -10,147 +17,294 @@
   ],
   "Major Elective": [
     {
-      "courseCode": "GS(SS)2833",
+      "courseCode": "GS2833",
       "courseName": "비판적 디자인",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)2803",
+      "courseCode": "SS2833",
+      "courseName": "비판적 디자인",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2803",
       "courseName": "과학기술과 사회",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)2832",
+      "courseCode": "SS2803",
+      "courseName": "과학기술과 사회",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2832",
       "courseName": "기술과 문화",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)2834",
+      "courseCode": "SS2832",
+      "courseName": "기술과 문화",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2834",
       "courseName": "역사 속의 과학",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)2839",
+      "courseCode": "SS2834",
+      "courseName": "역사 속의 과학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2839",
       "courseName": "인간의 미래",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)2814",
+      "courseCode": "SS2839",
+      "courseName": "인간의 미래",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2814",
       "courseName": "유토피아 픽션과 테크놀로지",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)2752",
+      "courseCode": "SS2814",
+      "courseName": "유토피아 픽션과 테크놀로지",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2752",
       "courseName": "기술혁신전략",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)2822",
+      "courseCode": "SS2752",
+      "courseName": "기술혁신전략",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2822",
       "courseName": "AI와 나",
       "credits": 2,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)3631",
+      "courseCode": "SS2822",
+      "courseName": "AI와 나",
+      "credits": 2,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3631",
       "courseName": "마음과 컴퓨터",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)3663",
+      "courseCode": "SS3631",
+      "courseName": "마음과 컴퓨터",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3663",
       "courseName": "종교와 과학",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)3802",
+      "courseCode": "SS3663",
+      "courseName": "종교와 과학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3802",
       "courseName": "과학자 문학",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)2812",
+      "courseCode": "SS3802",
+      "courseName": "과학자 문학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2812",
       "courseName": "생명윤리와 법",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)3633",
+      "courseCode": "SS2812",
+      "courseName": "생명윤리와 법",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3633",
       "courseName": "과학철학 특강",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)3801",
+      "courseCode": "SS3633",
+      "courseName": "과학철학 특강",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3801",
       "courseName": "과학기술과 젠더",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)3838",
+      "courseCode": "SS3801",
+      "courseName": "과학기술과 젠더",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3838",
       "courseName": "과학기술정책의 이해",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)3839",
+      "courseCode": "SS3838",
+      "courseName": "과학기술정책의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3839",
       "courseName": "질병과 사회",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)4762",
+      "courseCode": "SS3839",
+      "courseName": "질병과 사회",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4762",
       "courseName": "인공지능 로봇의 법",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)4741",
+      "courseCode": "SS4762",
+      "courseName": "인공지능 로봇의 법",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4741",
       "courseName": "기술정보사회의 심리학",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)4471",
+      "courseCode": "SS4741",
+      "courseName": "기술정보사회의 심리학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4471",
       "courseName": "인류세의 우리",
       "credits": 1,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)3767",
+      "courseCode": "SS4471",
+      "courseName": "인류세의 우리",
+      "credits": 1,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3767",
       "courseName": "(MOOC) 인공지능 윤리",
       "credits": 3,
       "category": "전공선택",
       "classification": "Major Elective"
     },
     {
-      "courseCode": "GS(SS)4837",
+      "courseCode": "SS3767",
+      "courseName": "(MOOC) 인공지능 윤리",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4837",
+      "courseName": "과학기술과 사회",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "SS4837",
       "courseName": "과학기술과 사회",
       "credits": 3,
       "category": "전공선택",
