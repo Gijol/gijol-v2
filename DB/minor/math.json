@@ -1,0 +1,166 @@
+{
+  "Basic Mandatory": [
+    {
+      "courseCode": "GS1001",
+      "courseName": "미적분학",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS(MM)2001",
+      "courseName": "다변수해석학과 응용",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    }
+  ],
+  "Major Mandatory": [
+    {
+      "courseCode": "GS(MM)2004",
+      "courseName": "선형대수학과 응용",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS(MM)2002",
+      "courseName": "미분방정식과 응용",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS(MM)4004",
+      "courseName": "현대대수학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS(MM)3001",
+      "courseName": "해석학과 응용",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS(MM)4002",
+      "courseName": "복소함수학과 응용",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    }
+  ],
+  "Major Elective": [
+    {
+      "courseCode": "GS(MM)3012",
+      "courseName": "수학적 모델링",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS(MM)3015",
+      "courseName": "확률과 통계",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS(MM)4006",
+      "courseName": "정수론과 응용",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS(MM)4009",
+      "courseName": "그래프이론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS(MM)4016",
+      "courseName": "위상수학 개론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS(MM)4008",
+      "courseName": "몬테카를로 방법론과 응용",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS(MM)4015",
+      "courseName": "과학계산",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS(MM)4017",
+      "courseName": "매스매티카와 기호계산",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS(MM)4019",
+      "courseName": "확률론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS(MM)4007",
+      "courseName": "기하학 I",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS(MM)4005",
+      "courseName": "과학계산 프로그래밍",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "TBD_DIFFGEO",
+      "courseName": "미분기하학 (편성 예정)",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS(MM)4018",
+      "courseName": "수리과학주제를 위한 매스매티카",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    }
+  ],
+  "Basic Elective": [
+    {
+      "courseCode": "GS2013",
+      "courseName": "기초미분방정식과 선형대수의 응용",
+      "credits": 3,
+      "category": "기초선택",
+      "classification": "Basic Elective"
+    }
+  ],
+  "Planned": [
+    {
+      "courseCode": "편성예정",
+      "courseName": "암호학 (편성 예정)",
+      "credits": 3,
+      "category": "편성예정",
+      "classification": "Planned"
+    }
+  ]
+}
