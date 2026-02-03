@@ -49,7 +49,7 @@ export function calcAverageGrade<T extends HasGradeAndCredit>(courses: T[]): num
 
   if (!totalCredits) return null;
 
-  return Math.round((totalPoints / totalCredits) * 100) / 100;
+  return Math.floor((totalPoints / totalCredits) * 100) / 100;
 }
 
 type ParsedCourseRow = {
