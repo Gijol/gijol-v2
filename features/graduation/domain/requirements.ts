@@ -3,7 +3,7 @@
  * Generates detailed graduation requirement checks based on actual courses taken
  */
 
-import { HUS_COURSES, PPE_COURSES, MAJOR_MANDATORY_RULES } from './constants';
+import { HUS_COURSES, PPE_COURSES, MAJOR_MANDATORY_RULES, MINOR_MANDATORY_RULES } from './constants';
 import { matchesMinor } from './classifier';
 import type { TakenCourseType, CategoryKey, YearRuleSet, FineGrainedRequirement, MatchedCourseInfo } from './types';
 
@@ -667,6 +667,37 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
         matchedCourses: matchedInfo,
         relatedCoursePatterns: { codePrefixes: rule.courses },
       });
+    });
+  }
+
+  // ===== 8-2. 부전공 필수 (있는 경우) =====
+  if (userMinors?.length) {
+    userMinors.forEach((minorCode) => {
+      const rules = MINOR_MANDATORY_RULES[minorCode];
+      if (rules) {
+        rules.forEach((rule, idx) => {
+          const matched = findCoursesInSet(allCourses, new Set(rule.courses));
+          const matchedInfo = matched.map(toMatchedInfo);
+          const matchCount = matched.length;
+          const satisfied = matchCount >= rule.requiredCount;
+
+          reqs.push({
+            id: `minor-mandatory-rule-${minorCode}-${idx}`,
+            categoryKey: 'minor',
+            label: creditBasedLabel(rule.label, rule.requiredCount, matchCount, '과목'),
+            requiredCredits: rule.requiredCount, // count based
+            acquiredCredits: matchCount,
+            missingCredits: Math.max(0, rule.requiredCount - matchCount),
+            satisfied: satisfied,
+            importance: 'must',
+            hint: satisfied
+              ? `${rule.label} 요건을 충족했습니다.`
+              : `${rule.label} 요건을 위해 ${Math.max(0, rule.requiredCount - matchCount)}과목을 더 이수해야 합니다.`,
+            matchedCourses: matchedInfo,
+            relatedCoursePatterns: { codePrefixes: rule.courses },
+          });
+        });
+      }
     });
   }
 

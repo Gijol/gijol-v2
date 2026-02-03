@@ -16,18 +16,25 @@ export const MAJOR_OPTIONS = [
 
 // GIST 기준 예시 부전공 목록 (필요하면 수정/추가)
 export const MINOR_OPTIONS = [
-  { value: 'EC', label: '전기전자컴퓨터' },
+  // Traditional departments that can be both majors and minors
+  { value: 'EC', label: '전기전자컴퓨터공학' },
   { value: 'MA', label: '신소재공학' },
-  { value: 'MC', label: '기계로봇공학' },
+  { value: 'MC', label: '기계공학' },
   { value: 'EV', label: '환경·에너지공학' },
   { value: 'BS', label: '생명과학' },
-  { value: 'FE', label: '의생명공학' },
   { value: 'PS', label: '물리·광과학' },
   { value: 'CH', label: '화학' },
   { value: 'MM', label: '수리과학' },
-  { value: 'AI', label: 'AI융합' },
+
+  // Special minors
   { value: 'CT', label: '문화기술' },
-  { value: 'LH', label: '인문사회' },
-  // { value: 'IR', label: '지능로봇' }, // Code unsupported in current rule set
-  // { value: 'ET', label: '에너지' }, // Assuming duplicates EV or different?
+  { value: 'LH_LIT', label: '인문사회-문학과 역사' },
+  { value: 'LH_PP', label: '인문사회-공공정책' },
+  { value: 'LH_EB', label: '인문사회-경제경영' },
+  { value: 'LH_SS', label: '인문사회-과학기술과 사회' },
+  { value: 'LH_MB', label: '인문사회-마음과 행동' },
+  { value: 'IR', label: '지능로봇' },
+  { value: 'AI', label: 'AI융합' },
+  { value: 'FE', label: '에너지' },
+  { value: 'MD', label: '의생명' },
 ];
