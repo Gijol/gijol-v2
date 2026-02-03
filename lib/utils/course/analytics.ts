@@ -66,10 +66,10 @@ type ParsedCourseRow = {
 };
 
 function inferSemesterIdx(sem: string): number {
-  if (/1/.test(sem)) return 1;
-  if (/2/.test(sem)) return 2;
-  if (/3|여름|summer/i.test(sem)) return 3;
-  if (/4|겨울|winter/i.test(sem)) return 4;
+  if (/3|여름|summer/i.test(sem)) return 15;
+  if (/4|겨울|winter/i.test(sem)) return 25;
+  if (/1/.test(sem)) return 10;
+  if (/2/.test(sem)) return 20;
   return 0;
 }
 

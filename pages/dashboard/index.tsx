@@ -145,6 +145,7 @@ export default function HomePage() {
             </div>
           }
           icon={<User className="h-4 w-4 text-blue-500" />}
+          disableHover={true}
         />
 
         {/* 총 이수학점 + 졸업 진행률 */}
@@ -162,6 +163,7 @@ export default function HomePage() {
             </div>
           }
           icon={<School className="h-4 w-4 text-blue-500" />}
+          disableHover={true}
         />
 
         {/* 하단 Row: GPA, 수강 과목 수, 남은 학점, 미충족 영역 */}
@@ -194,6 +196,7 @@ export default function HomePage() {
             </div>
           }
           icon={<BarChart className="h-4 w-4 text-blue-500" />}
+          disableHover={true}
         />
 
         {/* 수강 과목 수 */}
@@ -209,6 +212,7 @@ export default function HomePage() {
             </div>
           }
           icon={<Book className="h-4 w-4 text-gray-500" />}
+          disableHover={true}
         />
 
         {/* 남은 학점 */}
@@ -222,6 +226,7 @@ export default function HomePage() {
             </div>
           }
           icon={<Book className="h-4 w-4 text-gray-500" />}
+          disableHover={true}
         />
 
         {/* 미충족 영역 + 화살표 */}
@@ -251,6 +256,7 @@ export default function HomePage() {
           icon={
             <AlertTriangle className={`h-4 w-4 ${unsatisfiedRequirements > 0 ? 'text-amber-500' : 'text-green-500'}`} />
           }
+          disableHover={true}
         />
       </BentoGrid>
 

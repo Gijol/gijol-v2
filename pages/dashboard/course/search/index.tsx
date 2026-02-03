@@ -229,7 +229,7 @@ export default function CourseSearchPage() {
             <SelectTrigger className="w-[180px] bg-white shadow-none">
               <SelectValue placeholder="학과/부서" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="max-h-[400px]">
               <SelectItem value="all">전체 학과</SelectItem>
               {uniqueDepartments.map((dept) => (
                 <SelectItem key={dept} value={dept}>
