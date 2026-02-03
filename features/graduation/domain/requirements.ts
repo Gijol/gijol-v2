@@ -3,7 +3,17 @@
  * Generates detailed graduation requirement checks based on actual courses taken
  */
 
-import { HUS_COURSES, PPE_COURSES, MAJOR_MANDATORY_RULES, MINOR_MANDATORY_RULES } from './constants';
+import {
+  HUS_COURSES,
+  PPE_COURSES,
+  GSC_COURSES,
+  HUS_SUFFIXES,
+  PPE_SUFFIXES,
+  GSC_SUFFIXES,
+  getCourseSuffix,
+  MAJOR_MANDATORY_RULES,
+  MINOR_MANDATORY_RULES,
+} from './constants';
 import { matchesMinor } from './classifier';
 import type { TakenCourseType, CategoryKey, YearRuleSet, FineGrainedRequirement, MatchedCourseInfo } from './types';
 
@@ -52,9 +62,18 @@ function hasCodePrefix(c: TakenCourseType, prefix: string): boolean {
 function isCourseType(c: TakenCourseType, type: string): boolean {
   const normType = normalizeCode(type);
   const code = normalizeCode(c.courseCode);
+  const suffix = getCourseSuffix(code);
 
-  if (normType === 'HUS' && HUS_COURSES.has(code)) return true;
-  if (normType === 'PPE' && PPE_COURSES.has(code)) return true;
+  // 직접 코드 매칭 또는 suffix 매칭 (HS2503 = GS2503 = HUS)
+  if (normType === 'HUS') {
+    return HUS_COURSES.has(code) || HUS_SUFFIXES.has(suffix);
+  }
+  if (normType === 'PPE') {
+    return PPE_COURSES.has(code) || PPE_SUFFIXES.has(suffix);
+  }
+  if (normType === 'GSC') {
+    return GSC_COURSES.has(code) || GSC_SUFFIXES.has(suffix);
+  }
 
   return normalizeCode(c.courseType) === normType;
 }

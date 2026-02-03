@@ -158,6 +158,57 @@ export const evaluateGraduationStatus = async (
     }
   }
 
+  // 2.6. Re-balance Humanities -> Free Electives (Overflow)
+  // 인문사회 24학점 초과분은 최대 12학점까지 자유선택학점으로 인정
+  const humanitiesReqRule = ruleSet.categories.find((r) => r.key === 'humanities');
+  if (humanitiesReqRule && grouped.humanities.length > 0) {
+    const humanitiesReq = 24; // 인문사회 필수 학점
+    const maxOverflowToFreeElective = 12; // 자유선택으로 인정 가능한 최대 학점
+
+    let currentHumanities = grouped.humanities.reduce((acc, c) => acc + (c.credit || 0), 0);
+
+    if (currentHumanities > humanitiesReq) {
+      const overflowCredits = currentHumanities - humanitiesReq;
+      const creditsToMove = Math.min(overflowCredits, maxOverflowToFreeElective);
+
+      // Sort: Keep HUS/PPE courses first, move GSC or extra courses to overflow
+      // GSC courses have lower priority than HUS/PPE
+      grouped.humanities.sort((a, b) => {
+        const aCode = a.courseCode.toUpperCase();
+        const bCode = b.courseCode.toUpperCase();
+        // GS prefix courses go last (they might be GSC)
+        const aGS = aCode.startsWith('GS');
+        const bGS = bCode.startsWith('GS');
+        if (aGS && !bGS) return 1;
+        if (!aGS && bGS) return -1;
+        return 0;
+      });
+
+      const newHumanities: TakenCourseType[] = [];
+      const overflow: TakenCourseType[] = [];
+      let creditSum = 0;
+      let overflowSum = 0;
+
+      for (const c of grouped.humanities) {
+        if (creditSum + (c.credit || 0) <= humanitiesReq) {
+          newHumanities.push(c);
+          creditSum += c.credit || 0;
+        } else if (overflowSum + (c.credit || 0) <= creditsToMove) {
+          // 자유선택으로 이동 (최대 12학점까지)
+          overflow.push(c);
+          overflowSum += c.credit || 0;
+        } else {
+          // 12학점 초과분은 그냥 인문사회에 남김
+          newHumanities.push(c);
+          creditSum += c.credit || 0;
+        }
+      }
+
+      grouped.humanities = newHumanities;
+      grouped.otherUncheckedClass.push(...overflow);
+    }
+  }
+
   // 3. Build Categories
   const graduationCategory = {} as GradCategoriesType;
 
