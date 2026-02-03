@@ -15,25 +15,44 @@ export const LANGUAGE_BASIC_CODES = new Set([
 ]);
 export const LANGUAGE_KEYWORDS = ['english', 'writing', '영어', '글쓰기'];
 
+// ========== 기초과학 분야별 과목 정의 ==========
+
+// 수학 분야
+export const MATH_CALCULUS = new Set(['GS1001', 'GS1011']); // 미적분학 (필수)
+export const MATH_ELECTIVE = new Set(['GS2001', 'GS2002', 'GS2004']); // 선택 1과목 (다변수/미방/선대)
+
+// 물리 분야
+export const PHYSICS_LECTURE = new Set(['GS1101', 'GS1102', 'GS1103', 'GS1104']);
+export const PHYSICS_LAB = new Set(['GS1111', 'GS1112']);
+
+// 화학 분야
+export const CHEMISTRY_LECTURE = new Set(['GS1201', 'GS1202', 'GS1203', 'GS1204']);
+export const CHEMISTRY_LAB = new Set(['GS1211', 'GS1212']);
+
+// 생명 분야
+export const BIOLOGY_LECTURE = new Set(['GS1301', 'GS1302', 'GS1303']);
+export const BIOLOGY_LAB = new Set(['GS1311']);
+
+// SW 분야
+export const SW_COURSES = new Set(['GS1401', 'GS1490']);
+
+// ========== 기초과학 전체 과목 코드 ==========
 export const SCIENCE_BASIC_CODES = new Set([
-  'GS1001',
-  'GS1101',
-  'GS1103',
-  'GS1111',
-  'GS1201',
-  'GS1203',
-  'GS1301',
-  'GS1302',
-  'GS1303',
-  'GS1311',
-  'GS1401',
-  'GS2001',
-  'GS2002',
-  'GS2004',
-  'GS1002',
-  'GS1011',
-  'GS1012',
-  'GS1490',
+  // 수학
+  ...Array.from(MATH_CALCULUS),
+  ...Array.from(MATH_ELECTIVE),
+  'GS1002', 'GS1012', // 추가 수학 과목
+  // 물리
+  ...Array.from(PHYSICS_LECTURE),
+  ...Array.from(PHYSICS_LAB),
+  // 화학
+  ...Array.from(CHEMISTRY_LECTURE),
+  ...Array.from(CHEMISTRY_LAB),
+  // 생물
+  ...Array.from(BIOLOGY_LECTURE),
+  ...Array.from(BIOLOGY_LAB),
+  // SW
+  ...Array.from(SW_COURSES),
 ]);
 export const SCIENCE_KEYWORDS = [
   '수학',

@@ -76,6 +76,26 @@ export interface FineGrainedRequirement {
   };
 }
 
+// ===== Science Field Types =====
+
+export type ScienceField = 'math' | 'physics' | 'chemistry' | 'biology' | 'sw';
+
+export interface FieldCompletionResult {
+  field: ScienceField;
+  isComplete: boolean;
+  completionIndex: number; // 분야 완료 시점 (과목 index), 미완료 시 -1
+  requiredCourses: TakenCourseType[]; // 분야 완료에 사용된 과목들
+  hasLab: boolean; // 실험 이수 여부
+  labVerified: boolean; // 실험-강의 선이수/동시수강 조건 충족 여부
+}
+
+export interface ScienceRebalanceResult {
+  scienceBasic: TakenCourseType[]; // 기초과학으로 인정된 과목
+  freeElective: TakenCourseType[]; // 자유선택으로 이동한 과목
+  selectedFields: ScienceField[]; // 선택된 3분야
+  fieldDetails: Map<ScienceField, FieldCompletionResult>;
+}
+
 // ===== Rule Types =====
 
 export type CategoryKey = keyof GradCategoriesType;
