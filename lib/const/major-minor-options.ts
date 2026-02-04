@@ -37,4 +37,5 @@ export const MINOR_OPTIONS = [
   { value: 'AI', label: 'AI융합' },
   { value: 'FE', label: '에너지' },
   { value: 'MD', label: '의생명' },
+  { value: 'SE', label: '반도체공학' },
 ];

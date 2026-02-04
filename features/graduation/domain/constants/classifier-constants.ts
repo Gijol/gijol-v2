@@ -12,8 +12,53 @@ export const LANGUAGE_BASIC_CODES = new Set([
   'GS1532',
   'GS1533',
   'GS1534',
+  'GS1535', // 심화 글쓰기: AI 시대의 글쓰기와 나
+  'GS1605', // 실용적 대화법
+  'GS1606', // 과학 기사 읽기
+  'GS2651', // 영어 토론과 논증
+  'GS2653', // 연구 윤리의 이해와 토론
+  'GS2654', // 창의적 영어 표현법
+  'GS2655', // 디지털 시대의 저널리즘과 과학 기사 쓰기
+  'GS3651', // 영어 III: 이공계 논문쓰기
 ]);
 export const LANGUAGE_KEYWORDS = ['english', 'writing', '영어', '글쓰기'];
+
+// ========== 영어 과목 세분화 ==========
+
+// 영어 I (2학점) - 필수
+export const ENGLISH_I_REQUIRED = new Set(['GS1607']); // 2021학번 이후 필수
+export const ENGLISH_I_LEGACY = new Set(['GS1601', 'GS1603']); // 2021 이전 학번용
+export const ENGLISH_I_ALL = new Set([...Array.from(ENGLISH_I_REQUIRED), ...Array.from(ENGLISH_I_LEGACY)]);
+
+// 영어 II (2학점) - 필수
+export const ENGLISH_II_REQUIRED = new Set(['GS2652']); // 2021학번 이후 필수
+export const ENGLISH_II_LEGACY = new Set(['GS1602', 'GS1604']); // 2021 이전 학번용
+export const ENGLISH_II_ALL = new Set([...Array.from(ENGLISH_II_REQUIRED), ...Array.from(ENGLISH_II_LEGACY)]);
+
+// 영어 선택 - 선이수 조건 없음
+export const ENGLISH_OPTIONAL = new Set(['GS1605', 'GS1606', 'GS2651', 'GS2653', 'GS2654']);
+
+// 영어 고급 - 영어I + 영어II 이수 후에만 수강 가능
+export const ENGLISH_ADVANCED = new Set(['GS2655', 'GS3651']);
+
+// 전체 영어 과목
+export const ENGLISH_ALL = new Set([
+  ...Array.from(ENGLISH_I_ALL),
+  ...Array.from(ENGLISH_II_ALL),
+  ...Array.from(ENGLISH_OPTIONAL),
+  ...Array.from(ENGLISH_ADVANCED),
+]);
+
+// ========== 글쓰기 과목 세분화 ==========
+
+// 글쓰기 기초 (3과목)
+export const WRITING_BASIC = new Set(['GS1511', 'GS1512', 'GS1513']);
+
+// 글쓰기 심화 (4과목) - 기초 이수자만 추가 수강 가능, 심화 이수자는 기초 수강 불가
+export const WRITING_ADVANCED = new Set(['GS1531', 'GS1532', 'GS1533', 'GS1535']);
+
+// 전체 글쓰기 과목
+export const WRITING_ALL = new Set([...Array.from(WRITING_BASIC), ...Array.from(WRITING_ADVANCED)]);
 
 // ========== 기초과학 분야별 과목 정의 ==========
 

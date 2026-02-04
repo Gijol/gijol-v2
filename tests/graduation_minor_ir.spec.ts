@@ -16,6 +16,7 @@ describe('Intelligent Robot Minor Requirements', () => {
         ]; // Total 6 credits
 
         const result = await uploadAndEvaluate(testInput, { userMinors: ['IR'] });
+        if (!result.data) throw new Error('Result data is undefined');
         const reqs = result.data.fineGrainedRequirements;
         const minorCreditReq = reqs.find(r => r.id === 'minor-credits-IR');
         
@@ -39,6 +40,7 @@ describe('Intelligent Robot Minor Requirements', () => {
         ]; // Total 15 credits
 
         const result = await uploadAndEvaluate(testInput, { userMinors: ['IR'] });
+        if (!result.data) throw new Error('Result data is undefined');
         const reqs = result.data.fineGrainedRequirements;
         
         // Credits satisfied
@@ -69,6 +71,7 @@ describe('Intelligent Robot Minor Requirements', () => {
         ]; // Total 15 credits, 3 mandatory
 
         const result = await uploadAndEvaluate(testInput, { userMinors: ['IR'] });
+        if (!result.data) throw new Error('Result data is undefined');
         const reqs = result.data.fineGrainedRequirements;
         
         // Credits satisfied
