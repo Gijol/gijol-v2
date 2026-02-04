@@ -77,6 +77,21 @@ export const SCIENCE_KEYWORDS = [
 export const ETC_MANDATORY_CODES = new Set(['GS1901', 'GS9301', 'UC0902', 'UC0901', 'UC0202', 'UC9331']);
 export const THESIS_SUFFIXES = ['9102', '9103'];
 export const ZERO_CREDIT_PE_PREFIX = ['GS01', 'GS02'];
+
+// ========== 무학점 필수: 예체능(체육/예능) 실기 과목 ==========
+// 체육(GS0101~0115): 축구, 테니스, 농구, 배드민턴, 탁구, 요가, 골프, 힙합댄스, 태권도, 헬스, 수영, 볼링, 야구, 암벽등반 등
+export const PHYSICAL_EDUCATION_CODES = new Set([
+  'GS0101', 'GS0102', 'GS0103', 'GS0104', 'GS0105',
+  'GS0106', 'GS0107', 'GS0108', 'GS0109', 'GS0110',
+  'GS0111', 'GS0112', 'GS0113', 'GS0114', 'GS0115',
+]);
+
+// 예능(GS0201~0213): 피아노, 플룻, 바이올린, 첼로, 클라리넷, 어쿠스틱기타, 일렉기타, 베이스기타, 드럼, 보컬, 드로잉, 컴퓨터음악 만들기 등
+export const ARTS_EDUCATION_CODES = new Set([
+  'GS0201', 'GS0202', 'GS0203', 'GS0204', 'GS0205',
+  'GS0206', 'GS0207', 'GS0208', 'GS0209', 'GS0210',
+  'GS0211', 'GS0212', 'GS0213',
+]);
 export const COMMON_MAJOR_PREFIXES = ['CS', 'EC', 'EE', 'ME', 'CE', 'MC', 'CH', 'MT', 'IS', 'PH', 'EV', 'BS'];
 
 export const HUMANITY_KEYWORDS = [

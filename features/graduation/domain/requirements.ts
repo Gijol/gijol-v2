@@ -13,6 +13,8 @@ import {
   getCourseSuffix,
   MAJOR_MANDATORY_RULES,
   MINOR_MANDATORY_RULES,
+  PHYSICAL_EDUCATION_CODES,
+  ARTS_EDUCATION_CODES,
 } from './constants';
 import { matchesMinor } from './classifier';
 import type { TakenCourseType, CategoryKey, YearRuleSet, FineGrainedRequirement, MatchedCourseInfo } from './types';
@@ -173,8 +175,9 @@ const SET_SCIENCE_ECONOMY = new Set(['GS1701', 'UC0901']); // 과학기술과 �
 const RESEARCH_I_SUFFIX = '9102';
 const RESEARCH_II_SUFFIX = '9103';
 
-const CODE_ART_PREFIX = 'GS02';
-const CODE_SPORT_PREFIX = 'GS01';
+// 예체능 과목 prefix (legacy) - 새로운 코드 집합으로 대체됨
+// const CODE_ART_PREFIX = 'GS02';
+// const CODE_SPORT_PREFIX = 'GS01';
 
 const MAJOR_MANDATORY: Record<string, string[]> = {
   EC: ['EC3101', 'EC3102'],
@@ -572,12 +575,15 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
 
   // ===== 7. 예체능 =====
   const requiredArtSportCount = entryYear >= 2020 ? 2 : 4;
-  const artCourses = findCoursesWithPrefix(allCourses, CODE_ART_PREFIX);
+  
+  // 예능 과목 (GS0201~GS0213)
+  const artCourses = findCoursesInSet(allCourses, ARTS_EDUCATION_CODES);
   const artMatched = artCourses.map(toMatchedInfo);
   const artCount = artCourses.length;
   const artSatisfied = artCount >= requiredArtSportCount;
 
-  const sportCourses = findCoursesWithPrefix(allCourses, CODE_SPORT_PREFIX);
+  // 체육 과목 (GS0101~GS0115)
+  const sportCourses = findCoursesInSet(allCourses, PHYSICAL_EDUCATION_CODES);
   const sportMatched = sportCourses.map(toMatchedInfo);
   const sportCount = sportCourses.length;
   const sportSatisfied = sportCount >= requiredArtSportCount;
@@ -596,6 +602,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
         ? `예술 교양 ${artCount}과목을 이수하여 요건을 충족했습니다.`
         : `예술 교양 ${requiredArtSportCount - artCount}과목이 더 필요합니다.`,
       matchedCourses: artMatched,
+      relatedCoursePatterns: { codePrefixes: Array.from(ARTS_EDUCATION_CODES) },
     },
     {
       id: 'sports',
@@ -610,6 +617,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
         ? `체육 ${sportCount}과목을 이수하여 요건을 충족했습니다.`
         : `체육 ${requiredArtSportCount - sportCount}과목이 더 필요합니다.`,
       matchedCourses: sportMatched,
+      relatedCoursePatterns: { codePrefixes: Array.from(PHYSICAL_EDUCATION_CODES) },
     },
   );
 
