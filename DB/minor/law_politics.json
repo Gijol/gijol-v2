@@ -1,0 +1,351 @@
+{
+  "Major Mandatory": [
+    {
+      "courseCode": "GS2704",
+      "courseName": "기업과 사회 I",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "PP2704",
+      "courseName": "기업과 사회 I",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS2763",
+      "courseName": "현대법학의 이해",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "PP2763",
+      "courseName": "현대법학의 이해",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS2765",
+      "courseName": "헌법과 국가",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "PP2765",
+      "courseName": "헌법과 국가",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    }
+  ],
+  "Major Elective": [
+    {
+      "courseCode": "GS2761",
+      "courseName": "인권법",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP2761",
+      "courseName": "인권법",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2788",
+      "courseName": "민주주의론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP2788",
+      "courseName": "민주주의론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2734",
+      "courseName": "행복의 조건",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP2734",
+      "courseName": "행복의 조건",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2701",
+      "courseName": "한국사회의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP2701",
+      "courseName": "한국사회의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2616",
+      "courseName": "장기 19세기 서양 역사",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP2616",
+      "courseName": "장기 19세기 서양 역사",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2724",
+      "courseName": "거시경제학원론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP2724",
+      "courseName": "거시경제학원론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2787",
+      "courseName": "한국정치론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP2787",
+      "courseName": "한국정치론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2812",
+      "courseName": "생명윤리와 법",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP2812",
+      "courseName": "생명윤리와 법",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2702",
+      "courseName": "미국사회의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP2702",
+      "courseName": "미국사회의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3725",
+      "courseName": "사회복지와 재정",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP3725",
+      "courseName": "사회복지와 재정",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3785",
+      "courseName": "국가와 시민사회론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP3785",
+      "courseName": "국가와 시민사회론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3721",
+      "courseName": "교육의 경제학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP3721",
+      "courseName": "교육의 경제학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3831",
+      "courseName": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP3831",
+      "courseName": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS2703",
+      "courseName": "세계화와 발전",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP2703",
+      "courseName": "세계화와 발전",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3632",
+      "courseName": "합리적 판단과 선택",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP3632",
+      "courseName": "합리적 판단과 선택",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3765",
+      "courseName": "재정학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP3765",
+      "courseName": "재정학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3838",
+      "courseName": "과학기술정책의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP3838",
+      "courseName": "과학기술정책의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS4762",
+      "courseName": "인공지능 로봇의 법",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP4762",
+      "courseName": "인공지능 로봇의 법",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3786",
+      "courseName": "정치경제론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP3786",
+      "courseName": "정치경제론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3735",
+      "courseName": "한국의 경제발전",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP3735",
+      "courseName": "한국의 경제발전",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "GS3767",
+      "courseName": "(MOOC 지정) 인공지능 로봇의 윤리",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "PP3767",
+      "courseName": "(MOOC 지정) 인공지능 로봇의 윤리",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    }
+  ],
+  "Planned": [
+    {
+      "courseCode": "편성예정",
+      "courseName": "과학기술법정책",
+      "credits": 3,
+      "category": "편성예정",
+      "classification": "Planned"
+    }
+  ]
+}

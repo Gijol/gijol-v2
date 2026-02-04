@@ -1,0 +1,197 @@
+{
+  "Basic Mandatory": [
+    {
+      "courseCode": "GS1101",
+      "courseName": "일반물리학 및 연습 I",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS1201",
+      "courseName": "일반화학 및 연습 I",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS1102",
+      "courseName": "일반물리학 및 연습 II",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS1202",
+      "courseName": "일반화학 및 연습 II",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    }
+  ],
+  "Major Elective": [
+    {
+      "courseCode": "FE2301",
+      "courseName": "회로이론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE2101",
+      "courseName": "에너지와 미래사회",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE3301",
+      "courseName": "산업용 회로의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE4201",
+      "courseName": "에너지변환과 저장",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE4303",
+      "courseName": "전력경제와 경영과학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE3101",
+      "courseName": "대통령을 위한 에너지 강의",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE4102",
+      "courseName": "에너지 공학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE4304",
+      "courseName": "전력전자공학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE4302",
+      "courseName": "스마트 그리드와 전력전자 응용",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE4310",
+      "courseName": "인간-AI상호작용",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE4306",
+      "courseName": "전력시스템공학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE4501",
+      "courseName": "태양전지의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE4307",
+      "courseName": "배전 시스템 공학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "FE4308",
+      "courseName": "전력변화 시스템의 기초",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    }
+  ],
+  "Other": [
+    {
+      "courseCode": "CH2102",
+      "courseName": "물리학A",
+      "credits": 3,
+      "category": "타전공2",
+      "classification": "Other"
+    },
+    {
+      "courseCode": "EC2205",
+      "courseName": "공학전자기학 II",
+      "credits": 3,
+      "category": "타전공1",
+      "classification": "Other"
+    },
+    {
+      "courseCode": "CH2101",
+      "courseName": "분석화학",
+      "credits": 3,
+      "category": "타전공2",
+      "classification": "Other"
+    },
+    {
+      "courseCode": "EC3204",
+      "courseName": "프로그래밍 언어 및 컴파일러",
+      "credits": 3,
+      "category": "타전공1",
+      "classification": "Other"
+    },
+    {
+      "courseCode": "MA3207",
+      "courseName": "재료전기화학",
+      "credits": 3,
+      "category": "타전공2",
+      "classification": "Other"
+    },
+    {
+      "courseCode": "MC4216",
+      "courseName": "자동제어",
+      "credits": 3,
+      "category": "타전공1",
+      "classification": "Other"
+    },
+    {
+      "courseCode": "MA3211",
+      "courseName": "기기분석",
+      "credits": 3,
+      "category": "타전공2",
+      "classification": "Other"
+    },
+    {
+      "courseCode": "MA4217",
+      "courseName": "에너지 소재",
+      "credits": 3,
+      "category": "타전공2",
+      "classification": "Other"
+    },
+    {
+      "courseCode": "MS5142",
+      "courseName": "에너지 전기화학",
+      "credits": 3,
+      "category": "타전공2",
+      "classification": "Other"
+    }
+  ]
+}

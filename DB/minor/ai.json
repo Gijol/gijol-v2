@@ -1,0 +1,150 @@
+{
+  "Basic Mandatory": [
+    {
+      "courseCode": "GS1401",
+      "courseName": "컴퓨터 프로그래밍",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS2408",
+      "courseName": "객체지향 프로그래밍",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "EC2202",
+      "courseName": "자료구조",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS3015",
+      "courseName": "확률 및 통계",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS2004",
+      "courseName": "선형대수학과 응용",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "EC2206",
+      "courseName": "알고리즘 개론",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "EC3202",
+      "courseName": "신호 및 시스템",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "EC4207",
+      "courseName": "그래프이론",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    }
+  ],
+  "Major Elective": [
+    {
+      "courseCode": "AI4011",
+      "courseName": "오토마타이론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "AI4012",
+      "courseName": "이산수학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "AI4014",
+      "courseName": "랜덤 프로세스",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "AI4312",
+      "courseName": "문화기술을 위한 인공지능 설계",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "AI4030",
+      "courseName": "인공지능 로봇의 윤리",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "AI4004",
+      "courseName": "컴퓨터 비전",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "AI4003",
+      "courseName": "인공지능 경험랩",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    }
+  ],
+  "Basic Elective": [
+    {
+      "courseCode": "AI4020",
+      "courseName": "인공지능",
+      "credits": 3,
+      "category": "기초선택",
+      "classification": "Basic Elective"
+    },
+    {
+      "courseCode": "AI4021",
+      "courseName": "기계학습 및 딥러닝",
+      "credits": 3,
+      "category": "기초선택",
+      "classification": "Basic Elective"
+    },
+    {
+      "courseCode": "AI4311",
+      "courseName": "딥러닝",
+      "credits": 3,
+      "category": "기초선택",
+      "classification": "Basic Elective"
+    }
+  ],
+  "Other": [
+    {
+      "courseCode": "AI4028",
+      "courseName": "AI핵심기술 기반 실무 프로젝트 1",
+      "credits": 3,
+      "category": "타전공1",
+      "classification": "Other"
+    },
+    {
+      "courseCode": "AI4001",
+      "courseName": "AI핵심기술 기반 실무 프로젝트 2",
+      "credits": 3,
+      "category": "타전공1",
+      "classification": "Other"
+    }
+  ]
+}

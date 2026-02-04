@@ -230,6 +230,65 @@ function rebalanceScienceByTimeOrder(scienceCourses: TakenCourseType[]): Science
   };
 }
 
+// ========== 부전공 vs 기초과학 재분배 알고리즘 ==========
+// 기초과학 요건을 먼저 충족하고, 남은 과목만 부전공으로 분류
+
+interface MinorScienceRebalanceResult {
+  minor: TakenCourseType[];
+  scienceBasic: TakenCourseType[];
+}
+
+function rebalanceMinorVsScienceBasic(
+  minorCourses: TakenCourseType[],
+  scienceBasicCourses: TakenCourseType[],
+): MinorScienceRebalanceResult {
+  // 1. 현재 기초과학의 수학 요건 충족 여부 확인
+  const existingMathCalc = scienceBasicCourses.filter((c) => MATH_CALCULUS.has(c.courseCode));
+  const existingMathElec = scienceBasicCourses.filter((c) => MATH_ELECTIVE.has(c.courseCode));
+
+  const hasCalculus = existingMathCalc.length > 0;
+  const hasElective = existingMathElec.length > 0;
+
+  // 이미 충족되면 그대로 반환
+  if (hasCalculus && hasElective) {
+    return { minor: minorCourses, scienceBasic: scienceBasicCourses };
+  }
+
+  // 2. minor에서 이동 가능한 수학 과목 찾기
+  const minorMathCalc = minorCourses.filter((c) => MATH_CALCULUS.has(c.courseCode));
+  const minorMathElec = minorCourses.filter((c) => MATH_ELECTIVE.has(c.courseCode));
+
+  const coursesToMove: TakenCourseType[] = [];
+
+  // 미적분학 이동 (필요시)
+  if (!hasCalculus && minorMathCalc.length > 0) {
+    coursesToMove.push(minorMathCalc[0]);
+  }
+
+  // 수학선택 이동 (필요시, 시간순 첫 번째)
+  if (!hasElective && minorMathElec.length > 0) {
+    const sortedElectives = [...minorMathElec].sort(compareSemester);
+    coursesToMove.push(sortedElectives[0]);
+  }
+
+  // 이동할 과목이 없으면 그대로 반환
+  if (coursesToMove.length === 0) {
+    return { minor: minorCourses, scienceBasic: scienceBasicCourses };
+  }
+
+  // 3. 결과 생성 - courseCode + year + semester로 고유 식별
+  const movedKeys = new Set(
+    coursesToMove.map((c) => `${c.courseCode}-${c.year}-${c.semester}`),
+  );
+
+  return {
+    minor: minorCourses.filter(
+      (c) => !movedKeys.has(`${c.courseCode}-${c.year}-${c.semester}`),
+    ),
+    scienceBasic: [...scienceBasicCourses, ...coursesToMove],
+  };
+}
+
 // Helper to build a single category status
 function buildCategoryStatus(key: CategoryKey, courses: TakenCourseType[], minCredits: number): SingleCategoryType {
   const total = courses.reduce((acc, c) => acc + (c.credit || 0), 0);
@@ -286,6 +345,19 @@ export const evaluateGraduationStatus = async (
       grouped[key].push(course);
     }
   });
+
+  // 2.4. Re-balance Minor vs ScienceBasic (기초과학 우선 충족)
+  // 부전공과 기초과학에 중복되는 과목이 있을 경우, 기초과학 요건을 먼저 충족
+  // 예: 수리과학 부전공 선언 시, 미적분학 + 수학선택1은 기초과학으로, 나머지는 부전공으로
+  if (userMinors && userMinors.length > 0 && grouped.minor.length > 0) {
+    const minorScienceResult = rebalanceMinorVsScienceBasic(
+      grouped.minor,
+      grouped.scienceBasic,
+    );
+    grouped.minor = minorScienceResult.minor;
+    grouped.scienceBasic = minorScienceResult.scienceBasic;
+  }
+
   // 2.5. Re-balance Science Basic -> Free Electives (시간순 3분야 선택 알고리즘)
   // 수학(별도 필수) + 물리/화학/생명/SW 중 시간순으로 먼저 완료된 3분야만 기초과학 인정
   if (grouped.scienceBasic.length > 0) {
@@ -395,12 +467,11 @@ export const evaluateGraduationStatus = async (
     }
   });
 
-  // 7. Push fine-grained messages to categories
+  // 7. Push fine-grained messages to categories (간결한 형식)
   fineGrainedRequirements.forEach((req) => {
     if (!req.satisfied && req.requiredCredits > 0 && req.importance === 'must') {
       const cat = graduationCategory[req.categoryKey];
-      const hint = req.hint ? ` (${req.hint})` : '';
-      cat.messages.push(`[필수] ${req.label} 미충족${hint}`);
+      cat.messages.push(`${req.label}`);
     }
   });
 

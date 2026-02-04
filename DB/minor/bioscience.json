@@ -1,0 +1,246 @@
+{
+  "Basic Mandatory": [
+    {
+      "courseCode": "GS1301/1302",
+      "courseName": "생물학/인간생물학 중 택1",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS1311",
+      "courseName": "일반생물학실험",
+      "credits": 1,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    }
+  ],
+  "Major Mandatory": [
+    {
+      "courseCode": "BS2101",
+      "courseName": "유기화학 I",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "BS2102",
+      "courseName": "분자생물학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "BS2103/BS3111",
+      "courseName": "생화학/분자생물학 실험",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "BS2104",
+      "courseName": "생화학 I",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "BS3101",
+      "courseName": "생화학 II",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "BS3105",
+      "courseName": "세포생물학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "BS3112",
+      "courseName": "세포·발생생물실험",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "BS9102",
+      "courseName": "학사논문연구 I",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "BS9103",
+      "courseName": "학사논문연구 II",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    }
+  ],
+  "Major Elective": [
+    {
+      "courseCode": "BS2202",
+      "courseName": "유전학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS2203",
+      "courseName": "발생생물학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS2204",
+      "courseName": "기초 해부조직학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS2205",
+      "courseName": "생명정보학 개론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS3201",
+      "courseName": "미생물학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS3204",
+      "courseName": "생물물리 화학입문",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS3205",
+      "courseName": "환경생태학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS3206",
+      "courseName": "유전체학 개론 및 실습",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS3208/BS4205",
+      "courseName": "면역학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS3209",
+      "courseName": "생리학 I",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS3210",
+      "courseName": "분자-세포 작동원리 및 이론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS3211",
+      "courseName": "약학개론 위한 실험모델",
+      "credits": 2,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS4204/BS3207",
+      "courseName": "신경생물학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS4206",
+      "courseName": "의약화학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS4213",
+      "courseName": "의약 면역화학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS4214",
+      "courseName": "기초 구조생물학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS4216",
+      "courseName": "단백질과 생명과학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS4217",
+      "courseName": "생리학 II",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS4218",
+      "courseName": "리보핵산 생물학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS4219",
+      "courseName": "암생물학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS4223",
+      "courseName": "바이러스학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS4240/LS5240",
+      "courseName": "생물학도를 위한 바이오 인포매틱스 강좌",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "BS42415",
+      "courseName": "대사학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    }
+  ]
+}

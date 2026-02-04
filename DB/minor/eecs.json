@@ -1,0 +1,379 @@
+{
+  "Basic Mandatory": [
+    {
+      "courseCode": "GS1001",
+      "courseName": "미적분학과 응용",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS1101",
+      "courseName": "일반물리학 및 실험 I",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS1102",
+      "courseName": "일반물리학 및 실험 II",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS1401",
+      "courseName": "컴퓨터 프로그래밍",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS2001",
+      "courseName": "다변수해석학과 응용",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS2002",
+      "courseName": "미분방정식과 응용",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    },
+    {
+      "courseCode": "GS2004",
+      "courseName": "선형대수학과 응용",
+      "credits": 3,
+      "category": "기초필수",
+      "classification": "Basic Mandatory"
+    }
+  ],
+  "Major Mandatory": [
+    {
+      "courseCode": "AI9102",
+      "courseName": "학사논문연구 I",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "AI9103",
+      "courseName": "학사논문연구 II",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "EC3101",
+      "courseName": "전자공학 실험",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "EC3102",
+      "courseName": "컴퓨터 시스템 이론 및 실험",
+      "credits": 4,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "EC9102",
+      "courseName": "학사논문 연구 I",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "EC9103",
+      "courseName": "학사논문 연구 II",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    }
+  ],
+  "Major Elective": [
+    {
+      "courseCode": "AI2004",
+      "courseName": "시스템 프로그래밍",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "AI2051",
+      "courseName": "알고리즘 개론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "AI3001",
+      "courseName": "오토마타 이론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "AI3004",
+      "courseName": "운영체제",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "AI3501",
+      "courseName": "컴퓨터 그래픽스",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "AI4021",
+      "courseName": "기계학습 및 딥러닝",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC2105",
+      "courseName": "공학전자기학 I",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC2201",
+      "courseName": "회로이론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC2202",
+      "courseName": "자료구조",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC2203",
+      "courseName": "디지털설계",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC2204",
+      "courseName": "컴퓨터구조",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC2205",
+      "courseName": "공학전자기학 II",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC2206",
+      "courseName": "알고리즘 개론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC3202",
+      "courseName": "신호 및 시스템",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC3204",
+      "courseName": "프로그래밍 언어 및 컴파일러",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC3206",
+      "courseName": "반도체 재료 및 소자",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC3207",
+      "courseName": "전자회로",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC3212",
+      "courseName": "고급전자회로",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC3213",
+      "courseName": "통신공학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC3214",
+      "courseName": "마이크로프로세서 및 임베디드 시스템",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC3215",
+      "courseName": "시스템 프로그래밍",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC3216",
+      "courseName": "오토마타이론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC3218",
+      "courseName": "통신공학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4202",
+      "courseName": "디지털 전송회로",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4203",
+      "courseName": "초고주파공학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4204",
+      "courseName": "데이터베이스",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4206",
+      "courseName": "컴퓨터 네트워킹",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4207",
+      "courseName": "그래프 이론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4209",
+      "courseName": "인공지능",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4210",
+      "courseName": "랜덤 프로세스",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4211",
+      "courseName": "디지털신호처리",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4212",
+      "courseName": "이산수학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4213",
+      "courseName": "기계학습 및 딥러닝",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4214",
+      "courseName": "광공학개론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4215",
+      "courseName": "컴퓨터그래픽스",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4216",
+      "courseName": "컴퓨터 비전",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4219",
+      "courseName": "소프트웨어 공학 및 프로젝트",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4308",
+      "courseName": "반도체 공정기초",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4309",
+      "courseName": "집적회로 설계 기초",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EC4310",
+      "courseName": "정보이론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    }
+  ]
+}

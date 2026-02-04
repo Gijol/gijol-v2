@@ -1,0 +1,266 @@
+{
+  "Basic Mandatory": [],
+  "Major Mandatory": [
+    {
+      "courseCode": "EV3101",
+      "courseName": "환경에너지공학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "EV3106",
+      "courseName": "환경분석실험 I",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "EV3111",
+      "courseName": "지구시스템과학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "EV3112",
+      "courseName": "환경・에너지과학통계",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "EV4107",
+      "courseName": "환경분석실험 II",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "EV9102",
+      "courseName": "학사논문연구 I",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "EV9103",
+      "courseName": "학사논문연구 II",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    }
+  ],
+  "Major Elective": [
+    {
+      "courseCode": "EV2208",
+      "courseName": "분석화학",
+      "credits": 4,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV2209",
+      "courseName": "환경모니터링",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV2210",
+      "courseName": "유체역학 I",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV2211",
+      "courseName": "기후변화의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV2212",
+      "courseName": "유전학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV2213",
+      "courseName": "유기화학Ⅰ",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV2214",
+      "courseName": "환경에너지공학전공연구 I",
+      "credits": 1,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV2215",
+      "courseName": "환경에너지공학전공연구 II",
+      "credits": 1,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV2216",
+      "courseName": "수화학 기초",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV2217",
+      "courseName": "물리화학 B",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV3205",
+      "courseName": "환경 생태학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV3214",
+      "courseName": "생유기화학과 바이오의약품",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV3216",
+      "courseName": "생화학 II",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV3217",
+      "courseName": "미생물학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV3219",
+      "courseName": "수리물리 I",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV3223",
+      "courseName": "생화학 Ⅰ",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4209",
+      "courseName": "전기화학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4214",
+      "courseName": "대기화학과 기후변화 Ⅰ",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4216",
+      "courseName": "환경화학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4221",
+      "courseName": "대기오염물질 측정 및 실습",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4223",
+      "courseName": "기기분석",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4226",
+      "courseName": "상하수도 공학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4228",
+      "courseName": "환경열역학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4229",
+      "courseName": "에너지화학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4230",
+      "courseName": "멤브레인 과학과 기술",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4231",
+      "courseName": "해수담수화 공학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4233",
+      "courseName": "환경분리기술",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4235",
+      "courseName": "나노공학의 환경영향",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4236",
+      "courseName": "과학적 사고와 표현",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "EV4242",
+      "courseName": "환경에너지촉매",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    }
+  ]
+}
