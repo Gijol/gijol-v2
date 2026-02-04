@@ -467,12 +467,11 @@ export const evaluateGraduationStatus = async (
     }
   });
 
-  // 7. Push fine-grained messages to categories
+  // 7. Push fine-grained messages to categories (간결한 형식)
   fineGrainedRequirements.forEach((req) => {
     if (!req.satisfied && req.requiredCredits > 0 && req.importance === 'must') {
       const cat = graduationCategory[req.categoryKey];
-      const hint = req.hint ? ` (${req.hint})` : '';
-      cat.messages.push(`[필수] ${req.label} 미충족${hint}`);
+      cat.messages.push(`${req.label}`);
     }
   });
 
