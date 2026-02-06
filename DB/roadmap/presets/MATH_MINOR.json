@@ -249,7 +249,7 @@
       "height": 113
     },
     {
-      "id": "GSMM2001",
+      "id": "GS(MM)2001",
       "type": "customCourseNode",
       "position": {
         "x": 282.63901584533437,
@@ -260,7 +260,7 @@
         "credits": 3,
         "category": "기초필수",
         "semester": "1-2",
-        "courseCode": "GSMM2001"
+        "courseCode": "GS(MM)2001"
       },
       "width": 200,
       "height": 113,
@@ -272,7 +272,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM2004",
+      "id": "GS(MM)2004",
       "type": "customCourseNode",
       "position": {
         "x": 671.3947288853747,
@@ -283,7 +283,7 @@
         "credits": 3,
         "category": "전공필수",
         "semester": "2-1",
-        "courseCode": "GSMM2004"
+        "courseCode": "GS(MM)2004"
       },
       "width": 200,
       "height": 113,
@@ -295,7 +295,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM2002",
+      "id": "GS(MM)2002",
       "type": "customCourseNode",
       "position": {
         "x": 658.7557130400405,
@@ -306,7 +306,7 @@
         "credits": 3,
         "category": "전공필수",
         "semester": "2-1",
-        "courseCode": "GSMM2002"
+        "courseCode": "GS(MM)2002"
       },
       "selected": false,
       "width": 200,
@@ -318,7 +318,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM3012",
+      "id": "GS(MM)3012",
       "type": "customCourseNode",
       "position": {
         "x": 813.792618840007,
@@ -329,7 +329,7 @@
         "credits": 3,
         "category": "전공선택",
         "semester": "2-2",
-        "courseCode": "GSMM3012"
+        "courseCode": "GS(MM)3012"
       },
       "width": 200,
       "height": 113,
@@ -341,7 +341,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4004",
+      "id": "GS(MM)4004",
       "type": "customCourseNode",
       "position": {
         "x": 1063.741101131824,
@@ -352,7 +352,7 @@
         "credits": 3,
         "category": "전공필수",
         "semester": "3-1",
-        "courseCode": "GSMM4004"
+        "courseCode": "GS(MM)4004"
       },
       "width": 200,
       "height": 113,
@@ -364,7 +364,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM3001",
+      "id": "GS(MM)3001",
       "type": "customCourseNode",
       "position": {
         "x": 1063.741101131824,
@@ -375,7 +375,7 @@
         "credits": 3,
         "category": "전공필수",
         "semester": "3-1",
-        "courseCode": "GSMM3001"
+        "courseCode": "GS(MM)3001"
       },
       "width": 200,
       "height": 113,
@@ -387,7 +387,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4002",
+      "id": "GS(MM)4002",
       "type": "customCourseNode",
       "position": {
         "x": 1067.741101131824,
@@ -398,7 +398,7 @@
         "credits": 3,
         "category": "전공필수",
         "semester": "3-1",
-        "courseCode": "GSMM4002"
+        "courseCode": "GS(MM)4002"
       },
       "width": 200,
       "height": 113,
@@ -410,7 +410,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM3015",
+      "id": "GS(MM)3015",
       "type": "customCourseNode",
       "position": {
         "x": 1067.741101131824,
@@ -421,7 +421,7 @@
         "credits": 3,
         "category": "전공선택",
         "semester": "3-1",
-        "courseCode": "GSMM3015"
+        "courseCode": "GS(MM)3015"
       },
       "width": 200,
       "height": 113,
@@ -433,7 +433,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4006",
+      "id": "GS(MM)4006",
       "type": "customCourseNode",
       "position": {
         "x": 1320.0000000000005,
@@ -444,7 +444,7 @@
         "credits": 3,
         "category": "전공선택",
         "semester": "3-2",
-        "courseCode": "GSMM4006"
+        "courseCode": "GS(MM)4006"
       },
       "width": 200,
       "height": 113,
@@ -456,7 +456,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4009",
+      "id": "GS(MM)4009",
       "type": "customCourseNode",
       "position": {
         "x": 1321.741101131824,
@@ -467,7 +467,7 @@
         "credits": 3,
         "category": "전공선택",
         "semester": "3-2",
-        "courseCode": "GSMM4009"
+        "courseCode": "GS(MM)4009"
       },
       "width": 200,
       "height": 113,
@@ -479,7 +479,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4016",
+      "id": "GS(MM)4016",
       "type": "customCourseNode",
       "position": {
         "x": 1323.741101131824,
@@ -490,7 +490,7 @@
         "credits": 3,
         "category": "전공선택",
         "semester": "3-2",
-        "courseCode": "GSMM4016"
+        "courseCode": "GS(MM)4016"
       },
       "width": 200,
       "height": 113,
@@ -502,7 +502,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4008",
+      "id": "GS(MM)4008",
       "type": "customCourseNode",
       "position": {
         "x": 1323.741101131824,
@@ -525,7 +525,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4015",
+      "id": "GS(MM)4015",
       "type": "customCourseNode",
       "position": {
         "x": 1323.741101131824,
@@ -536,7 +536,7 @@
         "credits": 3,
         "category": "전공선택",
         "semester": "3-2",
-        "courseCode": "GSMM4015"
+        "courseCode": "GS(MM)4015"
       },
       "width": 200,
       "height": 113,
@@ -548,7 +548,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4017",
+      "id": "GS(MM)4017",
       "type": "customCourseNode",
       "position": {
         "x": 1327.741101131824,
@@ -559,7 +559,7 @@
         "credits": 3,
         "category": "전공선택",
         "semester": "3-2",
-        "courseCode": "GSMM4017"
+        "courseCode": "GS(MM)4017"
       },
       "width": 200,
       "height": 113,
@@ -594,7 +594,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4019",
+      "id": "GS(MM)4019",
       "type": "customCourseNode",
       "position": {
         "x": 1581.741101131824,
@@ -605,7 +605,7 @@
         "credits": 3,
         "category": "전공선택",
         "semester": "4-1",
-        "courseCode": "GSMM4019"
+        "courseCode": "GS(MM)4019"
       },
       "width": 200,
       "height": 113,
@@ -617,7 +617,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4007",
+      "id": "GS(MM)4007",
       "type": "customCourseNode",
       "position": {
         "x": 1576.5177977363528,
@@ -628,7 +628,7 @@
         "credits": 3,
         "category": "전공선택",
         "semester": "4-1",
-        "courseCode": "GSMM4007"
+        "courseCode": "GS(MM)4007"
       },
       "width": 200,
       "height": 113,
@@ -640,7 +640,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4005",
+      "id": "GS(MM)4005",
       "type": "customCourseNode",
       "position": {
         "x": 1841.741101131824,
@@ -651,7 +651,7 @@
         "credits": 3,
         "category": "전공선택",
         "semester": "4-1",
-        "courseCode": "GSMM4005"
+        "courseCode": "GS(MM)4005"
       },
       "width": 200,
       "height": 113,
@@ -686,7 +686,7 @@
       "dragging": false
     },
     {
-      "id": "GSMM4018",
+      "id": "GS(MM)4018",
       "type": "customCourseNode",
       "position": {
         "x": 1840.0000000000005,
@@ -697,7 +697,7 @@
         "credits": 3,
         "category": "전공선택",
         "semester": "4-2",
-        "courseCode": "GSMM4018"
+        "courseCode": "GS(MM)4018"
       },
       "width": 233,
       "height": 113,
@@ -729,9 +729,9 @@
       "zIndex": 0
     },
     {
-      "id": "edge-GS1001-GSMM2001",
+      "id": "edge-GS1001-GS(MM)2001",
       "source": "GS1001",
-      "target": "GSMM2001",
+      "target": "GS(MM)2001",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -747,9 +747,9 @@
       "zIndex": 0
     },
     {
-      "id": "edge-GSMM2001-GSMM2004",
-      "source": "GSMM2001",
-      "target": "GSMM2004",
+      "id": "edge-GS(MM)2001-GS(MM)2004",
+      "source": "GS(MM)2001",
+      "target": "GS(MM)2004",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -766,9 +766,9 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM2001-GSMM2002",
-      "source": "GSMM2001",
-      "target": "GSMM2002",
+      "id": "edge-GS(MM)2001-GS(MM)2002",
+      "source": "GS(MM)2001",
+      "target": "GS(MM)2002",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -785,9 +785,9 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM2004-GSMM4004",
-      "source": "GSMM2004",
-      "target": "GSMM4004",
+      "id": "edge-GS(MM)2004-GS(MM)4004",
+      "source": "GS(MM)2004",
+      "target": "GS(MM)4004",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -804,9 +804,9 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM2002-GSMM3001",
-      "source": "GSMM2002",
-      "target": "GSMM3001",
+      "id": "edge-GS(MM)2002-GS(MM)3001",
+      "source": "GS(MM)2002",
+      "target": "GS(MM)3001",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -823,9 +823,9 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM2002-GSMM3012",
-      "source": "GSMM2002",
-      "target": "GSMM3012",
+      "id": "edge-GS(MM)2002-GS(MM)3012",
+      "source": "GS(MM)2002",
+      "target": "GS(MM)3012",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -842,9 +842,9 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM3001-GSMM4016",
-      "source": "GSMM3001",
-      "target": "GSMM4016",
+      "id": "edge-GS(MM)3001-GS(MM)4016",
+      "source": "GS(MM)3001",
+      "target": "GS(MM)4016",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -861,9 +861,9 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM4004-GSMM4006",
-      "source": "GSMM4004",
-      "target": "GSMM4006",
+      "id": "edge-GS(MM)4004-GS(MM)4006",
+      "source": "GS(MM)4004",
+      "target": "GS(MM)4006",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -880,8 +880,8 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM4004-TBD_CRYPTO",
-      "source": "GSMM4004",
+      "id": "edge-GS(MM)4004-TBD_CRYPTO",
+      "source": "GS(MM)4004",
       "target": "TBD_CRYPTO",
       "type": "dynamic",
       "animated": false,
@@ -899,9 +899,9 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM3015-GSMM4008",
-      "source": "GSMM3015",
-      "target": "GSMM4008",
+      "id": "edge-GS(MM)3015-GS(MM)4008",
+      "source": "GS(MM)3015",
+      "target": "GS(MM)4008",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -918,9 +918,9 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM3015-GSMM4019",
-      "source": "GSMM3015",
-      "target": "GSMM4019",
+      "id": "edge-GS(MM)3015-GS(MM)4019",
+      "source": "GS(MM)3015",
+      "target": "GS(MM)4019",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -937,9 +937,9 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM3012-GSMM4015",
-      "source": "GSMM3012",
-      "target": "GSMM4015",
+      "id": "edge-GS(MM)3012-GS(MM)4015",
+      "source": "GS(MM)3012",
+      "target": "GS(MM)4015",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -956,9 +956,9 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM4015-GSMM4005",
-      "source": "GSMM4015",
-      "target": "GSMM4005",
+      "id": "edge-GS(MM)4015-GS(MM)4005",
+      "source": "GS(MM)4015",
+      "target": "GS(MM)4005",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -975,9 +975,9 @@
       "selected": false
     },
     {
-      "id": "edge-GSMM4017-GSMM4018",
-      "source": "GSMM4017",
-      "target": "GSMM4018",
+      "id": "edge-GS(MM)4017-GS(MM)4018",
+      "source": "GS(MM)4017",
+      "target": "GS(MM)4018",
       "type": "dynamic",
       "animated": false,
       "style": {
@@ -994,7 +994,7 @@
       "selected": false
     },
     {
-      "source": "GSMM4019",
+      "source": "GS(MM)4019",
       "sourceHandle": null,
       "target": "TBD_DIFFGEO",
       "targetHandle": null,
@@ -1004,12 +1004,12 @@
         "stroke": "#94a3b8",
         "strokeWidth": 2
       },
-      "id": "reactflow__edge-GSMM4019-TBD_DIFFGEO"
+      "id": "reactflow__edge-GS(MM)4019-TBD_DIFFGEO"
     },
     {
-      "source": "GSMM3001",
+      "source": "GS(MM)3001",
       "sourceHandle": null,
-      "target": "GSMM4007",
+      "target": "GS(MM)4007",
       "targetHandle": null,
       "type": "dynamic",
       "animated": false,
@@ -1017,13 +1017,13 @@
         "stroke": "#94a3b8",
         "strokeWidth": 2
       },
-      "id": "reactflow__edge-GSMM3001-GSMM4007",
+      "id": "reactflow__edge-GS(MM)3001-GS(MM)4007",
       "selected": false
     },
     {
-      "source": "GSMM3001",
+      "source": "GS(MM)3001",
       "sourceHandle": null,
-      "target": "GSMM4019",
+      "target": "GS(MM)4019",
       "targetHandle": null,
       "type": "dynamic",
       "animated": false,
@@ -1031,13 +1031,13 @@
         "stroke": "#94a3b8",
         "strokeWidth": 2
       },
-      "id": "reactflow__edge-GSMM3001-GSMM4019",
+      "id": "reactflow__edge-GS(MM)3001-GS(MM)4019",
       "selected": false
     },
     {
-      "source": "GSMM4002",
+      "source": "GS(MM)4002",
       "sourceHandle": null,
-      "target": "GSMM4006",
+      "target": "GS(MM)4006",
       "targetHandle": null,
       "type": "dynamic",
       "animated": false,
@@ -1045,12 +1045,12 @@
         "stroke": "#94a3b8",
         "strokeWidth": 2
       },
-      "id": "reactflow__edge-GSMM4002-GSMM4006"
+      "id": "reactflow__edge-GS(MM)4002-GS(MM)4006"
     },
     {
-      "source": "GSMM4004",
+      "source": "GS(MM)4004",
       "sourceHandle": null,
-      "target": "GSMM4009",
+      "target": "GS(MM)4009",
       "targetHandle": null,
       "type": "dynamic",
       "animated": false,
@@ -1058,11 +1058,11 @@
         "stroke": "#94a3b8",
         "strokeWidth": 2
       },
-      "id": "reactflow__edge-GSMM4004-GSMM4009",
+      "id": "reactflow__edge-GS(MM)4004-GS(MM)4009",
       "selected": false
     },
     {
-      "source": "GSMM4009",
+      "source": "GS(MM)4009",
       "sourceHandle": null,
       "target": "TBD_CRYPTO",
       "targetHandle": null,
@@ -1072,12 +1072,12 @@
         "stroke": "#94a3b8",
         "strokeWidth": 2
       },
-      "id": "reactflow__edge-GSMM4009-TBD_CRYPTO"
+      "id": "reactflow__edge-GS(MM)4009-TBD_CRYPTO"
     },
     {
-      "source": "GSMM4008",
+      "source": "GS(MM)4008",
       "sourceHandle": null,
-      "target": "GSMM4005",
+      "target": "GS(MM)4005",
       "targetHandle": null,
       "type": "dynamic",
       "animated": false,
@@ -1085,13 +1085,13 @@
         "stroke": "#94a3b8",
         "strokeWidth": 2
       },
-      "id": "reactflow__edge-GSMM4008-GSMM4005",
+      "id": "reactflow__edge-GS(MM)4008-GS(MM)4005",
       "selected": false
     },
     {
-      "source": "GSMM2001",
+      "source": "GS(MM)2001",
       "sourceHandle": null,
-      "target": "GSMM4002",
+      "target": "GS(MM)4002",
       "targetHandle": null,
       "type": "dynamic",
       "animated": false,
@@ -1099,12 +1099,12 @@
         "stroke": "#94a3b8",
         "strokeWidth": 2
       },
-      "id": "reactflow__edge-GSMM2001-GSMM4002"
+      "id": "reactflow__edge-GS(MM)2001-GS(MM)4002"
     },
     {
-      "source": "GSMM3012",
+      "source": "GS(MM)3012",
       "sourceHandle": null,
-      "target": "GSMM4017",
+      "target": "GS(MM)4017",
       "targetHandle": null,
       "type": "dynamic",
       "animated": false,
@@ -1112,7 +1112,7 @@
         "stroke": "#94a3b8",
         "strokeWidth": 2
       },
-      "id": "reactflow__edge-GSMM3012-GSMM4017"
+      "id": "reactflow__edge-GS(MM)3012-GS(MM)4017"
     }
   ]
 }

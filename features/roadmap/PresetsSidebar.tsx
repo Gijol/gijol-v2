@@ -22,9 +22,10 @@ const MAJOR_ORDER = [
   '생명과학부',
   '물리·광과학과',
   '화학과',
-  '기초교육학부',
+  '인문사회과학부',
+  '수학과',
   '의생명공학과',
-  '융합기술대학',
+  '융합기술원',
   'AI융합학과',
   'SW/AI 연계교육',
 ];
@@ -85,7 +86,8 @@ function getCanonicalMajor(preset: PresetInfo): string {
   if (slug.startsWith('BIOSCIENCE')) return '생명과학부';
   if (slug.startsWith('PHYSICAL') || slug === 'PHYSICAL_OPTICS') return '물리·광과학과';
   if (slug.startsWith('CHEMISTRY')) return '화학과';
-  if (slug.startsWith('BASIC') || slug === 'MATH_MINOR') return '기초교육학부';
+  if (slug.startsWith('BASIC')) return '인문사회과학';
+  if (slug === 'MATH_MINOR') return '수리 과학과';
   if (slug.startsWith('BIOMEDICAL')) return '의생명공학과';
   if (slug.startsWith('CONVERGENCE')) return '융합기술원';
   if (slug === 'AI_CONVERGENCE') return 'AI융합학과';

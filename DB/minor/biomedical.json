@@ -1,0 +1,193 @@
+{
+  "Basic Mandatory": [],
+  "Major Mandatory": [
+    {
+      "courseCode": "MD5031",
+      "courseName": "의공학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MD5101",
+      "courseName": "의과학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MD5304",
+      "courseName": "바이오통계",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    }
+  ],
+  "Major Elective": [
+    {
+      "courseCode": "MD5603",
+      "courseName": "의학 세포생물학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD4502",
+      "courseName": "인간 유전학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD5601",
+      "courseName": "의학기초 생화학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD5002",
+      "courseName": "의생명 연구방법론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD6403",
+      "courseName": "광유전학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD4501",
+      "courseName": "신경과학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD4101",
+      "courseName": "신경과학기술",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD4401",
+      "courseName": "분자생물학의 실질적 이해 I",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD4102",
+      "courseName": "임상 신경 과학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD4302",
+      "courseName": "의료영상",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD4303",
+      "courseName": "의생명광학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD4402",
+      "courseName": "분자생물학의 실질적 이해 II",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD6505",
+      "courseName": "마이크로바이옴&정밀의학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD6310",
+      "courseName": "신경광자학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD6504",
+      "courseName": "지질대사",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD5051",
+      "courseName": "기능해부생리학 I",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD4301",
+      "courseName": "의생명신호처리론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD5314",
+      "courseName": "의료기기설계",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD4106",
+      "courseName": "감염학",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD6305",
+      "courseName": "레이저와 생체조직 간의 상호작용",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "MD4504",
+      "courseName": "일주기 생체 리듬",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    }
+  ],
+  "Basic Elective": [
+    {
+      "courseCode": "MD4503",
+      "courseName": "의학 행동 과학",
+      "credits": 3,
+      "category": "기초선택",
+      "classification": "Basic Elective"
+    }
+  ],
+  "Planned": [
+    {
+      "courseCode": "MD4601",
+      "courseName": "의학용어",
+      "credits": 3,
+      "category": "편성예정",
+      "classification": "Planned"
+    }
+  ]
+}

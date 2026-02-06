@@ -3,7 +3,19 @@
  * Generates detailed graduation requirement checks based on actual courses taken
  */
 
-import { HUS_COURSES, PPE_COURSES, MAJOR_MANDATORY_RULES } from './constants';
+import {
+  HUS_COURSES,
+  PPE_COURSES,
+  GSC_COURSES,
+  HUS_SUFFIXES,
+  PPE_SUFFIXES,
+  GSC_SUFFIXES,
+  getCourseSuffix,
+  MAJOR_MANDATORY_RULES,
+  MINOR_MANDATORY_RULES,
+  PHYSICAL_EDUCATION_CODES,
+  ARTS_EDUCATION_CODES,
+} from './constants';
 import { matchesMinor } from './classifier';
 import type { TakenCourseType, CategoryKey, YearRuleSet, FineGrainedRequirement, MatchedCourseInfo } from './types';
 
@@ -52,9 +64,18 @@ function hasCodePrefix(c: TakenCourseType, prefix: string): boolean {
 function isCourseType(c: TakenCourseType, type: string): boolean {
   const normType = normalizeCode(type);
   const code = normalizeCode(c.courseCode);
+  const suffix = getCourseSuffix(code);
 
-  if (normType === 'HUS' && HUS_COURSES.has(code)) return true;
-  if (normType === 'PPE' && PPE_COURSES.has(code)) return true;
+  // 직접 코드 매칭 또는 suffix 매칭 (HS2503 = GS2503 = HUS)
+  if (normType === 'HUS') {
+    return HUS_COURSES.has(code) || HUS_SUFFIXES.has(suffix);
+  }
+  if (normType === 'PPE') {
+    return PPE_COURSES.has(code) || PPE_SUFFIXES.has(suffix);
+  }
+  if (normType === 'GSC') {
+    return GSC_COURSES.has(code) || GSC_SUFFIXES.has(suffix);
+  }
 
   return normalizeCode(c.courseType) === normType;
 }
@@ -123,9 +144,30 @@ function creditBasedLabel(baseName: string, required: number, acquired: number, 
 
 // ===== Constant Sets =====
 
-const SET_ENG_I = new Set(['GS1601', 'GS1603', 'GS1607']);
-const SET_ENG_II = new Set(['GS1602', 'GS1604', 'GS2652']);
-const SET_WRITING = new Set(['GS1511', 'GS1512', 'GS1513', 'GS1531', 'GS1532', 'GS1533', 'GS1534']);
+// 영어 I (필수 2학점)
+const SET_ENG_I_REQUIRED_2021 = new Set(['GS1607']); // 2021학번 이후 필수
+const SET_ENG_I_LEGACY = new Set(['GS1601', 'GS1603']); // 2021 이전 학번용
+const SET_ENG_I_ALL = new Set(['GS1601', 'GS1603', 'GS1607']);
+
+// 영어 II (필수 2학점)
+const SET_ENG_II_REQUIRED_2021 = new Set(['GS2652']); // 2021학번 이후 필수
+const SET_ENG_II_LEGACY = new Set(['GS1602', 'GS1604']); // 2021 이전 학번용
+const SET_ENG_II_ALL = new Set(['GS1602', 'GS1604', 'GS2652']);
+
+// 영어 선택 (선이수 조건 없음)
+const SET_ENG_OPTIONAL = new Set(['GS1605', 'GS1606', 'GS2651', 'GS2653', 'GS2654']);
+
+// 영어 고급 (영어I + 영어II 이수 후에만 가능)
+const SET_ENG_ADVANCED = new Set(['GS2655', 'GS3651']);
+
+// 글쓰기 기초 (3학점, 7과목 중 1과목 필수)
+const SET_WRITING_BASIC = new Set(['GS1511', 'GS1512', 'GS1513']);
+
+// 글쓰기 심화 (기초 이수자만 추가 수강 가능, 자유선택 처리)
+const SET_WRITING_ADVANCED = new Set(['GS1531', 'GS1532', 'GS1533', 'GS1535']);
+
+// 전체 글쓰기 (기초 + 심화)
+const SET_WRITING_ALL = new Set(['GS1511', 'GS1512', 'GS1513', 'GS1531', 'GS1532', 'GS1533', 'GS1535']);
 
 const SET_CALCULUS = new Set(['GS1001', 'GS1011']);
 const SET_CORE_MATH = new Set([
@@ -154,8 +196,9 @@ const SET_SCIENCE_ECONOMY = new Set(['GS1701', 'UC0901']); // 과학기술과 �
 const RESEARCH_I_SUFFIX = '9102';
 const RESEARCH_II_SUFFIX = '9103';
 
-const CODE_ART_PREFIX = 'GS02';
-const CODE_SPORT_PREFIX = 'GS01';
+// 예체능 과목 prefix (legacy) - 새로운 코드 집합으로 대체됨
+// const CODE_ART_PREFIX = 'GS02';
+// const CODE_SPORT_PREFIX = 'GS01';
 
 const MAJOR_MANDATORY: Record<string, string[]> = {
   EC: ['EC3101', 'EC3102'],
@@ -234,74 +277,122 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   });
 
   // ===== 1. 언어의 기초 =====
-  const engICourses = findCoursesInSet(allCourses, SET_ENG_I);
+  
+  // 영어 I 요건 확인
+  // 2021학번 이후: GS1607 필수 (GS1601, GS1603 대체 가능)
+  // 2018-2020학번: GS1601, GS1603, GS1607 중 택1
+  const engICourses = findCoursesInSet(allCourses, SET_ENG_I_ALL);
   const engIMatched = engICourses.map(toMatchedInfo);
-  const tookEngI = engICourses.length > 0;
+  
+  let tookEngI = false;
+  if (entryYear >= 2021) {
+    // 2021학번 이후: GS1607 또는 (GS1601 + GS1603) → GS1607이 둘을 대체
+    const hasGS1607 = engICourses.some(c => c.courseCode === 'GS1607');
+    const hasGS1601 = engICourses.some(c => c.courseCode === 'GS1601');
+    const hasGS1603 = engICourses.some(c => c.courseCode === 'GS1603');
+    tookEngI = hasGS1607 || (hasGS1601 && hasGS1603);
+  } else {
+    // 2018-2020학번: 택1
+    tookEngI = engICourses.length > 0;
+  }
 
-  const engIICourses = findCoursesInSet(allCourses, SET_ENG_II);
+  // 영어 II 요건 확인
+  const engIICourses = findCoursesInSet(allCourses, SET_ENG_II_ALL);
   const engIIMatched = engIICourses.map(toMatchedInfo);
   const tookEngII = engIICourses.length > 0;
 
-  const writingCourses = findCoursesInSet(allCourses, SET_WRITING);
-  const writingMatched = writingCourses.map(toMatchedInfo);
-  const tookWriting = writingCourses.length > 0;
+  // 글쓰기 요건 확인 (기초 + 심화 중 1과목 필수)
+  const basicWritingCourses = findCoursesInSet(allCourses, SET_WRITING_BASIC);
+  const advancedWritingCourses = findCoursesInSet(allCourses, SET_WRITING_ADVANCED);
+  const allWritingCourses = [...basicWritingCourses, ...advancedWritingCourses];
+  const writingMatched = allWritingCourses.map(toMatchedInfo);
+  
+  const hasBasicWriting = basicWritingCourses.length > 0;
+  const hasAdvancedWriting = advancedWritingCourses.length > 0;
+  const tookWriting = hasBasicWriting || hasAdvancedWriting;
+
+  // 영어 고급 수강 가능 여부 (영어I + 영어II 이수 후)
+  const canTakeAdvancedEnglish = tookEngI && tookEngII;
+  const advancedEnglishCourses = findCoursesInSet(allCourses, SET_ENG_ADVANCED);
 
   reqs.push(
     {
       id: 'language-english-i',
       categoryKey: 'languageBasic',
-      label: courseBasedLabel('English I', engIMatched, tookEngI),
-      requiredCredits: 1,
-      acquiredCredits: tookEngI ? 1 : 0,
-      missingCredits: tookEngI ? 0 : 1,
+      label: courseBasedLabel('영어 I (2학점)', engIMatched, tookEngI),
+      requiredCredits: 2,
+      acquiredCredits: tookEngI ? 2 : 0,
+      missingCredits: tookEngI ? 0 : 2,
       satisfied: tookEngI,
       importance: 'must',
       hint: courseBasedHint(
         engIMatched,
         tookEngI,
         '{year}년 {semester}에 {course}를 이수하여 요건을 충족했습니다.',
-        'GS1601, GS1603, GS1607 중 1과목을 이수해야 합니다.',
+        entryYear >= 2021 
+          ? 'GS1607 학술영어를 이수해야 합니다. (GS1601+GS1603 동시 이수로 대체 가능)'
+          : 'GS1601, GS1603, GS1607 중 1과목을 이수해야 합니다.',
       ),
       matchedCourses: engIMatched,
-      relatedCoursePatterns: { codePrefixes: Array.from(SET_ENG_I) },
+      relatedCoursePatterns: { codePrefixes: Array.from(SET_ENG_I_ALL) },
     },
     {
       id: 'language-english-ii',
       categoryKey: 'languageBasic',
-      label: courseBasedLabel('English II', engIIMatched, tookEngII),
-      requiredCredits: 1,
-      acquiredCredits: tookEngII ? 1 : 0,
-      missingCredits: tookEngII ? 0 : 1,
+      label: courseBasedLabel('영어 II (2학점)', engIIMatched, tookEngII),
+      requiredCredits: 2,
+      acquiredCredits: tookEngII ? 2 : 0,
+      missingCredits: tookEngII ? 0 : 2,
       satisfied: tookEngII,
       importance: 'must',
       hint: courseBasedHint(
         engIIMatched,
         tookEngII,
         '{year}년 {semester}에 {course}를 이수하여 요건을 충족했습니다.',
-        'GS1602, GS1604, GS2652 중 1과목을 이수해야 합니다.',
+        entryYear >= 2021
+          ? 'GS2652 이공계 글쓰기 입문을 이수해야 합니다.'
+          : 'GS1602, GS1604, GS2652 중 1과목을 이수해야 합니다.',
       ),
       matchedCourses: engIIMatched,
-      relatedCoursePatterns: { codePrefixes: Array.from(SET_ENG_II) },
+      relatedCoursePatterns: { codePrefixes: Array.from(SET_ENG_II_ALL) },
     },
     {
       id: 'language-writing',
       categoryKey: 'languageBasic',
-      label: courseBasedLabel('글쓰기', writingMatched, tookWriting),
-      requiredCredits: 1,
-      acquiredCredits: tookWriting ? 1 : 0,
-      missingCredits: tookWriting ? 0 : 1,
+      label: courseBasedLabel('글쓰기 (3학점)', writingMatched, tookWriting),
+      requiredCredits: 3,
+      acquiredCredits: tookWriting ? 3 : 0,
+      missingCredits: tookWriting ? 0 : 3,
       satisfied: tookWriting,
       importance: 'must',
       hint: courseBasedHint(
         writingMatched,
         tookWriting,
         '{year}년 {semester}에 {course}를 이수하여 요건을 충족했습니다.',
-        'GS1511~GS1534 중 1과목을 이수해야 합니다.',
+        hasAdvancedWriting && !hasBasicWriting
+          ? '심화 글쓰기로 요건 충족. (기초 글쓰기 추가 수강 불가)'
+          : '글쓰기의 기초(GS1511~1513) 또는 심화 글쓰기(GS1531~1535) 중 1과목을 이수해야 합니다.',
       ),
       matchedCourses: writingMatched,
-      relatedCoursePatterns: { codePrefixes: Array.from(SET_WRITING) },
+      relatedCoursePatterns: { codePrefixes: Array.from(SET_WRITING_ALL) },
     },
   );
+
+  // 영어 고급 선이수 조건 확인 (정보성 요건)
+  if (advancedEnglishCourses.length > 0 && !canTakeAdvancedEnglish) {
+    reqs.push({
+      id: 'language-english-advanced-prereq',
+      categoryKey: 'languageBasic',
+      label: '영어 고급 선이수 조건 ⚠️',
+      requiredCredits: 0,
+      acquiredCredits: 0,
+      missingCredits: 0,
+      satisfied: false,
+      importance: 'should',
+      hint: 'GS2655, GS3651은 영어I + 영어II를 모두 이수한 후에만 수강 가능합니다.',
+      matchedCourses: advancedEnglishCourses.map(toMatchedInfo),
+    });
+  }
 
   // ===== 2. 기초과학 - 수학 필수 =====
   const calculusCourses = findCoursesInSet(allCourses, SET_CALCULUS);
@@ -553,12 +644,15 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
 
   // ===== 7. 예체능 =====
   const requiredArtSportCount = entryYear >= 2020 ? 2 : 4;
-  const artCourses = findCoursesWithPrefix(allCourses, CODE_ART_PREFIX);
+  
+  // 예능 과목 (GS0201~GS0213)
+  const artCourses = findCoursesInSet(allCourses, ARTS_EDUCATION_CODES);
   const artMatched = artCourses.map(toMatchedInfo);
   const artCount = artCourses.length;
   const artSatisfied = artCount >= requiredArtSportCount;
 
-  const sportCourses = findCoursesWithPrefix(allCourses, CODE_SPORT_PREFIX);
+  // 체육 과목 (GS0101~GS0115)
+  const sportCourses = findCoursesInSet(allCourses, PHYSICAL_EDUCATION_CODES);
   const sportMatched = sportCourses.map(toMatchedInfo);
   const sportCount = sportCourses.length;
   const sportSatisfied = sportCount >= requiredArtSportCount;
@@ -577,6 +671,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
         ? `예술 교양 ${artCount}과목을 이수하여 요건을 충족했습니다.`
         : `예술 교양 ${requiredArtSportCount - artCount}과목이 더 필요합니다.`,
       matchedCourses: artMatched,
+      relatedCoursePatterns: { codePrefixes: Array.from(ARTS_EDUCATION_CODES) },
     },
     {
       id: 'sports',
@@ -591,6 +686,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
         ? `체육 ${sportCount}과목을 이수하여 요건을 충족했습니다.`
         : `체육 ${requiredArtSportCount - sportCount}과목이 더 필요합니다.`,
       matchedCourses: sportMatched,
+      relatedCoursePatterns: { codePrefixes: Array.from(PHYSICAL_EDUCATION_CODES) },
     },
   );
 
@@ -667,6 +763,37 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
         matchedCourses: matchedInfo,
         relatedCoursePatterns: { codePrefixes: rule.courses },
       });
+    });
+  }
+
+  // ===== 8-2. 부전공 필수 (있는 경우) =====
+  if (userMinors?.length) {
+    userMinors.forEach((minorCode) => {
+      const rules = MINOR_MANDATORY_RULES[minorCode];
+      if (rules) {
+        rules.forEach((rule, idx) => {
+          const matched = findCoursesInSet(allCourses, new Set(rule.courses));
+          const matchedInfo = matched.map(toMatchedInfo);
+          const matchCount = matched.length;
+          const satisfied = matchCount >= rule.requiredCount;
+
+          reqs.push({
+            id: `minor-mandatory-rule-${minorCode}-${idx}`,
+            categoryKey: 'minor',
+            label: creditBasedLabel(rule.label, rule.requiredCount, matchCount, '과목'),
+            requiredCredits: rule.requiredCount, // count based
+            acquiredCredits: matchCount,
+            missingCredits: Math.max(0, rule.requiredCount - matchCount),
+            satisfied: satisfied,
+            importance: 'must',
+            hint: satisfied
+              ? `${rule.label} 요건을 충족했습니다.`
+              : `${rule.label} 요건을 위해 ${Math.max(0, rule.requiredCount - matchCount)}과목을 더 이수해야 합니다.`,
+            matchedCourses: matchedInfo,
+            relatedCoursePatterns: { codePrefixes: rule.courses },
+          });
+        });
+      }
     });
   }
 

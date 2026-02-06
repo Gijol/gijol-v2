@@ -1,0 +1,139 @@
+{
+  "Major Elective": [
+    {
+      "courseCode": "CT2506",
+      "courseName": "신화와 원형상징",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT2501",
+      "courseName": "오타쿠 대중문화론",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT2502",
+      "courseName": "현대예술의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT2504",
+      "courseName": "유토피아 픽션과 테크놀로지",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT2505",
+      "courseName": "과학기술과 사회: 두 문화의 이해",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4203",
+      "courseName": "아트앤 테크놀로지",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4102",
+      "courseName": "정보시각화 방법과 디자인 사고",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4101",
+      "courseName": "아이디어와 디지털 표현",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4301",
+      "courseName": "인간-컴퓨터 상호작용",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4202",
+      "courseName": "영상 커뮤니케이션",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4304",
+      "courseName": "피지컬 컴퓨팅 스튜디오",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4504",
+      "courseName": "과학계산 프로그래밍",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4506",
+      "courseName": "몬테카를로 방법론과 응용",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4201",
+      "courseName": "컴퓨터 그래픽스",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4302",
+      "courseName": "문화기술을 위한 인공지능 설계",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4310",
+      "courseName": "인간-AI상호작용: Special Topics on XR and Digital Twin",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4303",
+      "courseName": "게임인공지능",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    },
+    {
+      "courseCode": "CT4305",
+      "courseName": "서비스러닝 프로젝트",
+      "credits": 3,
+      "category": "전공선택",
+      "classification": "Major Elective"
+    }
+  ],
+  "Planned": [
+    {
+      "courseCode": "과목코드 미정",
+      "courseName": "CT의 이해",
+      "credits": 3,
+      "category": "편성예정",
+      "classification": "Planned"
+    }
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "Major Mandatory": [
+    {
+      "courseCode": "GS2742",
+      "courseName": "인간의 마음과 행동1",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB2742",
+      "courseName": "인간의 마음과 행동1",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS2661",
+      "courseName": "논리학입문",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB2661",
+      "courseName": "논리학입문",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS2743",
+      "courseName": "인간의 마음과 행동2",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB2743",
+      "courseName": "인간의 마음과 행동2",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS2732",
+      "courseName": "행동경제학1",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB2732",
+      "courseName": "행동경제학1",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS2627",
+      "courseName": "신화와 원형상징",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB2627",
+      "courseName": "신화와 원형상징",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS2748",
+      "courseName": "언어와 마음",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB2748",
+      "courseName": "언어와 마음",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS2733",
+      "courseName": "행동경제학2",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB2733",
+      "courseName": "행동경제학2",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS3631",
+      "courseName": "마음과 컴퓨터",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB3631",
+      "courseName": "마음과 컴퓨터",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS3633",
+      "courseName": "과학철학특강",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB3633",
+      "courseName": "과학철학특강",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS3663",
+      "courseName": "종교와 과학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB3663",
+      "courseName": "종교와 과학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS3764",
+      "courseName": "뇌와 인지",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB3764",
+      "courseName": "뇌와 인지",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS3832",
+      "courseName": "합리적 판단과 선택",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB3832",
+      "courseName": "합리적 판단과 선택",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS3861",
+      "courseName": "신경과학과 법",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB3861",
+      "courseName": "신경과학과 법",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS3766",
+      "courseName": "인지심리학 및 실험",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB3766",
+      "courseName": "인지심리학 및 실험",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS3767",
+      "courseName": "(MOOC 지정) 인공지능 로봇의 윤리",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MM3767",
+      "courseName": "(MOOC 지정) 인공지능 로봇의 윤리",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "GS4741",
+      "courseName": "기술정보사회의 심리학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    },
+    {
+      "courseCode": "MB4741",
+      "courseName": "기술정보사회의 심리학",
+      "credits": 3,
+      "category": "전공필수",
+      "classification": "Major Mandatory"
+    }
+  ],
+  "Planned": [
+    {
+      "courseCode": "편성예정",
+      "courseName": "인간의 본성: 인간학입문",
+      "credits": 3,
+      "category": "편성예정",
+      "classification": "Planned"
+    },
+    {
+      "courseCode": "편성예정",
+      "courseName": "행동과학 연구방법론",
+      "credits": 3,
+      "category": "편성예정",
+      "classification": "Planned"
+    },
+    {
+      "courseCode": "편성예정",
+      "courseName": "인지공학",
+      "credits": 3,
+      "category": "편성예정",
+      "classification": "Planned"
+    },
+    {
+      "courseCode": "편성예정",
+      "courseName": "도덕의 진화",
+      "credits": 3,
+      "category": "편성예정",
+      "classification": "Planned"
+    }
+  ]
+}

@@ -1,0 +1,2062 @@
+[
+  {
+    "courseCode": "BS2103",
+    "courseName": "생화학·분자생물학 실험",
+    "alias": [
+      "BS3111"
+    ],
+    "foundIn": [
+      "bioscience"
+    ]
+  },
+  {
+    "courseCode": "BS3111",
+    "courseName": "분자생물학 실험",
+    "alias": [
+      "BS2103"
+    ],
+    "foundIn": [
+      "bioscience"
+    ]
+  },
+  {
+    "courseCode": "BS3208",
+    "courseName": "면역학",
+    "alias": [
+      "BS4205"
+    ],
+    "foundIn": [
+      "bioscience"
+    ]
+  },
+  {
+    "courseCode": "BS4205",
+    "courseName": "면역학",
+    "alias": [
+      "BS3208"
+    ],
+    "foundIn": [
+      "bioscience"
+    ]
+  },
+  {
+    "courseCode": "BS3210",
+    "courseName": "분자-세포 작동원리 및 이론",
+    "foundIn": [
+      "bioscience"
+    ]
+  },
+  {
+    "courseCode": "BS4224",
+    "courseName": "신경생물학",
+    "alias": [
+      "BS4204"
+    ],
+    "foundIn": [
+      "bioscience"
+    ]
+  },
+  {
+    "courseCode": "BS4204",
+    "courseName": "신경생물학",
+    "alias": [
+      "BS4224"
+    ],
+    "foundIn": [
+      "bioscience"
+    ]
+  },
+  {
+    "courseCode": "BS4215",
+    "courseName": "대사학",
+    "foundIn": [
+      "bioscience"
+    ]
+  },
+  {
+    "courseCode": "CH3108",
+    "courseName": "무기화학I",
+    "foundIn": [
+      "chemistry"
+    ]
+  },
+  {
+    "courseCode": "CH4206",
+    "courseName": "무기화학II",
+    "foundIn": [
+      "chemistry"
+    ]
+  },
+  {
+    "courseCode": "EC3213",
+    "courseName": "통신공학",
+    "foundIn": [
+      "EECS"
+    ]
+  },
+  {
+    "courseCode": "EV2214",
+    "courseName": "환경에너지공학전공연구 I",
+    "foundIn": [
+      "environmental"
+    ]
+  },
+  {
+    "courseCode": "EV2215",
+    "courseName": "환경에너지공학전공연구 II",
+    "foundIn": [
+      "environmental"
+    ]
+  },
+  {
+    "courseCode": "EV2217",
+    "courseName": "물리화학 B",
+    "foundIn": [
+      "environmental"
+    ]
+  },
+  {
+    "courseCode": "EV4242",
+    "courseName": "환경에너지촉매",
+    "foundIn": [
+      "environmental"
+    ]
+  },
+  {
+    "courseCode": "GS2001",
+    "courseName": "다변수해석학과 응용",
+    "foundIn": [
+      "EECS",
+      "mechanical"
+    ]
+  },
+  {
+    "courseCode": "GS2002",
+    "courseName": "미분방정식과 응용",
+    "foundIn": [
+      "EECS",
+      "mechanical",
+      "chemistry"
+    ]
+  },
+  {
+    "courseCode": "GS2004",
+    "courseName": "선형대수학과 응용",
+    "foundIn": [
+      "EECS",
+      "mechanical",
+      "chemistry",
+      "ai"
+    ]
+  },
+  {
+    "courseCode": "MA3207",
+    "courseName": "재료전기화학",
+    "foundIn": [
+      "material",
+      "energy"
+    ]
+  },
+  {
+    "courseCode": "MA4218",
+    "courseName": "표면물리화학",
+    "foundIn": [
+      "material"
+    ]
+  },
+  {
+    "courseCode": "MC3209",
+    "courseName": "창의공학",
+    "foundIn": [
+      "mechanical"
+    ]
+  },
+  {
+    "courseCode": "MC4206",
+    "courseName": "MEMS/NEMS원리",
+    "foundIn": [
+      "mechanical"
+    ]
+  },
+  {
+    "courseCode": "PS3105",
+    "courseName": "열역학 및 통계물리",
+    "foundIn": [
+      "physical_optics"
+    ]
+  },
+  {
+    "courseCode": "MD5031",
+    "courseName": "의공학",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD5101",
+    "courseName": "의과학",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD5603",
+    "courseName": "의학 세포생물학",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD5601",
+    "courseName": "의학기초 생화학",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD5002",
+    "courseName": "의생명 연구방법론",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD6403",
+    "courseName": "광유전학",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD5304",
+    "courseName": "바이오통계",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD6505",
+    "courseName": "마이크로바이옴&정밀의학",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD6310",
+    "courseName": "신경광자학",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD6504",
+    "courseName": "지질대사",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD5051",
+    "courseName": "기능해부생리학 I",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD5314",
+    "courseName": "의료기기설계",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "MD6305",
+    "courseName": "레이저와 생체조직 간의 상호작용",
+    "foundIn": [
+      "biomedical"
+    ]
+  },
+  {
+    "courseCode": "GS2013",
+    "courseName": "기초미분방정식과 선형대수의 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS2001",
+    "courseName": "다변수해석학과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM2001",
+    "courseName": "다변수해석학과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS2004",
+    "courseName": "선형대수학과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM2004",
+    "courseName": "선형대수학과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS2002",
+    "courseName": "미분방정식과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM2002",
+    "courseName": "미분방정식과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS3012",
+    "courseName": "수학적 모델링",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM3012",
+    "courseName": "수학적 모델링",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS4004",
+    "courseName": "현대대수학",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4004",
+    "courseName": "현대대수학",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS3001",
+    "courseName": "해석학과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM3001",
+    "courseName": "해석학과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS4002",
+    "courseName": "복소함수학과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4002",
+    "courseName": "복소함수학과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS3015",
+    "courseName": "확률과 통계",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM3015",
+    "courseName": "확률과 통계",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS4006",
+    "courseName": "정수론과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4006",
+    "courseName": "정수론과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS4009",
+    "courseName": "그래프이론",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4009",
+    "courseName": "그래프이론",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS4016",
+    "courseName": "위상수학 개론",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4016",
+    "courseName": "위상수학 개론",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS4008",
+    "courseName": "몬테카를로 방법론과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4008",
+    "courseName": "몬테카를로 방법론과 응용",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS4015",
+    "courseName": "과학계산",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4015",
+    "courseName": "과학계산",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS4017",
+    "courseName": "매스매티카와 기호계산",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4017",
+    "courseName": "매스매티카와 기호계산",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "편성예정",
+    "courseName": "암호학 (편성 예정)",
+    "foundIn": [
+      "math",
+      "science_society",
+      "literature_history",
+      "law_politics",
+      "mind_behavior",
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS4019",
+    "courseName": "확률론",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4019",
+    "courseName": "확률론",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS4007",
+    "courseName": "기하학 I",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4007",
+    "courseName": "기하학 I",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS4005",
+    "courseName": "과학계산 프로그래밍",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4005",
+    "courseName": "과학계산 프로그래밍",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "TBD_DIFFGEO",
+    "courseName": "미분기하학 (편성 예정)",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "GS4018",
+    "courseName": "수리과학주제를 위한 매스매티카",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MM4018",
+    "courseName": "수리과학주제를 위한 매스매티카",
+    "foundIn": [
+      "math"
+    ]
+  },
+  {
+    "courseCode": "MC4216",
+    "courseName": "자동제어",
+    "foundIn": [
+      "energy"
+    ]
+  },
+  {
+    "courseCode": "FE4310",
+    "courseName": "인간-AI상호작용",
+    "foundIn": [
+      "energy"
+    ]
+  },
+  {
+    "courseCode": "MS5142",
+    "courseName": "에너지 전기화학",
+    "foundIn": [
+      "energy"
+    ]
+  },
+  {
+    "courseCode": "과목코드 미정",
+    "courseName": "CT의 이해",
+    "foundIn": [
+      "culture"
+    ]
+  },
+  {
+    "courseCode": "CT2505",
+    "courseName": "과학기술과 사회: 두 문화의 이해",
+    "foundIn": [
+      "culture"
+    ]
+  },
+  {
+    "courseCode": "CT4102",
+    "courseName": "정보시각화 방법과 디자인 사고",
+    "foundIn": [
+      "culture"
+    ]
+  },
+  {
+    "courseCode": "CT4302",
+    "courseName": "문화기술을 위한 인공지능 설계",
+    "foundIn": [
+      "culture"
+    ]
+  },
+  {
+    "courseCode": "CT4310",
+    "courseName": "인간-AI상호작용: Special Topics on XR and Digital Twin",
+    "foundIn": [
+      "culture"
+    ]
+  },
+  {
+    "courseCode": "IR4205",
+    "courseName": "로봇공학",
+    "foundIn": [
+      "robot"
+    ]
+  },
+  {
+    "courseCode": "IR4206",
+    "courseName": "인공지능기반 창의적 로봇 융합 시스템 설계",
+    "foundIn": [
+      "robot"
+    ]
+  },
+  {
+    "courseCode": "GS3015",
+    "courseName": "확률 및 통계",
+    "foundIn": [
+      "ai"
+    ]
+  },
+  {
+    "courseCode": "AI4011",
+    "courseName": "오토마타이론",
+    "foundIn": [
+      "ai"
+    ]
+  },
+  {
+    "courseCode": "AI4012",
+    "courseName": "이산수학",
+    "foundIn": [
+      "ai"
+    ]
+  },
+  {
+    "courseCode": "AI4014",
+    "courseName": "랜덤 프로세스",
+    "foundIn": [
+      "ai"
+    ]
+  },
+  {
+    "courseCode": "AI4020",
+    "courseName": "인공지능",
+    "foundIn": [
+      "ai"
+    ]
+  },
+  {
+    "courseCode": "AI4312",
+    "courseName": "문화기술을 위한 인공지능 설계",
+    "foundIn": [
+      "ai"
+    ]
+  },
+  {
+    "courseCode": "AI4030",
+    "courseName": "인공지능 로봇의 윤리",
+    "foundIn": [
+      "ai"
+    ]
+  },
+  {
+    "courseCode": "AI4001",
+    "courseName": "AI핵심기술 기반 실무 프로젝트 2",
+    "foundIn": [
+      "ai"
+    ]
+  },
+  {
+    "courseCode": "GS2833",
+    "courseName": "비판적 디자인",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS2833",
+    "courseName": "비판적 디자인",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS2803",
+    "courseName": "과학기술과 사회",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS2803",
+    "courseName": "과학기술과 사회",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS2832",
+    "courseName": "기술과 문화",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS2832",
+    "courseName": "기술과 문화",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS2834",
+    "courseName": "역사 속의 과학",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS2834",
+    "courseName": "역사 속의 과학",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS2839",
+    "courseName": "인간의 미래",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS2839",
+    "courseName": "인간의 미래",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS2814",
+    "courseName": "유토피아 픽션과 테크놀로지",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS2814",
+    "courseName": "유토피아 픽션과 테크놀로지",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS2752",
+    "courseName": "기술혁신전략",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS2752",
+    "courseName": "기술혁신전략",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS2822",
+    "courseName": "AI와 나",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS2822",
+    "courseName": "AI와 나",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS3831",
+    "courseName": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS3831",
+    "courseName": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS3631",
+    "courseName": "마음과 컴퓨터",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS3631",
+    "courseName": "마음과 컴퓨터",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS3663",
+    "courseName": "종교와 과학",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS3663",
+    "courseName": "종교와 과학",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS3802",
+    "courseName": "과학자 문학",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS3802",
+    "courseName": "과학자 문학",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS2812",
+    "courseName": "생명윤리와 법",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS2812",
+    "courseName": "생명윤리와 법",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS3633",
+    "courseName": "과학철학 특강",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS3633",
+    "courseName": "과학철학 특강",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS3801",
+    "courseName": "과학기술과 젠더",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS3801",
+    "courseName": "과학기술과 젠더",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS3838",
+    "courseName": "과학기술정책의 이해",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS3838",
+    "courseName": "과학기술정책의 이해",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS3839",
+    "courseName": "질병과 사회",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS3839",
+    "courseName": "질병과 사회",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS4762",
+    "courseName": "인공지능 로봇의 법",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS4762",
+    "courseName": "인공지능 로봇의 법",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS4741",
+    "courseName": "기술정보사회의 심리학",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS4741",
+    "courseName": "기술정보사회의 심리학",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS4471",
+    "courseName": "인류세의 우리",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS4471",
+    "courseName": "인류세의 우리",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS3767",
+    "courseName": "(MOOC) 인공지능 윤리",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS3767",
+    "courseName": "(MOOC) 인공지능 윤리",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS4837",
+    "courseName": "과학기술과 사회",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "SS4837",
+    "courseName": "과학기술과 사회",
+    "foundIn": [
+      "science_society"
+    ]
+  },
+  {
+    "courseCode": "GS2742",
+    "courseName": "인간의 마음과 행동1",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB2742",
+    "courseName": "인간의 마음과 행동1",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS2661",
+    "courseName": "논리학입문",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB2661",
+    "courseName": "논리학입문",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS2743",
+    "courseName": "인간의 마음과 행동2",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB2743",
+    "courseName": "인간의 마음과 행동2",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS2732",
+    "courseName": "행동경제학1",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB2732",
+    "courseName": "행동경제학1",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS2627",
+    "courseName": "신화와 원형상징",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB2627",
+    "courseName": "신화와 원형상징",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS2748",
+    "courseName": "언어와 마음",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB2748",
+    "courseName": "언어와 마음",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS2733",
+    "courseName": "행동경제학2",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB2733",
+    "courseName": "행동경제학2",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS3631",
+    "courseName": "마음과 컴퓨터",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB3631",
+    "courseName": "마음과 컴퓨터",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS3633",
+    "courseName": "과학철학특강",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB3633",
+    "courseName": "과학철학특강",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS3663",
+    "courseName": "종교와 과학",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB3663",
+    "courseName": "종교와 과학",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS3764",
+    "courseName": "뇌와 인지",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB3764",
+    "courseName": "뇌와 인지",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS3832",
+    "courseName": "합리적 판단과 선택",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB3832",
+    "courseName": "합리적 판단과 선택",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS3861",
+    "courseName": "신경과학과 법",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB3861",
+    "courseName": "신경과학과 법",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS3766",
+    "courseName": "인지심리학 및 실험",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB3766",
+    "courseName": "인지심리학 및 실험",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS3767",
+    "courseName": "(MOOC 지정) 인공지능 로봇의 윤리",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MM3767",
+    "courseName": "(MOOC 지정) 인공지능 로봇의 윤리",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS4741",
+    "courseName": "기술정보사회의 심리학",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "MB4741",
+    "courseName": "기술정보사회의 심리학",
+    "foundIn": [
+      "mind_behavior"
+    ]
+  },
+  {
+    "courseCode": "GS2739",
+    "courseName": "미시경제학원론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB2739",
+    "courseName": "미시경제학원론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS2750",
+    "courseName": "경영학원론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB2750",
+    "courseName": "경영학원론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS2751",
+    "courseName": "전략경영 I",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB2751",
+    "courseName": "전략경영 I",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS3722",
+    "courseName": "미시경제론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB3722",
+    "courseName": "미시경제론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS2732",
+    "courseName": "행동경제학 1",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB2732",
+    "courseName": "행동경제학 1",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS2726",
+    "courseName": "글로벌경제의 이해",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB2726",
+    "courseName": "글로벌경제의 이해",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS2730",
+    "courseName": "해외경제론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB2730",
+    "courseName": "해외경제론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS2752",
+    "courseName": "기술혁신전략",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB2752",
+    "courseName": "기술혁신전략",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS3737",
+    "courseName": "거시경제론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB3737",
+    "courseName": "거시경제론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS3725",
+    "courseName": "사회복지와 재정",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB3725",
+    "courseName": "사회복지와 재정",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS2733",
+    "courseName": "행동경제학 2",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB2733",
+    "courseName": "행동경제학 2",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS2753",
+    "courseName": "기술벤처창업론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB2753",
+    "courseName": "기술벤처창업론",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS3735",
+    "courseName": "한국의 경제발전",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB3735",
+    "courseName": "한국의 경제발전",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS3752",
+    "courseName": "전략경영 II",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB3752",
+    "courseName": "전략경영 II",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS3721",
+    "courseName": "교육의 경제학",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB3721",
+    "courseName": "교육의 경제학",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS3736",
+    "courseName": "통일독일과 남북통일",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB3736",
+    "courseName": "통일독일과 남북통일",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS3765",
+    "courseName": "재정학",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB3765",
+    "courseName": "재정학",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS3751",
+    "courseName": "소셜네트워크와 기업행동",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB3751",
+    "courseName": "소셜네트워크와 기업행동",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS3753",
+    "courseName": "기업집단의 이해",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "EB3753",
+    "courseName": "기업집단의 이해",
+    "foundIn": [
+      "economics"
+    ]
+  },
+  {
+    "courseCode": "GS2704",
+    "courseName": "기업과 사회 I",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2704",
+    "courseName": "기업과 사회 I",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2761",
+    "courseName": "인권법",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2761",
+    "courseName": "인권법",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2763",
+    "courseName": "현대법학의 이해",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2763",
+    "courseName": "현대법학의 이해",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2788",
+    "courseName": "민주주의론",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2788",
+    "courseName": "민주주의론",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2734",
+    "courseName": "행복의 조건",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2734",
+    "courseName": "행복의 조건",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2765",
+    "courseName": "헌법과 국가",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2765",
+    "courseName": "헌법과 국가",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2701",
+    "courseName": "한국사회의 이해",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2701",
+    "courseName": "한국사회의 이해",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2616",
+    "courseName": "장기 19세기 서양 역사",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2616",
+    "courseName": "장기 19세기 서양 역사",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2724",
+    "courseName": "거시경제학원론",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2724",
+    "courseName": "거시경제학원론",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2787",
+    "courseName": "한국정치론",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2787",
+    "courseName": "한국정치론",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2812",
+    "courseName": "생명윤리와 법",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2812",
+    "courseName": "생명윤리와 법",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2702",
+    "courseName": "미국사회의 이해",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2702",
+    "courseName": "미국사회의 이해",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS3725",
+    "courseName": "사회복지와 재정",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP3725",
+    "courseName": "사회복지와 재정",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS3785",
+    "courseName": "국가와 시민사회론",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP3785",
+    "courseName": "국가와 시민사회론",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS3721",
+    "courseName": "교육의 경제학",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP3721",
+    "courseName": "교육의 경제학",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS3831",
+    "courseName": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP3831",
+    "courseName": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS2703",
+    "courseName": "세계화와 발전",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP2703",
+    "courseName": "세계화와 발전",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS3632",
+    "courseName": "합리적 판단과 선택",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP3632",
+    "courseName": "합리적 판단과 선택",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS3765",
+    "courseName": "재정학",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP3765",
+    "courseName": "재정학",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS3838",
+    "courseName": "과학기술정책의 이해",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP3838",
+    "courseName": "과학기술정책의 이해",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS4762",
+    "courseName": "인공지능 로봇의 법",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP4762",
+    "courseName": "인공지능 로봇의 법",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS3786",
+    "courseName": "정치경제론",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP3786",
+    "courseName": "정치경제론",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS3735",
+    "courseName": "한국의 경제발전",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP3735",
+    "courseName": "한국의 경제발전",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "GS3767",
+    "courseName": "(MOOC 지정) 인공지능 로봇의 윤리",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "PP3767",
+    "courseName": "(MOOC 지정) 인공지능 로봇의 윤리",
+    "foundIn": [
+      "law_politics"
+    ]
+  },
+  {
+    "courseCode": "HS2501",
+    "courseName": "(MOOC 지정) 시의 이해",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2502",
+    "courseName": "영웅과 반영웅: 서구근대문학의 이해",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2502",
+    "courseName": "영웅과 반영웅: 서구근대문학의 이해",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2602",
+    "courseName": "한국사의 이해",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2602",
+    "courseName": "한국사의 이해",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2503",
+    "courseName": "한국현대소설의 이해",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2503",
+    "courseName": "한국현대소설의 이해",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2504",
+    "courseName": "한국현대소설의 사회적 성찰",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2504",
+    "courseName": "한국현대소설의 사회적 성찰",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2511",
+    "courseName": "현대시 읽기",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2511",
+    "courseName": "현대시 읽기",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2526",
+    "courseName": "문학과 연인들",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2526",
+    "courseName": "문학과 연인들",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2512",
+    "courseName": "한국소설속의 여성들",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2512",
+    "courseName": "한국소설속의 여성들",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2614",
+    "courseName": "초기근대의 서양",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2614",
+    "courseName": "초기근대의 서양",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2522",
+    "courseName": "개성과 정체성: 영미 성장기 문학",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2522",
+    "courseName": "개성과 정체성: 영미 성장기 문학",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2606",
+    "courseName": "한국현대시인론",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2606",
+    "courseName": "한국현대시인론",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2525",
+    "courseName": "근대의 모험: 서구근대문학의 이해 II",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2525",
+    "courseName": "근대의 모험: 서구근대문학의 이해 II",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS2613",
+    "courseName": "현대서양의 형성과 전개",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH2613",
+    "courseName": "현대서양의 형성과 전개",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS3501",
+    "courseName": "이상문학과 과학",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH3501",
+    "courseName": "이상문학과 과학",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS3601",
+    "courseName": "한국 근현대 작가론",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH3601",
+    "courseName": "한국 근현대 작가론",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS3503",
+    "courseName": "과학자 문학",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH3503",
+    "courseName": "과학자 문학",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS3502",
+    "courseName": "시창작 특강",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH3502",
+    "courseName": "시창작 특강",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "GS3505",
+    "courseName": "20세기 한국여성작가론",
+    "foundIn": [
+      "literature_history"
+    ]
+  },
+  {
+    "courseCode": "LH3505",
+    "courseName": "20세기 한국여성작가론",
+    "foundIn": [
+      "literature_history"
+    ]
+  }
+]

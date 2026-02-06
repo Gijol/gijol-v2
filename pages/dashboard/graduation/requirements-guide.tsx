@@ -267,12 +267,12 @@ export default function RequirementsGuidePage() {
           <div className="rounded-lg border bg-white p-4 text-center">
             <span className="text-2xl">🎭</span>
             <h4 className="mt-2 font-medium">예술</h4>
-            <p className="text-sm text-slate-500">2~4과목 (학번별 상이)</p>
+            <p className="text-sm text-slate-500">2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기</p>
           </div>
           <div className="rounded-lg border bg-white p-4 text-center">
             <span className="text-2xl">⚽</span>
             <h4 className="mt-2 font-medium">체육</h4>
-            <p className="text-sm text-slate-500">2~4과목 (학번별 상이)</p>
+            <p className="text-sm text-slate-500">2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기</p>
           </div>
           <div className="rounded-lg border bg-white p-4 text-center">
             <span className="text-2xl">🎤</span>
