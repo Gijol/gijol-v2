@@ -45,7 +45,7 @@ interface EngineDeps {
 // 학기 비교 함수: 양수면 a가 b보다 이후, 음수면 a가 b보다 이전, 0이면 동일
 function compareSemester(a: TakenCourseType, b: TakenCourseType): number {
   if (a.year !== b.year) return a.year - b.year;
-  const semOrder: Record<string, number> = { '1': 1, '여름': 2, '2': 3, '겨울': 4 };
+  const semOrder: Record<string, number> = { '1': 1, 여름: 2, '2': 3, 겨울: 4 };
   const aOrder = semOrder[a.semester] || 0;
   const bOrder = semOrder[b.semester] || 0;
   return aOrder - bOrder;
@@ -121,7 +121,8 @@ function checkFieldCompletion(
     case 'physics':
     case 'chemistry':
     case 'biology': {
-      const lectureSet = field === 'physics' ? PHYSICS_LECTURE : field === 'chemistry' ? CHEMISTRY_LECTURE : BIOLOGY_LECTURE;
+      const lectureSet =
+        field === 'physics' ? PHYSICS_LECTURE : field === 'chemistry' ? CHEMISTRY_LECTURE : BIOLOGY_LECTURE;
       const labSet = field === 'physics' ? PHYSICS_LAB : field === 'chemistry' ? CHEMISTRY_LAB : BIOLOGY_LAB;
       const lectures = courses.filter((c) => lectureSet.has(c.courseCode));
       const labs = courses.filter((c) => labSet.has(c.courseCode));
@@ -277,14 +278,10 @@ function rebalanceMinorVsScienceBasic(
   }
 
   // 3. 결과 생성 - courseCode + year + semester로 고유 식별
-  const movedKeys = new Set(
-    coursesToMove.map((c) => `${c.courseCode}-${c.year}-${c.semester}`),
-  );
+  const movedKeys = new Set(coursesToMove.map((c) => `${c.courseCode}-${c.year}-${c.semester}`));
 
   return {
-    minor: minorCourses.filter(
-      (c) => !movedKeys.has(`${c.courseCode}-${c.year}-${c.semester}`),
-    ),
+    minor: minorCourses.filter((c) => !movedKeys.has(`${c.courseCode}-${c.year}-${c.semester}`)),
     scienceBasic: [...scienceBasicCourses, ...coursesToMove],
   };
 }
@@ -346,14 +343,33 @@ export const evaluateGraduationStatus = async (
     }
   });
 
+  // 2.3. 복수 인정 처리 (Dual-Credit)
+  // 부전공으로 분류된 과목 중 인문사회 조건도 만족하는 과목은 humanities에도 추가
+  // 예: GS2544 (문화콘텐츠의 이해) → minor(CT) && humanities(GS2544)
+  const humanitiesPrefixes = ['HS', 'GS', 'EB', 'LH', 'MB', 'PP', 'SS'];
+  const humanitiesSuffixPattern = /^(GS|HS)[2-4]\d{3}$/; // GS2xxx ~ GS4xxx, HS2xxx ~ HS4xxx
+
+  grouped.minor.forEach((course) => {
+    const code = course.courseCode.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const prefix = code.match(/^[A-Z]+/)?.[0] || '';
+
+    // GS/HS로 시작하는 인문사회 과목은 humanities에도 포함
+    if (humanitiesPrefixes.includes(prefix) || humanitiesSuffixPattern.test(code)) {
+      // 중복 체크 후 추가
+      const alreadyExists = grouped.humanities.some(
+        (c) => c.courseCode === course.courseCode && c.year === course.year && c.semester === course.semester,
+      );
+      if (!alreadyExists) {
+        grouped.humanities.push(course);
+      }
+    }
+  });
+
   // 2.4. Re-balance Minor vs ScienceBasic (기초과학 우선 충족)
   // 부전공과 기초과학에 중복되는 과목이 있을 경우, 기초과학 요건을 먼저 충족
   // 예: 수리과학 부전공 선언 시, 미적분학 + 수학선택1은 기초과학으로, 나머지는 부전공으로
   if (userMinors && userMinors.length > 0 && grouped.minor.length > 0) {
-    const minorScienceResult = rebalanceMinorVsScienceBasic(
-      grouped.minor,
-      grouped.scienceBasic,
-    );
+    const minorScienceResult = rebalanceMinorVsScienceBasic(grouped.minor, grouped.scienceBasic);
     grouped.minor = minorScienceResult.minor;
     grouped.scienceBasic = minorScienceResult.scienceBasic;
   }

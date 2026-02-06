@@ -21,6 +21,7 @@ import {
   COMMON_MAJOR_PREFIXES,
   ALL_HUMANITIES_COURSES,
 } from './constants';
+import { getAliases } from './constants/alias-mappings';
 
 // ===== Helper Functions =====
 
@@ -43,24 +44,31 @@ export function matchesMinor(courseCode: string, minorInput: string): boolean {
   const mCode = normalizeCode(minorInput);
   const code = normalizeCode(courseCode);
 
+  // Get all equivalent codes (including aliases) for dual-credit support
+  const aliases = getAliases(code);
+  const allCodes = [code, ...aliases];
+
   // 1. Check Majors (Major used as Minor)
   const mjName = MAJOR_CODE_TO_NAME[mCode as MajorCode];
   if (mjName) {
     const set = COURSE_CODE_SETS.majors[mjName as keyof typeof COURSE_CODE_SETS.majors];
-    if (set && (set as readonly string[]).includes(code)) return true;
+    if (set && allCodes.some((c) => (set as readonly string[]).includes(c))) return true;
   }
 
   // 2. Check Standard Minors
   const mnName = MINOR_CODE_TO_NAME[mCode as MinorCode];
   if (mnName) {
     const set = COURSE_CODE_SETS.minors[mnName as keyof typeof COURSE_CODE_SETS.minors];
-    if (set && (set as readonly string[]).includes(code)) return true;
+    if (set && allCodes.some((c) => (set as readonly string[]).includes(c))) return true;
   }
 
-  // 3. Fallback Prefix Matching
+  // 3. Fallback Prefix Matching (check all codes)
   const mp = mCode.replace(/[^A-Z]/g, '');
-  const prefix = code.match(/^[A-Z]+/)?.[0] || '';
-  return !!mp && prefix.startsWith(mp);
+  for (const c of allCodes) {
+    const prefix = c.match(/^[A-Z]+/)?.[0] || '';
+    if (mp && prefix.startsWith(mp)) return true;
+  }
+  return false;
 }
 
 export function classifyCourse(course: TakenCourseType, userMajor?: string, userMinors?: string[]): CategoryKey {

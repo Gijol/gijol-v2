@@ -34,6 +34,7 @@ import {
   getOfferedCourses,
   type CourseMaster,
 } from '../const/course-master';
+import { getMinorRecommendations as getMinorRecommendationsFromData } from '../const/minor-courses';
 import type { FineGrainedRequirement } from '../types/grad-requirements';
 
 // CourseMaster를 RecommendedCourse로 변환
@@ -167,7 +168,7 @@ const DOMAIN_RECOMMENDATIONS: Record<string, RecommendedCourse[]> = {
 };
 
 export function useRecommendedCourses() {
-  const { gradStatus } = useGraduationStore();
+  const { gradStatus, userMinors } = useGraduationStore();
 
   // 졸업 상태에서 영역별 정보 추출
   const overallProps = extractOverallStatus(gradStatus);
@@ -195,19 +196,45 @@ export function useRecommendedCourses() {
    * 세부 요건 기반 추천 과목 조회
    * - fineGrainedRequirements가 있으면: 미충족 세부 요건에 해당하는 과목만 추천
    * - fineGrainedRequirements가 없으면: 기존 영역 전체 추천 방식 fallback
+   * - 부전공(minor): 선택한 부전공의 미이수 과목 추천 (필수 → 선택 우선순위)
    */
   const getRecommendationsForDomain = (domain: string): RecommendedCourse[] => {
     const categoryKey = DOMAIN_TO_CATEGORY_KEY[domain];
 
+    // === 부전공(minor) 특별 처리 ===
+    if (categoryKey === 'minor') {
+      // 선택된 부전공이 없으면 빈 배열
+      if (!userMinors || userMinors.length === 0) {
+        return [];
+      }
+
+      // 부전공 미충족 세부 요건 확인
+      const unsatisfiedMinorReqs = fineGrainedReqs.filter((req) => req.categoryKey === 'minor' && !req.satisfied);
+
+      // 모든 부전공 요건 충족 시 빈 배열
+      if (fineGrainedReqs.length > 0 && unsatisfiedMinorReqs.length === 0) {
+        return [];
+      }
+
+      // 각 부전공별 미이수 과목 수집
+      const allMinorRecommendations: RecommendedCourse[] = [];
+      for (const minorCode of userMinors) {
+        const recommendations = getMinorRecommendationsFromData(minorCode, takenCourseCodes);
+        allMinorRecommendations.push(...recommendations);
+      }
+
+      // 중복 제거
+      return deduplicateByCourseCode(allMinorRecommendations);
+    }
+
+    // === 기존 영역 처리 ===
     // fineGrainedRequirements가 없으면 기존 방식 fallback
     if (fineGrainedReqs.length === 0) {
       return filterTakenCourses(DOMAIN_RECOMMENDATIONS[domain] ?? []);
     }
 
     // 해당 도메인의 미충족 세부 요건 찾기
-    const unsatisfiedReqs = fineGrainedReqs.filter(
-      (req) => req.categoryKey === categoryKey && !req.satisfied,
-    );
+    const unsatisfiedReqs = fineGrainedReqs.filter((req) => req.categoryKey === categoryKey && !req.satisfied);
 
     // 미충족 세부 요건이 없으면 빈 배열 (이미 충족됨)
     if (unsatisfiedReqs.length === 0) {
