@@ -20,6 +20,7 @@ import {
   ZERO_CREDIT_PE_PREFIX,
   COMMON_MAJOR_PREFIXES,
   ALL_HUMANITIES_COURSES,
+  GSC_COURSES,
 } from './constants';
 import { getAliases } from './constants/alias-mappings';
 
@@ -121,6 +122,10 @@ export function classifyCourse(course: TakenCourseType, userMajor?: string, user
   }
 
   // 5) 기초과학
+  // 5.1) GSC 과목은 인문사회로 분류 (SCIENCE_KEYWORDS보다 우선)
+  // 예: GS2823 "수학의 위대한 순간들 - AI"는 과목명에 '수학'이 들어가지만 GSC(인문선택)임
+  if (GSC_COURSES.has(code)) return 'humanities';
+
   if (SCIENCE_BASIC_CODES.has(code)) return 'scienceBasic';
   // Removed strict prefix check for BS|CH|PH|MA|MM|MT because user requested that
   // if it's not the user's major/minor, it should be Free Elective, not Science Basic.
