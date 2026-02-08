@@ -4,17 +4,21 @@ import { GetStaticProps } from 'next';
 import { Input } from '@components/ui/input';
 import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from '@components/ui/sheet';
 import { ScrollArea } from '@components/ui/scroll-area';
-import { Search, Book, Filter, Clock, FlaskConical, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Book, Filter, Clock, FlaskConical, ChevronLeft, ChevronRight, X, SlidersHorizontal } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import {
   type CourseDB,
   filterCourses,
   getDepartmentDisplayName,
   getUniqueDepartments,
+  getUniqueParticipatingDepartments,
   getCourseLevel,
 } from '@const/course-db';
+import { MultiSelect, type Option } from '@components/ui/multi-select';
+import { Checkbox } from '@components/ui/checkbox';
+import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue';
 
 // 학과별 배지 색상
 // 학과별 배지 스타일
@@ -50,12 +54,20 @@ export default function CourseSearchPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [category, setCategory] = useState('all');
   const [selectedSemesters, setSelectedSemesters] = useState<string[]>([]);
-  const [selectedDepartment, setSelectedDepartment] = useState('all');
   const [selectedLevel, setSelectedLevel] = useState('all');
   const [selectedCredit, setSelectedCredit] = useState('all');
 
+  // 새 필터 상태
+  const [selectedParticipatingDepts, setSelectedParticipatingDepts] = useState<string[]>([]);
+  const [showMOOCOnly, setShowMOOCOnly] = useState(false);
+  const [showLabOnly, setShowLabOnly] = useState(false);
+
+  // 디바운스된 검색어 (300ms)
+  const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
+
   const [selectedCourse, setSelectedCourse] = useState<CourseDB | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   React.useEffect(() => {
@@ -72,7 +84,10 @@ export default function CourseSearchPage() {
   }, []);
 
   // Derived Data
-  const uniqueDepartments = useMemo(() => getUniqueDepartments(courses), [courses]);
+  const participatingDeptOptions: Option[] = useMemo(() => {
+    const depts = getUniqueParticipatingDepartments(courses);
+    return depts.map((dept) => ({ value: dept, label: dept }));
+  }, [courses]);
 
   // 검색 및 필터링된 과목
   const filteredCourses = useMemo(() => {
@@ -108,10 +123,7 @@ export default function CourseSearchPage() {
       });
     }
 
-    // 3. 학과 필터 (Department Context)
-    if (selectedDepartment !== 'all') {
-      result = result.filter((c) => c.departmentContext && c.departmentContext === selectedDepartment);
-    }
+
 
     // 4. 학년/단위 필터 (Level)
     if (selectedLevel !== 'all') {
@@ -141,13 +153,42 @@ export default function CourseSearchPage() {
       }
     }
 
-    // 6. 검색어 필터
-    if (searchQuery.trim()) {
-      result = filterCourses(result, searchQuery);
+    // 6. 검색어 필터 (디바운스 적용)
+    if (debouncedSearchQuery.trim()) {
+      result = filterCourses(result, debouncedSearchQuery);
+    }
+
+    // 7. 개설 학과 필터 (다중 선택, OR 조건)
+    if (selectedParticipatingDepts.length > 0) {
+      result = result.filter((c) =>
+        c.participatingDepartments.some((dept) =>
+          selectedParticipatingDepts.some((selected) => dept.includes(selected)),
+        ),
+      );
+    }
+
+    // 8. MOOC 필터
+    if (showMOOCOnly) {
+      result = result.filter((c) => c.tags.includes('MOOC'));
+    }
+
+    // 9. 실습 과목 필터
+    if (showLabOnly) {
+      result = result.filter((c) => c.labHours > 0);
     }
 
     return result;
-  }, [courses, searchQuery, category, selectedSemesters, selectedDepartment, selectedLevel, selectedCredit]);
+  }, [
+    courses,
+    debouncedSearchQuery,
+    category,
+    selectedSemesters,
+    selectedLevel,
+    selectedCredit,
+    selectedParticipatingDepts,
+    showMOOCOnly,
+    showLabOnly,
+  ]);
 
   // 페이지네이션 계산
   const totalPages = Math.ceil(filteredCourses.length / ITEMS_PER_PAGE);
@@ -159,12 +200,252 @@ export default function CourseSearchPage() {
   // 필터 조건 변경 시 첫 페이지로 리셋
   React.useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, category, selectedSemesters, selectedDepartment, selectedLevel, selectedCredit]);
+  }, [
+    debouncedSearchQuery,
+    category,
+    selectedSemesters,
+    selectedLevel,
+    selectedCredit,
+    selectedParticipatingDepts,
+    showMOOCOnly,
+    showLabOnly,
+  ]);
 
   const handleCourseClick = (course: CourseDB) => {
     setSelectedCourse(course);
     setIsSheetOpen(true);
   };
+
+  // 활성 필터 목록 생성
+  const activeFilters = useMemo(() => {
+    const filters: { key: string; label: string; onRemove: () => void }[] = [];
+
+    selectedSemesters.forEach((sem) => {
+      filters.push({
+        key: `semester-${sem}`,
+        label: sem === '2025-1' ? '2025-1학기' : '2025-2학기',
+        onRemove: () => setSelectedSemesters((prev) => prev.filter((s) => s !== sem)),
+      });
+    });
+
+
+
+    if (selectedLevel !== 'all') {
+      const levelLabels: Record<string, string> = {
+        '1000': '1학년',
+        '2000': '2학년',
+        '3000': '3학년',
+        '4000': '4학년',
+        '5000': '기타/연구',
+      };
+      filters.push({
+        key: 'level',
+        label: levelLabels[selectedLevel] || selectedLevel,
+        onRemove: () => setSelectedLevel('all'),
+      });
+    }
+
+    if (selectedCredit !== 'all') {
+      filters.push({
+        key: 'credit',
+        label: selectedCredit === '4' ? '4학점 이상' : `${selectedCredit}학점`,
+        onRemove: () => setSelectedCredit('all'),
+      });
+    }
+
+    if (category !== 'all') {
+      const categoryLabels: Record<string, string> = {
+        mandatory: '필수/공통',
+        humanities: '인문사회',
+        science: '기초과학',
+        major: '전공',
+      };
+      filters.push({
+        key: 'category',
+        label: categoryLabels[category] || category,
+        onRemove: () => setCategory('all'),
+      });
+    }
+
+    selectedParticipatingDepts.forEach((dept) => {
+      filters.push({
+        key: `participatingDept-${dept}`,
+        label: dept,
+        onRemove: () => setSelectedParticipatingDepts((prev) => prev.filter((d) => d !== dept)),
+      });
+    });
+
+    if (showMOOCOnly) {
+      filters.push({
+        key: 'mooc',
+        label: 'MOOC',
+        onRemove: () => setShowMOOCOnly(false),
+      });
+    }
+
+    if (showLabOnly) {
+      filters.push({
+        key: 'lab',
+        label: '실습 과목',
+        onRemove: () => setShowLabOnly(false),
+      });
+    }
+
+    return filters;
+  }, [
+    selectedSemesters,
+    selectedLevel,
+    selectedCredit,
+    category,
+    selectedParticipatingDepts,
+    showMOOCOnly,
+    showLabOnly,
+  ]);
+
+  // 필터 초기화 함수
+  const resetAllFilters = () => {
+    setCategory('all');
+    setSelectedSemesters([]);
+    setSelectedLevel('all');
+    setSelectedCredit('all');
+    setSearchQuery('');
+    setSelectedParticipatingDepts([]);
+    setShowMOOCOnly(false);
+    setShowLabOnly(false);
+  };
+
+  // 필터 UI 컴포넌트 (데스크톱 & 모바일 공용)
+  const FilterControls = ({ isMobile = false }: { isMobile?: boolean }) => (
+    <div className={isMobile ? 'flex flex-col gap-4' : 'flex flex-wrap items-center gap-2'}>
+      {/* 1. Semester Toggle */}
+      <div className="flex items-center gap-1 rounded-md border border-slate-200 bg-white p-1 shadow-none">
+        <button
+          onClick={() => {
+            const newValue = selectedSemesters.includes('2025-1')
+              ? selectedSemesters.filter((s) => s !== '2025-1')
+              : [...selectedSemesters, '2025-1'];
+            setSelectedSemesters(newValue);
+          }}
+          className={`rounded px-3 py-1.5 text-sm font-medium transition-colors ${
+            selectedSemesters.includes('2025-1')
+              ? 'bg-emerald-100 text-emerald-700'
+              : 'text-gray-600 hover:bg-gray-100'
+          }`}
+        >
+          2025-1학기
+        </button>
+        <button
+          onClick={() => {
+            const newValue = selectedSemesters.includes('2025-2')
+              ? selectedSemesters.filter((s) => s !== '2025-2')
+              : [...selectedSemesters, '2025-2'];
+            setSelectedSemesters(newValue);
+          }}
+          className={`rounded px-3 py-1.5 text-sm font-medium transition-colors ${
+            selectedSemesters.includes('2025-2') ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'
+          }`}
+        >
+          2025-2학기
+        </button>
+      </div>
+
+      {/* 2. 개설 학과 MultiSelect (Moved & shadow-none) */}
+      <MultiSelect
+        options={participatingDeptOptions}
+        selected={selectedParticipatingDepts}
+        onChange={setSelectedParticipatingDepts}
+        placeholder="개설 학과 선택..."
+        className={`${isMobile ? 'w-full' : 'w-[200px]'} bg-white shadow-none`}
+      />
+
+      {/* 3. Level Select */}
+      <Select value={selectedLevel} onValueChange={setSelectedLevel}>
+        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[120px]'} bg-white shadow-none`}>
+          <SelectValue placeholder="학년" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">전체 학년</SelectItem>
+          <SelectItem value="1000">1학년 (1000)</SelectItem>
+          <SelectItem value="2000">2학년 (2000)</SelectItem>
+          <SelectItem value="3000">3학년 (3000)</SelectItem>
+          <SelectItem value="4000">4학년 (4000)</SelectItem>
+          <SelectItem value="5000">기타/연구</SelectItem>
+        </SelectContent>
+      </Select>
+
+      {/* 4. Credit Select */}
+      <Select value={selectedCredit} onValueChange={setSelectedCredit}>
+        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[110px]'} bg-white shadow-none`}>
+          <SelectValue placeholder="학점" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">전체 학점</SelectItem>
+          <SelectItem value="1">1학점</SelectItem>
+          <SelectItem value="2">2학점</SelectItem>
+          <SelectItem value="3">3학점</SelectItem>
+          <SelectItem value="4">4학점 이상</SelectItem>
+        </SelectContent>
+      </Select>
+
+      {/* 5. Category Select */}
+      <Select value={category} onValueChange={setCategory}>
+        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[140px]'} bg-white shadow-none`}>
+          <SelectValue placeholder="이수구분" />
+        </SelectTrigger>
+        <SelectContent>
+          {CATEGORY_OPTIONS.map((opt) => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+
+
+      {/* 7. MOOC 토글 */}
+      <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2">
+        <Checkbox
+          id={isMobile ? 'mooc-filter-mobile' : 'mooc-filter'}
+          checked={showMOOCOnly}
+          onCheckedChange={(checked) => setShowMOOCOnly(checked === true)}
+        />
+        <label
+          htmlFor={isMobile ? 'mooc-filter-mobile' : 'mooc-filter'}
+          className="cursor-pointer text-sm font-medium text-gray-600"
+        >
+          MOOC
+        </label>
+      </div>
+
+      {/* 8. 실습 과목 토글 */}
+      <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2">
+        <Checkbox
+          id={isMobile ? 'lab-filter-mobile' : 'lab-filter'}
+          checked={showLabOnly}
+          onCheckedChange={(checked) => setShowLabOnly(checked === true)}
+        />
+        <label
+          htmlFor={isMobile ? 'lab-filter-mobile' : 'lab-filter'}
+          className="cursor-pointer text-sm font-medium text-gray-600"
+        >
+          실습 과목
+        </label>
+      </div>
+
+      {/* Reset Filters (Desktop only inline, Mobile at bottom) */}
+      {!isMobile && activeFilters.length > 0 && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={resetAllFilters}
+          className="ml-auto text-gray-500 hover:text-gray-900"
+        >
+          초기화
+        </Button>
+      )}
+    </div>
+  );
 
   return (
     <div className="container mx-auto max-w-6xl px-4 pb-12">
@@ -179,132 +460,84 @@ export default function CourseSearchPage() {
 
       {/* Search & Filter Bar */}
       <div className="mb-6 space-y-4">
-        {/* Row 1: Search Input */}
-        <div className="relative">
-          <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
-          <Input
-            placeholder="과목명, 과목코드, 학과로 검색..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-white pl-10 shadow-none"
-          />
+        {/* Row 1: Search Input + Mobile Filter Button */}
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <Input
+              placeholder="과목명, 과목코드, 학과로 검색..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-white pl-10 shadow-none"
+            />
+          </div>
+          {/* Mobile Filter Button */}
+          <Sheet open={isMobileFilterOpen} onOpenChange={setIsMobileFilterOpen}>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon" className="shrink-0 md:hidden">
+                <SlidersHorizontal className="h-4 w-4" />
+                {activeFilters.length > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white">
+                    {activeFilters.length}
+                  </span>
+                )}
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="bottom" className="h-[80vh]">
+              <SheetHeader>
+                <SheetTitle>필터</SheetTitle>
+                <SheetDescription>검색 조건을 설정하세요</SheetDescription>
+              </SheetHeader>
+              <ScrollArea className="mt-4 h-[calc(100%-120px)]">
+                <div className="pr-4">
+                  <FilterControls isMobile />
+                </div>
+              </ScrollArea>
+              <div className="mt-4 flex gap-2">
+                <Button variant="outline" className="flex-1" onClick={resetAllFilters}>
+                  초기화
+                </Button>
+                <Button className="flex-1" onClick={() => setIsMobileFilterOpen(false)}>
+                  적용 ({filteredCourses.length}개)
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
 
-        {/* Row 2: Filters */}
-        <div className="flex flex-wrap items-center gap-2">
-          {/* 1. Semester Toggle */}
-          <div className="flex items-center gap-1 rounded-md border border-slate-200 bg-white p-1 shadow-none">
+        {/* Row 2: Desktop Filters (hidden on mobile) */}
+        <div className="hidden md:block">
+          <FilterControls />
+        </div>
+
+        {/* Row 3: Active Filter Badges */}
+        {activeFilters.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs font-medium text-gray-500">적용된 필터:</span>
+            {activeFilters.map((filter) => (
+              <Badge
+                key={filter.key}
+                variant="secondary"
+                className="flex items-center gap-1 bg-blue-50 pr-1 text-blue-700 hover:bg-blue-100"
+              >
+                {filter.label}
+                <button
+                  onClick={filter.onRemove}
+                  className="ml-0.5 rounded-full p-0.5 hover:bg-blue-200"
+                  aria-label={`${filter.label} 필터 제거`}
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </Badge>
+            ))}
             <button
-              onClick={() => {
-                const newValue = selectedSemesters.includes('2025-1')
-                  ? selectedSemesters.filter((s) => s !== '2025-1')
-                  : [...selectedSemesters, '2025-1'];
-                setSelectedSemesters(newValue);
-              }}
-              className={`rounded px-3 py-1.5 text-sm font-medium transition-colors ${
-                selectedSemesters.includes('2025-1')
-                  ? 'bg-emerald-100 text-emerald-700'
-                  : 'text-gray-600 hover:bg-gray-100'
-              }`}
+              onClick={resetAllFilters}
+              className="text-xs text-gray-500 underline-offset-2 hover:text-gray-700 hover:underline"
             >
-              2025-1학기
-            </button>
-            <button
-              onClick={() => {
-                const newValue = selectedSemesters.includes('2025-2')
-                  ? selectedSemesters.filter((s) => s !== '2025-2')
-                  : [...selectedSemesters, '2025-2'];
-                setSelectedSemesters(newValue);
-              }}
-              className={`rounded px-3 py-1.5 text-sm font-medium transition-colors ${
-                selectedSemesters.includes('2025-2') ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'
-              }`}
-            >
-              2025-2학기
+              모두 지우기
             </button>
           </div>
-
-          {/* 2. Department Select */}
-          <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
-            <SelectTrigger className="w-[180px] bg-white shadow-none">
-              <SelectValue placeholder="학과/부서" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">전체 학과</SelectItem>
-              {uniqueDepartments.map((dept) => (
-                <SelectItem key={dept} value={dept}>
-                  {getDepartmentDisplayName(dept)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          {/* 3. Level Select */}
-          <Select value={selectedLevel} onValueChange={setSelectedLevel}>
-            <SelectTrigger className="w-[120px] bg-white shadow-none">
-              <SelectValue placeholder="학년" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">전체 학년</SelectItem>
-              <SelectItem value="1000">1학년 (1000)</SelectItem>
-              <SelectItem value="2000">2학년 (2000)</SelectItem>
-              <SelectItem value="3000">3학년 (3000)</SelectItem>
-              <SelectItem value="4000">4학년 (4000)</SelectItem>
-              <SelectItem value="5000">기타/연구</SelectItem>
-            </SelectContent>
-          </Select>
-
-          {/* 4. Credit Select */}
-          <Select value={selectedCredit} onValueChange={setSelectedCredit}>
-            <SelectTrigger className="w-[110px] bg-white shadow-none">
-              <SelectValue placeholder="학점" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">전체 학점</SelectItem>
-              <SelectItem value="1">1학점</SelectItem>
-              <SelectItem value="2">2학점</SelectItem>
-              <SelectItem value="3">3학점</SelectItem>
-              <SelectItem value="4">4학점 이상</SelectItem>
-            </SelectContent>
-          </Select>
-
-          {/* 5. Category Select (Moved here) */}
-          <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger className="w-[140px] bg-white shadow-none">
-              <SelectValue placeholder="이수구분" />
-            </SelectTrigger>
-            <SelectContent>
-              {CATEGORY_OPTIONS.map((opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          {/* Reset Filters Filter */}
-          {(selectedSemesters.length > 0 ||
-            selectedDepartment !== 'all' ||
-            selectedLevel !== 'all' ||
-            selectedCredit !== 'all' ||
-            category !== 'all') && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => {
-                setCategory('all');
-                setSelectedSemesters([]);
-                setSelectedDepartment('all');
-                setSelectedLevel('all');
-                setSelectedCredit('all');
-                setSearchQuery('');
-              }}
-              className="ml-auto text-gray-500 hover:text-gray-900"
-            >
-              초기화
-            </Button>
-          )}
-        </div>
+        )}
       </div>
 
       {/* Results Count */}

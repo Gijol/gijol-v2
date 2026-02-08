@@ -145,3 +145,19 @@ export function getUniqueDepartments(courses: CourseDB[]): string[] {
   });
   return Array.from(departments).sort();
 }
+
+/**
+ * 모든 과목에서 유니크한 개설 학과 목록 추출 (participatingDepartments)
+ */
+export function getUniqueParticipatingDepartments(courses: CourseDB[]): string[] {
+  const departments = new Set<string>();
+  courses.forEach((course) => {
+    course.participatingDepartments.forEach((dept) => {
+      const trimmed = dept.trim();
+      if (trimmed) {
+        departments.add(trimmed);
+      }
+    });
+  });
+  return Array.from(departments).sort();
+}

@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "source": "개설강좌정보 (2).xls",
-  "count": 406,
+  "count": 459,
   "items": [
     {
       "no": 1,
@@ -555,7 +555,16 @@
       "syllabus": "view",
       "video": null,
       "language": "English",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "조정희",
+          "staff_id": null
+        },
+        {
+          "name": "다런윌리엄스",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 16,
@@ -590,7 +599,20 @@
       "syllabus": "view",
       "video": null,
       "language": "English",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "엄수현",
+          "staff_id": null
+        },
+        {
+          "name": "박철승",
+          "staff_id": null
+        },
+        {
+          "name": "조경래",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 17,
@@ -625,7 +647,16 @@
       "syllabus": "view",
       "video": null,
       "language": "English",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "조정희",
+          "staff_id": null
+        },
+        {
+          "name": "진석원",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 18,
@@ -660,7 +691,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English/Korean",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "남정석",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 19,
@@ -689,7 +725,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English/Korean",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "02 김영준 외",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 20,
@@ -718,7 +759,12 @@
       "syllabus": "view",
       "video": null,
       "language": null,
-      "instructors": []
+      "instructors": [
+        {
+          "name": "02 김영준 외",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 21,
@@ -747,7 +793,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English/Korean",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "권용훈",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 22,
@@ -776,7 +827,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "김용철",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 23,
@@ -805,7 +861,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "송우근",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 24,
@@ -840,7 +901,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English/Korean",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "다런윌리엄스",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 25,
@@ -875,7 +941,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English/Korean",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "허윤현",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 26,
@@ -8179,7 +8250,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "허윤현",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 222,
@@ -8214,7 +8290,12 @@
       "syllabus": "view",
       "video": null,
       "language": null,
-      "instructors": []
+      "instructors": [
+        {
+          "name": "허윤현",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 223,
@@ -8249,7 +8330,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "허윤현",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 224,
@@ -8278,7 +8364,20 @@
       "syllabus": "view",
       "video": null,
       "language": "English/Korean",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "~04 김영준",
+          "staff_id": null
+        },
+        {
+          "name": "김한아",
+          "staff_id": null
+        },
+        {
+          "name": "조경래",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 225,
@@ -8307,7 +8406,20 @@
       "syllabus": "view",
       "video": null,
       "language": null,
-      "instructors": []
+      "instructors": [
+        {
+          "name": "~04 김영준",
+          "staff_id": null
+        },
+        {
+          "name": "김한아",
+          "staff_id": null
+        },
+        {
+          "name": "조경래",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 226,
@@ -8336,7 +8448,20 @@
       "syllabus": "view",
       "video": null,
       "language": null,
-      "instructors": []
+      "instructors": [
+        {
+          "name": "~04 김영준",
+          "staff_id": null
+        },
+        {
+          "name": "김한아",
+          "staff_id": null
+        },
+        {
+          "name": "조경래",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 227,
@@ -8365,7 +8490,20 @@
       "syllabus": "view",
       "video": null,
       "language": null,
-      "instructors": []
+      "instructors": [
+        {
+          "name": "~04 김영준",
+          "staff_id": null
+        },
+        {
+          "name": "김한아",
+          "staff_id": null
+        },
+        {
+          "name": "조경래",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 228,
@@ -8755,7 +8893,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "박건혁",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 237,
@@ -9470,7 +9613,12 @@
       "syllabus": "view",
       "video": null,
       "language": null,
-      "instructors": []
+      "instructors": [
+        {
+          "name": "~23 각 학과 교수진",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 256,
@@ -10532,7 +10680,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "박건혁",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 286,
@@ -10554,7 +10707,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "박건혁",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 287,
@@ -11137,7 +11295,12 @@
       "syllabus": "view",
       "video": null,
       "language": "Korean",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "김건우",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 302,
@@ -11172,7 +11335,12 @@
       "syllabus": "view",
       "video": null,
       "language": "Korean",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "이용주",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 303,
@@ -11207,7 +11375,12 @@
       "syllabus": "view",
       "video": null,
       "language": "Korean",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "이용주",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 304,
@@ -11242,7 +11415,12 @@
       "syllabus": "view",
       "video": null,
       "language": "English",
-      "instructors": []
+      "instructors": [
+        {
+          "name": "김기배",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 305,
@@ -11517,7 +11695,12 @@
       "syllabus": "view",
       "video": null,
       "language": null,
-      "instructors": []
+      "instructors": [
+        {
+          "name": "엄수현 등",
+          "staff_id": null
+        }
+      ]
     },
     {
       "no": 312,
@@ -15179,6 +15362,1880 @@
         {
           "name": "조경래",
           "staff_id": "61123"
+        }
+      ]
+    },
+    {
+      "no": 407,
+      "department": "GIST대학",
+      "course_code": "UC0201",
+      "section": "01",
+      "title": "사회봉사",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 1,
+        "lab_hours": 0,
+        "credits": 1
+      },
+      "meetings": [],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 408,
+      "department": "기초교육학부",
+      "course_code": "GS1202",
+      "section": "01",
+      "title": "일반화학 및 연습 Ⅱ",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "리자오지에",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 409,
+      "department": "인문사회과학부",
+      "course_code": "HS2503",
+      "section": "01",
+      "title": "한국현대소설의 이해",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "차미령",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 410,
+      "department": "인문사회과학부",
+      "course_code": "HS2526",
+      "section": "01",
+      "title": "문학과 연인들",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "이시연",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 411,
+      "department": "인문사회과학부",
+      "course_code": "HS2531",
+      "section": "01",
+      "title": "AI 픽션",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "이시연",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 412,
+      "department": "인문사회과학부",
+      "course_code": "HS2544",
+      "section": "01",
+      "title": "문화콘텐츠의 이해",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "윤필상",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 413,
+      "department": "인문사회과학부",
+      "course_code": "HS2581",
+      "section": "01",
+      "title": "한국 문화의 이해",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "13:00",
+          "end": "14:30",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "13:00",
+          "end": "14:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "이선하",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 414,
+      "department": "인문사회과학부",
+      "course_code": "HS2600",
+      "section": "01",
+      "title": "미술사의 이해",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김정희",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 415,
+      "department": "인문사회과학부",
+      "course_code": "HS2602",
+      "section": "01",
+      "title": "한국사의 이해",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "신진혜",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 416,
+      "department": "인문사회과학부",
+      "course_code": "HS2613",
+      "section": "01",
+      "title": "현대서양의 형성과 전개",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "FRI",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 417,
+      "department": "인문사회과학부",
+      "course_code": "HS2619",
+      "section": "01",
+      "title": "예술과 철학: 미학적 상상력",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "16:00",
+          "end": "17:30",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "16:00",
+          "end": "17:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 418,
+      "department": "인문사회과학부",
+      "course_code": "HS2620",
+      "section": "01",
+      "title": "철학의 근본 문제들",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 419,
+      "department": "인문사회과학부",
+      "course_code": "HS2624",
+      "section": "01",
+      "title": "서양철학사의 이해",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "안준상",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 420,
+      "department": "인문사회과학부",
+      "course_code": "HS2625",
+      "section": "01",
+      "title": "동양철학입문",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 421,
+      "department": "인문사회과학부",
+      "course_code": "HS2702",
+      "section": "01",
+      "title": "미국사회의 이해",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "장진호",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 422,
+      "department": "인문사회과학부",
+      "course_code": "HS2704",
+      "section": "01",
+      "title": "기업과 사회 I",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "16:00",
+          "end": "17:30",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "16:00",
+          "end": "17:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "장진호",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 423,
+      "department": "인문사회과학부",
+      "course_code": "HS2732",
+      "section": "01",
+      "title": "행동경제학 1",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김희삼",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 424,
+      "department": "인문사회과학부",
+      "course_code": "HS2734",
+      "section": "01",
+      "title": "행복의 조건",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김희삼",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 425,
+      "department": "인문사회과학부",
+      "course_code": "HS2742",
+      "section": "01",
+      "title": "인간의 마음과 행동 1",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "13:00",
+          "end": "14:30",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "13:00",
+          "end": "14:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "최원일",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 426,
+      "department": "인문사회과학부",
+      "course_code": "HS2743",
+      "section": "01",
+      "title": "인간의 마음과 행동 2",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "16:00",
+          "end": "17:30",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "16:00",
+          "end": "17:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "최원일",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 427,
+      "department": "인문사회과학부",
+      "course_code": "HS2750",
+      "section": "01",
+      "title": "경영학원론",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "진규호",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 428,
+      "department": "인문사회과학부",
+      "course_code": "HS2754",
+      "section": "01",
+      "title": "소셜네트워크 이론과 분석",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "진규호",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 429,
+      "department": "인문사회과학부",
+      "course_code": "HS2787",
+      "section": "01",
+      "title": "한국정치론",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "13:00",
+          "end": "14:30",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "13:00",
+          "end": "14:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김혜림",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 430,
+      "department": "인문사회과학부",
+      "course_code": "HS2834",
+      "section": "01",
+      "title": "역사 속의 과학",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "하대청",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 431,
+      "department": "인문사회과학부",
+      "course_code": "HS2839",
+      "section": "01",
+      "title": "인간의 미래",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "16:00",
+          "end": "17:30",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "16:00",
+          "end": "17:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "하대청",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 432,
+      "department": "인문사회과학부",
+      "course_code": "HS3501",
+      "section": "01",
+      "title": "이상(李箱)문학과 과학",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "이수정",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 433,
+      "department": "인문사회과학부",
+      "course_code": "HS3504",
+      "section": "01",
+      "title": "한국근현대작가론",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "13:00",
+          "end": "14:30",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "13:00",
+          "end": "14:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "차미령",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 434,
+      "department": "인문사회과학부",
+      "course_code": "HS3605",
+      "section": "01",
+      "title": "조선시대 의례사",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "신진혜",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 435,
+      "department": "인문사회과학부",
+      "course_code": "HS3611",
+      "section": "01",
+      "title": "과학기술과 현대 세계",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "FRI",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 436,
+      "department": "인문사회과학부",
+      "course_code": "HS3631",
+      "section": "01",
+      "title": "인공지능의 철학",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 437,
+      "department": "인문사회과학부",
+      "course_code": "HS3760",
+      "section": "01",
+      "title": "지식재산권법의 이해",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "FRI",
+          "start": "14:00",
+          "end": "15:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "장진규",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 438,
+      "department": "인문사회과학부",
+      "course_code": "HS3764",
+      "section": "01",
+      "title": "뇌와 인지",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "09:00",
+          "end": "10:30",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "최원일",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 439,
+      "department": "인문사회과학부",
+      "course_code": "HS3785",
+      "section": "01",
+      "title": "국가와 시민사회론",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김혜림",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 440,
+      "department": "인문사회과학부",
+      "course_code": "HS3831",
+      "section": "01",
+      "title": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "하대청",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 441,
+      "department": "인문사회과학부",
+      "course_code": "HS4690",
+      "section": "01",
+      "title": "인문학 심화탐구 1",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 1,
+        "lab_hours": 0,
+        "credits": 1
+      },
+      "meetings": [
+        {
+          "day": "FRI",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김건우",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 442,
+      "department": "전기전자컴퓨터공학부",
+      "course_code": "EC2208",
+      "section": "01",
+      "title": "자료구조 및 알고리즘",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 4,
+        "lab_hours": 0,
+        "credits": 4
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "FRI",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김만수",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 443,
+      "department": "전기전자컴퓨터공학부",
+      "course_code": "EC4224",
+      "section": "01",
+      "title": "기계학습",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 4,
+        "lab_hours": 0,
+        "credits": 4
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "10:00",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "10:00",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김선동",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 444,
+      "department": "전기전자컴퓨터공학부",
+      "course_code": "EC4319",
+      "section": "01",
+      "title": "AI 반도체 기초",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 445,
+      "department": "신소재공학과",
+      "course_code": "MA9102/3",
+      "section": "01",
+      "title": "학사논문연구 I/II",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 446,
+      "department": "기계로봇공학부",
+      "course_code": "MC9102/3",
+      "section": "01",
+      "title": "학사논문연구 I/II",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 447,
+      "department": "환경에너지공학부",
+      "course_code": "EV9102/3",
+      "section": "01",
+      "title": "학사논문연구 I/II",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 448,
+      "department": "생명과학과",
+      "course_code": "BS9102/3",
+      "section": "01",
+      "title": "학사논문연구 I/II",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 449,
+      "department": "물리·광과학과",
+      "course_code": "PS9301",
+      "section": "01",
+      "title": "물리학 연구의 현재와 미래",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 1,
+        "lab_hours": 0,
+        "credits": 1
+      },
+      "meetings": [
+        {
+          "day": "THU",
+          "start": "17:30",
+          "end": "19:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김동희",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 450,
+      "department": "물리·광과학과",
+      "course_code": "PS9102/3",
+      "section": "01",
+      "title": "학사논문연구 I/II",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 451,
+      "department": "화학과",
+      "course_code": "CH9102/3",
+      "section": "01",
+      "title": "학사논문연구 I/II",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 452,
+      "department": "기타",
+      "course_code": "반도체",
+      "section": "01",
+      "title": "SE1101",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 0,
+        "lab_hours": 0,
+        "credits": 0
+      },
+      "meetings": [],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 453,
+      "department": "AI융합학과",
+      "course_code": "AI2000",
+      "section": "01",
+      "title": "자료구조와 알고리즘",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 4
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "FRI",
+          "start": "10:30",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김만수",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 454,
+      "department": "기타",
+      "course_code": "의생명",
+      "section": "01",
+      "title": "MD4301",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 0,
+        "lab_hours": 0,
+        "credits": 0
+      },
+      "meetings": [],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 455,
+      "department": "기타",
+      "course_code": "지능로봇",
+      "section": "01",
+      "title": "IR2201",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 0,
+        "lab_hours": 0,
+        "credits": 0
+      },
+      "meetings": [],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": []
+    },
+    {
+      "no": 456,
+      "department": "문화기술",
+      "course_code": "CT2544",
+      "section": "01",
+      "title": "문화콘텐츠의 이해",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "MON",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        },
+        {
+          "day": "WED",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "윤필상",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 457,
+      "department": "전기전자컴퓨터공학부",
+      "course_code": "AI4224",
+      "section": "01",
+      "title": "기계학습",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 4,
+        "lab_hours": 0,
+        "credits": 4
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "10:00",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "10:00",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김선동",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 458,
+      "department": "AI융합학과",
+      "course_code": "AI4100",
+      "section": "01",
+      "title": "기계학습",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 4
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "10:00",
+          "end": "12:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "10:00",
+          "end": "12:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김선동",
+          "staff_id": null
+        }
+      ]
+    },
+    {
+      "no": 459,
+      "department": "의생명공학과",
+      "course_code": "MD4503",
+      "section": "01",
+      "title": "의학 행동 과학",
+      "category": "선택",
+      "subcategory": null,
+      "research_area": "교과",
+      "program": "학사",
+      "hours": {
+        "lecture_hours": 3,
+        "lab_hours": 0,
+        "credits": 3
+      },
+      "meetings": [
+        {
+          "day": "TUE",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        },
+        {
+          "day": "THU",
+          "start": "14:30",
+          "end": "16:00",
+          "room": null
+        }
+      ],
+      "capacity": 0,
+      "syllabus": "view",
+      "video": null,
+      "language": "Korean",
+      "instructors": [
+        {
+          "name": "김태",
+          "staff_id": null
         }
       ]
     }

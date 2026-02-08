@@ -20,7 +20,9 @@ import {
   ZERO_CREDIT_PE_PREFIX,
   COMMON_MAJOR_PREFIXES,
   ALL_HUMANITIES_COURSES,
+  GSC_COURSES,
 } from './constants';
+import { getAliases } from './constants/alias-mappings';
 
 // ===== Helper Functions =====
 
@@ -43,24 +45,31 @@ export function matchesMinor(courseCode: string, minorInput: string): boolean {
   const mCode = normalizeCode(minorInput);
   const code = normalizeCode(courseCode);
 
+  // Get all equivalent codes (including aliases) for dual-credit support
+  const aliases = getAliases(code);
+  const allCodes = [code, ...aliases];
+
   // 1. Check Majors (Major used as Minor)
   const mjName = MAJOR_CODE_TO_NAME[mCode as MajorCode];
   if (mjName) {
     const set = COURSE_CODE_SETS.majors[mjName as keyof typeof COURSE_CODE_SETS.majors];
-    if (set && (set as readonly string[]).includes(code)) return true;
+    if (set && allCodes.some((c) => (set as readonly string[]).includes(c))) return true;
   }
 
   // 2. Check Standard Minors
   const mnName = MINOR_CODE_TO_NAME[mCode as MinorCode];
   if (mnName) {
     const set = COURSE_CODE_SETS.minors[mnName as keyof typeof COURSE_CODE_SETS.minors];
-    if (set && (set as readonly string[]).includes(code)) return true;
+    if (set && allCodes.some((c) => (set as readonly string[]).includes(c))) return true;
   }
 
-  // 3. Fallback Prefix Matching
+  // 3. Fallback Prefix Matching (check all codes)
   const mp = mCode.replace(/[^A-Z]/g, '');
-  const prefix = code.match(/^[A-Z]+/)?.[0] || '';
-  return !!mp && prefix.startsWith(mp);
+  for (const c of allCodes) {
+    const prefix = c.match(/^[A-Z]+/)?.[0] || '';
+    if (mp && prefix.startsWith(mp)) return true;
+  }
+  return false;
 }
 
 export function classifyCourse(course: TakenCourseType, userMajor?: string, userMinors?: string[]): CategoryKey {
@@ -113,6 +122,10 @@ export function classifyCourse(course: TakenCourseType, userMajor?: string, user
   }
 
   // 5) 기초과학
+  // 5.1) GSC 과목은 인문사회로 분류 (SCIENCE_KEYWORDS보다 우선)
+  // 예: GS2823 "수학의 위대한 순간들 - AI"는 과목명에 '수학'이 들어가지만 GSC(인문선택)임
+  if (GSC_COURSES.has(code)) return 'humanities';
+
   if (SCIENCE_BASIC_CODES.has(code)) return 'scienceBasic';
   // Removed strict prefix check for BS|CH|PH|MA|MM|MT because user requested that
   // if it's not the user's major/minor, it should be Free Elective, not Science Basic.

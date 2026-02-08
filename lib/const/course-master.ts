@@ -43,34 +43,32 @@ export const ETC_MANDATORY_COURSES: CourseMaster[] = [
 // 2. 언어의 기초 (7학점: 영어 4 + 글쓰기 3)
 // ============================================================
 export const LANGUAGE_BASIC_COURSES: CourseMaster[] = [
-  // 영어 I (2학점) - 택1
-  { courseCode: 'GS1607', courseNameKo: '학술영어', credits: 2, level: 1000, isOffered: true },
+  // 영어 I (2학점) - 필수
+  { courseCode: 'GS1607', courseNameKo: '영어 I: 학술영어', credits: 2, level: 1000, isOffered: true },
   { courseCode: 'GS1601', courseNameKo: '영어 I: 신입생 영어', credits: 2, level: 1000, isOffered: false },
   { courseCode: 'GS1603', courseNameKo: '영어 I: 발표와 토론', credits: 2, level: 1000, isOffered: false },
+  // 영어 II (2학점) - 필수
+  { courseCode: 'GS2652', courseNameKo: '영어 II : 이공계 글쓰기 입문', credits: 2, level: 2000, isOffered: true },
+  { courseCode: 'GS1602', courseNameKo: '영어 II: 과학기술 글쓰기', credits: 2, level: 1000, isOffered: false },
+  { courseCode: 'GS1604', courseNameKo: '영어 II: 과학기술발표', credits: 2, level: 1000, isOffered: false },
+  // 영어 선택 (선이수 조건 없음)
   { courseCode: 'GS1605', courseNameKo: '실용적 대화법', credits: 2, level: 1000, isOffered: true },
   { courseCode: 'GS1606', courseNameKo: '과학 기사 읽기', credits: 2, level: 1000, isOffered: true },
-  // 영어 II (2학점) - 택1
-  { courseCode: 'GS2652', courseNameKo: '영어 II : 이공계 글쓰기 입문', credits: 2, level: 2000, isOffered: true },
+  { courseCode: 'GS2651', courseNameKo: '영어 토론과 논증', credits: 2, level: 2000, isOffered: true },
   { courseCode: 'GS2653', courseNameKo: '연구 윤리의 이해와 토론', credits: 2, level: 2000, isOffered: true },
-  {
-    courseCode: 'GS2655',
-    courseNameKo: '디지털 시대의 저널리즘과 과학 기사 쓰기',
-    credits: 2,
-    level: 2000,
-    isOffered: true,
-  },
-  // 글쓰기 (3학점) - 택1
+  { courseCode: 'GS2654', courseNameKo: '창의적 영어 표현법', credits: 2, level: 2000, isOffered: true },
+  // 영어 고급 (영어I + 영어II 이수 후에만 가능)
+  { courseCode: 'GS2655', courseNameKo: '디지털 시대의 저널리즘과 과학 기사 쓰기', credits: 2, level: 2000, isOffered: true },
+  { courseCode: 'GS3651', courseNameKo: '영어 III: 이공계 논문쓰기', credits: 2, level: 3000, isOffered: true },
+  // 글쓰기 기초 (3학점)
+  { courseCode: 'GS1511', courseNameKo: '글쓰기의 기초: 논리적 글쓰기', credits: 3, level: 1000, isOffered: true },
   { courseCode: 'GS1512', courseNameKo: '글쓰기의 기초: 학술적 글쓰기', credits: 3, level: 1000, isOffered: true },
   { courseCode: 'GS1513', courseNameKo: '글쓰기의 기초: 창의적 글쓰기', credits: 3, level: 1000, isOffered: true },
+  // 글쓰기 심화 (3학점) - 기초 이수자만 추가 수강 가능
+  { courseCode: 'GS1531', courseNameKo: '심화 글쓰기: 과학 글쓰기', credits: 3, level: 1000, isOffered: true },
   { courseCode: 'GS1532', courseNameKo: '심화 글쓰기: 고전 읽기와 글쓰기', credits: 3, level: 1000, isOffered: true },
   { courseCode: 'GS1533', courseNameKo: '심화 글쓰기: 비평적 글쓰기', credits: 3, level: 1000, isOffered: true },
-  {
-    courseCode: 'GS1535',
-    courseNameKo: '심화 글쓰기: AI 시대의 글쓰기와 나',
-    credits: 3,
-    level: 1000,
-    isOffered: true,
-  },
+  { courseCode: 'GS1535', courseNameKo: '심화 글쓰기: AI 시대의 글쓰기와 나', credits: 3, level: 1000, isOffered: true },
 ];
 
 // ============================================================
@@ -607,3 +605,57 @@ export function getRecommendedCoursesByDomain(domain: RequirementDomain): Course
       return [];
   }
 }
+
+// ============================================================
+// 7. 세부 요건별 과목 그룹 (Fine-Grained Requirements)
+// ============================================================
+
+// 언어기초 세부 분류
+export const ENGLISH_I_COURSES: CourseMaster[] = LANGUAGE_BASIC_COURSES.filter((c) =>
+  ['GS1601', 'GS1603', 'GS1607', 'GS1605', 'GS1606'].includes(c.courseCode),
+);
+
+export const ENGLISH_II_COURSES: CourseMaster[] = LANGUAGE_BASIC_COURSES.filter((c) =>
+  ['GS1602', 'GS1604', 'GS2652', 'GS2653', 'GS2655'].includes(c.courseCode),
+);
+
+export const WRITING_COURSES: CourseMaster[] = LANGUAGE_BASIC_COURSES.filter((c) =>
+  ['GS1511', 'GS1512', 'GS1513', 'GS1531', 'GS1532', 'GS1533', 'GS1534', 'GS1535'].includes(c.courseCode),
+);
+
+// 기초과학 세부 분류
+export const CALCULUS_COURSES: CourseMaster[] = [
+  { courseCode: 'GS1001', courseNameKo: '미적분학과 응용', credits: 3, level: 1000, isOffered: true },
+  { courseCode: 'GS1011', courseNameKo: '미적분학 Ⅰ', credits: 3, level: 1000, isOffered: false },
+];
+
+export const CORE_MATH_COURSES: CourseMaster[] = [
+  { courseCode: 'GS1002', courseNameKo: '선형대수학', credits: 3, level: 1000, isOffered: false },
+  { courseCode: 'GS2001', courseNameKo: '다변수해석학과 응용', credits: 3, level: 2000, isOffered: true },
+  { courseCode: 'MM2001', courseNameKo: '해석학 I', credits: 3, level: 2000, isOffered: true },
+  { courseCode: 'GS1012', courseNameKo: '미적분학 II', credits: 3, level: 1000, isOffered: false },
+  { courseCode: 'GS2004', courseNameKo: '선형대수학과 응용', credits: 3, level: 2000, isOffered: true },
+  { courseCode: 'GS2013', courseNameKo: '해석학개론', credits: 3, level: 2000, isOffered: false },
+  { courseCode: 'MM2004', courseNameKo: '선형대수학 I', credits: 3, level: 2000, isOffered: true },
+  { courseCode: 'GS2002', courseNameKo: '미분방정식과 응용', credits: 3, level: 2000, isOffered: true },
+  { courseCode: 'MM2002', courseNameKo: '해석학 II', credits: 3, level: 2000, isOffered: true },
+];
+
+// 기타필수 세부 분류
+export const FRESHMAN_COURSES: CourseMaster[] = [
+  { courseCode: 'GS1901', courseNameKo: 'GIST 새내기', credits: 0, level: 1000, isOffered: true },
+  { courseCode: 'GS9301', courseNameKo: '신입생 세미나', credits: 0, level: 9000, isOffered: false },
+];
+
+export const EXPLORATION_COURSES: CourseMaster[] = [
+  { courseCode: 'UC0902', courseNameKo: 'GIST 전공탐색', credits: 1, level: 0, isOffered: true },
+];
+
+export const COLLOQUIUM_COURSES: CourseMaster[] = [
+  { courseCode: 'UC9331', courseNameKo: 'GIST 대학 콜로퀴움', credits: 0, level: 9000, isOffered: true },
+];
+
+export const SCIENCE_ECONOMY_COURSES: CourseMaster[] = [
+  { courseCode: 'GS1701', courseNameKo: '과학기술과 경제', credits: 1, level: 1000, isOffered: false },
+  { courseCode: 'UC0901', courseNameKo: '과학기술과 경제', credits: 1, level: 0, isOffered: true },
+];

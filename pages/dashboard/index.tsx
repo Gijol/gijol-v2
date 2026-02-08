@@ -90,61 +90,53 @@ export default function HomePage() {
           className="md:col-span-1 md:row-span-1"
           title="내 정보"
           description={
-            <div className="mt-3">
-              <table className="w-full text-sm">
-                <tbody>
-                  <tr>
-                    <td className="w-20 py-1 text-gray-500">
-                      <div className="flex items-center gap-2">
-                        <Calendar size={14} className="text-gray-500" />
-                        <span>학번</span>
-                      </div>
-                    </td>
-                    <td className="py-1 font-bold text-gray-900">{entryYear ? `${entryYear}학번` : '미입력'}</td>
-                  </tr>
-                  <tr>
-                    <td className="py-1 text-gray-500">
-                      <div className="flex items-center gap-2">
-                        <Book size={14} className="text-gray-500" />
-                        <span>전공</span>
-                      </div>
-                    </td>
-                    <td className="py-1">
-                      <Badge variant="outline" className="border-blue-200 bg-blue-50 text-xs text-blue-700">
-                        {getMajorLabel(userMajor)}
+            <div className="mt-3 flex h-[80px] flex-col gap-2 overflow-y-auto pr-1 text-sm scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
+              {/* 학번 */}
+              <div className="flex items-center gap-2">
+                <div className="flex w-16 items-center gap-2 text-gray-500">
+                  <Calendar size={14} className="shrink-0 text-gray-500" />
+                  <span className="shrink-0">학번</span>
+                </div>
+                <span className="font-bold text-gray-900">{entryYear ? `${entryYear}학번` : '미입력'}</span>
+              </div>
+
+              {/* 전공 */}
+              <div className="flex items-start gap-2">
+                <div className="flex w-16 items-center gap-2 text-gray-500">
+                  <Book size={14} className="mt-0.5 shrink-0 text-gray-500" />
+                  <span className="shrink-0">전공</span>
+                </div>
+                <Badge variant="outline" className="h-fit whitespace-normal break-all border-blue-200 bg-blue-50 text-xs text-blue-700">
+                  {getMajorLabel(userMajor)}
+                </Badge>
+              </div>
+
+              {/* 부전공 */}
+              <div className="flex items-start gap-2">
+                <div className="flex w-16 items-center gap-2 text-gray-500">
+                  <Book size={14} className="mt-0.5 shrink-0 text-gray-500" />
+                  <span className="shrink-0">부전공</span>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {userMinors && userMinors.length > 0 ? (
+                    userMinors.map((m) => (
+                      <Badge
+                        key={m}
+                        variant="outline"
+                        className="border-orange-200 bg-orange-50 text-xs text-orange-700"
+                      >
+                        {getMinorLabel(m)}
                       </Badge>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="py-1 align-top text-gray-500">
-                      <div className="flex items-center gap-2">
-                        <Book size={14} className="mt-0.5 text-gray-500" />
-                        <span>부전공</span>
-                      </div>
-                    </td>
-                    <td className="py-1">
-                      <div className="flex flex-wrap gap-1">
-                        {userMinors && userMinors.length > 0 ? (
-                          userMinors.map((m) => (
-                            <Badge
-                              key={m}
-                              variant="outline"
-                              className="border-orange-200 bg-orange-50 text-xs text-orange-700"
-                            >
-                              {getMinorLabel(m)}
-                            </Badge>
-                          ))
-                        ) : (
-                          <span className="text-xs text-gray-500">미선택</span>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                    ))
+                  ) : (
+                    <span className="text-xs text-gray-500">미선택</span>
+                  )}
+                </div>
+              </div>
             </div>
           }
           icon={<User className="h-4 w-4 text-blue-500" />}
+          disableHover={true}
         />
 
         {/* 총 이수학점 + 졸업 진행률 */}
@@ -162,6 +154,7 @@ export default function HomePage() {
             </div>
           }
           icon={<School className="h-4 w-4 text-blue-500" />}
+          disableHover={true}
         />
 
         {/* 하단 Row: GPA, 수강 과목 수, 남은 학점, 미충족 영역 */}
@@ -194,6 +187,7 @@ export default function HomePage() {
             </div>
           }
           icon={<BarChart className="h-4 w-4 text-blue-500" />}
+          disableHover={true}
         />
 
         {/* 수강 과목 수 */}
@@ -209,6 +203,7 @@ export default function HomePage() {
             </div>
           }
           icon={<Book className="h-4 w-4 text-gray-500" />}
+          disableHover={true}
         />
 
         {/* 남은 학점 */}
@@ -222,6 +217,7 @@ export default function HomePage() {
             </div>
           }
           icon={<Book className="h-4 w-4 text-gray-500" />}
+          disableHover={true}
         />
 
         {/* 미충족 영역 + 화살표 */}
@@ -251,6 +247,7 @@ export default function HomePage() {
           icon={
             <AlertTriangle className={`h-4 w-4 ${unsatisfiedRequirements > 0 ? 'text-amber-500' : 'text-green-500'}`} />
           }
+          disableHover={true}
         />
       </BentoGrid>
 
