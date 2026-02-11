@@ -2,13 +2,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { UserStatusType } from '@lib/types/index';
-import type { GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
-import { FineGrainedRequirement } from '@lib/types/grad-requirements';
+import type { GraduationApiResponseType, TakenCourseType } from '@lib/types/grad';
 import { PARSED_PROCESSED_STATE_KEY } from './storage-key';
 
-export type GradStatusExtended = GradStatusResponseType & {
-  fineGrainedRequirements?: FineGrainedRequirement[];
-};
+export type GradStatusExtended = GraduationApiResponseType;
 
 type GraduationState = {
   parsed: UserStatusType | null;
@@ -22,7 +19,7 @@ type GraduationState = {
   setFromParsed: (args: {
     parsed: UserStatusType;
     takenCourses: TakenCourseType[];
-    gradStatus: GradStatusResponseType | null;
+    gradStatus: GraduationApiResponseType | null;
     userMajor: string;
     userMinors?: string[];
     entryYear?: number;

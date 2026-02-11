@@ -1,7 +1,7 @@
 import { UserStatusType } from '@lib/types/index';
 import {
+  type GraduationApiResponseType,
   type GradStatusRequestBody,
-  type GradStatusResponseType,
   TakenCourseType,
 } from '@lib/types/grad';
 
@@ -48,7 +48,7 @@ export const gradStatusFetchFn = async (payload: GradStatusRequestBody) => {
       throw new Error(`grad-status ${res.status}: ${text}`);
     }
 
-    return (await res.json()) as GradStatusResponseType;
+    return (await res.json()) as GraduationApiResponseType;
   } catch (error) {
     console.error('grad-status api error:', error);
     throw error;

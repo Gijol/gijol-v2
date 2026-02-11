@@ -15,8 +15,9 @@ import {
   normalizeTakenCourses,
 } from '@features/graduation/middlewares/validation';
 import { evaluateGraduationStatus } from '@features/graduation/domain/engine';
-import { refineGradStatusForUI } from '@features/graduation/middlewares/refine';
+import { toGraduationApiResponse } from '@features/graduation/middlewares/refine';
 import { mapDeficitToRecommendations, MockCourseRepository } from '@features/graduation/data';
+import { toGraduationUiViewModel } from '@utils/graduation/ui-mapper';
 
 import { UserTakenCourseListType } from '@lib/types/grad';
 import { MajorCode, MAJOR_CODE_TO_NAME, MinorCode, MINOR_CODE_TO_NAME } from '@features/graduation/domain/constants';
@@ -54,7 +55,8 @@ export default function GraduationLabPage() {
   const [step2Result, setStep2Result] = useState<any>(null); // Validate
   const [step3Result, setStep3Result] = useState<any>(null); // Normalize
   const [step4Result, setStep4Result] = useState<any>(null); // Engine
-  const [step5Result, setStep5Result] = useState<any>(null); // Refine
+  const [step5Result, setStep5Result] = useState<any>(null); // API Response
+  const [step6Result, setStep6Result] = useState<any>(null); // UI ViewModel
 
   const [error, setError] = useState<string | null>(null);
 
@@ -65,6 +67,7 @@ export default function GraduationLabPage() {
     setStep3Result(null);
     setStep4Result(null);
     setStep5Result(null);
+    setStep6Result(null);
 
     try {
       // Step 0: Parse JSON from Textarea
@@ -125,9 +128,13 @@ export default function GraduationLabPage() {
         recommendations = await mapDeficitToRecommendations(deficits, repo);
       }
 
-      // Step 5: Refine
-      const viewModel = refineGradStatusForUI(engineResult, { recommendations });
-      setStep5Result(viewModel);
+      // Step 5: Build API contract
+      const apiResponse = toGraduationApiResponse(engineResult, { recommendations });
+      setStep5Result(apiResponse);
+
+      // Step 6: Build UI model on client
+      const viewModel = toGraduationUiViewModel(apiResponse);
+      setStep6Result(viewModel);
     } catch (err: any) {
       setError(err.message);
     }
@@ -219,18 +226,18 @@ export default function GraduationLabPage() {
       </div>
 
       {/* Final Result */}
-      {step5Result && (
+      {step6Result && (
         <Card className="border-2 border-green-500">
           <CardHeader>
             <CardTitle>🎯 Final Output (UI ViewModel)</CardTitle>
-            <CardDescription>{step5Result.displayMessage}</CardDescription>
+            <CardDescription>{step6Result.displayMessage}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="rounded-md bg-gray-50 p-4">
                 <h3 className="mb-2 font-bold">Fine-Grained Requirements</h3>
                 <ul className="space-y-1 text-sm">
-                  {step5Result.fineGrainedRequirements?.map((req: any) => (
+                  {step6Result.fineGrainedRequirements?.map((req: any) => (
                     <li key={req.id} className={req.satisfied ? 'text-green-600' : 'text-red-500'}>
                       {req.satisfied ? '✅' : '❌'} {req.label}
                     </li>
@@ -241,19 +248,19 @@ export default function GraduationLabPage() {
               <div className="rounded-md bg-blue-50 p-4">
                 <h3 className="mb-2 font-bold">Recommendations</h3>
                 <ul className="list-disc pl-5 text-sm">
-                  {step5Result.recommendations?.map((rec: any, i: number) => (
+                  {step6Result.recommendations?.map((rec: any, i: number) => (
                     <li key={i}>
                       Consider <b>{rec.courseCode}</b> ({rec.courseName}) - {rec.reason}
                     </li>
                   ))}
-                  {step5Result.recommendations?.length === 0 && <li>No recommendations generated.</li>}
+                  {step6Result.recommendations?.length === 0 && <li>No recommendations generated.</li>}
                 </ul>
               </div>
 
               <details>
                 <summary className="cursor-pointer text-gray-500">Full JSON</summary>
                 <pre className="mt-2 max-h-64 overflow-auto rounded bg-gray-900 p-2 text-xs text-white">
-                  {JSON.stringify(step5Result, null, 2)}
+                  {JSON.stringify(step6Result, null, 2)}
                 </pre>
               </details>
             </div>

@@ -49,3 +49,8 @@ storybook-static
 /pages/api/admin/
 /features/admin/
 backup-admin.sh
+
+#codex
+.venv
+/tmp
+/output

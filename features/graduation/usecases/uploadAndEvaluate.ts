@@ -6,11 +6,11 @@ import { COMMON_MAJOR_PREFIXES } from '../domain/constants';
 import { parseRawToTakenCourses, validateTakenCourses, normalizeTakenCourses } from '../middlewares/validation';
 import { evaluateGraduationStatus } from '../domain/engine';
 import { mapDeficitToRecommendations, MockCourseRepository } from '../data';
-import { refineGradStatusForUI, UIGradViewModel } from '../middlewares/refine';
+import { toGraduationApiResponse, GraduationApiResponse } from '../middlewares/refine';
 
 export interface UploadEvaluateResult {
   success: boolean;
-  data?: UIGradViewModel;
+  data?: GraduationApiResponse;
   errors?: string[];
 }
 
@@ -45,9 +45,20 @@ export const uploadAndEvaluate = async (
     }
   }
 
-  // Fallback to default if still undefined
+  // Explicit guard instead of silent fallback
   if (!entryYear) {
-    entryYear = 2020;
+    return {
+      success: false,
+      errors: ['Entry year is required. Provide entryYear explicitly or include a valid studentId (YYYYxxxx).'],
+    };
+  }
+
+  const currentYear = new Date().getFullYear();
+  if (entryYear < 2018 || entryYear > currentYear + 1) {
+    return {
+      success: false,
+      errors: [`Unsupported entry year: ${entryYear}. Supported range is 2018-${currentYear + 1}.`],
+    };
   }
 
   // 1. Parse
@@ -118,8 +129,8 @@ export const uploadAndEvaluate = async (
     recommendations = await mapDeficitToRecommendations(deficits, repo);
   }
 
-  // 6. Refine for UI
-  const viewModel = refineGradStatusForUI(engineResult, { recommendations });
+  // 6. Compose API response
+  const apiResponse = toGraduationApiResponse(engineResult, { recommendations });
 
-  return { success: true, data: viewModel };
+  return { success: true, data: apiResponse };
 };

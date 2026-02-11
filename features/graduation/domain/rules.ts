@@ -42,7 +42,7 @@ export const ruleSet2018to2020: YearRuleSet = {
 export function pickRuleSet(entryYear: number): YearRuleSet {
   if (entryYear >= 2021) return ruleSet2021Plus;
   if (entryYear >= 2018 && entryYear <= 2020) return ruleSet2018to2020;
-  return ruleSet2018to2020; // Default fallback
+  throw new Error(`Unsupported entry year: ${entryYear}`);
 }
 
 // Re-export types for convenience

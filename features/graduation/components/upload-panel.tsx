@@ -17,7 +17,7 @@ import {
 import { cn } from '@/lib/utils';
 
 import type { UserStatusType } from '@lib/types/index';
-import type { GradStatusRequestBody, GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
+import type { GradStatusRequestBody, GraduationApiResponseType, TakenCourseType } from '@lib/types/grad';
 import { gradStatusFetchFn, inferEntryYear, toTakenCourses } from '@utils/graduation/grad-status-helper';
 import { useGraduationStore } from '@/lib/stores/useGraduationStore';
 import { PARSED_EDITABLE_STATE_KEY } from '@/lib/stores/storage-key';
@@ -28,7 +28,7 @@ type GradUploadPanelProps = {
   redirectTo?: string;
   children?: (ctx: {
     parsed: UserStatusType | null;
-    gradStatus: GradStatusResponseType | null;
+    gradStatus: GraduationApiResponseType | null;
     isParsing: boolean;
   }) => React.ReactNode;
 };
@@ -90,7 +90,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
       };
 
       setIsFetchingGradStatus(true);
-      let grad: GradStatusResponseType | null = null;
+      let grad: GraduationApiResponseType | null = null;
 
       try {
         grad = await gradStatusFetchFn(payload);

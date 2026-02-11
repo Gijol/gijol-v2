@@ -42,12 +42,36 @@ interface EngineDeps {
 
 // ========== 시간순 3분야 선택 알고리즘 ==========
 
+function toCanonicalSemester(semester: string): '1' | '2' | '여름' | '겨울' | '' {
+  const compact = (semester || '').toString().trim().toLowerCase().replace(/\s+/g, '');
+  if (compact === '1' || compact === '1학기' || compact === '봄' || compact === '봄학기' || compact === 'spring') {
+    return '1';
+  }
+  if (
+    compact === '2' ||
+    compact === '2학기' ||
+    compact === '가을' ||
+    compact === '가을학기' ||
+    compact === 'autumn' ||
+    compact === 'fall'
+  ) {
+    return '2';
+  }
+  if (compact === '여름' || compact === '여름학기' || compact === 'summer') {
+    return '여름';
+  }
+  if (compact === '겨울' || compact === '겨울학기' || compact === 'winter') {
+    return '겨울';
+  }
+  return '';
+}
+
 // 학기 비교 함수: 양수면 a가 b보다 이후, 음수면 a가 b보다 이전, 0이면 동일
 function compareSemester(a: TakenCourseType, b: TakenCourseType): number {
   if (a.year !== b.year) return a.year - b.year;
   const semOrder: Record<string, number> = { '1': 1, 여름: 2, '2': 3, 겨울: 4 };
-  const aOrder = semOrder[a.semester] || 0;
-  const bOrder = semOrder[b.semester] || 0;
+  const aOrder = semOrder[toCanonicalSemester(a.semester)] || 0;
+  const bOrder = semOrder[toCanonicalSemester(b.semester)] || 0;
   return aOrder - bOrder;
 }
 

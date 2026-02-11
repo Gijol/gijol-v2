@@ -6,6 +6,86 @@ export interface ValidationResult {
   errors?: string[];
 }
 
+type CanonicalSemester = '1' | '2' | '여름' | '겨울';
+
+const VALID_GRADES = new Set([
+  'A+',
+  'A0',
+  'A-',
+  'B+',
+  'B0',
+  'B-',
+  'C+',
+  'C0',
+  'C-',
+  'D+',
+  'D0',
+  'F',
+  'S',
+  'U',
+  'P',
+  'NP',
+  'AU',
+  'W',
+  'I',
+]);
+
+function normalizeCourseCode(code?: string): string {
+  return (code || '')
+    .toString()
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, '');
+}
+
+function normalizeGrade(grade?: string): string {
+  return (grade || '')
+    .toString()
+    .toUpperCase()
+    .replace(/\s+/g, '');
+}
+
+/**
+ * Converts various semester notations to canonical values used by the engine.
+ */
+export function normalizeSemester(semester?: string): CanonicalSemester | '' {
+  if (!semester) return '';
+  const raw = semester.toString().trim();
+  if (!raw) return '';
+
+  const compact = raw.toLowerCase().replace(/\s+/g, '');
+
+  if (compact === '1' || compact === '1학기' || compact === '봄' || compact === '봄학기' || compact === 'spring') {
+    return '1';
+  }
+  if (
+    compact === '2' ||
+    compact === '2학기' ||
+    compact === '가을' ||
+    compact === '가을학기' ||
+    compact === 'autumn' ||
+    compact === 'fall'
+  ) {
+    return '2';
+  }
+  if (compact === '여름' || compact === '여름학기' || compact === 'summer') {
+    return '여름';
+  }
+  if (compact === '겨울' || compact === '겨울학기' || compact === 'winter') {
+    return '겨울';
+  }
+
+  return '';
+}
+
+function semesterOrder(semester: string): number {
+  const canonical = normalizeSemester(semester);
+  if (canonical === '1') return 1;
+  if (canonical === '여름') return 2;
+  if (canonical === '2') return 3;
+  if (canonical === '겨울') return 4;
+  return 0;
+}
+
 /**
  * Parses raw input (e.g. from JSON or Excel) into a UserTakenCourseListType structure.
  * This function is defensive and ensures basic shape conformity.
@@ -41,14 +121,41 @@ export const parseRawToTakenCourses = (raw: unknown): UserTakenCourseListType =>
 export const validateTakenCourses = (input: UserTakenCourseListType): ValidationResult => {
   const errors: string[] = [];
 
-  if (!input.takenCourses) {
+  if (!input.takenCourses || !Array.isArray(input.takenCourses)) {
     return { ok: false, errors: ['takenCourses array is missing'] };
   }
 
+  if (input.takenCourses.length === 0) {
+    return { ok: false, errors: ['takenCourses array is empty'] };
+  }
+
+  const maxYear = new Date().getFullYear() + 1;
+
   input.takenCourses.forEach((course, index) => {
     if (!course.courseName) errors.push(`Row ${index}: Missing course name`);
-    if (typeof course.credit !== 'number' || course.credit < 0) {
+
+    const year = Number(course.year);
+    if (!Number.isInteger(year) || year < 1900 || year > maxYear) {
+      errors.push(`Row ${index}: Invalid year value`);
+    }
+
+    if (!normalizeSemester(course.semester)) {
+      errors.push(`Row ${index}: Invalid semester value`);
+    }
+
+    const credit = Number(course.credit);
+    if (!Number.isFinite(credit) || credit < 0 || credit > 12) {
       errors.push(`Row ${index}: Invalid credit value`);
+    }
+
+    const grade = normalizeGrade(course.grade);
+    if (grade && !VALID_GRADES.has(grade)) {
+      errors.push(`Row ${index}: Invalid grade value`);
+    }
+
+    const code = (course.courseCode || '').toString();
+    if (code && normalizeCourseCode(code).length === 0) {
+      errors.push(`Row ${index}: Invalid course code`);
     }
   });
 
@@ -67,11 +174,13 @@ export const normalizeTakenCourses = (input: UserTakenCourseListType): UserTaken
   // 1. First pass: normalize strings
   let normalizedCourses: TakenCourseType[] = input.takenCourses.map((c) => ({
     ...c,
+    year: Number.isFinite(Number(c.year)) ? Math.trunc(Number(c.year)) : 0,
     courseName: c.courseName?.trim() || '',
-    courseCode: c.courseCode?.trim() || '',
-    semester: c.semester?.trim() || '',
+    courseCode: normalizeCourseCode(c.courseCode),
+    semester: normalizeSemester(c.semester) || c.semester?.trim() || '',
     courseType: c.courseType?.trim() || '기타',
-    grade: c.grade?.trim().toUpperCase() || '',
+    credit: Number.isFinite(Number(c.credit)) ? Number(c.credit) : 0,
+    grade: normalizeGrade(c.grade),
   }));
 
   // 2. Filter out F grades
@@ -104,10 +213,14 @@ export const normalizeTakenCourses = (input: UserTakenCourseListType): UserTaken
 
   const validMap = new Map<string, TakenCourseType>();
   const repeatableCourses: TakenCourseType[] = [];
+  const noCodeCourses: TakenCourseType[] = [];
 
   normalizedCourses.forEach((course) => {
     const code = course.courseCode;
-    if (!code) return; // Skip if no code
+    if (!code) {
+      noCodeCourses.push(course);
+      return;
+    }
 
     if (REPEATABLE_CODES.has(code)) {
       repeatableCourses.push(course);
@@ -126,7 +239,7 @@ export const normalizeTakenCourses = (input: UserTakenCourseListType): UserTaken
         // Tie-breaker: prefer recent year/semester
         if (course.year > existing.year) {
           validMap.set(code, course);
-        } else if (course.year === existing.year && course.semester > existing.semester) {
+        } else if (course.year === existing.year && semesterOrder(course.semester) > semesterOrder(existing.semester)) {
           validMap.set(code, course);
         }
       }
@@ -135,5 +248,5 @@ export const normalizeTakenCourses = (input: UserTakenCourseListType): UserTaken
     }
   });
 
-  return { takenCourses: [...Array.from(validMap.values()), ...repeatableCourses] };
+  return { takenCourses: [...Array.from(validMap.values()), ...repeatableCourses, ...noCodeCourses] };
 };

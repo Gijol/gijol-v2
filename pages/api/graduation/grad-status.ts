@@ -1,9 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
+import type { GradStatusResponseType, GraduationApiResponseType } from '@lib/types/grad';
 import { initialValue } from '@const/grad-status-constants';
 import { uploadAndEvaluate } from 'features/graduation/usecases/uploadAndEvaluate';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+type GraduationApiError = { error: string };
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse<GradStatusResponseType | GraduationApiResponseType | GraduationApiError>) {
   // GET: return example/default grad status (useful for development/testing)
   if (req.method === 'GET') {
     try {
@@ -42,8 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: result.errors?.join(', ') || 'Validation failed' });
     }
 
-    // result.data is UIGradViewModel which extends GradStatusResponseType
-    // so it's safe to return directly.
+    // Return API contract (domain result + supplemental data).
     return res.status(200).json(result.data!);
   } catch (err: any) {
     console.error('grad-status POST error', err);

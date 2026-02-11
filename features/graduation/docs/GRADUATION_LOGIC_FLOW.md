@@ -80,10 +80,12 @@ flowchart TD
     O --> P["mapDeficitToRecommendations()"]
     
     subgraph REFINE ["3️⃣ Refine Layer"]
-        P --> Q["refineGradStatusForUI()"]
+        P --> Q["toGraduationApiResponse()"]
     end
     
-    Q --> R[📊 UIGradViewModel<br/>화면 표시]
+    Q --> R[📦 GraduationApiResponse<br/>API 응답]
+    R --> S["toGraduationUiViewModel()"]
+    S --> T[📊 UI ViewModel<br/>화면 표시]
 ```
 
 ---
@@ -107,7 +109,7 @@ uploadAndEvaluate(rawInput, options) → UploadEvaluateResult
 | 3.5 | Major Inference | 과목 prefix 빈도로 전공 추론 |
 | 4 | `evaluateGraduationStatus()` | 핵심 엔진 호출 |
 | 5 | `mapDeficitToRecommendations()` | 부족 학점에 대한 추천 과목 생성 |
-| 6 | `refineGradStatusForUI()` | UI용 ViewModel 생성 |
+| 6 | `toGraduationApiResponse()` | API 계약(`GraduationApiResponse`) 조합 |
 
 ---
 
@@ -121,15 +123,21 @@ uploadAndEvaluate(rawInput, options) → UploadEvaluateResult
 
 #### `validateTakenCourses(input)`
 - `courseName` 필수
-- `credit` ≥ 0 검증
+- `year` 범위 검증 (1900 ~ 현재연도+1)
+- `semester` 유효값 검증 (`1`, `2`, `여름`, `겨울` 계열)
+- `credit` 범위 검증 (0 ~ 12)
+- `grade` 포맷 검증
+- `courseCode` 정규화 후 유효성 검증
 - 실패 시 에러 배열 반환
 
 #### `normalizeTakenCourses(input)`
 ```
 1. 문자열 trim() 처리
-2. F학점 과목 필터링
-3. 재수강 처리 (courseCode 기준 중복 제거, 높은 성적 우선)
-4. 반복 수강 가능 과목 예외 처리 (UC9331 콜로퀴움 등)
+2. 학기 문자열 표준화 (봄/가을/spring/fall 등 -> `1`/`2`)
+3. 과목코드/성적 정규화 (대문자 + 불필요 문자 제거)
+4. F학점 과목 필터링
+5. 재수강 처리 (courseCode 기준 중복 제거, 높은 성적 우선)
+6. 반복 수강 가능 과목 예외 처리 (UC9331 콜로퀴움 등)
 ```
 
 ---
@@ -160,7 +168,7 @@ uploadAndEvaluate(rawInput, options) → UploadEvaluateResult
 
 ### 4. Domain Layer - Engine
 
-**파일:** [domain/engine/index.ts](graduation/domain/engine/index.ts)
+**파일:** [domain/engine/index.ts](features/graduation/domain/engine/index.ts)
 
 #### `evaluateGraduationStatus(input, deps?)` - 핵심 함수
 
@@ -268,22 +276,38 @@ uploadAndEvaluate(rawInput, options) → UploadEvaluateResult
 
 **파일:** [middlewares/refine/index.ts](features/graduation/middlewares/refine/index.ts)
 
-#### `refineGradStatusForUI(result, extra?)`
+#### `toGraduationApiResponse(result, extra?)`
 
-Engine 결과를 UI용 ViewModel로 변환:
+Engine 결과를 **API 계약 객체**로 변환:
 
 ```typescript
-interface UIGradViewModel {
+interface GraduationApiResponse {
   ...GradStatusResponseType,
   recommendations: RecommendationItem[],
-  displayMessage: string,
   fineGrainedRequirements: FineGrainedRequirement[]
 }
 ```
 
 ---
 
-### 8. Data Layer
+### 8. UI Mapper Layer
+
+**파일:** [lib/utils/graduation/ui-mapper.ts](lib/utils/graduation/ui-mapper.ts)
+
+#### `toGraduationUiViewModel(apiResponse)`
+
+클라이언트에서 API 응답을 UI 모델로 변환:
+
+```typescript
+interface GraduationUiViewModel {
+  ...GraduationApiResponse,
+  displayMessage: string
+}
+```
+
+---
+
+### 9. Data Layer
 
 **파일:** [data/index.ts](features/graduation/data/index.ts)
 
@@ -317,7 +341,10 @@ uploadAndEvaluate()
 │       ├── sumCredits()
 │       └── courseBasedLabel() / creditBasedLabel()
 ├── mapDeficitToRecommendations()
-└── refineGradStatusForUI()
+└── toGraduationApiResponse()
+
+[Client]
+└── toGraduationUiViewModel()
 ```
 
 ---
@@ -439,7 +466,7 @@ features/graduation/
 │   ├── validation/
 │   │   └── index.ts            # 파싱, 검증, 정규화
 │   └── refine/
-│       └── index.ts            # UI ViewModel 변환
+│       └── index.ts            # API 계약 조합
 ├── domain/
 │   ├── classifier.ts           # 과목 분류 로직
 │   ├── engine/
@@ -453,4 +480,7 @@ features/graduation/
 │       └── alias-mappings.ts        # 과목 코드 별칭
 └── data/
     └── index.ts                # 추천 과목 조회
+
+lib/utils/graduation/
+└── ui-mapper.ts                # 클라이언트 UI ViewModel 생성
 ```

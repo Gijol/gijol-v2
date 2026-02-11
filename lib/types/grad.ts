@@ -1,3 +1,5 @@
+import type { FineGrainedRequirement } from './grad-requirements';
+
 export interface TakenCourseType {
   year: number;
   semester: string; // e.g. '봄', '가을', '여름학기' 등
@@ -33,6 +35,26 @@ export interface GradStatusResponseType {
   graduationCategory: GradCategoriesType; // default는 2020년도
   totalCredits: number;
   totalSatisfied: boolean;
+}
+
+export interface GraduationRecommendationItem {
+  courseCode: string;
+  courseName: string;
+  credit: number;
+  reason: string;
+}
+
+/**
+ * API contract returned by /api/graduation/grad-status.
+ * Presentation-only fields (e.g., displayMessage) should not be included here.
+ */
+export interface GraduationApiResponseType extends GradStatusResponseType {
+  fineGrainedRequirements?: FineGrainedRequirement[];
+  recommendations?: GraduationRecommendationItem[];
+}
+
+export interface GraduationUiViewModel extends GraduationApiResponseType {
+  displayMessage: string;
 }
 
 // 프론트에서 API로 보낼 때 쓸 Request Body
