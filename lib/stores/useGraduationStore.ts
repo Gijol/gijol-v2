@@ -2,7 +2,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { UserStatusType } from '@lib/types/index';
-import type { GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
+import type { GradStatusResponseType, MinorDeclarationTerms, TakenCourseType } from '@lib/types/grad';
 import { FineGrainedRequirement } from '@lib/types/grad-requirements';
 import { PARSED_PROCESSED_STATE_KEY } from './storage-key';
 
@@ -16,6 +16,7 @@ type GraduationState = {
   gradStatus: GradStatusExtended | null;
   userMajor: string;
   userMinors: string[];
+  minorDeclarationTerms: MinorDeclarationTerms;
   entryYear: number | null;
   lastUploadDate: string | null; // ISO date string
 
@@ -25,6 +26,7 @@ type GraduationState = {
     gradStatus: GradStatusResponseType | null;
     userMajor: string;
     userMinors?: string[];
+    minorDeclarationTerms?: MinorDeclarationTerms;
     entryYear?: number;
   }) => void;
 
@@ -39,16 +41,18 @@ export const useGraduationStore = create<GraduationState>()(
       gradStatus: null,
       userMajor: '',
       userMinors: [],
+      minorDeclarationTerms: {},
       entryYear: null,
       lastUploadDate: null,
 
-      setFromParsed: ({ parsed, takenCourses, gradStatus, userMajor, userMinors, entryYear }) =>
+      setFromParsed: ({ parsed, takenCourses, gradStatus, userMajor, userMinors, minorDeclarationTerms, entryYear }) =>
         set({
           parsed,
           takenCourses,
           gradStatus,
           userMajor,
           userMinors: userMinors ?? [],
+          minorDeclarationTerms: minorDeclarationTerms ?? {},
           entryYear: entryYear ?? null,
           lastUploadDate: new Date().toISOString(),
         }),
@@ -60,6 +64,7 @@ export const useGraduationStore = create<GraduationState>()(
           gradStatus: null,
           userMajor: '',
           userMinors: [],
+          minorDeclarationTerms: {},
           entryYear: null,
           lastUploadDate: null,
         }),

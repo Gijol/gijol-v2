@@ -26,6 +26,12 @@ describe('교차 개설 과목 코드 매칭 테스트', () => {
       expect(matchesMinor('SE2104', 'IR')).toBe(true);
     });
 
+    it('IR minor recognizes AI-code courses but not AI thesis research', () => {
+      expect(matchesMinor('AI2004', 'IR')).toBe(true);
+      expect(matchesMinor('AI9102', 'IR')).toBe(false);
+      expect(matchesMinor('AI9103', 'IR')).toBe(false);
+    });
+
     it('FE energy minor does not absorb MD biomedical courses through the FE major code collision', () => {
       expect(matchesMinor('FE2301', 'FE')).toBe(true);
       expect(matchesMinor('MD2101', 'FE')).toBe(false);

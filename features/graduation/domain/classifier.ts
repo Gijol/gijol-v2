@@ -41,6 +41,10 @@ function isHumanitiesTranscriptCode(code: string): boolean {
   return HUMANITIES_CODE_PREFIXES.has(prefix);
 }
 
+function isIrAiCodeMinorCourse(code: string): boolean {
+  return /^AI[0-9]/.test(code) && !THESIS_SUFFIXES.some((suffix) => code.endsWith(suffix));
+}
+
 // Constants moved to ./constants/classifier-constants.ts
 
 // ===== Main Classifier =====
@@ -62,7 +66,17 @@ export function matchesMinor(courseCode: string, minorInput: string): boolean {
   const allCodes = [code, ...aliases];
   const programCourseCodes = getCourseCodesForProgram(minorProgram);
 
-  return allCodes.some((candidate) => programCourseCodes.includes(candidate));
+  if (allCodes.some((candidate) => programCourseCodes.includes(candidate))) {
+    return true;
+  }
+
+  // 2026 bachelor manual p.29: IR minor recognizes AI-code designated courses,
+  // capped later in the requirement evaluator. Thesis research suffixes stay out.
+  if (minorProgram.canonicalCode === 'IR') {
+    return allCodes.some(isIrAiCodeMinorCourse);
+  }
+
+  return false;
 }
 
 export function classifyCourse(course: TakenCourseType, userMajor?: string, userMinors?: string[]): CategoryKey {

@@ -18,12 +18,23 @@ interface Requirement {
   satisfied: boolean;
   messages: string[];
   courses: any[];
+  hasNeedsReview?: boolean;
+  excludedCourses?: Array<{
+    courseCode: string;
+    courseName: string;
+    credit: number;
+    year: number;
+    semester: string;
+    reason: string;
+    requirementLabel?: string;
+  }>;
   recommendedCourses?: RecommendedCourse[];
 }
 
 interface RequirementsListProps {
   requirements: Requirement[];
   className?: string;
+  onResolveNeedsReview?: () => void;
 }
 
 // 추천 과목 섹션 (더보기 기능 포함)
@@ -81,7 +92,7 @@ function RecommendedCoursesSection({ courses }: { courses: RecommendedCourse[] }
   );
 }
 
-export function RequirementsList({ requirements, className }: RequirementsListProps) {
+export function RequirementsList({ requirements, className, onResolveNeedsReview }: RequirementsListProps) {
   return (
     <>
       <h2 className="mb-5 flex items-center gap-2 text-lg font-bold text-gray-900">
@@ -196,6 +207,17 @@ export function RequirementsList({ requirements, className }: RequirementsListPr
                               </li>
                             ))}
                           </ul>
+                          {req.hasNeedsReview && onResolveNeedsReview ? (
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              className="mt-3 border-amber-200 bg-white text-amber-800 hover:bg-amber-100"
+                              onClick={onResolveNeedsReview}
+                            >
+                              선언 학기 입력하기
+                            </Button>
+                          ) : null}
                         </div>
                       );
                     })()}
@@ -203,6 +225,44 @@ export function RequirementsList({ requirements, className }: RequirementsListPr
                   {/* Recommended Courses Section with Show More */}
                   {!req.satisfied && req.recommendedCourses && req.recommendedCourses.length > 0 && (
                     <RecommendedCoursesSection courses={req.recommendedCourses} />
+                  )}
+
+                  {req.excludedCourses && req.excludedCourses.length > 0 && (
+                    <div className="mb-6 rounded-lg border border-orange-200 bg-orange-50 p-4">
+                      <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-orange-900">
+                        <AlertTriangle size={16} />
+                        인정 제외 과목
+                        <span className="text-xs font-normal text-orange-700">({req.excludedCourses.length}개)</span>
+                      </h4>
+                      <div className="space-y-2">
+                        {req.excludedCourses.map((course, idx) => (
+                          <div
+                            key={`${course.courseCode}-${course.year}-${course.semester}-${idx}`}
+                            className="rounded-md border border-orange-200 bg-white p-3"
+                          >
+                            <div className="flex items-start justify-between gap-3">
+                              <div className="min-w-0 flex-1">
+                                <div className="truncate text-sm font-medium text-gray-900">
+                                  {course.courseName ?? '-'}
+                                </div>
+                                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                                  <span className="font-mono">{course.courseCode ?? '-'}</span>
+                                  <span>
+                                    {course.year?.toString().slice(2) ?? '-'}-
+                                    {course.semester?.toString().replace('학기', '') ?? '-'}
+                                  </span>
+                                  <span>{course.credit ?? 0}학점</span>
+                                </div>
+                                <p className="mt-2 text-xs leading-relaxed text-orange-800">{course.reason}</p>
+                              </div>
+                              <Badge variant="outline" className="shrink-0 border-orange-200 bg-orange-100 text-orange-800">
+                                제외
+                              </Badge>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   )}
 
                   {/* Course List */}

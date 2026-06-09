@@ -75,6 +75,10 @@ export interface MatchedCourseInfo {
   semester: string;
 }
 
+export interface ExcludedCourseInfo extends MatchedCourseInfo {
+  reason: string;
+}
+
 export interface FineGrainedRequirement {
   id: string;
   categoryKey: CategoryKey;
@@ -89,6 +93,8 @@ export interface FineGrainedRequirement {
   sourceRefs?: readonly RequirementSource[];
   /** Courses that actually matched/contributed to this requirement */
   matchedCourses: MatchedCourseInfo[];
+  /** Courses that matched the requirement domain but did not contribute because of a rule cap or exclusion */
+  excludedCourses?: ExcludedCourseInfo[];
   relatedCoursePatterns?: {
     codePrefixes?: string[];
     nameKeywords?: string[];

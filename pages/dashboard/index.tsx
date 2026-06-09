@@ -6,14 +6,34 @@ import { buildCourseListWithPeriod, calcAverageGrade } from '@utils/course/analy
 import { WelcomeHeader } from '@components/dashboard/welcome-header';
 import { EmptyState } from '@components/dashboard/empty-state';
 import { RequirementsList } from '@components/dashboard/requirements-list';
+import { UserInfoEditDialog } from '@components/dashboard/user-info-edit-dialog';
 import { useRecommendedCourses } from '@/lib/hooks/useRecommendedCourses';
 import { BentoGrid, BentoGridItem } from '@components/ui/bento-grid';
 import { Progress } from '@components/ui/progress';
 import { Badge } from '@components/ui/badge';
 import { User, School, Book, Calendar, TrendingUp, AlertTriangle, BarChart, Eye, EyeOff } from 'lucide-react';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
+import type { FineGrainedRequirement } from '@lib/types/grad-requirements';
 
 const TOTAL_REQUIRED_CREDITS = 130;
+const DOMAIN_TO_CATEGORY_KEY: Record<string, FineGrainedRequirement['categoryKey']> = {
+  '언어와 기초': 'languageBasic',
+  기초과학: 'scienceBasic',
+  전공: 'major',
+  부전공: 'minor',
+  인문사회: 'humanities',
+  '연구 및 기타': 'etcMandatory',
+  자유학점: 'otherUncheckedClass',
+};
+
+function getRequirementStatus(requirement: FineGrainedRequirement) {
+  return requirement.status ?? (requirement.satisfied ? 'satisfied' : 'unsatisfied');
+}
+
+function getCreditPercentage(earned: number, required: number, fallback: number): number {
+  if (required <= 0) return fallback;
+  return Math.min(100, Math.round((earned * 100) / required));
+}
 
 // 전공 라벨 헬퍼
 function getMajorLabel(value: string): string {
@@ -28,6 +48,7 @@ export default function HomePage() {
   const { parsed, gradStatus, userMajor, userMinors, entryYear } = useGraduationStore();
   const { getRecommendationsForDomain } = useRecommendedCourses();
   const [showGradeSummary, setShowGradeSummary] = useState(false);
+  const [userInfoDialogOpen, setUserInfoDialogOpen] = useState(false);
 
   const courseListWithPeriod = useMemo(() => buildCourseListWithPeriod(parsed), [parsed]);
 
@@ -50,17 +71,51 @@ export default function HomePage() {
   const remainingCredits = Math.max(0, TOTAL_REQUIRED_CREDITS - totalCreditsEarned);
   const completedCourses = courseListWithPeriod.flatMap((t) => t.userTakenCourseList ?? []).length;
 
+  const fineGrainedRequirements = gradStatus?.fineGrainedRequirements ?? [];
   const requirements =
-    overallProps?.categoriesArr.map(({ domain, status }) => ({
-      domain,
-      required: status?.minConditionCredits ?? 0,
-      earned: status?.totalCredits ?? 0,
-      percentage: getPercentage(status),
-      satisfied: status?.satisfied ?? false,
-      messages: status?.messages ?? [],
-      courses: status?.userTakenCoursesList?.takenCourses ?? [],
-      recommendedCourses: getRecommendationsForDomain(domain),
-    })) ?? [];
+    overallProps?.categoriesArr.map(({ domain, status }) => {
+      const categoryKey = DOMAIN_TO_CATEGORY_KEY[domain];
+      const domainFineRequirements = categoryKey
+        ? fineGrainedRequirements.filter((requirement) => requirement.categoryKey === categoryKey)
+        : [];
+      const minorCreditRequirements =
+        categoryKey === 'minor'
+          ? domainFineRequirements.filter((requirement) => requirement.id.startsWith('minor-credits-'))
+          : [];
+      const shouldUseFineGrainedCredits = minorCreditRequirements.length > 0;
+      const mustFineRequirements = domainFineRequirements.filter((requirement) => requirement.importance === 'must');
+      const required = shouldUseFineGrainedCredits
+        ? minorCreditRequirements.reduce((sum, requirement) => sum + requirement.requiredCredits, 0)
+        : (status?.minConditionCredits ?? 0);
+      const earned = shouldUseFineGrainedCredits
+        ? minorCreditRequirements.reduce((sum, requirement) => sum + requirement.acquiredCredits, 0)
+        : (status?.totalCredits ?? 0);
+      const courses = shouldUseFineGrainedCredits
+        ? minorCreditRequirements.flatMap((requirement) => requirement.matchedCourses ?? [])
+        : (status?.userTakenCoursesList?.takenCourses ?? []);
+      const excludedCourses = domainFineRequirements.flatMap((requirement) =>
+        (requirement.excludedCourses ?? []).map((course) => ({
+          ...course,
+          requirementLabel: requirement.label,
+        })),
+      );
+      const hasNeedsReview = domainFineRequirements.some((requirement) => getRequirementStatus(requirement) === 'needs_review');
+
+      return {
+        domain,
+        required,
+        earned,
+        percentage: getCreditPercentage(earned, required, getPercentage(status)),
+        satisfied: shouldUseFineGrainedCredits
+          ? mustFineRequirements.every((requirement) => getRequirementStatus(requirement) === 'satisfied')
+          : (status?.satisfied ?? false),
+        messages: status?.messages ?? [],
+        courses,
+        hasNeedsReview,
+        excludedCourses,
+        recommendedCourses: getRecommendationsForDomain(domain),
+      };
+    }) ?? [];
 
   const unsatisfiedRequirements = requirements.filter((r) => !r.satisfied).length;
   const hasData = !!(parsed && gradStatus);
@@ -80,7 +135,12 @@ export default function HomePage() {
     <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
       <NextSeo title="대시보드" description="졸업 현황을 한눈에 확인하세요" noindex />
       {/* Header */}
-      <WelcomeHeader studentId={parsed.studentId} remainingCredits={remainingCredits} hasData={true} />
+      <WelcomeHeader
+        studentId={parsed.studentId}
+        remainingCredits={remainingCredits}
+        hasData={true}
+        actions={<UserInfoEditDialog open={userInfoDialogOpen} onOpenChange={setUserInfoDialogOpen} />}
+      />
 
       {/* BentoGrid Dashboard */}
       <BentoGrid className="mb-8 md:auto-rows-[11rem] lg:grid-cols-4">
@@ -283,7 +343,7 @@ export default function HomePage() {
 
       {/* Detailed Requirements List */}
       <div className="mb-8">
-        <RequirementsList requirements={requirements} />
+        <RequirementsList requirements={requirements} onResolveNeedsReview={() => setUserInfoDialogOpen(true)} />
       </div>
     </div>
   );

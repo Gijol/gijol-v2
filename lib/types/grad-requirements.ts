@@ -11,6 +11,18 @@ export interface RequirementSource {
   note?: string;
 }
 
+export interface MatchedCourseInfo {
+  courseCode: string;
+  courseName: string;
+  credit: number;
+  year: number;
+  semester: string;
+}
+
+export interface ExcludedCourseInfo extends MatchedCourseInfo {
+  reason: string;
+}
+
 export interface FineGrainedRequirement {
   id: string; // 'language-english', 'science-math' 등
   categoryKey: CategoryKey; // languageBasic / scienceBasic ...
@@ -24,6 +36,8 @@ export interface FineGrainedRequirement {
   // UI/추천용 힌트
   hint?: string;
   sourceRefs?: readonly RequirementSource[];
+  matchedCourses?: MatchedCourseInfo[];
+  excludedCourses?: ExcludedCourseInfo[];
   relatedCoursePatterns?: {
     codePrefixes?: string[];
     nameKeywords?: string[];

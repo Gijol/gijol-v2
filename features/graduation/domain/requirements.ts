@@ -25,6 +25,7 @@ import type {
   YearRuleSet,
   FineGrainedRequirement,
   MatchedCourseInfo,
+  ExcludedCourseInfo,
   AcademicTerm,
   MinorDeclarationTerms,
 } from './types';
@@ -104,6 +105,13 @@ function toMatchedInfo(c: TakenCourseType): MatchedCourseInfo {
     credit: c.credit,
     year: c.year,
     semester: c.semester,
+  };
+}
+
+function toExcludedCourseInfo(c: TakenCourseType, reason: string): ExcludedCourseInfo {
+  return {
+    ...toMatchedInfo(c),
+    reason,
   };
 }
 
@@ -209,6 +217,8 @@ const SET_SCIENCE_ECONOMY = new Set(['GS1701', 'UC0901']); // 과학기술과 �
 
 const RESEARCH_I_SUFFIX = '9102';
 const RESEARCH_II_SUFFIX = '9103';
+const IR_AI_CODE_COURSE_LIMIT = 4;
+const IR_AI_CODE_COURSE_LIMIT_REASON = '지능로봇 부전공 AI-code 지정 교과목은 최대 4과목까지만 인정됩니다.';
 
 // 예체능 과목 prefix (legacy) - 새로운 코드 집합으로 대체됨
 // const CODE_ART_PREFIX = 'GS02';
@@ -281,6 +291,40 @@ function getSemesterOrder(semester: string): number {
   if (['2', '2학기', 'fall', 'autumn', '가을'].includes(normalized)) return 3;
   if (['winter', '겨울', '겨울학기'].includes(normalized)) return 4;
   return 0;
+}
+
+function compareCourseTakenOrder(a: TakenCourseType, b: TakenCourseType): number {
+  if (a.year !== b.year) return a.year - b.year;
+
+  const semesterDiff = getSemesterOrder(a.semester) - getSemesterOrder(b.semester);
+  if (semesterDiff !== 0) return semesterDiff;
+
+  return normalizeCode(a.courseCode).localeCompare(normalizeCode(b.courseCode));
+}
+
+function isIrAiCodeCourse(c: TakenCourseType): boolean {
+  const code = normalizeCode(c.courseCode);
+  return /^AI[0-9]/.test(code) && !code.endsWith(RESEARCH_I_SUFFIX) && !code.endsWith(RESEARCH_II_SUFFIX);
+}
+
+function applyIrAiCodeCourseLimit(
+  minorCode: string,
+  courses: TakenCourseType[],
+): { accepted: TakenCourseType[]; excluded: TakenCourseType[] } {
+  if (normalizeCode(minorCode) !== 'IR') {
+    return { accepted: courses, excluded: [] };
+  }
+
+  const acceptedAiCourses = new Set(
+    courses.filter(isIrAiCodeCourse).sort(compareCourseTakenOrder).slice(0, IR_AI_CODE_COURSE_LIMIT),
+  );
+
+  return {
+    accepted: courses.filter((course) => !isIrAiCodeCourse(course) || acceptedAiCourses.has(course)),
+    excluded: courses
+      .filter((course) => isIrAiCodeCourse(course) && !acceptedAiCourses.has(course))
+      .sort(compareCourseTakenOrder),
+  };
 }
 
 function isOnOrBeforeTerm(term: AcademicTerm, boundaryYear: number, boundarySemester: string): boolean {
@@ -864,8 +908,15 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
         });
       }
 
-      const minorCourses = (grouped.minor ?? []).filter((c) => matchesMinor(c.courseCode, minorCode));
+      const minorCourseLimit = applyIrAiCodeCourseLimit(
+        minorCode,
+        (grouped.minor ?? []).filter((c) => matchesMinor(c.courseCode, minorCode)),
+      );
+      const minorCourses = minorCourseLimit.accepted;
       const minorMatched = minorCourses.map(toMatchedInfo);
+      const minorExcluded = minorCourseLimit.excluded.map((course) =>
+        toExcludedCourseInfo(course, IR_AI_CODE_COURSE_LIMIT_REASON),
+      );
       const minorCredits = sumCredits(minorCourses);
       const minorSatisfied = minorCredits >= 15;
 
@@ -883,6 +934,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
           : `${minorCode} 부전공 ${Math.max(0, 15 - minorCredits)}학점이 더 필요합니다.`,
         sourceRefs: minorRequirementSource(minorCode),
         matchedCourses: minorMatched,
+        excludedCourses: minorExcluded.length > 0 ? minorExcluded : undefined,
       });
     });
   }

@@ -5,13 +5,16 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 import { gradStatusFetchFn, inferEntryYear, toTakenCourses } from '@utils/graduation/grad-status-helper';
 import type { EditableCourseRow } from '@lib/types/graduation-editable';
+import type { MinorDeclarationTerms } from '@lib/types/grad';
 import type { UserStatusType } from '@lib/types/index';
 import { applyEditableRowsToUserStatus, toEditableRows } from '@utils/graduation/parse-to-editable-rows';
 import { ParsedCourseEditableTable } from '@/features/graduation/components/parse-course-editable-table';
 import { GradUploadPanel } from '@/features/graduation/components/upload-panel';
 import { UploadResultSkeleton } from '@/features/graduation/components/upload-skeleton';
+import { MinorDeclarationTermFields } from '@components/dashboard/minor-declaration-term-fields';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 import { resolveMajorForEvaluation } from '@features/graduation/domain';
+import { pruneMinorDeclarationTerms } from '@utils/graduation/minor-declaration-terms';
 import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
 import { PARSED_EDITABLE_STATE_KEY, PARSED_PROCESSED_STATE_KEY } from '../../../lib/stores/storage-key';
 
@@ -30,7 +33,15 @@ function isParsedUserStatus(value: unknown): value is UserStatusType {
   );
 }
 
-function readStoredParsedStatus(): UserStatusType | null {
+type StoredParsedSnapshot = {
+  parsed: UserStatusType;
+  entryYear?: number | null;
+  userMajor?: string;
+  userMinors?: string[];
+  minorDeclarationTerms?: MinorDeclarationTerms;
+};
+
+function readStoredParsedSnapshot(): StoredParsedSnapshot | null {
   if (typeof window === 'undefined') return null;
 
   const candidates = [
@@ -44,8 +55,23 @@ function readStoredParsedStatus(): UserStatusType | null {
 
     try {
       const parsedStorage = JSON.parse(raw);
-      const parsed = candidate.fromPersistedStore ? parsedStorage?.state?.parsed : parsedStorage;
-      if (isParsedUserStatus(parsed)) return parsed;
+      if (candidate.fromPersistedStore) {
+        const state = parsedStorage?.state;
+        if (isParsedUserStatus(state?.parsed)) {
+          return {
+            parsed: state.parsed,
+            entryYear: state.entryYear,
+            userMajor: state.userMajor,
+            userMinors: Array.isArray(state.userMinors) ? state.userMinors : [],
+            minorDeclarationTerms:
+              state.minorDeclarationTerms && typeof state.minorDeclarationTerms === 'object'
+                ? state.minorDeclarationTerms
+                : undefined,
+          };
+        }
+      }
+
+      if (isParsedUserStatus(parsedStorage)) return { parsed: parsedStorage };
     } catch {
       // Ignore malformed local storage and keep looking for another usable snapshot.
     }
@@ -66,6 +92,7 @@ export default function GraduationParsePage() {
     parsed,
     userMajor: storedUserMajor,
     userMinors: storedUserMinors,
+    minorDeclarationTerms: storedMinorDeclarationTerms,
     entryYear: storedEntryYear,
     setFromParsed,
   } = useGraduationStore();
@@ -77,6 +104,7 @@ export default function GraduationParsePage() {
   const [entryYear, setEntryYear] = useState<number>(2020);
   const [major, setMajor] = useState<string>('');
   const [minors, setMinors] = useState<string[]>([]);
+  const [minorDeclarationTerms, setMinorDeclarationTerms] = useState<MinorDeclarationTerms>({});
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
@@ -87,20 +115,22 @@ export default function GraduationParsePage() {
     if (!isHydrated || parsed || restoreAttemptedRef.current) return;
     restoreAttemptedRef.current = true;
 
-    const restored = readStoredParsedStatus();
+    const restored = readStoredParsedSnapshot();
     if (!restored) return;
 
-    const takenCourses = toTakenCourses(restored);
-    const entryYearFromRestored = inferEntryYear(restored);
-    const userMajor = resolveMajorFromParsed(restored, takenCourses);
+    const takenCourses = toTakenCourses(restored.parsed);
+    const entryYearFromRestored = inferEntryYear(restored.parsed);
+    const userMajor = restored.userMajor || resolveMajorFromParsed(restored.parsed, takenCourses);
+    const userMinors = restored.userMinors ?? [];
 
     setFromParsed({
-      parsed: restored,
+      parsed: restored.parsed,
       takenCourses,
       gradStatus: null,
       userMajor,
-      userMinors: [],
-      entryYear: entryYearFromRestored ?? undefined,
+      userMinors,
+      minorDeclarationTerms: pruneMinorDeclarationTerms(restored.minorDeclarationTerms, userMinors),
+      entryYear: restored.entryYear ?? entryYearFromRestored ?? undefined,
     });
   }, [isHydrated, parsed, setFromParsed]);
 
@@ -132,15 +162,23 @@ export default function GraduationParsePage() {
         matchedMajor = foundOption.value;
       }
 
+      const nextMinors = storedUserMinors ?? [];
       setMajor(storedUserMajor || matchedMajor);
-      setMinors(storedUserMinors ?? []);
+      setMinors(nextMinors);
+      setMinorDeclarationTerms(pruneMinorDeclarationTerms(storedMinorDeclarationTerms, nextMinors));
     } else {
       setRows([]);
       setEntryYear(2020);
       setMajor('');
       setMinors([]);
+      setMinorDeclarationTerms({});
     }
-  }, [isHydrated, parsed, storedEntryYear, storedUserMajor, storedUserMinors]);
+  }, [isHydrated, parsed, storedEntryYear, storedUserMajor, storedUserMinors, storedMinorDeclarationTerms]);
+
+  const handleChangeMinors = (nextMinors: string[]) => {
+    setMinors(nextMinors);
+    setMinorDeclarationTerms((prev) => pruneMinorDeclarationTerms(prev, nextMinors));
+  };
 
   const handleChangeRow = (id: string, patch: Partial<EditableCourseRow>) => {
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
@@ -187,12 +225,14 @@ export default function GraduationParsePage() {
       const explicitMajor = major || fallbackMajor;
       const majorResolution = resolveMajorForEvaluation(explicitMajor, takenCourses);
       const userMajor = majorResolution.code ?? (explicitMajor ? String(explicitMajor) : undefined);
+      const finalMinorDeclarationTerms = pruneMinorDeclarationTerms(minorDeclarationTerms, minors);
 
       const payload = {
         entryYear: finalEntryYear,
         takenCourses,
         userMajor,
         userMinors: minors,
+        minorDeclarationTerms: finalMinorDeclarationTerms,
       };
 
       const grad = await gradStatusFetchFn(payload);
@@ -203,6 +243,7 @@ export default function GraduationParsePage() {
         gradStatus: grad,
         userMajor: userMajor ?? '',
         userMinors: minors,
+        minorDeclarationTerms: finalMinorDeclarationTerms,
         entryYear: finalEntryYear,
       });
 
@@ -305,10 +346,18 @@ export default function GraduationParsePage() {
                       <MultiSelect
                         options={minorOptions}
                         selected={minors}
-                        onChange={setMinors}
+                        onChange={handleChangeMinors}
                         placeholder="부전공을 선택하세요"
                       />
                     </div>
+                  </div>
+
+                  <div className="mt-5">
+                    <MinorDeclarationTermFields
+                      selectedMinors={minors}
+                      terms={minorDeclarationTerms}
+                      onChange={setMinorDeclarationTerms}
+                    />
                   </div>
                 </CardContent>
               </Card>
