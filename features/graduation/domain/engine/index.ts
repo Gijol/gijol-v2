@@ -10,10 +10,14 @@ import {
   ScienceField,
   FieldCompletionResult,
   ScienceRebalanceResult,
+  RequirementEvaluationStatus,
+  GraduationOverallStatus,
+  MinorDeclarationTerms,
 } from '../types';
 import { pickRuleSet } from '../rules';
 import { classifyCourse } from '../classifier';
 import { buildFineGrainedRequirements } from '../requirements';
+import { resolveMajorCode } from '../academic-context';
 import {
   MATH_CALCULUS,
   MATH_ELECTIVE,
@@ -34,10 +38,15 @@ interface EngineContext {
   entryYear: number;
   userMajor?: string;
   userMinors?: string[];
+  minorDeclarationTerms?: MinorDeclarationTerms;
 }
 
 interface EngineDeps {
   recommend?: (deficits: Record<string, number>) => Promise<any>;
+}
+
+function getRequirementStatus(req: FineGrainedRequirement): RequirementEvaluationStatus {
+  return req.status ?? (req.satisfied ? 'satisfied' : 'unsatisfied');
 }
 
 // ========== 시간순 3분야 선택 알고리즘 ==========
@@ -320,7 +329,11 @@ export const evaluateGraduationStatus = async (
   deps?: EngineDeps,
 ): Promise<GradStatusResponseV2> => {
   const { takenCourses } = input.takenCourses;
-  const { entryYear, userMajor, userMinors } = input.ruleContext;
+  const { entryYear, userMajor: rawUserMajor, userMinors, minorDeclarationTerms } = input.ruleContext;
+  const majorResolution = resolveMajorCode(rawUserMajor);
+  const userMajor = majorResolution.code;
+  const unresolvedUserMajorInput =
+    rawUserMajor && !majorResolution.code && majorResolution.status !== 'missing' ? rawUserMajor : undefined;
 
   // 1. Get Rules
   const ruleSet: YearRuleSet = pickRuleSet(entryYear);
@@ -443,19 +456,22 @@ export const evaluateGraduationStatus = async (
     ruleSet,
     entryYear,
     userMajor,
+    unresolvedUserMajorInput,
     userMinors: userMinors || [],
-  });
+    minorDeclarationTerms,
+  }).map((req) => ({
+    ...req,
+    status: getRequirementStatus(req),
+  }));
 
   // 6. Refine Category Satisfaction based on Fine-grained Requirements
   // (If a fine-grained 'must' requirement is missing, the whole category is unsatisfied)
   (Object.keys(graduationCategory) as CategoryKey[]).forEach((key) => {
     const cat = graduationCategory[key];
-    const hardReqs = fineGrainedRequirements.filter(
-      (r) => r.categoryKey === key && r.importance === 'must' && r.requiredCredits > 0,
-    );
+    const hardReqs = fineGrainedRequirements.filter((r) => r.categoryKey === key && r.importance === 'must');
 
     if (hardReqs.length > 0) {
-      if (!hardReqs.every((r) => r.satisfied)) {
+      if (!hardReqs.every((r) => getRequirementStatus(r) === 'satisfied')) {
         cat.satisfied = false;
       }
     }
@@ -463,7 +479,16 @@ export const evaluateGraduationStatus = async (
 
   // 7. Push fine-grained messages to categories (간결한 형식)
   fineGrainedRequirements.forEach((req) => {
-    if (!req.satisfied && req.requiredCredits > 0 && req.importance === 'must') {
+    const status = getRequirementStatus(req);
+    if (req.importance !== 'must') return;
+
+    if (status === 'needs_review') {
+      const cat = graduationCategory[req.categoryKey];
+      cat.messages.push(`${req.label} - 확인 필요`);
+      return;
+    }
+
+    if (status === 'unsatisfied' && req.requiredCredits > 0) {
       const cat = graduationCategory[req.categoryKey];
       cat.messages.push(`${req.label}`);
     }
@@ -474,11 +499,22 @@ export const evaluateGraduationStatus = async (
     .filter((c) => !c.optional)
     .every((c) => graduationCategory[c.key].satisfied);
 
-  const totalSatisfied = categoriesSatisfied && totalCredits >= ruleSet.minTotalCredits;
+  const hasNeedsReview = fineGrainedRequirements.some(
+    (req) => req.importance === 'must' && getRequirementStatus(req) === 'needs_review',
+  );
+  const hasSatisfiedAllKnownRequirements = categoriesSatisfied && totalCredits >= ruleSet.minTotalCredits;
+
+  const overallStatus: GraduationOverallStatus = hasNeedsReview
+    ? 'needs_review'
+    : hasSatisfiedAllKnownRequirements
+      ? 'satisfied'
+      : 'unsatisfied';
+  const totalSatisfied = overallStatus === 'satisfied';
 
   return {
     graduationCategory,
     totalCredits,
+    overallStatus,
     totalSatisfied,
     fineGrainedRequirements,
   };

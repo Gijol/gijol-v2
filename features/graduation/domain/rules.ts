@@ -3,45 +3,19 @@
  * Contains year-based rule sets and rule selection logic
  */
 
+import { buildYearRuleSetFromBasicCatalog } from './rule-catalog/basic-requirements';
 import type { CategoryKey, CategoryRule, YearRuleSet } from './types';
 
 // ===== Rule Sets =====
 
-export const ruleSet2021Plus: YearRuleSet = {
-  name: '2021학번 이후',
-  minTotalCredits: 130,
-  minGpaForGraduation: 2.0,
-  categories: [
-    { key: 'languageBasic', minCredits: 7 },
-    { key: 'humanities', minCredits: 24 },
-    { key: 'scienceBasic', minCredits: 17 },
-    { key: 'major', minCredits: 36 },
-    { key: 'minor', minCredits: 0, optional: true },
-    { key: 'etcMandatory', minCredits: 8 },
-    { key: 'otherUncheckedClass', minCredits: 0, optional: true },
-  ],
-};
+export const ruleSet2021Plus: YearRuleSet = buildYearRuleSetFromBasicCatalog(2021, '2021학번 이후');
 
-export const ruleSet2018to2020: YearRuleSet = {
-  name: '2018~2020학번',
-  minTotalCredits: 130,
-  minGpaForGraduation: 2.0,
-  categories: [
-    { key: 'languageBasic', minCredits: 7 },
-    { key: 'humanities', minCredits: 24 },
-    { key: 'scienceBasic', minCredits: 17 },
-    { key: 'major', minCredits: 36 },
-    { key: 'minor', minCredits: 0, optional: true },
-    { key: 'etcMandatory', minCredits: 8 },
-    { key: 'otherUncheckedClass', minCredits: 0, optional: true },
-  ],
-};
+export const ruleSet2018to2020: YearRuleSet = buildYearRuleSetFromBasicCatalog(2020, '2018~2020학번');
 
 // ===== Rule Selection =====
 
 export function pickRuleSet(entryYear: number): YearRuleSet {
-  if (entryYear >= 2021) return ruleSet2021Plus;
-  if (entryYear >= 2018 && entryYear <= 2020) return ruleSet2018to2020;
+  if (entryYear >= 2018) return buildYearRuleSetFromBasicCatalog(entryYear);
   return ruleSet2018to2020; // Default fallback
 }
 

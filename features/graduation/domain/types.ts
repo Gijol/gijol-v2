@@ -42,12 +42,29 @@ export interface GradCategoriesType {
 export interface GradStatusResponseType {
   graduationCategory: GradCategoriesType;
   totalCredits: number;
+  overallStatus: GraduationOverallStatus;
   totalSatisfied: boolean;
 }
+
+export interface AcademicTerm {
+  year: number;
+  semester: string;
+}
+
+export type MinorDeclarationTerms = Record<string, AcademicTerm | undefined>;
 
 // ===== Fine-Grained Requirements =====
 
 export type RequirementImportance = 'must' | 'should';
+export type RequirementEvaluationStatus = 'satisfied' | 'unsatisfied' | 'needs_review';
+export type GraduationOverallStatus = RequirementEvaluationStatus;
+
+export interface RequirementSource {
+  manualYear: number;
+  page: number;
+  path: string;
+  note?: string;
+}
 
 /** Simplified course info for display in requirements */
 export interface MatchedCourseInfo {
@@ -66,8 +83,10 @@ export interface FineGrainedRequirement {
   acquiredCredits: number;
   missingCredits: number;
   satisfied: boolean;
+  status?: RequirementEvaluationStatus;
   importance: RequirementImportance;
   hint?: string;
+  sourceRefs?: readonly RequirementSource[];
   /** Courses that actually matched/contributed to this requirement */
   matchedCourses: MatchedCourseInfo[];
   relatedCoursePatterns?: {

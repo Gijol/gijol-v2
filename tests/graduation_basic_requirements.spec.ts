@@ -1,0 +1,192 @@
+import { course, evaluateFor, expectNoRequirement, expectRequirement } from './helpers/graduation-fixtures';
+import { getBasicRequirementCatalog } from '../features/graduation/domain';
+
+describe('manual-backed basic graduation requirements', () => {
+  describe('static rule catalog', () => {
+    it('selects entry-year specific basic requirement records', () => {
+      expect(getBasicRequirementCatalog(2019).artsSports.arts.requiredCount).toBe(4);
+      expect(getBasicRequirementCatalog(2020).artsSports.arts.requiredCount).toBe(2);
+      expect(getBasicRequirementCatalog(2021).artsSports.arts.requiredCount).toBe(2);
+      expect(getBasicRequirementCatalog(2020).commonMandatory.majorExploration).toBeUndefined();
+      expect(getBasicRequirementCatalog(2021).commonMandatory.majorExploration?.acceptedCodes).toContain('UC0902');
+    });
+
+    it('attaches manual source references to generated basic requirements', async () => {
+      const result = await evaluateFor(2021, []);
+
+      const requirement = expectRequirement(result, 'etc-major-exploration', {
+        satisfied: false,
+        requiredCredits: 1,
+      });
+
+      expect(requirement.sourceRefs).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            manualYear: 2026,
+            page: 33,
+            path: 'docs/bachelor_manual/2026_manual.pdf',
+          }),
+        ]),
+      );
+    });
+  });
+
+  describe('entry-year specific mandatory courses', () => {
+    it('requires GIST major exploration for 2021+ entry years', async () => {
+      // 2026 bachelor manual p.33: GIST major exploration is mandatory from 2021 entry years.
+      const result = await evaluateFor(2021, []);
+
+      expectRequirement(result, 'etc-major-exploration', {
+        satisfied: false,
+        requiredCredits: 1,
+        acquiredCredits: 0,
+        missingCredits: 1,
+      });
+    });
+
+    it('does not apply GIST major exploration to 2018-2020 entry years', async () => {
+      // 2026 bachelor manual p.34: 2018-2020 entry years list GIST freshman only.
+      const result = await evaluateFor(2020, []);
+
+      expectNoRequirement(result, 'etc-major-exploration');
+    });
+
+    it('accepts science and technology economy as a one-credit common requirement', async () => {
+      // 2026 bachelor manual pp.33-34: Science and Technology Economy is a one-credit common course.
+      const result = await evaluateFor(2021, [
+        course({
+          courseCode: 'UC0901',
+          courseName: '과학기술과 경제',
+          credit: 1,
+        }),
+      ]);
+
+      expectRequirement(result, 'etc-science-economy', {
+        satisfied: true,
+        requiredCredits: 1,
+        acquiredCredits: 1,
+        missingCredits: 0,
+      });
+    });
+  });
+
+  describe('language basics', () => {
+    it('accepts legacy English I for 2018-2020 entry years', async () => {
+      const result = await evaluateFor(2020, [
+        course({
+          courseCode: 'GS1601',
+          courseName: '영어 I',
+          credit: 2,
+        }),
+      ]);
+
+      expectRequirement(result, 'language-english-i', {
+        satisfied: true,
+        requiredCredits: 2,
+        acquiredCredits: 2,
+        missingCredits: 0,
+      });
+    });
+
+    it('does not accept only one legacy English I course for 2021+ entry years', async () => {
+      const result = await evaluateFor(2021, [
+        course({
+          courseCode: 'GS1601',
+          courseName: '영어 I',
+          credit: 2,
+        }),
+      ]);
+
+      expectRequirement(result, 'language-english-i', {
+        satisfied: false,
+        requiredCredits: 2,
+        acquiredCredits: 0,
+        missingCredits: 2,
+      });
+    });
+
+    it('accepts the paired legacy English I courses for 2021+ entry years', async () => {
+      const result = await evaluateFor(2021, [
+        course({
+          courseCode: 'GS1601',
+          courseName: '영어 I',
+          credit: 2,
+        }),
+        course({
+          courseCode: 'GS1603',
+          courseName: '발표와 토론',
+          credit: 2,
+        }),
+      ]);
+
+      expectRequirement(result, 'language-english-i', {
+        satisfied: true,
+        requiredCredits: 2,
+        acquiredCredits: 2,
+        missingCredits: 0,
+      });
+    });
+  });
+
+  describe('humanities credits', () => {
+    it('requires HUS 6 credits, PPE 6 credits, and 24 total humanities credits', async () => {
+      // 2026 bachelor manual pp.33-34: humanities requires 24 credits including HUS 6 and PPE 6.
+      const result = await evaluateFor(2021, [
+        course({ courseCode: 'HS2502', courseName: '한국문학사의 쟁점' }),
+        course({ courseCode: 'HS2503', courseName: '한국현대소설의 이해' }),
+        course({ courseCode: 'HS2620', courseName: '철학의 근본 문제들' }),
+        course({ courseCode: 'HS2702', courseName: '미국사회의 이해' }),
+        course({ courseCode: 'GS2541', courseName: '서양음악의 이해' }),
+        course({ courseCode: 'GS2542', courseName: '오페라와 판소리' }),
+        course({ courseCode: 'GS2801', courseName: '연구윤리' }),
+        course({ courseCode: 'GS2822', courseName: 'AI와 나' }),
+      ]);
+
+      expectRequirement(result, 'humanities-hus', {
+        satisfied: true,
+        requiredCredits: 6,
+        acquiredCredits: 6,
+        missingCredits: 0,
+      });
+      expectRequirement(result, 'humanities-ppe', {
+        satisfied: true,
+        requiredCredits: 6,
+        acquiredCredits: 6,
+        missingCredits: 0,
+      });
+      expectRequirement(result, 'humanities-total', {
+        satisfied: true,
+        requiredCredits: 24,
+        acquiredCredits: 24,
+        missingCredits: 0,
+      });
+    });
+  });
+
+  describe('zero-credit arts and sports', () => {
+    it.each([
+      { entryYear: 2019, requiredCourses: 4 },
+      { entryYear: 2020, requiredCourses: 2 },
+      { entryYear: 2021, requiredCourses: 2 },
+    ])(
+      'requires the correct arts and sports count for $entryYear entry year',
+      async ({ entryYear, requiredCourses }) => {
+        // 2026 bachelor manual p.34: 2018-2019 require 4 terms; 2020+ require 2 terms.
+        const result = await evaluateFor(entryYear, []);
+
+        expectRequirement(result, 'arts', {
+          satisfied: false,
+          requiredCredits: requiredCourses,
+          acquiredCredits: 0,
+          missingCredits: requiredCourses,
+        });
+        expectRequirement(result, 'sports', {
+          satisfied: false,
+          requiredCredits: requiredCourses,
+          acquiredCredits: 0,
+          missingCredits: requiredCourses,
+        });
+      },
+    );
+  });
+});

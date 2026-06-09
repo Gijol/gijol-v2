@@ -21,6 +21,7 @@ export const refineGradStatusForUI = (
   extra?: { recommendations?: RecommendationItem[] },
 ): UIGradViewModel => {
   const { totalCredits, totalSatisfied } = result;
+  const overallStatus = result.overallStatus ?? (totalSatisfied ? 'satisfied' : 'unsatisfied');
 
   // Check if result has fineGrainedRequirements (runtime check or type assertion)
   const fineGrainedRequirements = (result as any).fineGrainedRequirements || [];
@@ -29,8 +30,11 @@ export const refineGradStatusForUI = (
     ...result,
     recommendations: extra?.recommendations || [],
     fineGrainedRequirements,
-    displayMessage: totalSatisfied
-      ? `Conditions met! (${totalCredits} Credits)`
-      : `Conditions not met. (${totalCredits} Credits)`,
+    displayMessage:
+      overallStatus === 'satisfied'
+        ? `Conditions met! (${totalCredits} Credits)`
+        : overallStatus === 'needs_review'
+          ? `Review needed before final decision. (${totalCredits} Credits)`
+          : `Conditions not met. (${totalCredits} Credits)`,
   };
 };

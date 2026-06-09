@@ -1,85 +1,86 @@
+import { course, evaluateFor, expectNoRequirement, expectRequirement } from './helpers/graduation-fixtures';
 
-import { uploadAndEvaluate } from '../features/graduation/usecases/uploadAndEvaluate';
-import input from './fixtures/input-20205098.json'; // using as template
+describe('manual-backed intelligent robot minor requirements', () => {
+  it('reports needs_review when IR declaration term is missing', async () => {
+    const result = await evaluateFor(
+      2021,
+      [
+        course({ courseCode: 'IR4201', courseName: '딥러닝' }),
+        course({ courseCode: 'IR4202', courseName: '메카트로닉스' }),
+      ],
+      { userMinors: ['IR'] },
+    );
 
-describe('Intelligent Robot Minor Requirements', () => {
-    it('should fail IR minor if credits < 15', async () => {
-        const testInput = JSON.parse(JSON.stringify(input));
-        // Set minor to IR
-        testInput.userMinors = ['IR'];
-        // Remove existing IR courses (if any) and add just a few
-        testInput.userTakenCourseList = [
-            // Mandatory 1
-            { year: 2023, semester: '1', courseCode: 'IR4201', courseName: 'Deep Learning', credit: 3, grade: 'A+' },
-             // Mandatory 2
-            { year: 2023, semester: '1', courseCode: 'IR4202', courseName: 'Mechatronics', credit: 3, grade: 'A+' },
-        ]; // Total 6 credits
+    expect(result.overallStatus).toBe('needs_review');
+    expectRequirement(result, 'minor-declaration-term-IR', {
+      status: 'needs_review',
+      satisfied: false,
+      requiredCredits: 0,
+      acquiredCredits: 0,
+      missingCredits: 0,
+    });
+  });
 
-        const result = await uploadAndEvaluate(testInput, { userMinors: ['IR'] });
-        if (!result.data) throw new Error('Result data is undefined');
-        const reqs = result.data.fineGrainedRequirements;
-        const minorCreditReq = reqs.find(r => r.id === 'minor-credits-IR');
-        
-        expect(minorCreditReq).toBeDefined();
-        expect(minorCreditReq?.satisfied).toBe(false);
-        expect(minorCreditReq?.acquiredCredits).toBe(6);
+  it('does not require IR mandatory courses for a 2026-1 declaration', async () => {
+    const result = await evaluateFor(
+      2021,
+      [
+        course({ courseCode: 'AI2601', courseName: '로봇개론' }),
+        course({ courseCode: 'AI3601', courseName: '핸즈온로봇제작' }),
+        course({ courseCode: 'IR2201', courseName: '회로이론' }),
+        course({ courseCode: 'IR4201', courseName: '딥러닝' }),
+        course({ courseCode: 'IR4202', courseName: '메카트로닉스' }),
+      ],
+      {
+        userMinors: ['IR'],
+        minorDeclarationTerms: { IR: { year: 2026, semester: '1' } },
+      },
+    );
+
+    const minorCredits = expectRequirement(result, 'minor-credits-IR', {
+      satisfied: true,
+      requiredCredits: 15,
+      acquiredCredits: 15,
+      missingCredits: 0,
     });
 
-    it('should fail IR minor if mandatory courses < 3 (even if credits >= 15)', async () => {
-        const testInput = JSON.parse(JSON.stringify(input));
-        testInput.userMinors = ['IR'];
-        testInput.userTakenCourseList = [
-            // Mandatory 1
-            { year: 2023, semester: '1', courseCode: 'IR4201', courseName: 'Deep Learning', credit: 3, grade: 'A+' },
-             // Mandatory 2
-            { year: 2023, semester: '1', courseCode: 'IR4202', courseName: 'Mechatronics', credit: 3, grade: 'A+' },
-            // Electives to reach 15 credits
-            { year: 2023, semester: '1', courseCode: 'IR2201', courseName: 'Circuit Theory', credit: 3, grade: 'A+' },
-            { year: 2023, semester: '1', courseCode: 'IR2202', courseName: 'Dynamics', credit: 3, grade: 'A+' },
-            { year: 2023, semester: '1', courseCode: 'IR3202', courseName: 'System Modeling', credit: 3, grade: 'A+' },
-        ]; // Total 15 credits
+    expect(minorCredits.matchedCourses.map((matched) => matched.courseCode)).toEqual(
+      expect.arrayContaining(['AI2601', 'AI3601']),
+    );
+    expect(minorCredits.sourceRefs).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          manualYear: 2026,
+          page: 29,
+          path: 'docs/bachelor_manual/2026_manual.pdf',
+        }),
+      ]),
+    );
+    expectNoRequirement(result, 'minor-mandatory-rule-IR-0');
+  });
 
-        const result = await uploadAndEvaluate(testInput, { userMinors: ['IR'] });
-        if (!result.data) throw new Error('Result data is undefined');
-        const reqs = result.data.fineGrainedRequirements;
-        
-        // Credits satisfied
-        const minorCreditReq = reqs.find(r => r.id === 'minor-credits-IR');
-        expect(minorCreditReq?.satisfied).toBe(true);
-        expect(minorCreditReq?.acquiredCredits).toBe(15);
+  it('does not apply the old IR mandatory-three rule to pre-2026 declarations', async () => {
+    const result = await evaluateFor(
+      2021,
+      [
+        course({ courseCode: 'IR2202', courseName: '동역학' }),
+        course({ courseCode: 'IR4208', courseName: '로봇 운동학' }),
+        course({ courseCode: 'IR4310', courseName: '인간-AI 상호작용' }),
+        course({ courseCode: 'IR2201', courseName: '회로이론' }),
+        course({ courseCode: 'IR4207', courseName: '자동제어' }),
+      ],
+      {
+        userMinors: ['IR'],
+        minorDeclarationTerms: { IR: { year: 2025, semester: '2' } },
+      },
+    );
 
-        // Mandatory rule failed (Only 2/3)
-        const mandatoryRuleReq = reqs.find(r => r.categoryKey === 'minor' && r.label.includes('필수 택3'));
-        expect(mandatoryRuleReq).toBeDefined();
-        expect(mandatoryRuleReq?.satisfied).toBe(false);
-        expect(mandatoryRuleReq?.acquiredCredits).toBe(2);
+    expectRequirement(result, 'minor-credits-IR', {
+      satisfied: true,
+      requiredCredits: 15,
+      acquiredCredits: 15,
+      missingCredits: 0,
     });
-
-    it('should pass IR minor if credits >= 15 AND mandatory courses >= 3', async () => {
-        const testInput = JSON.parse(JSON.stringify(input));
-        testInput.userMinors = ['IR'];
-        testInput.userTakenCourseList = [
-            // Mandatory 1
-            { year: 2023, semester: '1', courseCode: 'IR4201', courseName: 'Deep Learning', credit: 3, grade: 'A+' },
-             // Mandatory 2
-            { year: 2023, semester: '1', courseCode: 'IR4202', courseName: 'Mechatronics', credit: 3, grade: 'A+' },
-             // Mandatory 3
-            { year: 2023, semester: '1', courseCode: 'IR4203', courseName: 'HCI', credit: 3, grade: 'A+' },
-            // Electives
-            { year: 2023, semester: '1', courseCode: 'IR2201', courseName: 'Circuit Theory', credit: 3, grade: 'A+' },
-            { year: 2023, semester: '1', courseCode: 'IR2202', courseName: 'Dynamics', credit: 3, grade: 'A+' },
-        ]; // Total 15 credits, 3 mandatory
-
-        const result = await uploadAndEvaluate(testInput, { userMinors: ['IR'] });
-        if (!result.data) throw new Error('Result data is undefined');
-        const reqs = result.data.fineGrainedRequirements;
-        
-        // Credits satisfied
-        const minorCreditReq = reqs.find(r => r.id === 'minor-credits-IR');
-        expect(minorCreditReq?.satisfied).toBe(true);
-
-        // Mandatory rule satisfied
-        const mandatoryRuleReq = reqs.find(r => r.categoryKey === 'minor' && r.label.includes('필수 택3'));
-        expect(mandatoryRuleReq?.satisfied).toBe(true);
-    });
+    expectNoRequirement(result, 'minor-mandatory-rule-IR-0');
+  });
 });

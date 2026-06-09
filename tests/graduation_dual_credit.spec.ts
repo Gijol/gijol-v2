@@ -25,6 +25,12 @@ describe('교차 개설 과목 코드 매칭 테스트', () => {
     it('SE2104 (회로이론)이 IR 부전공에 매칭되어야 함', () => {
       expect(matchesMinor('SE2104', 'IR')).toBe(true);
     });
+
+    it('FE energy minor does not absorb MD biomedical courses through the FE major code collision', () => {
+      expect(matchesMinor('FE2301', 'FE')).toBe(true);
+      expect(matchesMinor('MD2101', 'FE')).toBe(false);
+      expect(matchesMinor('MD2101', 'MD')).toBe(true);
+    });
   });
 
   describe('evaluateGraduationStatus with cross-listed courses', () => {

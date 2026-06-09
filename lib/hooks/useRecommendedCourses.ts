@@ -20,7 +20,6 @@ import {
   PHYSICS_COURSES,
   CHEMISTRY_COURSES,
   BIOLOGY_COURSES,
-  MAJOR_EC_COURSES,
   // 세부 요건별 과목 그룹
   ENGLISH_I_COURSES,
   ENGLISH_II_COURSES,
@@ -31,11 +30,13 @@ import {
   EXPLORATION_COURSES,
   COLLOQUIUM_COURSES,
   SCIENCE_ECONOMY_COURSES,
+  getMajorRecommendationCoursesByCode,
   getOfferedCourses,
   type CourseMaster,
 } from '../const/course-master';
 import { getMinorRecommendations as getMinorRecommendationsFromData } from '../const/minor-courses';
 import type { FineGrainedRequirement } from '../types/grad-requirements';
+import { resolveMajorCode } from '@features/graduation/domain';
 
 // CourseMaster를 RecommendedCourse로 변환
 function toRecommendedCourse(course: CourseMaster): RecommendedCourse {
@@ -99,8 +100,8 @@ const FINE_GRAINED_COURSE_MAP: Record<string, CourseMaster[]> = {
   'thesis-i': [], // 논문은 전공별로 다름 (추천 불가)
   'thesis-ii': [],
 
-  // 전공 (기본: EC)
-  'major-credits': getOfferedCourses(MAJOR_EC_COURSES),
+  // 전공은 userMajor 기반 추천으로 처리한다.
+  'major-credits': [],
 
   // 예체능 (추천 불필요 - 학교에서 별도 관리)
   arts: [],
@@ -154,9 +155,9 @@ const DOMAIN_RECOMMENDATIONS: Record<string, RecommendedCourse[]> = {
     ...SOFTWARE_COURSES,
   ]).map(toRecommendedCourse),
 
-  // 전공 - EC(전기전자컴퓨터공학) 기본, 추후 userMajor 기반 확장 가능
-  major: getOfferedCourses(MAJOR_EC_COURSES).map(toRecommendedCourse),
-  전공: getOfferedCourses(MAJOR_EC_COURSES).map(toRecommendedCourse),
+  // 전공은 userMajor 기반 추천으로 처리한다.
+  major: [],
+  전공: [],
 
   // 부전공 - 현재 데이터 없음
   minor: [],
@@ -168,7 +169,7 @@ const DOMAIN_RECOMMENDATIONS: Record<string, RecommendedCourse[]> = {
 };
 
 export function useRecommendedCourses() {
-  const { gradStatus, userMinors } = useGraduationStore();
+  const { gradStatus, userMajor, userMinors } = useGraduationStore();
 
   // 졸업 상태에서 영역별 정보 추출
   const overallProps = extractOverallStatus(gradStatus);
@@ -190,6 +191,13 @@ export function useRecommendedCourses() {
   // 이수한 과목을 제외한 추천 과목 필터링
   const filterTakenCourses = (courses: RecommendedCourse[]): RecommendedCourse[] => {
     return courses.filter((c) => !takenCourseCodes.has(c.courseCode));
+  };
+
+  const getMajorRecommendations = (): RecommendedCourse[] => {
+    const majorResolution = resolveMajorCode(userMajor);
+    const majorCourses = getMajorRecommendationCoursesByCode(majorResolution.code);
+
+    return filterTakenCourses(majorCourses.map(toRecommendedCourse));
   };
 
   /**
@@ -230,6 +238,10 @@ export function useRecommendedCourses() {
     // === 기존 영역 처리 ===
     // fineGrainedRequirements가 없으면 기존 방식 fallback
     if (fineGrainedReqs.length === 0) {
+      if (categoryKey === 'major') {
+        return getMajorRecommendations();
+      }
+
       return filterTakenCourses(DOMAIN_RECOMMENDATIONS[domain] ?? []);
     }
 
@@ -239,6 +251,10 @@ export function useRecommendedCourses() {
     // 미충족 세부 요건이 없으면 빈 배열 (이미 충족됨)
     if (unsatisfiedReqs.length === 0) {
       return [];
+    }
+
+    if (categoryKey === 'major') {
+      return getMajorRecommendations();
     }
 
     // 미충족 세부 요건에 해당하는 과목만 수집

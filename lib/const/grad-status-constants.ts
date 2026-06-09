@@ -132,5 +132,6 @@ export const initialValue: GradStatusResponseType = {
     },
   },
   totalCredits: 0,
+  overallStatus: 'unsatisfied',
   totalSatisfied: false,
 };

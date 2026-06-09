@@ -24,16 +24,9 @@ export const MAJOR_MANDATORY_RULES: Record<string, MandatoryRule[]> = {
 export const MINOR_MANDATORY_RULES: Record<string, MandatoryRule[]> = {
   // ====== 융합/특수 부전공 ======
 
-  // 지능로봇 (IR) - MINOR_RULES.md: 필수 목록 중 3과목 포함
-  // HCI(IR4203), 메카트로닉스(IR4202), 딥러닝(IR4201), 로봇공학(IR4205), 인공지능 기반 창의적 로봇융합 시스템 설계(IR4206)
-  IR: [
-    {
-      label: '부전공 필수 택3 (HCI, 메카트로닉스, 딥러닝, 로봇공학, 로봇융합시스템설계)',
-      requiredCount: 3,
-      courses: ['IR4201', 'IR4202', 'IR4203', 'IR4205', 'IR4206'],
-    },
-  ],
-  // 경과조치 (2024-2학기 이전 선언자): 동역학(IR2202), 로봇 운동학(IR4208), 인간-AI 상호작용(IR4310) 필수 학점 인정
+  // 지능로봇 (IR) - 2026 학사편람 p.29: 2026-1 선언자부터 필수과목 없음.
+  // 2026-1 이전 선언자도 변경 기준 적용을 원칙으로 하되, 이전 이수 지능로봇 과목은 모두 학점 인정.
+  IR: [],
 
   // 문화기술 (CT) - MINOR_RULES.md: 필수 목록 중 3과목 포함
   CT: [
@@ -55,14 +48,16 @@ export const MINOR_MANDATORY_RULES: Record<string, MandatoryRule[]> = {
     },
   ],
 
-  // AI융합 - MINOR_RULES.md: 필수A (택1) + 필수B (택1)
+  // AI융합 - 2026 학사편람 p.27:
+  // 2025-2학기부터 선언한 학생은 필수과목 없음.
+  // 2021-2~2025-1 이전 선언자는 필수A 1과목 + 필수B 1과목.
   AI: [
     {
       label: '부전공 필수A 택1 (인공지능/기계학습/딥러닝)',
       requiredCount: 1,
       courses: [
         'EC4209', // 인공지능
-        'AI4020', // 인공지능 (AI 코드)
+        'AI4020', // 인공지능 (legacy AI 코드)
         'AI4021', // 기계학습 및 딥러닝
         'AI4311', // 딥러닝
       ],
@@ -77,7 +72,7 @@ export const MINOR_MANDATORY_RULES: Record<string, MandatoryRule[]> = {
       ],
     },
   ],
-  // 경과조치 (2024-2학기 이전 선언자): AI핵심기술 기반 실무 프로젝트 1, 2는 필수B 인정
+  // 2024-2학기 이전 선언자는 AI핵심기술 기반 실무 프로젝트 1, 2를 필수B로 인정.
 
   // 의생명 (MD) - MINOR_RULES.md: 2025학번~ MD2101 필수 (이전 학번은 권고)
   MD: [

@@ -31,11 +31,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const entryYear = typeof body.entryYear === 'number' ? body.entryYear : undefined;
     const userMajor = typeof body.userMajor === 'string' ? body.userMajor : undefined;
     const userMinors = Array.isArray(body.userMinors) ? (body.userMinors as string[]) : undefined;
+    const minorDeclarationTerms =
+      body.minorDeclarationTerms && typeof body.minorDeclarationTerms === 'object'
+        ? body.minorDeclarationTerms
+        : undefined;
 
     const result = await uploadAndEvaluate(body, {
       entryYear,
       userMajor,
       userMinors,
+      minorDeclarationTerms,
     });
 
     if (!result.success) {

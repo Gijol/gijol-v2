@@ -17,9 +17,10 @@ import {
 import { evaluateGraduationStatus } from '@features/graduation/domain/engine';
 import { refineGradStatusForUI } from '@features/graduation/middlewares/refine';
 import { mapDeficitToRecommendations, MockCourseRepository } from '@features/graduation/data';
+import { resolveMajorForEvaluation } from '@features/graduation/domain';
 
 import { UserTakenCourseListType } from '@lib/types/grad';
-import { MajorCode, MAJOR_CODE_TO_NAME, MinorCode, MINOR_CODE_TO_NAME } from '@features/graduation/domain/constants';
+import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 
 // Initial Mock Data
 const MOCK_INPUT = JSON.stringify(
@@ -36,7 +37,7 @@ const MOCK_INPUT = JSON.stringify(
       { year: 2020, semester: '1', courseType: '전공', courseName: 'Calculus', courseCode: 'GS1001', credit: 3 },
       { year: 2020, semester: '1', courseType: '교양', courseName: 'English I', courseCode: 'GS1601', credit: 2 },
       { year: 2020, semester: '1', courseType: '교양', courseName: 'Writing', courseCode: 'GS1511', credit: 2 },
-      { year: 2021, semester: '1', courseType: '전공', courseName: 'Algorithm', courseCode: 'CS300', credit: 3 },
+      { year: 2021, semester: '1', courseType: '전공', courseName: 'Algorithm', courseCode: 'EC2206', credit: 3 },
     ],
   },
   null,
@@ -46,7 +47,7 @@ const MOCK_INPUT = JSON.stringify(
 export default function GraduationLabPage() {
   const [jsonInput, setJsonInput] = useState(MOCK_INPUT);
   const [entryYear, setEntryYear] = useState<number>(2020);
-  const [userMajor, setUserMajor] = useState<string>('CS');
+  const [userMajor, setUserMajor] = useState<string>('EC');
   const [userMinors, setUserMinors] = useState<string[]>([]);
 
   // Pipeline Step Results
@@ -76,9 +77,11 @@ export default function GraduationLabPage() {
       }
 
       // Metadata Inference (Lab Page Feature)
+      let effectiveEntryYear = entryYear;
       if (raw.studentId && typeof raw.studentId === 'string' && raw.studentId.length >= 4) {
         const inferredYear = parseInt(raw.studentId.substring(0, 4));
         if (!isNaN(inferredYear)) {
+          effectiveEntryYear = inferredYear;
           setEntryYear(inferredYear);
         }
       }
@@ -100,13 +103,15 @@ export default function GraduationLabPage() {
       // Step 3: Normalize
       const normalized = normalizeTakenCourses(validation.value!);
       setStep3Result(normalized);
+      const majorResolution = resolveMajorForEvaluation(userMajor, normalized.takenCourses);
+      const effectiveUserMajor = majorResolution.code ?? (userMajor ? userMajor : undefined);
 
       // Step 4: Engine
       const engineResult = await evaluateGraduationStatus({
         takenCourses: normalized,
         ruleContext: {
-          entryYear,
-          userMajor,
+          entryYear: effectiveEntryYear,
+          userMajor: effectiveUserMajor,
           userMinors,
         },
       });
@@ -115,9 +120,14 @@ export default function GraduationLabPage() {
       // (Data Layer Check for Deficits)
       let recommendations: any[] = [];
       if (!engineResult.totalSatisfied) {
+        const needsReviewCategories = new Set<string>(
+          engineResult.fineGrainedRequirements
+            .filter((requirement) => requirement.status === 'needs_review')
+            .map((requirement) => requirement.categoryKey),
+        );
         const deficits: Record<string, number> = {};
         Object.entries(engineResult.graduationCategory).forEach(([key, category]) => {
-          if (!category.satisfied) {
+          if (!category.satisfied && !needsReviewCategories.has(key)) {
             deficits[key] = category.minConditionCredits - category.totalCredits;
           }
         });
@@ -163,9 +173,9 @@ export default function GraduationLabPage() {
                   <SelectValue placeholder="Select Major" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(MAJOR_CODE_TO_NAME).map(([code, name]) => (
-                    <SelectItem key={code} value={code}>
-                      {code} ({name})
+                  {MAJOR_OPTIONS.filter((option) => option.value !== 'NONE').map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.value} ({option.label})
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -175,13 +185,9 @@ export default function GraduationLabPage() {
               <Label>Minors (Optional)</Label>
               <MultiSelect
                 options={[
-                  ...Object.entries(MAJOR_CODE_TO_NAME).map(([code, name]) => ({
-                    label: `${code} (${name})`,
-                    value: code,
-                  })),
-                  ...Object.entries(MINOR_CODE_TO_NAME).map(([code, name]) => ({
-                    label: `${code} (${name})`,
-                    value: code,
+                  ...MINOR_OPTIONS.map((option) => ({
+                    label: `${option.value} (${option.label})`,
+                    value: option.value,
                   })),
                 ]}
                 selected={userMinors}
