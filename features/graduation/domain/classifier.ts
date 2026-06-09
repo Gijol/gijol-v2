@@ -37,6 +37,13 @@ function normalizeName(name?: string): string {
   return (name || '').toString().toLowerCase();
 }
 
+const HUMANITIES_CODE_PREFIXES = new Set(['HS', 'GS', 'EB', 'LH', 'MB', 'PP', 'SS']);
+
+function isHumanitiesTranscriptCode(code: string): boolean {
+  const prefix = code.match(/^[A-Z]+/)?.[0] || '';
+  return HUMANITIES_CODE_PREFIXES.has(prefix);
+}
+
 // Constants moved to ./constants/classifier-constants.ts
 
 // ===== Main Classifier =====
@@ -45,7 +52,11 @@ export function matchesMinor(courseCode: string, minorInput: string): boolean {
   const mCode = normalizeCode(minorInput);
   const code = normalizeCode(courseCode);
 
-  // Get all equivalent codes (including aliases) for dual-credit support
+  if (mCode === 'CT' && isHumanitiesTranscriptCode(code)) {
+    return false;
+  }
+
+  // Get all equivalent codes (including aliases) for cross-listed course matching.
   const aliases = getAliases(code);
   const allCodes = [code, ...aliases];
 

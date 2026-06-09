@@ -343,29 +343,7 @@ export const evaluateGraduationStatus = async (
     }
   });
 
-  // 2.3. 복수 인정 처리 (Dual-Credit)
-  // 부전공으로 분류된 과목 중 인문사회 조건도 만족하는 과목은 humanities에도 추가
-  // 예: GS2544 (문화콘텐츠의 이해) → minor(CT) && humanities(GS2544)
-  const humanitiesPrefixes = ['HS', 'GS', 'EB', 'LH', 'MB', 'PP', 'SS'];
-  const humanitiesSuffixPattern = /^(GS|HS)[2-4]\d{3}$/; // GS2xxx ~ GS4xxx, HS2xxx ~ HS4xxx
-
-  grouped.minor.forEach((course) => {
-    const code = course.courseCode.toUpperCase().replace(/[^A-Z0-9]/g, '');
-    const prefix = code.match(/^[A-Z]+/)?.[0] || '';
-
-    // GS/HS로 시작하는 인문사회 과목은 humanities에도 포함
-    if (humanitiesPrefixes.includes(prefix) || humanitiesSuffixPattern.test(code)) {
-      // 중복 체크 후 추가
-      const alreadyExists = grouped.humanities.some(
-        (c) => c.courseCode === course.courseCode && c.year === course.year && c.semester === course.semester,
-      );
-      if (!alreadyExists) {
-        grouped.humanities.push(course);
-      }
-    }
-  });
-
-  // 2.4. Re-balance Minor vs ScienceBasic (기초과학 우선 충족)
+  // 2.3. Re-balance Minor vs ScienceBasic (기초과학 우선 충족)
   // 부전공과 기초과학에 중복되는 과목이 있을 경우, 기초과학 요건을 먼저 충족
   // 예: 수리과학 부전공 선언 시, 미적분학 + 수학선택1은 기초과학으로, 나머지는 부전공으로
   if (userMinors && userMinors.length > 0 && grouped.minor.length > 0) {
@@ -374,7 +352,7 @@ export const evaluateGraduationStatus = async (
     grouped.scienceBasic = minorScienceResult.scienceBasic;
   }
 
-  // 2.5. Re-balance Science Basic -> Free Electives (시간순 3분야 선택 알고리즘)
+  // 2.4. Re-balance Science Basic -> Free Electives (시간순 3분야 선택 알고리즘)
   // 수학(별도 필수) + 물리/화학/생명/SW 중 시간순으로 먼저 완료된 3분야만 기초과학 인정
   if (grouped.scienceBasic.length > 0) {
     const rebalanceResult = rebalanceScienceByTimeOrder(grouped.scienceBasic);
@@ -382,7 +360,7 @@ export const evaluateGraduationStatus = async (
     grouped.otherUncheckedClass.push(...rebalanceResult.freeElective);
   }
 
-  // 2.6. Re-balance Humanities -> Free Electives (Overflow)
+  // 2.5. Re-balance Humanities -> Free Electives (Overflow)
   // 인문사회 24학점 초과분은 최대 12학점까지 자유선택학점으로 인정
   const humanitiesReqRule = ruleSet.categories.find((r) => r.key === 'humanities');
   if (humanitiesReqRule && grouped.humanities.length > 0) {

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { NextSeo } from 'next-seo';
 import { useGraduationStore } from '../../lib/stores/useGraduationStore';
 import { extractOverallStatus, getPercentage } from '@utils/graduation/grad-formatter';
@@ -10,7 +10,7 @@ import { useRecommendedCourses } from '@/lib/hooks/useRecommendedCourses';
 import { BentoGrid, BentoGridItem } from '@components/ui/bento-grid';
 import { Progress } from '@components/ui/progress';
 import { Badge } from '@components/ui/badge';
-import { User, School, Book, Calendar, TrendingUp, AlertTriangle, BarChart } from 'lucide-react';
+import { User, School, Book, Calendar, TrendingUp, AlertTriangle, BarChart, Eye, EyeOff } from 'lucide-react';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 
 const TOTAL_REQUIRED_CREDITS = 130;
@@ -27,6 +27,7 @@ function getMinorLabel(value: string): string {
 export default function HomePage() {
   const { parsed, gradStatus, userMajor, userMinors, entryYear } = useGraduationStore();
   const { getRecommendationsForDomain } = useRecommendedCourses();
+  const [showGradeSummary, setShowGradeSummary] = useState(false);
 
   const courseListWithPeriod = useMemo(() => buildCourseListWithPeriod(parsed), [parsed]);
 
@@ -162,28 +163,57 @@ export default function HomePage() {
         {/* 학점 평균 */}
         <BentoGridItem
           className="text-gray-900 md:col-span-1 md:row-span-1"
-          title={<div>학점 평균</div>}
+          title={
+            <div className="flex items-center justify-between gap-2">
+              <span>학점 평균</span>
+              <button
+                type="button"
+                aria-label={showGradeSummary ? '학점 평균 숨기기' : '학점 평균 보기'}
+                aria-pressed={showGradeSummary}
+                title={showGradeSummary ? '학점 평균 숨기기' : '학점 평균 보기'}
+                onClick={() => setShowGradeSummary((prev) => !prev)}
+                className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-white text-gray-500 transition hover:bg-slate-50 hover:text-gray-900 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
+              >
+                {showGradeSummary ? <EyeOff size={15} /> : <Eye size={15} />}
+              </button>
+            </div>
+          }
           description={
             <div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-bold text-gray-900">{(overallAverageGrade ?? 0).toFixed(2)}</span>
-                <span className="text-sm text-gray-500">/ 4.5</span>
-              </div>
-              <div>
-                {gradeDelta !== null ? (
-                  <div
-                    className={`flex items-center gap-1 text-xs ${gradeDelta >= 0 ? 'text-green-600' : 'text-red-500'}`}
-                  >
-                    <TrendingUp size={12} />
-                    <span>
-                      {gradeDelta >= 0 ? '+' : ''}
-                      {gradeDelta.toFixed(2)}
+              {showGradeSummary ? (
+                <>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl font-bold text-gray-900">
+                      {overallAverageGrade != null ? overallAverageGrade.toFixed(2) : '-'}
                     </span>
+                    <span className="text-sm text-gray-500">/ 4.5</span>
                   </div>
-                ) : (
-                  <span className="text-xs text-gray-500">누적 학점 평균</span>
-                )}
-              </div>
+                  <div>
+                    {gradeDelta !== null ? (
+                      <div
+                        className={`flex items-center gap-1 text-xs ${
+                          gradeDelta >= 0 ? 'text-green-600' : 'text-red-500'
+                        }`}
+                      >
+                        <TrendingUp size={12} />
+                        <span>
+                          {gradeDelta >= 0 ? '+' : ''}
+                          {gradeDelta.toFixed(2)}
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-xs text-gray-500">누적 학점 평균</span>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-2xl font-bold text-gray-900">비공개</span>
+                  </div>
+                  <span className="text-xs text-gray-500">누적 GPA</span>
+                </>
+              )}
             </div>
           }
           icon={<BarChart className="h-4 w-4 text-blue-500" />}
