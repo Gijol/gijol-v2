@@ -1,9 +1,7 @@
 /**
  * 추천 과목 훅
- * - 졸업요건 영역별 추천 과목 목록 제공
- * - 세부 요건(fineGrainedRequirements) 기반 추천: 미충족 세부 요건에 해당하는 과목만 추천
- * - 로드맵 기능에서도 재사용 가능하도록 설계
- * - 우선순위: Hard Mandatory → Language → HUS/PPE → Software → Science → Major
+ * - source-backed graduation recommendation adapter를 실제 서비스 UI에 연결한다.
+ * - 수강중(in_progress) 과목도 이미 target에 올라간 과목으로 보고 추천에서 제외한다.
  */
 
 import { useMemo } from 'react';
@@ -11,44 +9,12 @@ import type { RecommendedCourse, DomainRecommendation } from '../types/recommend
 import { useGraduationStore } from '../stores/useGraduationStore';
 import { extractOverallStatus } from '@utils/graduation/grad-formatter';
 import {
-  ETC_MANDATORY_COURSES,
-  LANGUAGE_BASIC_COURSES,
-  HUS_COURSES,
-  PPE_COURSES,
-  SOFTWARE_COURSES,
-  MATH_COURSES,
-  PHYSICS_COURSES,
-  CHEMISTRY_COURSES,
-  BIOLOGY_COURSES,
-  // 세부 요건별 과목 그룹
-  ENGLISH_I_COURSES,
-  ENGLISH_II_COURSES,
-  WRITING_COURSES,
-  CALCULUS_COURSES,
-  CORE_MATH_COURSES,
-  FRESHMAN_COURSES,
-  EXPLORATION_COURSES,
-  COLLOQUIUM_COURSES,
-  SCIENCE_ECONOMY_COURSES,
-  getMajorRecommendationCoursesByCode,
-  getOfferedCourses,
-  type CourseMaster,
-} from '../const/course-master';
-import { getMinorRecommendations as getMinorRecommendationsFromData } from '../const/minor-courses';
-import type { FineGrainedRequirement } from '../types/grad-requirements';
-import { resolveMajorCode } from '@features/graduation/domain';
+  DEFAULT_RECOMMENDATION_DISPLAY_POLICY,
+  buildGraduationRecommendationGroups,
+  type GraduationRecommendationGroups,
+  type RecommendationItem,
+} from '@features/graduation/data';
 
-// CourseMaster를 RecommendedCourse로 변환
-function toRecommendedCourse(course: CourseMaster): RecommendedCourse {
-  return {
-    courseCode: course.courseCode,
-    courseName: course.courseNameKo,
-    credit: course.credits,
-    category: course.department,
-  };
-}
-
-// 도메인명 → 카테고리키 매핑
 const DOMAIN_TO_CATEGORY_KEY: Record<string, string> = {
   '언어와 기초': 'languageBasic',
   언어기초: 'languageBasic',
@@ -68,208 +34,55 @@ const DOMAIN_TO_CATEGORY_KEY: Record<string, string> = {
   otherUncheckedClass: 'otherUncheckedClass',
 };
 
-// 세부 요건 ID → 추천 과목 매핑 (개설 과목만)
-const FINE_GRAINED_COURSE_MAP: Record<string, CourseMaster[]> = {
-  // 언어기초
-  'language-english-i': getOfferedCourses(ENGLISH_I_COURSES),
-  'language-english-ii': getOfferedCourses(ENGLISH_II_COURSES),
-  'language-writing': getOfferedCourses(WRITING_COURSES),
-
-  // 기초과학
-  'science-calculus': getOfferedCourses(CALCULUS_COURSES),
-  'science-core-math': getOfferedCourses(CORE_MATH_COURSES),
-  'science-sw-basic': getOfferedCourses(SOFTWARE_COURSES),
-  'science-total': getOfferedCourses([
-    ...MATH_COURSES,
-    ...PHYSICS_COURSES,
-    ...CHEMISTRY_COURSES,
-    ...BIOLOGY_COURSES,
-    ...SOFTWARE_COURSES,
-  ]),
-
-  // 인문사회
-  'humanities-hus': getOfferedCourses(HUS_COURSES),
-  'humanities-ppe': getOfferedCourses(PPE_COURSES),
-  'humanities-total': getOfferedCourses([...HUS_COURSES, ...PPE_COURSES]),
-
-  // 기타필수
-  'etc-freshman': getOfferedCourses(FRESHMAN_COURSES),
-  'etc-major-exploration': getOfferedCourses(EXPLORATION_COURSES),
-  'etc-colloquium': getOfferedCourses(COLLOQUIUM_COURSES),
-  'etc-science-economy': getOfferedCourses(SCIENCE_ECONOMY_COURSES),
-  'thesis-i': [], // 논문은 전공별로 다름 (추천 불가)
-  'thesis-ii': [],
-
-  // 전공은 userMajor 기반 추천으로 처리한다.
-  'major-credits': [],
-
-  // 예체능 (추천 불필요 - 학교에서 별도 관리)
-  arts: [],
-  sports: [],
-};
-
-// 중복 제거 헬퍼
-function deduplicateByCourseCode(courses: RecommendedCourse[]): RecommendedCourse[] {
-  const seen = new Set<string>();
-  return courses.filter((c) => {
-    if (seen.has(c.courseCode)) return false;
-    seen.add(c.courseCode);
-    return true;
-  });
+function toRecommendedCourse(recommendation: RecommendationItem): RecommendedCourse {
+  return {
+    courseCode: recommendation.courseCode,
+    courseName: recommendation.courseName,
+    credit: recommendation.credit,
+    category: recommendation.reason,
+  };
 }
 
-// 졸업요건 영역별 실제 과목 데이터 (개설된 과목만)
-// 주의: 도메인 키는 grad-formatter.tsx의 extractOverallStatus에서 사용하는 한글명과 일치해야 함
-const DOMAIN_RECOMMENDATIONS: Record<string, RecommendedCourse[]> = {
-  // 기타필수 / 연구 및 기타 (Hard Mandatory - 최우선)
-  etcMandatory: getOfferedCourses(ETC_MANDATORY_COURSES).map(toRecommendedCourse),
-  '연구 및 기타': getOfferedCourses(ETC_MANDATORY_COURSES).map(toRecommendedCourse),
-  기타필수: getOfferedCourses(ETC_MANDATORY_COURSES).map(toRecommendedCourse),
-
-  // 언어기초 / 언어와 기초 (영어 + 글쓰기)
-  languageBasic: getOfferedCourses(LANGUAGE_BASIC_COURSES).map(toRecommendedCourse),
-  '언어와 기초': getOfferedCourses(LANGUAGE_BASIC_COURSES).map(toRecommendedCourse),
-  언어기초: getOfferedCourses(LANGUAGE_BASIC_COURSES).map(toRecommendedCourse),
-
-  // 인문사회 (HUS + PPE)
-  humanities: getOfferedCourses([...HUS_COURSES, ...PPE_COURSES]).map(toRecommendedCourse),
-  인문사회: getOfferedCourses([...HUS_COURSES, ...PPE_COURSES]).map(toRecommendedCourse),
-
-  // SW 필수 (기초과학에 포함될 수 있음)
-  software: getOfferedCourses(SOFTWARE_COURSES).map(toRecommendedCourse),
-  SW필수: getOfferedCourses(SOFTWARE_COURSES).map(toRecommendedCourse),
-
-  // 기초과학 (수학 + 물리 + 화학 + 생물 + SW)
-  scienceBasic: getOfferedCourses([
-    ...MATH_COURSES,
-    ...PHYSICS_COURSES,
-    ...CHEMISTRY_COURSES,
-    ...BIOLOGY_COURSES,
-    ...SOFTWARE_COURSES,
-  ]).map(toRecommendedCourse),
-  기초과학: getOfferedCourses([
-    ...MATH_COURSES,
-    ...PHYSICS_COURSES,
-    ...CHEMISTRY_COURSES,
-    ...BIOLOGY_COURSES,
-    ...SOFTWARE_COURSES,
-  ]).map(toRecommendedCourse),
-
-  // 전공은 userMajor 기반 추천으로 처리한다.
-  major: [],
-  전공: [],
-
-  // 부전공 - 현재 데이터 없음
-  minor: [],
-  부전공: [],
-
-  // 자유학점 - 모든 영역 과목 가능
-  otherUncheckedClass: [],
-  자유학점: [],
-};
-
 export function useRecommendedCourses() {
-  const { gradStatus, userMajor, userMinors } = useGraduationStore();
-
-  // 졸업 상태에서 영역별 정보 추출
+  const { gradStatus, userMajor, userMinors, takenCourses } = useGraduationStore();
   const overallProps = extractOverallStatus(gradStatus);
 
-  // 세부 요건 정보 (fineGrainedRequirements)
-  const fineGrainedReqs: FineGrainedRequirement[] = gradStatus?.fineGrainedRequirements ?? [];
+  const recommendationGroups = useMemo(() => {
+    if (!gradStatus) {
+      return {
+        recommendations: [] as RecommendationItem[],
+        allRecommendations: [] as RecommendationItem[],
+        byCategoryKey: {} as Record<string, RecommendationItem[]>,
+        allByCategoryKey: {} as Record<string, RecommendationItem[]>,
+        takenCourseCodes: new Set<string>(),
+        suppressions: [],
+        policy: DEFAULT_RECOMMENDATION_DISPLAY_POLICY,
+      } satisfies GraduationRecommendationGroups;
+    }
 
-  // 이수한 과목 코드 Set 생성 (필터링용)
-  const takenCourseCodes = useMemo(() => {
-    if (!gradStatus?.graduationCategory) return new Set<string>();
+    return buildGraduationRecommendationGroups({
+      result: gradStatus,
+      userMajor,
+      userMinors,
+      takenCourses,
+    });
+  }, [gradStatus, userMajor, userMinors, takenCourses]);
 
-    const allTakenCourses = Object.values(gradStatus.graduationCategory).flatMap(
-      (cat) => cat?.userTakenCoursesList?.takenCourses ?? [],
-    );
-
-    return new Set(allTakenCourses.map((c) => c.courseCode));
-  }, [gradStatus]);
-
-  // 이수한 과목을 제외한 추천 과목 필터링
-  const filterTakenCourses = (courses: RecommendedCourse[]): RecommendedCourse[] => {
-    return courses.filter((c) => !takenCourseCodes.has(c.courseCode));
-  };
-
-  const getMajorRecommendations = (): RecommendedCourse[] => {
-    const majorResolution = resolveMajorCode(userMajor);
-    const majorCourses = getMajorRecommendationCoursesByCode(majorResolution.code);
-
-    return filterTakenCourses(majorCourses.map(toRecommendedCourse));
-  };
-
-  /**
-   * 세부 요건 기반 추천 과목 조회
-   * - fineGrainedRequirements가 있으면: 미충족 세부 요건에 해당하는 과목만 추천
-   * - fineGrainedRequirements가 없으면: 기존 영역 전체 추천 방식 fallback
-   * - 부전공(minor): 선택한 부전공의 미이수 과목 추천 (필수 → 선택 우선순위)
-   */
   const getRecommendationsForDomain = (domain: string): RecommendedCourse[] => {
-    const categoryKey = DOMAIN_TO_CATEGORY_KEY[domain];
-
-    // === 부전공(minor) 특별 처리 ===
-    if (categoryKey === 'minor') {
-      // 선택된 부전공이 없으면 빈 배열
-      if (!userMinors || userMinors.length === 0) {
-        return [];
-      }
-
-      // 부전공 미충족 세부 요건 확인
-      const unsatisfiedMinorReqs = fineGrainedReqs.filter((req) => req.categoryKey === 'minor' && !req.satisfied);
-
-      // 모든 부전공 요건 충족 시 빈 배열
-      if (fineGrainedReqs.length > 0 && unsatisfiedMinorReqs.length === 0) {
-        return [];
-      }
-
-      // 각 부전공별 미이수 과목 수집
-      const allMinorRecommendations: RecommendedCourse[] = [];
-      for (const minorCode of userMinors) {
-        const recommendations = getMinorRecommendationsFromData(minorCode, takenCourseCodes);
-        allMinorRecommendations.push(...recommendations);
-      }
-
-      // 중복 제거
-      return deduplicateByCourseCode(allMinorRecommendations);
-    }
-
-    // === 기존 영역 처리 ===
-    // fineGrainedRequirements가 없으면 기존 방식 fallback
-    if (fineGrainedReqs.length === 0) {
-      if (categoryKey === 'major') {
-        return getMajorRecommendations();
-      }
-
-      return filterTakenCourses(DOMAIN_RECOMMENDATIONS[domain] ?? []);
-    }
-
-    // 해당 도메인의 미충족 세부 요건 찾기
-    const unsatisfiedReqs = fineGrainedReqs.filter((req) => req.categoryKey === categoryKey && !req.satisfied);
-
-    // 미충족 세부 요건이 없으면 빈 배열 (이미 충족됨)
-    if (unsatisfiedReqs.length === 0) {
-      return [];
-    }
-
-    if (categoryKey === 'major') {
-      return getMajorRecommendations();
-    }
-
-    // 미충족 세부 요건에 해당하는 과목만 수집
-    const recommendations: RecommendedCourse[] = [];
-    for (const req of unsatisfiedReqs) {
-      const courses = FINE_GRAINED_COURSE_MAP[req.id] ?? [];
-      recommendations.push(...courses.map(toRecommendedCourse));
-    }
-
-    // 중복 제거 및 이수 과목 필터링
-    const uniqueCourses = deduplicateByCourseCode(recommendations);
-    return filterTakenCourses(uniqueCourses);
+    const categoryKey = DOMAIN_TO_CATEGORY_KEY[domain] ?? domain;
+    return (recommendationGroups.byCategoryKey[categoryKey] ?? []).map(toRecommendedCourse);
   };
 
-  // 미충족 영역별 추천 과목 목록 (세부 요건 기반)
+  const getAllRecommendationsForDomain = (domain: string): RecommendedCourse[] => {
+    const categoryKey = DOMAIN_TO_CATEGORY_KEY[domain] ?? domain;
+    return (recommendationGroups.allByCategoryKey[categoryKey] ?? []).map(toRecommendedCourse);
+  };
+
+  const getRecommendationSuppressionsForDomain = (domain: string) => {
+    const categoryKey = DOMAIN_TO_CATEGORY_KEY[domain] ?? domain;
+    return recommendationGroups.suppressions.filter((suppression) => suppression.categoryKey === categoryKey);
+  };
+
   const domainRecommendations: DomainRecommendation[] = useMemo(() => {
     if (!overallProps?.categoriesArr) return [];
 
@@ -280,17 +93,21 @@ export function useRecommendedCourses() {
         recommendedCourses: getRecommendationsForDomain(domain),
       }))
       .filter((rec) => rec.recommendedCourses.length > 0);
-  }, [overallProps, takenCourseCodes, fineGrainedReqs]);
+  }, [overallProps, recommendationGroups]);
 
-  // 모든 미충족 영역의 추천 과목 (로드맵 용)
-  const allRecommendations: RecommendedCourse[] = useMemo(() => {
-    return domainRecommendations.flatMap((rec) => rec.recommendedCourses);
-  }, [domainRecommendations]);
+  const allRecommendations: RecommendedCourse[] = useMemo(
+    () => recommendationGroups.allRecommendations.map(toRecommendedCourse),
+    [recommendationGroups],
+  );
 
   return {
     domainRecommendations,
     getRecommendationsForDomain,
+    getAllRecommendationsForDomain,
+    getRecommendationSuppressionsForDomain,
     allRecommendations,
-    takenCourseCodes, // 디버깅 및 UI에서 활용 가능
+    takenCourseCodes: recommendationGroups.takenCourseCodes,
+    recommendationSuppressions: recommendationGroups.suppressions,
+    recommendationPolicy: recommendationGroups.policy,
   };
 }

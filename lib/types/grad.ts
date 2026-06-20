@@ -1,3 +1,5 @@
+import type { GraduationCatalogSelectionSummary } from '@features/graduation/domain/types';
+
 export interface TakenCourseType {
   year: number;
   semester: string; // e.g. '봄', '가을', '여름학기' 등
@@ -34,6 +36,7 @@ export interface GradStatusResponseType {
   totalCredits: number;
   overallStatus: GraduationOverallStatus;
   totalSatisfied: boolean;
+  catalogSelection?: GraduationCatalogSelectionSummary;
 }
 
 export type GraduationOverallStatus = 'satisfied' | 'unsatisfied' | 'needs_review';

@@ -1,0 +1,45 @@
+{
+  "label": "EC major, 2021 entry",
+  "entryYear": 2021,
+  "userMajor": "EC",
+  "userMinors": [],
+  "minorDeclarationTerms": {},
+  "takenCourses": [
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "교양",
+      "courseName": "학술영어",
+      "courseCode": "GS1607",
+      "credit": 2,
+      "grade": "A0"
+    },
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "교양",
+      "courseName": "글쓰기",
+      "courseCode": "GS1511",
+      "credit": 3,
+      "grade": "A0"
+    },
+    {
+      "year": 2021,
+      "semester": "2",
+      "courseType": "기초",
+      "courseName": "미적분학 I",
+      "courseCode": "GS1001",
+      "credit": 3,
+      "grade": "A0"
+    },
+    {
+      "year": 2022,
+      "semester": "1",
+      "courseType": "전공",
+      "courseName": "전기전자컴퓨터공학실험",
+      "courseCode": "EC3101",
+      "credit": 3,
+      "grade": "A0"
+    }
+  ]
+}

@@ -6,7 +6,7 @@ import { resolveMajorForEvaluation } from '../domain/academic-context';
 import type { MinorDeclarationTerms } from '../domain/types';
 import { parseRawToTakenCourses, validateTakenCourses, normalizeTakenCourses } from '../middlewares/validation';
 import { evaluateGraduationStatus } from '../domain/engine';
-import { mapDeficitToRecommendations, MockCourseRepository } from '../data';
+import { buildGraduationRecommendationGroups } from '../data';
 import { refineGradStatusForUI, UIGradViewModel } from '../middlewares/refine';
 
 export interface UploadEvaluateResult {
@@ -82,27 +82,21 @@ export const uploadAndEvaluate = async (
     },
   });
 
-  // 5. Data / Recommendations (Optional)
-  let recommendations: any[] = [];
-  if (!engineResult.totalSatisfied) {
-    const needsReviewCategories = new Set<string>(
-      engineResult.fineGrainedRequirements
-        .filter((requirement) => requirement.status === 'needs_review')
-        .map((requirement) => requirement.categoryKey),
-    );
-    const deficits: Record<string, number> = {};
-    Object.entries(engineResult.graduationCategory).forEach(([key, category]) => {
-      if (!category.satisfied && !needsReviewCategories.has(key)) {
-        deficits[key] = category.minConditionCredits - category.totalCredits;
-      }
-    });
-
-    const repo = new MockCourseRepository();
-    recommendations = await mapDeficitToRecommendations(deficits, repo);
-  }
+  // 5. Source-backed Recommendations
+  const recommendationGroups = buildGraduationRecommendationGroups({
+    result: engineResult,
+    userMajor,
+    userMinors,
+    takenCourses: normalized.takenCourses,
+  });
 
   // 6. Refine for UI
-  const viewModel = refineGradStatusForUI(engineResult, { recommendations });
+  const viewModel = refineGradStatusForUI(engineResult, {
+    recommendations: recommendationGroups.recommendations,
+    allRecommendations: recommendationGroups.allRecommendations,
+    recommendationSuppressions: recommendationGroups.suppressions,
+    recommendationPolicy: recommendationGroups.policy,
+  });
 
   return { success: true, data: viewModel };
 };

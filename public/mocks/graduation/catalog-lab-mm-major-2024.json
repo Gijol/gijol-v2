@@ -1,0 +1,36 @@
+{
+  "label": "MM major, 2024 entry",
+  "entryYear": 2024,
+  "userMajor": "MM",
+  "userMinors": [],
+  "minorDeclarationTerms": {},
+  "takenCourses": [
+    {
+      "year": 2024,
+      "semester": "1",
+      "courseType": "전공",
+      "courseName": "다변수해석학과 응용",
+      "courseCode": "MM2001",
+      "credit": 3,
+      "grade": "A0"
+    },
+    {
+      "year": 2024,
+      "semester": "2",
+      "courseType": "전공",
+      "courseName": "미분방정식과 응용",
+      "courseCode": "MM2002",
+      "credit": 3,
+      "grade": "A0"
+    },
+    {
+      "year": 2025,
+      "semester": "1",
+      "courseType": "전공",
+      "courseName": "선형대수학과 응용",
+      "courseCode": "MM2004",
+      "credit": 3,
+      "grade": "A0"
+    }
+  ]
+}
