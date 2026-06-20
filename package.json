@@ -9,6 +9,8 @@
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "course-catalog:check": "ts-node scripts/course-catalog/check-course-catalog.ts",
+    "course-catalog:export": "ts-node scripts/course-catalog/export-course-catalog.ts",
     "graduation:catalog:check": "ts-node scripts/graduation/check-rule-catalog.ts",
     "graduation:catalog:export": "ts-node scripts/graduation/export-rule-catalog.ts",
     "graduation:catalog:inspect": "ts-node scripts/graduation/inspect-rule-catalog.ts",
