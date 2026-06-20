@@ -14,6 +14,7 @@ import { Badge } from '@components/ui/badge';
 import { User, School, Book, Calendar, TrendingUp, AlertTriangle, BarChart, Eye, EyeOff } from 'lucide-react';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 import type { FineGrainedRequirement } from '@lib/types/grad-requirements';
+import type { CatalogNeedsContextSummary } from '@features/graduation/domain/types';
 
 const TOTAL_REQUIRED_CREDITS = 130;
 const DOMAIN_TO_CATEGORY_KEY: Record<string, FineGrainedRequirement['categoryKey']> = {
@@ -35,6 +36,19 @@ function getCreditPercentage(earned: number, required: number, fallback: number)
   return Math.min(100, Math.round((earned * 100) / required));
 }
 
+function getCatalogNeedsContextForCategory(
+  needsContext: readonly CatalogNeedsContextSummary[] | undefined,
+  categoryKey: FineGrainedRequirement['categoryKey'] | undefined,
+): CatalogNeedsContextSummary[] {
+  if (!needsContext || !categoryKey) return [];
+  if (categoryKey !== 'major' && categoryKey !== 'minor') return [];
+
+  return needsContext.filter((item) => {
+    const scope = item.rule.scope;
+    return scope?.type !== 'global' && scope?.programKind === categoryKey;
+  });
+}
+
 // 전공 라벨 헬퍼
 function getMajorLabel(value: string): string {
   return MAJOR_OPTIONS.find((opt) => opt.value === value)?.label || value || '미선택';
@@ -46,7 +60,8 @@ function getMinorLabel(value: string): string {
 
 export default function HomePage() {
   const { parsed, gradStatus, userMajor, userMinors, entryYear } = useGraduationStore();
-  const { getRecommendationsForDomain } = useRecommendedCourses();
+  const { getRecommendationsForDomain, getAllRecommendationsForDomain, getRecommendationSuppressionsForDomain, recommendationPolicy } =
+    useRecommendedCourses();
   const [showGradeSummary, setShowGradeSummary] = useState(false);
   const [userInfoDialogOpen, setUserInfoDialogOpen] = useState(false);
 
@@ -112,8 +127,13 @@ export default function HomePage() {
         messages: status?.messages ?? [],
         courses,
         hasNeedsReview,
+        appliedRequirements: domainFineRequirements,
+        catalogNeedsContext: getCatalogNeedsContextForCategory(gradStatus?.catalogSelection?.needsContext, categoryKey),
         excludedCourses,
         recommendedCourses: getRecommendationsForDomain(domain),
+        allRecommendedCourses: getAllRecommendationsForDomain(domain),
+        recommendationSuppressions: getRecommendationSuppressionsForDomain(domain),
+        recommendationPolicy,
       };
     }) ?? [];
 
