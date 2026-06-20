@@ -1,5 +1,11 @@
 import { course, evaluateFor, expectNoRequirement, expectRequirement } from './helpers/graduation-fixtures';
-import { getBasicRequirementCatalog } from '../features/graduation/domain';
+import {
+  BASIC_REQUIREMENT_CATALOG_RULES,
+  compileRuleCatalog,
+  getBasicRequirementCatalog,
+  selectRulesForContext,
+  validateRuleCatalog,
+} from '../features/graduation/domain';
 
 describe('manual-backed basic graduation requirements', () => {
   describe('static rule catalog', () => {
@@ -28,6 +34,65 @@ describe('manual-backed basic graduation requirements', () => {
           }),
         ]),
       );
+    });
+
+    it('exposes publishable basic requirement primitive rules', () => {
+      expect(validateRuleCatalog(BASIC_REQUIREMENT_CATALOG_RULES, { publishable: true })).toMatchObject({
+        ok: true,
+        issues: [],
+      });
+
+      const compiled = compileRuleCatalog(BASIC_REQUIREMENT_CATALOG_RULES);
+      expect(compiled.byId.get('basic-2021-plus.etc-major-exploration')).toMatchObject({
+        kind: 'course-credit',
+        scope: { type: 'global' },
+        parameters: {
+          requiredCredits: 1,
+          unit: 'credits',
+          courses: ['UC0902'],
+        },
+        sourceRefs: [expect.objectContaining({ manualYear: 2026, page: 33 })],
+      });
+      expect(compiled.byId.get('basic-2018-2019.arts')).toMatchObject({
+        kind: 'activity-count',
+        parameters: { requiredCount: 4, unit: 'courses' },
+      });
+      expect(compiled.byId.get('basic-2021-plus.science-total')).toMatchObject({
+        kind: 'conditional-credit-minimum',
+        parameters: {
+          defaultRequiredCredits: 18,
+          unit: 'credits',
+          variants: [{ conditionKey: 'completedComputerProgramming', requiredCredits: 17 }],
+        },
+      });
+      expect(compiled.byId.get('basic-2021-plus.total-credits')?.sourceRefs).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ manualYear: 2026, page: 33 }),
+          expect.objectContaining({ manualYear: 2026, page: 32 }),
+        ]),
+      );
+      expect(compiled.byId.get('basic-2021-plus.minimum-gpa')?.sourceRefs).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ manualYear: 2026, page: 33 }),
+          expect.objectContaining({ manualYear: 2026, page: 32 }),
+        ]),
+      );
+      expect(compiled.byId.get('basic-2021-plus.language-english-i')?.sourceRefs).not.toEqual(
+        expect.arrayContaining([expect.objectContaining({ manualYear: 2026, page: 32 })]),
+      );
+    });
+
+    it('selects basic requirement primitive rules by entry year context', () => {
+      const compiled = compileRuleCatalog(BASIC_REQUIREMENT_CATALOG_RULES);
+      const selection2020 = selectRulesForContext(compiled, { entryYear: 2020 });
+      const selection2021 = selectRulesForContext(compiled, { entryYear: 2021 });
+      const selected2020Ids = selection2020.applicableRules.map((rule) => rule.id);
+      const selected2021Ids = selection2021.applicableRules.map((rule) => rule.id);
+
+      expect(selected2020Ids).toContain('basic-2020.arts');
+      expect(selected2020Ids).not.toContain('basic-2021-plus.etc-major-exploration');
+      expect(selected2021Ids).toContain('basic-2021-plus.etc-major-exploration');
+      expect(selected2021Ids).toContain('basic-2021-plus.language-english-i');
     });
   });
 

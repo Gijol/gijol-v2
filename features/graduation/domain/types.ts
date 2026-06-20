@@ -1,3 +1,12 @@
+import type { RuleApplicabilityMissingContext } from './rule-catalog/compiler';
+import type {
+  RequirementCondition,
+  RequirementContextProgramCodes,
+  RuleCatalogRuleKind,
+  RuleCatalogScope,
+  RuleProgramKind,
+} from './rule-catalog/schema';
+
 /**
  * Domain Types for Graduation Feature
  * Self-contained type definitions, no external lib imports
@@ -13,10 +22,23 @@ export interface TakenCourseType {
   courseCode: string;
   credit: number;
   grade: string;
+  gradeStatus?: CourseGradeStatus;
+  gradeStatusReason?: string;
 }
 
 export interface UserTakenCourseListType {
   takenCourses: Array<TakenCourseType>;
+}
+
+export type CourseGradeStatus = 'official' | 'in_progress' | 'provisional';
+
+export interface GradeStatusTerm {
+  year: number;
+  semester: string;
+  status: Exclude<CourseGradeStatus, 'official'>;
+  courseCount?: number;
+  gradeValues?: readonly string[];
+  reason?: string;
 }
 
 // ===== Category & Status Types =====
@@ -44,6 +66,7 @@ export interface GradStatusResponseType {
   totalCredits: number;
   overallStatus: GraduationOverallStatus;
   totalSatisfied: boolean;
+  catalogSelection?: GraduationCatalogSelectionSummary;
 }
 
 export interface AcademicTerm {
@@ -52,6 +75,37 @@ export interface AcademicTerm {
 }
 
 export type MinorDeclarationTerms = Record<string, AcademicTerm | undefined>;
+
+// ===== Rule Catalog Selection Summary =====
+
+export interface CatalogRuleSelectionSummary {
+  id: string;
+  kind: RuleCatalogRuleKind;
+  label?: string;
+  scope?: RuleCatalogScope;
+  appliesTo?: RequirementCondition;
+  evaluatorId?: string;
+  sourceRefs?: readonly RequirementSource[];
+}
+
+export interface CatalogNeedsContextSummary {
+  rule: CatalogRuleSelectionSummary;
+  missingContext: readonly RuleApplicabilityMissingContext[];
+}
+
+export interface GraduationCatalogSelectionContextSummary {
+  entryYear: number;
+  programCodes?: RequirementContextProgramCodes;
+  declarationTerms?: Partial<Record<RuleProgramKind, AcademicTerm | undefined>>;
+  evaluationTerm?: AcademicTerm;
+}
+
+export interface GraduationCatalogSelectionSummary {
+  context: GraduationCatalogSelectionContextSummary;
+  applicableRules: readonly CatalogRuleSelectionSummary[];
+  needsContext: readonly CatalogNeedsContextSummary[];
+  sourceRefs: readonly RequirementSource[];
+}
 
 // ===== Fine-Grained Requirements =====
 
@@ -142,4 +196,5 @@ export interface YearRuleSet {
 
 export interface GradStatusResponseV2 extends GradStatusResponseType {
   fineGrainedRequirements: FineGrainedRequirement[];
+  catalogSelection: GraduationCatalogSelectionSummary;
 }

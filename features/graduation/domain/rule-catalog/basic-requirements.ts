@@ -1,4 +1,17 @@
 import type { CategoryRule, RequirementSource, YearRuleSet } from '../types';
+import {
+  defineRuleCatalog,
+  type ActivityCountRuleParameters,
+  type ConditionalCreditMinimumRuleParameters,
+  type CourseCountRuleParameters,
+  type CourseCreditRuleParameters,
+  type CreditMinimumRuleParameters,
+  type GpaMinimumRuleParameters,
+  type RequirementCondition,
+  type RuleCatalogParameters,
+  type RuleCatalogRule,
+  type RuleCatalogScope,
+} from './schema';
 
 interface EntryYearRange {
   from: number;
@@ -70,6 +83,7 @@ export interface BasicRequirementCatalog {
 }
 
 const BACHELOR_MANUAL_2026 = 'docs/bachelor_manual/2026_manual.pdf';
+const globalScope = { type: 'global' } as const satisfies RuleCatalogScope;
 
 const categoryRules: readonly CategoryRule[] = [
   { key: 'languageBasic', minCredits: 7 },
@@ -175,6 +189,8 @@ function source(page: number, note: string): RequirementSource {
     note,
   };
 }
+
+const graduationOverviewSource = source(32, '졸업요건 장 시작: 총 이수학점 130학점 및 최소 GPA 2.0/4.5');
 
 export const BASIC_REQUIREMENT_CATALOG: readonly BasicRequirementCatalog[] = [
   {
@@ -298,6 +314,230 @@ export const BASIC_REQUIREMENT_CATALOG: readonly BasicRequirementCatalog[] = [
     },
   },
 ];
+
+function catalogRuleId(catalog: BasicRequirementCatalog, requirementId: string): string {
+  return `${catalog.id}.${requirementId}`;
+}
+
+function catalogRuleSourceRefs(catalog: BasicRequirementCatalog, requirementId: string): readonly RequirementSource[] {
+  if (requirementId === 'minimum-gpa' || requirementId === 'total-credits') {
+    return [catalog.source, graduationOverviewSource];
+  }
+
+  return [catalog.source];
+}
+
+function catalogAppliesTo(catalog: BasicRequirementCatalog): RequirementCondition {
+  return { entryYear: catalog.entryYear };
+}
+
+function creditMinimumParameters(requiredCredits: number): CreditMinimumRuleParameters {
+  return {
+    requiredCredits,
+    unit: 'credits',
+  };
+}
+
+function gpaMinimumParameters(minimumGpa: number): GpaMinimumRuleParameters {
+  return {
+    minimumGpa,
+    scale: 4.5,
+  };
+}
+
+function courseCreditParameters(
+  requirement: CourseRequirement & { legacyPairCodesFor2021Plus?: readonly string[] },
+): CourseCreditRuleParameters {
+  const parameters: CourseCreditRuleParameters = {
+    requiredCredits: requirement.requiredCredits,
+    unit: 'credits',
+    courses: requirement.acceptedCodes,
+  };
+
+  if (requirement.legacyPairCodesFor2021Plus) {
+    parameters.legacyPairCodes = requirement.legacyPairCodesFor2021Plus;
+  }
+
+  return parameters;
+}
+
+function courseCountParameters(
+  requirement: CountRequirement & { acceptedCodes: readonly string[] },
+): CourseCountRuleParameters {
+  return {
+    requiredCount: requirement.requiredCount,
+    unit: 'courses',
+    courses: requirement.acceptedCodes,
+  };
+}
+
+function activityCountParameters(requirement: CountRequirement): ActivityCountRuleParameters {
+  return {
+    requiredCount: requirement.requiredCount,
+    unit: 'courses',
+  };
+}
+
+function scienceCreditParameters(requirement: ScienceCreditsRequirement): ConditionalCreditMinimumRuleParameters {
+  return {
+    defaultRequiredCredits: requirement.defaultCredits,
+    unit: 'credits',
+    variants: [
+      {
+        conditionKey: 'completedComputerProgramming',
+        requiredCredits: requirement.withComputerProgrammingCredits,
+      },
+    ],
+  };
+}
+
+function toCatalogRule(
+  catalog: BasicRequirementCatalog,
+  kind: RuleCatalogRule['kind'],
+  requirement: { id: string; label: string },
+  parameters: RuleCatalogParameters,
+): RuleCatalogRule {
+  return {
+    id: catalogRuleId(catalog, requirement.id),
+    kind,
+    label: requirement.label,
+    scope: globalScope,
+    parameters,
+    sourceRefs: catalogRuleSourceRefs(catalog, requirement.id),
+    appliesTo: catalogAppliesTo(catalog),
+  };
+}
+
+function buildBasicCatalogRules(catalog: BasicRequirementCatalog): readonly RuleCatalogRule[] {
+  const rules: RuleCatalogRule[] = [
+    toCatalogRule(
+      catalog,
+      'gpa-minimum',
+      { id: 'minimum-gpa', label: '최소 GPA' },
+      gpaMinimumParameters(catalog.minGpaForGraduation),
+    ),
+    toCatalogRule(
+      catalog,
+      'credit-minimum',
+      catalog.totalCredits,
+      creditMinimumParameters(catalog.totalCredits.requiredCredits),
+    ),
+    toCatalogRule(
+      catalog,
+      'credit-minimum',
+      catalog.language.totalCredits,
+      creditMinimumParameters(catalog.language.totalCredits.requiredCredits),
+    ),
+    toCatalogRule(
+      catalog,
+      'course-credit',
+      catalog.language.englishI,
+      courseCreditParameters(catalog.language.englishI),
+    ),
+    toCatalogRule(
+      catalog,
+      'course-credit',
+      catalog.language.englishII,
+      courseCreditParameters(catalog.language.englishII),
+    ),
+    toCatalogRule(
+      catalog,
+      'course-credit',
+      catalog.language.writing,
+      courseCreditParameters(catalog.language.writing),
+    ),
+    toCatalogRule(
+      catalog,
+      'conditional-credit-minimum',
+      catalog.scienceBasic.totalCredits,
+      scienceCreditParameters(catalog.scienceBasic.totalCredits),
+    ),
+    toCatalogRule(
+      catalog,
+      'course-credit',
+      catalog.scienceBasic.calculus,
+      courseCreditParameters(catalog.scienceBasic.calculus),
+    ),
+    toCatalogRule(
+      catalog,
+      'course-credit',
+      catalog.scienceBasic.coreMath,
+      courseCreditParameters(catalog.scienceBasic.coreMath),
+    ),
+    toCatalogRule(
+      catalog,
+      'course-credit',
+      catalog.scienceBasic.softwareBasic,
+      courseCreditParameters(catalog.scienceBasic.softwareBasic),
+    ),
+    toCatalogRule(
+      catalog,
+      'credit-minimum',
+      catalog.humanities.totalCredits,
+      creditMinimumParameters(catalog.humanities.totalCredits.requiredCredits),
+    ),
+    toCatalogRule(
+      catalog,
+      'credit-minimum',
+      catalog.humanities.hus,
+      creditMinimumParameters(catalog.humanities.hus.requiredCredits),
+    ),
+    toCatalogRule(
+      catalog,
+      'credit-minimum',
+      catalog.humanities.ppe,
+      creditMinimumParameters(catalog.humanities.ppe.requiredCredits),
+    ),
+    toCatalogRule(
+      catalog,
+      'course-credit',
+      catalog.commonMandatory.freshman,
+      courseCreditParameters(catalog.commonMandatory.freshman),
+    ),
+    toCatalogRule(
+      catalog,
+      'course-credit',
+      catalog.commonMandatory.scienceEconomy,
+      courseCreditParameters(catalog.commonMandatory.scienceEconomy),
+    ),
+    toCatalogRule(
+      catalog,
+      'course-count',
+      catalog.commonMandatory.colloquium,
+      courseCountParameters(catalog.commonMandatory.colloquium),
+    ),
+    toCatalogRule(
+      catalog,
+      'activity-count',
+      catalog.artsSports.arts,
+      activityCountParameters(catalog.artsSports.arts),
+    ),
+    toCatalogRule(
+      catalog,
+      'activity-count',
+      catalog.artsSports.sports,
+      activityCountParameters(catalog.artsSports.sports),
+    ),
+  ];
+
+  if (catalog.commonMandatory.majorExploration) {
+    rules.push(
+      toCatalogRule(
+        catalog,
+        'course-credit',
+        catalog.commonMandatory.majorExploration,
+        courseCreditParameters(catalog.commonMandatory.majorExploration),
+      ),
+    );
+  }
+
+  return rules;
+}
+
+export const BASIC_REQUIREMENT_CATALOG_RULES = defineRuleCatalog(
+  BASIC_REQUIREMENT_CATALOG.flatMap(buildBasicCatalogRules),
+  { publishable: true },
+);
 
 function appliesToEntryYear(catalog: BasicRequirementCatalog, entryYear: number): boolean {
   return (

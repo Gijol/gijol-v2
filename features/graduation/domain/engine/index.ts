@@ -13,11 +13,13 @@ import {
   RequirementEvaluationStatus,
   GraduationOverallStatus,
   MinorDeclarationTerms,
+  GraduationCatalogSelectionSummary,
 } from '../types';
 import { pickRuleSet } from '../rules';
 import { classifyCourse } from '../classifier';
 import { buildFineGrainedRequirements } from '../requirements';
 import { resolveMajorCode } from '../academic-context';
+import { buildGraduationCatalogSelectionSummary } from '../rule-catalog/selection-adapter';
 import {
   MATH_CALCULUS,
   MATH_ELECTIVE,
@@ -32,6 +34,7 @@ import {
 
 export interface GradStatusResponseV2 extends GradStatusResponseType {
   fineGrainedRequirements: FineGrainedRequirement[];
+  catalogSelection: GraduationCatalogSelectionSummary;
 }
 
 interface EngineContext {
@@ -464,6 +467,13 @@ export const evaluateGraduationStatus = async (
     status: getRequirementStatus(req),
   }));
 
+  const catalogSelection = buildGraduationCatalogSelectionSummary({
+    entryYear,
+    userMajor,
+    userMinors: userMinors ?? [],
+    minorDeclarationTerms,
+  });
+
   // 6. Refine Category Satisfaction based on Fine-grained Requirements
   // (If a fine-grained 'must' requirement is missing, the whole category is unsatisfied)
   (Object.keys(graduationCategory) as CategoryKey[]).forEach((key) => {
@@ -517,5 +527,6 @@ export const evaluateGraduationStatus = async (
     overallStatus,
     totalSatisfied,
     fineGrainedRequirements,
+    catalogSelection,
   };
 };
