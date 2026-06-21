@@ -28,6 +28,7 @@ describe('course catalog search', () => {
   it('searches generated catalog data instead of mock course data', () => {
     const items = createCourseCatalogSearchItems();
     const hs4611 = filterCourseCatalogSearchItems(items, { query: 'HS4611' });
+    const ai3001 = filterCourseCatalogSearchItems(items, { query: 'AI3001' });
     const ai2003 = filterCourseCatalogSearchItems(items, { query: '인공지능을 위한 수학' });
     const recommendation = filterCourseCatalogSearchItems(items, { feature: 'recommendation', query: 'HS4611' });
     const timetable = filterCourseCatalogSearchItems(items, { sourceKind: 'timetable-offering', query: 'HS4611' });
@@ -38,7 +39,13 @@ describe('course catalog search', () => {
         expect.objectContaining({
           primaryCourseCode: 'HS4611',
           offerings: expect.arrayContaining([
-            expect.objectContaining({ term: '2026-spring' }),
+            expect.objectContaining({
+              term: '2026-spring',
+              meetings: expect.arrayContaining([
+                expect.objectContaining({ day: 'MON', start: '16:00', end: '17:30' }),
+                expect.objectContaining({ day: 'WED', start: '16:00', end: '17:30' }),
+              ]),
+            }),
           ]),
         }),
       ]),
@@ -50,6 +57,79 @@ describe('course catalog search', () => {
           sourceRefs: expect.arrayContaining([
             expect.objectContaining({ kind: 'course-db' }),
             expect.objectContaining({ kind: 'timetable-offering' }),
+          ]),
+        }),
+      ]),
+    );
+    expect(ai3001).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          primaryCourseCode: 'AI3001',
+          offerings: [
+            expect.objectContaining({
+              section: '01',
+              equivalentCourseCodes: ['AI3001', 'EC3216', 'MM3450'],
+              meetings: expect.arrayContaining([
+                expect.objectContaining({ day: 'MON', start: '13:00', end: '14:30' }),
+                expect.objectContaining({ day: 'WED', start: '13:00', end: '14:30' }),
+              ]),
+            }),
+          ],
+        }),
+      ]),
+    );
+    expect(filterCourseCatalogSearchItems(items, { query: 'AI2004' })).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          primaryCourseCode: 'AI2004',
+          manualListings: expect.arrayContaining([
+            expect.objectContaining({
+              academicYear: 2025,
+              page: 126,
+            }),
+            expect.objectContaining({
+              academicYear: 2026,
+              credits: 3,
+              lectureHours: 3,
+              labHours: 1,
+              page: 87,
+            }),
+          ]),
+        }),
+      ]),
+    );
+    expect(filterCourseCatalogSearchItems(items, { query: 'HS4611' })).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          primaryCourseCode: 'HS4611',
+          manualListings: expect.arrayContaining([
+            expect.objectContaining({
+              academicYear: 2025,
+              page: 112,
+            }),
+            expect.objectContaining({
+              academicYear: 2026,
+              credits: 3,
+              lectureHours: 3,
+              labHours: 0,
+              page: 198,
+            }),
+          ]),
+        }),
+      ]),
+    );
+    expect(filterCourseCatalogSearchItems(items, { query: 'GS1001' })).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          primaryCourseCode: 'GS1001',
+          manualListings: expect.arrayContaining([
+            expect.objectContaining({ academicYear: 2020, page: 43 }),
+            expect.objectContaining({ academicYear: 2021, page: 92 }),
+            expect.objectContaining({ academicYear: 2022, page: 51 }),
+            expect.objectContaining({ academicYear: 2023, page: 52 }),
+            expect.objectContaining({ academicYear: 2024, page: 62 }),
+            expect.objectContaining({ academicYear: 2025, page: 73 }),
+            expect.objectContaining({ academicYear: 2026, page: 159 }),
           ]),
         }),
       ]),

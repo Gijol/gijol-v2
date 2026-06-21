@@ -73,6 +73,32 @@ export interface CourseCatalogOffering {
   sourceRefs: readonly CourseCatalogSourceRef[];
 }
 
+export interface CourseCatalogHistoricalOffering {
+  id: string;
+  courseId: string;
+  courseCode: string;
+  academicYear: number;
+  semester: string;
+  term: string;
+  sourceLabel: string;
+  sourceRefs: readonly CourseCatalogSourceRef[];
+}
+
+export interface CourseCatalogManualListing {
+  id: string;
+  courseId: string;
+  courseCode: string;
+  academicYear: number;
+  titleKo?: string;
+  titleEn?: string;
+  credits?: number;
+  lectureHours?: number;
+  labHours?: number;
+  departments: readonly string[];
+  page?: number;
+  sourceRefs: readonly CourseCatalogSourceRef[];
+}
+
 export interface CourseCatalogRequirementFacet {
   id: string;
   courseId: string;
@@ -81,6 +107,8 @@ export interface CourseCatalogRequirementFacet {
   category: string;
   classification?: string;
   programCode?: string;
+  requirementId?: string;
+  sortOrder?: number;
   sourceRefs: readonly CourseCatalogSourceRef[];
 }
 
@@ -94,10 +122,12 @@ export interface CourseCatalogCourseRelationship {
 }
 
 export interface CourseCatalogSnapshot {
-  schemaVersion: 1;
+  schemaVersion: 2;
   generatedAt?: string;
   courses: readonly CourseCatalogCourse[];
   offerings: readonly CourseCatalogOffering[];
+  historicalOfferings: readonly CourseCatalogHistoricalOffering[];
+  manualListings: readonly CourseCatalogManualListing[];
   requirementFacets: readonly CourseCatalogRequirementFacet[];
   relationships: readonly CourseCatalogCourseRelationship[];
 }

@@ -4,10 +4,18 @@ import type { MinorCourseInfo } from '@/lib/const/minor-courses';
 import type { RoadmapData } from '@/lib/types/roadmap';
 import type { SectionOffering } from '@/lib/types/timetable';
 import type { CourseEquivalency } from '@features/graduation/domain';
+import { buildHistoricalOfferingsFromCourseDb } from './adapters/course-history';
 import { buildCoursesFromCourseDb } from './adapters/course-db';
 import { buildRelationshipsFromCourseEquivalencies } from './adapters/equivalencies';
+import {
+  buildManualListingsFromSources,
+  type CourseManualListingSource,
+} from './adapters/manual-listings';
 import { buildRequirementFacetsFromMinorCourses } from './adapters/minor';
-import { buildRequirementFacetsFromRecommendationCourses } from './adapters/recommendations';
+import {
+  buildRequirementFacetsFromRecommendationGroups,
+  type RecommendationCourseGroup,
+} from './adapters/recommendations';
 import { buildRequirementFacetsFromRoadmaps, type RoadmapCatalogExtraction } from './adapters/roadmap';
 import { buildOfferingsFromTimetable } from './adapters/timetable';
 import {
@@ -22,6 +30,8 @@ import {
 import type {
   CourseCatalogCourse,
   CourseCatalogCourseRelationship,
+  CourseCatalogHistoricalOffering,
+  CourseCatalogManualListing,
   CourseCatalogOffering,
   CourseCatalogRequirementFacet,
   CourseCatalogSnapshot,
@@ -35,9 +45,11 @@ export interface CourseCatalogBuildInput {
   timetableSections: readonly SectionOffering[];
   timetableTerm: string;
   timetableSourcePath: string;
+  manualListingSources?: readonly CourseManualListingSource[];
   minorCoursesByCode: Readonly<Record<string, readonly MinorCourseInfo[]>>;
   roadmapPresets: Readonly<Record<string, RoadmapData>>;
-  recommendationCourses: readonly CourseMaster[];
+  recommendationCourses?: readonly CourseMaster[];
+  recommendationGroups: readonly RecommendationCourseGroup[];
   courseEquivalencies: readonly CourseEquivalency[];
 }
 
@@ -301,6 +313,21 @@ function addRecommendationObservedCourses(
   });
 }
 
+function flattenRecommendationCourses(groups: readonly RecommendationCourseGroup[]): CourseMaster[] {
+  const byCode = new Map<string, CourseMaster>();
+
+  groups.forEach((group) => {
+    group.courses.forEach((course) => {
+      const courseCode = normalizeCourseCode(course.courseCode);
+      if (courseCode && !byCode.has(courseCode)) {
+        byCode.set(courseCode, course);
+      }
+    });
+  });
+
+  return Array.from(byCode.values());
+}
+
 function uniqueFacets(facets: readonly CourseCatalogRequirementFacet[]): CourseCatalogRequirementFacet[] {
   const byId = new Map<string, CourseCatalogRequirementFacet>();
   facets.forEach((facet) => byId.set(facet.id, {
@@ -315,6 +342,29 @@ function uniqueOfferings(offerings: readonly CourseCatalogOffering[]): CourseCat
   const byId = new Map<string, CourseCatalogOffering>();
   offerings.forEach((offering) => byId.set(offering.offeringId, offering));
   return Array.from(byId.values()).sort((a, b) => a.offeringId.localeCompare(b.offeringId));
+}
+
+function uniqueHistoricalOfferings(
+  historicalOfferings: readonly CourseCatalogHistoricalOffering[],
+): CourseCatalogHistoricalOffering[] {
+  const byId = new Map<string, CourseCatalogHistoricalOffering>();
+  historicalOfferings.forEach((offering) => byId.set(offering.id, {
+    ...offering,
+    courseCode: normalizeCourseCode(offering.courseCode),
+    sourceRefs: uniqueSourceRefs(offering.sourceRefs),
+  }));
+  return Array.from(byId.values()).sort((a, b) => a.id.localeCompare(b.id));
+}
+
+function uniqueManualListings(manualListings: readonly CourseCatalogManualListing[]): CourseCatalogManualListing[] {
+  const byId = new Map<string, CourseCatalogManualListing>();
+  manualListings.forEach((listing) => byId.set(listing.id, {
+    ...listing,
+    courseCode: normalizeCourseCode(listing.courseCode),
+    departments: uniqueStrings(listing.departments),
+    sourceRefs: uniqueSourceRefs(listing.sourceRefs),
+  }));
+  return Array.from(byId.values()).sort((a, b) => a.id.localeCompare(b.id));
 }
 
 function uniqueRelationships(
@@ -337,12 +387,15 @@ export function buildCourseCatalogSnapshot(input: CourseCatalogBuildInput): Cour
   addTimetableObservedCourses(accumulator, input.timetableSections, input.timetableSourcePath);
   addMinorObservedCourses(accumulator, input.minorCoursesByCode);
   addRoadmapObservedCourses(accumulator, input.roadmapPresets);
-  addRecommendationObservedCourses(accumulator, input.recommendationCourses);
+  addRecommendationObservedCourses(
+    accumulator,
+    input.recommendationCourses ?? flattenRecommendationCourses(input.recommendationGroups),
+  );
 
   const roadmapExtraction = buildRequirementFacetsFromRoadmaps(input.roadmapPresets, accumulator.resolveCourseId);
   const requirementFacets = uniqueFacets([
     ...buildRequirementFacetsFromMinorCourses(input.minorCoursesByCode, accumulator.resolveCourseId),
-    ...buildRequirementFacetsFromRecommendationCourses(input.recommendationCourses, accumulator.resolveCourseId),
+    ...buildRequirementFacetsFromRecommendationGroups(input.recommendationGroups, accumulator.resolveCourseId),
     ...roadmapExtraction.facets,
   ]);
   const offerings = uniqueOfferings(
@@ -352,15 +405,29 @@ export function buildCourseCatalogSnapshot(input: CourseCatalogBuildInput): Cour
       resolveCourseId: accumulator.resolveCourseId,
     }),
   );
+  const historicalOfferings = uniqueHistoricalOfferings(
+    buildHistoricalOfferingsFromCourseDb(input.courseDbRows, accumulator.resolveCourseId),
+  );
+  const manualListingCatalogCourses = accumulator.getCourses();
+  const manualListingSources = input.manualListingSources ?? [];
+  const manualListings = uniqueManualListings(
+    buildManualListingsFromSources(manualListingSources, {
+      catalogCourses: manualListingCatalogCourses,
+      resolveCourseId: accumulator.resolveCourseId,
+    }),
+  );
   const relationships = uniqueRelationships(
     buildRelationshipsFromCourseEquivalencies(input.courseEquivalencies, accumulator.resolveCourseId),
   );
+  const catalogCourses = accumulator.getCourses();
 
   return {
     snapshot: {
-      schemaVersion: 1,
-      courses: accumulator.getCourses(),
+      schemaVersion: 2,
+      courses: catalogCourses,
       offerings,
+      historicalOfferings,
+      manualListings,
       requirementFacets,
       relationships,
     },

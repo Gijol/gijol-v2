@@ -1,6 +1,7 @@
 import { COURSE_CATALOG_SNAPSHOT } from './generated';
 import type {
   CourseCatalogCourse,
+  CourseCatalogManualListing,
   CourseCatalogOffering,
   CourseCatalogRequirementFacet,
   CourseCatalogSnapshot,
@@ -32,6 +33,19 @@ export interface CourseCatalogSearchItem {
     department?: string;
     category?: string;
     program?: CourseCatalogOffering['program'];
+    meetings: CourseCatalogOffering['meetings'];
+    equivalentCourseCodes: readonly string[];
+  }[];
+  manualListings: readonly {
+    id: string;
+    courseCode: string;
+    academicYear: number;
+    titleKo?: string;
+    credits?: number;
+    lectureHours?: number;
+    labHours?: number;
+    departments: readonly string[];
+    page?: number;
   }[];
   facets: readonly {
     feature: CourseCatalogRequirementFacet['feature'];
@@ -82,14 +96,65 @@ function categoryMatches(item: CourseCatalogSearchItem, category: CourseCatalogS
   return true;
 }
 
+function meetingKey(meeting: CourseCatalogOffering['meetings'][number]): string {
+  return [
+    meeting.day,
+    meeting.start,
+    meeting.end,
+    meeting.room ?? '',
+  ].join(':');
+}
+
+function offeringGroupKey(offering: CourseCatalogOffering): string {
+  return [
+    offering.term,
+    offering.section,
+    offering.meetings.map(meetingKey).sort().join('|'),
+  ].join('::');
+}
+
+function compactOfferingsBySchedule(offerings: readonly CourseCatalogOffering[]): CourseCatalogSearchItem['offerings'] {
+  const byKey = new Map<string, CourseCatalogSearchItem['offerings'][number]>();
+
+  offerings.forEach((offering) => {
+    const key = offeringGroupKey(offering);
+    const existing = byKey.get(key);
+    const equivalentCourseCodes = uniqueStrings([
+      ...(existing?.equivalentCourseCodes ?? []),
+      offering.courseCode,
+    ]);
+
+    byKey.set(key, {
+      offeringId: existing?.offeringId ?? offering.offeringId,
+      courseCode: equivalentCourseCodes[0] ?? offering.courseCode,
+      term: offering.term,
+      section: offering.section,
+      department: existing?.department ?? offering.department,
+      category: existing?.category ?? offering.category,
+      program: existing?.program ?? offering.program,
+      meetings: offering.meetings,
+      equivalentCourseCodes,
+    });
+  });
+
+  return Array.from(byKey.values()).sort((a, b) =>
+    a.term.localeCompare(b.term) ||
+    a.section.localeCompare(b.section) ||
+    a.equivalentCourseCodes.join(',').localeCompare(b.equivalentCourseCodes.join(',')));
+}
+
 export function createCourseCatalogSearchItems(
   snapshot: CourseCatalogSnapshot = COURSE_CATALOG_SNAPSHOT,
 ): CourseCatalogSearchItem[] {
   const offeringsByCourseId = new Map<string, CourseCatalogOffering[]>();
+  const manualListingsByCourseId = new Map<string, CourseCatalogManualListing[]>();
   const facetsByCourseId = new Map<string, CourseCatalogRequirementFacet[]>();
 
   snapshot.offerings.forEach((offering) => {
     offeringsByCourseId.set(offering.courseId, [...(offeringsByCourseId.get(offering.courseId) ?? []), offering]);
+  });
+  snapshot.manualListings.forEach((listing) => {
+    manualListingsByCourseId.set(listing.courseId, [...(manualListingsByCourseId.get(listing.courseId) ?? []), listing]);
   });
   snapshot.requirementFacets.forEach((facet) => {
     facetsByCourseId.set(facet.courseId, [...(facetsByCourseId.get(facet.courseId) ?? []), facet]);
@@ -97,32 +162,38 @@ export function createCourseCatalogSearchItems(
 
   return snapshot.courses.map((course) => {
     const offerings = offeringsByCourseId.get(course.courseId) ?? [];
+    const manualListings = manualListingsByCourseId.get(course.courseId) ?? [];
     const facets = facetsByCourseId.get(course.courseId) ?? [];
     const aliasCodes = uniqueStrings(course.aliases.map((alias) => normalizeCourseCode(alias.code)));
     const sourceRefs = uniqueSourceRefs([
       ...course.sourceRefs,
       ...course.aliases.flatMap((alias) => alias.sourceRefs ?? []),
       ...offerings.flatMap((offering) => offering.sourceRefs),
+      ...manualListings.flatMap((listing) => listing.sourceRefs),
       ...facets.flatMap((facet) => facet.sourceRefs),
     ]);
-    const compactOfferings = offerings.map((offering) => ({
-      offeringId: offering.offeringId,
-      courseCode: offering.courseCode,
-      term: offering.term,
-      section: offering.section,
-      department: offering.department,
-      category: offering.category,
-      program: offering.program,
-    }));
+    const compactOfferings = compactOfferingsBySchedule(offerings);
     const compactFacets = facets.map((facet) => ({
       feature: facet.feature,
       category: facet.category,
       classification: facet.classification,
       programCode: facet.programCode,
     }));
+    const compactManualListings = manualListings.map((listing) => ({
+      id: listing.id,
+      courseCode: listing.courseCode,
+      academicYear: listing.academicYear,
+      titleKo: listing.titleKo,
+      credits: listing.credits,
+      lectureHours: listing.lectureHours,
+      labHours: listing.labHours,
+      departments: listing.departments,
+      page: listing.page,
+    }));
     const departments = uniqueStrings([
       ...course.departments,
       ...offerings.map((offering) => offering.department ?? ''),
+      ...manualListings.flatMap((listing) => listing.departments),
     ]);
     const tags = uniqueStrings([
       ...course.tags,
@@ -137,6 +208,7 @@ export function createCourseCatalogSearchItems(
       ...aliasCodes,
       ...departments,
       ...tags,
+      ...manualListings.map((listing) => String(listing.academicYear)),
       ...facets.map((facet) => facet.programCode ?? ''),
     ].join(' '));
 
@@ -156,6 +228,7 @@ export function createCourseCatalogSearchItems(
       description: course.description ?? '',
       sourceRefs,
       offerings: compactOfferings,
+      manualListings: compactManualListings,
       facets: compactFacets,
       matchText,
     };

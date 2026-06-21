@@ -41,6 +41,20 @@ export function timetableSourceRef(path: string): CourseCatalogSourceRef {
   };
 }
 
+export function manualListingSourceRef(options: {
+  academicYear: number;
+  path: string;
+  page?: number;
+}): CourseCatalogSourceRef {
+  return {
+    kind: 'manual',
+    sourceId: `${options.academicYear}:${options.path}${options.page ? `:p${options.page}` : ''}`,
+    path: options.path,
+    manualYear: options.academicYear,
+    page: options.page,
+  };
+}
+
 export function minorCatalogSourceRef(minorCode: string): CourseCatalogSourceRef {
   return {
     kind: 'minor-catalog',

@@ -6,8 +6,9 @@
 
 | 원천 | 현재 사용처 | 규모 | 주요 필드 | 현재 문제 |
 | --- | --- | ---: | --- | --- |
-| `DB/course_db.csv` + `lib/const/course-db.ts` | catalog legacy adapter, 로드맵 상세 보조 데이터 | 636 rows | `course_uid`, `primary_course_code`, `alias_course_codes`, `display_title_ko/en`, `credit_hours`, `offered_2025_1/2`, `source_page_first_seen` | 2025 개설 플래그 보존용 legacy metadata로 사용. `/api/courses`는 catalog snapshot을 기준으로 하되 기존 `CourseDB` shape를 유지함 |
-| `lib/const/course-master.ts` | 졸업요건 추천, fine-grained recommendation map | TS 상수 기반 | `courseCode`, `courseNameKo`, `credits`, `level`, `department`, `isOffered` | 추천 전용으로 중복 관리됨. `course_db.csv`, 시간표, 로드맵과 코드/명칭 drift 가능 |
+| `DB/course_db.csv` + `lib/const/course-db.ts` | catalog legacy adapter, 로드맵 상세 보조 데이터, 기존 개설 이력 | 636 rows | `course_uid`, `primary_course_code`, `alias_course_codes`, `display_title_ko/en`, `credit_hours`, `offered_YYYY_S`, `source_page_first_seen` | `offered_YYYY_S` 컬럼은 `historicalOfferings`로 자동 수집한다. 학사편람 수록 이력은 PDF 추출 snapshot을 별도 원천으로 사용한다 |
+| `docs/bachelor_manual/2020_manual.pdf`...`2026_manual.pdf` + `features/course-catalog/generated/manual-listings.extracted.json` | 학사편람 수록 이력 | extracted 3823 raw entries / catalog 3333 listings | `academicYear`, `sourcePath`, `extractionMethod`, `courseCode`, `page`, `credits` | 2021/2022 PDF는 텍스트 레이어가 부족해 OCR fallback으로 추출한다. 2020/2023 일부 PDF는 한 PDF 페이지에 인쇄본 두 쪽이 들어 있어 `page`는 PDF 물리 페이지 기준으로 기록한다 |
+| `lib/const/course-master.ts` | catalog recommendation facet ingestion | TS 상수 기반 | `courseCode`, `courseNameKo`, `credits`, `level`, `department`, `isOffered` | 런타임 졸업 추천은 generated `CourseCatalog`의 requirement-level recommendation facet를 조회한다. 이 파일은 snapshot 빌드 입력 원천으로 남아 있다 |
 | `DB/minor/*.json` + `lib/const/minor-courses.ts` | 부전공 추천 후보 | 18 files / raw 617 entries / loader 648 facets | `courseCode`, `courseName`, `credits`, `category`, `classification` | 부전공 분류는 풍부하지만 canonical course id나 alias 관계가 없음. 현재 loader는 `SE -> eecs` 매핑을 별도 부전공 코드로 재사용함 |
 | `DB/timetable/2026_spring_course_info.normalized.json` | `/dashboard/timetable` static props, 시간표 conflict/store | 459 sections / 306 unique courses | `course_code`, `section`, `title`, `category`, `program`, `hours`, `meetings`, `capacity`, `instructors` | offering/section 정보는 가장 풍부하지만 term-specific이고 졸업요건/로드맵 과목 identity와 분리됨 |
 | `DB/roadmap/presets/*.json` | `/api/roadmap/[slug]`, 로드맵 화면 | 28 presets / 1101 nodes / 485 unique course codes / 324 nodes without `courseCode` | React Flow `nodes`, `edges`, node `label`, `credits`, `category`, `semester`, optional `courseCode` | 노드 payload가 과목 정보를 복제함. 일부 노드는 courseCode가 없고, `GS(EB)2739` 같은 composite code가 존재 |
@@ -28,6 +29,8 @@
 
 - `CourseCatalogCourse`: 강의 identity. `courseId`, `primaryCode`, alias, 한/영명, 학점, 학과, 태그, 설명, lifecycle, sourceRefs.
 - `CourseCatalogOffering`: 특정 학기/분반. `courseId`, `term`, `section`, 시간/강의실/교원/정원/언어.
+- `CourseCatalogHistoricalOffering`: 구조화된 원천에서 확인된 과거 개설 이력. 현재는 `course_db.csv.offered_YYYY_S` 컬럼에서 생성한다.
+- `CourseCatalogManualListing`: 학사편람 연도별 수록 이력. 현재는 PDF에서 추출한 `manual-listings.extracted.json`의 연도/source/page를 연결한다.
 - `CourseCatalogRequirementFacet`: 졸업요건, 부전공, 추천, 로드맵에서 쓰는 기능별 분류. canonical course에 붙는 feature-specific tag.
 - `CourseCatalogSourceRef`: CSV, 학사편람, timetable JSON, roadmap preset 등 원천 provenance.
 
@@ -42,12 +45,16 @@
 | courses | 994 |
 | aliases | 1128 |
 | offerings | 459 |
-| requirement facets | 1570 |
+| historical offerings | 374 |
+| manual listings | 3333 |
+| requirement facets | 1633 |
 | relationships | 11 |
 | synthetic courses | 380 |
 | roadmap nodes without `courseCode` | 324 |
 
-기능별 facet 수는 `minor: 648`, `recommendation: 148`, `roadmap: 774`이다. 로드맵 raw node 중 `courseCode`가 있는 노드는 777개지만, 동일 preset/node/course 조합 dedupe 이후 snapshot facet은 774개다.
+기능별 facet 수는 `minor: 648`, `recommendation: 211`, `roadmap: 774`이다. Recommendation facet은 `requirementId`/`programCode`/`sortOrder`를 포함해 졸업 추천 런타임이 `course-master.ts`를 직접 읽지 않고도 세부 요건별 후보를 복원할 수 있다. 로드맵 raw node 중 `courseCode`가 있는 노드는 777개지만, 동일 preset/node/course 조합 dedupe 이후 snapshot facet은 774개다.
+
+현재 `historicalOfferings`는 `2025: 374`, `manualListings`는 `2020: 387`, `2021: 297`, `2022: 267`, `2023: 521`, `2024: 544`, `2025: 655`, `2026: 662`를 기준선으로 검증한다. 2027년 이후 학사편람이나 개설 플래그가 추가되면 `offered_2027_1`, `offered_2027_2` 같은 컬럼은 parser가 자동으로 이력화하고, 학사편람 수록 source는 `scripts/course-catalog/extract-manual-listings.ts`의 `MANUAL_SOURCES`에 연도/sourcePath를 추가한 뒤 `yarn course-catalog:extract-manual-listings`로 추출 snapshot을 갱신한다.
 
 ## Source of Truth 제안
 
@@ -76,7 +83,7 @@
 
 우선순위:
 
-1. 졸업 추천: `course-master.ts` 직접 참조를 catalog adapter로 대체.
+1. 졸업 추천: `course-master.ts` 직접 참조를 catalog adapter로 대체 완료.
 2. 시간표: `SectionOffering` 생성 전에 `CourseCatalogOffering`을 거치게 변경.
 3. 로드맵: preset node의 `courseCode`를 canonical lookup으로 enrich하고, courseCode 없는 노드는 report로 분리.
 4. `/api/courses/search`: catalog search로 대체 완료.
