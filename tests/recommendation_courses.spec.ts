@@ -1,14 +1,18 @@
-import { getMajorRecommendationCoursesByCode } from '../lib/const/course-master';
+import { createCourseCatalogRecommendationIndex } from '../features/course-catalog/recommendations';
 
-describe('major recommendation course data', () => {
+describe('catalog-backed major recommendation course data', () => {
+  const recommendationIndex = createCourseCatalogRecommendationIndex();
+
   it('returns major-specific recommendations when data exists', () => {
-    expect(getMajorRecommendationCoursesByCode('EC').map((course) => course.courseCode)).toContain('EC2202');
-    expect(getMajorRecommendationCoursesByCode('AI').map((course) => course.courseCode)).toContain('AI2050');
+    expect(recommendationIndex.getMajorRecommendationCourses('EC').map((course) => course.courseCode))
+      .toContain('EC2202');
+    expect(recommendationIndex.getMajorRecommendationCourses('AI').map((course) => course.courseCode))
+      .toContain('AI2050');
   });
 
   it('does not fall back to EC recommendations for majors without recommendation data', () => {
-    expect(getMajorRecommendationCoursesByCode('FE')).toEqual([]);
-    expect(getMajorRecommendationCoursesByCode('SE')).toEqual([]);
-    expect(getMajorRecommendationCoursesByCode('PS')).toEqual([]);
+    expect(recommendationIndex.getMajorRecommendationCourses('FE')).toEqual([]);
+    expect(recommendationIndex.getMajorRecommendationCourses('SE')).toEqual([]);
+    expect(recommendationIndex.getMajorRecommendationCourses('PS')).toEqual([]);
   });
 });

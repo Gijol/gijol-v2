@@ -1,25 +1,9 @@
 import {
-  BIOLOGY_COURSES,
-  CALCULUS_COURSES,
-  CHEMISTRY_COURSES,
-  COLLOQUIUM_COURSES,
-  CORE_MATH_COURSES,
-  ENGLISH_I_COURSES,
-  ENGLISH_II_COURSES,
-  EXPLORATION_COURSES,
-  FRESHMAN_COURSES,
-  HUS_COURSES,
-  MATH_COURSES,
-  PHYSICS_COURSES,
-  PPE_COURSES,
-  SCIENCE_ECONOMY_COURSES,
-  SOFTWARE_COURSES,
-  WRITING_COURSES,
-  getMajorRecommendationCoursesByCode,
-  getOfferedCourses,
-  type CourseMaster,
-} from '../../../lib/const/course-master';
-import { getMinorRecommendations } from '../../../lib/const/minor-courses';
+  createCourseCatalogRecommendationIndex,
+  type CatalogRecommendationCourse,
+  type CourseCatalogRecommendationIndex,
+} from '@features/course-catalog/recommendations';
+import type { CourseCatalogSnapshot } from '@features/course-catalog/types';
 import { resolveMajorCode } from '../domain/academic-context';
 
 interface CourseCodeLike {
@@ -94,6 +78,7 @@ export interface BuildGraduationRecommendationsInput {
   userMinors?: readonly string[] | null;
   takenCourses?: readonly CourseCodeLike[];
   policy?: RecommendationDisplayPolicy;
+  courseCatalogSnapshot?: CourseCatalogSnapshot;
 }
 
 export const DEFAULT_RECOMMENDATION_DISPLAY_POLICY: Required<RecommendationDisplayPolicy> = {
@@ -103,29 +88,6 @@ export const DEFAULT_RECOMMENDATION_DISPLAY_POLICY: Required<RecommendationDispl
   maxPerBroadRequirement: 3,
   maxPerMajorRequirement: 6,
   maxPerMinorRequirement: 6,
-};
-
-const FINE_GRAINED_COURSE_MAP: Record<string, CourseMaster[]> = {
-  'language-english-i': getOfferedCourses(ENGLISH_I_COURSES),
-  'language-english-ii': getOfferedCourses(ENGLISH_II_COURSES),
-  'language-writing': getOfferedCourses(WRITING_COURSES),
-  'science-calculus': getOfferedCourses(CALCULUS_COURSES),
-  'science-core-math': getOfferedCourses(CORE_MATH_COURSES),
-  'science-sw-basic': getOfferedCourses(SOFTWARE_COURSES),
-  'science-total': getOfferedCourses([
-    ...MATH_COURSES,
-    ...PHYSICS_COURSES,
-    ...CHEMISTRY_COURSES,
-    ...BIOLOGY_COURSES,
-    ...SOFTWARE_COURSES,
-  ]),
-  'humanities-hus': getOfferedCourses(HUS_COURSES),
-  'humanities-ppe': getOfferedCourses(PPE_COURSES),
-  'humanities-total': getOfferedCourses([...HUS_COURSES, ...PPE_COURSES]),
-  'etc-freshman': getOfferedCourses(FRESHMAN_COURSES),
-  'etc-major-exploration': getOfferedCourses(EXPLORATION_COURSES),
-  'etc-colloquium': getOfferedCourses(COLLOQUIUM_COURSES),
-  'etc-science-economy': getOfferedCourses(SCIENCE_ECONOMY_COURSES),
 };
 
 interface RecommendationCandidate {
@@ -164,42 +126,29 @@ function collectTakenCourseCodes(input: BuildGraduationRecommendationsInput): Se
 }
 
 function toRecommendationItem(
-  course: CourseMaster,
+  course: CatalogRecommendationCourse,
   requirement: RequirementLike,
 ): RecommendationItem {
   return {
     courseCode: course.courseCode,
-    courseName: course.courseNameKo,
-    credit: course.credits,
+    courseName: course.courseName,
+    credit: course.credit,
     reason: requirement.label ?? requirement.id,
     categoryKey: requirement.categoryKey,
     requirementId: requirement.id,
   };
 }
 
-function excludeCourseCodes(courses: CourseMaster[], excludedCourseGroups: CourseMaster[][]): CourseMaster[] {
-  const excludedCodes = new Set(
-    excludedCourseGroups.flatMap((group) => group.map((course) => normalizeCourseCode(course.courseCode))),
-  );
-
-  return courses.filter((course) => !excludedCodes.has(normalizeCourseCode(course.courseCode)));
-}
-
-function getFineGrainedCourses(requirement: RequirementLike, satisfiedRequirementIds: ReadonlySet<string>): CourseMaster[] {
-  if (requirement.id === 'science-total') {
-    return excludeCourseCodes(
-      getOfferedCourses([
-        ...MATH_COURSES,
-        ...PHYSICS_COURSES,
-        ...CHEMISTRY_COURSES,
-        ...BIOLOGY_COURSES,
-        ...SOFTWARE_COURSES,
-      ]),
-      satisfiedRequirementIds.has('science-calculus') ? [CALCULUS_COURSES] : [],
-    );
-  }
-
-  return FINE_GRAINED_COURSE_MAP[requirement.id] ?? [];
+function getFineGrainedCourses(
+  requirement: RequirementLike,
+  satisfiedRequirementIds: ReadonlySet<string>,
+  courseCatalogIndex: CourseCatalogRecommendationIndex,
+): CatalogRecommendationCourse[] {
+  return courseCatalogIndex.getRecommendationCoursesForRequirement(requirement.id, {
+    excludeRequirementIds: requirement.id === 'science-total' && satisfiedRequirementIds.has('science-calculus')
+      ? ['science-calculus']
+      : [],
+  });
 }
 
 function getMinorCodeFromRequirement(requirementId: string): string | undefined {
@@ -213,35 +162,22 @@ function getMinorCodeFromRequirement(requirementId: string): string | undefined 
 function getCoursesForRequirement(
   requirement: RequirementLike,
   input: BuildGraduationRecommendationsInput,
-  takenCourseCodes: Set<string>,
   satisfiedRequirementIds: ReadonlySet<string>,
-): RecommendationItem[] {
+  courseCatalogIndex: CourseCatalogRecommendationIndex,
+): CatalogRecommendationCourse[] {
   if (requirement.categoryKey === 'major' && requirement.id === 'major-credits') {
     const majorResolution = resolveMajorCode(input.userMajor);
-    return getMajorRecommendationCoursesByCode(majorResolution.code).map((course) =>
-      toRecommendationItem(course, requirement),
-    );
+    return courseCatalogIndex.getMajorRecommendationCourses(majorResolution.code);
   }
 
   if (requirement.categoryKey === 'minor') {
     const minorCode = getMinorCodeFromRequirement(requirement.id);
     const minorCodes = minorCode ? [minorCode] : [...(input.userMinors ?? [])];
 
-    return minorCodes.flatMap((code) =>
-      getMinorRecommendations(code, takenCourseCodes).map((course) => ({
-        courseCode: course.courseCode,
-        courseName: course.courseName,
-        credit: course.credit,
-        reason: requirement.label ?? requirement.id,
-        categoryKey: requirement.categoryKey,
-        requirementId: requirement.id,
-      })),
-    );
+    return minorCodes.flatMap((code) => courseCatalogIndex.getMinorRecommendationCourses(code));
   }
 
-  return getFineGrainedCourses(requirement, satisfiedRequirementIds).map((course) =>
-    toRecommendationItem(course, requirement),
-  );
+  return getFineGrainedCourses(requirement, satisfiedRequirementIds, courseCatalogIndex);
 }
 
 function isRecommendationEligible(requirement: RequirementLike): boolean {
@@ -406,6 +342,7 @@ function groupByCategoryKey(recommendations: RecommendationItem[]): Record<strin
 export function buildGraduationRecommendationGroups(
   input: BuildGraduationRecommendationsInput,
 ): GraduationRecommendationGroups {
+  const courseCatalogIndex = createCourseCatalogRecommendationIndex(input.courseCatalogSnapshot);
   const takenCourseCodes = collectTakenCourseCodes(input);
   const policy = resolveDisplayPolicy(input.policy);
   const suppressionMap = new Map<string, RecommendationSuppression>();
@@ -433,11 +370,13 @@ export function buildGraduationRecommendationGroups(
       return;
     }
 
-    getCoursesForRequirement(requirement, input, takenCourseCodes, satisfiedRequirementIds).forEach((recommendation) => {
+    getCoursesForRequirement(requirement, input, satisfiedRequirementIds, courseCatalogIndex).forEach((course) => {
+      const recommendation = toRecommendationItem(course, requirement);
       const code = normalizeCourseCode(recommendation.courseCode);
-      if (!code || takenCourseCodes.has(code) || seen.has(code)) return;
+      const seenKey = course.courseId || code;
+      if (!code || courseCatalogIndex.isCourseTaken(course, takenCourseCodes) || seen.has(seenKey)) return;
 
-      seen.add(code);
+      seen.add(seenKey);
       candidates.push({
         recommendation,
         requirement,
