@@ -4,7 +4,10 @@ import type { MinorCourseInfo } from '@/lib/const/minor-courses';
 import type { RoadmapData } from '@/lib/types/roadmap';
 import type { SectionOffering } from '@/lib/types/timetable';
 import type { CourseEquivalency } from '@features/graduation/domain';
-import { buildHistoricalOfferingsFromCourseDb } from './adapters/course-history';
+import {
+  buildHistoricalOfferingsFromCourseDb,
+  buildHistoricalOfferingsFromTimetable,
+} from './adapters/course-history';
 import { buildCoursesFromCourseDb } from './adapters/course-db';
 import { buildRelationshipsFromCourseEquivalencies } from './adapters/equivalencies';
 import {
@@ -42,9 +45,11 @@ type CourseLifecycleStatus = NonNullable<CourseCatalogCourse['lifecycle']>['stat
 
 export interface CourseCatalogBuildInput {
   courseDbRows: readonly CourseDB[];
-  timetableSections: readonly SectionOffering[];
-  timetableTerm: string;
-  timetableSourcePath: string;
+  timetableSources: readonly {
+    sections: readonly SectionOffering[];
+    term: string;
+    sourcePath: string;
+  }[];
   manualListingSources?: readonly CourseManualListingSource[];
   minorCoursesByCode: Readonly<Record<string, readonly MinorCourseInfo[]>>;
   roadmapPresets: Readonly<Record<string, RoadmapData>>;
@@ -348,11 +353,17 @@ function uniqueHistoricalOfferings(
   historicalOfferings: readonly CourseCatalogHistoricalOffering[],
 ): CourseCatalogHistoricalOffering[] {
   const byId = new Map<string, CourseCatalogHistoricalOffering>();
-  historicalOfferings.forEach((offering) => byId.set(offering.id, {
-    ...offering,
-    courseCode: normalizeCourseCode(offering.courseCode),
-    sourceRefs: uniqueSourceRefs(offering.sourceRefs),
-  }));
+  historicalOfferings.forEach((offering) => {
+    const existing = byId.get(offering.id);
+    byId.set(offering.id, {
+      ...(existing ?? offering),
+      sourceLabel: existing && existing.sourceLabel !== offering.sourceLabel
+        ? `${existing.sourceLabel}; ${offering.sourceLabel}`
+        : offering.sourceLabel,
+      courseCode: normalizeCourseCode(offering.courseCode),
+      sourceRefs: uniqueSourceRefs([...(existing?.sourceRefs ?? []), ...offering.sourceRefs]),
+    });
+  });
   return Array.from(byId.values()).sort((a, b) => a.id.localeCompare(b.id));
 }
 
@@ -384,7 +395,8 @@ export function buildCourseCatalogSnapshot(input: CourseCatalogBuildInput): Cour
   const accumulator = new CourseAccumulator();
 
   addCourseDbRows(accumulator, input.courseDbRows);
-  addTimetableObservedCourses(accumulator, input.timetableSections, input.timetableSourcePath);
+  input.timetableSources.forEach((source) =>
+    addTimetableObservedCourses(accumulator, source.sections, source.sourcePath));
   addMinorObservedCourses(accumulator, input.minorCoursesByCode);
   addRoadmapObservedCourses(accumulator, input.roadmapPresets);
   addRecommendationObservedCourses(
@@ -399,14 +411,18 @@ export function buildCourseCatalogSnapshot(input: CourseCatalogBuildInput): Cour
     ...roadmapExtraction.facets,
   ]);
   const offerings = uniqueOfferings(
-    buildOfferingsFromTimetable(input.timetableSections, {
-      term: input.timetableTerm,
-      sourcePath: input.timetableSourcePath,
-      resolveCourseId: accumulator.resolveCourseId,
-    }),
+    input.timetableSources.flatMap((source) =>
+      buildOfferingsFromTimetable(source.sections, {
+        term: source.term,
+        sourcePath: source.sourcePath,
+        resolveCourseId: accumulator.resolveCourseId,
+      })),
   );
   const historicalOfferings = uniqueHistoricalOfferings(
-    buildHistoricalOfferingsFromCourseDb(input.courseDbRows, accumulator.resolveCourseId),
+    [
+      ...buildHistoricalOfferingsFromCourseDb(input.courseDbRows, accumulator.resolveCourseId),
+      ...buildHistoricalOfferingsFromTimetable(input.timetableSources, accumulator.resolveCourseId),
+    ],
   );
   const manualListingCatalogCourses = accumulator.getCourses();
   const manualListingSources = input.manualListingSources ?? [];

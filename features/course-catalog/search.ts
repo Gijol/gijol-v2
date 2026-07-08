@@ -8,6 +8,7 @@ import type {
   CourseCatalogSourceKind,
   CourseCatalogSourceRef,
 } from './types';
+import { buildCourseOfferingGroups, type CourseOfferingGroup } from './offering-view';
 import { normalizeCourseCode, uniqueSourceRefs, uniqueStrings } from './normalize';
 
 export interface CourseCatalogSearchItem {
@@ -36,6 +37,7 @@ export interface CourseCatalogSearchItem {
     meetings: CourseCatalogOffering['meetings'];
     equivalentCourseCodes: readonly string[];
   }[];
+  offeringGroups: readonly CourseOfferingGroup[];
   manualListings: readonly {
     id: string;
     courseCode: string;
@@ -60,6 +62,7 @@ export interface CourseCatalogSearchFilters {
   query?: string;
   category?: 'all' | 'mandatory' | 'humanities' | 'science' | 'major' | 'offered';
   departments?: readonly string[];
+  terms?: readonly string[];
   level?: number | 'other' | 'all';
   credit?: number | '4+' | 'all';
   offeredOnly?: boolean;
@@ -173,6 +176,7 @@ export function createCourseCatalogSearchItems(
       ...facets.flatMap((facet) => facet.sourceRefs),
     ]);
     const compactOfferings = compactOfferingsBySchedule(offerings);
+    const offeringGroups = buildCourseOfferingGroups(offerings);
     const compactFacets = facets.map((facet) => ({
       feature: facet.feature,
       category: facet.category,
@@ -228,6 +232,7 @@ export function createCourseCatalogSearchItems(
       description: course.description ?? '',
       sourceRefs,
       offerings: compactOfferings,
+      offeringGroups,
       manualListings: compactManualListings,
       facets: compactFacets,
       matchText,
@@ -248,6 +253,11 @@ export function filterCourseCatalogSearchItems(
         filters.departments?.some((selected) => department.includes(selected)));
       if (!matchesDepartment) return false;
     }
+    if (filters.terms?.length) {
+      const matchesTerm = item.offeringGroups.some((offeringGroup) =>
+        filters.terms?.includes(offeringGroup.term));
+      if (!matchesTerm) return false;
+    }
     if (filters.level && filters.level !== 'all') {
       if (filters.level === 'other') {
         if (item.level > 0 && item.level < 5000) return false;
@@ -262,7 +272,7 @@ export function filterCourseCatalogSearchItems(
         return false;
       }
     }
-    if (filters.offeredOnly && item.offerings.length === 0 && item.lifecycleStatus !== 'active') return false;
+    if (filters.offeredOnly && item.offeringGroups.length === 0 && item.lifecycleStatus !== 'active') return false;
     if (filters.labOnly && item.labHours <= 0) return false;
     if (filters.feature && filters.feature !== 'all') {
       if (!item.facets.some((facet) => facet.feature === filters.feature)) return false;
@@ -276,4 +286,8 @@ export function filterCourseCatalogSearchItems(
 
 export function getUniqueCatalogDepartments(items: readonly CourseCatalogSearchItem[]): string[] {
   return uniqueStrings(items.flatMap((item) => item.departments));
+}
+
+export function getUniqueCatalogOfferingTerms(items: readonly CourseCatalogSearchItem[]): string[] {
+  return uniqueStrings(items.flatMap((item) => item.offeringGroups.map((offeringGroup) => offeringGroup.term)));
 }

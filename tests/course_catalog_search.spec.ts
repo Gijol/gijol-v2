@@ -7,6 +7,22 @@ import {
   filterCourseCatalogSearchItems,
 } from '../features/course-catalog/search';
 
+const AVAILABLE_TERMS = [
+  '2020-1',
+  '2020-2',
+  '2021-1',
+  '2021-2',
+  '2022-1',
+  '2022-2',
+  '2023-1',
+  '2023-2',
+  '2024-1',
+  '2024-2',
+  '2025-1',
+  '2025-2',
+  '2026-1',
+];
+
 function createMockResponse() {
   const response = {
     statusCode: 200,
@@ -40,7 +56,7 @@ describe('course catalog search', () => {
           primaryCourseCode: 'HS4611',
           offerings: expect.arrayContaining([
             expect.objectContaining({
-              term: '2026-spring',
+              term: '2026-1',
               meetings: expect.arrayContaining([
                 expect.objectContaining({ day: 'MON', start: '16:00', end: '17:30' }),
                 expect.objectContaining({ day: 'WED', start: '16:00', end: '17:30' }),
@@ -65,8 +81,9 @@ describe('course catalog search', () => {
       expect.arrayContaining([
         expect.objectContaining({
           primaryCourseCode: 'AI3001',
-          offerings: [
+          offerings: expect.arrayContaining([
             expect.objectContaining({
+              term: '2026-1',
               section: '01',
               equivalentCourseCodes: ['AI3001', 'EC3216', 'MM3450'],
               meetings: expect.arrayContaining([
@@ -74,7 +91,23 @@ describe('course catalog search', () => {
                 expect.objectContaining({ day: 'WED', start: '13:00', end: '14:30' }),
               ]),
             }),
-          ],
+          ]),
+          offeringGroups: expect.arrayContaining([
+            expect.objectContaining({
+              term: '2026-1',
+              section: '01',
+              courseCodes: ['AI3001', 'EC3216', 'MM3450'],
+              sections: expect.arrayContaining([
+                expect.objectContaining({ courseCode: 'AI3001', section: '01' }),
+                expect.objectContaining({ courseCode: 'EC3216', section: '01' }),
+                expect.objectContaining({ courseCode: 'MM3450', section: '01' }),
+              ]),
+              meetingBadges: expect.arrayContaining([
+                expect.objectContaining({ label: '월 13:00', start: '13:00', end: '14:30' }),
+                expect.objectContaining({ label: '수 13:00', start: '13:00', end: '14:30' }),
+              ]),
+            }),
+          ]),
         }),
       ]),
     );
@@ -82,6 +115,12 @@ describe('course catalog search', () => {
       expect.arrayContaining([
         expect.objectContaining({
           primaryCourseCode: 'AI2004',
+          offeringGroups: expect.arrayContaining([
+            expect.objectContaining({
+              term: '2025-1',
+              courseCodes: ['AI2004', 'EC3215'],
+            }),
+          ]),
           manualListings: expect.arrayContaining([
             expect.objectContaining({
               academicYear: 2025,
@@ -98,10 +137,28 @@ describe('course catalog search', () => {
         }),
       ]),
     );
+    expect(filterCourseCatalogSearchItems(items, { query: 'HS4611', terms: ['2026-1'] })).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          primaryCourseCode: 'HS4611',
+        }),
+      ]),
+    );
+    expect(filterCourseCatalogSearchItems(items, { query: 'AI2004', terms: ['2026-1'] })).toEqual([]);
     expect(filterCourseCatalogSearchItems(items, { query: 'HS4611' })).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           primaryCourseCode: 'HS4611',
+          offeringGroups: expect.arrayContaining([
+            expect.objectContaining({
+              term: '2026-1',
+              courseCodes: ['HS4611'],
+              meetingBadges: expect.arrayContaining([
+                expect.objectContaining({ label: '월 16:00' }),
+                expect.objectContaining({ label: '수 16:00' }),
+              ]),
+            }),
+          ]),
           manualListings: expect.arrayContaining([
             expect.objectContaining({
               academicYear: 2025,
@@ -158,10 +215,29 @@ describe('course catalog search', () => {
             courseName: expect.any(String),
             creditHours: expect.any(Number),
             offerings: expect.arrayContaining([
-              expect.objectContaining({ term: '2026-spring' }),
+              expect.objectContaining({ term: '2026-1' }),
             ]),
           }),
         ]),
+        availableTerms: AVAILABLE_TERMS,
+      }),
+    );
+  });
+
+  it('filters the course search API by timetable term', () => {
+    const req = {
+      query: { q: 'AI2004', term: '2026-1', limit: '5' },
+    } as unknown as NextApiRequest;
+    const res = createMockResponse();
+
+    searchHandler(req, res);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(
+      expect.objectContaining({
+        totalElements: 0,
+        content: [],
+        availableTerms: AVAILABLE_TERMS,
       }),
     );
   });

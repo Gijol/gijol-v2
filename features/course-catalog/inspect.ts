@@ -1,5 +1,6 @@
 import { sourceRefKey } from './normalize';
-import type { CourseCatalogSnapshot } from './types';
+import { buildCourseOfferingGroups, formatMeetingFull } from './offering-view';
+import type { CourseCatalogCourse, CourseCatalogOffering, CourseCatalogSnapshot } from './types';
 
 export interface CourseCatalogInspection {
   schemaVersion: 2;
@@ -24,8 +25,126 @@ function increment(record: Record<string, number>, key: string): void {
   record[key] = (record[key] ?? 0) + 1;
 }
 
-function sortedRecord(record: Record<string, number>): Readonly<Record<string, number>> {
+function sortedRecord<T>(record: Record<string, T>): Readonly<Record<string, T>> {
   return Object.freeze(Object.fromEntries(Object.entries(record).sort(([a], [b]) => a.localeCompare(b))));
+}
+
+function sample<T>(values: readonly T[], limit = 10): readonly T[] {
+  return values.slice(0, limit);
+}
+
+interface CourseQualitySample {
+  courseId: string;
+  primaryCode: string;
+  titleKo: string;
+}
+
+interface OfferingQualitySample {
+  offeringId: string;
+  courseCode: string;
+  term: string;
+  section: string;
+  title: string;
+}
+
+interface MeetingQualitySample extends OfferingQualitySample {
+  meeting: string;
+}
+
+interface OfferingGroupQualitySample {
+  offeringGroupId: string;
+  term: string;
+  courseCodes: readonly string[];
+  sections: readonly string[];
+  departments: readonly string[];
+}
+
+interface CourseCatalogTermQuality {
+  offerings: number;
+  offeringsWithoutMeetings: number;
+  meetings: number;
+  meetingsWithoutRoom: number;
+  offeringsWithCapacityZero: number;
+  instructors: number;
+  instructorsWithoutStaffId: number;
+  offeringGroups: number;
+  multiCodeOfferingGroups: number;
+  offeringGroupsWithMultipleDepartments: number;
+  offeringGroupsWithMultipleSections: number;
+}
+
+export interface CourseCatalogQualityInspection {
+  totals: {
+    offeringsWithoutMeetings: number;
+    meetingsWithoutRoom: number;
+    offeringsWithCapacityZero: number;
+    instructorsWithoutStaffId: number;
+    offeringGroups: number;
+    multiCodeOfferingGroups: number;
+    offeringGroupsWithMultipleDepartments: number;
+    offeringGroupsWithMultipleSections: number;
+    manualListedCoursesWithoutOffering: number;
+    offeredCoursesWithoutManualListing: number;
+  };
+  byTerm: Readonly<Record<string, CourseCatalogTermQuality>>;
+  samples: {
+    offeringsWithoutMeetings: readonly OfferingQualitySample[];
+    meetingsWithoutRoom: readonly MeetingQualitySample[];
+    offeringsWithCapacityZero: readonly OfferingQualitySample[];
+    instructorsWithoutStaffId: readonly OfferingQualitySample[];
+    multiCodeOfferingGroups: readonly OfferingGroupQualitySample[];
+    offeringGroupsWithMultipleDepartments: readonly OfferingGroupQualitySample[];
+    offeringGroupsWithMultipleSections: readonly OfferingGroupQualitySample[];
+    manualListedCoursesWithoutOffering: readonly CourseQualitySample[];
+    offeredCoursesWithoutManualListing: readonly CourseQualitySample[];
+  };
+}
+
+function ensureTermQuality(
+  record: Record<string, CourseCatalogTermQuality>,
+  term: string,
+): CourseCatalogTermQuality {
+  record[term] ??= {
+    offerings: 0,
+    offeringsWithoutMeetings: 0,
+    meetings: 0,
+    meetingsWithoutRoom: 0,
+    offeringsWithCapacityZero: 0,
+    instructors: 0,
+    instructorsWithoutStaffId: 0,
+    offeringGroups: 0,
+    multiCodeOfferingGroups: 0,
+    offeringGroupsWithMultipleDepartments: 0,
+    offeringGroupsWithMultipleSections: 0,
+  };
+
+  return record[term];
+}
+
+function courseSample(course: CourseCatalogCourse): CourseQualitySample {
+  return {
+    courseId: course.courseId,
+    primaryCode: course.primaryCode,
+    titleKo: course.titleKo,
+  };
+}
+
+function offeringSample(offering: CourseCatalogOffering): OfferingQualitySample {
+  return {
+    offeringId: offering.offeringId,
+    courseCode: offering.courseCode,
+    term: offering.term,
+    section: offering.section,
+    title: offering.title,
+  };
+}
+
+function sortedOfferings(offerings: readonly CourseCatalogOffering[]): CourseCatalogOffering[] {
+  return [...offerings].sort((a, b) => a.offeringId.localeCompare(b.offeringId));
+}
+
+function sortedCourses(courses: readonly CourseCatalogCourse[]): CourseCatalogCourse[] {
+  return [...courses].sort((a, b) => a.primaryCode.localeCompare(b.primaryCode) || a.courseId.localeCompare(b.courseId));
 }
 
 export function inspectCourseCatalogSnapshot(snapshot: CourseCatalogSnapshot): CourseCatalogInspection {
@@ -65,6 +184,107 @@ export function inspectCourseCatalogSnapshot(snapshot: CourseCatalogSnapshot): C
     manualListingsByAcademicYear: sortedRecord(manualListingsByAcademicYear),
     facetsByFeature: sortedRecord(facetsByFeature),
     relationshipsByRelation: sortedRecord(relationshipsByRelation),
+  };
+}
+
+export function inspectCourseCatalogQuality(snapshot: CourseCatalogSnapshot): CourseCatalogQualityInspection {
+  const offeringsByTerm = new Map<string, CourseCatalogOffering[]>();
+  const byTerm: Record<string, CourseCatalogTermQuality> = {};
+
+  snapshot.offerings.forEach((offering) => {
+    offeringsByTerm.set(offering.term, [...(offeringsByTerm.get(offering.term) ?? []), offering]);
+    const termQuality = ensureTermQuality(byTerm, offering.term);
+    termQuality.offerings += 1;
+    termQuality.meetings += offering.meetings.length;
+    termQuality.meetingsWithoutRoom += offering.meetings.filter((meeting) => !meeting.room).length;
+    termQuality.instructors += offering.instructors.length;
+    termQuality.instructorsWithoutStaffId += offering.instructors.filter((instructor) => !instructor.staffId).length;
+    if (offering.meetings.length === 0) termQuality.offeringsWithoutMeetings += 1;
+    if (offering.capacity === 0) termQuality.offeringsWithCapacityZero += 1;
+  });
+
+  const offeringGroups = Array.from(offeringsByTerm.values()).flatMap((offerings) => buildCourseOfferingGroups(offerings));
+
+  offeringGroups.forEach((offeringGroup) => {
+    const termQuality = ensureTermQuality(byTerm, offeringGroup.term);
+    const uniqueSections = new Set(offeringGroup.sections.map((section) => section.section));
+    termQuality.offeringGroups += 1;
+    if (offeringGroup.courseCodes.length > 1) termQuality.multiCodeOfferingGroups += 1;
+    if (offeringGroup.departments.length > 1) termQuality.offeringGroupsWithMultipleDepartments += 1;
+    if (uniqueSections.size > 1) termQuality.offeringGroupsWithMultipleSections += 1;
+  });
+
+  const offeringCourseIds = new Set(snapshot.offerings.map((offering) => offering.courseId));
+  const manualListingCourseIds = new Set(snapshot.manualListings.map((listing) => listing.courseId));
+  const manualListedCoursesWithoutOffering = sortedCourses(
+    snapshot.courses.filter((course) => manualListingCourseIds.has(course.courseId) && !offeringCourseIds.has(course.courseId)),
+  );
+  const offeredCoursesWithoutManualListing = sortedCourses(
+    snapshot.courses.filter((course) => offeringCourseIds.has(course.courseId) && !manualListingCourseIds.has(course.courseId)),
+  );
+  const offeringsWithoutMeetings = sortedOfferings(
+    snapshot.offerings.filter((offering) => offering.meetings.length === 0),
+  );
+  const meetingsWithoutRoom = sortedOfferings(snapshot.offerings)
+    .flatMap((offering) =>
+      offering.meetings
+        .filter((meeting) => !meeting.room)
+        .map((meeting) => ({
+          ...offeringSample(offering),
+          meeting: formatMeetingFull(meeting),
+        })));
+  const offeringsWithCapacityZero = sortedOfferings(
+    snapshot.offerings.filter((offering) => offering.capacity === 0),
+  );
+  const instructorsWithoutStaffId = sortedOfferings(
+    snapshot.offerings.filter((offering) => offering.instructors.some((instructor) => !instructor.staffId)),
+  );
+  const instructorCountWithoutStaffId = snapshot.offerings.reduce(
+    (sum, offering) => sum + offering.instructors.filter((instructor) => !instructor.staffId).length,
+    0,
+  );
+  const groupSample = (group: typeof offeringGroups[number]): OfferingGroupQualitySample => ({
+    offeringGroupId: group.offeringGroupId,
+    term: group.term,
+    courseCodes: group.courseCodes,
+    sections: Array.from(new Set(group.sections.map((section) => section.section))).sort(),
+    departments: group.departments,
+  });
+  const multiCodeOfferingGroups = offeringGroups
+    .filter((offeringGroup) => offeringGroup.courseCodes.length > 1)
+    .map(groupSample);
+  const offeringGroupsWithMultipleDepartments = offeringGroups
+    .filter((offeringGroup) => offeringGroup.departments.length > 1)
+    .map(groupSample);
+  const offeringGroupsWithMultipleSections = offeringGroups
+    .filter((offeringGroup) => new Set(offeringGroup.sections.map((section) => section.section)).size > 1)
+    .map(groupSample);
+
+  return {
+    totals: {
+      offeringsWithoutMeetings: offeringsWithoutMeetings.length,
+      meetingsWithoutRoom: meetingsWithoutRoom.length,
+      offeringsWithCapacityZero: offeringsWithCapacityZero.length,
+      instructorsWithoutStaffId: instructorCountWithoutStaffId,
+      offeringGroups: offeringGroups.length,
+      multiCodeOfferingGroups: multiCodeOfferingGroups.length,
+      offeringGroupsWithMultipleDepartments: offeringGroupsWithMultipleDepartments.length,
+      offeringGroupsWithMultipleSections: offeringGroupsWithMultipleSections.length,
+      manualListedCoursesWithoutOffering: manualListedCoursesWithoutOffering.length,
+      offeredCoursesWithoutManualListing: offeredCoursesWithoutManualListing.length,
+    },
+    byTerm: sortedRecord(byTerm),
+    samples: {
+      offeringsWithoutMeetings: sample(offeringsWithoutMeetings.map(offeringSample)),
+      meetingsWithoutRoom: sample(meetingsWithoutRoom),
+      offeringsWithCapacityZero: sample(offeringsWithCapacityZero.map(offeringSample)),
+      instructorsWithoutStaffId: sample(instructorsWithoutStaffId.map(offeringSample)),
+      multiCodeOfferingGroups: sample(multiCodeOfferingGroups),
+      offeringGroupsWithMultipleDepartments: sample(offeringGroupsWithMultipleDepartments),
+      offeringGroupsWithMultipleSections: sample(offeringGroupsWithMultipleSections),
+      manualListedCoursesWithoutOffering: sample(manualListedCoursesWithoutOffering.map(courseSample)),
+      offeredCoursesWithoutManualListing: sample(offeredCoursesWithoutManualListing.map(courseSample)),
+    },
   };
 }
 

@@ -66,6 +66,9 @@ export interface CourseCatalogOffering {
   category?: string;
   subcategory?: string | null;
   program?: 'undergraduate' | 'graduate' | 'unknown';
+  credits?: number;
+  lectureHours?: number;
+  labHours?: number;
   capacity?: number;
   language?: string | null;
   meetings: readonly CourseCatalogMeeting[];

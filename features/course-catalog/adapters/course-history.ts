@@ -1,9 +1,10 @@
 import type { CourseDB } from '@const/course-db';
+import type { SectionOffering } from '@/lib/types/timetable';
 import type {
   CourseCatalogHistoricalOffering,
   CourseCatalogSourceRef,
 } from '../types';
-import { normalizeCourseCode } from '../normalize';
+import { normalizeCourseCode, timetableSourceRef } from '../normalize';
 
 function courseDbOfferedSourceRef(term: string): CourseCatalogSourceRef {
   return {
@@ -55,6 +56,35 @@ export function buildHistoricalOfferingsFromCourseDb(
     });
 
     return offerings;
+  });
+}
+
+export function buildHistoricalOfferingsFromTimetable(
+  sources: readonly {
+    sections: readonly SectionOffering[];
+    term: string;
+    sourcePath: string;
+  }[],
+  resolveCourseId: (courseCode: string) => string,
+): CourseCatalogHistoricalOffering[] {
+  return sources.flatMap((source) => {
+    const parsed = parseOfferedTerm(source.term);
+    if (!parsed) return [];
+
+    const courseCodes = Array.from(new Set(
+      source.sections.map((section) => normalizeCourseCode(section.course_code)).filter(Boolean),
+    )).sort();
+
+    return courseCodes.map((courseCode) => ({
+      id: `history:${source.term}:${courseCode}`,
+      courseId: resolveCourseId(courseCode),
+      courseCode,
+      academicYear: parsed.academicYear,
+      semester: parsed.semester,
+      term: source.term,
+      sourceLabel: '수강신청 시스템 개설강좌정보',
+      sourceRefs: [timetableSourceRef(source.sourcePath)],
+    }));
   });
 }
 

@@ -14,8 +14,11 @@ import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue';
 import {
   filterCourseCatalogSearchItems,
   getUniqueCatalogDepartments,
+  getUniqueCatalogOfferingTerms,
   type CourseCatalogSearchItem,
 } from '@features/course-catalog/search';
+import { formatCourseTerm } from '@features/course-catalog/offering-view';
+import { MeetingBadge, OfferingGroupCard } from '@features/course-catalog/components/OfferingGroupCard';
 import type { CourseCatalogRequirementFacet, CourseCatalogSourceKind } from '@features/course-catalog/types';
 
 // 학과별 배지 색상
@@ -65,107 +68,38 @@ const PILL_BADGE_CLASS = 'rounded-full px-2 py-0.5 text-xs font-medium';
 const OUTLINE_PILL_BADGE_CLASS = `${PILL_BADGE_CLASS} border-slate-200 bg-white text-slate-600`;
 const MONO_PILL_BADGE_CLASS = `${OUTLINE_PILL_BADGE_CLASS} font-mono`;
 
-type SearchOffering = CourseCatalogSearchItem['offerings'][number];
 type ScheduleBadge = {
   key: string;
   label: string;
   detail?: string;
+  room?: string | null;
   title: string;
 };
 type ManualListing = CourseCatalogSearchItem['manualListings'][number];
-
-function meetingKey(meeting: SearchOffering['meetings'][number]): string {
-  return [
-    meeting.day,
-    meeting.start,
-    meeting.end,
-    meeting.room ?? '',
-  ].join(':');
-}
-
-function offeringGroupKey(offering: SearchOffering): string {
-  return [
-    offering.term,
-    offering.section,
-    offering.meetings.map(meetingKey).sort().join('|'),
-  ].join('::');
-}
-
-function groupEquivalentOfferings(offerings: readonly SearchOffering[]): {
-  key: string;
-  term: string;
-  section: string;
-  courseCodes: string[];
-  department?: string;
-  offerings: SearchOffering[];
-  meetings: SearchOffering['meetings'];
-}[] {
-  const byKey = new Map<string, {
-    key: string;
-    term: string;
-    section: string;
-    courseCodes: string[];
-    department?: string;
-    offerings: SearchOffering[];
-    meetings: SearchOffering['meetings'];
-  }>();
-
-  offerings.forEach((offering) => {
-    const key = offeringGroupKey(offering);
-    const existing = byKey.get(key);
-    const offeringCodes = offering.equivalentCourseCodes.length > 0
-      ? offering.equivalentCourseCodes
-      : [offering.courseCode];
-    if (existing) {
-      byKey.set(key, {
-        ...existing,
-        courseCodes: Array.from(new Set([...existing.courseCodes, ...offeringCodes])).sort(),
-        department: existing.department ?? offering.department,
-        offerings: [...existing.offerings, offering],
-      });
-      return;
-    }
-
-    byKey.set(key, {
-      key,
-      term: offering.term,
-      section: offering.section,
-      courseCodes: [...offeringCodes],
-      department: offering.department,
-      offerings: [offering],
-      meetings: offering.meetings,
-    });
-  });
-
-  return Array.from(byKey.values()).sort((a, b) =>
-    a.term.localeCompare(b.term) ||
-    a.section.localeCompare(b.section) ||
-    a.courseCodes.join(',').localeCompare(b.courseCodes.join(',')));
-}
 
 function getOfferingSummary(course: CourseCatalogSearchItem): {
   label: string;
   detail?: string;
   tone: 'offered' | 'active' | 'unknown';
 } {
-  if (course.offerings.length > 0) {
-    const offeringGroups = groupEquivalentOfferings(course.offerings);
+  if (course.offeringGroups.length > 0) {
+    const offeringGroups = course.offeringGroups;
     const terms = Array.from(new Set(offeringGroups.map((offering) => offering.term))).sort();
     const codes = Array.from(new Set(offeringGroups.flatMap((offering) => offering.courseCodes))).sort();
-    const termLabel = terms.length === 1 && terms[0] === '2026-spring' ? '2026 봄' : terms.join(', ');
+    const termLabel = terms.map(formatCourseTerm).join(', ');
     const detail = codes.length > 1
       ? `${codes.slice(0, 2).join(', ')}${codes.length > 2 ? ` 외 ${codes.length - 2}` : ''}`
       : undefined;
 
     return {
-      label: `${termLabel} ${offeringGroups.length}분반`,
+      label: `${termLabel} ${offeringGroups.length}개 시간표`,
       detail,
       tone: 'offered',
     };
   }
 
   if (course.lifecycleStatus === 'active') {
-    return { label: '2026 봄 분반 미확인', tone: 'active' };
+    return { label: '시간표 분반 미확인', tone: 'active' };
   }
 
   return { label: '개설 정보 미확인', tone: 'unknown' };
@@ -216,61 +150,28 @@ function formatHours(listing: ManualListing): string {
   return `${listing.lectureHours}:${listing.labHours}:${listing.credits}`;
 }
 
-const DAY_LABELS: Record<CourseCatalogSearchItem['offerings'][number]['meetings'][number]['day'], string> = {
-  MON: '월',
-  TUE: '화',
-  WED: '수',
-  THU: '목',
-  FRI: '금',
-  SAT: '토',
-  SUN: '일',
-};
-
-function formatMeeting(
-  meeting: CourseCatalogSearchItem['offerings'][number]['meetings'][number],
-): string {
-  return `${DAY_LABELS[meeting.day]} ${meeting.start}~${meeting.end}${meeting.room ? ` ${meeting.room}` : ''}`;
-}
-
-function minutesFromTime(time: string): number | null {
-  const [hours, minutes] = time.split(':').map(Number);
-  if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return null;
-  return hours * 60 + minutes;
-}
-
-function formatDuration(start: string, end: string): string | null {
-  const startMinutes = minutesFromTime(start);
-  const endMinutes = minutesFromTime(end);
-  if (startMinutes === null || endMinutes === null) return null;
-
-  const durationMinutes = endMinutes - startMinutes;
-  if (durationMinutes <= 0 || durationMinutes === 90) return null;
-  if (durationMinutes % 60 === 0) return `${durationMinutes / 60}h`;
-  return `${durationMinutes / 60}h`;
-}
-
 function getListingScheduleBadges(
   course: CourseCatalogSearchItem,
   listing: ManualListing,
 ): ScheduleBadge[] {
-  const matchingOfferings = course.offerings.filter((offering) =>
-    offering.term.startsWith(String(listing.academicYear)) &&
-    (offering.courseCode === listing.courseCode || course.aliasCodes.includes(offering.courseCode)));
+  const matchingOfferingGroups = course.offeringGroups.filter((offeringGroup) =>
+    offeringGroup.term.startsWith(String(listing.academicYear)) &&
+    offeringGroup.courseCodes.includes(listing.courseCode));
   const seenMeetings = new Set<string>();
   const badges: ScheduleBadge[] = [];
 
-  groupEquivalentOfferings(matchingOfferings).forEach((offering) => {
-    offering.meetings.forEach((meeting, meetingIndex) => {
-      const key = `${offering.term}:${meetingKey(meeting)}`;
+  matchingOfferingGroups.forEach((offeringGroup) => {
+    offeringGroup.meetingBadges.forEach((badge) => {
+      const key = `${offeringGroup.term}:${badge.day}:${badge.start}:${badge.end}:${badge.room ?? ''}`;
       if (seenMeetings.has(key)) return;
       seenMeetings.add(key);
-      const duration = formatDuration(meeting.start, meeting.end);
 
       badges.push({
-        key: `${offering.key}:${meetingIndex}`,
-        label: `${DAY_LABELS[meeting.day]} ${meeting.start}`,
-        detail: duration ?? undefined,
-        title: `${offering.term} ${offering.section}분반 · ${offering.courseCodes.join('/')} · ${formatMeeting(meeting)}`,
+        key,
+        label: badge.label,
+        detail: badge.detail,
+        room: badge.room,
+        title: `${formatCourseTerm(offeringGroup.term)} · ${offeringGroup.section}분반 · ${offeringGroup.courseCodes.join('/')} · ${badge.title}`,
       });
     });
   });
@@ -342,7 +243,7 @@ export default function CourseSearchPage() {
   // State for Filters
   const [searchQuery, setSearchQuery] = useState('');
   const [category, setCategory] = useState('all');
-  const [selectedSemesters, setSelectedSemesters] = useState<string[]>([]);
+  const [selectedTerms, setSelectedTerms] = useState<string[]>([]);
   const [selectedLevel, setSelectedLevel] = useState('all');
   const [selectedCredit, setSelectedCredit] = useState('all');
   const [selectedFeature, setSelectedFeature] = useState<CourseCatalogRequirementFacet['feature'] | 'all'>('all');
@@ -379,6 +280,7 @@ export default function CourseSearchPage() {
     const depts = getUniqueCatalogDepartments(courses);
     return depts.map((dept) => ({ value: dept, label: dept }));
   }, [courses]);
+  const availableTerms = useMemo(() => getUniqueCatalogOfferingTerms(courses), [courses]);
 
   // 검색 및 필터링된 과목
   const filteredCourses = useMemo(() => {
@@ -388,9 +290,9 @@ export default function CourseSearchPage() {
       query: debouncedSearchQuery,
       category: category as 'all' | 'mandatory' | 'humanities' | 'science' | 'major',
       departments: selectedParticipatingDepts,
+      terms: selectedTerms,
       level: selectedLevel === 'all' ? 'all' : selectedLevel === '5000' ? 'other' : parseInt(selectedLevel, 10),
       credit: selectedCredit === 'all' ? 'all' : selectedCredit === '4' ? '4+' : parseInt(selectedCredit, 10),
-      offeredOnly: selectedSemesters.includes('2026-spring'),
       labOnly: showLabOnly,
       feature: selectedFeature,
       sourceKind: selectedSource,
@@ -402,7 +304,7 @@ export default function CourseSearchPage() {
     courses,
     debouncedSearchQuery,
     category,
-    selectedSemesters,
+    selectedTerms,
     selectedLevel,
     selectedCredit,
     selectedParticipatingDepts,
@@ -425,7 +327,7 @@ export default function CourseSearchPage() {
   }, [
     debouncedSearchQuery,
     category,
-    selectedSemesters,
+    selectedTerms,
     selectedLevel,
     selectedCredit,
     selectedParticipatingDepts,
@@ -444,11 +346,11 @@ export default function CourseSearchPage() {
   const activeFilters = useMemo(() => {
     const filters: { key: string; label: string; onRemove: () => void }[] = [];
 
-    selectedSemesters.forEach((sem) => {
+    selectedTerms.forEach((term) => {
       filters.push({
-        key: `semester-${sem}`,
-        label: '2026 봄 개설',
-        onRemove: () => setSelectedSemesters((prev) => prev.filter((s) => s !== sem)),
+        key: `term-${term}`,
+        label: `${formatCourseTerm(term)} 개설`,
+        onRemove: () => setSelectedTerms((prev) => prev.filter((selectedTerm) => selectedTerm !== term)),
       });
     });
 
@@ -533,7 +435,7 @@ export default function CourseSearchPage() {
 
     return filters;
   }, [
-    selectedSemesters,
+    selectedTerms,
     selectedLevel,
     selectedCredit,
     category,
@@ -547,7 +449,7 @@ export default function CourseSearchPage() {
   // 필터 초기화 함수
   const resetAllFilters = () => {
     setCategory('all');
-    setSelectedSemesters([]);
+    setSelectedTerms([]);
     setSelectedLevel('all');
     setSelectedCredit('all');
     setSearchQuery('');
@@ -561,24 +463,33 @@ export default function CourseSearchPage() {
   // 필터 UI 컴포넌트 (데스크톱 & 모바일 공용)
   const FilterControls = ({ isMobile = false }: { isMobile?: boolean }) => (
     <div className={isMobile ? 'flex flex-col gap-4' : 'flex flex-wrap items-center gap-2'}>
-      {/* 1. Offering Toggle */}
-      <div className="flex items-center gap-1 rounded-md border border-slate-200 bg-white p-1 shadow-none">
-        <button
-          onClick={() => {
-            const newValue = selectedSemesters.includes('2026-spring')
-              ? selectedSemesters.filter((s) => s !== '2026-spring')
-              : [...selectedSemesters, '2026-spring'];
-            setSelectedSemesters(newValue);
-          }}
-          className={`rounded px-3 py-1.5 text-sm font-medium transition-colors ${
-            selectedSemesters.includes('2026-spring')
-              ? 'bg-emerald-100 text-emerald-700'
-              : 'text-gray-600 hover:bg-gray-100'
-          }`}
-        >
-          2026 봄 개설
-        </button>
-      </div>
+      {/* 1. Offering Term Toggles */}
+      {availableTerms.length > 0 && (
+        <div className="flex flex-wrap items-center gap-1 rounded-md border border-slate-200 bg-white p-1 shadow-none">
+          {availableTerms.map((term) => {
+            const selected = selectedTerms.includes(term);
+
+            return (
+              <button
+                key={term}
+                onClick={() => {
+                  const newValue = selected
+                    ? selectedTerms.filter((selectedTerm) => selectedTerm !== term)
+                    : [...selectedTerms, term];
+                  setSelectedTerms(newValue);
+                }}
+                className={`rounded px-3 py-1.5 text-sm font-medium transition-colors ${
+                  selected
+                    ? 'bg-emerald-100 text-emerald-700'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                {formatCourseTerm(term)} 개설
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* 2. 개설 학과 MultiSelect (Moved & shadow-none) */}
       <MultiSelect
@@ -989,23 +900,23 @@ export default function CourseSearchPage() {
                   {/* 개설 정보 */}
                   <div className="space-y-3">
                     <h4 className="text-sm font-semibold text-gray-900">개설 정보</h4>
-                    {selectedCourse.offerings.length > 0 ? (
+                    {selectedCourse.offeringGroups.length > 0 ? (
                       <div className="space-y-2">
-                        {groupEquivalentOfferings(selectedCourse.offerings).map((offering) => (
-                          <div
-                            key={offering.key}
-                            className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-800"
-                          >
-                            {offering.term} {offering.section}분반
-                            {offering.courseCodes.length > 0 ? ` · ${offering.courseCodes.join('/')}` : ''}
-                            {offering.department ? ` · ${getDepartmentDisplayName(offering.department)}` : ''}
-                          </div>
+                        {selectedCourse.offeringGroups.map((offeringGroup) => (
+                          <OfferingGroupCard
+                            key={offeringGroup.offeringGroupId}
+                            offeringGroup={offeringGroup}
+                            tone="emerald"
+                            showDepartment
+                            getDepartmentLabel={getDepartmentDisplayName}
+                            className="rounded-lg"
+                          />
                         ))}
                       </div>
                     ) : (
                       <div className="rounded-lg bg-gray-100 px-3 py-2 text-sm text-gray-600">
                         {selectedCourse.lifecycleStatus === 'active'
-                          ? '강의 목록에는 등록되어 있지만, 2026 봄 시간표에서 확인된 분반은 없습니다.'
+                          ? '강의 목록에는 등록되어 있지만, 현재 시간표 원천에서 확인된 분반은 없습니다.'
                           : '현재 확인된 개설 분반 정보가 없습니다.'}
                       </div>
                     )}
@@ -1054,18 +965,11 @@ export default function CourseSearchPage() {
                                   {group.scheduleBadges.length > 0 ? (
                                     <div className="flex flex-wrap gap-1.5">
                                       {group.scheduleBadges.map((schedule) => (
-                                        <span
+                                        <MeetingBadge
                                           key={schedule.key}
-                                          title={schedule.title}
-                                          className="inline-flex h-6 items-center gap-1 rounded border border-sky-200 bg-sky-50 px-2 font-medium text-sky-800"
-                                        >
-                                          <span>{schedule.label}</span>
-                                          {schedule.detail && (
-                                            <span className="rounded bg-white/80 px-1 text-[10px] leading-4 text-sky-700">
-                                              {schedule.detail}
-                                            </span>
-                                          )}
-                                        </span>
+                                          badge={schedule}
+                                          tone="sky"
+                                        />
                                       ))}
                                     </div>
                                   ) : (

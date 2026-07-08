@@ -32,6 +32,9 @@ export function timetableSectionToOffering(
     category: section.category,
     subcategory: section.subcategory,
     program: normalizeProgram(section.program),
+    credits: section.hours?.credits,
+    lectureHours: section.hours?.lecture_hours,
+    labHours: section.hours?.lab_hours,
     capacity: section.capacity,
     language: section.language,
     meetings: meetings.map((meeting) => ({

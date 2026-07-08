@@ -29,8 +29,8 @@ import { buildCourseCatalogSnapshot, type CourseCatalogBuildResult } from './bui
 import manualListingExtraction from './generated/manual-listings.extracted.json';
 import type { ManualListingExtractionSnapshot } from './adapters/manual-listings';
 import type { RecommendationCourseGroup } from './adapters/recommendations';
+import { TIMETABLE_SOURCES } from './timetable-sources';
 
-const DEFAULT_TIMETABLE_SOURCE_PATH = 'DB/timetable/2026_spring_course_info.normalized.json';
 const MANUAL_LISTING_SOURCES = (manualListingExtraction as ManualListingExtractionSnapshot).sources;
 
 function readJsonFile<T>(absolutePath: string): T {
@@ -56,9 +56,20 @@ function loadMinorCoursesByCode(): Record<string, MinorCourseInfo[]> {
   );
 }
 
-function loadTimetableSections(rootDir: string): SectionOffering[] {
-  const timetable = readJsonFile<{ items?: SectionOffering[] }>(path.join(rootDir, DEFAULT_TIMETABLE_SOURCE_PATH));
-  return timetable.items ?? [];
+function loadTimetableSources(rootDir: string): {
+  sections: SectionOffering[];
+  term: string;
+  sourcePath: string;
+}[] {
+  return TIMETABLE_SOURCES.map((source) => {
+    const timetable = readJsonFile<{ items?: SectionOffering[] }>(path.join(rootDir, source.path));
+
+    return {
+      sections: timetable.items ?? [],
+      term: source.term,
+      sourcePath: source.path,
+    };
+  });
 }
 
 function loadRecommendationCourseGroups(): RecommendationCourseGroup[] {
@@ -106,9 +117,7 @@ export function buildCourseCatalogSnapshotFromWorkspace(
 
   return buildCourseCatalogSnapshot({
     courseDbRows,
-    timetableSections: loadTimetableSections(rootDir),
-    timetableTerm: '2026-spring',
-    timetableSourcePath: DEFAULT_TIMETABLE_SOURCE_PATH,
+    timetableSources: loadTimetableSources(rootDir),
     manualListingSources: MANUAL_LISTING_SOURCES,
     minorCoursesByCode: loadMinorCoursesByCode(),
     roadmapPresets: loadRoadmapPresets(rootDir),
