@@ -17,11 +17,12 @@ import {
 interface CourseSidebarProps {
   sections: SectionOffering[];
   isMobile?: boolean;
+  isLoading?: boolean;
 }
 
 const ITEMS_PER_PAGE = 30;
 
-export function CourseSidebar({ sections, isMobile = false }: CourseSidebarProps) {
+export function CourseSidebar({ sections, isMobile = false, isLoading = false }: CourseSidebarProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDept, setSelectedDept] = useState<string>('모든 학과');
   const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
@@ -59,6 +60,12 @@ export function CourseSidebar({ sections, isMobile = false }: CourseSidebarProps
   useEffect(() => {
     setDisplayCount(ITEMS_PER_PAGE);
   }, [searchTerm, selectedDept]);
+
+  useEffect(() => {
+    if (!departments.includes(selectedDept)) {
+      setSelectedDept('모든 학과');
+    }
+  }, [departments, selectedDept]);
 
   const handleScroll = useCallback(
     (e: React.UIEvent<HTMLDivElement>) => {
@@ -138,7 +145,11 @@ export function CourseSidebar({ sections, isMobile = false }: CourseSidebarProps
 
   const courseList = (
     <div className={`w-full min-w-0 overflow-hidden ${isMobile ? '' : 'pb-12'}`}>
-      {filteredSections.length === 0 ? (
+      {isLoading ? (
+        <div className="w-full p-8 text-center">
+          <p className="text-sm font-black tracking-widest text-slate-300 uppercase">불러오는 중</p>
+        </div>
+      ) : filteredSections.length === 0 ? (
         <div className="w-full p-8 text-center">
           <p className="text-sm font-black tracking-widest text-slate-300 uppercase">일치하는 결과 없음</p>
           <p className="mt-2 text-xs text-slate-400">필터를 다시 확인해 주세요</p>

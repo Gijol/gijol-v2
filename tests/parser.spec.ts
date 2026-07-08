@@ -2,7 +2,7 @@ import ExcelJS from 'exceljs';
 import { GradeReportParser } from '../lib/utils/parser/grade/gradeReportParser';
 
 describe('GradeReportParser', () => {
-  it('should parse a valid excel file buffer correctly', async () => {
+  it('should parse string and numeric worksheet cell values', async () => {
     // 1. Create a mock workbook in memory
     const workbook = new ExcelJS.Workbook();
     const sheet = workbook.addWorksheet('Sheet1');
@@ -24,7 +24,7 @@ describe('GradeReportParser', () => {
     sheet.getCell('E5').value = '3'; // Credit
     sheet.getCell('F5').value = 'A+'; // Grade
 
-    // Row 6: Course 2 (Retake U - should be skipped?) or just Normal
+    // Row 6: Course 2 with numeric credit cell
     sheet.getCell('A6').value = '전필';
     sheet.getCell('B6').value = 'CS2001';
     sheet.getCell('D6').value = 'Intro to CS';
@@ -50,6 +50,7 @@ describe('GradeReportParser', () => {
     const c1 = result.userTakenCourseList[0];
     expect(c1.courseCode).toBe('GS1001');
     expect(c1.year).toBe(2021);
+    expect(c1.credit).toBe(3);
     expect(c1.grade).toBe('A+');
 
     const c2 = result.userTakenCourseList[1];

@@ -5,11 +5,6 @@
 
 import type { TakenCourseType, CategoryKey } from './types';
 import {
-  COURSE_CODE_SETS,
-  MAJOR_CODE_TO_NAME,
-  MajorCode,
-  MINOR_CODE_TO_NAME,
-  MinorCode,
   LANGUAGE_BASIC_CODES,
   LANGUAGE_KEYWORDS,
   SCIENCE_BASIC_CODES,
@@ -23,6 +18,8 @@ import {
   GSC_COURSES,
 } from './constants';
 import { getAliases } from './constants/alias-mappings';
+import { resolveMajorCode } from './academic-context';
+import { findMinorProgram, getCourseCodesForProgram, getMajorProgramByCode } from './rule-catalog/academic-programs';
 
 // ===== Helper Functions =====
 
@@ -37,38 +34,48 @@ function normalizeName(name?: string): string {
   return (name || '').toString().toLowerCase();
 }
 
+const HUMANITIES_CODE_PREFIXES = new Set(['HS', 'GS', 'EB', 'LH', 'MB', 'PP', 'SS']);
+
+function isHumanitiesTranscriptCode(code: string): boolean {
+  const prefix = code.match(/^[A-Z]+/)?.[0] || '';
+  return HUMANITIES_CODE_PREFIXES.has(prefix);
+}
+
+function isIrAiCodeMinorCourse(code: string): boolean {
+  return /^AI[0-9]/.test(code) && !THESIS_SUFFIXES.some((suffix) => code.endsWith(suffix));
+}
+
 // Constants moved to ./constants/classifier-constants.ts
 
 // ===== Main Classifier =====
 
 export function matchesMinor(courseCode: string, minorInput: string): boolean {
-  const mCode = normalizeCode(minorInput);
   const code = normalizeCode(courseCode);
+  const minorProgram = findMinorProgram(minorInput);
 
-  // Get all equivalent codes (including aliases) for dual-credit support
+  if (!minorProgram) {
+    return false;
+  }
+
+  if (minorProgram.canonicalCode === 'CT' && isHumanitiesTranscriptCode(code)) {
+    return false;
+  }
+
+  // Get all equivalent codes (including aliases) for cross-listed course matching.
   const aliases = getAliases(code);
   const allCodes = [code, ...aliases];
+  const programCourseCodes = getCourseCodesForProgram(minorProgram);
 
-  // 1. Check Majors (Major used as Minor)
-  const mjName = MAJOR_CODE_TO_NAME[mCode as MajorCode];
-  if (mjName) {
-    const set = COURSE_CODE_SETS.majors[mjName as keyof typeof COURSE_CODE_SETS.majors];
-    if (set && allCodes.some((c) => (set as readonly string[]).includes(c))) return true;
+  if (allCodes.some((candidate) => programCourseCodes.includes(candidate))) {
+    return true;
   }
 
-  // 2. Check Standard Minors
-  const mnName = MINOR_CODE_TO_NAME[mCode as MinorCode];
-  if (mnName) {
-    const set = COURSE_CODE_SETS.minors[mnName as keyof typeof COURSE_CODE_SETS.minors];
-    if (set && allCodes.some((c) => (set as readonly string[]).includes(c))) return true;
+  // 2026 bachelor manual p.29: IR minor recognizes AI-code designated courses,
+  // capped later in the requirement evaluator. Thesis research suffixes stay out.
+  if (minorProgram.canonicalCode === 'IR') {
+    return allCodes.some(isIrAiCodeMinorCourse);
   }
 
-  // 3. Fallback Prefix Matching (check all codes)
-  const mp = mCode.replace(/[^A-Z]/g, '');
-  for (const c of allCodes) {
-    const prefix = c.match(/^[A-Z]+/)?.[0] || '';
-    if (mp && prefix.startsWith(mp)) return true;
-  }
   return false;
 }
 
@@ -102,23 +109,19 @@ export function classifyCourse(course: TakenCourseType, userMajor?: string, user
   if (LANGUAGE_KEYWORDS.some((kw) => name.includes(kw))) return 'languageBasic';
 
   // 4) 전공
-  if (userMajor) {
-    const mjCode = normalizeCode(userMajor);
+  const resolvedMajor = resolveMajorCode(userMajor);
+  if (resolvedMajor.code) {
+    const majorProgram = getMajorProgramByCode(resolvedMajor.code);
 
     // Check exact mapping from course_code_sets
-    const mjName = MAJOR_CODE_TO_NAME[mjCode as MajorCode];
-    if (mjName) {
-      const set = COURSE_CODE_SETS.majors[mjName as keyof typeof COURSE_CODE_SETS.majors];
-      if (set && (set as readonly string[]).includes(code)) return 'major';
+    if (majorProgram) {
+      const set = getCourseCodesForProgram(majorProgram);
+      if (set.includes(code)) return 'major';
     }
 
     // Fallback: Prefix matching
-    const mjPrefix = mjCode.replace(/[^A-Z]/g, '');
-    if (mjPrefix && prefix.startsWith(mjPrefix)) return 'major';
-  } else {
-    // Only use generic major prefixes if NO user major is specified
-    // This prevents 'EC' student getting credit for 'MC' courses as Major
-    if (COMMON_MAJOR_PREFIXES.some((p) => prefix.startsWith(p))) return 'major';
+    const majorPrefixes = majorProgram?.coursePrefixes ?? [resolvedMajor.code];
+    if (majorPrefixes.some((majorPrefix) => prefix.startsWith(majorPrefix))) return 'major';
   }
 
   // 5) 기초과학

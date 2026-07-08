@@ -22,6 +22,7 @@ import { gradStatusFetchFn, inferEntryYear, toTakenCourses } from '@utils/gradua
 import { useGraduationStore } from '@/lib/stores/useGraduationStore';
 import { PARSED_EDITABLE_STATE_KEY } from '@/lib/stores/storage-key';
 import { uploadGradeReportViaApi } from '@utils/graduation/upload-grade-report-via-api';
+import { resolveMajorForEvaluation } from '@features/graduation/domain';
 
 type GradUploadPanelProps = {
   title?: string;
@@ -76,7 +77,9 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
 
       const tc: TakenCourseType[] = toTakenCourses(res);
       const entryYear = inferEntryYear(res);
-      const userMajor = (res as any).major || (res as any).department || undefined;
+      const parsedMajor = (res as any).major || (res as any).department || undefined;
+      const majorResolution = resolveMajorForEvaluation(parsedMajor, tc);
+      const userMajor = majorResolution.code ?? (parsedMajor ? String(parsedMajor) : undefined);
 
       if (!entryYear) {
         setError('학번(입학년도)을 파싱할 수 없습니다. studentId 또는 entryYear 정보를 확인해주세요.');
@@ -105,7 +108,8 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
         parsed: res,
         takenCourses: tc,
         gradStatus: grad ?? null,
-        userMajor: '',
+        userMajor: userMajor ?? '',
+        entryYear: entryYear ?? undefined,
       });
 
       try {
@@ -204,9 +208,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                 <DialogContent className="max-h-[80vh] max-w-[90%] overflow-y-auto sm:max-w-[500px]">
                   <DialogHeader>
                     <DialogTitle>성적표 파일 업로드 가이드</DialogTitle>
-                    <DialogDescription>
-                      아래 순서에 따라 엑셀 파일을 다운로드하고 업로드해주세요.
-                    </DialogDescription>
+                    <DialogDescription>아래 순서에 따라 엑셀 파일을 다운로드하고 업로드해주세요.</DialogDescription>
                   </DialogHeader>
                   <div className="space-y-6 py-4">
                     {/* Step 1 */}
@@ -240,8 +242,8 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                         개인성적조회 페이지로 이동해주세요
                       </h3>
                       <p className="text-muted-foreground pl-8 text-sm">
-                        왼쪽 메뉴에서 <strong>[성적]</strong> 탭을 클릭한 후,{' '}
-                        <strong>[개인성적조회]</strong> 버튼을 눌러주세요.
+                        왼쪽 메뉴에서 <strong>[성적]</strong> 탭을 클릭한 후, <strong>[개인성적조회]</strong> 버튼을
+                        눌러주세요.
                       </p>
                       <div className="mt-2 pl-8">
                         <img
@@ -261,8 +263,8 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                         엑셀 파일로 저장해주세요
                       </h3>
                       <p className="text-muted-foreground pl-8 text-sm">
-                        화면 상단에 보이는 <strong>[Report card(KOR)]</strong> 버튼을 클릭하면
-                        엑셀 파일이 다운로드됩니다.
+                        화면 상단에 보이는 <strong>[Report card(KOR)]</strong> 버튼을 클릭하면 엑셀 파일이
+                        다운로드됩니다.
                       </p>
                       <div className="mt-2 pl-8">
                         <img
@@ -282,8 +284,8 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                         다운로드 받은 파일을 업로드해주세요
                       </h3>
                       <p className="text-muted-foreground pl-8 text-sm">
-                        다운로드 받은 <strong>Report card(KOR)</strong> 엑셀 파일을 이 페이지에
-                        드래그하거나 클릭하여 업로드해주세요.
+                        다운로드 받은 <strong>Report card(KOR)</strong> 엑셀 파일을 이 페이지에 드래그하거나 클릭하여
+                        업로드해주세요.
                       </p>
                     </div>
 
@@ -308,13 +310,10 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                           </svg>
                         </div>
                         <div className="text-sm">
-                          <h4 className="mb-1 font-semibold text-red-600 dark:text-red-400">
-                            주의사항
-                          </h4>
+                          <h4 className="mb-1 font-semibold text-red-600 dark:text-red-400">주의사항</h4>
                           <p className="text-red-600/90 dark:text-red-400/90">
-                            반드시 위 경로를 통해 다운로드 받은 엑셀 파일이어야 합니다. 다른 경로의
-                            파일이나 임의로 수정한 파일은 정상적으로 인식되지 않아 서비스 이용이
-                            불가능할 수 있어요. 꼭 확인 부탁드려요!
+                            반드시 위 경로를 통해 다운로드 받은 엑셀 파일이어야 합니다. 다른 경로의 파일이나 임의로
+                            수정한 파일은 정상적으로 인식되지 않아 서비스 이용이 불가능할 수 있어요. 꼭 확인 부탁드려요!
                           </p>
                         </div>
                       </div>

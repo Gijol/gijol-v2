@@ -1,9 +1,17 @@
-import { UserTakenCourseListType, TakenCourseType } from '../../domain/types';
+import type { UserTakenCourseListType, TakenCourseType, CourseGradeStatus } from '../../domain/types';
 
 export interface ValidationResult {
   ok: boolean;
   value?: UserTakenCourseListType;
   errors?: string[];
+}
+
+const COURSE_GRADE_STATUSES = new Set<CourseGradeStatus>(['official', 'in_progress', 'provisional']);
+
+function normalizeCourseGradeStatus(rawStatus: unknown): CourseGradeStatus | undefined {
+  if (typeof rawStatus !== 'string') return undefined;
+  const status = rawStatus.trim().toLowerCase();
+  return COURSE_GRADE_STATUSES.has(status as CourseGradeStatus) ? (status as CourseGradeStatus) : undefined;
 }
 
 /**
@@ -65,14 +73,23 @@ export const validateTakenCourses = (input: UserTakenCourseListType): Validation
  */
 export const normalizeTakenCourses = (input: UserTakenCourseListType): UserTakenCourseListType => {
   // 1. First pass: normalize strings
-  let normalizedCourses: TakenCourseType[] = input.takenCourses.map((c) => ({
-    ...c,
-    courseName: c.courseName?.trim() || '',
-    courseCode: c.courseCode?.trim() || '',
-    semester: c.semester?.trim() || '',
-    courseType: c.courseType?.trim() || '기타',
-    grade: c.grade?.trim().toUpperCase() || '',
-  }));
+  let normalizedCourses: TakenCourseType[] = input.takenCourses.map((c) => {
+    const grade = c.grade?.trim().toUpperCase() || '';
+    const explicitGradeStatus = normalizeCourseGradeStatus(c.gradeStatus);
+    const gradeStatus = explicitGradeStatus ?? (grade ? 'official' : 'in_progress');
+    const gradeStatusReason = c.gradeStatusReason?.trim();
+
+    return {
+      ...c,
+      courseName: c.courseName?.trim() || '',
+      courseCode: c.courseCode?.trim() || '',
+      semester: c.semester?.trim() || '',
+      courseType: c.courseType?.trim() || '기타',
+      grade,
+      gradeStatus,
+      ...(gradeStatusReason ? { gradeStatusReason } : {}),
+    };
+  });
 
   // 2. Filter out F grades
   normalizedCourses = normalizedCourses.filter((c) => c.grade !== 'F');

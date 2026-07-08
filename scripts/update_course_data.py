@@ -3,7 +3,7 @@
 2026년 1학기 강의 데이터 업데이트 스크립트
 
 마크다운 파일(2026_01_COURSES.md)의 강의 정보를 파싱하여
-JSON 파일(2026_spring_course_info.normalized.json)을 업데이트합니다.
+JSON 파일(registration-system/2026_01_course_info.normalized.json)을 업데이트합니다.
 
 업데이트 내용:
 1. 교수 정보 (instructors)
@@ -21,7 +21,7 @@ from typing import Optional
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 MD_FILE = PROJECT_ROOT / "features/graduation/docs/2026_01_COURSES.md"
-JSON_FILE = PROJECT_ROOT / "DB/timetable/2026_spring_course_info.normalized.json"
+JSON_FILE = PROJECT_ROOT / "DB/timetable/registration-system/2026_01_course_info.normalized.json"
 OUTPUT_FILE = JSON_FILE  # 동일 파일에 덮어쓰기
 
 # 요일 매핑

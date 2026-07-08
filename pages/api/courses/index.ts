@@ -1,13 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 import path from 'path';
-import { parseCoursesFromCSV, CourseDB, filterCourses } from '@const/course-db';
+import { parseCoursesFromCSV, filterCourses } from '@const/course-db';
+import { createLegacyCourseDbItemsFromCatalog } from '@features/course-catalog/legacy-course-db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const csvPath = path.join(process.cwd(), 'DB', 'course_db.csv');
     const csvContent = fs.readFileSync(csvPath, 'utf-8');
-    const courses = parseCoursesFromCSV(csvContent);
+    const courses = createLegacyCourseDbItemsFromCatalog(parseCoursesFromCSV(csvContent));
 
     const { query } = req.query;
 

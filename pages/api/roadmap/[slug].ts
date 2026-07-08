@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { promises as fs } from 'fs';
 import path from 'path';
 import type { RoadmapData } from '@/lib/types/roadmap';
+import { enrichRoadmapDataWithCatalog } from '@/features/course-catalog/roadmap';
 
 type ErrorResponse = {
   error: string;
@@ -28,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const fileContent = await fs.readFile(filePath, 'utf-8');
     const roadmapData: RoadmapData = JSON.parse(fileContent);
 
-    return res.status(200).json(roadmapData);
+    return res.status(200).json(enrichRoadmapDataWithCatalog(roadmapData));
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
       return res.status(404).json({ error: `Roadmap preset '${sanitizedSlug}' not found` });

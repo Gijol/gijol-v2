@@ -58,9 +58,9 @@ export function AvailabilityWithPreview({
   const totalMinutes = endMin - startMin;
   const rowCount = Math.ceil(totalMinutes / timeIncrements);
 
-  const ROW_HEIGHT = hideWeekends ? 30 : 36; // Expanded row height for 9:00~18:30 range
-  const HEADER_HEIGHT = hideWeekends ? 36 : 48; // Smaller on mobile
-  const TIME_COL_WIDTH = hideWeekends ? 40 : 64; // Smaller on mobile
+  const ROW_HEIGHT = hideWeekends ? 34 : 38;
+  const HEADER_HEIGHT = hideWeekends ? 40 : 46;
+  const TIME_COL_WIDTH = hideWeekends ? 44 : 58;
 
   const getSpanStyle = (span: TimetableSpan) => {
     const spanStartMin = timeToMinutes(span.start_time);
@@ -95,6 +95,8 @@ export function AvailabilityWithPreview({
         'flex h-full flex-col overflow-hidden rounded-xl border border-slate-300 bg-white select-none',
         className,
       )}
+      role="region"
+      aria-label="시간표 미리보기"
     >
       {/* Header */}
       <div className="flex border-b border-slate-300" style={{ height: HEADER_HEIGHT }}>
@@ -103,7 +105,7 @@ export function AvailabilityWithPreview({
           {displayDays.map((day) => (
             <div
               key={day}
-              className="flex flex-1 items-center justify-center border-r border-slate-300 text-sm font-bold text-slate-900 last:border-r-0"
+              className="flex min-w-[52px] flex-1 items-center justify-center border-r border-slate-300 text-sm font-bold text-slate-900 last:border-r-0"
             >
               {day}
             </div>
@@ -127,8 +129,11 @@ export function AvailabilityWithPreview({
             return (
               <div
                 key={i}
-                className="absolute w-full -translate-y-1/2 transform px-4 text-right text-[11px] font-extrabold text-slate-400"
-                style={{ top: i * ROW_HEIGHT }}
+                className="absolute w-full px-2 text-right text-[11px] font-extrabold text-slate-500"
+                style={{
+                  top: i === 0 ? 4 : i * ROW_HEIGHT,
+                  transform: i === 0 ? undefined : 'translateY(-50%)',
+                }}
               >
                 {`${h}:00`}
               </div>
@@ -167,7 +172,7 @@ export function AvailabilityWithPreview({
               const dayPreview = previewSpans.filter((s) => s.week_day === dayInt);
 
               return (
-                <div key={day} className="group relative flex-1 border-r border-slate-200 last:border-r-0">
+                <div key={day} className="group relative min-w-[52px] flex-1 border-r border-slate-200 last:border-r-0">
                   {isWeekend && (
                     <div
                       className="absolute inset-0 z-0 opacity-[0.03]"
@@ -208,12 +213,14 @@ export function AvailabilityWithPreview({
                             {span.courseCode}
                           </span>
                           <button
+                            type="button"
                             onClick={(e) => {
                               e.stopPropagation();
                               onRemoveSpan?.(span.sectionId);
                             }}
-                            className="rounded p-0.5 opacity-0 transition-opacity group-hover/span:opacity-100 hover:bg-black/10"
+                            className="rounded p-0.5 opacity-100 transition-opacity hover:bg-black/10 sm:opacity-0 sm:group-hover/span:opacity-100"
                             style={{ color: colors.border }}
+                            aria-label={`${span.title || span.courseCode} 시간표에서 삭제`}
                           >
                             <X size={14} />
                           </button>
@@ -301,11 +308,13 @@ export function AvailabilityWithPreview({
                       <span className="text-[10px] font-bold text-slate-700">{span.courseCode}</span>
                       <span className="max-w-[80px] truncate text-[10px] text-slate-500">{span.title}</span>
                       <button
+                        type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           onRemoveSpan?.(span.sectionId);
                         }}
                         className="ml-0.5 rounded p-0.5 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/10"
+                        aria-label={`${span.title || span.courseCode} 시간표에서 삭제`}
                       >
                         <X size={10} />
                       </button>
@@ -320,8 +329,8 @@ export function AvailabilityWithPreview({
 
       {/* Legend Footer */}
       <div className="shrink-0 border-t border-slate-200 bg-slate-50 p-2 px-4">
-        <p className="text-[10px] font-bold text-slate-400 italic">
-          * 빗금으로 표시된 영역은 비활성화된 시간이거나 이미 예약된 블록입니다.
+        <p className="text-[10px] font-bold text-slate-500">
+          색상 블록은 선택 분반, 점선 블록은 미리보기입니다. 시간표 밖 과목은 아래 별도 영역에 표시됩니다.
         </p>
       </div>
     </div>

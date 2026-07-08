@@ -1,0 +1,472 @@
+{
+  "label": "Uploaded transcript, 5 semesters with C/S 2022-1 grades as-is",
+  "sourceWorkbook": {
+    "path": "Completed course grade_5학기.xls",
+    "studentId": "20205185",
+    "originalCourseRows": 46,
+    "parsedCourseRows": 45,
+    "omittedRows": [
+      {
+        "reason": "U grade is excluded by the existing grade report parser",
+        "count": 1
+      }
+    ]
+  },
+  "studentId": "20205185",
+  "entryYear": 2020,
+  "userMajor": "PS",
+  "userMinors": [],
+  "minorDeclarationTerms": {},
+  "takenCourses": [
+    {
+      "year": 2020,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "축구",
+      "courseCode": "GS0101",
+      "credit": 0,
+      "grade": "S",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "고급미적분학과 응용",
+      "courseCode": "GS1011",
+      "credit": 3,
+      "grade": "B0",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "일반물리학 및 연습 I",
+      "courseCode": "GS1101",
+      "credit": 3,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "일반물리학 실험 I",
+      "courseCode": "GS1111",
+      "credit": 1,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "일반화학 및 연습 I",
+      "courseCode": "GS1201",
+      "credit": 3,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "소프트웨어 기초와 코딩",
+      "courseCode": "GS1490",
+      "credit": 2,
+      "grade": "A0",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "실용적 대화법",
+      "courseCode": "GS1605",
+      "credit": 2,
+      "grade": "S",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "GIST 새내기",
+      "courseCode": "GS1901",
+      "credit": 1,
+      "grade": "S",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "이산수학",
+      "courseCode": "GS4010",
+      "credit": 3,
+      "grade": "B0",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "2",
+      "courseType": "M",
+      "courseName": "축구",
+      "courseCode": "GS0101",
+      "credit": 0,
+      "grade": "S",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "2",
+      "courseType": "E",
+      "courseName": "일반물리학 및 연습 Ⅱ",
+      "courseCode": "GS1102",
+      "credit": 3,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "2",
+      "courseType": "E",
+      "courseName": "일반물리학 실험 Ⅱ",
+      "courseCode": "GS1112",
+      "credit": 1,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "2",
+      "courseType": "M",
+      "courseName": "인간 생물학",
+      "courseCode": "GS1302",
+      "credit": 3,
+      "grade": "B0",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "2",
+      "courseType": "M",
+      "courseName": "컴퓨터 프로그래밍",
+      "courseCode": "GS1401",
+      "credit": 3,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "2",
+      "courseType": "M",
+      "courseName": "글쓰기의 기초: 학술적 글쓰기",
+      "courseCode": "GS1512",
+      "credit": 3,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "2",
+      "courseType": "M",
+      "courseName": "영어 Ⅰ: 신입생 영어",
+      "courseCode": "GS1601",
+      "credit": 2,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "2",
+      "courseType": "M",
+      "courseName": "다변수해석학과 응용",
+      "courseCode": "GS2001",
+      "credit": 3,
+      "grade": "A0",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2020,
+      "semester": "2",
+      "courseType": "M",
+      "courseName": "선형대수학과 응용",
+      "courseCode": "GS2004",
+      "credit": 3,
+      "grade": "B+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "공학전자기학 I",
+      "courseCode": "EC2105",
+      "credit": 3,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "볼링",
+      "courseCode": "GS0113",
+      "credit": 0,
+      "grade": "S",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "일반화학실험 Ⅰ",
+      "courseCode": "GS1211",
+      "credit": 1,
+      "grade": "B0",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "미분방정식과 응용",
+      "courseCode": "GS2002",
+      "credit": 3,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "영어 II : 이공계 글쓰기 입문",
+      "courseCode": "GS2652",
+      "credit": 2,
+      "grade": "A0",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "한국사회의 이해",
+      "courseCode": "GS2701",
+      "credit": 3,
+      "grade": "A0",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "고전역학 및 연습Ⅰ",
+      "courseCode": "PS2101",
+      "credit": 3,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "전자기학 및 연습 Ⅰ",
+      "courseCode": "PS2102",
+      "credit": 3,
+      "grade": "B+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "현대물리 개론",
+      "courseCode": "PS2201",
+      "credit": 3,
+      "grade": "A0",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "2",
+      "courseType": "E",
+      "courseName": "회로이론",
+      "courseCode": "EC2201",
+      "credit": 3,
+      "grade": "B+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "2",
+      "courseType": "E",
+      "courseName": "공학전자기학 II",
+      "courseCode": "EC2205",
+      "credit": 3,
+      "grade": "A0",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "2",
+      "courseType": "M",
+      "courseName": "컴퓨터 음악 만들기",
+      "courseCode": "GS0213",
+      "credit": 0,
+      "grade": "S",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "2",
+      "courseType": "M",
+      "courseName": "일반생물학 실험",
+      "courseCode": "GS1311",
+      "credit": 1,
+      "grade": "B+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "2",
+      "courseType": "E",
+      "courseName": "행동경제학 1",
+      "courseCode": "GS2732",
+      "credit": 3,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "2",
+      "courseType": "M",
+      "courseName": "전자기학 및 연습Ⅱ",
+      "courseCode": "PS2103",
+      "credit": 3,
+      "grade": "A0",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "2",
+      "courseType": "M",
+      "courseName": "수리물리 I",
+      "courseCode": "PS3107",
+      "credit": 3,
+      "grade": "B+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "2",
+      "courseType": "E",
+      "courseName": "일반 상대론",
+      "courseCode": "PS4209",
+      "credit": 3,
+      "grade": "A+",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2021,
+      "semester": "2",
+      "courseType": "E",
+      "courseName": "과학기술과 경제",
+      "courseCode": "UC0901",
+      "credit": 1,
+      "grade": "S",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2022,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "전자회로",
+      "courseCode": "EC3207",
+      "credit": 3,
+      "grade": "C",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2022,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "초기 근대의 서양",
+      "courseCode": "GS2614",
+      "credit": 3,
+      "grade": "C",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2022,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "복소함수학 및 응용",
+      "courseCode": "MM4002",
+      "credit": 3,
+      "grade": "C",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2022,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "현대대수학",
+      "courseCode": "MM4004",
+      "credit": 3,
+      "grade": "C",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2022,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "해외경제론",
+      "courseCode": "GS2730",
+      "credit": 3,
+      "grade": "C",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2022,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "한국사의 이해",
+      "courseCode": "GS2602",
+      "credit": 3,
+      "grade": "C",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2022,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "광학개론",
+      "courseCode": "PS3205",
+      "credit": 3,
+      "grade": "C",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2022,
+      "semester": "1",
+      "courseType": "E",
+      "courseName": "대학 콜로퀴움",
+      "courseCode": "UC9331",
+      "credit": 0,
+      "grade": "S",
+      "gradeStatus": "official"
+    },
+    {
+      "year": 2022,
+      "semester": "1",
+      "courseType": "M",
+      "courseName": "어쿠스틱 기타",
+      "courseCode": "GS0206",
+      "credit": 0,
+      "grade": "S",
+      "gradeStatus": "official"
+    }
+  ]
+}

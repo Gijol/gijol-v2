@@ -1,0 +1,4169 @@
+{
+  "schemaVersion": 1,
+  "sourceLayers": {
+    "schemaVersion": 1,
+    "layers": [
+      {
+        "id": "gist-bachelor-manual-2026",
+        "label": "GIST 학사편람 2026",
+        "manualYear": 2026,
+        "sourcePath": "docs/bachelor_manual/2026_manual.pdf",
+        "description": "2026 학사편람에서 추출한 졸업요건 source layer"
+      }
+    ]
+  },
+  "ruleCatalog": {
+    "schemaVersion": 1,
+    "rules": [
+      {
+        "id": "basic-2018-2019.minimum-gpa",
+        "kind": "gpa-minimum",
+        "label": "최소 GPA",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "minimumGpa": 2,
+          "scale": 4.5
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          },
+          {
+            "manualYear": 2026,
+            "page": 32,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "졸업요건 장 시작: 총 이수학점 130학점 및 최소 GPA 2.0/4.5"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.total-credits",
+        "kind": "credit-minimum",
+        "label": "총 이수학점",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 130,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          },
+          {
+            "manualYear": 2026,
+            "page": 32,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "졸업요건 장 시작: 총 이수학점 130학점 및 최소 GPA 2.0/4.5"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.language-total",
+        "kind": "credit-minimum",
+        "label": "언어의 기초",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 7,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.language-english-i",
+        "kind": "course-credit",
+        "label": "영어 I",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 2,
+          "unit": "credits",
+          "courses": [
+            "GS1601",
+            "GS1603",
+            "GS1607"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.language-english-ii",
+        "kind": "course-credit",
+        "label": "영어 II",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 2,
+          "unit": "credits",
+          "courses": [
+            "GS1602",
+            "GS1604",
+            "GS2652"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.language-writing",
+        "kind": "course-credit",
+        "label": "글쓰기",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 3,
+          "unit": "credits",
+          "courses": [
+            "GS1511",
+            "GS1512",
+            "GS1513",
+            "GS1531",
+            "GS1532",
+            "GS1533",
+            "GS1535"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.science-total",
+        "kind": "conditional-credit-minimum",
+        "label": "기초과학",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "defaultRequiredCredits": 18,
+          "unit": "credits",
+          "variants": [
+            {
+              "conditionKey": "completedComputerProgramming",
+              "requiredCredits": 17
+            }
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.science-calculus",
+        "kind": "course-credit",
+        "label": "미적분학",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1001",
+            "GS1011"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.science-core-math",
+        "kind": "course-credit",
+        "label": "수학 선택 필수",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1002",
+            "GS2001",
+            "MM2001",
+            "GS1012",
+            "GS2004",
+            "GS2013",
+            "MM2004",
+            "GS2002",
+            "MM2002"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.science-sw-basic",
+        "kind": "course-credit",
+        "label": "SW 기초와 코딩",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1490",
+            "GS1401"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.humanities-total",
+        "kind": "credit-minimum",
+        "label": "인문사회",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 24,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.humanities-hus",
+        "kind": "credit-minimum",
+        "label": "HUS",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 6,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.humanities-ppe",
+        "kind": "credit-minimum",
+        "label": "PPE",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 6,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.etc-freshman",
+        "kind": "course-credit",
+        "label": "GIST 새내기",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1901",
+            "GS9301"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.etc-science-economy",
+        "kind": "course-credit",
+        "label": "과학기술과 경제",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1701",
+            "UC0901"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.etc-colloquium",
+        "kind": "course-count",
+        "label": "GIST대학 콜로퀴움",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCount": 2,
+          "unit": "courses",
+          "courses": [
+            "UC9331"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.arts",
+        "kind": "activity-count",
+        "label": "예술 교양",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCount": 4,
+          "unit": "courses"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2018-2019.sports",
+        "kind": "activity-count",
+        "label": "체육",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCount": 4,
+          "unit": "courses"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2018~2019 예능/체육 4학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2019
+          }
+        }
+      },
+      {
+        "id": "basic-2020.minimum-gpa",
+        "kind": "gpa-minimum",
+        "label": "최소 GPA",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "minimumGpa": 2,
+          "scale": 4.5
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          },
+          {
+            "manualYear": 2026,
+            "page": 32,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "졸업요건 장 시작: 총 이수학점 130학점 및 최소 GPA 2.0/4.5"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.total-credits",
+        "kind": "credit-minimum",
+        "label": "총 이수학점",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 130,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          },
+          {
+            "manualYear": 2026,
+            "page": 32,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "졸업요건 장 시작: 총 이수학점 130학점 및 최소 GPA 2.0/4.5"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.language-total",
+        "kind": "credit-minimum",
+        "label": "언어의 기초",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 7,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.language-english-i",
+        "kind": "course-credit",
+        "label": "영어 I",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 2,
+          "unit": "credits",
+          "courses": [
+            "GS1601",
+            "GS1603",
+            "GS1607"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.language-english-ii",
+        "kind": "course-credit",
+        "label": "영어 II",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 2,
+          "unit": "credits",
+          "courses": [
+            "GS1602",
+            "GS1604",
+            "GS2652"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.language-writing",
+        "kind": "course-credit",
+        "label": "글쓰기",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 3,
+          "unit": "credits",
+          "courses": [
+            "GS1511",
+            "GS1512",
+            "GS1513",
+            "GS1531",
+            "GS1532",
+            "GS1533",
+            "GS1535"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.science-total",
+        "kind": "conditional-credit-minimum",
+        "label": "기초과학",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "defaultRequiredCredits": 18,
+          "unit": "credits",
+          "variants": [
+            {
+              "conditionKey": "completedComputerProgramming",
+              "requiredCredits": 17
+            }
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.science-calculus",
+        "kind": "course-credit",
+        "label": "미적분학",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1001",
+            "GS1011"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.science-core-math",
+        "kind": "course-credit",
+        "label": "수학 선택 필수",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1002",
+            "GS2001",
+            "MM2001",
+            "GS1012",
+            "GS2004",
+            "GS2013",
+            "MM2004",
+            "GS2002",
+            "MM2002"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.science-sw-basic",
+        "kind": "course-credit",
+        "label": "SW 기초와 코딩",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1490",
+            "GS1401"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.humanities-total",
+        "kind": "credit-minimum",
+        "label": "인문사회",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 24,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.humanities-hus",
+        "kind": "credit-minimum",
+        "label": "HUS",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 6,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.humanities-ppe",
+        "kind": "credit-minimum",
+        "label": "PPE",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 6,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.etc-freshman",
+        "kind": "course-credit",
+        "label": "GIST 새내기",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1901",
+            "GS9301"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.etc-science-economy",
+        "kind": "course-credit",
+        "label": "과학기술과 경제",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1701",
+            "UC0901"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.etc-colloquium",
+        "kind": "course-count",
+        "label": "GIST대학 콜로퀴움",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCount": 2,
+          "unit": "courses",
+          "courses": [
+            "UC9331"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.arts",
+        "kind": "activity-count",
+        "label": "예술 교양",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCount": 2,
+          "unit": "courses"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2020.sports",
+        "kind": "activity-count",
+        "label": "체육",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCount": 2,
+          "unit": "courses"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 이수요건 표, 2020 이후 예능/체육 2학기 적용"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2020,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.minimum-gpa",
+        "kind": "gpa-minimum",
+        "label": "최소 GPA",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "minimumGpa": 2,
+          "scale": 4.5
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          },
+          {
+            "manualYear": 2026,
+            "page": 32,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "졸업요건 장 시작: 총 이수학점 130학점 및 최소 GPA 2.0/4.5"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.total-credits",
+        "kind": "credit-minimum",
+        "label": "총 이수학점",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 130,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          },
+          {
+            "manualYear": 2026,
+            "page": 32,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "졸업요건 장 시작: 총 이수학점 130학점 및 최소 GPA 2.0/4.5"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.language-total",
+        "kind": "credit-minimum",
+        "label": "언어의 기초",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 7,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.language-english-i",
+        "kind": "course-credit",
+        "label": "영어 I",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 2,
+          "unit": "credits",
+          "courses": [
+            "GS1607"
+          ],
+          "legacyPairCodes": [
+            "GS1601",
+            "GS1603"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.language-english-ii",
+        "kind": "course-credit",
+        "label": "영어 II",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 2,
+          "unit": "credits",
+          "courses": [
+            "GS1602",
+            "GS1604",
+            "GS2652"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.language-writing",
+        "kind": "course-credit",
+        "label": "글쓰기",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 3,
+          "unit": "credits",
+          "courses": [
+            "GS1511",
+            "GS1512",
+            "GS1513",
+            "GS1531",
+            "GS1532",
+            "GS1533",
+            "GS1535"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.science-total",
+        "kind": "conditional-credit-minimum",
+        "label": "기초과학",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "defaultRequiredCredits": 18,
+          "unit": "credits",
+          "variants": [
+            {
+              "conditionKey": "completedComputerProgramming",
+              "requiredCredits": 17
+            }
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.science-calculus",
+        "kind": "course-credit",
+        "label": "미적분학",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1001",
+            "GS1011"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.science-core-math",
+        "kind": "course-credit",
+        "label": "수학 선택 필수",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1002",
+            "GS2001",
+            "MM2001",
+            "GS1012",
+            "GS2004",
+            "GS2013",
+            "MM2004",
+            "GS2002",
+            "MM2002"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.science-sw-basic",
+        "kind": "course-credit",
+        "label": "SW 기초와 코딩",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1490",
+            "GS1401"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.humanities-total",
+        "kind": "credit-minimum",
+        "label": "인문사회",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 24,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.humanities-hus",
+        "kind": "credit-minimum",
+        "label": "HUS",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 6,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.humanities-ppe",
+        "kind": "credit-minimum",
+        "label": "PPE",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 6,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.etc-freshman",
+        "kind": "course-credit",
+        "label": "GIST 새내기",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1901",
+            "GS9301"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.etc-science-economy",
+        "kind": "course-credit",
+        "label": "과학기술과 경제",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "GS1701",
+            "UC0901"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.etc-colloquium",
+        "kind": "course-count",
+        "label": "GIST대학 콜로퀴움",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCount": 2,
+          "unit": "courses",
+          "courses": [
+            "UC9331"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.arts",
+        "kind": "activity-count",
+        "label": "예술 교양",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCount": 2,
+          "unit": "courses"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.sports",
+        "kind": "activity-count",
+        "label": "체육",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCount": 2,
+          "unit": "courses"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "basic-2021-plus.etc-major-exploration",
+        "kind": "course-credit",
+        "label": "전공탐색",
+        "scope": {
+          "type": "global"
+        },
+        "parameters": {
+          "requiredCredits": 1,
+          "unit": "credits",
+          "courses": [
+            "UC0902"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 이수요건 표"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "major-credits.2018-2020",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program-kind",
+          "programKind": "major"
+        },
+        "parameters": {
+          "requiredCredits": 36,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 전공학점 및 연구학점 기준"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2020
+          }
+        },
+        "label": "전공 학점"
+      },
+      {
+        "id": "major-credits.2021-plus",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program-kind",
+          "programKind": "major"
+        },
+        "parameters": {
+          "requiredCredits": 36,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 전공학점 및 연구학점 기준"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        },
+        "label": "전공 학점"
+      },
+      {
+        "id": "minor-credits-default",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program-kind",
+          "programKind": "minor"
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "부전공 일반 이수요건: 분야별 15학점 이상 및 별도 요건 충족"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 학점"
+      },
+      {
+        "id": "minor-credits-ec",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "EC"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "전기전자컴퓨터 부전공: 전공필수 1과목, EC 2천번대 6학점, EC 3~4천번대 12학점"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전기전자컴퓨터 부전공 학점"
+      },
+      {
+        "id": "minor-credits-ai",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "AI"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "AI융합 부전공 이수요건: 선언 학기별 필수과목 적용"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "AI융합 부전공 학점"
+      },
+      {
+        "id": "minor-credits-ir",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "IR"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "지능로봇 부전공 이수요건: 2026-1 선언자부터 필수과목 없음"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "지능로봇 부전공 학점"
+      },
+      {
+        "id": "minor-credits-ps",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "PS"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "물리·광과학 부전공: 학번별 전공필수 3과목 및 15학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "물리·광과학 부전공 학점"
+      },
+      {
+        "id": "minor-credits-ch-default",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "CH"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "부전공 일반 이수요건: 분야별 15학점 이상 및 별도 요건 충족"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "화학 부전공 학점"
+      },
+      {
+        "id": "minor-credits-ch-2018-plus",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "CH"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 21,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "화학 부전공: 2018학번부터 21학점 및 전공필수 3과목"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "화학 부전공 학점"
+      },
+      {
+        "id": "minor-credits-mm-default",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학 부전공: 학번별 필수/선택 과목 및 15/18학점 기준"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "수리과학 부전공 학점"
+      },
+      {
+        "id": "minor-credits-mm-2021-plus",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 18,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학 부전공: 학번별 필수/선택 과목 및 15/18학점 기준"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        },
+        "label": "수리과학 부전공 학점"
+      },
+      {
+        "id": "minor-credits-ma",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "MA"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "신소재 부전공: 전공필수 2과목, MA 3~4천번대 3과목, 15학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "신소재 부전공 학점"
+      },
+      {
+        "id": "minor-credits-mc",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "MC"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "기계로봇 부전공: 전공필수 3과목 및 15학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "기계로봇 부전공 학점"
+      },
+      {
+        "id": "minor-credits-ev",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "EV"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지 부전공: 실험 제외 전공필수 3과목 및 환경에너지공학 필수"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "환경·에너지 부전공 학점"
+      },
+      {
+        "id": "minor-credits-bs",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "BS"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "생명과학 부전공: 교과목 2과목과 실험 1과목 포함 15학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "생명과학 부전공 학점"
+      },
+      {
+        "id": "minor-credits-md",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "MD"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "의생명 부전공: 15학점 이상 및 2025학번부터 MD2101 필수"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "의생명 부전공 학점"
+      },
+      {
+        "id": "minor-credits-fe",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "FE"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "에너지 부전공: 15학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "에너지 부전공 학점"
+      },
+      {
+        "id": "minor-credits-ct",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "CT"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "문화기술 부전공: 15학점 이상 및 지정 필수 목록 중 3과목"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "문화기술 부전공 학점"
+      },
+      {
+        "id": "minor-credits-lh-default",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "LH_LIT",
+            "LH_PP",
+            "LH_EB",
+            "LH_SS",
+            "LH_MB"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 15,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "인문사회 부전공: 2021학번부터 18학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "인문사회 부전공 학점"
+      },
+      {
+        "id": "minor-credits-lh-2021-plus",
+        "kind": "credit-minimum",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "LH_LIT",
+            "LH_PP",
+            "LH_EB",
+            "LH_SS",
+            "LH_MB"
+          ]
+        },
+        "parameters": {
+          "requiredCredits": 18,
+          "unit": "credits"
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "인문사회 부전공: 2021학번부터 18학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        },
+        "label": "인문사회 부전공 학점"
+      },
+      {
+        "id": "thesis-i.2018-2020",
+        "kind": "thesis-research",
+        "label": "학사논문연구 I",
+        "scope": {
+          "type": "program-kind",
+          "programKind": "major"
+        },
+        "parameters": {
+          "suffix": "9102",
+          "requiredCount": 1,
+          "unit": "courses",
+          "sourceRequiredCredits": 3
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 전공학점 및 연구학점 기준"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "thesis-ii.2018-2020",
+        "kind": "thesis-research",
+        "label": "학사논문연구 II",
+        "scope": {
+          "type": "program-kind",
+          "programKind": "major"
+        },
+        "parameters": {
+          "suffix": "9103",
+          "requiredCount": 1,
+          "unit": "courses",
+          "sourceRequiredCredits": 3
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 34,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2018~2020 입학생 전공학점 및 연구학점 기준"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2020
+          }
+        }
+      },
+      {
+        "id": "thesis-i.2021-plus",
+        "kind": "thesis-research",
+        "label": "학사논문연구 I",
+        "scope": {
+          "type": "program-kind",
+          "programKind": "major"
+        },
+        "parameters": {
+          "suffix": "9102",
+          "requiredCount": 1,
+          "unit": "courses",
+          "sourceRequiredCredits": 3
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 전공학점 및 연구학점 기준"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "thesis-ii.2021-plus",
+        "kind": "thesis-research",
+        "label": "학사논문연구 II",
+        "scope": {
+          "type": "program-kind",
+          "programKind": "major"
+        },
+        "parameters": {
+          "suffix": "9103",
+          "requiredCount": 1,
+          "unit": "courses",
+          "sourceRequiredCredits": 3
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 33,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "2021 이후 입학생 전공학점 및 연구학점 기준"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2021
+          }
+        }
+      },
+      {
+        "id": "major.ch.mandatory.analytical-chemistry",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "CH"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "CH2101"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "화학과 전공필수: 2018학번부터 전공필수 교과목 및 동일과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (분석화학 및 실험)"
+      },
+      {
+        "id": "major.ch.mandatory.physical-chemistry-a",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "CH"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "CH2102",
+            "CH3104"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "화학과 전공필수: 2018학번부터 전공필수 교과목 및 동일과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (물리화학 A 또는 물리화학 II)"
+      },
+      {
+        "id": "major.ch.mandatory.organic-chemistry-i",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "CH"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "CH2103"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "화학과 전공필수: 2018학번부터 전공필수 교과목 및 동일과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (유기화학 I)"
+      },
+      {
+        "id": "major.ch.mandatory.physical-chemistry-b",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "CH"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "CH2104"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "화학과 전공필수: 2018학번부터 전공필수 교과목 및 동일과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (물리화학 B)"
+      },
+      {
+        "id": "major.ch.mandatory.synthesis-lab",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "CH"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "CH2105"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "화학과 전공필수: 2018학번부터 전공필수 교과목 및 동일과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (화학합성실험)"
+      },
+      {
+        "id": "major.ch.mandatory.biochemistry-i",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "CH"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "CH3106"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "화학과 전공필수: 2018학번부터 전공필수 교과목 및 동일과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (생화학 I)"
+      },
+      {
+        "id": "major.ch.mandatory.inorganic-chemistry-i",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "CH"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "CH3208",
+            "CH3107"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "화학과 전공필수: 2018학번부터 전공필수 교과목 및 동일과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (무기화학 I 또는 무기화학)"
+      },
+      {
+        "id": "major.ec.mandatory.experiment",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "EC"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "EC3101",
+            "EC3102"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 22,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "전기전자컴퓨터공학과 전공필수: EC3101/EC3102 택1"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전공필수 택1 (EC3101, EC3102)"
+      },
+      {
+        "id": "major.mm.mandatory.multivariable-analysis",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "MM2001",
+            "GS2001",
+            "MM2011"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수: 필수 교과목 및 대체과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전공필수 (다변수해석학과 응용 또는 고급다변수해석학과 응용)"
+      },
+      {
+        "id": "major.mm.mandatory.differential-equations",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "MM2002",
+            "GS2002"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수: 필수 교과목 및 대체과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전공필수 (미분방정식과 응용)"
+      },
+      {
+        "id": "major.mm.mandatory.linear-algebra",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "MM2004",
+            "GS2004"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수: 필수 교과목 및 대체과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전공필수 (선형대수학과 응용 1)"
+      },
+      {
+        "id": "major.mm.mandatory.probability-statistics",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "MM2701"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수: 필수 교과목 및 대체과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전공필수 (확률과 통계)"
+      },
+      {
+        "id": "major.mm.mandatory.abstract-algebra",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "MM3101"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수: 필수 교과목 및 대체과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전공필수 (현대대수학 1)"
+      },
+      {
+        "id": "major.mm.mandatory.analysis",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "MM3201"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수: 필수 교과목 및 대체과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전공필수 (해석학)"
+      },
+      {
+        "id": "major.mm.mandatory.complex-functions",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "MM3203"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수: 필수 교과목 및 대체과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전공필수 (복소함수학 및 응용)"
+      },
+      {
+        "id": "major.mm.mandatory.colloquium",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "MM4901"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수: 필수 교과목 및 대체과목 안내"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전공필수 (수학 콜로퀴움)"
+      },
+      {
+        "id": "major.mc.mandatory.core",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "MC"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 3,
+          "unit": "courses",
+          "courses": [
+            "MC2100",
+            "MC2101",
+            "MC2102",
+            "MC2103",
+            "MC3106",
+            "MC3107"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 24,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "기계로봇공학과 전공필수: MC2100/MC2101/MC2102/MC2103/MC3106/MC3107 택3"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전공필수 택3 (MC2100, MC2101, MC2102, MC2103, MC3106, MC3107)"
+      },
+      {
+        "id": "major.ev.mandatory.environmental-engineering",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "EV"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "EV3101"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지공학과 전공필수: 학번별 필수 교과목 및 대체 조건"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (환경에너지공학)"
+      },
+      {
+        "id": "major.ev.mandatory.analysis-lab-i",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "EV"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "EV3106"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지공학과 전공필수: 학번별 필수 교과목 및 대체 조건"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (환경분석실험 I)"
+      },
+      {
+        "id": "major.ev.mandatory.earth-system-science",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "EV"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "EV3111"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지공학과 전공필수: 학번별 필수 교과목 및 대체 조건"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (지구시스템과학)"
+      },
+      {
+        "id": "major.ev.mandatory.transport-or-substitute",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "EV"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "EV4106",
+            "EV3103",
+            "EV4243",
+            "EV3112"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지공학과 전공필수: 학번별 필수 교과목 및 대체 조건"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2023
+          }
+        },
+        "label": "전공필수 (지구환경이동현상 또는 대체과목)"
+      },
+      {
+        "id": "major.ev.mandatory.statistics",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "EV"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "EV3112"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지공학과 전공필수: 학번별 필수 교과목 및 대체 조건"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2024
+          }
+        },
+        "label": "전공필수 (환경·에너지과학통계)"
+      },
+      {
+        "id": "major.ev.mandatory.analysis-lab-ii",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "EV"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "EV4107"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지공학과 전공필수: 학번별 필수 교과목 및 대체 조건"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (환경분석실험 II)"
+      },
+      {
+        "id": "major.bs.mandatory.organic-chemistry-i",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "BS"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "BS2101"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "생명과학과 전공필수: 2023학번 이후 및 2018~2022학번 필수 교과목"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018,
+            "to": 2022
+          }
+        },
+        "label": "전공필수 (유기화학 I)"
+      },
+      {
+        "id": "major.bs.mandatory.molecular-biology",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "BS"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "BS2102"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "생명과학과 전공필수: 2023학번 이후 및 2018~2022학번 필수 교과목"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (분자생물학)"
+      },
+      {
+        "id": "major.bs.mandatory.biochemistry-molecular-biology-lab",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "BS"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "BS2103",
+            "BS3111"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "생명과학과 전공필수: 2023학번 이후 및 2018~2022학번 필수 교과목"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (생화학·분자생물학 실험)"
+      },
+      {
+        "id": "major.bs.mandatory.biochemistry-i",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "BS"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "BS2104",
+            "BS3113"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "생명과학과 전공필수: 2023학번 이후 및 2018~2022학번 필수 교과목"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (생화학 I)"
+      },
+      {
+        "id": "major.bs.mandatory.biochemistry-ii",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "BS"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "BS3101"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "생명과학과 전공필수: 2023학번 이후 및 2018~2022학번 필수 교과목"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (생화학 II)"
+      },
+      {
+        "id": "major.bs.mandatory.cell-biology",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "BS"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "BS3105"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "생명과학과 전공필수: 2023학번 이후 및 2018~2022학번 필수 교과목"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (세포생물학)"
+      },
+      {
+        "id": "major.bs.mandatory.cell-developmental-biology-lab",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "major",
+          "programCodes": [
+            "BS"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "BS3112"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "생명과학과 전공필수: 2023학번 이후 및 2018~2022학번 필수 교과목"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2018
+          }
+        },
+        "label": "전공필수 (세포·발생생물학 실험)"
+      },
+      {
+        "id": "minor.ct.mandatory.core",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "CT"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 3,
+          "unit": "courses",
+          "courses": [
+            "CT4101",
+            "CT4102",
+            "CT4201",
+            "CT4202",
+            "CT4203",
+            "CT4301",
+            "CT4302",
+            "CT4303",
+            "CT4304",
+            "CT4305"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "문화기술 부전공: 15학점 이상 및 지정 필수 목록 중 3과목"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 필수 택3"
+      },
+      {
+        "id": "minor.ai.mandatory.a",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "AI"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "EC4209",
+            "AI4020",
+            "AI4021",
+            "AI4311"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "AI융합 부전공 이수요건: 선언 학기별 필수과목 적용"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true,
+          "declarationTerm": {
+            "to": {
+              "year": 2025,
+              "semester": "1"
+            }
+          },
+          "note": "2021-2~2025-1 선언자는 필수A 1과목 필요"
+        },
+        "label": "부전공 필수A 택1 (인공지능/기계학습/딥러닝)"
+      },
+      {
+        "id": "minor.ai.mandatory.b",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "AI"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "AI4003",
+            "AI4028",
+            "AI4501"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "AI융합 부전공 이수요건: 선언 학기별 필수과목 적용"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true,
+          "declarationTerm": {
+            "to": {
+              "year": 2025,
+              "semester": "1"
+            }
+          },
+          "note": "2021-2~2025-1 선언자는 필수B 1과목 필요"
+        },
+        "label": "부전공 필수B 택1 (프로젝트/경험랩)"
+      },
+      {
+        "id": "minor.md.mandatory.intro",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "MD"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "MD2101"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "의생명 부전공: 15학점 이상 및 2025학번부터 MD2101 필수"
+          }
+        ],
+        "appliesTo": {
+          "entryYear": {
+            "from": 2025
+          },
+          "note": "2025학번부터 MD2101 필수. 이전 학번은 권고"
+        },
+        "label": "부전공 필수 (MD2101 의공학 개론)"
+      },
+      {
+        "id": "minor.lh_lit.mandatory.all",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "LH_LIT"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 4,
+          "unit": "courses",
+          "courses": [
+            "LH2507",
+            "LH2509",
+            "LH2521",
+            "LH2602"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 49,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "인문사회-문학과 역사 부전공 필수 과목표"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 필수 (전체 이수)"
+      },
+      {
+        "id": "minor.lh_pp.mandatory.all",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "LH_PP"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 3,
+          "unit": "courses",
+          "courses": [
+            "PP2704",
+            "PP2763",
+            "PP2765"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 49,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "인문사회-공공정책 부전공 필수 과목표"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 필수 (전체 이수)"
+      },
+      {
+        "id": "minor.lh_eb.mandatory.all",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "LH_EB"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 3,
+          "unit": "courses",
+          "courses": [
+            "EB2750",
+            "GS2750",
+            "EB3722",
+            "GS3722",
+            "EB3737",
+            "GS3737"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 50,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "인문사회-경제·경영 부전공 필수 과목표"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 필수 (전체 이수)"
+      },
+      {
+        "id": "minor.ec.mandatory.experiment",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "EC"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "EC3101",
+            "EC3102"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "전기전자컴퓨터 부전공: 전공필수 1과목, EC 2천번대 6학점, EC 3~4천번대 12학점"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 필수 택1 (전자공학실험 또는 컴퓨터시스템이론및실험)"
+      },
+      {
+        "id": "minor.ma.mandatory.core",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "MA"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 2,
+          "unit": "courses",
+          "courses": [
+            "MA2101",
+            "MA2102",
+            "MA2103",
+            "MA2104",
+            "MA3104",
+            "MA3105"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "신소재 부전공: 전공필수 2과목, MA 3~4천번대 3과목, 15학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 전공필수 택2"
+      },
+      {
+        "id": "minor.mc.mandatory.core",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "MC"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 3,
+          "unit": "courses",
+          "courses": [
+            "MC2100",
+            "MC2101",
+            "MC2102",
+            "MC2103",
+            "MC3106",
+            "MC3107"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "기계로봇 부전공: 전공필수 3과목 및 15학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 전공필수 택3"
+      },
+      {
+        "id": "minor.ev.mandatory.intro",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "EV"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "EV3101"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지 부전공: 실험 제외 전공필수 3과목 및 환경에너지공학 필수"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 필수 (환경에너지공학)"
+      },
+      {
+        "id": "minor.ev.mandatory.core-without-lab",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "EV"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 2,
+          "unit": "courses",
+          "courses": [
+            "EV3111",
+            "EV3112"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지 부전공: 실험 제외 전공필수 3과목 및 환경에너지공학 필수"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 전공필수 택2 (실험과목 제외)"
+      },
+      {
+        "id": "minor.bs.mandatory.core",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "BS"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 3,
+          "unit": "courses",
+          "courses": [
+            "BS2102",
+            "BS2104",
+            "BS3101",
+            "BS3105",
+            "BS2103",
+            "BS3111",
+            "BS3112"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "생명과학 부전공: 교과목 2과목과 실험 1과목 포함 15학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 전공필수 택3 (교과목2+실험1, 유기화학 제외)"
+      },
+      {
+        "id": "minor.ps.mandatory.classical-mechanics",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "PS"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "PS2101",
+            "PS2202"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "물리·광과학 부전공: 학번별 전공필수 3과목 및 15학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "고전역학 택1 (PS2101/PS2202)"
+      },
+      {
+        "id": "minor.ps.mandatory.electromagnetics",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "PS"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "PS2102",
+            "PS2103"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "물리·광과학 부전공: 학번별 전공필수 3과목 및 15학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "전자기학 택1 (PS2102/PS2103)"
+      },
+      {
+        "id": "minor.ps.mandatory.quantum",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "PS"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "PS3103",
+            "PS3104"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "물리·광과학 부전공: 학번별 전공필수 3과목 및 15학점 이상"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "양자물리 택1 (PS3103/PS3104)"
+      },
+      {
+        "id": "minor.ch.mandatory.core",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "CH"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 3,
+          "unit": "courses",
+          "courses": [
+            "CH2101",
+            "CH2102",
+            "CH2103",
+            "CH2104",
+            "CH2105"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "화학 부전공: 2018학번부터 21학점 및 전공필수 3과목"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 전공필수 택3"
+      },
+      {
+        "id": "minor.mm.mandatory.calculus-algebra",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 3,
+          "unit": "courses",
+          "courses": [
+            "MM2001",
+            "GS2001",
+            "MM2011",
+            "MM2002",
+            "GS2002",
+            "MM2004",
+            "GS2004",
+            "MM3101"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학 부전공: 학번별 필수/선택 과목 및 15/18학점 기준"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 필수 택3 (다변수해석학, 미분방정식, 선형대수학 중 도전탐색 필수과목 제외)"
+      },
+      {
+        "id": "minor.mm.mandatory.analysis",
+        "kind": "course-count",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "MM"
+          ]
+        },
+        "parameters": {
+          "requiredCount": 1,
+          "unit": "courses",
+          "courses": [
+            "MM3201",
+            "GS3001",
+            "MM3203",
+            "GS4002"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 28,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학 부전공: 학번별 필수/선택 과목 및 15/18학점 기준"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "label": "부전공 필수 택1 (해석학/복소함수학)"
+      },
+      {
+        "id": "minor-declaration-term-AI",
+        "kind": "declaration-term-required",
+        "label": "AI 부전공 선언 학기 확인 필요",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "AI"
+          ]
+        },
+        "parameters": {
+          "missingContext": "declarationTerm",
+          "missingTermRequirementId": "minor-declaration-term-AI",
+          "missingTermLabel": "AI 부전공 선언 학기 확인 필요",
+          "missingTermHint": "AI 부전공은 선언 학기에 따라 필수과목 적용 여부가 달라져 선언 학기 정보가 필요합니다."
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 27,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "AI융합 부전공 이수요건: 선언 학기별 필수과목 적용"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        }
+      },
+      {
+        "id": "minor-declaration-term-IR",
+        "kind": "declaration-term-required",
+        "label": "IR 부전공 선언 학기 확인 필요",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "IR"
+          ]
+        },
+        "parameters": {
+          "missingContext": "declarationTerm",
+          "missingTermRequirementId": "minor-declaration-term-IR",
+          "missingTermLabel": "IR 부전공 선언 학기 확인 필요",
+          "missingTermHint": "IR 부전공은 선언 학기에 따라 필수과목 적용 여부가 달라져 선언 학기 정보가 필요합니다."
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "지능로봇 부전공 이수요건: 2026-1 선언자부터 필수과목 없음"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        }
+      },
+      {
+        "id": "minor.ir.ai-code-course-limit",
+        "kind": "course-limit",
+        "scope": {
+          "type": "program",
+          "programKind": "minor",
+          "programCodes": [
+            "IR"
+          ]
+        },
+        "parameters": {
+          "maxCourses": 4,
+          "unit": "courses",
+          "reason": "지능로봇 부전공 AI-code 지정 교과목은 최대 4과목까지만 인정됩니다."
+        },
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 29,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "지능로봇 부전공 이수요건: 2026-1 선언자부터 필수과목 없음"
+          }
+        ],
+        "appliesTo": {
+          "allCohorts": true
+        },
+        "evaluatorId": "ir-ai-code-course-limit"
+      }
+    ]
+  },
+  "courseEquivalencies": {
+    "schemaVersion": 1,
+    "equivalencies": [
+      {
+        "id": "ch-physical-chemistry-a-same-course",
+        "relation": "sameCourse",
+        "courseCodes": [
+          "CH2102",
+          "CH3104"
+        ],
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "화학과 전공필수 동일과목 및 중복수강 불허 안내"
+          }
+        ],
+        "note": "물리화학 A와 물리화학 II는 동일 과목으로 중복수강이 허용되지 않는다."
+      },
+      {
+        "id": "ch-inorganic-chemistry-i-same-course",
+        "relation": "sameCourse",
+        "courseCodes": [
+          "CH3208",
+          "CH3107"
+        ],
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "화학과 전공필수 동일과목 및 중복수강 불허 안내"
+          }
+        ],
+        "note": "무기화학 I과 무기화학은 동일 과목으로 중복수강이 허용되지 않는다."
+      },
+      {
+        "id": "mm-multivariable-analysis-cross-listed",
+        "relation": "crossListed",
+        "courseCodes": [
+          "MM2001",
+          "GS2001"
+        ],
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수 교차코드 및 대체과목 안내"
+          }
+        ]
+      },
+      {
+        "id": "mm-differential-equations-cross-listed",
+        "relation": "crossListed",
+        "courseCodes": [
+          "MM2002",
+          "GS2002"
+        ],
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수 교차코드 및 대체과목 안내"
+          }
+        ]
+      },
+      {
+        "id": "mm-linear-algebra-cross-listed",
+        "relation": "crossListed",
+        "courseCodes": [
+          "MM2004",
+          "GS2004"
+        ],
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수 교차코드 및 대체과목 안내"
+          }
+        ]
+      },
+      {
+        "id": "mm-advanced-multivariable-analysis-substitute",
+        "relation": "substitute",
+        "fromCourseCode": "MM2011",
+        "toCourseCode": "MM2001",
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 23,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "수리과학과 전공필수 교차코드 및 대체과목 안내"
+          }
+        ],
+        "note": "고급다변수해석학과 응용은 다변수해석학과 응용의 대체과목으로 인정된다."
+      },
+      {
+        "id": "ev-environmental-transport-same-course",
+        "relation": "sameCourse",
+        "courseCodes": [
+          "EV4106",
+          "EV3103"
+        ],
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지공학과 과거 학번 전공필수 대체 조건"
+          }
+        ],
+        "note": "지구환경이동현상 과목의 병기된 코드다."
+      },
+      {
+        "id": "ev-heat-mass-transfer-substitute",
+        "relation": "substitute",
+        "fromCourseCode": "EV4243",
+        "toCourseCode": "EV4106",
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지공학과 과거 학번 전공필수 대체 조건"
+          }
+        ],
+        "note": "2018~2023학번 중 지구환경이동현상을 이수하지 않은 경우 열물질전달을 대체 과목으로 수강할 수 있다."
+      },
+      {
+        "id": "ev-statistics-substitute-for-transport",
+        "relation": "substitute",
+        "fromCourseCode": "EV3112",
+        "toCourseCode": "EV4106",
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "환경·에너지공학과 과거 학번 전공필수 대체 조건"
+          }
+        ],
+        "note": "2018~2023학번 중 지구환경이동현상을 이수하지 않은 경우 환경·에너지과학통계를 대체 이수할 수 있다."
+      },
+      {
+        "id": "bs-biochemistry-molecular-biology-lab-renumbered",
+        "relation": "renumbered",
+        "fromCourseCode": "BS3111",
+        "toCourseCode": "BS2103",
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "생명과학과 전공필수 변경 전 과목코드 병기"
+          }
+        ]
+      },
+      {
+        "id": "bs-biochemistry-i-renumbered",
+        "relation": "renumbered",
+        "fromCourseCode": "BS3113",
+        "toCourseCode": "BS2104",
+        "sourceRefs": [
+          {
+            "manualYear": 2026,
+            "page": 25,
+            "path": "docs/bachelor_manual/2026_manual.pdf",
+            "note": "생명과학과 전공필수 변경 전 과목코드 병기"
+          }
+        ]
+      }
+    ]
+  }
+}

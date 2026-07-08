@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { SectionOffering } from '@/lib/types/timetable';
 import { AvailabilityWithPreview } from './AvailabilityWithPreview';
 import { CourseSidebar } from './CourseSidebar';
@@ -6,16 +6,29 @@ import { SelectedCoursesDialog } from './SelectedCoursesDialog';
 import { SavedTimetablesDialog } from './SavedTimetablesDialog';
 import { CourseDetailDialog } from './CourseDetailDialog';
 import { useTimetableStore } from '@/lib/stores/timetable.store';
+import type { TimetableSourceManifestEntry } from '@/features/course-catalog/timetable-sources';
+import { formatCourseTerm } from '@/features/course-catalog/offering-view';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { ListChecks, Menu, FolderOpen, Plus, RotateCcw } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { CalendarDays, ListChecks, Menu, FolderOpen, RotateCcw } from 'lucide-react';
 
 interface TimetableLayoutProps {
-  sections: SectionOffering[];
+  defaultTerm: string;
+  timetableSources: readonly TimetableSourceManifestEntry[];
 }
 
-export function TimetableLayout({ sections }: TimetableLayoutProps) {
+export function TimetableLayout({
+  defaultTerm,
+  timetableSources,
+}: TimetableLayoutProps) {
   const scheduledSpans = useTimetableStore((state) => state.scheduledSpans);
   const previewSpans = useTimetableStore((state) => state.previewSpans);
   const removeSection = useTimetableStore((state) => state.removeSection);
@@ -27,6 +40,48 @@ export function TimetableLayout({ sections }: TimetableLayoutProps) {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isCourseDetailDialogOpen, setIsCourseDetailDialogOpen] = useState(false);
   const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null);
+  const [activeTerm, setActiveTerm] = useState(defaultTerm || timetableSources[0]?.term || '');
+  const [sectionsByTerm, setSectionsByTerm] = useState<Record<string, SectionOffering[]>>({});
+  const [loadingTerm, setLoadingTerm] = useState<string | null>(defaultTerm || timetableSources[0]?.term || null);
+  const [termLoadError, setTermLoadError] = useState<string | null>(null);
+
+  const sections = useMemo(() => sectionsByTerm[activeTerm] ?? [], [activeTerm, sectionsByTerm]);
+  const activeSource = timetableSources.find((source) => source.term === activeTerm);
+  const activeTermLabel = activeSource?.label ?? formatCourseTerm(activeTerm);
+  const activeSectionCount = sectionsByTerm[activeTerm]?.length ?? activeSource?.count ?? 0;
+  const isActiveTermLoading = loadingTerm === activeTerm && !sectionsByTerm[activeTerm];
+
+  const loadTermSections = async (term: string): Promise<boolean> => {
+    if (!term || sectionsByTerm[term]) return true;
+
+    setLoadingTerm(term);
+    setTermLoadError(null);
+
+    try {
+      const response = await fetch(`/api/timetable/${encodeURIComponent(term)}`);
+      if (!response.ok) {
+        throw new Error(`Failed to load ${term}: ${response.status}`);
+      }
+
+      const payload = await response.json() as { sections?: SectionOffering[] };
+      const nextSections = Array.isArray(payload.sections) ? payload.sections : [];
+      setSectionsByTerm((current) => ({
+        ...current,
+        [term]: nextSections,
+      }));
+      return true;
+    } catch (error) {
+      console.error('Failed to load timetable term', error);
+      setTermLoadError('시간표 데이터를 불러오지 못했습니다.');
+      return false;
+    } finally {
+      setLoadingTerm((current) => (current === term ? null : current));
+    }
+  };
+
+  useEffect(() => {
+    void loadTermSections(activeTerm);
+  }, [activeTerm]);
 
   const handleNewTimetable = () => {
     if (selectedSections.length > 0) {
@@ -37,10 +92,44 @@ export function TimetableLayout({ sections }: TimetableLayoutProps) {
     }
   };
 
+  const handleTermChange = async (nextTerm: string) => {
+    if (!nextTerm || nextTerm === activeTerm) return;
+    if (selectedSections.length > 0) {
+      const confirmReset = window.confirm('학기를 변경하면 현재 선택된 강의들이 모두 초기화됩니다. 계속하시겠습니까?');
+      if (!confirmReset) return;
+    }
+    const loaded = await loadTermSections(nextTerm);
+    if (!loaded) return;
+    if (selectedSections.length > 0) {
+      reset();
+    }
+    setActiveTerm(nextTerm);
+    setSelectedSectionId(null);
+    setIsCourseDetailDialogOpen(false);
+  };
+
   const handleSpanClick = (sectionId: string) => {
     setSelectedSectionId(sectionId);
     setIsCourseDetailDialogOpen(true);
   };
+
+  const termSelect = (className = '') => (
+    <div className={`flex min-w-[160px] items-center gap-2 ${className}`}>
+      <CalendarDays size={18} className="shrink-0 text-slate-500" />
+      <Select value={activeTerm} onValueChange={handleTermChange} disabled={loadingTerm !== null}>
+        <SelectTrigger className="h-10 min-w-[132px] border-slate-300 bg-white font-bold text-slate-700 shadow-none">
+          <SelectValue placeholder="학기 선택" />
+        </SelectTrigger>
+        <SelectContent className="max-h-[320px]">
+          {timetableSources.map((source) => (
+            <SelectItem key={source.term} value={source.term}>
+              {source.label || formatCourseTerm(source.term)}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
 
   return (
     <TooltipProvider delayDuration={300}>
@@ -49,16 +138,18 @@ export function TimetableLayout({ sections }: TimetableLayoutProps) {
         <div className="hidden h-full lg:flex lg:gap-6">
           {/* Left: Timetable Grid Area */}
           <div className="flex min-w-0 flex-1 flex-col">
-            <div className="mb-4 flex shrink-0 items-center justify-between px-2">
-              <div>
-                <h1 className="flex items-center gap-2 text-2xl font-black tracking-tight text-slate-900">
+            <div className="mb-4 flex shrink-0 flex-col gap-3 px-2 2xl:flex-row 2xl:items-center 2xl:justify-between">
+              <div className="min-w-0">
+                <h1 className="flex items-center gap-2 whitespace-nowrap text-2xl font-black tracking-tight text-slate-900">
                   ⏰ 시간표 빌더
                 </h1>
                 <p className="text-xs font-bold text-slate-500">
-                  시간 중복을 확인하며 나만의 완벽한 학기 시간표를 짜보세요
+                  {activeTermLabel} · {activeSectionCount.toLocaleString()}개 분반
                 </p>
+                {termLoadError && <p className="mt-1 text-xs font-bold text-red-500">{termLoadError}</p>}
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                {termSelect()}
                 <Button
                   onClick={handleNewTimetable}
                   variant="outline"
@@ -100,45 +191,53 @@ export function TimetableLayout({ sections }: TimetableLayoutProps) {
 
           {/* Right: Sidebar Panel */}
           <div className="flex w-[400px] shrink-0 flex-col">
-            <CourseSidebar sections={sections} />
+            <CourseSidebar sections={sections} isLoading={isActiveTermLoading} />
           </div>
         </div>
 
         {/* Mobile Layout */}
         <div className="flex h-full flex-col gap-4 lg:hidden">
           {/* Mobile Header */}
-          <div className="flex shrink-0 items-center justify-between px-2">
-            <div>
-              <h1 className="flex items-center gap-2 text-xl font-black tracking-tight text-slate-900">
-                ⏰ 시간표 빌더
-              </h1>
-              <p className="text-xs font-bold text-slate-500">나만의 완벽한 학기 시간표를 짜보세요</p>
+          <div className="shrink-0 px-2">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <h1 className="flex items-center gap-2 text-xl font-black tracking-tight text-slate-900">
+                  ⏰ 시간표 빌더
+                </h1>
+                <p className="truncate text-xs font-bold text-slate-500">
+                  {activeTermLabel} · {activeSectionCount.toLocaleString()}개 분반
+                </p>
+                {termLoadError && <p className="mt-1 truncate text-xs font-bold text-red-500">{termLoadError}</p>}
+              </div>
+              <div className="flex shrink-0 gap-1.5">
+                <Button
+                  onClick={handleNewTimetable}
+                  size="sm"
+                  variant="outline"
+                  className="border-slate-300 font-bold tracking-tight hover:border-red-500 hover:bg-red-50 hover:text-red-500"
+                >
+                  <RotateCcw size={16} />
+                </Button>
+                <Button
+                  onClick={() => setIsSavedTimetablesDialogOpen(true)}
+                  size="sm"
+                  variant="outline"
+                  className="border-slate-300 font-bold tracking-tight hover:border-blue-500 hover:bg-blue-50"
+                >
+                  <FolderOpen size={16} />
+                </Button>
+                <Button
+                  onClick={() => setIsSelectedCoursesDialogOpen(true)}
+                  size="sm"
+                  className="bg-blue-600 font-bold tracking-tight hover:bg-blue-700"
+                >
+                  <ListChecks size={16} />
+                  <span className="ml-1.5">({selectedSections.length})</span>
+                </Button>
+              </div>
             </div>
-            <div className="flex gap-1.5">
-              <Button
-                onClick={handleNewTimetable}
-                size="sm"
-                variant="outline"
-                className="border-slate-300 font-bold tracking-tight hover:border-red-500 hover:bg-red-50 hover:text-red-500"
-              >
-                <RotateCcw size={16} />
-              </Button>
-              <Button
-                onClick={() => setIsSavedTimetablesDialogOpen(true)}
-                size="sm"
-                variant="outline"
-                className="border-slate-300 font-bold tracking-tight hover:border-blue-500 hover:bg-blue-50"
-              >
-                <FolderOpen size={16} />
-              </Button>
-              <Button
-                onClick={() => setIsSelectedCoursesDialogOpen(true)}
-                size="sm"
-                className="bg-blue-600 font-bold tracking-tight hover:bg-blue-700"
-              >
-                <ListChecks size={16} />
-                <span className="ml-1.5">({selectedSections.length})</span>
-              </Button>
+            <div className="mt-3 w-full">
+              {termSelect('w-full [&>button]:w-full')}
             </div>
           </div>
 
@@ -166,7 +265,7 @@ export function TimetableLayout({ sections }: TimetableLayoutProps) {
             </SheetTrigger>
             <SheetContent side="bottom" className="h-[80vh] overflow-hidden p-0">
               <div className="flex h-full flex-col overflow-hidden px-4 pt-8 pb-4">
-                <CourseSidebar sections={sections} isMobile />
+                <CourseSidebar sections={sections} isMobile isLoading={isActiveTermLoading} />
               </div>
             </SheetContent>
           </Sheet>

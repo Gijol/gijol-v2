@@ -106,7 +106,9 @@ export class GradeReportParser {
     if (excelAddress in workSheet) {
       const workSheetElement = workSheet[excelAddress];
       if (VALUE_KEY in workSheetElement) {
-        return workSheetElement[VALUE_KEY].trim();
+        const value = workSheetElement[VALUE_KEY];
+        if (value === null || value === undefined) return '';
+        return String(value).trim();
       }
     }
 

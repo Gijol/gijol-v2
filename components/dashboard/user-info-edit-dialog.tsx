@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import type { ReactNode } from 'react';
 import { Settings } from 'lucide-react';
 
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@components/ui/dialog';
@@ -10,22 +10,34 @@ import { Label } from '@components/ui/label';
 import { Input } from '@components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { MultiSelect } from '@components/ui/multi-select';
+import { MinorDeclarationTermFields } from '@components/dashboard/minor-declaration-term-fields';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 import { useGraduationStore } from '../../lib/stores/useGraduationStore';
-import { gradStatusFetchFn, toTakenCourses } from '@utils/graduation/grad-status-helper';
+import { gradStatusFetchFn } from '@utils/graduation/grad-status-helper';
 import { useToast } from '@components/ui/use-toast';
+import type { MinorDeclarationTerms } from '@lib/types/grad';
+import { pruneMinorDeclarationTerms } from '@utils/graduation/minor-declaration-terms';
 
-export function UserInfoEditDialog() {
-  const router = useRouter();
+interface UserInfoEditDialogProps {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  trigger?: ReactNode;
+}
+
+export function UserInfoEditDialog({ open: controlledOpen, onOpenChange, trigger }: UserInfoEditDialogProps = {}) {
   const { toast } = useToast();
-  const { parsed, userMajor, userMinors, entryYear, setFromParsed } = useGraduationStore();
-  const [open, setOpen] = useState(false);
+  const { parsed, userMajor, userMinors, minorDeclarationTerms: storedMinorDeclarationTerms, entryYear, setFromParsed } =
+    useGraduationStore();
+  const [internalOpen, setInternalOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const open = controlledOpen ?? internalOpen;
+  const setOpen = onOpenChange ?? setInternalOpen;
 
   // Form states
   const [year, setYear] = useState<number>(entryYear ?? new Date().getFullYear());
   const [major, setMajor] = useState<string>(userMajor);
   const [minors, setMinors] = useState<string[]>(userMinors ?? []);
+  const [minorDeclarationTerms, setMinorDeclarationTerms] = useState<MinorDeclarationTerms>({});
 
   // Reset form when dialog opens
   const handleOpenChange = (isOpen: boolean) => {
@@ -33,8 +45,14 @@ export function UserInfoEditDialog() {
       setYear(entryYear ?? 2020);
       setMajor(userMajor);
       setMinors(userMinors ?? []);
+      setMinorDeclarationTerms(pruneMinorDeclarationTerms(storedMinorDeclarationTerms, userMinors ?? []));
     }
     setOpen(isOpen);
+  };
+
+  const handleChangeMinors = (nextMinors: string[]) => {
+    setMinors(nextMinors);
+    setMinorDeclarationTerms((prev) => pruneMinorDeclarationTerms(prev, nextMinors));
   };
 
   const handleSave = async () => {
@@ -42,30 +60,25 @@ export function UserInfoEditDialog() {
     setSaving(true);
 
     try {
-      // Create payload with updated metadata
-      // Existing taken courses are preserved from parsed data
-      // We need to re-fetch grad status because major/minor/year affects requirements
-     
-      // Note: We need to use valid takenCourses. 
-      // Since we don't have direct access to 'rows' like in upload page,
-      // we can reuse 'parsed' or 'takenCourses' from store if available.
-      // Ideally 'takenCourses' in store is already processed.
       const takenCourses = useGraduationStore.getState().takenCourses;
-      
+
       if (!takenCourses || takenCourses.length === 0) {
         toast({
-          title: "오류",
-          description: "수강 내역 정보가 없습니다. 성적표를 먼저 업로드해주세요.",
-          variant: "destructive",
+          title: '오류',
+          description: '수강 내역 정보가 없습니다. 성적표를 먼저 업로드해주세요.',
+          variant: 'destructive',
         });
         return;
       }
+
+      const finalMinorDeclarationTerms = pruneMinorDeclarationTerms(minorDeclarationTerms, minors);
 
       const payload = {
         entryYear: year,
         takenCourses,
         userMajor: major,
         userMinors: minors,
+        minorDeclarationTerms: finalMinorDeclarationTerms,
       };
 
       const grad = await gradStatusFetchFn(payload);
@@ -76,24 +89,22 @@ export function UserInfoEditDialog() {
         gradStatus: grad,
         userMajor: major,
         userMinors: minors,
+        minorDeclarationTerms: finalMinorDeclarationTerms,
         entryYear: year,
       });
 
       toast({
-        title: "저장 완료",
-        description: "회원 정보와 졸업 요건이 업데이트되었습니다.",
+        title: '저장 완료',
+        description: '회원 정보와 졸업 요건이 업데이트되었습니다.',
       });
-      
+
       setOpen(false);
-      
-      // Refresh current page to ensure everything reflects new state
-      // router.replace(router.asPath); 
     } catch (e) {
       console.error(e);
       toast({
-        title: "저장 실패",
-        description: "정보를 업데이트하는 중 오류가 발생했습니다.",
-        variant: "destructive",
+        title: '저장 실패',
+        description: '정보를 업데이트하는 중 오류가 발생했습니다.',
+        variant: 'destructive',
       });
     } finally {
       setSaving(false);
@@ -103,12 +114,18 @@ export function UserInfoEditDialog() {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="lg" className="group gap-2 border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 hover:text-indigo-800">
-          <Settings className="h-4 w-4 transition-transform duration-500 group-hover:rotate-180" />
-          정보 수정 및 재계산
-        </Button>
+        {trigger ?? (
+          <Button
+            variant="outline"
+            size="lg"
+            className="group gap-2 border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 hover:text-indigo-800"
+          >
+            <Settings className="h-4 w-4 transition-transform duration-500 group-hover:rotate-180" />
+            정보 수정 및 재계산
+          </Button>
+        )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[560px]">
         <DialogHeader>
           <DialogTitle>내 정보 수정</DialogTitle>
           <DialogDescription>
@@ -155,8 +172,19 @@ export function UserInfoEditDialog() {
               <MultiSelect
                 options={MINOR_OPTIONS}
                 selected={minors}
-                onChange={setMinors}
+                onChange={handleChangeMinors}
                 placeholder="부전공 선택 (선택)"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-4 items-start gap-4">
+            <div className="hidden sm:block" />
+            <div className="col-span-4 sm:col-span-3">
+              <MinorDeclarationTermFields
+                selectedMinors={minors}
+                terms={minorDeclarationTerms}
+                onChange={setMinorDeclarationTerms}
+                compact
               />
             </div>
           </div>

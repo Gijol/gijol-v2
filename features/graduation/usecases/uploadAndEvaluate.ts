@@ -2,10 +2,11 @@
  * This is the main orchestration layer (UseCase).
  * It connects Validation -> Normalization -> Engine -> Data -> Refine.
  */
-import { COMMON_MAJOR_PREFIXES } from '../domain/constants';
+import { resolveMajorForEvaluation } from '../domain/academic-context';
+import type { MinorDeclarationTerms } from '../domain/types';
 import { parseRawToTakenCourses, validateTakenCourses, normalizeTakenCourses } from '../middlewares/validation';
 import { evaluateGraduationStatus } from '../domain/engine';
-import { mapDeficitToRecommendations, MockCourseRepository } from '../data';
+import { buildGraduationRecommendationGroups } from '../data';
 import { refineGradStatusForUI, UIGradViewModel } from '../middlewares/refine';
 
 export interface UploadEvaluateResult {
@@ -18,6 +19,7 @@ interface EvaluateOptions {
   entryYear?: number;
   userMajor?: string;
   userMinors?: string[];
+  minorDeclarationTerms?: MinorDeclarationTerms;
 }
 
 /**
@@ -28,7 +30,7 @@ export const uploadAndEvaluate = async (
   rawInput: unknown,
   options: EvaluateOptions = {},
 ): Promise<UploadEvaluateResult> => {
-  let { entryYear, userMajor, userMinors } = options;
+  let { entryYear, userMajor, userMinors, minorDeclarationTerms } = options;
   // throw new Error('VERIFICATION: I am running the correct file');
 
   // 0. Metadata Extraction from Raw Input
@@ -62,37 +64,12 @@ export const uploadAndEvaluate = async (
   // 3. Normalize
   const normalized = normalizeTakenCourses(validation.value!);
 
-  // 3.5. Infer Major if missing
-  if (!userMajor) {
-    const counts: Record<string, number> = {};
-    normalized.takenCourses.forEach((course) => {
-      let code = '';
-      if (course && course.courseCode) {
-        code = String(course.courseCode)
-          .toUpperCase()
-          .replace(/[^A-Z]/g, '');
-      }
-
-      for (const prefix of COMMON_MAJOR_PREFIXES) {
-        if (code.startsWith(prefix)) {
-          counts[prefix] = (counts[prefix] || 0) + 1;
-        }
-      }
-    });
-
-    let maxPrefix = '';
-    let maxCount = 0;
-    for (const [p, c] of Object.entries(counts)) {
-      if (c > maxCount) {
-        maxCount = c;
-        maxPrefix = p;
-      }
-    }
-
-    if (maxPrefix) {
-      userMajor = maxPrefix;
-    }
-  }
+  // 3.5. Resolve Major Context
+  const requestedUserMajor = userMajor;
+  const majorResolution = resolveMajorForEvaluation(userMajor, normalized.takenCourses);
+  userMajor =
+    majorResolution.code ??
+    (requestedUserMajor && majorResolution.status !== 'missing' ? requestedUserMajor : undefined);
 
   // 4. Evaluate (Engine)
   const engineResult = await evaluateGraduationStatus({
@@ -101,25 +78,25 @@ export const uploadAndEvaluate = async (
       entryYear,
       userMajor,
       userMinors,
+      minorDeclarationTerms,
     },
   });
 
-  // 5. Data / Recommendations (Optional)
-  let recommendations: any[] = [];
-  if (!engineResult.totalSatisfied) {
-    const deficits: Record<string, number> = {};
-    Object.entries(engineResult.graduationCategory).forEach(([key, category]) => {
-      if (!category.satisfied) {
-        deficits[key] = category.minConditionCredits - category.totalCredits;
-      }
-    });
-
-    const repo = new MockCourseRepository();
-    recommendations = await mapDeficitToRecommendations(deficits, repo);
-  }
+  // 5. Source-backed Recommendations
+  const recommendationGroups = buildGraduationRecommendationGroups({
+    result: engineResult,
+    userMajor,
+    userMinors,
+    takenCourses: normalized.takenCourses,
+  });
 
   // 6. Refine for UI
-  const viewModel = refineGradStatusForUI(engineResult, { recommendations });
+  const viewModel = refineGradStatusForUI(engineResult, {
+    recommendations: recommendationGroups.recommendations,
+    allRecommendations: recommendationGroups.allRecommendations,
+    recommendationSuppressions: recommendationGroups.suppressions,
+    recommendationPolicy: recommendationGroups.policy,
+  });
 
   return { success: true, data: viewModel };
 };
