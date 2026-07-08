@@ -1,0 +1,3 @@
+# Separate Timetable Plans from Completed Term Records
+
+We will model **Timetable Plan Alternatives** separately from **Completed Term Records** instead of treating saved timetables and uploaded transcript history as the same object. A plan is a student's intended set of section choices for a planning term, while a completed record is evidence-backed course history from a transcript or academic record; saving, editing, or marking a plan as representative does not turn it into completed history. When later transcript data overlaps with an existing plan, the plan stays intact and may show completion indicators, because automatic merging would hide plan alternatives, lose recommendation context, and imply actual enrollment evidence that the timetable service does not own.
