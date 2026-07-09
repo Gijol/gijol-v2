@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Book, Clock, Building2, Calendar, Info, FileText } from 'lucide-react';
-import type { CourseNodeData } from '@/features/roadmap/types';
+import type { CourseNodeData, RoadmapCourseMeeting } from '@/features/roadmap/types';
 import type { CourseDB } from '@/lib/const/course-db';
+import { getVisibleDepartmentDisplayNames, normalizeAcademicOrgName } from '@/lib/const/course-db';
 import { formatCourseTerm } from '@/features/course-catalog/offering-view';
-import { MeetingBadge, OfferingGroupCard } from '@/features/course-catalog/components/OfferingGroupCard';
+import { expandCourseCodeCandidates } from '@/features/course-catalog/normalize';
 
 interface CourseDetailSheetProps {
   course: CourseNodeData | null;
@@ -29,16 +31,150 @@ const categoryColors: Record<string, string> = {
 
 type RoadmapCatalog = NonNullable<CourseNodeData['catalog']>;
 type RoadmapManualListing = RoadmapCatalog['manualListings'][number];
+type RoadmapOfferingGroup = RoadmapCatalog['offeringGroups'][number];
+type ScheduleEntry = {
+  key: string;
+  day: RoadmapCourseMeeting['day'];
+  start: string;
+  end: string;
+  room?: string | null;
+};
+type ScheduleSlotSummary = {
+  key: string;
+  dayLabel: string;
+  timeLabel: string;
+};
+type ScheduleSummary = {
+  slots: ScheduleSlotSummary[];
+  roomLabels: string[];
+};
+
+const dayLabels: Record<RoadmapCourseMeeting['day'], string> = {
+  MON: '월',
+  TUE: '화',
+  WED: '수',
+  THU: '목',
+  FRI: '금',
+  SAT: '토',
+  SUN: '일',
+};
+
+const dayOrder: Record<RoadmapCourseMeeting['day'], number> = {
+  MON: 1,
+  TUE: 2,
+  WED: 3,
+  THU: 4,
+  FRI: 5,
+  SAT: 6,
+  SUN: 7,
+};
 
 function formatHours(lectureHours?: number, labHours?: number, credits?: number): string {
   if (lectureHours === undefined || labHours === undefined || credits === undefined) return '-';
   return `${lectureHours}:${labHours}:${credits}`;
 }
 
-function getListingScheduleBadges(catalog: RoadmapCatalog, listing: RoadmapManualListing) {
-  const matchingOfferingGroups = catalog.offeringGroups.filter((offeringGroup) =>
-    offeringGroup.term.startsWith(String(listing.academicYear)) &&
-    offeringGroup.courseCodes.includes(listing.courseCode));
+function getTermSortValue(term: string): number {
+  const numericSemesterMatch = term.match(/^(\d{4})-([12])$/);
+  if (numericSemesterMatch) {
+    return Number(numericSemesterMatch[1]) * 10 + Number(numericSemesterMatch[2]);
+  }
+
+  const namedSemesterMatch = term.match(/^(\d{4})-(spring|summer|fall|winter)$/);
+  if (namedSemesterMatch) {
+    const semesterOrder: Record<string, number> = {
+      spring: 1,
+      summer: 2,
+      fall: 3,
+      winter: 4,
+    };
+    return Number(namedSemesterMatch[1]) * 10 + semesterOrder[namedSemesterMatch[2]];
+  }
+
+  const year = Number(term.match(/^(\d{4})/)?.[1] ?? 0);
+  return Number.isFinite(year) ? year : 0;
+}
+
+function sortOfferingGroupsNewest(groups: readonly RoadmapOfferingGroup[]): RoadmapOfferingGroup[] {
+  return [...groups].sort(
+    (a, b) =>
+      getTermSortValue(b.term) - getTermSortValue(a.term) ||
+      a.section.localeCompare(b.section) ||
+      a.courseCodes.join('/').localeCompare(b.courseCodes.join('/')),
+  );
+}
+
+function formatTimeRange(start: string, end: string): string {
+  return `${start}~${end}`;
+}
+
+function getUniqueOrdered(values: readonly string[]): string[] {
+  const seen = new Set<string>();
+  const uniqueValues: string[] = [];
+
+  values.forEach((value) => {
+    if (seen.has(value)) return;
+    seen.add(value);
+    uniqueValues.push(value);
+  });
+
+  return uniqueValues;
+}
+
+function sortScheduleEntries(entries: readonly ScheduleEntry[]): ScheduleEntry[] {
+  return [...entries].sort(
+    (a, b) =>
+      dayOrder[a.day] - dayOrder[b.day] ||
+      a.start.localeCompare(b.start) ||
+      a.end.localeCompare(b.end) ||
+      (a.room ?? '').localeCompare(b.room ?? ''),
+  );
+}
+
+function summarizeScheduleEntries(entries: readonly ScheduleEntry[]): ScheduleSummary {
+  const sortedEntries = sortScheduleEntries(entries);
+  const slots: ScheduleSlotSummary[] = [];
+  const seenSlots = new Set<string>();
+
+  sortedEntries.forEach((entry) => {
+    const slotKey = [entry.day, entry.start, entry.end].join(':');
+    if (seenSlots.has(slotKey)) return;
+
+    seenSlots.add(slotKey);
+    slots.push({
+      key: slotKey,
+      dayLabel: dayLabels[entry.day],
+      timeLabel: formatTimeRange(entry.start, entry.end),
+    });
+  });
+
+  return {
+    slots,
+    roomLabels: getUniqueOrdered(
+      sortedEntries.map((entry) => entry.room?.trim() ?? '').filter((room): room is string => room.length > 0),
+    ),
+  };
+}
+
+function getOfferingGroupScheduleEntries(offeringGroup: RoadmapOfferingGroup): ScheduleEntry[] {
+  return offeringGroup.meetingBadges.map((badge) => ({
+    key: badge.key,
+    day: badge.day,
+    start: badge.start,
+    end: badge.end,
+    room: badge.room,
+  }));
+}
+
+function getListingScheduleEntries(catalog: RoadmapCatalog, listing: RoadmapManualListing): ScheduleEntry[] {
+  const listingCodeCandidates = expandCourseCodeCandidates(listing.courseCode);
+  const matchingOfferingGroups = catalog.offeringGroups.filter(
+    (offeringGroup) =>
+      offeringGroup.term.startsWith(String(listing.academicYear)) &&
+      offeringGroup.courseCodes.some((courseCode) =>
+        expandCourseCodeCandidates(courseCode).some((candidate) => listingCodeCandidates.includes(candidate)),
+      ),
+  );
   const seen = new Set<string>();
 
   return matchingOfferingGroups.flatMap((offeringGroup) =>
@@ -49,12 +185,94 @@ function getListingScheduleBadges(catalog: RoadmapCatalog, listing: RoadmapManua
 
       return {
         key,
-        label: badge.label,
-        detail: badge.detail,
+        day: badge.day,
+        start: badge.start,
+        end: badge.end,
         room: badge.room,
-        title: `${formatCourseTerm(offeringGroup.term)} · ${offeringGroup.section}분반 · ${offeringGroup.courseCodes.join('/')} · ${badge.title}`,
       };
     }),
+  );
+}
+
+function formatDepartmentNames(departments: readonly string[]): string {
+  const departmentNames = getVisibleDepartmentDisplayNames(departments);
+  return departmentNames.length > 0 ? departmentNames.join(', ') : '-';
+}
+
+function ScheduleValueList({
+  values,
+  emptyLabel = '-',
+  nowrap = false,
+}: {
+  values: readonly string[];
+  emptyLabel?: string;
+  nowrap?: boolean;
+}) {
+  if (values.length === 0) {
+    return <span className="text-xs text-slate-400">{emptyLabel}</span>;
+  }
+
+  return (
+    <div className="space-y-1">
+      {values.map((value, index) => (
+        <div
+          key={`${value}-${index}`}
+          className={['text-xs leading-5 text-slate-700', nowrap ? 'whitespace-nowrap' : ''].join(' ').trim()}
+        >
+          {value}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CourseCodeList({ courseCodes }: { courseCodes: readonly string[] }) {
+  if (courseCodes.length === 0) {
+    return <span className="text-xs text-slate-400">-</span>;
+  }
+
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {courseCodes.map((courseCode) => (
+        <span key={courseCode} className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs text-slate-700">
+          {courseCode}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function MobileScheduleSummary({ summary }: { summary: ScheduleSummary }) {
+  return (
+    <div className="mt-3 space-y-3">
+      <div className="grid grid-cols-[56px_1fr] gap-x-3 text-sm">
+        <div className="text-xs font-medium text-slate-500">시간</div>
+        <div className="rounded-md bg-slate-50 px-2.5 py-2">
+          <div className="grid grid-cols-[40px_1fr] gap-x-3 border-b border-slate-200 pb-1 text-[11px] font-medium text-slate-500">
+            <span>요일</span>
+            <span>시간대</span>
+          </div>
+          {summary.slots.length > 0 ? (
+            <div className="mt-1 space-y-1">
+              {summary.slots.map((slot) => (
+                <div key={slot.key} className="grid grid-cols-[40px_1fr] gap-x-3 text-xs leading-5 text-slate-700">
+                  <span>{slot.dayLabel}</span>
+                  <span className="whitespace-nowrap">{slot.timeLabel}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="pt-1 text-xs text-slate-400">시간 미확인</div>
+          )}
+        </div>
+      </div>
+      <dl className="grid grid-cols-[56px_1fr] gap-x-3 text-sm">
+        <dt className="text-xs font-medium text-slate-500">장소</dt>
+        <dd>
+          <ScheduleValueList values={summary.roomLabels} emptyLabel="장소 미확인" />
+        </dd>
+      </dl>
+    </div>
   );
 }
 
@@ -64,10 +282,11 @@ export function CourseDetailSheet({ course, open, onOpenChange, courses }: Cours
   // Find course details from course database
   useEffect(() => {
     if (course && courses.length > 0) {
+      const courseCodeCandidates = expandCourseCodeCandidates(course.courseCode);
       const found = courses.find(
         (c) =>
-          !!course.courseCode &&
-          (c.primaryCourseCode === course.courseCode || c.aliasCodes?.includes(course.courseCode)),
+          courseCodeCandidates.includes(c.primaryCourseCode) ||
+          c.aliasCodes?.some((aliasCode) => courseCodeCandidates.includes(aliasCode)),
       );
       setCourseDetails(found || null);
     } else {
@@ -83,7 +302,11 @@ export function CourseDetailSheet({ course, open, onOpenChange, courses }: Cours
   const lectureHours = catalog?.lectureHours ?? courseDetails?.lectureHours;
   const labHours = catalog?.labHours ?? courseDetails?.labHours;
   const displayTitleEn = catalog?.displayTitleEn ?? courseDetails?.displayTitleEn;
-  const departments = catalog?.departments.length ? catalog.departments.join(', ') : courseDetails?.departmentContext;
+  const departments = catalog?.departments.length
+    ? getVisibleDepartmentDisplayNames(catalog.departments).join(', ')
+    : courseDetails?.departmentContext
+      ? normalizeAcademicOrgName(courseDetails.departmentContext)
+      : undefined;
   const description = catalog?.description ?? courseDetails?.description;
   const aliasCodes = catalog?.aliasCodes.filter((code) => code !== course.courseCode) ?? [];
   const sortedManualListings = [...(catalog?.manualListings ?? [])].sort(
@@ -92,7 +315,7 @@ export function CourseDetailSheet({ course, open, onOpenChange, courses }: Cours
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="w-[420px] overflow-y-auto sm:w-[640px]">
+      <SheetContent className="w-full max-w-full overflow-y-auto sm:w-[min(96vw,1040px)] sm:max-w-none">
         <SheetHeader>
           <div className="flex items-center gap-2">
             <Badge className={categoryStyle}>{course.category}</Badge>
@@ -169,15 +392,82 @@ export function CourseDetailSheet({ course, open, onOpenChange, courses }: Cours
                     <Clock className="h-4 w-4" />
                     <span>확인된 시간표</span>
                   </div>
-                  <div className="space-y-2">
-                    {catalog.offeringGroups.map((offeringGroup) => (
-                      <OfferingGroupCard
-                        key={offeringGroup.offeringGroupId}
-                        offeringGroup={offeringGroup}
-                        tone="slate"
-                        className="p-2 text-xs"
-                      />
-                    ))}
+                  <div className="space-y-2 md:hidden">
+                    {sortOfferingGroupsNewest(catalog.offeringGroups).map((offeringGroup) => {
+                      const scheduleSummary = summarizeScheduleEntries(getOfferingGroupScheduleEntries(offeringGroup));
+
+                      return (
+                        <div
+                          key={offeringGroup.offeringGroupId}
+                          className="rounded-md border border-slate-200 bg-white p-3"
+                        >
+                          <div className="flex flex-wrap items-center gap-2">
+                            <Badge variant="outline" className="text-xs">
+                              {formatCourseTerm(offeringGroup.term)}
+                            </Badge>
+                            <span className="text-xs font-medium text-slate-700">
+                              {offeringGroup.section ? `${offeringGroup.section}분반` : '분반 미확인'}
+                            </span>
+                          </div>
+                          <div className="mt-2">
+                            <CourseCodeList courseCodes={offeringGroup.courseCodes} />
+                          </div>
+                          <p className="mt-2 text-xs leading-relaxed text-slate-500">
+                            {formatDepartmentNames(offeringGroup.departments)}
+                          </p>
+                          <MobileScheduleSummary summary={scheduleSummary} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="hidden overflow-hidden rounded-md border border-slate-200 md:block">
+                    <Table className="min-w-[900px]">
+                      <TableHeader className="bg-slate-50 text-xs text-slate-500">
+                        <TableRow>
+                          <TableHead className="px-3">학기</TableHead>
+                          <TableHead className="px-3">분반</TableHead>
+                          <TableHead className="px-3">학수번호</TableHead>
+                          <TableHead className="px-3">개설 학과</TableHead>
+                          <TableHead className="px-3">요일</TableHead>
+                          <TableHead className="px-3">시간대</TableHead>
+                          <TableHead className="px-3">장소</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {sortOfferingGroupsNewest(catalog.offeringGroups).map((offeringGroup) => {
+                          const scheduleSummary = summarizeScheduleEntries(
+                            getOfferingGroupScheduleEntries(offeringGroup),
+                          );
+
+                          return (
+                            <TableRow key={offeringGroup.offeringGroupId}>
+                              <TableCell className="px-3 font-medium text-slate-800">
+                                {formatCourseTerm(offeringGroup.term)}
+                              </TableCell>
+                              <TableCell className="px-3 text-slate-700">{offeringGroup.section || '-'}</TableCell>
+                              <TableCell className="px-3">
+                                <CourseCodeList courseCodes={offeringGroup.courseCodes} />
+                              </TableCell>
+                              <TableCell className="px-3 text-xs text-slate-600">
+                                {formatDepartmentNames(offeringGroup.departments)}
+                              </TableCell>
+                              <TableCell className="px-3 align-top">
+                                <ScheduleValueList values={scheduleSummary.slots.map((slot) => slot.dayLabel)} />
+                              </TableCell>
+                              <TableCell className="px-3 align-top">
+                                <ScheduleValueList
+                                  values={scheduleSummary.slots.map((slot) => slot.timeLabel)}
+                                  nowrap
+                                />
+                              </TableCell>
+                              <TableCell className="max-w-[220px] px-3 align-top">
+                                <ScheduleValueList values={scheduleSummary.roomLabels} emptyLabel="장소 미확인" />
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
                   </div>
                 </div>
               )}
@@ -189,37 +479,77 @@ export function CourseDetailSheet({ course, open, onOpenChange, courses }: Cours
                     <FileText className="h-4 w-4" />
                     <span>학사편람 수록 이력</span>
                   </div>
-                  <div className="space-y-1.5">
+                  <div className="space-y-2 md:hidden">
                     {sortedManualListings.map((listing) => {
-                      const scheduleBadges = getListingScheduleBadges(catalog, listing);
+                      const scheduleSummary = summarizeScheduleEntries(getListingScheduleEntries(catalog, listing));
 
                       return (
-                        <div key={listing.id} className="rounded-md bg-slate-50 px-2 py-1.5 text-xs">
-                          <div className="flex flex-wrap items-center gap-1.5">
-                            <Badge variant="outline" className="text-[11px]">
+                        <div key={listing.id} className="rounded-md border border-slate-200 bg-white p-3">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <Badge variant="outline" className="text-xs">
                               {listing.academicYear}
                             </Badge>
-                            <span className="font-mono text-gray-600">{listing.courseCode}</span>
-                            <span className="text-gray-500">
-                              {formatHours(listing.lectureHours, listing.labHours, listing.credits)}
-                            </span>
-                            {listing.page && <span className="text-gray-400">p.{listing.page}</span>}
+                            <span className="font-mono text-xs text-slate-700">{listing.courseCode}</span>
                           </div>
-                          {scheduleBadges.length > 0 && (
-                            <div className="mt-1.5 flex flex-wrap gap-1">
-                              {scheduleBadges.map((badge) => (
-                                <MeetingBadge
-                                  key={badge.key}
-                                  badge={badge}
-                                  tone="slate"
-                                  className="text-[11px]"
-                                />
-                              ))}
-                            </div>
-                          )}
+                          <dl className="mt-3 grid grid-cols-[56px_1fr] gap-x-3 gap-y-2 text-sm">
+                            <dt className="text-xs font-medium text-slate-500">강:실:학</dt>
+                            <dd className="text-xs text-slate-700">
+                              {formatHours(listing.lectureHours, listing.labHours, listing.credits)}
+                            </dd>
+                            <dt className="text-xs font-medium text-slate-500">쪽</dt>
+                            <dd className="text-xs text-slate-700">{listing.page ? `p.${listing.page}` : '-'}</dd>
+                          </dl>
+                          <MobileScheduleSummary summary={scheduleSummary} />
                         </div>
                       );
                     })}
+                  </div>
+                  <div className="hidden overflow-hidden rounded-md border border-slate-200 md:block">
+                    <Table className="min-w-[860px]">
+                      <TableHeader className="bg-slate-50 text-xs text-slate-500">
+                        <TableRow>
+                          <TableHead className="px-3">연도</TableHead>
+                          <TableHead className="px-3">학수번호</TableHead>
+                          <TableHead className="px-3">강:실:학</TableHead>
+                          <TableHead className="px-3">요일</TableHead>
+                          <TableHead className="px-3">시간대</TableHead>
+                          <TableHead className="px-3">장소</TableHead>
+                          <TableHead className="px-3">쪽</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {sortedManualListings.map((listing) => {
+                          const scheduleSummary = summarizeScheduleEntries(getListingScheduleEntries(catalog, listing));
+
+                          return (
+                            <TableRow key={listing.id}>
+                              <TableCell className="px-3 font-medium text-slate-800">{listing.academicYear}</TableCell>
+                              <TableCell className="px-3 font-mono text-xs text-slate-700">
+                                {listing.courseCode}
+                              </TableCell>
+                              <TableCell className="px-3 text-slate-700">
+                                {formatHours(listing.lectureHours, listing.labHours, listing.credits)}
+                              </TableCell>
+                              <TableCell className="px-3 align-top">
+                                <ScheduleValueList values={scheduleSummary.slots.map((slot) => slot.dayLabel)} />
+                              </TableCell>
+                              <TableCell className="px-3 align-top">
+                                <ScheduleValueList
+                                  values={scheduleSummary.slots.map((slot) => slot.timeLabel)}
+                                  nowrap
+                                />
+                              </TableCell>
+                              <TableCell className="max-w-[220px] px-3 align-top">
+                                <ScheduleValueList values={scheduleSummary.roomLabels} />
+                              </TableCell>
+                              <TableCell className="px-3 text-xs text-slate-700">
+                                {listing.page ? `p.${listing.page}` : '-'}
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
                   </div>
                 </div>
               )}
