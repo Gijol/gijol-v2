@@ -1,5 +1,5 @@
 import type { RoadmapData } from '@/lib/types/roadmap';
-import { normalizeCourseCode } from './normalize';
+import { expandCourseCodeCandidates, getCourseCodeSearchVariants, normalizeCourseCode } from './normalize';
 import { createCourseCatalogSearchItems, type CourseCatalogSearchItem } from './search';
 
 const ROADMAP_ONLY_SOURCE_KIND = 'roadmap-preset';
@@ -14,7 +14,7 @@ function createRoadmapCatalogLookup(
   const byCode = new Map<string, CourseCatalogSearchItem>();
 
   items.filter(hasNonRoadmapEvidence).forEach((item) => {
-    [item.primaryCourseCode, ...item.aliasCodes].forEach((courseCode) => {
+    getCourseCodeSearchVariants([item.primaryCourseCode, ...item.aliasCodes]).forEach((courseCode) => {
       const normalized = normalizeCourseCode(courseCode);
       if (normalized && !byCode.has(normalized)) {
         byCode.set(normalized, item);
@@ -81,7 +81,9 @@ export function enrichRoadmapDataWithCatalog(
       return node;
     }
 
-    const item = catalogByCode.get(courseCode);
+    const item = expandCourseCodeCandidates(courseCode)
+      .map((candidate) => catalogByCode.get(candidate))
+      .find((candidate): candidate is CourseCatalogSearchItem => Boolean(candidate));
     if (!item) {
       unresolvedCourseCodes.add(courseCode);
       return node;

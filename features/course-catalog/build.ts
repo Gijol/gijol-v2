@@ -22,6 +22,7 @@ import {
 import { buildRequirementFacetsFromRoadmaps, type RoadmapCatalogExtraction } from './adapters/roadmap';
 import { buildOfferingsFromTimetable } from './adapters/timetable';
 import {
+  expandCourseCodeCandidates,
   minorCatalogSourceRef,
   normalizeCourseCode,
   recommendationSourceRef,
@@ -199,7 +200,9 @@ class CourseAccumulator {
     const primaryCode = normalizeCourseCode(input.code);
     if (!primaryCode) return '';
 
-    const existingCourseId = this.codeToCourseId.get(primaryCode);
+    const existingCourseId = expandCourseCodeCandidates(primaryCode)
+      .map((candidate) => this.codeToCourseId.get(candidate))
+      .find((courseId): courseId is string => Boolean(courseId));
     const courseId = existingCourseId ?? syntheticCourseId(primaryCode);
     if (!existingCourseId) {
       this.syntheticCourseIds.add(courseId);
@@ -224,7 +227,11 @@ class CourseAccumulator {
 
   resolveCourseId = (courseCode: string): string => {
     const normalizedCode = normalizeCourseCode(courseCode);
-    return this.codeToCourseId.get(normalizedCode) ?? this.ensureObservedCourse({
+    const existingCourseId = expandCourseCodeCandidates(normalizedCode)
+      .map((candidate) => this.codeToCourseId.get(candidate))
+      .find((courseId): courseId is string => Boolean(courseId));
+
+    return existingCourseId ?? this.ensureObservedCourse({
       code: normalizedCode,
       sourceRefs: [{ kind: 'manual', sourceId: 'unresolved-observed-course' }],
     });

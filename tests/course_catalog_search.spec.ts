@@ -242,6 +242,25 @@ describe('course catalog search', () => {
     );
   });
 
+  it('matches combined course codes and renamed AI organization names', () => {
+    const items = createCourseCatalogSearchItems();
+    const mathCombinedCode = filterCourseCatalogSearchItems(items, { query: 'GS(MM)2001' });
+    const renamedAiDepartment = filterCourseCatalogSearchItems(items, { query: 'AI학과' });
+
+    expect(mathCombinedCode).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          primaryCourseCode: 'GS2001',
+          displayTitleKo: '다변수해석학과 응용',
+          aliasCodes: expect.arrayContaining(['MM2001']),
+        }),
+      ]),
+    );
+    expect(mathCombinedCode.some((item) => item.primaryCourseCode === 'GS(MM)2001')).toBe(false);
+    expect(renamedAiDepartment.some((item) =>
+      item.departments.some((department) => department.includes('AI융합학과')))).toBe(true);
+  });
+
   it('serves /api/courses from the catalog while preserving roadmap-compatible fields', async () => {
     const req = {
       query: { query: 'HS4611' },

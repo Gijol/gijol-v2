@@ -90,4 +90,33 @@ describe('roadmap catalog enrichment', () => {
     );
     expect(planned?.data.catalog).toBeUndefined();
   });
+
+  it('resolves combined math minor codes to catalog-backed courses', async () => {
+    const req = {
+      method: 'GET',
+      query: { slug: 'MATH_MINOR' },
+    } as unknown as NextApiRequest;
+    const res = createMockResponse();
+
+    await roadmapHandler(req, res);
+
+    const body = res.body as RoadmapData;
+    const multivariable = body.nodes.find((node) => node.data.courseCode === 'GS(MM)2001');
+
+    expect(res.statusCode).toBe(200);
+    expect(body.meta.catalog?.unresolvedCourseCodes).not.toEqual(expect.arrayContaining(['GS(MM)2001']));
+    expect(multivariable?.data.catalog).toEqual(
+      expect.objectContaining({
+        primaryCourseCode: 'GS2001',
+        displayTitleKo: '다변수해석학과 응용',
+        aliasCodes: expect.arrayContaining(['GS2001', 'MM2001']),
+        offeringGroups: expect.arrayContaining([
+          expect.objectContaining({
+            term: '2026-1',
+            courseCodes: expect.arrayContaining(['GS2001', 'MM2001']),
+          }),
+        ]),
+      }),
+    );
+  });
 });
