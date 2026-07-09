@@ -26,7 +26,7 @@ const MAJOR_ORDER = [
   '수학과',
   '의생명공학과',
   '융합기술원',
-  'AI융합학과',
+  'AI학과',
   'SW/AI 연계교육',
 ];
 
@@ -72,7 +72,7 @@ const TRACK_DISPLAY_NAMES: Record<string, string> = {
   CONVERGENCE_CULTURE: '문화기술 부전공',
   CONVERGENCE_ROBOT: '지능로봇 부전공',
   // AI Convergence
-  CONVERGENCE_AI: 'AI 융합 부전공',
+  CONVERGENCE_AI: 'AI 부전공',
 };
 
 // Map presets to their canonical major categories
@@ -90,7 +90,7 @@ function getCanonicalMajor(preset: PresetInfo): string {
   if (slug === 'MATH_MINOR') return '수리 과학과';
   if (slug.startsWith('BIOMEDICAL')) return '의생명공학과';
   if (slug.startsWith('CONVERGENCE')) return '융합기술원';
-  if (slug === 'AI_CONVERGENCE') return 'AI융합학과';
+  if (slug === 'AI_CONVERGENCE') return 'AI학과';
 
   return preset.major || '기타';
 }

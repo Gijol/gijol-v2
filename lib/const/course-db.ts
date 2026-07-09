@@ -24,6 +24,22 @@ export interface CourseDB {
   rawTitleEn?: string;
 }
 
+const ACADEMIC_ORG_RENAMES: [RegExp, string][] = [
+  [/College of Information and Computing/g, 'College of Artificial Intelligence'],
+  [/Department of AI Convergence/g, 'Department of AI'],
+  [/정보컴퓨팅대학/g, 'AI대학'],
+  [/AI융합 부전공/g, 'AI 부전공'],
+  [/AI 융합 부전공/g, 'AI 부전공'],
+  [/AI융합학과/g, 'AI학과'],
+];
+
+export function normalizeAcademicOrgName(value: string): string {
+  return ACADEMIC_ORG_RENAMES.reduce(
+    (current, [pattern, replacement]) => current.replace(pattern, replacement),
+    value,
+  ).trim();
+}
+
 /**
  * CSV 문자열을 파싱하여 CourseDB 배열을 반환
  */
@@ -139,12 +155,21 @@ export function getCourseLevel(code: string): number {
  */
 export function getDepartmentDisplayName(dept: string): string {
   if (!dept) return '';
-  // "정보컴퓨팅대학 | 전기전자컴퓨터공학과" -> "전기전자컴퓨터공학과"
-  const parts = dept.split('|');
+  // "AI대학 | 전기전자컴퓨터공학과" -> "전기전자컴퓨터공학과"
+  const normalized = normalizeAcademicOrgName(dept);
+  const parts = normalized.split('|');
   if (parts.length > 1) {
     return parts[1].trim();
   }
   return parts[0].trim();
+}
+
+export function getVisibleDepartmentDisplayNames(departments: readonly string[]): string[] {
+  return Array.from(new Set(
+    departments
+      .map(getDepartmentDisplayName)
+      .filter((department) => /[가-힣]/.test(department)),
+  ));
 }
 
 /**
@@ -160,7 +185,8 @@ export function filterCourses(courses: CourseDB[], query: string): CourseDB[] {
       course.displayTitleEn.toLowerCase().includes(lowerQuery) ||
       course.primaryCourseCode.toLowerCase().includes(lowerQuery) ||
       course.aliasCodes.some((code) => code.toLowerCase().includes(lowerQuery)) ||
-      course.departmentContext.toLowerCase().includes(lowerQuery)
+      course.departmentContext.toLowerCase().includes(lowerQuery) ||
+      normalizeAcademicOrgName(course.departmentContext).toLowerCase().includes(lowerQuery)
     );
   });
 }
