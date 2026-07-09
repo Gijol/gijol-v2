@@ -5,9 +5,21 @@ import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from '@components/ui/sheet';
 import { ScrollArea } from '@components/ui/scroll-area';
-import { Search, Book, Filter, Clock, FlaskConical, ChevronLeft, ChevronRight, X, SlidersHorizontal } from 'lucide-react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@components/ui/table';
+import { Search, Book, Clock, FlaskConical, ChevronLeft, ChevronRight, X, SlidersHorizontal } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
-import { getDepartmentDisplayName } from '@const/course-db';
+import {
+  getDepartmentDisplayName,
+  getVisibleDepartmentDisplayNames,
+  normalizeAcademicOrgName,
+} from '@const/course-db';
 import { MultiSelect, type Option } from '@components/ui/multi-select';
 import { Checkbox } from '@components/ui/checkbox';
 import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue';
@@ -18,7 +30,7 @@ import {
   type CourseCatalogSearchItem,
 } from '@features/course-catalog/search';
 import { formatCourseTerm } from '@features/course-catalog/offering-view';
-import { MeetingBadge, OfferingGroupCard } from '@features/course-catalog/components/OfferingGroupCard';
+import { MeetingBadge } from '@features/course-catalog/components/OfferingGroupCard';
 import type { CourseCatalogRequirementFacet, CourseCatalogSourceKind } from '@features/course-catalog/types';
 
 // 학과별 배지 색상
@@ -76,26 +88,73 @@ type ScheduleBadge = {
   title: string;
 };
 type ManualListing = CourseCatalogSearchItem['manualListings'][number];
+type OfferingGroup = CourseCatalogSearchItem['offeringGroups'][number];
+
+function getCurrentAcademicYear(): number {
+  return new Date().getFullYear();
+}
+
+function getTermYear(term: string): number | null {
+  const match = term.match(/^(\d{4})/);
+  if (!match) return null;
+
+  const year = Number(match[1]);
+  return Number.isFinite(year) ? year : null;
+}
+
+function getTermSortValue(term: string): number {
+  const numericSemesterMatch = term.match(/^(\d{4})-([12])$/);
+  if (numericSemesterMatch) {
+    return Number(numericSemesterMatch[1]) * 10 + Number(numericSemesterMatch[2]);
+  }
+
+  const namedSemesterMatch = term.match(/^(\d{4})-(spring|summer|fall|winter)$/);
+  if (namedSemesterMatch) {
+    const semesterOrder: Record<string, number> = {
+      spring: 1,
+      summer: 2,
+      fall: 3,
+      winter: 4,
+    };
+    return Number(namedSemesterMatch[1]) * 10 + semesterOrder[namedSemesterMatch[2]];
+  }
+
+  return getTermYear(term) ?? 0;
+}
+
+function sortOfferingGroupsNewest(groups: readonly OfferingGroup[]): OfferingGroup[] {
+  return [...groups].sort((a, b) =>
+    getTermSortValue(b.term) - getTermSortValue(a.term) ||
+    a.section.localeCompare(b.section) ||
+    a.courseCodes.join('/').localeCompare(b.courseCodes.join('/')));
+}
+
+function getCurrentYearOfferingGroups(course: CourseCatalogSearchItem): OfferingGroup[] {
+  const currentYear = getCurrentAcademicYear();
+  return course.offeringGroups.filter((offeringGroup) => getTermYear(offeringGroup.term) === currentYear);
+}
 
 function getOfferingSummary(course: CourseCatalogSearchItem): {
   label: string;
   detail?: string;
-  tone: 'offered' | 'active' | 'unknown';
+  tone: 'offered' | 'past' | 'active' | 'unknown';
 } {
-  if (course.offeringGroups.length > 0) {
-    const offeringGroups = course.offeringGroups;
-    const terms = Array.from(new Set(offeringGroups.map((offering) => offering.term))).sort();
-    const codes = Array.from(new Set(offeringGroups.flatMap((offering) => offering.courseCodes))).sort();
+  const currentYearOfferingGroups = getCurrentYearOfferingGroups(course);
+
+  if (currentYearOfferingGroups.length > 0) {
+    const terms = Array.from(new Set(currentYearOfferingGroups.map((offering) => offering.term)))
+      .sort((a, b) => getTermSortValue(b) - getTermSortValue(a));
     const termLabel = terms.map(formatCourseTerm).join(', ');
-    const detail = codes.length > 1
-      ? `${codes.slice(0, 2).join(', ')}${codes.length > 2 ? ` 외 ${codes.length - 2}` : ''}`
-      : undefined;
 
     return {
-      label: `${termLabel} ${offeringGroups.length}개 시간표`,
-      detail,
+      label: `${termLabel} 개설`,
+      detail: `${currentYearOfferingGroups.length}개 시간표`,
       tone: 'offered',
     };
+  }
+
+  if (course.offeringGroups.length > 0) {
+    return { label: '과거 개설', tone: 'past' };
   }
 
   if (course.lifecycleStatus === 'active') {
@@ -107,6 +166,7 @@ function getOfferingSummary(course: CourseCatalogSearchItem): {
 
 function offeringToneClass(tone: ReturnType<typeof getOfferingSummary>['tone']): string {
   if (tone === 'offered') return 'border-emerald-200 bg-emerald-50 text-emerald-700';
+  if (tone === 'past') return 'border-amber-200 bg-amber-50 text-amber-700';
   if (tone === 'active') return 'border-blue-200 bg-blue-50 text-blue-700';
   return 'border-slate-200 bg-slate-50 text-slate-500';
 }
@@ -121,13 +181,12 @@ function getStudentVisibleTags(course: CourseCatalogSearchItem): string[] {
 
   return Array.from(new Set(course.tags))
     .filter((tag) => !hiddenTags.has(tag))
-    .filter((tag) => !/^[a-z]+$/.test(tag));
+    .map(normalizeAcademicOrgName)
+    .filter((tag) => /[가-힣]/.test(tag));
 }
 
 function getStudentVisibleDepartments(course: CourseCatalogSearchItem): string[] {
-  return Array.from(new Set(course.departments))
-    .filter((department) => !/^[a-z]+$/.test(department))
-    .slice(0, 8);
+  return getVisibleDepartmentDisplayNames(course.departments).slice(0, 8);
 }
 
 function sortManualListings(
@@ -278,7 +337,9 @@ export default function CourseSearchPage() {
   // Derived Data
   const participatingDeptOptions: Option[] = useMemo(() => {
     const depts = getUniqueCatalogDepartments(courses);
-    return depts.map((dept) => ({ value: dept, label: dept }));
+    return depts
+      .filter((dept) => getVisibleDepartmentDisplayNames([dept]).length > 0)
+      .map((dept) => ({ value: dept, label: normalizeAcademicOrgName(dept) }));
   }, [courses]);
   const availableTerms = useMemo(() => getUniqueCatalogOfferingTerms(courses), [courses]);
 
@@ -412,7 +473,7 @@ export default function CourseSearchPage() {
     selectedParticipatingDepts.forEach((dept) => {
       filters.push({
         key: `participatingDept-${dept}`,
-        label: dept,
+        label: normalizeAcademicOrgName(dept),
         onRemove: () => setSelectedParticipatingDepts((prev) => prev.filter((d) => d !== dept)),
       });
     });
@@ -901,17 +962,56 @@ export default function CourseSearchPage() {
                   <div className="space-y-3">
                     <h4 className="text-sm font-semibold text-gray-900">개설 정보</h4>
                     {selectedCourse.offeringGroups.length > 0 ? (
-                      <div className="space-y-2">
-                        {selectedCourse.offeringGroups.map((offeringGroup) => (
-                          <OfferingGroupCard
-                            key={offeringGroup.offeringGroupId}
-                            offeringGroup={offeringGroup}
-                            tone="emerald"
-                            showDepartment
-                            getDepartmentLabel={getDepartmentDisplayName}
-                            className="rounded-lg"
-                          />
-                        ))}
+                      <div className="overflow-hidden rounded-lg border border-slate-200">
+                        <Table className="min-w-[760px]">
+                          <TableHeader className="bg-slate-50 text-xs text-slate-500">
+                            <TableRow>
+                              <TableHead className="px-3">학기</TableHead>
+                              <TableHead className="px-3">분반</TableHead>
+                              <TableHead className="px-3">학수번호</TableHead>
+                              <TableHead className="px-3">개설 학과</TableHead>
+                              <TableHead className="px-3">시간/장소</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {sortOfferingGroupsNewest(selectedCourse.offeringGroups).map((offeringGroup) => (
+                              <TableRow key={offeringGroup.offeringGroupId}>
+                                <TableCell className="px-3 font-medium text-slate-800">
+                                  {formatCourseTerm(offeringGroup.term)}
+                                </TableCell>
+                                <TableCell className="px-3 text-slate-700">{offeringGroup.section || '-'}</TableCell>
+                                <TableCell className="px-3">
+                                  <div className="flex flex-wrap gap-1.5">
+                                    {offeringGroup.courseCodes.map((courseCode) => (
+                                      <span
+                                        key={courseCode}
+                                        className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs text-slate-700"
+                                      >
+                                        {courseCode}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </TableCell>
+                                <TableCell className="px-3 text-xs text-slate-600">
+                                  {getVisibleDepartmentDisplayNames(offeringGroup.departments).length > 0
+                                    ? getVisibleDepartmentDisplayNames(offeringGroup.departments).join(', ')
+                                    : '-'}
+                                </TableCell>
+                                <TableCell className="max-w-[360px] px-3">
+                                  {offeringGroup.meetingBadges.length > 0 ? (
+                                    <div className="flex flex-wrap gap-1.5">
+                                      {offeringGroup.meetingBadges.map((badge) => (
+                                        <MeetingBadge key={badge.key} badge={badge} tone="emerald" />
+                                      ))}
+                                    </div>
+                                  ) : (
+                                    <span className="text-xs text-slate-400">시간 미확인</span>
+                                  )}
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
                       </div>
                     ) : (
                       <div className="rounded-lg bg-gray-100 px-3 py-2 text-sm text-gray-600">
