@@ -5,21 +5,10 @@ import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from '@components/ui/sheet';
 import { ScrollArea } from '@components/ui/scroll-area';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
 import { Search, Book, Clock, FlaskConical, ChevronLeft, ChevronRight, X, SlidersHorizontal } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
-import {
-  getDepartmentDisplayName,
-  getVisibleDepartmentDisplayNames,
-  normalizeAcademicOrgName,
-} from '@const/course-db';
+import { getDepartmentDisplayName, getVisibleDepartmentDisplayNames, normalizeAcademicOrgName } from '@const/course-db';
 import { MultiSelect, type Option } from '@components/ui/multi-select';
 import { Checkbox } from '@components/ui/checkbox';
 import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue';
@@ -123,10 +112,12 @@ function getTermSortValue(term: string): number {
 }
 
 function sortOfferingGroupsNewest(groups: readonly OfferingGroup[]): OfferingGroup[] {
-  return [...groups].sort((a, b) =>
-    getTermSortValue(b.term) - getTermSortValue(a.term) ||
-    a.section.localeCompare(b.section) ||
-    a.courseCodes.join('/').localeCompare(b.courseCodes.join('/')));
+  return [...groups].sort(
+    (a, b) =>
+      getTermSortValue(b.term) - getTermSortValue(a.term) ||
+      a.section.localeCompare(b.section) ||
+      a.courseCodes.join('/').localeCompare(b.courseCodes.join('/')),
+  );
 }
 
 function getCurrentYearOfferingGroups(course: CourseCatalogSearchItem): OfferingGroup[] {
@@ -142,8 +133,9 @@ function getOfferingSummary(course: CourseCatalogSearchItem): {
   const currentYearOfferingGroups = getCurrentYearOfferingGroups(course);
 
   if (currentYearOfferingGroups.length > 0) {
-    const terms = Array.from(new Set(currentYearOfferingGroups.map((offering) => offering.term)))
-      .sort((a, b) => getTermSortValue(b) - getTermSortValue(a));
+    const terms = Array.from(new Set(currentYearOfferingGroups.map((offering) => offering.term))).sort(
+      (a, b) => getTermSortValue(b) - getTermSortValue(a),
+    );
     const termLabel = terms.map(formatCourseTerm).join(', ');
 
     return {
@@ -172,12 +164,7 @@ function offeringToneClass(tone: ReturnType<typeof getOfferingSummary>['tone']):
 }
 
 function getStudentVisibleTags(course: CourseCatalogSearchItem): string[] {
-  const hiddenTags = new Set([
-    'graduation-recommendation',
-    'MULTI_CODE',
-    'offered',
-    '학사',
-  ]);
+  const hiddenTags = new Set(['graduation-recommendation', 'MULTI_CODE', 'offered', '학사']);
 
   return Array.from(new Set(course.tags))
     .filter((tag) => !hiddenTags.has(tag))
@@ -189,33 +176,24 @@ function getStudentVisibleDepartments(course: CourseCatalogSearchItem): string[]
   return getVisibleDepartmentDisplayNames(course.departments).slice(0, 8);
 }
 
-function sortManualListings(
-  listings: readonly ManualListing[],
-): ManualListing[] {
-  return [...listings].sort((a, b) =>
-    b.academicYear - a.academicYear ||
-    a.courseCode.localeCompare(b.courseCode));
+function sortManualListings(listings: readonly ManualListing[]): ManualListing[] {
+  return [...listings].sort((a, b) => b.academicYear - a.academicYear || a.courseCode.localeCompare(b.courseCode));
 }
 
 function formatHours(listing: ManualListing): string {
-  if (
-    listing.lectureHours === undefined ||
-    listing.labHours === undefined ||
-    listing.credits === undefined
-  ) {
+  if (listing.lectureHours === undefined || listing.labHours === undefined || listing.credits === undefined) {
     return '-';
   }
 
   return `${listing.lectureHours}:${listing.labHours}:${listing.credits}`;
 }
 
-function getListingScheduleBadges(
-  course: CourseCatalogSearchItem,
-  listing: ManualListing,
-): ScheduleBadge[] {
-  const matchingOfferingGroups = course.offeringGroups.filter((offeringGroup) =>
-    offeringGroup.term.startsWith(String(listing.academicYear)) &&
-    offeringGroup.courseCodes.includes(listing.courseCode));
+function getListingScheduleBadges(course: CourseCatalogSearchItem, listing: ManualListing): ScheduleBadge[] {
+  const matchingOfferingGroups = course.offeringGroups.filter(
+    (offeringGroup) =>
+      offeringGroup.term.startsWith(String(listing.academicYear)) &&
+      offeringGroup.courseCodes.includes(listing.courseCode),
+  );
   const seenMeetings = new Set<string>();
   const badges: ScheduleBadge[] = [];
 
@@ -239,7 +217,10 @@ function getListingScheduleBadges(
 }
 
 function scheduleGroupKey(badges: readonly ScheduleBadge[]): string {
-  return badges.map((badge) => `${badge.label}:${badge.detail ?? ''}`).sort().join('|');
+  return badges
+    .map((badge) => `${badge.label}:${badge.detail ?? ''}`)
+    .sort()
+    .join('|');
 }
 
 function groupManualListings(
@@ -253,23 +234,22 @@ function groupManualListings(
   hoursLabel: string;
   scheduleBadges: ScheduleBadge[];
 }[] {
-  const byKey = new Map<string, {
-    key: string;
-    academicYear: number;
-    courseCodes: string[];
-    listings: ManualListing[];
-    hoursLabel: string;
-    scheduleBadges: ScheduleBadge[];
-  }>();
+  const byKey = new Map<
+    string,
+    {
+      key: string;
+      academicYear: number;
+      courseCodes: string[];
+      listings: ManualListing[];
+      hoursLabel: string;
+      scheduleBadges: ScheduleBadge[];
+    }
+  >();
 
   sortManualListings(listings).forEach((listing) => {
     const hoursLabel = formatHours(listing);
     const scheduleBadges = getListingScheduleBadges(course, listing);
-    const key = [
-      listing.academicYear,
-      hoursLabel,
-      scheduleGroupKey(scheduleBadges),
-    ].join('::');
+    const key = [listing.academicYear, hoursLabel, scheduleGroupKey(scheduleBadges)].join('::');
     const existing = byKey.get(key);
 
     if (existing) {
@@ -291,9 +271,9 @@ function groupManualListings(
     });
   });
 
-  return Array.from(byKey.values()).sort((a, b) =>
-    b.academicYear - a.academicYear ||
-    a.courseCodes.join('/').localeCompare(b.courseCodes.join('/')));
+  return Array.from(byKey.values()).sort(
+    (a, b) => b.academicYear - a.academicYear || a.courseCodes.join('/').localeCompare(b.courseCodes.join('/')),
+  );
 }
 
 export default function CourseSearchPage() {
@@ -307,6 +287,7 @@ export default function CourseSearchPage() {
   const [selectedCredit, setSelectedCredit] = useState('all');
   const [selectedFeature, setSelectedFeature] = useState<CourseCatalogRequirementFacet['feature'] | 'all'>('all');
   const [selectedSource, setSelectedSource] = useState<CourseCatalogSourceKind | 'all'>('all');
+  const [selectedProgram, setSelectedProgram] = useState<'all' | 'undergraduate' | 'graduate'>('all');
 
   // 새 필터 상태
   const [selectedParticipatingDepts, setSelectedParticipatingDepts] = useState<string[]>([]);
@@ -318,7 +299,7 @@ export default function CourseSearchPage() {
 
   const [selectedCourse, setSelectedCourse] = useState<CourseCatalogSearchItem | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   React.useEffect(() => {
@@ -342,6 +323,10 @@ export default function CourseSearchPage() {
       .map((dept) => ({ value: dept, label: normalizeAcademicOrgName(dept) }));
   }, [courses]);
   const availableTerms = useMemo(() => getUniqueCatalogOfferingTerms(courses), [courses]);
+  const offeringTermOptions: Option[] = useMemo(
+    () => availableTerms.map((term) => ({ value: term, label: formatCourseTerm(term) })),
+    [availableTerms],
+  );
 
   // 검색 및 필터링된 과목
   const filteredCourses = useMemo(() => {
@@ -360,6 +345,9 @@ export default function CourseSearchPage() {
     });
 
     if (showMOOCOnly) result = result.filter((course) => course.tags.includes('MOOC'));
+    if (selectedProgram !== 'all') {
+      result = result.filter((course) => course.offerings.some((offering) => offering.program === selectedProgram));
+    }
     return result;
   }, [
     courses,
@@ -373,6 +361,7 @@ export default function CourseSearchPage() {
     showLabOnly,
     selectedFeature,
     selectedSource,
+    selectedProgram,
   ]);
 
   // 페이지네이션 계산
@@ -396,6 +385,7 @@ export default function CourseSearchPage() {
     showLabOnly,
     selectedFeature,
     selectedSource,
+    selectedProgram,
   ]);
 
   const handleCourseClick = (course: CourseCatalogSearchItem) => {
@@ -414,8 +404,6 @@ export default function CourseSearchPage() {
         onRemove: () => setSelectedTerms((prev) => prev.filter((selectedTerm) => selectedTerm !== term)),
       });
     });
-
-
 
     if (selectedLevel !== 'all') {
       const levelLabels: Record<string, string> = {
@@ -470,6 +458,14 @@ export default function CourseSearchPage() {
       });
     }
 
+    if (selectedProgram !== 'all') {
+      filters.push({
+        key: 'program',
+        label: selectedProgram === 'graduate' ? '대학원 과정' : '학사 과정',
+        onRemove: () => setSelectedProgram('all'),
+      });
+    }
+
     selectedParticipatingDepts.forEach((dept) => {
       filters.push({
         key: `participatingDept-${dept}`,
@@ -505,6 +501,7 @@ export default function CourseSearchPage() {
     showLabOnly,
     selectedFeature,
     selectedSource,
+    selectedProgram,
   ]);
 
   // 필터 초기화 함수
@@ -513,166 +510,166 @@ export default function CourseSearchPage() {
     setSelectedTerms([]);
     setSelectedLevel('all');
     setSelectedCredit('all');
-    setSearchQuery('');
     setSelectedParticipatingDepts([]);
     setShowMOOCOnly(false);
     setShowLabOnly(false);
     setSelectedFeature('all');
     setSelectedSource('all');
+    setSelectedProgram('all');
   };
 
-  // 필터 UI 컴포넌트 (데스크톱 & 모바일 공용)
-  const FilterControls = ({ isMobile = false }: { isMobile?: boolean }) => (
-    <div className={isMobile ? 'flex flex-col gap-4' : 'flex flex-wrap items-center gap-2'}>
-      {/* 1. Offering Term Toggles */}
+  const FilterControls = () => (
+    <div className="space-y-6">
+      {/* 1. 개설 학기 MultiSelect */}
       {availableTerms.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1 rounded-md border border-slate-200 bg-white p-1 shadow-none">
-          {availableTerms.map((term) => {
-            const selected = selectedTerms.includes(term);
-
-            return (
-              <button
-                key={term}
-                onClick={() => {
-                  const newValue = selected
-                    ? selectedTerms.filter((selectedTerm) => selectedTerm !== term)
-                    : [...selectedTerms, term];
-                  setSelectedTerms(newValue);
-                }}
-                className={`rounded px-3 py-1.5 text-sm font-medium transition-colors ${
-                  selected
-                    ? 'bg-emerald-100 text-emerald-700'
-                    : 'text-gray-600 hover:bg-gray-100'
-                }`}
-              >
-                {formatCourseTerm(term)} 개설
-              </button>
-            );
-          })}
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">개설 학기</label>
+          <MultiSelect
+            options={offeringTermOptions}
+            selected={selectedTerms}
+            onChange={setSelectedTerms}
+            placeholder="개설 학기 선택..."
+            className="min-h-10 bg-white shadow-none"
+          />
         </div>
       )}
 
-      {/* 2. 개설 학과 MultiSelect (Moved & shadow-none) */}
-      <MultiSelect
-        options={participatingDeptOptions}
-        selected={selectedParticipatingDepts}
-        onChange={setSelectedParticipatingDepts}
-        placeholder="개설 학과 선택..."
-        className={`${isMobile ? 'w-full' : 'w-[200px]'} bg-white shadow-none`}
-      />
-
-      {/* 3. Level Select */}
-      <Select value={selectedLevel} onValueChange={setSelectedLevel}>
-        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[120px]'} bg-white shadow-none`}>
-          <SelectValue placeholder="학년" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">전체 학년</SelectItem>
-          <SelectItem value="1000">1학년 (1000)</SelectItem>
-          <SelectItem value="2000">2학년 (2000)</SelectItem>
-          <SelectItem value="3000">3학년 (3000)</SelectItem>
-          <SelectItem value="4000">4학년 (4000)</SelectItem>
-          <SelectItem value="5000">기타/연구</SelectItem>
-        </SelectContent>
-      </Select>
-
-      {/* 4. Credit Select */}
-      <Select value={selectedCredit} onValueChange={setSelectedCredit}>
-        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[110px]'} bg-white shadow-none`}>
-          <SelectValue placeholder="학점" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">전체 학점</SelectItem>
-          <SelectItem value="1">1학점</SelectItem>
-          <SelectItem value="2">2학점</SelectItem>
-          <SelectItem value="3">3학점</SelectItem>
-          <SelectItem value="4">4학점 이상</SelectItem>
-        </SelectContent>
-      </Select>
-
-      {/* 5. Category Select */}
-      <Select value={category} onValueChange={setCategory}>
-        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[140px]'} bg-white shadow-none`}>
-          <SelectValue placeholder="이수구분" />
-        </SelectTrigger>
-        <SelectContent>
-          {CATEGORY_OPTIONS.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
-              {opt.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {/* 6. Feature Select */}
-      <Select value={selectedFeature} onValueChange={(value) => setSelectedFeature(value as typeof selectedFeature)}>
-        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[130px]'} bg-white shadow-none`}>
-          <SelectValue placeholder="활용 범위" />
-        </SelectTrigger>
-        <SelectContent>
-          {FEATURE_OPTIONS.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
-              {opt.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {/* 7. Source Select */}
-      <Select value={selectedSource} onValueChange={(value) => setSelectedSource(value as typeof selectedSource)}>
-        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[130px]'} bg-white shadow-none`}>
-          <SelectValue placeholder="원천" />
-        </SelectTrigger>
-        <SelectContent>
-          {SOURCE_OPTIONS.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
-              {opt.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {/* 8. MOOC 토글 */}
-      <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2">
-        <Checkbox
-          id={isMobile ? 'mooc-filter-mobile' : 'mooc-filter'}
-          checked={showMOOCOnly}
-          onCheckedChange={(checked) => setShowMOOCOnly(checked === true)}
+      <div className="space-y-2">
+        <label className="text-sm font-semibold text-gray-900">개설 학과</label>
+        <MultiSelect
+          options={participatingDeptOptions}
+          selected={selectedParticipatingDepts}
+          onChange={setSelectedParticipatingDepts}
+          placeholder="개설 학과 선택..."
+          className="min-h-10 bg-white shadow-none"
         />
-        <label
-          htmlFor={isMobile ? 'mooc-filter-mobile' : 'mooc-filter'}
-          className="cursor-pointer text-sm font-medium text-gray-600"
-        >
-          MOOC
-        </label>
       </div>
 
-      {/* 9. 실습 과목 토글 */}
-      <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2">
-        <Checkbox
-          id={isMobile ? 'lab-filter-mobile' : 'lab-filter'}
-          checked={showLabOnly}
-          onCheckedChange={(checked) => setShowLabOnly(checked === true)}
-        />
-        <label
-          htmlFor={isMobile ? 'lab-filter-mobile' : 'lab-filter'}
-          className="cursor-pointer text-sm font-medium text-gray-600"
-        >
-          실습 과목
-        </label>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">과정</label>
+          <Select
+            value={selectedProgram}
+            onValueChange={(value) => setSelectedProgram(value as typeof selectedProgram)}
+          >
+            <SelectTrigger className="w-full bg-white shadow-none">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">전체 과정</SelectItem>
+              <SelectItem value="undergraduate">학사</SelectItem>
+              <SelectItem value="graduate">대학원</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">학년</label>
+          <Select value={selectedLevel} onValueChange={setSelectedLevel}>
+            <SelectTrigger className="w-full bg-white shadow-none">
+              <SelectValue placeholder="학년" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">전체 학년</SelectItem>
+              <SelectItem value="1000">1학년 (1000)</SelectItem>
+              <SelectItem value="2000">2학년 (2000)</SelectItem>
+              <SelectItem value="3000">3학년 (3000)</SelectItem>
+              <SelectItem value="4000">4학년 (4000)</SelectItem>
+              <SelectItem value="5000">기타/연구</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">학점</label>
+          <Select value={selectedCredit} onValueChange={setSelectedCredit}>
+            <SelectTrigger className="w-full bg-white shadow-none">
+              <SelectValue placeholder="학점" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">전체 학점</SelectItem>
+              <SelectItem value="1">1학점</SelectItem>
+              <SelectItem value="2">2학점</SelectItem>
+              <SelectItem value="3">3학점</SelectItem>
+              <SelectItem value="4">4학점 이상</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
-      {/* Reset Filters (Desktop only inline, Mobile at bottom) */}
-      {!isMobile && activeFilters.length > 0 && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={resetAllFilters}
-          className="ml-auto text-gray-500 hover:text-gray-900"
-        >
-          초기화
-        </Button>
-      )}
+      <div className="space-y-2">
+        <label className="text-sm font-semibold text-gray-900">이수구분</label>
+        <Select value={category} onValueChange={setCategory}>
+          <SelectTrigger className="w-full bg-white shadow-none">
+            <SelectValue placeholder="이수구분" />
+          </SelectTrigger>
+          <SelectContent>
+            {CATEGORY_OPTIONS.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">활용 범위</label>
+          <Select
+            value={selectedFeature}
+            onValueChange={(value) => setSelectedFeature(value as typeof selectedFeature)}
+          >
+            <SelectTrigger className="w-full bg-white shadow-none">
+              <SelectValue placeholder="활용 범위" />
+            </SelectTrigger>
+            <SelectContent>
+              {FEATURE_OPTIONS.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">데이터 원천</label>
+          <Select value={selectedSource} onValueChange={(value) => setSelectedSource(value as typeof selectedSource)}>
+            <SelectTrigger className="w-full bg-white shadow-none">
+              <SelectValue placeholder="원천" />
+            </SelectTrigger>
+            <SelectContent>
+              {SOURCE_OPTIONS.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-sm font-semibold text-gray-900">과목 특성</p>
+        <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2.5">
+          <Checkbox
+            id="mooc-filter"
+            checked={showMOOCOnly}
+            onCheckedChange={(checked) => setShowMOOCOnly(checked === true)}
+          />
+          <label htmlFor="mooc-filter" className="cursor-pointer text-sm font-medium text-gray-600">
+            MOOC
+          </label>
+        </div>
+        <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2.5">
+          <Checkbox
+            id="lab-filter"
+            checked={showLabOnly}
+            onCheckedChange={(checked) => setShowLabOnly(checked === true)}
+          />
+          <label htmlFor="lab-filter" className="cursor-pointer text-sm font-medium text-gray-600">
+            실습 과목
+          </label>
+        </div>
+      </div>
     </div>
   );
 
@@ -689,7 +686,7 @@ export default function CourseSearchPage() {
 
       {/* Search & Filter Bar */}
       <div className="mb-6 space-y-4">
-        {/* Row 1: Search Input + Mobile Filter Button */}
+        {/* Search Input + Filter Button */}
         <div className="flex gap-2">
           <div className="relative flex-1">
             <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
@@ -700,43 +697,38 @@ export default function CourseSearchPage() {
               className="bg-white pl-10 shadow-none"
             />
           </div>
-          {/* Mobile Filter Button */}
-          <Sheet open={isMobileFilterOpen} onOpenChange={setIsMobileFilterOpen}>
+          <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="shrink-0 md:hidden">
+              <Button variant="outline" className="relative shrink-0 gap-2 bg-white shadow-none">
                 <SlidersHorizontal className="h-4 w-4" />
+                <span>필터</span>
                 {activeFilters.length > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white">
+                  <span className="flex min-w-5 items-center justify-center rounded-full bg-blue-600 px-1.5 py-0.5 text-[10px] text-white">
                     {activeFilters.length}
                   </span>
                 )}
               </Button>
             </SheetTrigger>
-            <SheetContent side="bottom" className="h-[80vh]">
-              <SheetHeader>
+            <SheetContent side="right" className="flex w-full flex-col p-0 sm:max-w-md">
+              <SheetHeader className="border-b border-slate-200 px-6 py-5 pr-12">
                 <SheetTitle>필터</SheetTitle>
-                <SheetDescription>검색 조건을 설정하세요</SheetDescription>
+                <SheetDescription>조건을 선택하면 검색 결과에 바로 반영됩니다.</SheetDescription>
               </SheetHeader>
-              <ScrollArea className="mt-4 h-[calc(100%-120px)]">
-                <div className="pr-4">
-                  <FilterControls isMobile />
+              <ScrollArea className="min-h-0 flex-1">
+                <div className="px-6 py-5">
+                  <FilterControls />
                 </div>
               </ScrollArea>
-              <div className="mt-4 flex gap-2">
+              <div className="flex gap-2 border-t border-slate-200 bg-white px-6 py-4">
                 <Button variant="outline" className="flex-1" onClick={resetAllFilters}>
                   초기화
                 </Button>
-                <Button className="flex-1" onClick={() => setIsMobileFilterOpen(false)}>
-                  적용 ({filteredCourses.length}개)
+                <Button className="flex-1" onClick={() => setIsFilterOpen(false)}>
+                  결과 보기 ({filteredCourses.length}개)
                 </Button>
               </div>
             </SheetContent>
           </Sheet>
-        </div>
-
-        {/* Row 2: Desktop Filters (hidden on mobile) */}
-        <div className="hidden md:block">
-          <FilterControls />
         </div>
 
         {/* Row 3: Active Filter Badges */}
@@ -812,9 +804,7 @@ export default function CourseSearchPage() {
                   >
                     {offeringSummary.label}
                   </Badge>
-                  {offeringSummary.detail && (
-                    <p className="mt-1 text-xs text-gray-500">{offeringSummary.detail}</p>
-                  )}
+                  {offeringSummary.detail && <p className="mt-1 text-xs text-gray-500">{offeringSummary.detail}</p>}
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2">
@@ -961,15 +951,24 @@ export default function CourseSearchPage() {
                   {/* 개설 정보 */}
                   <div className="space-y-3">
                     <h4 className="text-sm font-semibold text-gray-900">개설 정보</h4>
+                    {selectedCourse.offeringGroups.some((offeringGroup) => offeringGroup.program === 'graduate') && (
+                      <div className="rounded-lg border border-violet-100 bg-violet-50 px-3 py-2 text-xs leading-relaxed font-medium text-violet-700">
+                        대학원 교과목은 학사 졸업(수료)학점에 포함할 수 있지만 평균평점 산출에서는 제외됩니다. (2026
+                        학사편람 208쪽)
+                      </div>
+                    )}
                     {selectedCourse.offeringGroups.length > 0 ? (
                       <div className="overflow-hidden rounded-lg border border-slate-200">
-                        <Table className="min-w-[760px]">
+                        <Table className="min-w-[980px]">
                           <TableHeader className="bg-slate-50 text-xs text-slate-500">
                             <TableRow>
                               <TableHead className="px-3">학기</TableHead>
                               <TableHead className="px-3">분반</TableHead>
                               <TableHead className="px-3">학수번호</TableHead>
                               <TableHead className="px-3">개설 학과</TableHead>
+                              <TableHead className="px-3">과정</TableHead>
+                              <TableHead className="px-3">담당교수</TableHead>
+                              <TableHead className="px-3">정원</TableHead>
                               <TableHead className="px-3">시간/장소</TableHead>
                             </TableRow>
                           </TableHeader>
@@ -996,6 +995,37 @@ export default function CourseSearchPage() {
                                   {getVisibleDepartmentDisplayNames(offeringGroup.departments).length > 0
                                     ? getVisibleDepartmentDisplayNames(offeringGroup.departments).join(', ')
                                     : '-'}
+                                </TableCell>
+                                <TableCell className="px-3">
+                                  <Badge
+                                    variant="outline"
+                                    className={
+                                      offeringGroup.program === 'graduate'
+                                        ? 'border-violet-200 bg-violet-50 text-violet-700'
+                                        : 'border-slate-200 bg-white text-slate-600'
+                                    }
+                                  >
+                                    {offeringGroup.program === 'graduate'
+                                      ? '대학원'
+                                      : offeringGroup.program === 'undergraduate'
+                                        ? '학사'
+                                        : '미확인'}
+                                  </Badge>
+                                </TableCell>
+                                <TableCell className="px-3 text-xs text-slate-600">
+                                  {offeringGroup.instructors.join(', ') || '미정'}
+                                </TableCell>
+                                <TableCell className="px-3 text-xs font-bold">
+                                  {offeringGroup.capacityStatus === 'pending' || offeringGroup.capacity === 0 ? (
+                                    <span
+                                      className="text-amber-600"
+                                      title="현재 0명으로 게시되어 추후 변경될 수 있습니다."
+                                    >
+                                      미정
+                                    </span>
+                                  ) : (
+                                    <span className="text-slate-700">{offeringGroup.capacity ?? '-'}명</span>
+                                  )}
                                 </TableCell>
                                 <TableCell className="max-w-[360px] px-3">
                                   {offeringGroup.meetingBadges.length > 0 ? (
@@ -1058,18 +1088,12 @@ export default function CourseSearchPage() {
                                     ))}
                                   </div>
                                 </td>
-                                <td className="px-3 py-2 text-slate-700">
-                                  {group.hoursLabel}
-                                </td>
+                                <td className="px-3 py-2 text-slate-700">{group.hoursLabel}</td>
                                 <td className="max-w-[360px] px-3 py-2 text-xs text-slate-600">
                                   {group.scheduleBadges.length > 0 ? (
                                     <div className="flex flex-wrap gap-1.5">
                                       {group.scheduleBadges.map((schedule) => (
-                                        <MeetingBadge
-                                          key={schedule.key}
-                                          badge={schedule}
-                                          tone="sky"
-                                        />
+                                        <MeetingBadge key={schedule.key} badge={schedule} tone="sky" />
                                       ))}
                                     </div>
                                   ) : (
