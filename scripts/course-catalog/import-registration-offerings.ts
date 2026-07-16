@@ -33,7 +33,8 @@ interface TermInfo {
 interface NormalizedRegistrationSource {
   version: '1.0';
   source: 'registration-system';
-  sourceFile: string;
+  sourceFile?: string;
+  sourceFiles?: string[];
   sourceSha256: string;
   count: number;
   items: SectionOffering[];
@@ -77,7 +78,7 @@ function column(row: RawRegistrationRow, key: string): unknown {
 }
 
 function parseTermInfo(filename: string): TermInfo | null {
-  const match = filename.match(/^(\d{4})_(\d{2})_/);
+  const match = filename.match(/^(\d{4})[-_](\d{1,2})[-_]/);
   if (!match) return null;
 
   const year = Number(match[1]);
@@ -89,7 +90,7 @@ function parseTermInfo(filename: string): TermInfo | null {
     semester,
     term: `${year}-${semester}`,
     label: `${year} ${semester}학기`,
-    outputFilename: `${year}_${match[2]}_course_info.normalized.json`,
+    outputFilename: `${year}_${String(Number(match[2])).padStart(2, '0')}_course_info.normalized.json`,
   };
 }
 
@@ -105,7 +106,9 @@ function parseCourseSection(value: unknown): { courseCode: string; section: stri
 }
 
 function parseHours(value: unknown): SectionOffering['hours'] {
-  const [lectureHours, labHours, credits] = text(value).split('/').map((part) => numberValue(part));
+  const [lectureHours, labHours, credits] = text(value)
+    .split('/')
+    .map((part) => numberValue(part));
 
   return {
     lecture_hours: lectureHours ?? 0,
@@ -129,30 +132,34 @@ function parseMeetings(timetableValue: unknown, roomValue: unknown): Meeting[] {
     const match = line.match(/^([월화수목금토일])\s*(\d{1,2}:\d{2})\s*~\s*(\d{1,2}:\d{2})$/);
     if (!match) return [];
 
-    return [{
-      day: DAY_MAP[match[1]],
-      start: formatTime(match[2]),
-      end: formatTime(match[3]),
-      room: roomLines.length === timetableLines.length
-        ? roomLines[index] ?? null
-        : singleRoom ?? allRooms,
-    }];
+    return [
+      {
+        day: DAY_MAP[match[1]],
+        start: formatTime(match[2]),
+        end: formatTime(match[3]),
+        room: roomLines.length === timetableLines.length ? (roomLines[index] ?? null) : (singleRoom ?? allRooms),
+      },
+    ];
   });
 }
 
 function parseInstructors(value: unknown): Instructor[] {
-  return splitLines(value).map((line) => {
-    const match = line.match(/^(.*?)\s*(?:\[([^\]]+)])?$/);
-    return {
-      name: text(match?.[1] ?? line),
-      staff_id: text(match?.[2] ?? ''),
-    };
-  }).filter((instructor) => instructor.name);
+  return splitLines(value)
+    .map((line) => {
+      const match = line.match(/^(.*?)\s*(?:\[([^\]]+)])?$/);
+      return {
+        name: text(match?.[1] ?? line),
+        staff_id: text(match?.[2] ?? ''),
+      };
+    })
+    .filter((instructor) => instructor.name);
 }
 
-function normalizeRow(row: RawRegistrationRow, rowIndex: number): SectionOffering | null {
+function normalizeRow(row: RawRegistrationRow, rowIndex: number, fallbackProgram?: string): SectionOffering | null {
   const courseSection = parseCourseSection(column(row, '교과목-분반'));
   if (!courseSection) return null;
+
+  const capacity = numberValue(column(row, '수강\n정원'));
 
   return {
     no: numberValue(column(row, 'NO'), rowIndex + 1),
@@ -163,10 +170,11 @@ function normalizeRow(row: RawRegistrationRow, rowIndex: number): SectionOfferin
     category: text(column(row, '이수구분')),
     subcategory: nullableText(column(row, '세부분류')),
     research_area: nullableText(column(row, '교과연구')) ?? undefined,
-    program: text(column(row, '과정\n구분')),
+    program: text(column(row, '과정\n구분')) || fallbackProgram || '',
     hours: parseHours(column(row, '강/실/학')),
     meetings: parseMeetings(column(row, '시간표'), column(row, '강의실')),
-    capacity: numberValue(column(row, '수강\n정원')),
+    capacity,
+    ...(fallbackProgram ? { capacity_status: capacity === 0 ? ('pending' as const) : ('confirmed' as const) } : {}),
     syllabus: nullableText(column(row, '강의\n계획서')) ?? undefined,
     video: nullableText(column(row, '설명\n영상')),
     language: nullableText(column(row, '강의언어')),
@@ -208,19 +216,33 @@ function main(): void {
     .filter((entry): entry is { filename: string; termInfo: TermInfo } => entry.termInfo !== null)
     .sort((a, b) => compareTerms(a.termInfo.term, b.termInfo.term));
 
-  const manifestEntries: TimetableSourceManifestEntry[] = sources.map(({ filename, termInfo }) => {
-    const sourcePath = path.join(RAW_SOURCE_DIR, filename);
-    const absoluteSourcePath = path.join(rootDir, sourcePath);
-    const rows = readRegistrationRows(absoluteSourcePath);
-    const items = rows
-      .map((row, rowIndex) => normalizeRow(row, rowIndex))
-      .filter((item): item is SectionOffering => item !== null);
+  const sourcesByTerm = new Map<string, typeof sources>();
+  sources.forEach((source) => {
+    sourcesByTerm.set(source.termInfo.term, [...(sourcesByTerm.get(source.termInfo.term) ?? []), source]);
+  });
+
+  const manifestEntries: TimetableSourceManifestEntry[] = Array.from(sourcesByTerm.values()).map((termSources) => {
+    const termInfo = termSources[0].termInfo;
+    const sourcePaths = termSources.map(({ filename }) => path.join(RAW_SOURCE_DIR, filename));
+    const items = termSources.flatMap(({ filename }) => {
+      const sourcePath = path.join(RAW_SOURCE_DIR, filename);
+      const absoluteSourcePath = path.join(rootDir, sourcePath);
+      const fallbackProgram = filename.includes('대학원') ? '대학원' : filename.includes('학사') ? '학사' : undefined;
+      return readRegistrationRows(absoluteSourcePath)
+        .map((row, rowIndex) => normalizeRow(row, rowIndex, fallbackProgram))
+        .filter((item): item is SectionOffering => item !== null);
+    });
     const outputPath = path.join(OUTPUT_DIR, termInfo.outputFilename);
     const output: NormalizedRegistrationSource = {
       version: '1.0',
       source: 'registration-system',
-      sourceFile: sourcePath,
-      sourceSha256: sourceHash(absoluteSourcePath),
+      ...(sourcePaths.length === 1 ? { sourceFile: sourcePaths[0] } : { sourceFiles: sourcePaths }),
+      sourceSha256:
+        sourcePaths.length === 1
+          ? sourceHash(path.join(rootDir, sourcePaths[0]))
+          : createHash('sha256')
+              .update(sourcePaths.map((sourcePath) => sourceHash(path.join(rootDir, sourcePath))).join(':'))
+              .digest('hex'),
       count: items.length,
       items,
     };
@@ -235,8 +257,10 @@ function main(): void {
     };
   });
 
-  const latestTerm = manifestEntries.reduce<string | null>((latest, entry) =>
-    latest === null || compareTerms(entry.term, latest) > 0 ? entry.term : latest, null);
+  const latestTerm = manifestEntries.reduce<string | null>(
+    (latest, entry) => (latest === null || compareTerms(entry.term, latest) > 0 ? entry.term : latest),
+    null,
+  );
   const manifest = manifestEntries.map((entry) => ({
     ...entry,
     ...(entry.term === latestTerm ? { defaultForTimetable: true } : {}),

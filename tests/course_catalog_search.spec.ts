@@ -2,10 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import coursesHandler from '../pages/api/courses';
 import searchHandler from '../pages/api/courses/search';
-import {
-  createCourseCatalogSearchItems,
-  filterCourseCatalogSearchItems,
-} from '../features/course-catalog/search';
+import { createCourseCatalogSearchItems, filterCourseCatalogSearchItems } from '../features/course-catalog/search';
 
 const AVAILABLE_TERMS = [
   '2020-1',
@@ -21,6 +18,7 @@ const AVAILABLE_TERMS = [
   '2025-1',
   '2025-2',
   '2026-1',
+  '2026-2',
 ];
 
 function createMockResponse() {
@@ -49,6 +47,7 @@ describe('course catalog search', () => {
     const recommendation = filterCourseCatalogSearchItems(items, { feature: 'recommendation', query: 'HS4611' });
     const timetable = filterCourseCatalogSearchItems(items, { sourceKind: 'timetable-offering', query: 'HS4611' });
     const mockOnlyCourse = filterCourseCatalogSearchItems(items, { query: 'CSE101' });
+    const graduateCourse = filterCourseCatalogSearchItems(items, { query: 'AI5003', terms: ['2026-2'] });
 
     expect(hs4611).toEqual(
       expect.arrayContaining([
@@ -194,6 +193,14 @@ describe('course catalog search', () => {
     expect(recommendation).toHaveLength(1);
     expect(timetable).toHaveLength(1);
     expect(mockOnlyCourse).toEqual([]);
+    expect(graduateCourse).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          primaryCourseCode: 'AI5003',
+          offerings: expect.arrayContaining([expect.objectContaining({ term: '2026-2', program: 'graduate' })]),
+        }),
+      ]),
+    );
   });
 
   it('serves catalog-backed course search API with legacy-compatible fields', () => {
@@ -214,9 +221,7 @@ describe('course catalog search', () => {
             primaryCourseCode: 'HS4611',
             courseName: expect.any(String),
             creditHours: expect.any(Number),
-            offerings: expect.arrayContaining([
-              expect.objectContaining({ term: '2026-1' }),
-            ]),
+            offerings: expect.arrayContaining([expect.objectContaining({ term: '2026-1' })]),
           }),
         ]),
         availableTerms: AVAILABLE_TERMS,
@@ -257,8 +262,9 @@ describe('course catalog search', () => {
       ]),
     );
     expect(mathCombinedCode.some((item) => item.primaryCourseCode === 'GS(MM)2001')).toBe(false);
-    expect(renamedAiDepartment.some((item) =>
-      item.departments.some((department) => department.includes('AI융합학과')))).toBe(true);
+    expect(
+      renamedAiDepartment.some((item) => item.departments.some((department) => department.includes('AI융합학과'))),
+    ).toBe(true);
   });
 
   it('serves /api/courses from the catalog while preserving roadmap-compatible fields', async () => {

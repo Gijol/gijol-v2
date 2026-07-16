@@ -24,11 +24,11 @@ describe('course catalog inventory', () => {
 
     expect(validateCourseCatalogSnapshot(snapshot)).toEqual([]);
     expect(snapshot.schemaVersion).toBe(2);
-    expect(inspection.totals.courses).toBe(1145);
-    expect(inspection.totals.offerings).toBe(4941);
+    expect(inspection.totals.courses).toBe(1213);
+    expect(inspection.totals.offerings).toBe(5448);
     expect(Object.keys(inspection.offeringsByTerm)).toEqual(TIMETABLE_SOURCES.map((source) => source.term));
-    expect(inspection.totals.historicalOfferings).toBe(3822);
-    expect(inspection.totals.manualListings).toBe(3583);
+    expect(inspection.totals.historicalOfferings).toBe(4221);
+    expect(inspection.totals.manualListings).toBe(3590);
     expect(inspection.totals.relationships).toBe(11);
     expect(inspection.historicalOfferingsByAcademicYear).toEqual({
       2020: 484,
@@ -37,7 +37,7 @@ describe('course catalog inventory', () => {
       2023: 603,
       2024: 636,
       2025: 676,
-      2026: 318,
+      2026: 717,
     });
     expect(inspection.manualListingsByAcademicYear).toEqual({
       2020: 446,
@@ -45,27 +45,27 @@ describe('course catalog inventory', () => {
       2022: 303,
       2023: 567,
       2024: 591,
-      2025: 664,
-      2026: 684,
+      2025: 666,
+      2026: 689,
     });
     expect(inspection.facetsByFeature).toEqual({
       minor: 648,
       recommendation: 211,
       roadmap: 774,
     });
-    expect(diagnostics.syntheticCourseCount).toBe(531);
+    expect(diagnostics.syntheticCourseCount).toBe(599);
     expect(diagnostics.roadmapMissingCourseCodeNodes).toHaveLength(324);
     expect(quality.totals).toEqual({
-      offeringsWithoutMeetings: 289,
-      meetingsWithoutRoom: 2511,
-      offeringsWithCapacityZero: 1286,
+      offeringsWithoutMeetings: 498,
+      meetingsWithoutRoom: 2889,
+      offeringsWithCapacityZero: 1531,
       instructorsWithoutStaffId: 0,
-      offeringGroups: 4186,
-      multiCodeOfferingGroups: 640,
-      offeringGroupsWithMultipleDepartments: 640,
+      offeringGroups: 4636,
+      multiCodeOfferingGroups: 689,
+      offeringGroupsWithMultipleDepartments: 686,
       offeringGroupsWithMultipleSections: 0,
-      manualListedCoursesWithoutOffering: 140,
-      offeredCoursesWithoutManualListing: 177,
+      manualListedCoursesWithoutOffering: 134,
+      offeredCoursesWithoutManualListing: 358,
     });
     expect(quality.byTerm['2026-1']).toEqual({
       offerings: 434,
@@ -78,6 +78,19 @@ describe('course catalog inventory', () => {
       offeringGroups: 366,
       multiCodeOfferingGroups: 56,
       offeringGroupsWithMultipleDepartments: 56,
+      offeringGroupsWithMultipleSections: 0,
+    });
+    expect(quality.byTerm['2026-2']).toEqual({
+      offerings: 507,
+      offeringsWithoutMeetings: 209,
+      meetings: 466,
+      meetingsWithoutRoom: 378,
+      offeringsWithCapacityZero: 245,
+      instructors: 305,
+      instructorsWithoutStaffId: 0,
+      offeringGroups: 450,
+      multiCodeOfferingGroups: 49,
+      offeringGroupsWithMultipleDepartments: 46,
       offeringGroupsWithMultipleSections: 0,
     });
     expect(quality.samples.multiCodeOfferingGroups).toEqual(
@@ -175,10 +188,7 @@ describe('course catalog inventory', () => {
 
   it('keeps the generated course catalog snapshot in sync with the builder', () => {
     const { snapshot } = buildCourseCatalogSnapshotFromWorkspace(process.cwd());
-    const generatedPath = join(
-      process.cwd(),
-      'features/course-catalog/generated/course-catalog.snapshot.json',
-    );
+    const generatedPath = join(process.cwd(), 'features/course-catalog/generated/course-catalog.snapshot.json');
     const generatedJson = readFileSync(generatedPath, 'utf8').trimEnd();
     const builtJson = stringifyCourseCatalogSnapshot(snapshot);
 

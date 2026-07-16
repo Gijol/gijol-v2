@@ -11,18 +11,18 @@ describe('course catalog source diff report', () => {
 
     expect(report.totals).toEqual(
       expect.objectContaining({
-        offerings: 4941,
-        manualListings: 3583,
-        manualOnlyCourses: 140,
-        offeredOnlyCourses: 177,
+        offerings: 5448,
+        manualListings: 3590,
+        manualOnlyCourses: 134,
+        offeredOnlyCourses: 358,
       }),
     );
     expect(report.termCoverage).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          term: '2026-1',
-          sections: 434,
-          uniqueCourseCodes: 318,
+          term: '2026-2',
+          sections: 507,
+          uniqueCourseCodes: 399,
         }),
       ]),
     );
@@ -56,8 +56,8 @@ describe('course catalog source diff report', () => {
     );
 
     expect(markdown).toContain('# Course Catalog Source Diff Report');
-    expect(markdown).toContain('## Manual Listed Without Actual Offering (140)');
-    expect(markdown).toContain('## Actually Offered Without Manual Listing (177)');
-    expect(markdown).toContain('| 2026-1 | 2026 1학기 | 434 | 318 |');
+    expect(markdown).toContain('## Manual Listed Without Actual Offering (134)');
+    expect(markdown).toContain('## Actually Offered Without Manual Listing (358)');
+    expect(markdown).toContain('| 2026-2 | 2026 2학기 | 507 | 399 |');
   });
 });

@@ -28,6 +28,9 @@ export interface CourseOfferingGroup {
   department?: string;
   category?: string;
   program?: CourseCatalogOffering['program'];
+  capacity?: number;
+  capacityStatus?: CourseCatalogOffering['capacityStatus'];
+  instructors: readonly string[];
   meetings: readonly CourseCatalogMeeting[];
   meetingBadges: readonly CourseOfferingMeetingBadge[];
 }
@@ -47,12 +50,7 @@ function uniqueSorted(values: readonly string[]): string[] {
 }
 
 function meetingKey(meeting: CourseCatalogMeeting): string {
-  return [
-    meeting.day,
-    meeting.start,
-    meeting.end,
-    meeting.room ?? '',
-  ].join(':');
+  return [meeting.day, meeting.start, meeting.end, meeting.room ?? ''].join(':');
 }
 
 function minutesFromTime(time: string): number | null {
@@ -99,14 +97,14 @@ function actualLectureGroupKey(offering: CourseCatalogOffering): string {
     return [offering.term, 'meeting-unconfirmed', offering.courseCode, offering.section].join('::');
   }
 
-  const instructorsKey = offering.instructors.map((instructor) => instructor.name).sort().join('|');
+  const instructorsKey = offering.instructors
+    .map((instructor) => instructor.name)
+    .sort()
+    .join('|');
   return [offering.term, offering.title, meetingsKey, instructorsKey].join('::');
 }
 
-function buildMeetingBadges(
-  groupId: string,
-  meetings: readonly CourseCatalogMeeting[],
-): CourseOfferingMeetingBadge[] {
+function buildMeetingBadges(groupId: string, meetings: readonly CourseCatalogMeeting[]): CourseOfferingMeetingBadge[] {
   return meetings.map((meeting, index) => ({
     key: `${groupId}:${index}:${meetingKey(meeting)}`,
     label: `${DAY_LABELS[meeting.day]} ${meeting.start}`,
@@ -119,10 +117,7 @@ function buildMeetingBadges(
   }));
 }
 
-function toGroup(
-  groupKey: string,
-  offerings: readonly CourseCatalogOffering[],
-): CourseOfferingGroup {
+function toGroup(groupKey: string, offerings: readonly CourseCatalogOffering[]): CourseOfferingGroup {
   const sortedOfferings = [...offerings].sort((a, b) => a.offeringId.localeCompare(b.offeringId));
   const first = sortedOfferings[0];
   const sections = sortedOfferings.map((offering) => ({
@@ -143,14 +138,17 @@ function toGroup(
     department: first.department,
     category: first.category,
     program: first.program,
+    capacity: first.capacity,
+    capacityStatus: first.capacityStatus,
+    instructors: uniqueSorted(
+      sortedOfferings.flatMap((offering) => offering.instructors.map((instructor) => instructor.name)),
+    ),
     meetings: first.meetings,
     meetingBadges: buildMeetingBadges(groupKey, first.meetings),
   };
 }
 
-export function buildCourseOfferingGroups(
-  offerings: readonly CourseCatalogOffering[],
-): CourseOfferingGroup[] {
+export function buildCourseOfferingGroups(offerings: readonly CourseCatalogOffering[]): CourseOfferingGroup[] {
   const byGroupKey = new Map<string, CourseCatalogOffering[]>();
 
   offerings.forEach((offering) => {
@@ -160,8 +158,10 @@ export function buildCourseOfferingGroups(
 
   return Array.from(byGroupKey.entries())
     .map(([groupKey, groupedOfferings]) => toGroup(groupKey, groupedOfferings))
-    .sort((a, b) =>
-      a.term.localeCompare(b.term) ||
-      a.section.localeCompare(b.section) ||
-      a.courseCodes.join(',').localeCompare(b.courseCodes.join(',')));
+    .sort(
+      (a, b) =>
+        a.term.localeCompare(b.term) ||
+        a.section.localeCompare(b.section) ||
+        a.courseCodes.join(',').localeCompare(b.courseCodes.join(',')),
+    );
 }
