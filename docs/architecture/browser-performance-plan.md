@@ -6,7 +6,7 @@ Date: 2026-07-16
 
 This document records the browser-weight analysis performed before moving authentication, user data, and course-data queries to an OCI-hosted backend. The immediate goal is to remove large catalog data and repeated full-dataset work from browser-facing modules without changing the graduation domain decisions already recorded in ADR-0001, ADR-0002, and ADR-0004.
 
-## Measured baseline
+## Measured baseline before implementation
 
 Measurements were taken from an optimized `next build` and from the built route handlers using the current generated catalog.
 
@@ -23,6 +23,30 @@ Measurements were taken from an optimized `next build` and from the built route 
 | 2026-2 timetable response | 507 sections / approximately 233 KB |
 
 The snapshot chunk is included by the dashboard, course-search, and graduation-lab routes. Compression reduces transfer size, but the browser must still parse and retain the expanded JSON objects. Course search then filters the complete collection before slicing 24 visible rows.
+
+## Implementation status
+
+### Opportunity 1 completed: server-owned catalog query
+
+Implemented on 2026-07-16:
+
+- `server-catalog-query.ts` is the only runtime module that imports the generated snapshot;
+- search and recommendation modules now require data through their interfaces;
+- API routes share process-local search and recommendation indexes;
+- dashboard recommendation UI projects the authoritative graduation API result;
+- graduation Lab keeps local parse/normalize/engine diagnostics but requests catalog-backed refinement from the server;
+- source import tests and a post-build browser-chunk check enforce the seam.
+
+Optimized build after the change:
+
+| Route | Before | After |
+| --- | ---: | ---: |
+| `/dashboard` First Load JS | 876 KB | 187 KB |
+| `/dashboard/course/search` First Load JS | 862 KB | 176 KB |
+| `/dashboard/graduation/lab` First Load JS | 888 KB | 199 KB |
+| Browser snapshot chunk | 10,796,330 bytes raw | absent |
+
+The approximately 11.78 MB initial course-search response is intentionally unchanged. It is the next delivery unit: server-side discovery, projections, facets, and pagination.
 
 ## Root causes
 
@@ -57,7 +81,7 @@ The planning and legacy course sidebars independently implement department facet
 
 ## Deepening opportunities
 
-### 1. Concentrate snapshot ownership in a server-only catalog query module
+### 1. Concentrate snapshot ownership in a server-only catalog query module — completed
 
 Move snapshot loading, indexing, caching, and version knowledge behind one server-only module. Browser-reachable modules should contain data-free normalization and display behaviour only. This preserves the committed static artifacts while preventing them from entering client chunks.
 
@@ -121,7 +145,7 @@ Expected result:
 
 ## Recommended delivery order
 
-1. Split snapshot ownership from browser-safe catalog utilities.
+1. Split snapshot ownership from browser-safe catalog utilities. Completed 2026-07-16.
 2. Introduce real server-side course discovery and list/detail projections.
 3. Add build-manifest and serialized-response performance budgets.
 4. Separate durable graduation inputs from derived outcomes.
@@ -148,4 +172,3 @@ The implementation phase should establish automated budgets rather than relying 
 - ADR-0002: calculated graduation requirements continue to use named evaluators with explicit parameters and sources.
 - ADR-0004: timetable plans remain separate from completed-term records. Shared browsing infrastructure must not merge their domain objects.
 - ADR-0005: ReactFlow, charts, and Excel export already use appropriate demand-loading or motion constraints and are not the primary browser-weight problem.
-

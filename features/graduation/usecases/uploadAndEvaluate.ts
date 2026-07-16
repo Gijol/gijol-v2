@@ -8,6 +8,7 @@ import { parseRawToTakenCourses, validateTakenCourses, normalizeTakenCourses } f
 import { evaluateGraduationStatus } from '../domain/engine';
 import { buildGraduationRecommendationGroups } from '../data';
 import { refineGradStatusForUI, UIGradViewModel } from '../middlewares/refine';
+import { getServerCourseCatalogRecommendationIndex } from '@features/course-catalog/server-catalog-query';
 
 export interface UploadEvaluateResult {
   success: boolean;
@@ -88,6 +89,7 @@ export const uploadAndEvaluate = async (
     userMajor,
     userMinors,
     takenCourses: normalized.takenCourses,
+    courseCatalogIndex: getServerCourseCatalogRecommendationIndex(),
   });
 
   // 6. Refine for UI

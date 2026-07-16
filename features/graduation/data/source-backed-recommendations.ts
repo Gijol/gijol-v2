@@ -1,9 +1,7 @@
 import {
-  createCourseCatalogRecommendationIndex,
   type CatalogRecommendationCourse,
   type CourseCatalogRecommendationIndex,
 } from '@features/course-catalog/recommendations';
-import type { CourseCatalogSnapshot } from '@features/course-catalog/types';
 import { resolveMajorCode } from '../domain/academic-context';
 
 interface CourseCodeLike {
@@ -40,10 +38,7 @@ export interface RecommendationItem {
   requirementId?: string;
 }
 
-export type RecommendationSuppressionReason =
-  | 'missing_major_context'
-  | 'missing_minor_context'
-  | 'display_cap';
+export type RecommendationSuppressionReason = 'missing_major_context' | 'missing_minor_context' | 'display_cap';
 
 export interface RecommendationSuppression {
   categoryKey: string;
@@ -78,7 +73,7 @@ export interface BuildGraduationRecommendationsInput {
   userMinors?: readonly string[] | null;
   takenCourses?: readonly CourseCodeLike[];
   policy?: RecommendationDisplayPolicy;
-  courseCatalogSnapshot?: CourseCatalogSnapshot;
+  courseCatalogIndex: CourseCatalogRecommendationIndex;
 }
 
 export const DEFAULT_RECOMMENDATION_DISPLAY_POLICY: Required<RecommendationDisplayPolicy> = {
@@ -125,10 +120,7 @@ function collectTakenCourseCodes(input: BuildGraduationRecommendationsInput): Se
   return codes;
 }
 
-function toRecommendationItem(
-  course: CatalogRecommendationCourse,
-  requirement: RequirementLike,
-): RecommendationItem {
+function toRecommendationItem(course: CatalogRecommendationCourse, requirement: RequirementLike): RecommendationItem {
   return {
     courseCode: course.courseCode,
     courseName: course.courseName,
@@ -145,9 +137,8 @@ function getFineGrainedCourses(
   courseCatalogIndex: CourseCatalogRecommendationIndex,
 ): CatalogRecommendationCourse[] {
   return courseCatalogIndex.getRecommendationCoursesForRequirement(requirement.id, {
-    excludeRequirementIds: requirement.id === 'science-total' && satisfiedRequirementIds.has('science-calculus')
-      ? ['science-calculus']
-      : [],
+    excludeRequirementIds:
+      requirement.id === 'science-total' && satisfiedRequirementIds.has('science-calculus') ? ['science-calculus'] : [],
   });
 }
 
@@ -231,7 +222,11 @@ function getRequirementCap(requirement: RequirementLike, policy: Required<Recomm
 function getRequirementPriority(requirement: RequirementLike): number {
   if (requirement.categoryKey === 'etcMandatory') return 10;
   if (requirement.categoryKey === 'languageBasic') return 20;
-  if (requirement.id === 'science-calculus' || requirement.id === 'science-core-math' || requirement.id === 'science-sw-basic') {
+  if (
+    requirement.id === 'science-calculus' ||
+    requirement.id === 'science-core-math' ||
+    requirement.id === 'science-sw-basic'
+  ) {
     return 30;
   }
   if (requirement.categoryKey === 'major') return 40;
@@ -342,7 +337,7 @@ function groupByCategoryKey(recommendations: RecommendationItem[]): Record<strin
 export function buildGraduationRecommendationGroups(
   input: BuildGraduationRecommendationsInput,
 ): GraduationRecommendationGroups {
-  const courseCatalogIndex = createCourseCatalogRecommendationIndex(input.courseCatalogSnapshot);
+  const courseCatalogIndex = input.courseCatalogIndex;
   const takenCourseCodes = collectTakenCourseCodes(input);
   const policy = resolveDisplayPolicy(input.policy);
   const suppressionMap = new Map<string, RecommendationSuppression>();
@@ -400,8 +395,6 @@ export function buildGraduationRecommendationGroups(
   };
 }
 
-export function buildGraduationRecommendations(
-  input: BuildGraduationRecommendationsInput,
-): RecommendationItem[] {
+export function buildGraduationRecommendations(input: BuildGraduationRecommendationsInput): RecommendationItem[] {
   return buildGraduationRecommendationGroups(input).recommendations;
 }

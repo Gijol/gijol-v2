@@ -1,9 +1,6 @@
 import { UserStatusType } from '@lib/types/index';
-import {
-  type GradStatusRequestBody,
-  type GradStatusResponseType,
-  TakenCourseType,
-} from '@lib/types/grad';
+import { type GradStatusRequestBody, TakenCourseType } from '@lib/types/grad';
+import type { UIGradViewModel } from '@features/graduation/middlewares/refine';
 
 export const inferEntryYear = (p: UserStatusType): number | null => {
   // 1) 타입에 entryYear가 직접 들어있다면 사용
@@ -48,7 +45,7 @@ export const gradStatusFetchFn = async (payload: GradStatusRequestBody) => {
       throw new Error(`grad-status ${res.status}: ${text}`);
     }
 
-    return (await res.json()) as GradStatusResponseType;
+    return (await res.json()) as UIGradViewModel;
   } catch (error) {
     console.error('grad-status api error:', error);
     throw error;

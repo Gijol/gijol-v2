@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import {
-  createCourseCatalogSearchItems,
   filterCourseCatalogSearchItems,
   getUniqueCatalogOfferingTerms,
   type CourseCatalogSearchItem,
 } from '@features/course-catalog/search';
+import { getServerCourseCatalogSearchItems } from '@features/course-catalog/server-catalog-query';
 
 type CourseSearchApiItem = CourseCatalogSearchItem & {
   id: number;
@@ -16,13 +16,7 @@ type CourseSearchApiItem = CourseCatalogSearchItem & {
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const {
-    q = '',
-    courseSearchString = '',
-    courseSearchCode = 'NONE',
-    limit = '20',
-    term,
-  } = req.query;
+  const { q = '', courseSearchString = '', courseSearchCode = 'NONE', limit = '20', term } = req.query;
   const qStr = Array.isArray(q) ? q[0] : q;
   const courseSearchStringStr = Array.isArray(courseSearchString) ? courseSearchString[0] : courseSearchString;
   const courseSearchCodeStr = Array.isArray(courseSearchCode) ? courseSearchCode[0] : courseSearchCode;
@@ -30,7 +24,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const query = qStr || courseSearchStringStr;
   const limitNum = parseInt(Array.isArray(limit) ? limit[0] : limit, 10) || 20;
 
-  const items = createCourseCatalogSearchItems();
+  const items = getServerCourseCatalogSearchItems();
   const filtered = filterCourseCatalogSearchItems(items, {
     query,
     terms,

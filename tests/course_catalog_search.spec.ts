@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import coursesHandler from '../pages/api/courses';
 import searchHandler from '../pages/api/courses/search';
 import { createCourseCatalogSearchItems, filterCourseCatalogSearchItems } from '../features/course-catalog/search';
+import { COURSE_CATALOG_SNAPSHOT } from '../features/course-catalog/generated';
 
 const AVAILABLE_TERMS = [
   '2020-1',
@@ -40,7 +41,7 @@ function createMockResponse() {
 
 describe('course catalog search', () => {
   it('searches generated catalog data instead of mock course data', () => {
-    const items = createCourseCatalogSearchItems();
+    const items = createCourseCatalogSearchItems(COURSE_CATALOG_SNAPSHOT);
     const hs4611 = filterCourseCatalogSearchItems(items, { query: 'HS4611' });
     const ai3001 = filterCourseCatalogSearchItems(items, { query: 'AI3001' });
     const ai2003 = filterCourseCatalogSearchItems(items, { query: '인공지능을 위한 수학' });
@@ -248,7 +249,7 @@ describe('course catalog search', () => {
   });
 
   it('matches combined course codes and renamed AI organization names', () => {
-    const items = createCourseCatalogSearchItems();
+    const items = createCourseCatalogSearchItems(COURSE_CATALOG_SNAPSHOT);
     const mathCombinedCode = filterCourseCatalogSearchItems(items, { query: 'GS(MM)2001' });
     const renamedAiDepartment = filterCourseCatalogSearchItems(items, { query: 'AI학과' });
 

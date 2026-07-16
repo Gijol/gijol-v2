@@ -1,4 +1,3 @@
-import { COURSE_CATALOG_SNAPSHOT } from './generated';
 import { normalizeCourseCode, uniqueStrings } from './normalize';
 import type {
   CourseCatalogCourse,
@@ -46,20 +45,14 @@ function courseAliasCodes(course: CourseCatalogCourse): string[] {
   return uniqueStrings(course.aliases.map((alias) => normalizeCourseCode(alias.code)));
 }
 
-function compareRecommendationCourses(
-  a: CatalogRecommendationCourse,
-  b: CatalogRecommendationCourse,
-): number {
+function compareRecommendationCourses(a: CatalogRecommendationCourse, b: CatalogRecommendationCourse): number {
   const sortOrderA = a.sortOrder ?? Number.MAX_SAFE_INTEGER;
   const sortOrderB = b.sortOrder ?? Number.MAX_SAFE_INTEGER;
   if (sortOrderA !== sortOrderB) return sortOrderA - sortOrderB;
   return a.courseCode.localeCompare(b.courseCode);
 }
 
-function compareMinorRecommendationCourses(
-  a: CatalogRecommendationCourse,
-  b: CatalogRecommendationCourse,
-): number {
+function compareMinorRecommendationCourses(a: CatalogRecommendationCourse, b: CatalogRecommendationCourse): number {
   const classificationA = MINOR_RECOMMENDATION_CLASSIFICATION_ORDER[a.classification ?? ''] ?? 99;
   const classificationB = MINOR_RECOMMENDATION_CLASSIFICATION_ORDER[b.classification ?? ''] ?? 99;
   if (classificationA !== classificationB) return classificationA - classificationB;
@@ -67,7 +60,7 @@ function compareMinorRecommendationCourses(
 }
 
 export function createCourseCatalogRecommendationIndex(
-  snapshot: CourseCatalogSnapshot = COURSE_CATALOG_SNAPSHOT,
+  snapshot: CourseCatalogSnapshot,
 ): CourseCatalogRecommendationIndex {
   const coursesById = new Map(snapshot.courses.map((course) => [course.courseId, course]));
   const courseIdByCode = new Map<string, string>();
@@ -169,10 +162,7 @@ export function createCourseCatalogRecommendationIndex(
     return courseIds;
   }
 
-  function isCourseTaken(
-    course: CatalogRecommendationCourse,
-    takenCourseCodes: ReadonlySet<string>,
-  ): boolean {
+  function isCourseTaken(course: CatalogRecommendationCourse, takenCourseCodes: ReadonlySet<string>): boolean {
     const normalizedTakenCodes = new Set(
       Array.from(takenCourseCodes).map((courseCode) => normalizeCourseCode(courseCode)),
     );

@@ -1,6 +1,6 @@
 import type { RoadmapData } from '@/lib/types/roadmap';
 import { expandCourseCodeCandidates, getCourseCodeSearchVariants, normalizeCourseCode } from './normalize';
-import { createCourseCatalogSearchItems, type CourseCatalogSearchItem } from './search';
+import type { CourseCatalogSearchItem } from './search';
 
 const ROADMAP_ONLY_SOURCE_KIND = 'roadmap-preset';
 
@@ -8,9 +8,7 @@ function hasNonRoadmapEvidence(item: CourseCatalogSearchItem): boolean {
   return item.sourceRefs.some((sourceRef) => sourceRef.kind !== ROADMAP_ONLY_SOURCE_KIND);
 }
 
-function createRoadmapCatalogLookup(
-  items: readonly CourseCatalogSearchItem[] = createCourseCatalogSearchItems(),
-): Map<string, CourseCatalogSearchItem> {
+function createRoadmapCatalogLookup(items: readonly CourseCatalogSearchItem[]): Map<string, CourseCatalogSearchItem> {
   const byCode = new Map<string, CourseCatalogSearchItem>();
 
   items.filter(hasNonRoadmapEvidence).forEach((item) => {
@@ -65,7 +63,7 @@ function toCatalogInfo(item: CourseCatalogSearchItem) {
 
 export function enrichRoadmapDataWithCatalog(
   roadmapData: RoadmapData,
-  items: readonly CourseCatalogSearchItem[] = createCourseCatalogSearchItems(),
+  items: readonly CourseCatalogSearchItem[],
 ): RoadmapData {
   const catalogByCode = createRoadmapCatalogLookup(items);
   const unresolvedCourseCodes = new Set<string>();

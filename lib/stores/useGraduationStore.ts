@@ -4,10 +4,19 @@ import { persist } from 'zustand/middleware';
 import type { UserStatusType } from '@lib/types/index';
 import type { GradStatusResponseType, MinorDeclarationTerms, TakenCourseType } from '@lib/types/grad';
 import { FineGrainedRequirement } from '@lib/types/grad-requirements';
+import type {
+  RecommendationDisplayPolicy,
+  RecommendationItem,
+  RecommendationSuppression,
+} from '@features/graduation/data';
 import { PARSED_PROCESSED_STATE_KEY } from './storage-key';
 
 export type GradStatusExtended = GradStatusResponseType & {
   fineGrainedRequirements?: FineGrainedRequirement[];
+  recommendations?: RecommendationItem[];
+  allRecommendations?: RecommendationItem[];
+  recommendationSuppressions?: RecommendationSuppression[];
+  recommendationPolicy?: Required<RecommendationDisplayPolicy>;
 };
 
 type GraduationState = {
@@ -23,7 +32,7 @@ type GraduationState = {
   setFromParsed: (args: {
     parsed: UserStatusType;
     takenCourses: TakenCourseType[];
-    gradStatus: GradStatusResponseType | null;
+    gradStatus: GradStatusExtended | null;
     userMajor: string;
     userMinors?: string[];
     minorDeclarationTerms?: MinorDeclarationTerms;

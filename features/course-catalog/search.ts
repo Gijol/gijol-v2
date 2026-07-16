@@ -1,4 +1,3 @@
-import { COURSE_CATALOG_SNAPSHOT } from './generated';
 import type {
   CourseCatalogCourse,
   CourseCatalogManualListing,
@@ -164,9 +163,7 @@ function shouldHideResolvableRoadmapOnlyItem(
   return candidates.some((candidate) => nonRoadmapCodeVariants.has(candidate));
 }
 
-export function createCourseCatalogSearchItems(
-  snapshot: CourseCatalogSnapshot = COURSE_CATALOG_SNAPSHOT,
-): CourseCatalogSearchItem[] {
+export function createCourseCatalogSearchItems(snapshot: CourseCatalogSnapshot): CourseCatalogSearchItem[] {
   const offeringsByCourseId = new Map<string, CourseCatalogOffering[]>();
   const manualListingsByCourseId = new Map<string, CourseCatalogManualListing[]>();
   const facetsByCourseId = new Map<string, CourseCatalogRequirementFacet[]>();

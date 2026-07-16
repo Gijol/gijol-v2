@@ -10,7 +10,7 @@
 | `docs/bachelor_manual/2020_manual.pdf`...`2026_manual.pdf` + `features/course-catalog/generated/manual-listings.extracted.json` | 학사편람 수록 이력 | extracted 3823 raw entries / catalog 3583 listings | `academicYear`, `sourcePath`, `extractionMethod`, `courseCode`, `page`, `credits` | 2021/2022 PDF는 텍스트 레이어가 부족해 OCR fallback으로 추출한다. 2020/2023 일부 PDF는 한 PDF 페이지에 인쇄본 두 쪽이 들어 있어 `page`는 PDF 물리 페이지 기준으로 기록한다 |
 | `lib/const/course-master.ts` | catalog recommendation facet ingestion | TS 상수 기반 | `courseCode`, `courseNameKo`, `credits`, `level`, `department`, `isOffered` | 런타임 졸업 추천은 generated `CourseCatalog`의 requirement-level recommendation facet를 조회한다. 이 파일은 snapshot 빌드 입력 원천으로 남아 있다 |
 | `DB/minor/*.json` + `lib/const/minor-courses.ts` | 부전공 추천 후보 | 18 files / raw 617 entries / loader 648 facets | `courseCode`, `courseName`, `credits`, `category`, `classification` | 부전공 분류는 풍부하지만 canonical course id나 alias 관계가 없음. 현재 loader는 `SE -> eecs` 매핑을 별도 부전공 코드로 재사용함 |
-| `llm/course_info_from_registration_system/*.xls` + `DB/timetable/registration-system/*.normalized.json` | `/dashboard/timetable`, `/api/timetable/[term]`, 시간표 conflict/store, 실제 개설 이력 | 13 terms / 4941 sections / 941 unique course codes | `course_code`, `section`, `title`, `category`, `program`, `hours`, `meetings`, `capacity`, `instructors`, `sourceSha256` | 수강신청 시스템 엑셀을 `yarn course-catalog:import-registration-offerings`로 정규화한다. 과목명/학점/부서는 term-specific 관측값이며 canonical identity에 자동 덮어쓰지 않는다 |
+| `llm/course_info_from_registration_system/*.xls` + `DB/timetable/registration-system/*.normalized.json` | `/dashboard/timetable`, `/api/timetable/[term]`, 시간표 conflict/store, 실제 개설 이력 | 14 terms / 5448 sections / 1135 unique course codes | `course_code`, `section`, `title`, `category`, `program`, `hours`, `meetings`, `capacity`, `instructors`, `sourceSha256` | 수강신청 시스템 엑셀을 `yarn course-catalog:import-registration-offerings`로 정규화한다. 과목명/학점/부서는 term-specific 관측값이며 canonical identity에 자동 덮어쓰지 않는다 |
 | `DB/roadmap/presets/*.json` | `/api/roadmap/[slug]`, 로드맵 화면 | 28 presets / 1101 nodes / 485 unique course codes / 324 nodes without `courseCode` | React Flow `nodes`, `edges`, node `label`, `credits`, `category`, `semester`, optional `courseCode` | 노드 payload가 과목 정보를 복제함. 일부 노드는 courseCode가 없고, `GS(EB)2739` 같은 composite code가 존재 |
 | `features/graduation/domain/rule-catalog/*` | 졸업 판정 source-backed rule | rule/sourceRef 중심 | `courses`, `sourceRefs`, `appliesTo`, `scope`, equivalency relation | 졸업요건 판정 근거는 좋지만 일반 강의 master/section/offering 정보가 아님 |
 | `lib/const/course.ts` | 제거됨 | TS fake data | `courseCode`, `courseDescription` | `/api/courses/search`가 catalog 기반으로 전환되며 stale mock 원천을 제거함 |
@@ -42,19 +42,28 @@
 
 | 항목 | 수 |
 | --- | ---: |
-| courses | 1145 |
-| aliases | 1279 |
-| offerings | 4941 |
-| historical offerings | 3822 |
-| manual listings | 3583 |
+| courses | 1213 |
+| aliases | 1463 |
+| offerings | 5448 |
+| historical offerings | 4221 |
+| manual listings | 3590 |
 | requirement facets | 1633 |
 | relationships | 11 |
-| synthetic courses | 531 |
+| synthetic courses | 599 |
 | roadmap nodes without `courseCode` | 324 |
 
 기능별 facet 수는 `minor: 648`, `recommendation: 211`, `roadmap: 774`이다. Recommendation facet은 `requirementId`/`programCode`/`sortOrder`를 포함해 졸업 추천 런타임이 `course-master.ts`를 직접 읽지 않고도 세부 요건별 후보를 복원할 수 있다. 로드맵 raw node 중 `courseCode`가 있는 노드는 777개지만, 동일 preset/node/course 조합 dedupe 이후 snapshot facet은 774개다.
 
-현재 `historicalOfferings`는 `2020: 484`, `2021: 514`, `2022: 591`, `2023: 603`, `2024: 636`, `2025: 676`, `2026: 318`, `manualListings`는 `2020: 446`, `2021: 328`, `2022: 303`, `2023: 567`, `2024: 591`, `2025: 664`, `2026: 684`를 기준선으로 검증한다. 2027년 이후 학사편람이 추가되면 `scripts/course-catalog/extract-manual-listings.ts`의 `MANUAL_SOURCES`에 연도/sourcePath를 추가한 뒤 `yarn course-catalog:extract-manual-listings`로 추출 snapshot을 갱신한다. 수강신청 시스템 엑셀은 `llm/course_info_from_registration_system/YYYY_SS_개설강좌정보.xls`로 추가한 뒤 `yarn course-catalog:import-registration-offerings`를 실행하면 normalized JSON과 timetable source manifest가 함께 갱신된다.
+현재 `historicalOfferings`는 `2020: 484`, `2021: 514`, `2022: 591`, `2023: 603`, `2024: 636`, `2025: 676`, `2026: 717`, `manualListings`는 `2020: 446`, `2021: 328`, `2022: 303`, `2023: 567`, `2024: 591`, `2025: 666`, `2026: 689`를 기준선으로 검증한다. 2027년 이후 학사편람이 추가되면 `scripts/course-catalog/extract-manual-listings.ts`의 `MANUAL_SOURCES`에 연도/sourcePath를 추가한 뒤 `yarn course-catalog:extract-manual-listings`로 추출 snapshot을 갱신한다. 수강신청 시스템 엑셀은 `llm/course_info_from_registration_system/YYYY_SS_개설강좌정보.xls`로 추가한 뒤 `yarn course-catalog:import-registration-offerings`를 실행하면 normalized JSON과 timetable source manifest가 함께 갱신된다.
+
+## Runtime 질의 seam
+
+`features/course-catalog/server-catalog-query.ts`만 generated snapshot을 import한다. 이 module은 프로세스 단위로 검색 목록과 추천 인덱스를 한 번 생성해 재사용한다. `search.ts`, `recommendations.ts`, `roadmap.ts`, `legacy-course-db.ts`는 원천을 직접 소유하지 않고 호출자가 전달한 데이터만 처리한다.
+
+- API route와 졸업 평가 use case만 서버 질의 module을 import한다.
+- 대시보드는 졸업 평가 API가 반환한 추천 결과를 표시하며 브라우저에서 추천 인덱스를 다시 만들지 않는다.
+- 수강 이력, 전공, 부전공 또는 선언 학기가 바뀌면 서버 재평가가 성공한 뒤 저장된 파생 결과를 교체해야 한다.
+- `tests/course_catalog_server_boundary.spec.ts`가 import seam을, `yarn course-catalog:check-browser-bundle`이 production browser chunk를 검증한다.
 
 ## Source of Truth 제안
 
@@ -121,6 +130,7 @@
 3. `yarn course-catalog:report -- --out output/course-catalog-source-diff.md`
 4. `yarn typecheck`
 5. `yarn jest --watchman=false`
+6. `yarn build` 후 자동 실행되는 browser catalog boundary 검사를 확인한다.
 
 `course-catalog:report`는 학사편람 수록 교과목과 실제 개설 교과목의 차이를 사람이 검토할 수 있게 Markdown으로 출력한다. 특히 아래 항목은 새 학기 업로드 때마다 확인한다.
 
