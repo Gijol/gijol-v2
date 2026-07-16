@@ -35,6 +35,7 @@ export default function My() {
     courseListWithPeriod,
     totalCredit,
     overallAverageGrade,
+    majorAverageGrade,
     start_y,
     start_s,
     end_y,
@@ -94,6 +95,7 @@ export default function My() {
           totalCredit={totalCredit}
           totalRequired={TOTAL_REQUIRED_CREDITS}
           averageGrade={overallAverageGrade}
+          majorAverageGrade={majorAverageGrade}
           progress={progress}
         />
         <OverallSemesterCard

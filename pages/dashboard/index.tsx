@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { NextSeo } from 'next-seo';
 import { useGraduationStore } from '../../lib/stores/useGraduationStore';
 import { extractOverallStatus, getPercentage } from '@utils/graduation/grad-formatter';
-import { buildCourseListWithPeriod, calcAverageGrade } from '@utils/course/analytics';
+import { buildCourseListWithPeriod, calcAverageGrade, calcAverageGradeForCourseCodes } from '@utils/course/analytics';
 import { WelcomeHeader } from '@components/dashboard/welcome-header';
 import { EmptyState } from '@components/dashboard/empty-state';
 import { RequirementsList } from '@components/dashboard/requirements-list';
@@ -60,8 +60,12 @@ function getMinorLabel(value: string): string {
 
 export default function HomePage() {
   const { parsed, gradStatus, userMajor, userMinors, entryYear } = useGraduationStore();
-  const { getRecommendationsForDomain, getAllRecommendationsForDomain, getRecommendationSuppressionsForDomain, recommendationPolicy } =
-    useRecommendedCourses();
+  const {
+    getRecommendationsForDomain,
+    getAllRecommendationsForDomain,
+    getRecommendationSuppressionsForDomain,
+    recommendationPolicy,
+  } = useRecommendedCourses();
   const [showGradeSummary, setShowGradeSummary] = useState(false);
   const [userInfoDialogOpen, setUserInfoDialogOpen] = useState(false);
 
@@ -70,6 +74,17 @@ export default function HomePage() {
   const overallAverageGrade = useMemo(
     () => calcAverageGrade(courseListWithPeriod.flatMap((t) => t.userTakenCourseList ?? [])),
     [courseListWithPeriod],
+  );
+
+  const majorAverageGrade = useMemo(
+    () =>
+      calcAverageGradeForCourseCodes(
+        courseListWithPeriod.flatMap((term) => term.userTakenCourseList ?? []),
+        (gradStatus?.graduationCategory.major.userTakenCoursesList.takenCourses ?? []).map(
+          (course) => course.courseCode,
+        ),
+      ),
+    [courseListWithPeriod, gradStatus],
   );
 
   // Data Processing
@@ -114,7 +129,9 @@ export default function HomePage() {
           requirementLabel: requirement.label,
         })),
       );
-      const hasNeedsReview = domainFineRequirements.some((requirement) => getRequirementStatus(requirement) === 'needs_review');
+      const hasNeedsReview = domainFineRequirements.some(
+        (requirement) => getRequirementStatus(requirement) === 'needs_review',
+      );
 
       return {
         domain,
@@ -171,7 +188,7 @@ export default function HomePage() {
           className="md:col-span-1 md:row-span-1"
           title="내 정보"
           description={
-            <div className="mt-3 flex h-[80px] flex-col gap-2 overflow-y-auto pr-1 text-sm scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
+            <div className="scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent mt-3 flex h-[80px] flex-col gap-2 overflow-y-auto pr-1 text-sm">
               {/* 학번 */}
               <div className="flex items-center gap-2">
                 <div className="flex w-16 items-center gap-2 text-gray-500">
@@ -187,7 +204,10 @@ export default function HomePage() {
                   <Book size={14} className="mt-0.5 shrink-0 text-gray-500" />
                   <span className="shrink-0">전공</span>
                 </div>
-                <Badge variant="outline" className="h-fit whitespace-normal break-all border-blue-200 bg-blue-50 text-xs text-blue-700">
+                <Badge
+                  variant="outline"
+                  className="h-fit border-blue-200 bg-blue-50 text-xs break-all whitespace-normal text-blue-700"
+                >
                   {getMajorLabel(userMajor)}
                 </Badge>
               </div>
@@ -262,11 +282,25 @@ export default function HomePage() {
             <div>
               {showGradeSummary ? (
                 <>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-bold text-gray-900">
-                      {overallAverageGrade != null ? overallAverageGrade.toFixed(2) : '-'}
-                    </span>
-                    <span className="text-sm text-gray-500">/ 4.5</span>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-2xl font-bold text-gray-900">
+                          {overallAverageGrade != null ? overallAverageGrade.toFixed(2) : '-'}
+                        </span>
+                        <span className="text-xs text-gray-500">/ 4.5</span>
+                      </div>
+                      <span className="text-xs text-gray-500">전체</span>
+                    </div>
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-2xl font-bold text-gray-900">
+                          {majorAverageGrade != null ? majorAverageGrade.toFixed(2) : '-'}
+                        </span>
+                        <span className="text-xs text-gray-500">/ 4.5</span>
+                      </div>
+                      <span className="text-xs text-gray-500">전공</span>
+                    </div>
                   </div>
                   <div>
                     {gradeDelta !== null ? (

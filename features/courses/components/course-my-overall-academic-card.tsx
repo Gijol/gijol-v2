@@ -8,11 +8,13 @@ export default function OverallAcademicCard({
   totalCredit,
   totalRequired,
   averageGrade,
+  majorAverageGrade,
   progress,
 }: {
   totalCredit: number;
   totalRequired: number;
   averageGrade: number | null;
+  majorAverageGrade: number | null;
   progress: number; // 0~100
 }) {
   return (
@@ -22,7 +24,7 @@ export default function OverallAcademicCard({
       </CardHeader>
       <CardContent className="flex h-full flex-col p-4">
         {/* 두 개의 핵심 지표를 나란히 배치 */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-3 gap-3 sm:gap-6">
           {/* 이수 학점 */}
           <div>
             <div className="flex items-baseline justify-center gap-1">
@@ -32,13 +34,22 @@ export default function OverallAcademicCard({
             <div className="text-muted-foreground text-center text-xs">이수 학점</div>
           </div>
 
-          {/* 평균 학점 */}
+          {/* 전체 평균 */}
           <div>
             <div className="flex items-baseline justify-center gap-1">
               <span className="text-foreground text-3xl font-bold">{averageGrade ?? '-'}</span>
               <span className="text-muted-foreground text-lg">/ 4.5</span>
             </div>
-            <div className="text-muted-foreground mt-1 text-center text-xs">평균 학점</div>
+            <div className="text-muted-foreground mt-1 text-center text-xs">전체 평점</div>
+          </div>
+
+          {/* 전공 평균 */}
+          <div>
+            <div className="flex items-baseline justify-center gap-1">
+              <span className="text-foreground text-3xl font-bold">{majorAverageGrade ?? '-'}</span>
+              <span className="text-muted-foreground text-lg">/ 4.5</span>
+            </div>
+            <div className="text-muted-foreground mt-1 text-center text-xs">전공 평점</div>
           </div>
         </div>
       </CardContent>

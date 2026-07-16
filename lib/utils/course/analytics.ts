@@ -27,6 +27,20 @@ export type HasGradeAndCredit = {
   grade?: string | null;
 };
 
+type HasCourseCode = {
+  courseCode?: string | null;
+};
+
+/**
+ * 2026 GIST academic handbook, p.208:
+ * grade averages are truncated at the third decimal place (two decimals kept).
+ * The small epsilon only neutralizes binary floating-point noise at exact
+ * hundredth boundaries (for example, 2.30 represented as 2.299999...).
+ */
+export function truncateGradeAverage(value: number): number {
+  return Math.trunc((value + 1e-10) * 100) / 100;
+}
+
 export function calcAverageGrade<T extends HasGradeAndCredit>(courses: T[]): number | null {
   const graded = courses.filter((c) => {
     const g = String(c.grade ?? '').toUpperCase();
@@ -49,7 +63,24 @@ export function calcAverageGrade<T extends HasGradeAndCredit>(courses: T[]): num
 
   if (!totalCredits) return null;
 
-  return Math.floor((totalPoints / totalCredits) * 100) / 100;
+  return truncateGradeAverage(totalPoints / totalCredits);
+}
+
+export function calcAverageGradeForCourseCodes<T extends HasGradeAndCredit & HasCourseCode>(
+  courses: T[],
+  courseCodes: Iterable<string>,
+): number | null {
+  const includedCodes = new Set(Array.from(courseCodes, (code) => String(code).trim().toUpperCase()).filter(Boolean));
+
+  return calcAverageGrade(
+    courses.filter((course) =>
+      includedCodes.has(
+        String(course.courseCode ?? '')
+          .trim()
+          .toUpperCase(),
+      ),
+    ),
+  );
 }
 
 type ParsedCourseRow = {
