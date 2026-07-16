@@ -46,7 +46,28 @@ Optimized build after the change:
 | `/dashboard/graduation/lab` First Load JS | 888 KB | 199 KB |
 | Browser snapshot chunk | 10,796,330 bytes raw | absent |
 
-The approximately 11.78 MB initial course-search response is intentionally unchanged. It is the next delivery unit: server-side discovery, projections, facets, and pagination.
+Opportunity 1 did not change the approximately 11.78 MB initial course-search response. Opportunity 2 below addresses that transport separately.
+
+### Opportunity 2 completed: server-side course discovery
+
+Implemented on 2026-07-16:
+
+- the course discovery module owns filters, facet metadata, stable ordering, page limits, and projections;
+- `/api/courses/search` returns one 24-item list page instead of up to 2,000 detail records;
+- the browser sends debounced search and filter state to the server and no longer filters or slices the full collection;
+- `/api/courses/detail` returns descriptions, source references, offering history, and manual listings only after selection;
+- tests enforce stable non-overlapping pages, absence of detail-only fields, and a 64 KiB serialized list-response budget.
+
+Measured against the running development route:
+
+| Measurement | Before | After |
+| --- | ---: | ---: |
+| Initial course-search response | approximately 11.78 MB / 1,213 detail records | 11,671 bytes / 24 list records |
+| Browser-side filtering | full 1,213-record collection | none |
+| Browser-side pagination | slice after filtering | server page, 1-based |
+| Example selected-course detail | included for every row | 2,774 bytes on demand |
+
+Detail response size varies by offering and manual-listing history. It is intentionally not part of the list-response budget.
 
 ## Root causes
 
@@ -92,7 +113,7 @@ Expected result:
 - make the later OCI/PostgreSQL adapter a localized replacement;
 - test snapshot integration separately from small in-memory fixtures.
 
-### 2. Deepen course discovery around query, facets, pagination, and projections
+### 2. Deepen course discovery around query, facets, pagination, and projections — completed
 
 Make one module own search semantics, stable ordering, facet metadata, page limits, and the difference between list and detail results. Fetch detail history only when a user opens a course.
 
@@ -146,8 +167,8 @@ Expected result:
 ## Recommended delivery order
 
 1. Split snapshot ownership from browser-safe catalog utilities. Completed 2026-07-16.
-2. Introduce real server-side course discovery and list/detail projections.
-3. Add build-manifest and serialized-response performance budgets.
+2. Introduce real server-side course discovery and list/detail projections. Completed 2026-07-16.
+3. Add build-manifest and serialized-response performance budgets. Browser catalog and course-search list budgets completed 2026-07-16; public-route budgets remain.
 4. Separate durable graduation inputs from derived outcomes.
 5. Remove redundant roadmap catalog fetching.
 6. Consolidate timetable section browsing.

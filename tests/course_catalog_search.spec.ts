@@ -204,7 +204,7 @@ describe('course catalog search', () => {
     );
   });
 
-  it('serves catalog-backed course search API with legacy-compatible fields', () => {
+  it('serves a paginated catalog list projection', () => {
     const req = {
       query: { q: 'HS4611', limit: '5' },
     } as unknown as NextApiRequest;
@@ -218,16 +218,20 @@ describe('course catalog search', () => {
         totalElements: expect.any(Number),
         content: expect.arrayContaining([
           expect.objectContaining({
-            courseCode: 'HS4611',
             primaryCourseCode: 'HS4611',
-            courseName: expect.any(String),
+            displayTitleKo: expect.any(String),
             creditHours: expect.any(Number),
-            offerings: expect.arrayContaining([expect.objectContaining({ term: '2026-1' })]),
+            offeringTerms: expect.arrayContaining(['2026-1']),
           }),
         ]),
-        availableTerms: AVAILABLE_TERMS,
+        page: 1,
+        pageSize: 5,
+        facets: expect.objectContaining({ terms: AVAILABLE_TERMS }),
       }),
     );
+    expect((res.body as any).content[0]).not.toHaveProperty('offerings');
+    expect((res.body as any).content[0]).not.toHaveProperty('manualListings');
+    expect((res.body as any).content[0]).not.toHaveProperty('sourceRefs');
   });
 
   it('filters the course search API by timetable term', () => {
@@ -243,7 +247,7 @@ describe('course catalog search', () => {
       expect.objectContaining({
         totalElements: 0,
         content: [],
-        availableTerms: AVAILABLE_TERMS,
+        facets: expect.objectContaining({ terms: AVAILABLE_TERMS }),
       }),
     );
   });

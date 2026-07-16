@@ -65,6 +65,13 @@
 - 수강 이력, 전공, 부전공 또는 선언 학기가 바뀌면 서버 재평가가 성공한 뒤 저장된 파생 결과를 교체해야 한다.
 - `tests/course_catalog_server_boundary.spec.ts`가 import seam을, `yarn course-catalog:check-browser-bundle`이 production browser chunk를 검증한다.
 
+`features/course-catalog/discovery.ts`는 과목 탐색의 검색 조건, facet, 안정 정렬, page size 제한, list/detail projection을 한 Interface에 집중한다. `/api/courses/search`는 기본 24개 목록과 전체 개수만 반환하고, `/api/courses/detail`은 사용자가 과목을 선택한 뒤 상세 이력을 반환한다.
+
+- 목록 projection에는 과목 ID/코드/명칭, 별칭, 학과, 학점, 실습시간, lifecycle, 개설 학기와 과정만 포함한다.
+- 설명, sourceRefs, 전체 offering/offeringGroups, manualListings, requirement facets, matchText는 상세 응답에만 포함한다.
+- 기본 24개 목록 응답은 facet metadata를 포함해 64 KiB 미만이어야 한다.
+- 서버 page는 1부터 시작하고 page size는 최대 100개로 제한하며, 과목코드와 courseId 순서로 안정 정렬한다.
+
 ## Source of Truth 제안
 
 1. Course identity의 1차 원천은 `DB/course_db.csv`로 둔다.

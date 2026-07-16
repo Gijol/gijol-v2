@@ -1,71 +1,52 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import {
-  filterCourseCatalogSearchItems,
-  getUniqueCatalogOfferingTerms,
-  type CourseCatalogSearchItem,
-} from '@features/course-catalog/search';
-import { getServerCourseCatalogSearchItems } from '@features/course-catalog/server-catalog-query';
+import type { CourseDiscoveryQuery } from '@features/course-catalog/discovery';
+import { getServerCourseDiscovery } from '@features/course-catalog/server-catalog-query';
 
-type CourseSearchApiItem = CourseCatalogSearchItem & {
-  id: number;
-  courseCode: string;
-  courseCredit: number;
-  courseName: string;
-  courseTags: readonly string[];
-  prerequisite: string;
-};
+function first(value: string | string[] | undefined): string | undefined {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function list(value: string | string[] | undefined): string[] {
+  if (!value) return [];
+  return (Array.isArray(value) ? value : [value]).filter(Boolean);
+}
+
+function integer(value: string | undefined): number | undefined {
+  if (!value) return undefined;
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+function boolean(value: string | undefined): boolean {
+  return value === 'true' || value === '1';
+}
+
+function parseQuery(req: NextApiRequest): CourseDiscoveryQuery {
+  const level = first(req.query.level);
+  const credit = first(req.query.credit);
+
+  return {
+    query: first(req.query.q) ?? first(req.query.courseSearchString) ?? '',
+    category: first(req.query.category) as CourseDiscoveryQuery['category'],
+    departments: list(req.query.department),
+    terms: list(req.query.term),
+    level: level === 'other' ? 'other' : level ? integer(level) : 'all',
+    credit: credit === '4+' ? '4+' : credit ? integer(credit) : 'all',
+    labOnly: boolean(first(req.query.labOnly)),
+    moocOnly: boolean(first(req.query.moocOnly)),
+    feature: first(req.query.feature) as CourseDiscoveryQuery['feature'],
+    sourceKind: first(req.query.sourceKind) as CourseDiscoveryQuery['sourceKind'],
+    program: first(req.query.program) as CourseDiscoveryQuery['program'],
+    page: integer(first(req.query.page)),
+    pageSize: integer(first(req.query.pageSize) ?? first(req.query.limit)),
+  };
+}
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { q = '', courseSearchString = '', courseSearchCode = 'NONE', limit = '20', term } = req.query;
-  const qStr = Array.isArray(q) ? q[0] : q;
-  const courseSearchStringStr = Array.isArray(courseSearchString) ? courseSearchString[0] : courseSearchString;
-  const courseSearchCodeStr = Array.isArray(courseSearchCode) ? courseSearchCode[0] : courseSearchCode;
-  const terms = Array.isArray(term) ? term : term ? [term] : [];
-  const query = qStr || courseSearchStringStr;
-  const limitNum = parseInt(Array.isArray(limit) ? limit[0] : limit, 10) || 20;
+  if (req.method && req.method !== 'GET') {
+    res.setHeader('Allow', 'GET');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
-  const items = getServerCourseCatalogSearchItems();
-  const filtered = filterCourseCatalogSearchItems(items, {
-    query,
-    terms,
-  }).filter((course) =>
-    courseSearchCodeStr === 'NONE'
-      ? true
-      : course.primaryCourseCode.startsWith(courseSearchCodeStr) ||
-        course.aliasCodes.some((code) => code.startsWith(courseSearchCodeStr)),
-  );
-
-  const normalized: CourseSearchApiItem[] = filtered.map((item, idx) => ({
-    ...item,
-    id: idx + 1,
-    courseCode: item.primaryCourseCode,
-    courseCredit: item.creditHours,
-    courseName: item.displayTitleKo,
-    courseTags: item.tags,
-    prerequisite: '',
-  }));
-  const resultLimit = Math.min(Math.max(limitNum, 1), 2000);
-  const result = normalized.slice(0, resultLimit);
-
-  res.status(200).json({
-    content: result,
-    empty: result.length === 0,
-    first: true,
-    last: result.length >= filtered.length,
-    number: 0,
-    numberOfElements: result.length,
-    pageable: {
-      offset: 0,
-      pageNumber: 0,
-      pageSize: resultLimit,
-      paged: true,
-      sort: { empty: true, sorted: false, unsorted: true },
-      unpaged: false,
-    },
-    size: resultLimit,
-    sort: { empty: true, sorted: false, unsorted: true },
-    totalElements: filtered.length,
-    totalPages: Math.ceil(filtered.length / resultLimit),
-    availableTerms: getUniqueCatalogOfferingTerms(items),
-  });
+  return res.status(200).json(getServerCourseDiscovery().search(parseQuery(req)));
 }

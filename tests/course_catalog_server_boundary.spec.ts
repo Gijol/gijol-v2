@@ -4,6 +4,7 @@ import { join, relative } from 'path';
 const RUNTIME_ROOTS = ['components', 'features', 'lib', 'pages'];
 const SERVER_QUERY_IMPORTERS = new Set([
   'features/graduation/usecases/uploadAndEvaluate.ts',
+  'pages/api/courses/detail.ts',
   'pages/api/courses/index.ts',
   'pages/api/courses/search.ts',
   'pages/api/roadmap/[slug].ts',
