@@ -11,6 +11,7 @@ import type { SectionOffering, SelectedSection } from '@/lib/types/timetable';
 import { normalizeCourseCode } from '@/features/course-catalog/normalize';
 import { createSectionKey } from '@/features/timetable/plan-model';
 import { getNextColor } from '@/features/timetable/selectors';
+import { fetchTimetableSectionsByCourseCodes } from '@/features/timetable/hooks/useTimetableSectionBrowser';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -203,13 +204,10 @@ export function TimetableHome({ defaultTerm, timetableSources }: TimetableHomePr
     setCompletedImportState({ termKey: summary.key, status: 'loading' });
 
     try {
-      const response = await fetch(`/api/timetable/${encodeURIComponent(summary.term)}`);
-      if (!response.ok) {
-        throw new Error(`Failed to load timetable sections: ${response.status}`);
-      }
-
-      const payload = (await response.json()) as { sections?: SectionOffering[] };
-      const sections = Array.isArray(payload.sections) ? payload.sections : [];
+      const sections = await fetchTimetableSectionsByCourseCodes(
+        summary.term,
+        summary.courses.map((course) => course.courseCode),
+      );
       const sectionsByCode = new Map<string, SectionOffering>();
 
       sections.forEach((section) => {

@@ -4,7 +4,6 @@ import type { SectionOffering } from '@/lib/types/timetable';
 import { useTimetablePlanStore } from '@/lib/stores/timetable-plan.store';
 import type { TimetableSourceManifestEntry } from '@/features/course-catalog/timetable-sources';
 import { formatCourseTerm } from '@/features/course-catalog/offering-view';
-import { useTimetableTermSections } from '@/features/timetable/hooks/useTimetableTermSections';
 import {
   getScheduledSpansFromPlan,
   getSelectedSectionKeysFromPlan,
@@ -64,21 +63,9 @@ function minutesToTime(minutes: number): string {
   return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
 }
 
-function getTimetableRange(
-  sections: readonly SectionOffering[],
-  scheduledSpans: readonly { start_time: string; end_time: string }[],
-) {
+function getTimetableRange(scheduledSpans: readonly { start_time: string; end_time: string }[]) {
   const startTimes: number[] = [];
   const endTimes: number[] = [];
-
-  sections.forEach((section) => {
-    section.meetings.forEach((meeting) => {
-      const start = timeToMinutesValue(meeting.start);
-      const end = timeToMinutesValue(meeting.end);
-      if (start !== null) startTimes.push(start);
-      if (end !== null) endTimes.push(end);
-    });
-  });
 
   scheduledSpans.forEach((span) => {
     const start = timeToMinutesValue(span.start_time);
@@ -116,7 +103,7 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
 
   const sectionStatus = plan ? getSectionInfoStatus(plan.term, timetableSources) : 'unpublished';
   const sectionsAvailable = sectionStatus === 'available';
-  const { sections, isLoading, error } = useTimetableTermSections(sectionsAvailable && plan ? plan.term : '');
+  const sectionCount = plan ? (timetableSources.find((entry) => entry.term === plan.term)?.count ?? 0) : 0;
 
   useEffect(() => {
     if (plan) {
@@ -148,12 +135,11 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
   );
 
   const totalCredits = selectedSections.reduce((sum, selected) => sum + (selected.section.hours?.credits ?? 0), 0);
-  const graduateSectionCount = sections.filter((section) => /대학원|석사|박사|석박/.test(section.program)).length;
   const selectedSectionCount = selectedSections.length;
   const isRepresentative = !!plan && termGroup?.representativePlanId === plan.id;
   const timetableRange = useMemo(
-    () => getTimetableRange(sections, [...scheduledSpans, ...previewSpans]),
-    [previewSpans, scheduledSpans, sections],
+    () => getTimetableRange([...scheduledSpans, ...previewSpans]),
+    [previewSpans, scheduledSpans],
   );
 
   if (!plan) {
@@ -188,10 +174,9 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
   const courseSidebar = (
     <PlanCourseSidebar
       planId={plan.id}
-      sections={sections}
+      term={plan.term}
       scheduledSpans={scheduledSpans}
       selectedSectionKeys={selectedSectionKeys}
-      isLoading={isLoading}
       className="rounded-none border-0 shadow-none"
       onPreview={setPreviewSection}
     />
@@ -242,7 +227,6 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
                 </span>
                 <span>선택 분반 {selectedSectionCount}개</span>
                 <span>{totalCredits}학점</span>
-                {error && <span className="text-red-500">{error}</span>}
               </div>
             </div>
           </div>
@@ -279,11 +263,6 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
               <p className="mt-1 text-xs font-medium text-slate-500">
                 과목명, 코드, 교수로 찾고 오른쪽 시간표에 바로 배치합니다.
               </p>
-              {graduateSectionCount > 0 && (
-                <p className="mt-2 rounded-md bg-violet-50 px-2.5 py-2 text-[11px] leading-relaxed font-bold text-violet-700">
-                  대학원 {graduateSectionCount}개 분반 포함 · 학사 졸업학점 인정 가능, 평균평점에서는 제외
-                </p>
-              )}
             </div>
             <div className="min-h-0 flex-1 overflow-hidden">
               {sectionsAvailable ? (
@@ -352,17 +331,15 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
                       <SheetTitle className="text-base font-black tracking-tight text-slate-950">강의 검색</SheetTitle>
                     </div>
                     <SheetDescription className="mt-1 text-xs font-medium text-slate-500">
-                      {sections.length.toLocaleString()}개 분반에서 검색합니다. 대학원 {graduateSectionCount}개 분반도
-                      포함됩니다.
+                      {sectionCount.toLocaleString()}개 분반에서 과목명, 코드, 교수로 검색합니다.
                     </SheetDescription>
                   </div>
                   <div className="min-h-0 flex-1 px-4 pt-3 pb-4">
                     <PlanCourseSidebar
                       planId={plan.id}
-                      sections={sections}
+                      term={plan.term}
                       scheduledSpans={scheduledSpans}
                       selectedSectionKeys={selectedSectionKeys}
-                      isLoading={isLoading}
                       onPreview={setPreviewSection}
                       isMobile
                     />

@@ -35,7 +35,10 @@ describe('timetable term API', () => {
         term: '2024-2',
         label: '2024 2학기',
         count: 388,
-        sections: expect.arrayContaining([
+        page: 1,
+        pageSize: 30,
+        totalElements: 388,
+        content: expect.arrayContaining([
           expect.objectContaining({
             course_code: expect.any(String),
             section: expect.any(String),
@@ -44,6 +47,32 @@ describe('timetable term API', () => {
         ]),
       }),
     );
+    expect(Buffer.byteLength(JSON.stringify(res.body), 'utf8')).toBeLessThan(64 * 1024);
+  });
+
+  it('searches and pages term sections on the server', async () => {
+    const req = {
+      method: 'GET',
+      query: { term: '2024-2', q: '물리', page: '1', pageSize: '5' },
+    } as unknown as NextApiRequest;
+    const res = createMockResponse();
+
+    await timetableTermHandler(req, res);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(
+      expect.objectContaining({
+        page: 1,
+        pageSize: 5,
+        departments: expect.any(Array),
+        content: expect.any(Array),
+      }),
+    );
+    const body = res.body as { content: Array<{ title: string; course_code: string }> };
+    expect(body.content.length).toBeLessThanOrEqual(5);
+    body.content.forEach((section) => {
+      expect(`${section.title} ${section.course_code}`).toMatch(/물리/i);
+    });
   });
 
   it('rejects terms that are not in the generated timetable manifest', async () => {

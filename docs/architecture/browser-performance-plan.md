@@ -90,6 +90,17 @@ Implemented on 2026-07-16:
 - the creation screen requests 50 candidates at a time, debounces searches, cancels superseded requests, and appends server pages;
 - regression tests enforce alias resolution, unresolved handling, non-overlapping pages, a 16 KiB candidate-response budget, and absence of the legacy transfer.
 
+### Opportunity 5 completed: section browsing Module
+
+Implemented on 2026-07-16:
+
+- the timetable route now returns a stable 30-section page with server-owned search and department facets instead of every section in the term;
+- a process-local catalog cache parses each term source once, behind a replaceable `TimetableSectionSource` Adapter;
+- React Query shares pages by term and filter and forwards cancellation signals for superseded requests;
+- one section browsing UI owns search, facets, progressive loading, selection lookup, preview, and time-conflict annotation;
+- timetable plan alternatives and the legacy plan format use separate interaction Adapters, preserving ADR-0004 and legacy IDs;
+- tests cover search semantics, pages, the 64 KiB response budget, source caching, cancellation, conflict projection, and both Adapter contracts.
+
 ## Root causes
 
 ### Catalog ownership leaks into browser modules
@@ -166,7 +177,7 @@ Expected result:
 - avoid a second full-catalog parse;
 - centralize course-code and alias matching in the roadmap module.
 
-### 5. Consolidate section browsing
+### 5. Consolidate section browsing — completed
 
 Centralize term caching, department facets, search, incremental rows, and conflict annotation. Keep timetable plans and completed-term records separate as required by ADR-0004; only their browsing adapters should vary.
 
@@ -192,7 +203,7 @@ Expected result:
 3. Add build-manifest and serialized-response performance budgets. Browser catalog and course-search list budgets completed 2026-07-16; public-route budgets remain.
 4. Separate durable graduation inputs from derived outcomes. Completed 2026-07-16.
 5. Remove redundant roadmap catalog fetching. Completed 2026-07-16.
-6. Consolidate timetable section browsing.
+6. Consolidate timetable section browsing. Completed 2026-07-16.
 7. Scope the dashboard shell and remaining providers by route.
 
 The first two items should be delivered together because changing only the transport still leaves the snapshot in the client import graph, while changing only the import graph still leaves the 11.78 MB search response.

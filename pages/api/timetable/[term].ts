@@ -1,56 +1,59 @@
-import fs from 'fs/promises';
-import path from 'path';
-
 import type { NextApiRequest, NextApiResponse } from 'next';
-
 import { getTimetableSourceByTerm } from '@/features/course-catalog/timetable-sources';
-import type { SectionOffering } from '@/lib/types/timetable';
+import { getServerTimetableSectionCatalog } from '@/features/timetable/server-section-catalog';
+import type { SectionBrowsingPage } from '@/features/timetable/section-browsing';
 
-type TimetableTermResponse = {
+type TimetableTermResponse = SectionBrowsingPage & {
   term: string;
   label: string;
   count: number;
-  sections: SectionOffering[];
 };
 
-type ErrorResponse = {
-  error: string;
-};
+type ErrorResponse = { error: string };
+
+function first(value: string | string[] | undefined): string | undefined {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function integer(value: string | undefined): number | undefined {
+  if (!value) return undefined;
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+function list(value: string | string[] | undefined): string[] {
+  if (!value) return [];
+  return Array.isArray(value) ? value : [value];
+}
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<TimetableTermResponse | ErrorResponse>,
 ) {
   if (req.method && req.method !== 'GET') {
-    res.status(405).json({ error: 'Method not allowed' });
-    return;
+    res.setHeader('Allow', 'GET');
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const term = Array.isArray(req.query.term) ? req.query.term[0] : req.query.term;
-  if (!term) {
-    res.status(400).json({ error: 'Missing term' });
-    return;
-  }
+  const term = first(req.query.term);
+  if (!term) return res.status(400).json({ error: 'Missing term' });
 
   const source = getTimetableSourceByTerm(term);
-  if (!source) {
-    res.status(404).json({ error: 'Unknown term' });
-    return;
-  }
+  if (!source) return res.status(404).json({ error: 'Unknown term' });
 
   try {
-    const fileContent = await fs.readFile(path.join(process.cwd(), source.path), 'utf-8');
-    const data = JSON.parse(fileContent) as { items?: SectionOffering[] };
-    const sections = Array.isArray(data.items) ? data.items : [];
-
-    res.status(200).json({
-      term: source.term,
-      label: source.label,
-      count: sections.length,
-      sections,
+    const page = await getServerTimetableSectionCatalog().browse(term, {
+      query: first(req.query.q) ?? '',
+      department: first(req.query.department),
+      courseCodes: list(req.query.courseCode),
+      page: integer(first(req.query.page)),
+      pageSize: integer(first(req.query.pageSize)),
     });
+    if (!page) return res.status(404).json({ error: 'Unknown term' });
+
+    return res.status(200).json({ ...page, term, label: source.label, count: source.count });
   } catch (error) {
-    console.error(`Failed to load timetable data for ${term}`, error);
-    res.status(500).json({ error: 'Failed to load timetable data' });
+    console.error(`Failed to browse timetable data for ${term}`, error);
+    return res.status(500).json({ error: 'Failed to load timetable data' });
   }
 }
