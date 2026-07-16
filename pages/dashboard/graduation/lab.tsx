@@ -202,7 +202,7 @@ function formatSourceRefs(sourceRefs: GraduationCatalogSelectionSummary['sourceR
 
 export default function GraduationLabPage() {
   const router = useRouter();
-  const { setFromParsed } = useGraduationStore();
+  const { commitTranscript } = useGraduationStore();
   const [jsonInput, setJsonInput] = useState(MOCK_INPUT);
   const [selectedMockPath, setSelectedMockPath] = useState<string>(MOCK_FILES[0].path);
   const [entryYear, setEntryYear] = useState<number>(2020);
@@ -367,10 +367,9 @@ export default function GraduationLabPage() {
     const normalizedCourses = step3Result.takenCourses as TakenCourseType[];
     const parsedSnapshot = buildDashboardParsedSnapshot(raw, normalizedCourses, entryYear);
 
-    setFromParsed({
+    commitTranscript({
       parsed: parsedSnapshot,
-      takenCourses: normalizedCourses,
-      gradStatus: step5Result,
+      outcome: step5Result,
       userMajor,
       userMinors,
       minorDeclarationTerms,

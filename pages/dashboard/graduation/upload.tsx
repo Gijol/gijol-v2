@@ -16,7 +16,7 @@ import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 import { resolveMajorForEvaluation } from '@features/graduation/domain';
 import { pruneMinorDeclarationTerms } from '@utils/graduation/minor-declaration-terms';
 import { useGraduationStore } from '../../../lib/stores/useGraduationStore';
-import { PARSED_EDITABLE_STATE_KEY, PARSED_PROCESSED_STATE_KEY } from '../../../lib/stores/storage-key';
+import { readGraduationDraft, writeGraduationDraft } from '../../../lib/stores/graduation-persistence';
 
 import { Input } from '@components/ui/input';
 import { Button } from '@components/ui/button';
@@ -24,61 +24,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@comp
 import { Label } from '@components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { MultiSelect } from '@components/ui/multi-select';
-
-function isParsedUserStatus(value: unknown): value is UserStatusType {
-  return Boolean(
-    value &&
-    typeof value === 'object' &&
-    Array.isArray((value as { userTakenCourseList?: unknown }).userTakenCourseList),
-  );
-}
-
-type StoredParsedSnapshot = {
-  parsed: UserStatusType;
-  entryYear?: number | null;
-  userMajor?: string;
-  userMinors?: string[];
-  minorDeclarationTerms?: MinorDeclarationTerms;
-};
-
-function readStoredParsedSnapshot(): StoredParsedSnapshot | null {
-  if (typeof window === 'undefined') return null;
-
-  const candidates = [
-    { key: PARSED_PROCESSED_STATE_KEY, fromPersistedStore: true },
-    { key: PARSED_EDITABLE_STATE_KEY, fromPersistedStore: false },
-  ];
-
-  for (const candidate of candidates) {
-    const raw = window.localStorage.getItem(candidate.key);
-    if (!raw) continue;
-
-    try {
-      const parsedStorage = JSON.parse(raw);
-      if (candidate.fromPersistedStore) {
-        const state = parsedStorage?.state;
-        if (isParsedUserStatus(state?.parsed)) {
-          return {
-            parsed: state.parsed,
-            entryYear: state.entryYear,
-            userMajor: state.userMajor,
-            userMinors: Array.isArray(state.userMinors) ? state.userMinors : [],
-            minorDeclarationTerms:
-              state.minorDeclarationTerms && typeof state.minorDeclarationTerms === 'object'
-                ? state.minorDeclarationTerms
-                : undefined,
-          };
-        }
-      }
-
-      if (isParsedUserStatus(parsedStorage)) return { parsed: parsedStorage };
-    } catch {
-      // Ignore malformed local storage and keep looking for another usable snapshot.
-    }
-  }
-
-  return null;
-}
 
 function resolveMajorFromParsed(parsed: UserStatusType, takenCourses = toTakenCourses(parsed)): string {
   const parsedMajor = (parsed as any).major || (parsed as any).department || undefined;
@@ -94,7 +39,7 @@ export default function GraduationParsePage() {
     userMinors: storedUserMinors,
     minorDeclarationTerms: storedMinorDeclarationTerms,
     entryYear: storedEntryYear,
-    setFromParsed,
+    commitTranscript,
   } = useGraduationStore();
   const [rows, setRows] = useState<EditableCourseRow[]>([]);
   const [saving, setSaving] = useState(false);
@@ -115,33 +60,33 @@ export default function GraduationParsePage() {
     if (!isHydrated || parsed || restoreAttemptedRef.current) return;
     restoreAttemptedRef.current = true;
 
-    const restored = readStoredParsedSnapshot();
+    const restored = readGraduationDraft();
     if (!restored) return;
 
-    const takenCourses = toTakenCourses(restored.parsed);
-    const entryYearFromRestored = inferEntryYear(restored.parsed);
-    const userMajor = restored.userMajor || resolveMajorFromParsed(restored.parsed, takenCourses);
-    const userMinors = restored.userMinors ?? [];
+    const takenCourses = toTakenCourses(restored);
+    const entryYearFromRestored = inferEntryYear(restored);
+    const userMajor = resolveMajorFromParsed(restored, takenCourses);
 
-    setFromParsed({
-      parsed: restored.parsed,
-      takenCourses,
-      gradStatus: null,
+    commitTranscript({
+      parsed: restored,
+      outcome: null,
       userMajor,
-      userMinors,
-      minorDeclarationTerms: pruneMinorDeclarationTerms(restored.minorDeclarationTerms, userMinors),
-      entryYear: restored.entryYear ?? entryYearFromRestored ?? undefined,
+      userMinors: [],
+      minorDeclarationTerms: {},
+      entryYear: entryYearFromRestored ?? undefined,
     });
-  }, [isHydrated, parsed, setFromParsed]);
+  }, [commitTranscript, isHydrated, parsed]);
 
   // parsed가 바뀌면 editable rows 초기화
   useEffect(() => {
     if (!isHydrated) return;
 
-    if (parsed) {
-      setRows(toEditableRows(parsed));
+    const editableParsed = readGraduationDraft() ?? parsed;
 
-      const inferred = inferEntryYear(parsed);
+    if (editableParsed) {
+      setRows(toEditableRows(editableParsed));
+
+      const inferred = inferEntryYear(editableParsed);
       if (storedEntryYear) {
         setEntryYear(storedEntryYear);
       } else if (inferred) {
@@ -151,7 +96,7 @@ export default function GraduationParsePage() {
       }
 
       // 전공 추론 (parsedMajor가 한글일 수 있으므로 MAJOR_OPTIONS에서 검색)
-      const parsedMajor = (parsed as any).major || (parsed as any).department || '';
+      const parsedMajor = (editableParsed as any).major || (editableParsed as any).department || '';
       let matchedMajor = parsedMajor;
 
       // 만약 parsedMajor가 한글이라면(혹은 Code가 아니라면), Label로 검색
@@ -181,21 +126,33 @@ export default function GraduationParsePage() {
   };
 
   const handleChangeRow = (id: string, patch: Partial<EditableCourseRow>) => {
-    setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
+    setRows((prev) => {
+      const next = prev.map((r) => (r.id === id ? { ...r, ...patch } : r));
+      if (parsed) writeGraduationDraft(applyEditableRowsToUserStatus(parsed, next));
+      return next;
+    });
   };
 
   const handleAddRow = (row: Omit<EditableCourseRow, 'id'>) => {
-    setRows((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        ...row,
-      },
-    ]);
+    setRows((prev) => {
+      const next = [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          ...row,
+        },
+      ];
+      if (parsed) writeGraduationDraft(applyEditableRowsToUserStatus(parsed, next));
+      return next;
+    });
   };
 
   const handleRemoveRow = (id: string) => {
-    setRows((prev) => prev.filter((r) => r.id !== id));
+    setRows((prev) => {
+      const next = prev.filter((r) => r.id !== id);
+      if (parsed) writeGraduationDraft(applyEditableRowsToUserStatus(parsed, next));
+      return next;
+    });
   };
 
   const handleApplyAndGo = async () => {
@@ -237,21 +194,16 @@ export default function GraduationParsePage() {
 
       const grad = await gradStatusFetchFn(payload);
 
-      setFromParsed({
+      commitTranscript({
         parsed: updated,
-        takenCourses,
-        gradStatus: grad,
+        outcome: grad,
         userMajor: userMajor ?? '',
         userMinors: minors,
         minorDeclarationTerms: finalMinorDeclarationTerms,
         entryYear: finalEntryYear,
       });
 
-      try {
-        localStorage.setItem(PARSED_EDITABLE_STATE_KEY, JSON.stringify(updated));
-      } catch {
-        // ignore
-      }
+      writeGraduationDraft(updated);
 
       router.push('/dashboard');
     } finally {

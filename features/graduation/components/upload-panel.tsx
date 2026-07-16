@@ -20,7 +20,7 @@ import type { UserStatusType } from '@lib/types/index';
 import type { GradStatusRequestBody, GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
 import { gradStatusFetchFn, inferEntryYear, toTakenCourses } from '@utils/graduation/grad-status-helper';
 import { useGraduationStore } from '@/lib/stores/useGraduationStore';
-import { PARSED_EDITABLE_STATE_KEY } from '@/lib/stores/storage-key';
+import { clearGraduationDraft, writeGraduationDraft } from '@/lib/stores/graduation-persistence';
 import { uploadGradeReportViaApi } from '@utils/graduation/upload-grade-report-via-api';
 import { resolveMajorForEvaluation } from '@features/graduation/domain';
 
@@ -47,7 +47,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
     setIsHydrated(true);
   }, []);
 
-  const { parsed, gradStatus, setFromParsed, reset } = useGraduationStore();
+  const { parsed, gradStatus, commitTranscript, reset } = useGraduationStore();
 
   const onDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles?.length > 0) {
@@ -104,19 +104,14 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
         setIsFetchingGradStatus(false);
       }
 
-      setFromParsed({
+      commitTranscript({
         parsed: res,
-        takenCourses: tc,
-        gradStatus: grad ?? null,
+        outcome: grad ?? null,
         userMajor: userMajor ?? '',
         entryYear: entryYear ?? undefined,
       });
 
-      try {
-        localStorage.setItem(PARSED_EDITABLE_STATE_KEY, JSON.stringify(res));
-      } catch {
-        // ignore
-      }
+      writeGraduationDraft(res);
 
       if (redirectTo) {
         await router.push(redirectTo);
@@ -165,11 +160,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
     setError(null);
     setFile(null);
     reset();
-    try {
-      localStorage.removeItem(PARSED_EDITABLE_STATE_KEY);
-    } catch {
-      // ignore
-    }
+    clearGraduationDraft();
   };
 
   if (!isHydrated) return null;

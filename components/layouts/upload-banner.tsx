@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useGraduationStore } from '@/lib/stores/useGraduationStore';
+import { useGraduationMetadataStore } from '@/lib/stores/useGraduationMetadataStore';
 import { AlertTriangle, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export function UploadBanner() {
-  const { parsed } = useGraduationStore();
+  const { hasData } = useGraduationMetadataStore();
   const [isDismissed, setIsDismissed] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -16,7 +16,7 @@ export function UploadBanner() {
   }, []);
 
   // Don't show if data exists or dismissed or not hydrated
-  if (!isHydrated || parsed || isDismissed) {
+  if (!isHydrated || hasData || isDismissed) {
     return null;
   }
 

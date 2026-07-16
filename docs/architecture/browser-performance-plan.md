@@ -10,17 +10,17 @@ This document records the browser-weight analysis performed before moving authen
 
 Measurements were taken from an optimized `next build` and from the built route handlers using the current generated catalog.
 
-| Measurement | Current result |
-| --- | ---: |
-| `course-catalog.snapshot.json` | 15,720,859 bytes |
-| Browser snapshot chunk | 10,796,330 bytes raw / 713,911 bytes gzip |
-| Initial course-search response | 1,213 records / approximately 11.78 MB |
-| Minimal list projection for all 1,213 records | approximately 403 KB |
-| `/dashboard/course/search` First Load JS | 862 KB |
-| `/dashboard` First Load JS | 876 KB |
-| `/dashboard/graduation/lab` First Load JS | 888 KB |
-| Legacy `/api/courses` response | approximately 896 KB |
-| 2026-2 timetable response | 507 sections / approximately 233 KB |
+| Measurement                                   |                            Current result |
+| --------------------------------------------- | ----------------------------------------: |
+| `course-catalog.snapshot.json`                |                          15,720,859 bytes |
+| Browser snapshot chunk                        | 10,796,330 bytes raw / 713,911 bytes gzip |
+| Initial course-search response                |    1,213 records / approximately 11.78 MB |
+| Minimal list projection for all 1,213 records |                      approximately 403 KB |
+| `/dashboard/course/search` First Load JS      |                                    862 KB |
+| `/dashboard` First Load JS                    |                                    876 KB |
+| `/dashboard/graduation/lab` First Load JS     |                                    888 KB |
+| Legacy `/api/courses` response                |                      approximately 896 KB |
+| 2026-2 timetable response                     |       507 sections / approximately 233 KB |
 
 The snapshot chunk is included by the dashboard, course-search, and graduation-lab routes. Compression reduces transfer size, but the browser must still parse and retain the expanded JSON objects. Course search then filters the complete collection before slicing 24 visible rows.
 
@@ -39,12 +39,12 @@ Implemented on 2026-07-16:
 
 Optimized build after the change:
 
-| Route | Before | After |
-| --- | ---: | ---: |
-| `/dashboard` First Load JS | 876 KB | 187 KB |
-| `/dashboard/course/search` First Load JS | 862 KB | 176 KB |
-| `/dashboard/graduation/lab` First Load JS | 888 KB | 199 KB |
-| Browser snapshot chunk | 10,796,330 bytes raw | absent |
+| Route                                     |               Before |  After |
+| ----------------------------------------- | -------------------: | -----: |
+| `/dashboard` First Load JS                |               876 KB | 187 KB |
+| `/dashboard/course/search` First Load JS  |               862 KB | 176 KB |
+| `/dashboard/graduation/lab` First Load JS |               888 KB | 199 KB |
+| Browser snapshot chunk                    | 10,796,330 bytes raw | absent |
 
 Opportunity 1 did not change the approximately 11.78 MB initial course-search response. Opportunity 2 below addresses that transport separately.
 
@@ -60,14 +60,25 @@ Implemented on 2026-07-16:
 
 Measured against the running development route:
 
-| Measurement | Before | After |
-| --- | ---: | ---: |
+| Measurement                    |                                        Before |                          After |
+| ------------------------------ | --------------------------------------------: | -----------------------------: |
 | Initial course-search response | approximately 11.78 MB / 1,213 detail records | 11,671 bytes / 24 list records |
-| Browser-side filtering | full 1,213-record collection | none |
-| Browser-side pagination | slice after filtering | server page, 1-based |
-| Example selected-course detail | included for every row | 2,774 bytes on demand |
+| Browser-side filtering         |                  full 1,213-record collection |                           none |
+| Browser-side pagination        |                         slice after filtering |           server page, 1-based |
+| Example selected-course detail |                        included for every row |          2,774 bytes on demand |
 
 Detail response size varies by offering and manual-listing history. It is intentionally not part of the list-response budget.
+
+### Opportunity 3 completed: durable graduation inputs
+
+Implemented on 2026-07-16:
+
+- persisted graduation state now contains only the source transcript and academic context;
+- normalized courses are reconstructed synchronously and final graduation outcomes are regenerated through the server API;
+- storage schema versioning, legacy migration, malformed-data handling, and editable-draft access live in one persistence Module;
+- the dashboard shell hydrates a small upload metadata Adapter instead of the complete transcript and outcome;
+- academic-context edits no longer change the transcript upload timestamp;
+- migration and draft tests protect the new persistence Seam.
 
 ## Root causes
 
@@ -124,7 +135,7 @@ Expected result:
 - reduce browser parse time and retained object count;
 - create a stable test surface for page ordering and response-size budgets.
 
-### 3. Separate durable graduation inputs from derived outcomes
+### 3. Separate durable graduation inputs from derived outcomes — completed
 
 Treat taken-course history and academic context as canonical durable state. Treat the graduation outcome and recommendations as reproducible derived state. Keep edit drafts on a separate lifecycle and centralize storage versioning, recovery, and hydration.
 
@@ -169,7 +180,7 @@ Expected result:
 1. Split snapshot ownership from browser-safe catalog utilities. Completed 2026-07-16.
 2. Introduce real server-side course discovery and list/detail projections. Completed 2026-07-16.
 3. Add build-manifest and serialized-response performance budgets. Browser catalog and course-search list budgets completed 2026-07-16; public-route budgets remain.
-4. Separate durable graduation inputs from derived outcomes.
+4. Separate durable graduation inputs from derived outcomes. Completed 2026-07-16.
 5. Remove redundant roadmap catalog fetching.
 6. Consolidate timetable section browsing.
 7. Scope the dashboard shell and remaining providers by route.

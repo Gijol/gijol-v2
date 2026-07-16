@@ -4,7 +4,15 @@ import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { Settings } from 'lucide-react';
 
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@components/ui/dialog';
 import { Button } from '@components/ui/button';
 import { Label } from '@components/ui/label';
 import { Input } from '@components/ui/input';
@@ -26,8 +34,14 @@ interface UserInfoEditDialogProps {
 
 export function UserInfoEditDialog({ open: controlledOpen, onOpenChange, trigger }: UserInfoEditDialogProps = {}) {
   const { toast } = useToast();
-  const { parsed, userMajor, userMinors, minorDeclarationTerms: storedMinorDeclarationTerms, entryYear, setFromParsed } =
-    useGraduationStore();
+  const {
+    parsed,
+    userMajor,
+    userMinors,
+    minorDeclarationTerms: storedMinorDeclarationTerms,
+    entryYear,
+    updateAcademicContext,
+  } = useGraduationStore();
   const [internalOpen, setInternalOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const open = controlledOpen ?? internalOpen;
@@ -83,9 +97,7 @@ export function UserInfoEditDialog({ open: controlledOpen, onOpenChange, trigger
 
       const grad = await gradStatusFetchFn(payload);
 
-      setFromParsed({
-        parsed, // Keep original parsed raw data
-        takenCourses,
+      updateAcademicContext({
         gradStatus: grad,
         userMajor: major,
         userMinors: minors,
@@ -128,9 +140,7 @@ export function UserInfoEditDialog({ open: controlledOpen, onOpenChange, trigger
       <DialogContent className="sm:max-w-[560px]">
         <DialogHeader>
           <DialogTitle>내 정보 수정</DialogTitle>
-          <DialogDescription>
-            입학년도, 전공, 부전공 정보를 수정하면 졸업 요건이 다시 계산됩니다.
-          </DialogDescription>
+          <DialogDescription>입학년도, 전공, 부전공 정보를 수정하면 졸업 요건이 다시 계산됩니다.</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
@@ -191,7 +201,7 @@ export function UserInfoEditDialog({ open: controlledOpen, onOpenChange, trigger
         </div>
         <DialogFooter>
           <Button type="submit" onClick={handleSave} disabled={saving}>
-             {saving ? '저장 중...' : '저장하기'}
+            {saving ? '저장 중...' : '저장하기'}
           </Button>
         </DialogFooter>
       </DialogContent>

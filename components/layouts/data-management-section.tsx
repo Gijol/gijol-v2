@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useGraduationStore } from '@/lib/stores/useGraduationStore';
+import { useGraduationMetadataStore } from '@/lib/stores/useGraduationMetadataStore';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -29,8 +29,7 @@ function formatDate(isoDate: string): string {
 }
 
 export function DataManagementSection({ isCollapsed = false }: { isCollapsed?: boolean }) {
-  const { parsed, lastUploadDate } = useGraduationStore();
-  const hasData = !!parsed;
+  const { hasData, lastUploadDate } = useGraduationMetadataStore();
 
   const content = (
     <Link
