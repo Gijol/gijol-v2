@@ -55,6 +55,8 @@ export function CourseSectionItem({
       return `${day} ${m.start}-${m.end}`;
     })
     .join(' / ');
+  const isGraduate = /대학원|석사|박사|석박/.test(section.program);
+  const isCapacityPending = section.capacity_status === 'pending' || section.capacity === 0;
 
   return (
     <div
@@ -81,6 +83,11 @@ export function CourseSectionItem({
           >
             {section.hours?.credits ?? 0}학점
           </Badge>
+          {isGraduate && (
+            <Badge className="h-5 shrink-0 bg-violet-100 px-1.5 py-0 text-[10px] font-black text-violet-700 hover:bg-violet-100">
+              대학원
+            </Badge>
+          )}
           <h4
             className={cn(
               'min-w-0 flex-1 truncate font-extrabold tracking-tight text-slate-900 transition-colors group-hover:text-blue-600',
@@ -102,6 +109,14 @@ export function CourseSectionItem({
           <span className="min-w-0 flex-1 truncate font-mono font-medium" title={meetingInfo || '시간 미정'}>
             {meetingInfo || '시간 미정'}
           </span>
+          {isCapacityPending && (
+            <span
+              className="shrink-0 font-bold text-amber-600"
+              title="현재 정원 0명으로 게시되어 추후 변경될 수 있습니다."
+            >
+              정원 미정
+            </span>
+          )}
         </div>
       </div>
 
@@ -112,7 +127,7 @@ export function CourseSectionItem({
         disabled={isConflict && !isAdded}
         aria-label={`${section.title} ${isAdded ? '삭제' : isConflict ? '시간 중복' : '추가'}`}
         className={cn(
-          'h-8 min-w-[64px] shrink-0 px-2 text-xs font-black tracking-tight transition-all',
+          'h-8 min-w-[64px] shrink-0 px-2 text-xs font-black tracking-tight',
           !isAdded && !isConflict && 'bg-blue-600 shadow-sm hover:bg-blue-700',
         )}
       >

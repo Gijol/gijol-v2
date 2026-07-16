@@ -14,6 +14,7 @@ import { checkConflict } from '@/features/timetable/conflict';
 import { sectionToSpans } from '@/features/timetable/selectors';
 import { AvailabilityWithPreview } from './AvailabilityWithPreview';
 import { PlanCourseSidebar } from './PlanCourseSidebar';
+import { ManualCourseDialog } from './ManualCourseDialog';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -147,6 +148,7 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
   );
 
   const totalCredits = selectedSections.reduce((sum, selected) => sum + (selected.section.hours?.credits ?? 0), 0);
+  const graduateSectionCount = sections.filter((section) => /대학원|석사|박사|석박/.test(section.program)).length;
   const selectedSectionCount = selectedSections.length;
   const isRepresentative = !!plan && termGroup?.representativePlanId === plan.id;
   const timetableRange = useMemo(
@@ -245,6 +247,7 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-2">
+            <ManualCourseDialog planId={plan.id} />
             {sectionsAvailable && (
               <Button
                 className="h-9 bg-blue-600 font-bold hover:bg-blue-700 lg:hidden"
@@ -276,6 +279,11 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
               <p className="mt-1 text-xs font-medium text-slate-500">
                 과목명, 코드, 교수로 찾고 오른쪽 시간표에 바로 배치합니다.
               </p>
+              {graduateSectionCount > 0 && (
+                <p className="mt-2 rounded-md bg-violet-50 px-2.5 py-2 text-[11px] leading-relaxed font-bold text-violet-700">
+                  대학원 {graduateSectionCount}개 분반 포함 · 학사 졸업학점 인정 가능, 평균평점에서는 제외
+                </p>
+              )}
             </div>
             <div className="min-h-0 flex-1 overflow-hidden">
               {sectionsAvailable ? (
@@ -344,7 +352,8 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
                       <SheetTitle className="text-base font-black tracking-tight text-slate-950">강의 검색</SheetTitle>
                     </div>
                     <SheetDescription className="mt-1 text-xs font-medium text-slate-500">
-                      {sections.length.toLocaleString()}개 분반에서 검색하고 시간표에 추가합니다.
+                      {sections.length.toLocaleString()}개 분반에서 검색합니다. 대학원 {graduateSectionCount}개 분반도
+                      포함됩니다.
                     </SheetDescription>
                   </div>
                   <div className="min-h-0 flex-1 px-4 pt-3 pb-4">

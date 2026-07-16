@@ -334,20 +334,18 @@ export function TimetableHome({ defaultTerm, timetableSources }: TimetableHomePr
                 열고 싶은 시간표를 선택하세요. 각 카드는 하나의 계획 대안입니다.
               </p>
             </div>
-            <Badge className={currentStatus === 'available' ? 'bg-emerald-600' : 'bg-amber-500'}>
-              {currentStatus === 'available' ? '분반 선택 가능' : '분반 미공개'}
-            </Badge>
+            {currentStatus === 'unpublished' && <Badge className="bg-amber-500">강의 정보 미공개</Badge>}
           </div>
 
           <div className="grid gap-3 p-4 sm:grid-cols-2 xl:grid-cols-3">
             <button
               type="button"
               onClick={createNewPlan}
-              className="group flex min-h-[188px] flex-col justify-between rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4 text-left transition hover:border-blue-300 hover:bg-blue-50/60 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
+              className="group flex min-h-[188px] flex-col justify-between rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4 text-left transition-[background-color,border-color,transform] duration-150 ease-[var(--ease-ui-out)] hover:border-blue-300 hover:bg-blue-50/60 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.97] motion-reduce:active:scale-100"
               aria-label={`${formatCourseTerm(currentTerm)} 새 시간표 만들기`}
             >
               <div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-blue-600 shadow-sm transition group-hover:border-blue-200">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-blue-600 shadow-sm transition-colors duration-150 group-hover:border-blue-200">
                   <FilePlus2 size={20} />
                 </div>
                 <h3 className="mt-4 text-base font-black tracking-tight text-slate-950">새 시간표 만들기</h3>
@@ -367,7 +365,7 @@ export function TimetableHome({ defaultTerm, timetableSources }: TimetableHomePr
               return (
                 <article
                   key={plan.id}
-                  className="group flex min-h-[188px] min-w-0 flex-col rounded-lg border border-slate-200 bg-white p-4 transition hover:border-blue-200 hover:shadow-sm"
+                  className="group flex min-h-[188px] min-w-0 flex-col rounded-lg border border-slate-200 bg-white p-4 transition-[border-color,box-shadow] duration-150 ease-[var(--ease-ui-out)] hover:border-blue-200 hover:shadow-sm"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-600">
