@@ -80,6 +80,16 @@ Implemented on 2026-07-16:
 - academic-context edits no longer change the transcript upload timestamp;
 - migration and draft tests protect the new persistence Seam.
 
+### Opportunity 4 completed: roadmap candidate discovery
+
+Implemented on 2026-07-16:
+
+- preset roadmap screens use the catalog information already enriched into each node and no longer fetch the approximately 896 KB legacy course list;
+- `CourseDetailSheet` renders enriched catalog data directly and keeps unresolved preset nodes usable without a legacy fallback;
+- the roadmap Module owns alias matching, roadmap-only pseudo-course exclusion, stable candidate ordering, page limits, and the minimal drag projection;
+- the creation screen requests 50 candidates at a time, debounces searches, cancels superseded requests, and appends server pages;
+- regression tests enforce alias resolution, unresolved handling, non-overlapping pages, a 16 KiB candidate-response budget, and absence of the legacy transfer.
+
 ## Root causes
 
 ### Catalog ownership leaks into browser modules
@@ -146,7 +156,7 @@ Expected result:
 - prepare real local and authenticated remote adapters;
 - test corrupted data, migrations, and derived-state regeneration centrally.
 
-### 4. Remove the redundant roadmap legacy-course transfer
+### 4. Remove the redundant roadmap legacy-course transfer — completed
 
 Use the enriched catalog data already attached to preset nodes. For roadmap creation, query only the course candidates required by the current search rather than loading the complete legacy list.
 
@@ -181,7 +191,7 @@ Expected result:
 2. Introduce real server-side course discovery and list/detail projections. Completed 2026-07-16.
 3. Add build-manifest and serialized-response performance budgets. Browser catalog and course-search list budgets completed 2026-07-16; public-route budgets remain.
 4. Separate durable graduation inputs from derived outcomes. Completed 2026-07-16.
-5. Remove redundant roadmap catalog fetching.
+5. Remove redundant roadmap catalog fetching. Completed 2026-07-16.
 6. Consolidate timetable section browsing.
 7. Scope the dashboard shell and remaining providers by route.
 

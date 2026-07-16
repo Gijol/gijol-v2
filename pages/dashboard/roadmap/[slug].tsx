@@ -10,7 +10,6 @@ import { PresetsSidebar } from '@/features/roadmap/PresetsSidebar';
 import { RoadmapProvider } from '@/features/roadmap/RoadmapContext';
 
 import type { RoadmapData } from '@/features/roadmap/types';
-import type { CourseDB } from '@/lib/const/course-db';
 
 // Dynamic import for ReactFlow - loads only on client side
 const RoadmapFlowWithProvider = dynamic(() => import('@/features/roadmap/RoadmapFlowClient'), {
@@ -30,7 +29,6 @@ export default function RoadmapPresetPage() {
   const { slug } = router.query;
 
   const [roadmapData, setRoadmapData] = useState<RoadmapData | null>(null);
-  const [courses, setCourses] = useState<CourseDB[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,10 +40,9 @@ export default function RoadmapPresetPage() {
     setLoading(true);
     setError(null);
 
-    Promise.all([getRoadmapData(slug), fetch('/api/courses').then((res) => res.json())])
-      .then(([data, coursesData]) => {
+    getRoadmapData(slug)
+      .then((data) => {
         setRoadmapData(data);
-        setCourses(coursesData);
         setLoading(false);
       })
       .catch((err) => {
@@ -102,7 +99,7 @@ export default function RoadmapPresetPage() {
       </div>
     );
   } else {
-    canvasContent = <RoadmapFlowWithProvider roadmapData={roadmapData} courses={courses} />;
+    canvasContent = <RoadmapFlowWithProvider roadmapData={roadmapData} />;
   }
 
   return (

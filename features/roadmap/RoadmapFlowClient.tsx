@@ -28,7 +28,6 @@ import { Button } from '@/components/ui/button';
 import { Eye, Edit3, Download, Grab, MousePointer2 } from 'lucide-react';
 
 import type { RoadmapData, CourseNodeData } from '@/features/roadmap/types';
-import type { CourseDB } from '@/lib/const/course-db';
 
 // Register custom node types
 const nodeTypes = {
@@ -241,10 +240,9 @@ function createHeaderNodes(): Node[] {
 
 export interface RoadmapFlowProps {
   roadmapData: RoadmapData;
-  courses: CourseDB[];
 }
 
-export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
+export const RoadmapFlow = ({ roadmapData }: RoadmapFlowProps) => {
   const { fitView } = useReactFlow();
   const { isViewMode, setIsViewMode, selectedCourse, setSelectedCourse, sheetOpen, setSheetOpen, setHoveredNode } =
     useRoadmapContext();
@@ -527,7 +525,7 @@ export const RoadmapFlow = ({ roadmapData, courses }: RoadmapFlowProps) => {
 
       {/* Sheets */}
       {isViewMode ? (
-        <CourseDetailSheet course={selectedCourse} open={sheetOpen} onOpenChange={setSheetOpen} courses={courses} />
+        <CourseDetailSheet course={selectedCourse} open={sheetOpen} onOpenChange={setSheetOpen} />
       ) : (
         <CourseEditSheet
           course={selectedCourse}

@@ -1,5 +1,6 @@
-import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import { CourseDB, filterCourses } from '@/lib/const/course-db';
+import React, { useState, useEffect, useRef } from 'react';
+import type { RoadmapCourseCandidate } from '@/features/course-catalog/roadmap';
+import { fetchRoadmapCourseCandidates } from '@/features/roadmap/course-candidates';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
@@ -18,10 +19,7 @@ import {
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
-const ITEMS_PER_PAGE = 50;
-
 interface RoadmapSidebarProps {
-  courses: CourseDB[];
   savedRoadmaps?: Array<{
     id: string;
     name: string;
@@ -34,36 +32,53 @@ interface RoadmapSidebarProps {
   onClearAll?: () => void;
 }
 
-export const RoadmapSidebar = ({ courses, savedRoadmaps = [], onLoad, onDelete, onClearAll }: RoadmapSidebarProps) => {
+export const RoadmapSidebar = ({ savedRoadmaps = [], onLoad, onDelete, onClearAll }: RoadmapSidebarProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [query, setQuery] = useState('');
-  const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
+  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [courses, setCourses] = useState<RoadmapCourseCandidate[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalElements, setTotalElements] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
-  // Filter all courses
-  const allFilteredCourses = useMemo(() => {
-    return filterCourses(courses, query);
-  }, [courses, query]);
-
-  // Display only the current page of courses
-  const displayedCourses = useMemo(() => {
-    return allFilteredCourses.slice(0, displayCount);
-  }, [allFilteredCourses, displayCount]);
-
-  const hasMore = displayCount < allFilteredCourses.length;
-
-  // Reset display count when query changes
   useEffect(() => {
-    setDisplayCount(ITEMS_PER_PAGE);
+    const timeout = window.setTimeout(() => setDebouncedQuery(query.trim()), 250);
+    return () => window.clearTimeout(timeout);
   }, [query]);
 
-  // Infinite scroll with IntersectionObserver
+  useEffect(() => setPage(1), [debouncedQuery]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    setIsLoading(true);
+    setLoadError(null);
+
+    fetchRoadmapCourseCandidates(debouncedQuery, page, controller.signal)
+      .then((result) => {
+        setCourses((current) => (page === 1 ? result.content : [...current, ...result.content]));
+        setTotalElements(result.totalElements);
+        setTotalPages(result.totalPages);
+      })
+      .catch((error) => {
+        if (error instanceof DOMException && error.name === 'AbortError') return;
+        setLoadError(error instanceof Error ? error.message : '과목 후보를 불러오지 못했습니다.');
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setIsLoading(false);
+      });
+
+    return () => controller.abort();
+  }, [debouncedQuery, page]);
+
+  const hasMore = page < totalPages;
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setDisplayCount((prev) => prev + ITEMS_PER_PAGE);
-        }
+        if (entries[0].isIntersecting && hasMore && !isLoading) setPage((current) => current + 1);
       },
       { threshold: 0.1 },
     );
@@ -73,9 +88,9 @@ export const RoadmapSidebar = ({ courses, savedRoadmaps = [], onLoad, onDelete, 
     }
 
     return () => observer.disconnect();
-  }, [hasMore]);
+  }, [hasMore, isLoading]);
 
-  const onDragStart = (event: React.DragEvent, course: CourseDB) => {
+  const onDragStart = (event: React.DragEvent, course: RoadmapCourseCandidate) => {
     event.dataTransfer.setData('application/reactflow/course', JSON.stringify(course));
     event.dataTransfer.effectAllowed = 'move';
   };
@@ -168,7 +183,7 @@ export const RoadmapSidebar = ({ courses, savedRoadmaps = [], onLoad, onDelete, 
         <div className="flex items-center justify-between px-1 text-[10px] text-gray-400">
           <span>드래그하여 추가하세요</span>
           <span>
-            {displayedCourses.length} / {allFilteredCourses.length}개
+            {courses.length} / {totalElements}개
           </span>
         </div>
       </div>
@@ -176,9 +191,9 @@ export const RoadmapSidebar = ({ courses, savedRoadmaps = [], onLoad, onDelete, 
       {/* Course List - Compact Design */}
       <ScrollArea className="flex-1">
         <div className="space-y-1.5 p-2">
-          {displayedCourses.map((course) => (
+          {courses.map((course) => (
             <div
-              key={course.courseUid}
+              key={course.courseId}
               draggable
               onDragStart={(event) => onDragStart(event, course)}
               className="group flex cursor-grab items-center gap-2 rounded-md border border-slate-100 bg-white p-2 text-left shadow-sm transition-[background-color,border-color,box-shadow] duration-150 ease-[var(--ease-ui-out)] hover:border-blue-200 hover:bg-blue-50/50 hover:shadow-md active:cursor-grabbing"
@@ -207,14 +222,16 @@ export const RoadmapSidebar = ({ courses, savedRoadmaps = [], onLoad, onDelete, 
           ))}
 
           {/* Load More Trigger */}
-          {hasMore && (
+          {(hasMore || isLoading) && (
             <div ref={loadMoreRef} className="flex items-center justify-center py-4">
               <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
               <span className="ml-2 text-xs text-gray-400">더 불러오는 중...</span>
             </div>
           )}
 
-          {displayedCourses.length === 0 && (
+          {loadError && <div className="px-2 py-6 text-center text-xs text-red-500">{loadError}</div>}
+
+          {!isLoading && !loadError && courses.length === 0 && (
             <div className="py-12 text-center text-xs text-gray-400">검색 결과가 없습니다.</div>
           )}
         </div>

@@ -19,7 +19,7 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
-import { CourseDB } from '@/lib/const/course-db';
+import type { RoadmapCourseCandidate } from '@/features/course-catalog/roadmap';
 import CourseNode from '@/features/roadmap/CourseNode';
 import { RoadmapSidebar } from '@/features/roadmap/RoadmapSidebar';
 import { CourseNodeData } from '@/features/roadmap/types';
@@ -36,17 +36,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export interface CreateRoadmapFlowProps {
-  courses: CourseDB[];
-}
-
 const nodeTypes = {
   course: CourseNode,
 };
 
 const DEFAULT_EDGE_OPTIONS = { type: 'smoothstep', animated: false } as const;
 
-export const CreateRoadmapFlow = ({ courses }: CreateRoadmapFlowProps) => {
+export const CreateRoadmapFlow = () => {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -167,7 +163,7 @@ export const CreateRoadmapFlow = ({ courses }: CreateRoadmapFlowProps) => {
 
       if (!courseDataString) return;
 
-      const courseData: CourseDB = JSON.parse(courseDataString);
+      const courseData: RoadmapCourseCandidate = JSON.parse(courseDataString);
 
       const position = reactFlowInstance.project({
         x: event.clientX - reactFlowBounds.left,
@@ -175,7 +171,7 @@ export const CreateRoadmapFlow = ({ courses }: CreateRoadmapFlowProps) => {
       });
 
       const newNode: Node<CourseNodeData> = {
-        id: `node-${courseData.courseUid}-${Date.now()}`,
+        id: `node-${courseData.courseId}-${Date.now()}`,
         type: 'course',
         position,
         data: {
@@ -196,7 +192,6 @@ export const CreateRoadmapFlow = ({ courses }: CreateRoadmapFlowProps) => {
   return (
     <div className="flex h-full w-full overflow-hidden">
       <RoadmapSidebar
-        courses={courses}
         savedRoadmaps={savedRoadmaps}
         onLoad={handleLoad}
         onDelete={handleDelete}
@@ -301,9 +296,9 @@ export const CreateRoadmapFlow = ({ courses }: CreateRoadmapFlowProps) => {
 };
 
 // Wrapper with ReactFlowProvider
-export const CreateRoadmapFlowWithProvider = (props: CreateRoadmapFlowProps) => (
+export const CreateRoadmapFlowWithProvider = () => (
   <ReactFlowProvider>
-    <CreateRoadmapFlow {...props} />
+    <CreateRoadmapFlow />
   </ReactFlowProvider>
 );
 

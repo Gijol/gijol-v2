@@ -1,13 +1,12 @@
 // features/roadmap/CourseDetailSheet.tsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Book, Clock, Building2, Calendar, Info, FileText } from 'lucide-react';
 import type { CourseNodeData, RoadmapCourseMeeting } from '@/features/roadmap/types';
-import type { CourseDB } from '@/lib/const/course-db';
-import { getVisibleDepartmentDisplayNames, normalizeAcademicOrgName } from '@/lib/const/course-db';
+import { getVisibleDepartmentDisplayNames } from '@/lib/const/course-db';
 import { formatCourseTerm } from '@/features/course-catalog/offering-view';
 import { expandCourseCodeCandidates } from '@/features/course-catalog/normalize';
 
@@ -15,7 +14,6 @@ interface CourseDetailSheetProps {
   course: CourseNodeData | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  courses: CourseDB[]; // Course database for lookup
 }
 
 const categoryColors: Record<string, string> = {
@@ -276,38 +274,19 @@ function MobileScheduleSummary({ summary }: { summary: ScheduleSummary }) {
   );
 }
 
-export function CourseDetailSheet({ course, open, onOpenChange, courses }: CourseDetailSheetProps) {
-  const [courseDetails, setCourseDetails] = useState<CourseDB | null>(null);
-
-  // Find course details from course database
-  useEffect(() => {
-    if (course && courses.length > 0) {
-      const courseCodeCandidates = expandCourseCodeCandidates(course.courseCode);
-      const found = courses.find(
-        (c) =>
-          courseCodeCandidates.includes(c.primaryCourseCode) ||
-          c.aliasCodes?.some((aliasCode) => courseCodeCandidates.includes(aliasCode)),
-      );
-      setCourseDetails(found || null);
-    } else {
-      setCourseDetails(null);
-    }
-  }, [course, courses]);
-
+export function CourseDetailSheet({ course, open, onOpenChange }: CourseDetailSheetProps) {
   if (!course) return null;
 
   const categoryStyle = categoryColors[course.category] || 'bg-gray-100 text-gray-800';
   const catalog = course.catalog;
-  const creditHours = catalog?.creditHours ?? courseDetails?.creditHours ?? course.credits;
-  const lectureHours = catalog?.lectureHours ?? courseDetails?.lectureHours;
-  const labHours = catalog?.labHours ?? courseDetails?.labHours;
-  const displayTitleEn = catalog?.displayTitleEn ?? courseDetails?.displayTitleEn;
+  const creditHours = catalog?.creditHours ?? course.credits;
+  const lectureHours = catalog?.lectureHours;
+  const labHours = catalog?.labHours;
+  const displayTitleEn = catalog?.displayTitleEn;
   const departments = catalog?.departments.length
     ? getVisibleDepartmentDisplayNames(catalog.departments).join(', ')
-    : courseDetails?.departmentContext
-      ? normalizeAcademicOrgName(courseDetails.departmentContext)
-      : undefined;
-  const description = catalog?.description ?? courseDetails?.description;
+    : undefined;
+  const description = catalog?.description;
   const aliasCodes = catalog?.aliasCodes.filter((code) => code !== course.courseCode) ?? [];
   const sortedManualListings = [...(catalog?.manualListings ?? [])].sort(
     (a, b) => b.academicYear - a.academicYear || a.courseCode.localeCompare(b.courseCode),
@@ -352,7 +331,7 @@ export function CourseDetailSheet({ course, open, onOpenChange, courses }: Cours
           )}
 
           {/* Catalog-backed Details */}
-          {catalog || courseDetails ? (
+          {catalog ? (
             <>
               {/* English Title */}
               {displayTitleEn && (
@@ -551,18 +530,6 @@ export function CourseDetailSheet({ course, open, onOpenChange, courses }: Cours
                       </TableBody>
                     </Table>
                   </div>
-                </div>
-              )}
-
-              {/* Legacy fallback opening info */}
-              {!catalog && courseDetails && (
-                <div className="flex items-center gap-3 text-sm">
-                  <Clock className="h-4 w-4 text-gray-400" />
-                  <span className="text-gray-600">시간:</span>
-                  <span className="font-medium">
-                    강의 {courseDetails.lectureHours}시간
-                    {courseDetails.labHours > 0 && `, 실습 ${courseDetails.labHours}시간`}
-                  </span>
                 </div>
               )}
 
