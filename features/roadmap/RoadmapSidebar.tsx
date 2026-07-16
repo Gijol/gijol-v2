@@ -98,7 +98,7 @@ export const RoadmapSidebar = ({ courses, savedRoadmaps = [], onLoad, onDelete, 
   }
 
   return (
-    <div className="z-20 flex h-full w-[280px] flex-col border-r bg-white transition-all duration-300">
+    <div className="z-20 flex h-full w-[280px] flex-col border-r bg-white">
       {/* Header */}
       <div className="flex items-center justify-between border-b bg-slate-50/50 p-3">
         <h2 className="flex items-center gap-2 text-sm font-semibold">
@@ -181,7 +181,7 @@ export const RoadmapSidebar = ({ courses, savedRoadmaps = [], onLoad, onDelete, 
               key={course.courseUid}
               draggable
               onDragStart={(event) => onDragStart(event, course)}
-              className="group flex cursor-grab items-center gap-2 rounded-md border border-slate-100 bg-white p-2 text-left shadow-sm transition-all hover:border-blue-200 hover:bg-blue-50/50 hover:shadow-md active:cursor-grabbing"
+              className="group flex cursor-grab items-center gap-2 rounded-md border border-slate-100 bg-white p-2 text-left shadow-sm transition-[background-color,border-color,box-shadow] duration-150 ease-[var(--ease-ui-out)] hover:border-blue-200 hover:bg-blue-50/50 hover:shadow-md active:cursor-grabbing"
             >
               {/* Grip Handle */}
               <GripVertical className="h-3 w-3 shrink-0 text-gray-300 group-hover:text-blue-400" />

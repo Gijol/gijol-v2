@@ -25,7 +25,7 @@ function TailwindNavLink({
     <Link
       href={href}
       className={cn(
-        'my-0.5 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-all',
+        'my-0.5 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-colors duration-150 ease-[var(--ease-ui-out)]',
         isDark
           ? active
             ? 'bg-slate-800 text-blue-500'
@@ -66,7 +66,7 @@ export function SidebarNavigation({
         <Link
           href={link.href}
           className={cn(
-            'my-0.5 flex items-center rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-all',
+            'my-0.5 flex items-center rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-colors duration-150 ease-[var(--ease-ui-out)]',
             isCollapsed ? 'justify-center' : 'gap-3',
             variant === 'dark'
               ? isActive
@@ -97,7 +97,7 @@ export function SidebarNavigation({
 
       if (isCollapsed) {
         return (
-          <TooltipProvider key={link.label} delayDuration={0}>
+          <TooltipProvider key={link.label} delayDuration={300} skipDelayDuration={0}>
             <Tooltip>
               <TooltipTrigger asChild>{button}</TooltipTrigger>
               <TooltipContent side="right" className="border-0 bg-slate-900 text-white">

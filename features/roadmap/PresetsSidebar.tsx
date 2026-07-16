@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 
-import { Map, ChevronRight, ChevronDown, Loader2, Plus, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { Map, ChevronRight, Loader2, Plus, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { PresetInfo } from '@/pages/api/roadmap/presets';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@components/ui/collapsible';
@@ -197,12 +197,7 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
   // Collapsed state UI
   if (isCollapsed) {
     return (
-      <div
-        className={cn(
-          'flex h-full w-12 flex-col items-center gap-4 border-r bg-white py-4 transition-all duration-300 ease-in-out',
-          className,
-        )}
-      >
+      <div className={cn('flex h-full w-12 flex-col items-center gap-4 border-r bg-white py-4', className)}>
         <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(false)} className="h-8 w-8">
           <PanelLeftOpen className="h-5 w-5 text-gray-500" />
         </Button>
@@ -217,12 +212,7 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
   }
 
   return (
-    <div
-      className={cn(
-        'flex h-full w-[280px] flex-col border-r bg-white transition-all duration-300 ease-in-out',
-        className,
-      )}
-    >
+    <div className={cn('flex h-full w-[280px] flex-col border-r bg-white', className)}>
       {/* Header */}
       <div className="flex items-center justify-between border-b bg-slate-50/50 p-3">
         <div className="flex items-center gap-2">
@@ -236,7 +226,7 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
 
       {/* Create Button */}
       <div className="border-b p-2">
-        <Link href="/dashboard/roadmap/create" className="block">
+        <Link href="/dashboard/roadmap/create" className="block" passHref>
           <Button
             variant="outline"
             className="h-10 w-full border-dashed border-blue-200 bg-blue-50/50 text-blue-700 hover:border-blue-300 hover:bg-blue-100"
@@ -262,7 +252,7 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
 
                 return (
                   <Collapsible key={major} open={isOpen} onOpenChange={() => toggleSection(major)} className="mb-1">
-                    <CollapsibleTrigger className="w-full">
+                    <CollapsibleTrigger className="w-full" aria-label={`${major} 프리셋 ${isOpen ? '접기' : '펼치기'}`}>
                       <div
                         className={cn(
                           'flex items-center justify-between rounded-md px-2 py-2 text-left text-sm font-medium transition-colors hover:bg-slate-50',
@@ -272,11 +262,12 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
                         <span className="truncate">{major}</span>
                         <div className="flex items-center gap-1">
                           <span className="text-xs text-gray-400">{majorPresets.length}</span>
-                          {isOpen ? (
-                            <ChevronDown className="h-4 w-4 text-gray-400" />
-                          ) : (
-                            <ChevronRight className="h-4 w-4 text-gray-400" />
-                          )}
+                          <ChevronRight
+                            className={cn(
+                              'h-4 w-4 text-gray-400 transition-transform duration-200 ease-[var(--ease-ui-out)] motion-reduce:transition-none',
+                              isOpen && 'rotate-90',
+                            )}
+                          />
                         </div>
                       </div>
                     </CollapsibleTrigger>
@@ -293,6 +284,7 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
                               href={`/dashboard/roadmap/${preset.slug}`}
                               className="block"
                               onClick={handlePresetClick}
+                              passHref
                             >
                               <div
                                 className={cn(

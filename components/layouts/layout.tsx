@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { SidebarNavigation } from './layout-navbar';
 import { DataManagementSection } from './data-management-section';
 import { UploadBanner } from './upload-banner';
-import { Sheet, SheetContent } from '@components/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@components/ui/sheet';
 import { Menu } from 'lucide-react';
 import { Button } from '@components/ui/button';
 
@@ -26,7 +26,7 @@ export function Layout({ children }: { children: ReactNode }) {
       {/* Desktop Sidebar (Dark Theme) */}
       <aside
         className={cn(
-          'fixed top-0 left-0 z-40 hidden h-screen shrink-0 flex-col border-r border-gray-800 bg-[#0F172A] transition-all duration-300 xl:flex',
+          'fixed top-0 left-0 z-40 hidden h-screen shrink-0 flex-col border-r border-gray-800 bg-[#0F172A] transition-[width] duration-200 ease-[var(--ease-ui-out)] xl:flex',
           mobileOpen ? 'w-64' : 'w-64', // Fallback, but we use a local state for collapse
         )}
         style={{ width: isCollapsed ? '80px' : '256px' }}
@@ -99,7 +99,7 @@ export function Layout({ children }: { children: ReactNode }) {
       {/* Main Content Area */}
       <div
         className={cn(
-          'flex h-screen flex-1 flex-col overflow-hidden bg-slate-100 transition-all duration-300',
+          'flex h-screen flex-1 flex-col overflow-hidden bg-slate-100 transition-[margin-left] duration-200 ease-[var(--ease-ui-out)]',
           // Only apply margin on xl screens (when sidebar is visible)
           isCollapsed ? 'xl:ml-[80px]' : 'xl:ml-[256px]',
         )}
@@ -131,6 +131,9 @@ export function Layout({ children }: { children: ReactNode }) {
       {/* Mobile Sidebar (Sheet) */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent side="left" className="w-72 border-gray-800 bg-[#0F172A] p-0">
+          <SheetTitle className="sr-only">모바일 내비게이션</SheetTitle>
+          <SheetDescription className="sr-only">대시보드 주요 화면으로 이동하는 모바일 메뉴입니다.</SheetDescription>
+
           {/* Logo */}
           <div className="flex items-center gap-3 border-b border-gray-800 px-5 py-5">
             <Image src="/images/gijol_3d_icon.png" alt="Gijol" width={40} height={40} className="drop-shadow-md" />

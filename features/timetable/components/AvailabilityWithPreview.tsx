@@ -195,7 +195,7 @@ export function AvailabilityWithPreview({
                     return (
                       <div
                         key={span.nanoid}
-                        className="group/span absolute inset-x-0.5 z-10 flex cursor-pointer flex-col overflow-hidden rounded-md border-2 p-1.5 shadow-sm transition-all hover:z-50 hover:scale-[1.02] hover:shadow-lg hover:ring-2 hover:ring-offset-1"
+                        className="group/span absolute inset-x-0.5 z-10 flex cursor-pointer flex-col overflow-hidden rounded-md border-2 p-1.5 shadow-sm transition-shadow duration-150 ease-[var(--ease-ui-out)] hover:z-50 hover:shadow-lg hover:ring-2 hover:ring-offset-1"
                         style={{
                           ...style,
                           backgroundColor: colors.bg, // Use direct color from palette (already light)
@@ -298,7 +298,7 @@ export function AvailabilityWithPreview({
                   return (
                     <div
                       key={span.nanoid}
-                      className="group flex cursor-pointer items-center gap-1 rounded-md border px-2 py-0.5 transition-all hover:shadow-sm"
+                      className="group flex cursor-pointer items-center gap-1 rounded-md border px-2 py-0.5 transition-shadow duration-150 ease-[var(--ease-ui-out)] hover:shadow-sm"
                       style={{
                         backgroundColor: colors.bg,
                         borderColor: colors.border,

@@ -111,8 +111,11 @@ export function CategoryCard({ title, current, total, percentage, color = 'blue'
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-gray-100">
         <div
-          className={cn('h-full rounded-full transition-all duration-500', colorStyles[color].progress)}
-          style={{ width: `${Math.min(percentage, 100)}%` }}
+          className={cn(
+            'h-full origin-left rounded-full transition-transform duration-200 ease-[var(--ease-ui-out)] motion-reduce:transition-none',
+            colorStyles[color].progress,
+          )}
+          style={{ transform: `scaleX(${Math.min(Math.max(percentage, 0), 100) / 100})` }}
         />
       </div>
     </div>

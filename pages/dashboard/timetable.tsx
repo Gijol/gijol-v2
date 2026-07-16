@@ -17,7 +17,7 @@ export default function TimetablePage({ defaultTerm, timetableSources }: Timetab
   return (
     <>
       <NextSeo title="시간표 홈" description="시간표 계획과 이전 시간표를 확인하세요" noindex />
-      <div className="fixed inset-0 top-[60px] flex flex-col overflow-hidden bg-slate-100 transition-all duration-300 xl:top-0 xl:left-[256px]">
+      <div className="fixed inset-0 top-[60px] flex flex-col overflow-hidden bg-slate-100 xl:top-0 xl:left-[256px]">
         <TimetableHome defaultTerm={defaultTerm} timetableSources={timetableSources} />
       </div>
     </>

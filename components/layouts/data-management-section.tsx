@@ -89,7 +89,7 @@ export function DataManagementSection({ isCollapsed = false }: { isCollapsed?: b
   if (isCollapsed) {
     return (
       <div className="border-t border-gray-800 p-4">
-        <TooltipProvider delayDuration={0}>
+        <TooltipProvider delayDuration={300} skipDelayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>{content}</TooltipTrigger>
             <TooltipContent side="right" className="border-0 bg-slate-900 text-white">

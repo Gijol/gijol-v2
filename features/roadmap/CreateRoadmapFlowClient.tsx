@@ -44,6 +44,8 @@ const nodeTypes = {
   course: CourseNode,
 };
 
+const DEFAULT_EDGE_OPTIONS = { type: 'smoothstep', animated: false } as const;
+
 export const CreateRoadmapFlow = ({ courses }: CreateRoadmapFlowProps) => {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -213,7 +215,7 @@ export const CreateRoadmapFlow = ({ courses }: CreateRoadmapFlowProps) => {
           nodeTypes={nodeTypes}
           fitView
           className="bg-slate-50"
-          defaultEdgeOptions={{ type: 'smoothstep', animated: true }}
+          defaultEdgeOptions={DEFAULT_EDGE_OPTIONS}
           deleteKeyCode={['Backspace', 'Delete']}
           selectionOnDrag={true}
           panOnDrag={[1, 2]}
@@ -254,7 +256,7 @@ export const CreateRoadmapFlow = ({ courses }: CreateRoadmapFlowProps) => {
 
           <Panel
             position="top-right"
-            className="max-w-xs rounded-md border bg-white/80 p-3 text-xs opacity-50 shadow-sm backdrop-blur transition-opacity hover:opacity-100"
+            className="max-w-xs rounded-md border bg-white/90 p-3 text-xs shadow-sm backdrop-blur"
           >
             <p className="mb-1 font-semibold">나만의 로드맵 만들기</p>
             <p>
