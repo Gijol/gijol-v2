@@ -20,10 +20,6 @@ describe('Graduation Logic Comprehensive Test Suite', () => {
       const data = result.data!;
 
       // Expected: All categories satisfied
-      if (!data.totalSatisfied) {
-        // console.log('Case 01 Failed. Categories:', JSON.stringify(data.graduationCategory, null, 2));
-        require('fs').writeFileSync('debug_case01.json', JSON.stringify(data.graduationCategory, null, 2));
-      }
       expect(data.totalSatisfied).toBe(true);
 
       // Check individual categories
