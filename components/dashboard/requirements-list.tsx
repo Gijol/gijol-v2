@@ -1,7 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { AlertTriangle, CircleCheck, Library, ChevronDown, ChevronUp, PanelLeftOpen, Search, X } from 'lucide-react';
+import {
+  AlertTriangle,
+  CircleCheck,
+  Library,
+  ChevronDown,
+  ChevronUp,
+  PanelLeftOpen,
+  Search,
+  Sparkles,
+  X,
+} from 'lucide-react';
 import { Progress } from '@components/ui/progress';
 import { Badge } from '@components/ui/badge';
 import { ScrollArea } from '@components/ui/scroll-area';
@@ -426,15 +436,20 @@ function RecommendedCoursesSection({
   const shouldShowSearch = allRecommendationCourses.length >= SEARCH_THRESHOLD;
 
   return (
-    <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <h4 className="flex min-w-0 flex-1 flex-wrap items-center gap-2 text-sm font-semibold text-blue-800">
-          <Library size={16} className="shrink-0" />
-          <span className="shrink-0">추천 과목</span>
-          {recommendationCountLabel && (
-            <span className="text-xs font-normal text-blue-600">({recommendationCountLabel})</span>
-          )}
-        </h4>
+    <section className="mb-6 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+      <div className="flex items-start justify-between gap-3 border-b border-blue-100 bg-gradient-to-br from-blue-50 to-white p-4">
+        <div className="flex min-w-0 flex-1 items-start gap-3">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm shadow-blue-200">
+            <Sparkles aria-hidden="true" size={17} />
+          </span>
+          <div className="min-w-0 pt-0.5">
+            <h3 className="text-sm font-semibold text-slate-950">추천 과목</h3>
+            <p className="mt-1 text-xs leading-relaxed text-slate-600">남은 요건을 채우는 데 도움이 되는 과목입니다.</p>
+            {recommendationCountLabel && (
+              <p className="mt-1.5 text-xs font-medium text-blue-700">{recommendationCountLabel}</p>
+            )}
+          </div>
+        </div>
 
         {allRecommendationCourses.length > 0 && (
           <Button
@@ -443,7 +458,7 @@ function RecommendedCoursesSection({
             size="sm"
             aria-controls="all-recommendations-panel"
             aria-expanded={allPanelOpen}
-            className="h-8 shrink-0 border-blue-200 bg-white px-2.5 text-xs text-blue-700 hover:bg-blue-100 hover:text-blue-900"
+            className="h-10 shrink-0 touch-manipulation border-blue-200 bg-white px-3 text-xs font-semibold text-blue-700 shadow-sm hover:border-blue-300 hover:bg-blue-50 hover:text-blue-900"
             onClick={() => {
               setAllPanelQuery('');
               setAllPanelOpen(true);
@@ -451,7 +466,7 @@ function RecommendedCoursesSection({
           >
             <PanelLeftOpen aria-hidden="true" size={14} className="mr-1" />
             전체 보기
-            <span className="ml-1 text-blue-500">{allRecommendationCourses.length}</span>
+            <span className="ml-1 text-blue-500 tabular-nums">{allRecommendationCourses.length}</span>
           </Button>
         )}
       </div>
@@ -462,7 +477,7 @@ function RecommendedCoursesSection({
           data-testid="all-recommendations-panel"
           role="dialog"
           aria-labelledby="all-recommendations-panel-title"
-          className="animate-in slide-in-from-right fixed inset-y-0 right-0 z-50 w-full overflow-y-auto overscroll-contain border-l border-slate-200 bg-white p-6 shadow-xl duration-200 motion-reduce:animate-none sm:max-w-xl lg:right-[32rem] lg:z-[-1] lg:w-[min(36rem,calc(100vw-32rem))] lg:max-w-none"
+          className="animate-in slide-in-from-right fixed inset-y-0 right-0 z-50 w-full overflow-y-auto overscroll-contain border-l border-slate-200 bg-white p-4 shadow-xl duration-200 motion-reduce:animate-none sm:max-w-xl sm:p-6 lg:right-full lg:z-[-1] lg:w-[min(36rem,calc(100vw-100%))] lg:max-w-none"
           onWheel={(event) => event.stopPropagation()}
         >
           <div className="border-b border-gray-50 pr-9 pb-4">
@@ -479,7 +494,7 @@ function RecommendedCoursesSection({
             variant="ghost"
             size="sm"
             aria-label="전체 추천 과목 닫기"
-            className="absolute top-4 right-4 h-8 w-8 p-0 text-gray-500 hover:bg-slate-100 hover:text-gray-900"
+            className="absolute top-3 right-3 h-10 w-10 touch-manipulation p-0 text-gray-500 hover:bg-slate-100 hover:text-gray-900 sm:top-4 sm:right-4"
             onClick={() => setAllPanelOpen(false)}
           >
             <X aria-hidden="true" size={16} />
@@ -499,10 +514,10 @@ function RecommendedCoursesSection({
                 autoComplete="off"
                 value={allPanelQuery}
                 onChange={(event) => setAllPanelQuery(event.target.value)}
-                placeholder="과목명 또는 코드 검색"
-                className="h-9 w-full rounded-md border border-slate-200 bg-white pr-3 pl-9 text-sm text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
+                placeholder="과목명 또는 코드 검색…"
+                className="h-10 w-full rounded-lg border border-slate-300 bg-white pr-3 pl-9 text-sm text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
               />
-              <p className="mt-2 text-xs text-gray-500">
+              <p aria-live="polite" className="mt-2 text-xs text-gray-500">
                 {normalizedQuery
                   ? `${filteredRecommendationCourses.length}개가 검색 조건에 맞습니다.`
                   : `${allRecommendationCourses.length}개 후보를 요건별로 묶어 표시합니다.`}
@@ -515,7 +530,7 @@ function RecommendedCoursesSection({
               allRecommendationGroups.map((group) => (
                 <section key={group.reason}>
                   <div className="mb-2 flex items-center justify-between gap-3">
-                    <h5 className="min-w-0 truncate text-sm font-semibold text-gray-800">{group.reason}</h5>
+                    <h4 className="min-w-0 truncate text-sm font-semibold text-gray-800">{group.reason}</h4>
                     <Badge variant="secondary" className="shrink-0 text-xs">
                       {group.courses.length}개
                     </Badge>
@@ -553,64 +568,79 @@ function RecommendedCoursesSection({
         </aside>
       )}
 
-      {displayedCourses.length > 0 && (
-        <div className="space-y-2">
-          {displayedCourses.map((course) => (
-            <div
-              key={course.courseCode}
-              className="flex items-center justify-between rounded-md border border-slate-300 bg-white p-3 transition-colors hover:bg-gray-100/50"
-            >
-              <div className="flex-1">
-                <span className="text-sm font-medium text-gray-900">{course.courseName}</span>
-                <div className="mt-0.5 font-mono text-xs text-gray-500">{course.courseCode}</div>
-              </div>
-              <Badge variant="secondary" className="bg-blue-100 text-xs font-semibold text-blue-700">
-                {course.credit}학점
-              </Badge>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {rows.length > 0 && (
-        <div className={cn('space-y-2', displayedCourses.length > 0 && 'mt-3 border-t border-blue-100 pt-3')}>
-          {rows.map((row) => (
-            <div key={row.key} className="rounded-md border border-blue-100 bg-white p-3">
-              <div className="flex items-start gap-3">
-                <Badge variant="outline" className="shrink-0 border-blue-200 bg-blue-100 text-xs text-blue-700">
-                  {row.badge}
-                </Badge>
+      <div className="p-4">
+        {displayedCourses.length > 0 && (
+          <ul id="recommended-course-list" className="space-y-2">
+            {displayedCourses.map((course) => (
+              <li
+                key={course.courseCode}
+                className="flex min-w-0 items-start justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50/70 p-3"
+              >
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-blue-950">{row.title}</p>
-                  <p className="mt-1 text-xs leading-relaxed text-blue-700">{row.body}</p>
+                  <p className="text-sm font-semibold break-words text-slate-900">{course.courseName}</p>
+                  <div className="mt-1 flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
+                    <span className="font-mono">{course.courseCode}</span>
+                    {course.category && (
+                      <>
+                        <span aria-hidden="true" className="text-slate-300">
+                          ·
+                        </span>
+                        <span className="min-w-0 break-words">{course.category}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <Badge variant="secondary" className="shrink-0 bg-blue-100 text-xs font-semibold text-blue-700">
+                  {course.credit}학점
+                </Badge>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {rows.length > 0 && (
+          <div className={cn('space-y-2', displayedCourses.length > 0 && 'mt-3 border-t border-blue-100 pt-3')}>
+            {rows.map((row) => (
+              <div key={row.key} className="rounded-md border border-blue-100 bg-white p-3">
+                <div className="flex items-start gap-3">
+                  <Badge variant="outline" className="shrink-0 border-blue-200 bg-blue-100 text-xs text-blue-700">
+                    {row.badge}
+                  </Badge>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium text-blue-950">{row.title}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-blue-700">{row.body}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
 
-      {hasMore && (
-        <Button
-          variant="ghost"
-          size="sm"
-          className="mt-3 w-full text-blue-600 hover:bg-blue-100 hover:text-blue-800"
-          onClick={() => setExpanded(!expanded)}
-        >
-          {expanded ? (
-            <>
-              <ChevronUp size={16} className="mr-1" />
-              접기
-            </>
-          ) : (
-            <>
-              <ChevronDown size={16} className="mr-1" />
-              더보기 ({courses.length - INITIAL_SHOW_COUNT}개)
-            </>
-          )}
-        </Button>
-      )}
-    </div>
+        {hasMore && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            aria-controls="recommended-course-list"
+            aria-expanded={expanded}
+            className="mt-3 h-10 w-full touch-manipulation text-blue-700 hover:bg-blue-50 hover:text-blue-900"
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? (
+              <>
+                <ChevronUp aria-hidden="true" size={16} className="mr-1" />
+                접기
+              </>
+            ) : (
+              <>
+                <ChevronDown aria-hidden="true" size={16} className="mr-1" />
+                더보기 ({courses.length - INITIAL_SHOW_COUNT}개)
+              </>
+            )}
+          </Button>
+        )}
+      </div>
+    </section>
   );
 }
 

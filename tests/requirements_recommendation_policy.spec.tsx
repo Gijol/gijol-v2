@@ -155,11 +155,12 @@ describe('RequirementsList recommendation policy notices', () => {
     await user.click(await screen.findByRole('button', { name: /전체 보기/ }));
 
     expect(await screen.findByRole('heading', { name: '전체 추천 과목' })).toBeInTheDocument();
-    expect(screen.getByText('(대표 1 / 전체 3)')).toBeInTheDocument();
+    expect(screen.getByText('대표 1 / 전체 3')).toBeInTheDocument();
     expect(screen.getByTestId('all-recommendations-panel')).toHaveClass(
       'z-50',
       'lg:z-[-1]',
-      'lg:right-[32rem]',
+      'lg:right-full',
+      'lg:w-[min(36rem,calc(100vw-100%))]',
       'overflow-y-auto',
       'overscroll-contain',
     );
