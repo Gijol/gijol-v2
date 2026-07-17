@@ -128,7 +128,7 @@ export function SectionBrowserSidebar({ term, interaction, isMobile = false, cla
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            className="max-h-[300px] w-[200px] overscroll-contain rounded-lg border-slate-200 bg-white p-1.5 shadow-lg shadow-slate-950/10"
+            className="max-h-[300px] w-[200px] overflow-y-auto overscroll-contain rounded-lg border-slate-200 bg-white p-1.5 shadow-lg shadow-slate-950/10"
           >
             {['', ...browser.departments].map((option) => (
               <DropdownMenuItem
