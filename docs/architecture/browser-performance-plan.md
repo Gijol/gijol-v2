@@ -111,7 +111,7 @@ Implemented on 2026-07-16:
 - toast rendering is limited to graduation notification consumers, while React Query and its development tools are limited to timetable pages;
 - the dashboard shell no longer contains pathname detection or a public pass-through branch;
 - the optimized `_app` chunk fell from 230,904 raw / 69,424 gzip bytes to 20,164 raw / 6,120 gzip bytes;
-- public `/` First Load fell from 195 KiB to 147 KiB, with a 112 KiB gzip manifest budget and dashboard-fingerprint check.
+- public `/` First Load fell from 195 KiB to 147 KiB, with a 152 KiB gzip budget across every public-reachable JavaScript chunk and a dashboard-fingerprint check.
 
 ## Root causes
 

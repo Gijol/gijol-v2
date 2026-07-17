@@ -80,7 +80,7 @@ export function SelectedCoursesDialog({ open, onOpenChange }: SelectedCoursesDia
               {showSaveInput ? (
                 <div className="flex gap-2">
                   <Input
-                    placeholder="시간표 이름을 입력하세요..."
+                    placeholder="시간표 이름을 입력하세요…"
                     value={timetableName}
                     onChange={(e) => setTimetableName(e.target.value)}
                     onKeyDown={(e) => {
@@ -90,7 +90,6 @@ export function SelectedCoursesDialog({ open, onOpenChange }: SelectedCoursesDia
                         setTimetableName('');
                       }
                     }}
-                    autoFocus
                     className="flex-1 border-slate-200 bg-white text-sm font-medium focus-visible:ring-blue-500"
                     disabled={isSaving}
                   />

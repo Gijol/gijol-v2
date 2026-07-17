@@ -771,7 +771,7 @@ function ResultCard({ title, data }: { title: string; data: any }) {
           <CardTitle>{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-400">Waiting...</p>
+          <p className="text-sm text-gray-400">대기 중…</p>
         </CardContent>
       </Card>
     );

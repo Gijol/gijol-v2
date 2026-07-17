@@ -345,7 +345,7 @@ export default function GraduationParsePage() {
                     size="lg"
                     className="h-10 shrink-0 gap-2 bg-[#0B62DA] px-5 text-white shadow-md shadow-blue-500/20 hover:bg-[#0952B8] sm:min-w-[190px]"
                   >
-                    {saving ? '저장 중...' : '저장하고 결과 보기'}
+                    {saving ? '저장 중…' : '저장하고 결과 보기'}
                     {!saving ? <ArrowRight className="h-4 w-4" /> : null}
                   </Button>
                 </div>

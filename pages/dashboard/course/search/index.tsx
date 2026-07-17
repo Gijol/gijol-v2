@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
+import { DashboardPageShell, PageHeader } from '@/components/dashboard/page-shell';
 import { Input } from '@components/ui/input';
 import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
@@ -552,7 +553,7 @@ export default function CourseSearchPage() {
             options={offeringTermOptions}
             selected={selectedTerms}
             onChange={setSelectedTerms}
-            placeholder="개설 학기 선택..."
+            placeholder="개설 학기 선택…"
             className="min-h-10 bg-white shadow-none"
           />
         </div>
@@ -564,7 +565,7 @@ export default function CourseSearchPage() {
           options={participatingDeptOptions}
           selected={selectedParticipatingDepts}
           onChange={setSelectedParticipatingDepts}
-          placeholder="개설 학과 선택..."
+          placeholder="개설 학과 선택…"
           className="min-h-10 bg-white shadow-none"
         />
       </div>
@@ -698,24 +699,24 @@ export default function CourseSearchPage() {
   );
 
   return (
-    <div className="container mx-auto max-w-6xl px-4 pb-12">
+    <DashboardPageShell>
       <NextSeo title="강의 검색" description="GIST 개설 강의를 검색하세요" noindex />
-      {/* Header */}
-      <div className="mt-8 mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">강의 검색</h1>
-        <p className="mt-1 text-sm text-gray-500">
-          {loading ? '데이터를 불러오는 중...' : `공통 강의 원천 ${courses.length}개 중 검색`}
-        </p>
-      </div>
+      <PageHeader
+        title="강의 검색"
+        description={loading ? '데이터를 불러오는 중…' : `공통 강의 원천 ${courses.length}개 중 검색`}
+      />
 
       {/* Search & Filter Bar */}
       <div className="mb-6 space-y-4">
         {/* Search Input + Filter Button */}
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <Search aria-hidden="true" className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <Input
-              placeholder="과목명, 과목코드, 학과로 검색..."
+              aria-label="과목명, 과목코드 또는 학과 검색"
+              name="course-search"
+              autoComplete="off"
+              placeholder="과목명, 과목코드, 학과로 검색…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-white pl-10 shadow-none"
@@ -724,7 +725,7 @@ export default function CourseSearchPage() {
           <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" className="relative shrink-0 gap-2 bg-white shadow-none">
-                <SlidersHorizontal className="h-4 w-4" />
+                <SlidersHorizontal aria-hidden="true" className="h-4 w-4" />
                 <span>필터</span>
                 {activeFilters.length > 0 && (
                   <span className="flex min-w-5 items-center justify-center rounded-full bg-blue-600 px-1.5 py-0.5 text-[10px] text-white">
@@ -800,7 +801,7 @@ export default function CourseSearchPage() {
           return (
             <button
               key={course.courseId}
-              className="group relative rounded-lg border border-slate-300 bg-white p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none"
+              className="group relative rounded-xl border border-slate-200 bg-white p-5 text-left transition-[background-color,border-color,box-shadow] duration-150 ease-[var(--ease-ui-out)] hover:border-blue-200 hover:bg-slate-50/50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
               onClick={() => handleCourseClick(course)}
             >
               {/* Header: 과목코드 + 학점 */}
@@ -903,10 +904,10 @@ export default function CourseSearchPage() {
 
       {/* Course Detail Sheet */}
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent className="w-full sm:w-[min(92vw,760px)] sm:max-w-none">
+        <SheetContent className="flex h-full w-full flex-col overflow-hidden sm:w-[min(92vw,760px)] sm:max-w-none">
           {selectedCourseSummary && (
             <>
-              <SheetHeader className="space-y-3">
+              <SheetHeader className="shrink-0 space-y-3">
                 <Badge variant="outline" className="w-fit rounded-full px-2.5 py-1 text-sm font-semibold">
                   {selectedCourseSummary.creditHours}학점
                 </Badge>
@@ -925,8 +926,11 @@ export default function CourseSearchPage() {
                 </div>
               )}
               {selectedCourse && (
-                <ScrollArea className="mt-6 h-[calc(100vh-200px)]">
-                  <div className="space-y-6 pr-4">
+                <ScrollArea
+                  className="mt-6 min-h-0 w-full max-w-full min-w-0 flex-1"
+                  viewportClassName="[&>div]:!block [&>div]:!w-full [&>div]:!min-w-0"
+                >
+                  <div className="w-full max-w-full min-w-0 space-y-6 overflow-hidden pr-4">
                     {/* 기본 정보 */}
                     <div className="space-y-3">
                       <h4 className="text-sm font-semibold text-gray-900">기본 정보</h4>
@@ -993,7 +997,7 @@ export default function CourseSearchPage() {
                         </div>
                       )}
                       {selectedCourse.offeringGroups.length > 0 ? (
-                        <div className="overflow-hidden rounded-lg border border-slate-200">
+                        <div className="w-full max-w-full min-w-0 overflow-x-auto overscroll-x-contain rounded-lg border border-slate-200">
                           <Table className="min-w-[980px]">
                             <TableHeader className="bg-slate-50 text-xs text-slate-500">
                               <TableRow>
@@ -1096,8 +1100,8 @@ export default function CourseSearchPage() {
                             연도별 학사편람 수록 정보입니다. 요일/시간은 확인된 시간표가 있는 경우에만 표시합니다.
                           </p>
                         </div>
-                        <div className="overflow-hidden rounded-lg border border-slate-200">
-                          <table className="w-full text-sm">
+                        <div className="w-full max-w-full min-w-0 overflow-x-auto overscroll-x-contain rounded-lg border border-slate-200">
+                          <table className="min-w-[760px] text-sm">
                             <thead className="bg-slate-50 text-xs text-slate-500">
                               <tr>
                                 <th className="px-3 py-2 text-left font-medium">연도</th>
@@ -1200,6 +1204,6 @@ export default function CourseSearchPage() {
           )}
         </SheetContent>
       </Sheet>
-    </div>
+    </DashboardPageShell>
   );
 }

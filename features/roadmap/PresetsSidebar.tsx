@@ -198,8 +198,14 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
   if (isCollapsed) {
     return (
       <div className={cn('flex h-full w-12 flex-col items-center gap-4 border-r bg-white py-4', className)}>
-        <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(false)} className="h-8 w-8">
-          <PanelLeftOpen className="h-5 w-5 text-gray-500" />
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsCollapsed(false)}
+          className="h-8 w-8"
+          aria-label="로드맵 프리셋 사이드바 펼치기"
+        >
+          <PanelLeftOpen aria-hidden="true" className="h-5 w-5 text-slate-500" />
         </Button>
         <div
           className="font-mono text-xs tracking-widest text-slate-600 uppercase"
@@ -212,29 +218,39 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
   }
 
   return (
-    <div className={cn('flex h-full w-[280px] flex-col border-r bg-white', className)}>
+    <aside
+      aria-label="로드맵 프리셋"
+      className={cn('flex h-full w-[280px] max-w-[80vw] flex-col border-r border-slate-200 bg-white', className)}
+    >
       {/* Header */}
       <div className="flex items-center justify-between border-b bg-slate-50/50 p-3">
         <div className="flex items-center gap-2">
-          <Map className="h-4 w-4 text-blue-500" />
-          <h2 className="text-sm font-semibold">로드맵 프리셋</h2>
+          <Map aria-hidden="true" className="h-4 w-4 text-blue-600" />
+          <p className="text-sm font-semibold text-slate-950">로드맵 프리셋</p>
         </div>
-        <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(true)} className="h-7 w-7">
-          <PanelLeftClose className="h-4 w-4 text-gray-500" />
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsCollapsed(true)}
+          className="h-7 w-7"
+          aria-label="로드맵 프리셋 사이드바 접기"
+        >
+          <PanelLeftClose aria-hidden="true" className="h-4 w-4 text-slate-500" />
         </Button>
       </div>
 
       {/* Create Button */}
       <div className="border-b p-2">
-        <Link href="/dashboard/roadmap/create" className="block" passHref>
-          <Button
-            variant="outline"
-            className="h-10 w-full border-dashed border-blue-200 bg-blue-50/50 text-blue-700 hover:border-blue-300 hover:bg-blue-100"
-          >
-            <Plus className="mr-2 h-4 w-4" />
+        <Button
+          asChild
+          variant="outline"
+          className="h-10 w-full border-dashed border-blue-200 bg-blue-50/50 text-blue-700 hover:border-blue-300 hover:bg-blue-100"
+        >
+          <Link href="/dashboard/roadmap/create">
+            <Plus aria-hidden="true" className="mr-2 h-4 w-4" />
             나만의 로드맵 만들기
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </div>
 
       {/* Presets List with Accordion */}
@@ -242,7 +258,7 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
         <ScrollArea className="h-full">
           {loading ? (
             <div className="flex items-center justify-center py-12">
-              <Loader2 className="h-5 w-5 animate-spin text-gray-400" />
+              <Loader2 aria-hidden="true" className="h-5 w-5 animate-spin text-slate-400 motion-reduce:animate-none" />
             </div>
           ) : (
             <div className="p-2">
@@ -263,6 +279,7 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
                         <div className="flex items-center gap-1">
                           <span className="text-xs text-gray-400">{majorPresets.length}</span>
                           <ChevronRight
+                            aria-hidden="true"
                             className={cn(
                               'h-4 w-4 text-gray-400 transition-transform duration-200 ease-[var(--ease-ui-out)] motion-reduce:transition-none',
                               isOpen && 'rotate-90',
@@ -308,6 +325,6 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
           )}
         </ScrollArea>
       </div>
-    </div>
+    </aside>
   );
 }

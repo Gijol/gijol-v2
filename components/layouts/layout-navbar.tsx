@@ -36,6 +36,7 @@ function TailwindNavLink({
       )}
     >
       <Icon
+        aria-hidden="true"
         size={20}
         className={cn(
           isDark ? (active ? 'text-blue-500' : 'text-gray-400') : active ? 'text-blue-700' : 'text-gray-500',
@@ -78,6 +79,7 @@ export function SidebarNavigation({
           )}
         >
           <link.icon
+            aria-hidden="true"
             size={20}
             className={cn(
               variant === 'dark'

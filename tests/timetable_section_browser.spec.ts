@@ -58,6 +58,26 @@ describe('timetable section browsing module', () => {
     expect(first.totalPages).toBe(3);
   });
 
+  it('defaults to undergraduate sections and exposes accurate program counts', () => {
+    const graduateSections = [
+      section(100, { program: '석사', department: 'AI대학원' }),
+      section(101, { program: '박사', department: 'AI대학원' }),
+      section(102, { program: '대학원', department: 'AI대학원' }),
+    ];
+    const browser = createSectionBrowser([...fixture, ...graduateSections]);
+    const undergraduate = browser.browse();
+    const graduate = browser.browse({ programLevel: 'graduate' });
+
+    expect(undergraduate.totalElements).toBe(65);
+    expect(undergraduate.content.every((item) => item.program === '학사')).toBe(true);
+    expect(undergraduate.undergraduateSectionCount).toBe(65);
+    expect(undergraduate.graduateSectionCount).toBe(3);
+    expect(undergraduate.departments).not.toContain('AI대학원');
+    expect(graduate.totalElements).toBe(3);
+    expect(graduate.departments).toEqual(['AI대학원']);
+    expect(graduate.content.map((item) => item.program)).toEqual(['석사', '박사', '대학원']);
+  });
+
   it('gives plan and legacy adapters identical selection and conflict projections', () => {
     const selected = section(1);
     const conflicting = section(2);
@@ -128,6 +148,7 @@ describe('timetable section browsing module', () => {
         totalElements: 0,
         totalPages: 0,
         departments: [],
+        undergraduateSectionCount: 0,
         graduateSectionCount: 0,
       }),
       signal: init?.signal,
@@ -135,8 +156,9 @@ describe('timetable section browsing module', () => {
     global.fetch = fetchMock as unknown as typeof fetch;
     const controller = new AbortController();
 
-    await fetchTimetableSectionPage('2026-1', 'AI', '', 1, controller.signal);
+    await fetchTimetableSectionPage('2026-1', 'AI', '', 'undergraduate', 1, controller.signal);
     expect(fetchMock.mock.calls[0][1]?.signal).toBe(controller.signal);
+    expect(String(fetchMock.mock.calls[0][0])).toContain('level=undergraduate');
     global.fetch = originalFetch;
   });
 });

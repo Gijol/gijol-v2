@@ -1,5 +1,6 @@
 import ExcelJS from 'exceljs';
 import { GradeReportParser } from '../lib/utils/parser/grade/gradeReportParser';
+import { buildCourseListWithPeriod } from '../lib/utils/course/analytics';
 
 describe('GradeReportParser', () => {
   it('should parse string and numeric worksheet cell values', async () => {
@@ -29,7 +30,7 @@ describe('GradeReportParser', () => {
     sheet.getCell('B6').value = 'CS2001';
     sheet.getCell('D6').value = 'Intro to CS';
     sheet.getCell('E6').value = 3;
-    sheet.getCell('F6').value = 'B0';
+    sheet.getCell('F6').value = 'U';
 
     // End marker
     sheet.getCell('B7').value = '[학사]';
@@ -56,5 +57,10 @@ describe('GradeReportParser', () => {
     const c2 = result.userTakenCourseList[1];
     expect(c2.courseCode).toBe('CS2001');
     expect(c2.credit).toBe(3);
+    expect(c2.grade).toBe('U');
+
+    expect(buildCourseListWithPeriod(result).flatMap((term) => term.userTakenCourseList)).toContainEqual(
+      expect.objectContaining({ courseCode: 'CS2001', grade: 'U' }),
+    );
   });
 });

@@ -99,8 +99,8 @@ export const RoadmapSidebar = ({ savedRoadmaps = [], onLoad, onDelete, onClearAl
   if (!isOpen) {
     return (
       <div className="z-20 flex h-full w-12 flex-col items-center gap-4 border-r bg-white py-4">
-        <Button variant="ghost" size="icon" onClick={() => setIsOpen(true)}>
-          <PanelLeftOpen className="h-5 w-5 text-gray-500" />
+        <Button variant="ghost" size="icon" onClick={() => setIsOpen(true)} aria-label="강의 목록 펼치기">
+          <PanelLeftOpen aria-hidden="true" className="h-5 w-5 text-slate-500" />
         </Button>
         <div
           className="writing-mode-vertical font-mono text-xs tracking-widest text-slate-600 uppercase"
@@ -117,20 +117,29 @@ export const RoadmapSidebar = ({ savedRoadmaps = [], onLoad, onDelete, onClearAl
       {/* Header */}
       <div className="flex items-center justify-between border-b bg-slate-50/50 p-3">
         <h2 className="flex items-center gap-2 text-sm font-semibold">
-          <Palette className="h-4 w-4 text-gray-500" />
+          <Palette aria-hidden="true" className="h-4 w-4 text-slate-500" />
           강의 목록
         </h2>
-        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setIsOpen(false)}>
-          <PanelLeftClose className="h-4 w-4 text-gray-500" />
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-7 w-7"
+          onClick={() => setIsOpen(false)}
+          aria-label="강의 목록 접기"
+        >
+          <PanelLeftClose aria-hidden="true" className="h-4 w-4 text-slate-500" />
         </Button>
       </div>
 
       {/* Search */}
       <div className="space-y-2 border-b p-3">
         <div className="relative">
-          <Search className="absolute top-2.5 left-2 h-3.5 w-3.5 text-gray-400" />
+          <Search aria-hidden="true" className="absolute top-2.5 left-2 h-3.5 w-3.5 text-slate-400" />
           <Input
-            placeholder="과목 검색..."
+            aria-label="로드맵 과목 검색"
+            name="roadmap-course-search"
+            autoComplete="off"
+            placeholder="과목 검색…"
             className="h-8 border-slate-200 bg-slate-50 pl-8 text-sm focus-visible:ring-1"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -149,7 +158,7 @@ export const RoadmapSidebar = ({ savedRoadmaps = [], onLoad, onDelete, onClearAl
                   className="h-6 px-2 text-xs text-red-600 hover:bg-red-50 hover:text-red-700"
                   onClick={onClearAll}
                 >
-                  <Trash2 className="mr-1 h-3 w-3" />
+                  <Trash2 aria-hidden="true" className="mr-1 h-3 w-3" />
                   모두 삭제
                 </Button>
               )}
@@ -171,8 +180,9 @@ export const RoadmapSidebar = ({ savedRoadmaps = [], onLoad, onDelete, onClearAl
                     size="icon"
                     className="h-5 w-5 shrink-0 text-gray-400 hover:text-red-600"
                     onClick={() => onDelete?.(saved.id)}
+                    aria-label={`${saved.name} 삭제`}
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 aria-hidden="true" className="h-3 w-3" />
                   </Button>
                 </div>
               ))}
@@ -225,7 +235,7 @@ export const RoadmapSidebar = ({ savedRoadmaps = [], onLoad, onDelete, onClearAl
           {(hasMore || isLoading) && (
             <div ref={loadMoreRef} className="flex items-center justify-center py-4">
               <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
-              <span className="ml-2 text-xs text-gray-400">더 불러오는 중...</span>
+              <span className="ml-2 text-xs text-gray-400">더 불러오는 중…</span>
             </div>
           )}
 

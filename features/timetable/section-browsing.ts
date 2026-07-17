@@ -3,10 +3,12 @@ import { normalizeCourseCode } from '@/features/course-catalog/normalize';
 
 export const SECTION_BROWSING_PAGE_SIZE = 30;
 export const SECTION_BROWSING_MAX_PAGE_SIZE = 100;
+export type SectionProgramLevel = 'undergraduate' | 'graduate' | 'all';
 
 export interface SectionBrowsingQuery {
   query?: string;
   department?: string;
+  programLevel?: SectionProgramLevel;
   courseCodes?: readonly string[];
   page?: number;
   pageSize?: number;
@@ -19,6 +21,7 @@ export interface SectionBrowsingPage {
   totalElements: number;
   totalPages: number;
   departments: string[];
+  undergraduateSectionCount: number;
   graduateSectionCount: number;
 }
 
@@ -42,13 +45,24 @@ function matchesSearch(section: SectionOffering, rawQuery: string): boolean {
   );
 }
 
+export function isGraduateSection(section: Pick<SectionOffering, 'program'>): boolean {
+  return /대학원|석사|박사|석박/.test(section.program);
+}
+
 export function createSectionBrowser(sections: readonly SectionOffering[]): SectionBrowser {
   const stableSections = [...sections];
-  const departments = Array.from(
-    new Set(stableSections.map((section) => section.department.trim()).filter(Boolean)),
-  ).sort((a, b) => a.localeCompare(b, 'ko-KR'));
-  const graduateSectionCount = stableSections.filter((section) => /대학원|석사|박사|석박/.test(section.program)).length;
-
+  const departmentsByLevel = (programLevel: SectionProgramLevel | undefined) =>
+    Array.from(
+      new Set(
+        stableSections
+          .filter((section) => {
+            if (programLevel === 'all') return true;
+            return programLevel === 'graduate' ? isGraduateSection(section) : !isGraduateSection(section);
+          })
+          .map((section) => section.department.trim())
+          .filter(Boolean),
+      ),
+    ).sort((a, b) => a.localeCompare(b, 'ko-KR'));
   return {
     browse(query = {}) {
       const page = positiveInteger(query.page, 1);
@@ -57,12 +71,18 @@ export function createSectionBrowser(sections: readonly SectionOffering[]): Sect
         SECTION_BROWSING_MAX_PAGE_SIZE,
       );
       const requestedCodes = new Set((query.courseCodes ?? []).map(normalizeCourseCode));
-      const filtered = stableSections.filter(
+      const matchingSections = stableSections.filter(
         (section) =>
           matchesSearch(section, query.query ?? '') &&
           (!query.department || section.department === query.department) &&
           (requestedCodes.size === 0 || requestedCodes.has(normalizeCourseCode(section.course_code))),
       );
+      const graduateSectionCount = matchingSections.filter(isGraduateSection).length;
+      const undergraduateSectionCount = matchingSections.length - graduateSectionCount;
+      const filtered = matchingSections.filter((section) => {
+        if (query.programLevel === 'all') return true;
+        return query.programLevel === 'graduate' ? isGraduateSection(section) : !isGraduateSection(section);
+      });
       const totalElements = filtered.length;
       const offset = (page - 1) * pageSize;
 
@@ -72,7 +92,8 @@ export function createSectionBrowser(sections: readonly SectionOffering[]): Sect
         pageSize,
         totalElements,
         totalPages: Math.ceil(totalElements / pageSize),
-        departments,
+        departments: departmentsByLevel(query.programLevel),
+        undergraduateSectionCount,
         graduateSectionCount,
       };
     },

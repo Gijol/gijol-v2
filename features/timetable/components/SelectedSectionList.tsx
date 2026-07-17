@@ -22,7 +22,7 @@ export function SelectedSectionList({ hideResetButton = false }: SelectedSection
     return (
       <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50/50 p-8 text-center">
         <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
-          <BookOpen className="h-6 w-6 text-slate-400" />
+          <BookOpen aria-hidden="true" className="h-6 w-6 text-slate-400" />
         </div>
         <p className="text-sm font-black tracking-tight text-slate-400 uppercase">선택된 강의가 없습니다</p>
         <p className="mt-1 text-xs font-bold text-slate-300 uppercase">강의 목록에서 추가해 보세요</p>
@@ -88,9 +88,9 @@ export function SelectedSectionList({ hideResetButton = false }: SelectedSection
                     size="icon"
                     onClick={() => removeSection(id)}
                     className="h-7 w-7 rounded-full text-slate-300 transition-colors hover:bg-red-50 hover:text-red-500"
-                    aria-label="Remove section"
+                    aria-label={`${section.title} 분반 제거`}
                   >
-                    <X size={14} />
+                    <X aria-hidden="true" size={14} />
                   </Button>
                 </TableCell>
               </TableRow>

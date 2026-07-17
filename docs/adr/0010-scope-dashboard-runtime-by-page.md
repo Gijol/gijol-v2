@@ -19,7 +19,7 @@ All dashboard layouts return the same outer `DashboardRuntime`, preserving shell
 - `graduationLayout` adds toast rendering for routes that issue graduation notifications;
 - `timetableLayout` adds React Query caching and development tools around timetable content.
 
-The dashboard `Layout` no longer inspects the pathname or implements a public pass-through branch. A post-build check reads the public route chunks, rejects dashboard fingerprints, and enforces a 112 KiB gzip JavaScript budget.
+The dashboard `Layout` no longer inspects the pathname or implements a public pass-through branch. A post-build check reads every JavaScript chunk reachable from `/_app` and the public index route, rejects dashboard fingerprints, and enforces a 152 KiB gzip JavaScript budget. The budget includes route dependency chunks rather than only the page entry chunk.
 
 ## Consequences
 

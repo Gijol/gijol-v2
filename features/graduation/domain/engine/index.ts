@@ -20,6 +20,7 @@ import { classifyCourse } from '../classifier';
 import { buildFineGrainedRequirements } from '../requirements';
 import { resolveMajorCode } from '../academic-context';
 import { buildGraduationCatalogSelectionSummary } from '../rule-catalog/selection-adapter';
+import { isEarnedCreditCourse } from '@utils/course/credits';
 import {
   MATH_CALCULUS,
   MATH_ELECTIVE,
@@ -331,7 +332,7 @@ export const evaluateGraduationStatus = async (
   input: { takenCourses: UserTakenCourseListType; ruleContext: EngineContext },
   deps?: EngineDeps,
 ): Promise<GradStatusResponseV2> => {
-  const { takenCourses } = input.takenCourses;
+  const takenCourses = input.takenCourses.takenCourses.filter(isEarnedCreditCourse);
   const { entryYear, userMajor: rawUserMajor, userMinors, minorDeclarationTerms } = input.ruleContext;
   const majorResolution = resolveMajorCode(rawUserMajor);
   const userMajor = majorResolution.code;

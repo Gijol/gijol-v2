@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@comp
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { CourseListWithPeriod } from '@utils/status';
+import { sumEarnedCredits } from '@utils/course/credits';
 
 const getPeriodValue = (period: CourseListWithPeriod) => `${period.year}-${period.semester_idx}`;
 
@@ -56,7 +57,7 @@ export default function CourseMyTableChart({
   const selectedPeriodLabel =
     periodOptions.find((period) => period.value === selectedPeriodValue)?.label ?? '선택한 학기';
   const courseList = selectedPeriod?.userTakenCourseList ?? [];
-  const totalCredits = courseList.reduce((sum, course) => sum + (Number(course.credit) || 0), 0);
+  const totalCredits = sumEarnedCredits(courseList);
 
   return (
     <Card className="min-w-0 gap-0 overflow-hidden border-slate-200 bg-white p-0 shadow-none dark:border-slate-800 dark:bg-slate-950">
@@ -75,7 +76,7 @@ export default function CourseMyTableChart({
               <span aria-hidden="true" className="text-slate-300 dark:text-slate-700">
                 ·
               </span>
-              <span>
+              <span aria-label={`총 취득학점 ${totalCredits}학점`}>
                 총{' '}
                 <strong className="font-semibold text-slate-800 tabular-nums dark:text-slate-200">
                   {totalCredits}

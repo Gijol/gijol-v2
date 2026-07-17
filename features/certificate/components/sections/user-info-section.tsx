@@ -8,8 +8,8 @@ export function UserInfoSection() {
   const form = useFormContext<CertificateFormValues>();
 
   return (
-    <div className="rounded-xl border border-slate-300 bg-white p-6 shadow-sm">
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <section aria-label="신청자 정보 입력" className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
+      <div className="grid grid-cols-1 gap-x-5 gap-y-5 md:grid-cols-2">
         <FormField
           control={form.control}
           name="USER.date"
@@ -17,7 +17,7 @@ export function UserInfoSection() {
             <FormItem>
               <FormLabel>신청 기간</FormLabel>
               <FormControl>
-                <Input type="month" placeholder="YYYY-MM" {...field} />
+                <Input type="month" autoComplete="off" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -78,7 +78,14 @@ export function UserInfoSection() {
             <FormItem>
               <FormLabel>학번</FormLabel>
               <FormControl>
-                <Input placeholder="학번을 입력하세요" maxLength={8} {...field} />
+                <Input
+                  inputMode="numeric"
+                  autoComplete="off"
+                  spellCheck={false}
+                  placeholder="예: 20231234"
+                  maxLength={8}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -92,7 +99,7 @@ export function UserInfoSection() {
             <FormItem>
               <FormLabel>성명</FormLabel>
               <FormControl>
-                <Input placeholder="성명을 입력하세요" maxLength={10} {...field} />
+                <Input autoComplete="name" placeholder="예: 홍길동" maxLength={10} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -108,7 +115,9 @@ export function UserInfoSection() {
               <FormControl>
                 <Input
                   type="tel"
-                  placeholder="010-0000-0000"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  placeholder="예: 010-0000-0000"
                   maxLength={13}
                   {...field}
                   onChange={(e) => {
@@ -132,7 +141,7 @@ export function UserInfoSection() {
             <FormItem>
               <FormLabel>부전공</FormLabel>
               <FormControl>
-                <Input placeholder="부전공명 (선택)" {...field} />
+                <Input autoComplete="off" placeholder="예: 수학 (선택)" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -146,7 +155,7 @@ export function UserInfoSection() {
             <FormItem>
               <FormLabel>복수전공</FormLabel>
               <FormControl>
-                <Input placeholder="복수전공명 (선택)" {...field} />
+                <Input autoComplete="off" placeholder="예: 물리 (선택)" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -160,13 +169,13 @@ export function UserInfoSection() {
             <FormItem>
               <FormLabel>심화전공</FormLabel>
               <FormControl>
-                <Input placeholder="심화전공명 (선택)" {...field} />
+                <Input autoComplete="off" placeholder="예: AI 심화 (선택)" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
       </div>
-    </div>
+    </section>
   );
 }

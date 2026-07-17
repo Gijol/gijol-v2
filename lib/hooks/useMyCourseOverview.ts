@@ -1,7 +1,12 @@
 // @hooks/useMyCourseOverview.ts
 import { useMemo } from 'react';
 import type { CourseListWithPeriod } from '@utils/status';
-import { buildCourseListWithPeriod, calcAverageGrade, calcAverageGradeForCourseCodes } from '@utils/course/analytics';
+import {
+  buildCourseListWithPeriod,
+  calcAverageGrade,
+  calcAverageGradeForCourseCodes,
+  sumEarnedCredits,
+} from '@utils/course/analytics';
 import { useGraduationStore } from '../stores/useGraduationStore';
 
 const TOTAL_REQUIRED_CREDITS = 130;
@@ -11,7 +16,7 @@ export function useMyCourseOverview() {
 
   const courseListWithPeriod: CourseListWithPeriod[] = useMemo(() => buildCourseListWithPeriod(parsed), [parsed]);
 
-  const totalCredit = gradStatus?.totalCredits ?? takenCourses.reduce((s, c) => s + (Number(c.credit) || 0), 0);
+  const totalCredit = gradStatus?.totalCredits ?? sumEarnedCredits(takenCourses);
 
   const overallAverageGrade = useMemo(
     () => calcAverageGrade(courseListWithPeriod.flatMap((t) => t.userTakenCourseList ?? [])),

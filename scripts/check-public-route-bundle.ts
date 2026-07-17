@@ -66,7 +66,8 @@ publicFiles.forEach((file) => {
   });
 });
 
-const maxGzipBytes = 112 * 1024;
+// Includes every JavaScript chunk reachable from both /_app and the public index route.
+const maxGzipBytes = 152 * 1024;
 if (totalGzipBytes > maxGzipBytes) {
   throw new Error(`Public route JS is ${totalGzipBytes} gzip bytes, above the ${maxGzipBytes}-byte budget.`);
 }

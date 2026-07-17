@@ -29,7 +29,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
-  'ui-sheet-content pointer-events-auto fixed z-50 gap-4 bg-background p-6 opacity-100 shadow-lg transition-[opacity,transform] duration-[260ms] ease-[var(--ease-ui-drawer)] data-[state=closed]:opacity-0 data-[state=closed]:duration-200 data-[state=open]:opacity-100 motion-reduce:translate-x-0 motion-reduce:translate-y-0 motion-reduce:duration-150 motion-reduce:transition-opacity',
+  'ui-sheet-content pointer-events-auto fixed z-50 gap-4 overscroll-contain bg-background p-6 opacity-100 shadow-lg transition-[opacity,transform] duration-[260ms] ease-[var(--ease-ui-drawer)] data-[state=closed]:opacity-0 data-[state=closed]:duration-200 data-[state=open]:opacity-100 motion-reduce:translate-x-0 motion-reduce:translate-y-0 motion-reduce:duration-150 motion-reduce:transition-opacity',
   {
     variants: {
       side: {
@@ -54,9 +54,9 @@ const SheetContent = React.forwardRef<React.ElementRef<typeof SheetPrimitive.Con
     <SheetPortal>
       <SheetOverlay />
       <SheetPrimitive.Content ref={ref} data-side={side} className={cn(sheetVariants({ side }), className)} {...props}>
-        <SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:pointer-events-none">
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
+        <SheetPrimitive.Close className="ring-offset-background focus-visible:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none">
+          <X aria-hidden="true" className="h-4 w-4" />
+          <span className="sr-only">닫기</span>
         </SheetPrimitive.Close>
         {children}
       </SheetPrimitive.Content>

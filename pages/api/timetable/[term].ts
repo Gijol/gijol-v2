@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getTimetableSourceByTerm } from '@/features/course-catalog/timetable-sources';
 import { getServerTimetableSectionCatalog } from '@/features/timetable/server-section-catalog';
-import type { SectionBrowsingPage } from '@/features/timetable/section-browsing';
+import type { SectionBrowsingPage, SectionProgramLevel } from '@/features/timetable/section-browsing';
 
 type TimetableTermResponse = SectionBrowsingPage & {
   term: string;
@@ -26,6 +26,11 @@ function list(value: string | string[] | undefined): string[] {
   return Array.isArray(value) ? value : [value];
 }
 
+function programLevel(value: string | undefined): SectionProgramLevel {
+  if (value === 'all') return 'all';
+  return value === 'graduate' ? 'graduate' : 'undergraduate';
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<TimetableTermResponse | ErrorResponse>,
@@ -45,6 +50,7 @@ export default async function handler(
     const page = await getServerTimetableSectionCatalog().browse(term, {
       query: first(req.query.q) ?? '',
       department: first(req.query.department),
+      programLevel: programLevel(first(req.query.level)),
       courseCodes: list(req.query.courseCode),
       page: integer(first(req.query.page)),
       pageSize: integer(first(req.query.pageSize)),

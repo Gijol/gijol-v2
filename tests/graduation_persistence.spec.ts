@@ -72,6 +72,7 @@ describe('graduation persistence', () => {
         courseName: '테스트 과목',
         courseCode: 'GS1001',
         credit: 3,
+        grade: 'A+',
       },
     ]);
   });

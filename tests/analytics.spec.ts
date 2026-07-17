@@ -1,4 +1,9 @@
-import { calcAverageGrade, calcAverageGradeForCourseCodes, truncateGradeAverage } from '../lib/utils/course/analytics';
+import {
+  calcAverageGrade,
+  calcAverageGradeForCourseCodes,
+  sumEarnedCredits,
+  truncateGradeAverage,
+} from '../lib/utils/course/analytics';
 
 describe('calcAverageGrade', () => {
   it('should return null for empty input', () => {
@@ -22,6 +27,17 @@ describe('calcAverageGrade', () => {
         { credit: 3, grade: 'U' },
       ]),
     ).toBe(4);
+  });
+
+  it('should count S but not U as earned transcript credit', () => {
+    expect(
+      sumEarnedCredits([
+        { credit: 3, grade: 'A0' },
+        { credit: 2, grade: 'S' },
+        { credit: 3, grade: 'U' },
+        { credit: 1, grade: 'F' },
+      ]),
+    ).toBe(5);
   });
 
   it('should not lose an exact hundredth to floating-point noise', () => {

@@ -449,7 +449,7 @@ function RecommendedCoursesSection({
               setAllPanelOpen(true);
             }}
           >
-            <PanelLeftOpen size={14} className="mr-1" />
+            <PanelLeftOpen aria-hidden="true" size={14} className="mr-1" />
             전체 보기
             <span className="ml-1 text-blue-500">{allRecommendationCourses.length}</span>
           </Button>
@@ -462,7 +462,7 @@ function RecommendedCoursesSection({
           data-testid="all-recommendations-panel"
           role="dialog"
           aria-labelledby="all-recommendations-panel-title"
-          className="animate-in slide-in-from-right fixed inset-y-0 right-0 z-50 w-full overflow-y-auto overscroll-contain border-l border-slate-200 bg-white p-6 shadow-xl duration-300 sm:max-w-xl lg:right-[32rem] lg:z-[-1] lg:w-[min(36rem,calc(100vw-32rem))] lg:max-w-none"
+          className="animate-in slide-in-from-right fixed inset-y-0 right-0 z-50 w-full overflow-y-auto overscroll-contain border-l border-slate-200 bg-white p-6 shadow-xl duration-200 motion-reduce:animate-none sm:max-w-xl lg:right-[32rem] lg:z-[-1] lg:w-[min(36rem,calc(100vw-32rem))] lg:max-w-none"
           onWheel={(event) => event.stopPropagation()}
         >
           <div className="border-b border-gray-50 pr-9 pb-4">
@@ -482,22 +482,25 @@ function RecommendedCoursesSection({
             className="absolute top-4 right-4 h-8 w-8 p-0 text-gray-500 hover:bg-slate-100 hover:text-gray-900"
             onClick={() => setAllPanelOpen(false)}
           >
-            <X size={16} />
+            <X aria-hidden="true" size={16} />
           </Button>
 
           {shouldShowSearch && (
             <div className="relative mt-4">
               <Search
+                aria-hidden="true"
                 size={15}
                 className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-gray-400"
               />
               <input
                 type="search"
                 aria-label="전체 추천 과목 검색"
+                name="recommendation-search"
+                autoComplete="off"
                 value={allPanelQuery}
                 onChange={(event) => setAllPanelQuery(event.target.value)}
                 placeholder="과목명 또는 코드 검색"
-                className="h-9 w-full rounded-md border border-slate-200 bg-white pr-3 pl-9 text-sm text-gray-900 placeholder:text-gray-400 focus:border-blue-300 focus:ring-2 focus:ring-blue-100 focus:outline-none"
+                className="h-9 w-full rounded-md border border-slate-200 bg-white pr-3 pl-9 text-sm text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
               />
               <p className="mt-2 text-xs text-gray-500">
                 {normalizedQuery
@@ -613,10 +616,15 @@ function RecommendedCoursesSection({
 
 export function RequirementsList({ requirements, className, onResolveNeedsReview }: RequirementsListProps) {
   return (
-    <>
-      <h2 className="mb-5 flex items-center gap-2 text-lg font-bold text-gray-900">
-        <span className="text-xl">📋</span> 영역별 이수 현황
-      </h2>
+    <section className={className} aria-labelledby="requirements-list-title">
+      <div className="mb-5">
+        <h2 id="requirements-list-title" className="text-lg font-semibold text-slate-950 dark:text-slate-50">
+          영역별 이수 현황
+        </h2>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          각 영역을 선택하면 인정 과목과 남은 요건을 확인할 수 있습니다.
+        </p>
+      </div>
 
       {/* Grid Card Layout */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -625,41 +633,55 @@ export function RequirementsList({ requirements, className, onResolveNeedsReview
             <Sheet key={req.domain}>
               <SheetTrigger asChild>
                 <button
+                  type="button"
+                  aria-label={`${req.domain}: ${req.earned}/${req.required}학점, ${req.percentage}%`}
                   className={cn(
-                    'group relative cursor-pointer rounded-xl border p-4 text-left transition-all duration-200',
-                    'bg-white hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md',
-                    'focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none',
-                    'border-slate-300',
+                    'group relative min-w-0 touch-manipulation rounded-xl border border-slate-200 bg-white p-4 text-left',
+                    'transition-[transform,background-color,border-color] duration-150 ease-out hover:border-slate-300 hover:bg-slate-50 active:scale-[0.99]',
+                    'focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-colors motion-reduce:active:scale-100',
+                    'dark:border-slate-800 dark:bg-slate-950 dark:hover:border-slate-700 dark:hover:bg-slate-900',
                   )}
                 >
                   {/* Header */}
                   <div className="mb-3 flex items-start justify-between">
                     <div className="flex items-center gap-2">
                       {req.satisfied ? (
-                        <CircleCheck size={20} className="text-emerald-600" />
+                        <CircleCheck aria-hidden="true" size={20} className="text-emerald-600 dark:text-emerald-400" />
                       ) : (
-                        <AlertTriangle size={20} className="text-amber-500" />
+                        <AlertTriangle aria-hidden="true" size={20} className="text-amber-600 dark:text-amber-400" />
                       )}
-                      <span className="font-bold text-gray-900">{req.domain}</span>
+                      <span className="font-semibold text-slate-950 dark:text-slate-50">{req.domain}</span>
                     </div>
                     <Badge
                       variant="outline"
                       className={cn(
-                        'rounded-full border-none px-2 py-0.5 text-xs font-bold',
+                        'rounded-full border-none px-2 py-0.5 text-xs font-semibold',
                         req.satisfied
-                          ? 'bg-blue-100 text-blue-600 hover:bg-blue-200'
-                          : 'bg-red-100 text-red-600 hover:bg-red-200',
+                          ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-50 dark:bg-emerald-950 dark:text-emerald-300'
+                          : 'bg-amber-50 text-amber-800 hover:bg-amber-50 dark:bg-amber-950 dark:text-amber-300',
                       )}
                     >
-                      {req.percentage}%
+                      {req.satisfied ? '충족' : '확인 필요'}
                     </Badge>
                   </div>
 
-                  {/* Credit Stats (Replacing Progress Bar) */}
-                  <div className="flex items-end gap-1.5 py-2">
-                    <span className="text-3xl leading-none font-extrabold text-gray-900">{req.earned}</span>
-                    <span className="mb-0.5 text-sm font-medium text-gray-500">/ {req.required} 학점</span>
+                  <div className="flex items-end justify-between gap-3 py-2">
+                    <div className="flex items-end gap-1.5">
+                      <span className="text-3xl leading-none font-bold text-slate-950 tabular-nums dark:text-slate-50">
+                        {req.earned}
+                      </span>
+                      <span className="mb-0.5 text-sm font-medium text-slate-500 tabular-nums dark:text-slate-400">
+                        / {req.required} 학점
+                      </span>
+                    </div>
+                    <span className="text-sm font-semibold text-slate-600 tabular-nums dark:text-slate-300">
+                      {req.percentage}%
+                    </span>
                   </div>
+                  <Progress
+                    value={req.percentage}
+                    className="mt-3 h-1.5 bg-slate-100 dark:bg-slate-800 [&>div]:bg-blue-600 dark:[&>div]:bg-blue-500"
+                  />
                 </button>
               </SheetTrigger>
               <SheetContent className="w-full sm:max-w-2xl">
@@ -807,6 +829,6 @@ export function RequirementsList({ requirements, className, onResolveNeedsReview
           );
         })}
       </div>
-    </>
+    </section>
   );
 }

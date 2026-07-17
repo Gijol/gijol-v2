@@ -22,6 +22,7 @@ const CourseMyCreditChart = dynamic(() => import('@/features/courses/components/
 
 import OverallSemesterCard from '@/features/courses/components/course-my-overall-semester-card';
 import OverallAcademicCard from '@/features/courses/components/course-my-overall-academic-card';
+import { DashboardPageShell, PageHeader, SectionHeader } from '@/components/dashboard/page-shell';
 
 export default function My() {
   const [gradesVisible, setGradesVisible] = useState(false);
@@ -49,25 +50,18 @@ export default function My() {
   // 아직 업로드된 데이터가 없을 때
   if (!parsed || !parsed.userTakenCourseList?.length) {
     return (
-      <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
+      <DashboardPageShell>
         <NextSeo title="수강 현황" description="내 수강 현황을 확인하세요" noindex />
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 md:text-3xl dark:text-gray-100">수강 현황</h1>
-          <p className="mt-1 text-gray-500 dark:text-gray-400">성적표를 업로드하면 학업 현황을 분석해드립니다.</p>
-        </div>
+        <PageHeader title="수강 현황" description="성적표를 업로드하면 학업 현황을 분석합니다." />
         <UploadEmptyState />
-      </div>
+      </DashboardPageShell>
     );
   }
 
   return (
-    <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
+    <DashboardPageShell>
       <NextSeo title="수강 현황" description="내 수강 현황을 확인하세요" noindex />
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 md:text-3xl dark:text-gray-100">수강 현황</h1>
-        <p className="mt-1 text-sm text-slate-500">학기별 이수학점과 성적 흐름을 확인하세요.</p>
-      </div>
+      <PageHeader title="수강 현황" description="학기별 이수학점과 성적 흐름을 확인하세요." />
 
       {/* Stats Cards */}
       <section aria-label="학업 요약" className="mb-8 grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-12">
@@ -101,12 +95,7 @@ export default function My() {
 
       {/* Charts Section */}
       <section aria-labelledby="semester-trends-title" className="mb-8">
-        <div className="mb-4">
-          <h2 id="semester-trends-title" className="text-lg font-semibold text-slate-950 dark:text-slate-50">
-            학기별 변화
-          </h2>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">학점과 평점의 흐름을 나란히 비교하세요.</p>
-        </div>
+        <SectionHeader title="학기별 변화" description="학점과 평점의 흐름을 나란히 비교하세요." />
         <div className="grid grid-cols-[minmax(0,1fr)] gap-5 xl:grid-cols-2">
           <CourseMyCreditChart data={courseListWithPeriod} />
           <CourseMyGradeChart data={courseListWithPeriod} gradesVisible={gradesVisible} />
@@ -120,7 +109,7 @@ export default function My() {
         </h2>
         <CourseMyTableChart data={courseListWithPeriod} gradesVisible={gradesVisible} />
       </section>
-    </div>
+    </DashboardPageShell>
   );
 }
 

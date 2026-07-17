@@ -1,77 +1,74 @@
 'use client';
 
-import { User, School, Book, Calendar } from 'lucide-react';
-import { Card, CardContent } from '@components/ui/card';
-import { Badge } from '@components/ui/badge';
+import { User } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
 
 interface UserInfoCardProps {
+  studentId?: string;
   entryYear: number | null;
   userMajor: string;
   userMinors: string[];
   className?: string;
 }
 
-// value를 label로 변환하는 헬퍼
 function getMajorLabel(value: string): string {
-  return MAJOR_OPTIONS.find((opt) => opt.value === value)?.label || value || '미선택';
+  return MAJOR_OPTIONS.find((option) => option.value === value)?.label || value || '미선택';
 }
 
 function getMinorLabels(values: string[]): string[] {
-  return values.map((v) => MINOR_OPTIONS.find((opt) => opt.value === v)?.label || v);
+  return values.map((value) => MINOR_OPTIONS.find((option) => option.value === value)?.label || value);
 }
 
-export function UserInfoCard({ entryYear, userMajor, userMinors, className }: UserInfoCardProps) {
+export function UserInfoCard({ studentId, entryYear, userMajor, userMinors, className }: UserInfoCardProps) {
   const minorLabels = getMinorLabels(userMinors);
 
   return (
-    <Card className={className}>
-      <CardContent className="p-5">
-        <div className="mb-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-            <User size={20} className="text-blue-600" />
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900">내 정보</h3>
-            <p className="text-xs text-gray-500">학적 정보</p>
-          </div>
+    <section
+      aria-labelledby="student-info-title"
+      className={cn(
+        'h-full min-w-0 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-950',
+        className,
+      )}
+    >
+      <div className="flex items-center gap-3">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 dark:bg-slate-900 dark:text-slate-400">
+          <User aria-hidden="true" size={16} />
         </div>
-
-        <div className="space-y-3">
-          {/* 학번 */}
-          <div className="flex items-center gap-2">
-            <Calendar size={16} className="text-gray-400" />
-            <span className="w-14 text-sm text-gray-600">학번</span>
-            <span className="text-sm font-medium text-gray-900">{entryYear ? `${entryYear}학번` : '미입력'}</span>
-          </div>
-
-          {/* 전공 */}
-          <div className="flex items-center gap-2">
-            <Book size={16} className="text-gray-400" />
-            <span className="w-14 text-sm text-gray-600">전공</span>
-            <Badge variant="outline" className="border-blue-200 bg-blue-50 text-blue-700">
-              {getMajorLabel(userMajor)}
-            </Badge>
-          </div>
-
-          {/* 부전공 */}
-          <div className="flex items-start gap-2">
-            <School size={16} className="mt-0.5 text-gray-400" />
-            <span className="w-14 text-sm text-gray-600">부전공</span>
-            <div className="flex flex-wrap gap-1">
-              {minorLabels.length > 0 ? (
-                minorLabels.map((label) => (
-                  <Badge key={label} variant="secondary" className="text-xs">
-                    {label}
-                  </Badge>
-                ))
-              ) : (
-                <span className="text-sm text-gray-400">없음</span>
-              )}
-            </div>
-          </div>
+        <div>
+          <h3 id="student-info-title" className="text-base font-semibold text-slate-950 dark:text-slate-50">
+            학적 정보
+          </h3>
+          <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">졸업요건 계산 기준</p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+
+      <dl className="mt-5 divide-y divide-slate-200 border-y border-slate-200 dark:divide-slate-800 dark:border-slate-800">
+        <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-3">
+          <dt className="text-xs font-medium text-slate-500 dark:text-slate-400">학번</dt>
+          <dd className="min-w-0 text-sm font-semibold text-slate-900 tabular-nums dark:text-slate-100">
+            {studentId || '미확인'}
+          </dd>
+        </div>
+        <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-3">
+          <dt className="text-xs font-medium text-slate-500 dark:text-slate-400">입학년도</dt>
+          <dd className="text-sm font-semibold text-slate-900 tabular-nums dark:text-slate-100">
+            {entryYear ? `${entryYear}년` : '미입력'}
+          </dd>
+        </div>
+        <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-3">
+          <dt className="text-xs font-medium text-slate-500 dark:text-slate-400">전공</dt>
+          <dd className="min-w-0 text-sm font-semibold break-words text-slate-900 dark:text-slate-100">
+            {getMajorLabel(userMajor)}
+          </dd>
+        </div>
+        <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-3">
+          <dt className="text-xs font-medium text-slate-500 dark:text-slate-400">부전공</dt>
+          <dd className="min-w-0 text-sm text-slate-700 dark:text-slate-300">
+            {minorLabels.length ? minorLabels.join(', ') : '미선택'}
+          </dd>
+        </div>
+      </dl>
+    </section>
   );
 }

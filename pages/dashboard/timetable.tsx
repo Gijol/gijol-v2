@@ -18,16 +18,10 @@ export default function TimetablePage({ defaultTerm, timetableSources }: Timetab
   return (
     <>
       <NextSeo title="시간표 홈" description="시간표 계획과 이전 시간표를 확인하세요" noindex />
-      <div className="fixed inset-0 top-[60px] flex flex-col overflow-hidden bg-slate-100 xl:top-0 xl:left-[256px]">
-        <TimetableHome defaultTerm={defaultTerm} timetableSources={timetableSources} />
-      </div>
+      <TimetableHome defaultTerm={defaultTerm} timetableSources={timetableSources} />
     </>
   );
 }
-
-// Support for collapsed sidebar alignment (using CSS classes mirroring Layout.tsx)
-// Actually, TimetableLayout already handles internal padding.
-// The "fixed inset-0" ensures no scrollbars from the main app scroll container.
 
 export const getStaticProps: GetStaticProps<TimetablePageProps> = async () => {
   try {

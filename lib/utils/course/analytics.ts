@@ -1,6 +1,10 @@
 import type { UserStatusType } from '@lib/types/index';
 import type { CourseListWithPeriod } from '@utils/status';
 import type { CourseWithGradeStatusType } from '@lib/types/score-status';
+import type { HasGradeAndCredit } from './credits';
+
+export { isEarnedCreditCourse, sumEarnedCredits } from './credits';
+export type { HasGradeAndCredit } from './credits';
 
 const GRADE_POINT_45: Record<string, number> = {
   'A+': 4.5,
@@ -22,17 +26,12 @@ const GRADE_POINT_45: Record<string, number> = {
   U: NaN,
 };
 
-export type HasGradeAndCredit = {
-  credit: number;
-  grade?: string | null;
-};
-
 type HasCourseCode = {
   courseCode?: string | null;
 };
 
 /**
- * 2026 GIST academic handbook, p.208:
+ * 2025 GIST academic handbook, p.195:
  * grade averages are truncated at the third decimal place (two decimals kept).
  * The small epsilon only neutralizes binary floating-point noise at exact
  * hundredth boundaries (for example, 2.30 represented as 2.299999...).

@@ -1,4 +1,5 @@
 import type { UserTakenCourseListType, TakenCourseType, CourseGradeStatus } from '../../domain/types';
+import { isEarnedCreditCourse } from '@utils/course/credits';
 
 export interface ValidationResult {
   ok: boolean;
@@ -91,8 +92,10 @@ export const normalizeTakenCourses = (input: UserTakenCourseListType): UserTaken
     };
   });
 
-  // 2. Filter out F grades
-  normalizedCourses = normalizedCourses.filter((c) => c.grade !== 'F');
+  // 2. Failed attempts remain in the durable transcript but earn no graduation credit.
+  // 2025 GIST academic handbook p. 12: F/U mandatory courses must be retaken
+  // to acquire credit, and only S is the passing result of the S/U scheme.
+  normalizedCourses = normalizedCourses.filter(isEarnedCreditCourse);
 
   // 3. Handle Retakes: Deduplicate by courseCode, keeping the one with better grade/info
   // Defines grade priority for sorting

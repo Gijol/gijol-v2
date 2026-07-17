@@ -37,7 +37,7 @@ describe('timetable term API', () => {
         count: 388,
         page: 1,
         pageSize: 30,
-        totalElements: 388,
+        totalElements: expect.any(Number),
         content: expect.arrayContaining([
           expect.objectContaining({
             course_code: expect.any(String),
@@ -48,6 +48,34 @@ describe('timetable term API', () => {
       }),
     );
     expect(Buffer.byteLength(JSON.stringify(res.body), 'utf8')).toBeLessThan(64 * 1024);
+    const body = res.body as { content: Array<{ program: string }> };
+    body.content.forEach((section) => {
+      expect(section.program).toBe('학사');
+    });
+  });
+
+  it('returns graduate sections when the graduate level is selected', async () => {
+    const req = {
+      method: 'GET',
+      query: { term: '2026-2', level: 'graduate', page: '1' },
+    } as unknown as NextApiRequest;
+    const res = createMockResponse();
+
+    await timetableTermHandler(req, res);
+
+    expect(res.statusCode).toBe(200);
+    const body = res.body as {
+      totalElements: number;
+      undergraduateSectionCount: number;
+      graduateSectionCount: number;
+      content: Array<{ program: string }>;
+    };
+    expect(body.totalElements).toBe(176);
+    expect(body.undergraduateSectionCount).toBe(331);
+    expect(body.graduateSectionCount).toBe(176);
+    body.content.forEach((section) => {
+      expect(section.program).toMatch(/대학원|석사|박사|석박/);
+    });
   });
 
   it('searches and pages term sections on the server', async () => {

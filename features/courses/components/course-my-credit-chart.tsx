@@ -3,12 +3,13 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@components/ui/chart';
 import { CourseListWithPeriod } from '@utils/status';
+import { sumEarnedCredits } from '@utils/course/credits';
 
 const generateChartData = (courseListWithPeriod: CourseListWithPeriod[]) =>
   courseListWithPeriod.map((periodWithList) => ({
     name: `${periodWithList.year}년 ${periodWithList.semester_str}`,
     shortName: `${String(periodWithList.year).slice(-2)}-${periodWithList.semester_str?.charAt(0)}`,
-    credits: periodWithList.userTakenCourseList?.reduce((sum, course) => sum + (Number(course.credit) || 0), 0) ?? 0,
+    credits: sumEarnedCredits(periodWithList.userTakenCourseList ?? []),
   }));
 
 const chartConfig: ChartConfig = {
