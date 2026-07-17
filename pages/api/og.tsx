@@ -1,5 +1,4 @@
 import { ImageResponse } from '@vercel/og';
-import { NextRequest } from 'next/server';
 
 export const config = {
   runtime: 'edge',
@@ -20,7 +19,7 @@ async function fetchFont(text: string, font: string) {
   throw new Error('Failed to load font data');
 }
 
-export default async function handler(req: NextRequest) {
+export default async function handler(req: Request) {
   const { searchParams } = new URL(req.url);
 
   // 기본 문구 설정 (수정된 요구사항 반영)
