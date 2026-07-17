@@ -9,12 +9,12 @@
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "course-catalog:check": "ts-node scripts/course-catalog/check-course-catalog.ts",
-    "course-catalog:export": "ts-node scripts/course-catalog/export-course-catalog.ts",
-    "course-catalog:import-registration-offerings": "ts-node scripts/course-catalog/import-registration-offerings.ts",
-    "course-catalog:extract-manual-listings": "ts-node scripts/course-catalog/extract-manual-listings.ts",
-    "course-catalog:report": "ts-node scripts/course-catalog/build-catalog-report.ts",
-    "course-catalog:check-browser-bundle": "ts-node scripts/course-catalog/check-browser-bundle.ts",
+    "course-catalog:check": "ts-node -r tsconfig-paths/register scripts/course-catalog/check-course-catalog.ts",
+    "course-catalog:export": "ts-node -r tsconfig-paths/register scripts/course-catalog/export-course-catalog.ts",
+    "course-catalog:import-registration-offerings": "ts-node -r tsconfig-paths/register scripts/course-catalog/import-registration-offerings.ts",
+    "course-catalog:extract-manual-listings": "ts-node -r tsconfig-paths/register scripts/course-catalog/extract-manual-listings.ts",
+    "course-catalog:report": "ts-node -r tsconfig-paths/register scripts/course-catalog/build-catalog-report.ts",
+    "course-catalog:check-browser-bundle": "ts-node -r tsconfig-paths/register scripts/course-catalog/check-browser-bundle.ts",
     "public-route:check-browser-bundle": "ts-node scripts/check-public-route-bundle.ts",
     "graduation:catalog:check": "ts-node scripts/graduation/check-rule-catalog.ts",
     "graduation:catalog:export": "ts-node scripts/graduation/export-rule-catalog.ts",
@@ -131,6 +131,7 @@
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18",
     "ts-jest": "^27.1.4",
+    "tsconfig-paths": "^3.14.1",
     "typescript": "^5.9.3"
   }
 }
