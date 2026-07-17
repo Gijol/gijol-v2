@@ -65,6 +65,7 @@ export function useTimetableSectionBrowser(
   return {
     sections: result.data?.pages.flatMap((page) => page.content) ?? [],
     departments: firstPage?.departments ?? [],
+    hasLoadedDepartmentOptions: firstPage !== undefined,
     totalElements: firstPage?.totalElements ?? 0,
     undergraduateSectionCount: firstPage?.undergraduateSectionCount ?? 0,
     graduateSectionCount: firstPage?.graduateSectionCount ?? 0,

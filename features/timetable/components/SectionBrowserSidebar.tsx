@@ -72,8 +72,10 @@ export function SectionBrowserSidebar({ term, interaction, isMobile = false, cla
   }, [debouncedQuery, department, programLevel, router]);
 
   useEffect(() => {
-    if (department && !browser.departments.includes(department)) setDepartment('');
-  }, [browser.departments, department]);
+    if (browser.hasLoadedDepartmentOptions && department && !browser.departments.includes(department)) {
+      setDepartment('');
+    }
+  }, [browser.departments, browser.hasLoadedDepartmentOptions, department]);
 
   const items = useMemo(
     () => projectSectionBrowsingItems(browser.sections, interaction),
@@ -112,20 +114,30 @@ export function SectionBrowserSidebar({ term, interaction, isMobile = false, cla
           <DropdownMenuTrigger asChild>
             <button
               type="button"
-              className={`flex h-10 shrink-0 cursor-pointer touch-manipulation items-center gap-1.5 truncate rounded-lg border border-slate-200 bg-slate-50/70 px-3 text-xs font-semibold tracking-tight transition-[background-color,border-color,color] hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 focus-visible:outline-none ${department ? 'border-blue-300 bg-blue-50 text-blue-700' : ''}`}
+              className={`group flex h-10 shrink-0 cursor-pointer touch-manipulation items-center gap-1.5 truncate rounded-lg border border-slate-200 bg-white px-3 text-xs font-semibold tracking-tight transition-[background-color,border-color,box-shadow,color] hover:border-slate-300 hover:bg-slate-50 focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:outline-none data-[state=open]:border-blue-500 data-[state=open]:ring-2 data-[state=open]:ring-blue-500/20 motion-reduce:transition-none ${department ? 'border-blue-300 bg-blue-50 text-blue-700' : ''}`}
               aria-label="학과 필터"
             >
               <Filter aria-hidden="true" size={14} className="shrink-0 text-slate-400" />
               <span className="max-w-[80px] truncate">{department || '학과'}</span>
-              <ChevronDown aria-hidden="true" size={14} className="shrink-0 text-slate-400" />
+              <ChevronDown
+                aria-hidden="true"
+                size={14}
+                className="shrink-0 text-slate-400 transition-transform duration-150 group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+              />
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="max-h-[300px] w-[180px] overflow-y-auto">
+          <DropdownMenuContent
+            align="end"
+            className="max-h-[300px] w-[200px] overscroll-contain rounded-lg border-slate-200 bg-white p-1.5 shadow-lg shadow-slate-950/10"
+          >
             {['', ...browser.departments].map((option) => (
               <DropdownMenuItem
                 key={option || 'all'}
                 onClick={() => setDepartment(option)}
-                className="flex cursor-pointer items-center justify-between text-xs font-bold"
+                className={cn(
+                  'flex min-h-9 cursor-pointer items-center justify-between rounded-md px-2.5 text-xs font-semibold transition-[background-color,color] focus:bg-slate-100 focus:text-slate-950 motion-reduce:transition-none',
+                  department === option && 'bg-blue-50 text-blue-700 focus:bg-blue-100 focus:text-blue-800',
+                )}
               >
                 <span className="truncate">{option || '모든 학과'}</span>
                 {department === option && <Check aria-hidden="true" size={14} className="shrink-0 text-blue-500" />}
