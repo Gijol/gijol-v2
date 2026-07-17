@@ -21,7 +21,12 @@ build
 # Project Specific Data & Docs (Unnecessary for Prod)
 llm
 docs
-scripts
+# Keep postbuild bundle checks available in Vercel while excluding other scripts.
+scripts/*
+!scripts/check-public-route-bundle.ts
+!scripts/course-catalog/
+scripts/course-catalog/*
+!scripts/course-catalog/check-browser-bundle.ts
 LEGACY_FLOW.md
 .storybook
 
