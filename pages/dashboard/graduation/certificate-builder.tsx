@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { graduationLayout } from '@/components/layouts/graduation-runtime';
 import { NextSeo } from 'next-seo';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -413,3 +414,5 @@ export default function CertificateBuilder() {
     </div>
   );
 }
+
+CertificateBuilder.getLayout = graduationLayout;

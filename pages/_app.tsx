@@ -1,15 +1,12 @@
+import type { ReactElement, ReactNode } from 'react';
+import type { NextPage } from 'next';
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import localFont from 'next/font/local';
 import { DefaultSeo } from 'next-seo';
+import { Analytics } from '@vercel/analytics/react';
 import { SEO } from '../seo.config';
 import '../public/global.css';
-import { useState } from 'react';
-import Head from 'next/head';
-import { AppProps } from 'next/app';
-import { Analytics } from '@vercel/analytics/react';
-import { QueryClient } from '@tanstack/query-core';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'; // Or keep if dev
-
-import localFont from 'next/font/local';
 
 const myFont = localFont({
   src: [
@@ -27,12 +24,16 @@ const myFont = localFont({
   variable: '--font-atoz',
 });
 
-import { Layout } from '@components/layouts/layout';
-import { ThemeProvider } from '@components/theme-provider';
-import { Toaster } from '@components/ui/toaster';
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
 
-export default function App({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
     <>
@@ -40,17 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </Head>
       <DefaultSeo {...SEO} />
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} forcedTheme="light">
-        <QueryClientProvider client={queryClient}>
-          <main className={myFont.className}>
-            <Layout>
-              <Component {...pageProps} />
-              <Toaster />
-            </Layout>
-          </main>
-          {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
-        </QueryClientProvider>
-      </ThemeProvider>
+      <div className={myFont.className}>{getLayout(<Component {...pageProps} />)}</div>
       <Analytics />
     </>
   );

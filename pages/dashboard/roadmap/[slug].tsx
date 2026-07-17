@@ -1,5 +1,6 @@
 // pages/dashboard/roadmap/[slug].tsx
 import React, { useEffect, useState } from 'react';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -116,3 +117,5 @@ export default function RoadmapPresetPage() {
     </RoadmapProvider>
   );
 }
+
+RoadmapPresetPage.getLayout = dashboardLayout;

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { graduationLayout } from '@/components/layouts/graduation-runtime';
 import { NextSeo } from 'next-seo';
 import { useGraduationStore } from '../../lib/stores/useGraduationStore';
 import { extractOverallStatus, getPercentage } from '@utils/graduation/grad-formatter';
@@ -30,6 +31,8 @@ const DOMAIN_TO_CATEGORY_KEY: Record<string, FineGrainedRequirement['categoryKey
 function getRequirementStatus(requirement: FineGrainedRequirement) {
   return requirement.status ?? (requirement.satisfied ? 'satisfied' : 'unsatisfied');
 }
+
+HomePage.getLayout = graduationLayout;
 
 function getCreditPercentage(earned: number, required: number, fallback: number): number {
   if (required <= 0) return fallback;

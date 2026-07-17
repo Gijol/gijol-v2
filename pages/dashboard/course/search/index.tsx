@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
 import { Input } from '@components/ui/input';
 import { Badge } from '@components/ui/badge';
@@ -37,6 +38,8 @@ function getDepartmentBadgeColor(department?: string) {
   if (department.includes('화학')) return 'bg-rose-50 text-rose-700 hover:bg-rose-100';
   return 'bg-gray-100 text-gray-600 hover:bg-gray-200';
 }
+
+CourseSearchPage.getLayout = dashboardLayout;
 
 // 카테고리 필터 옵션
 const CATEGORY_OPTIONS = [

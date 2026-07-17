@@ -2,6 +2,7 @@ import React from 'react';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { HelpCircle } from 'lucide-react';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 
 import { convertGradeTo4Scale, CourseListWithPeriod } from '@utils/status';
 import { useMyCourseOverview } from '@hooks/useMyCourseOverview';
@@ -122,3 +123,5 @@ export default function My() {
     </div>
   );
 }
+
+My.getLayout = dashboardLayout;

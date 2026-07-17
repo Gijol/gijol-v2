@@ -1,4 +1,5 @@
 import React from 'react';
+import { timetableLayout } from '@/components/layouts/timetable-runtime';
 import { NextSeo } from 'next-seo';
 import { GetStaticProps } from 'next';
 import { TimetableHome } from '@/features/timetable/components/TimetableHome';
@@ -48,3 +49,5 @@ export const getStaticProps: GetStaticProps<TimetablePageProps> = async () => {
     };
   }
 };
+
+TimetablePage.getLayout = timetableLayout;

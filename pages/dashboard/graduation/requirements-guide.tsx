@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
 import { ArrowRight, BookOpen, CheckCircle2, FileSpreadsheet, ExternalLink, Scale, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -267,12 +268,16 @@ export default function RequirementsGuidePage() {
           <div className="rounded-lg border bg-white p-4 text-center">
             <span className="text-2xl">🎭</span>
             <h4 className="mt-2 font-medium">예술</h4>
-            <p className="text-sm text-slate-500">2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기</p>
+            <p className="text-sm text-slate-500">
+              2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기
+            </p>
           </div>
           <div className="rounded-lg border bg-white p-4 text-center">
             <span className="text-2xl">⚽</span>
             <h4 className="mt-2 font-medium">체육</h4>
-            <p className="text-sm text-slate-500">2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기</p>
+            <p className="text-sm text-slate-500">
+              2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기
+            </p>
           </div>
           <div className="rounded-lg border bg-white p-4 text-center">
             <span className="text-2xl">🎤</span>
@@ -326,6 +331,8 @@ export default function RequirementsGuidePage() {
     </div>
   );
 }
+
+RequirementsGuidePage.getLayout = dashboardLayout;
 
 // --- Helper Components ---
 

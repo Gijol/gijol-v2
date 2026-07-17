@@ -101,6 +101,18 @@ Implemented on 2026-07-16:
 - timetable plan alternatives and the legacy plan format use separate interaction Adapters, preserving ADR-0004 and legacy IDs;
 - tests cover search semantics, pages, the 64 KiB response budget, source caching, cancellation, conflict projection, and both Adapter contracts.
 
+### Opportunity 6 completed: route-scoped dashboard runtime
+
+Implemented on 2026-07-16:
+
+- every dashboard page now owns its shell through the Pages Router `getLayout` Interface;
+- global `_app` keeps only viewport, SEO, font, CSS, and analytics concerns;
+- all dashboard layouts share one outer runtime so navigation preserves shell state;
+- toast rendering is limited to graduation notification consumers, while React Query and its development tools are limited to timetable pages;
+- the dashboard shell no longer contains pathname detection or a public pass-through branch;
+- the optimized `_app` chunk fell from 230,904 raw / 69,424 gzip bytes to 20,164 raw / 6,120 gzip bytes;
+- public `/` First Load fell from 195 KiB to 147 KiB, with a 112 KiB gzip manifest budget and dashboard-fingerprint check.
+
 ## Root causes
 
 ### Catalog ownership leaks into browser modules
@@ -187,7 +199,7 @@ Expected result:
 - share one term cache;
 - localize the later backend data-source replacement.
 
-### 6. Scope the dashboard shell to dashboard routes
+### 6. Scope the dashboard shell to dashboard routes — completed
 
 The global app currently imports the dashboard layout and related primitives before determining whether the current route is a dashboard route. Move dashboard ownership to route-scoped layout code and scope query tooling and notifications to actual consumers.
 
@@ -204,7 +216,7 @@ Expected result:
 4. Separate durable graduation inputs from derived outcomes. Completed 2026-07-16.
 5. Remove redundant roadmap catalog fetching. Completed 2026-07-16.
 6. Consolidate timetable section browsing. Completed 2026-07-16.
-7. Scope the dashboard shell and remaining providers by route.
+7. Scope the dashboard shell and remaining providers by route. Completed 2026-07-16.
 
 The first two items should be delivered together because changing only the transport still leaves the snapshot in the client import graph, while changing only the import graph still leaves the 11.78 MB search response.
 

@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@components/ui/card';
@@ -114,6 +115,8 @@ function applyInputMetadata(
 
   return effectiveEntryYear;
 }
+
+GraduationLabPage.getLayout = dashboardLayout;
 
 function readGradeStatusTerms(raw: any): GradeStatusTerm[] {
   if (Array.isArray(raw?.gradeStatusTerms)) {

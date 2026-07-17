@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { graduationLayout } from '@/components/layouts/graduation-runtime';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
@@ -30,6 +31,8 @@ function resolveMajorFromParsed(parsed: UserStatusType, takenCourses = toTakenCo
   const majorResolution = resolveMajorForEvaluation(parsedMajor, takenCourses);
   return majorResolution.code ?? (parsedMajor ? String(parsedMajor) : '');
 }
+
+GraduationParsePage.getLayout = graduationLayout;
 
 export default function GraduationParsePage() {
   const router = useRouter();

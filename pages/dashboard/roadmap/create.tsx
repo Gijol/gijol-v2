@@ -1,6 +1,7 @@
 // pages/dashboard/roadmap/create.tsx
 // Roadmap creation page - allows users to create their own custom roadmap
 import React from 'react';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 
@@ -25,3 +26,5 @@ export default function RoadmapCreatePage() {
     </>
   );
 }
+
+RoadmapCreatePage.getLayout = dashboardLayout;

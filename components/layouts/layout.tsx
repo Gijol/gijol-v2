@@ -15,12 +15,6 @@ export function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const isDashboard = router.pathname.includes('dashboard');
-
-  if (!isDashboard) {
-    return <>{children}</>;
-  }
-
   return (
     <div className="flex min-h-screen w-full overflow-x-hidden">
       {/* Desktop Sidebar (Dark Theme) */}

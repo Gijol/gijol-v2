@@ -1,4 +1,5 @@
 import { NextSeo } from 'next-seo';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 
 export default function SchoolMainPage() {
   return (
@@ -8,3 +9,5 @@ export default function SchoolMainPage() {
     </>
   );
 }
+
+SchoolMainPage.getLayout = dashboardLayout;

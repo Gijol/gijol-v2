@@ -1,4 +1,5 @@
 import React from 'react';
+import { timetableLayout } from '@/components/layouts/timetable-runtime';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { TimetablePlanEditor } from '@/features/timetable/components/TimetablePlanEditor';
@@ -17,3 +18,5 @@ export default function TimetablePlanPage() {
     </>
   );
 }
+
+TimetablePlanPage.getLayout = timetableLayout;

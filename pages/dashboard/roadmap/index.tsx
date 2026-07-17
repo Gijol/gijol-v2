@@ -1,6 +1,7 @@
 // pages/dashboard/roadmap/index.tsx
 // Roadmap index page - shows sidebar with presets and an intro canvas
 import React from 'react';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
 import { Map, ArrowRight } from 'lucide-react';
 import { PresetsSidebar } from '@/features/roadmap/PresetsSidebar';
@@ -35,3 +36,5 @@ export default function RoadmapPage() {
     </div>
   );
 }
+
+RoadmapPage.getLayout = dashboardLayout;
