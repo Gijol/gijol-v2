@@ -18,6 +18,26 @@ export interface CourseDB {
   offered2025_1: boolean;
   offered2025_2: boolean;
   description: string;
+  offeredTerms?: string[];
+  sourcePageFirstSeen?: number;
+  rawTitleKo?: string;
+  rawTitleEn?: string;
+}
+
+const ACADEMIC_ORG_RENAMES: [RegExp, string][] = [
+  [/College of Information and Computing/g, 'College of Artificial Intelligence'],
+  [/Department of AI Convergence/g, 'Department of AI'],
+  [/정보컴퓨팅대학/g, 'AI대학'],
+  [/AI융합 부전공/g, 'AI 부전공'],
+  [/AI 융합 부전공/g, 'AI 부전공'],
+  [/AI융합학과/g, 'AI학과'],
+];
+
+export function normalizeAcademicOrgName(value: string): string {
+  return ACADEMIC_ORG_RENAMES.reduce(
+    (current, [pattern, replacement]) => current.replace(pattern, replacement),
+    value,
+  ).trim();
 }
 
 /**
@@ -27,7 +47,27 @@ export function parseCoursesFromCSV(csvContent: string): CourseDB[] {
   const lines = csvContent.split('\n');
   if (lines.length < 2) return [];
 
-  // Skip header
+  const headers = parseCSVLine(lines[0].replace(/^\uFEFF/, ''));
+  const indexByHeader = new Map(headers.map((header, index) => [header, index]));
+  const fieldValue = (fields: readonly string[], header: string): string => {
+    const index = indexByHeader.get(header);
+    return index === undefined ? '' : fields[index] ?? '';
+  };
+  const booleanField = (fields: readonly string[], header: string): boolean =>
+    fieldValue(fields, header).toLowerCase() === 'true';
+  const numberField = (fields: readonly string[], header: string): number | undefined => {
+    const rawValue = fieldValue(fields, header);
+    if (!rawValue) return undefined;
+    const parsed = Number(rawValue);
+    return Number.isFinite(parsed) ? parsed : undefined;
+  };
+  const offeredHeaders = headers
+    .map((header) => ({
+      header,
+      match: header.match(/^offered_(\d{4})_(\d+)$/),
+    }))
+    .filter((entry): entry is { header: string; match: RegExpMatchArray } => Boolean(entry.match));
+
   const courses: CourseDB[] = [];
 
   for (let i = 1; i < lines.length; i++) {
@@ -36,23 +76,31 @@ export function parseCoursesFromCSV(csvContent: string): CourseDB[] {
 
     // CSV 파싱 (quoted 필드 처리)
     const fields = parseCSVLine(line);
-    if (fields.length < 14) continue;
+    if (fields.length < 4) continue;
+
+    const offeredTerms = offeredHeaders
+      .filter(({ header }) => booleanField(fields, header))
+      .map(({ match }) => `${match[1]}-${match[2]}`);
 
     const course: CourseDB = {
-      courseUid: fields[0] || '',
-      displayTitleKo: fields[1] || '',
-      displayTitleEn: fields[2] || '',
-      primaryCourseCode: fields[3] || '',
-      aliasCodes: fields[4] ? fields[4].split('|').filter(Boolean) : [],
-      participatingDepartments: fields[5] ? fields[5].split('|').filter(Boolean) : [],
-      tags: fields[6] ? fields[6].split('|').filter(Boolean) : [],
-      creditHours: parseInt(fields[7], 10) || 0,
-      lectureHours: parseInt(fields[8], 10) || 0,
-      labHours: parseInt(fields[9], 10) || 0,
-      departmentContext: fields[10] || '',
-      offered2025_1: fields[11]?.toLowerCase() === 'true',
-      offered2025_2: fields[12]?.toLowerCase() === 'true',
-      description: fields[13] || '',
+      courseUid: fieldValue(fields, 'course_uid'),
+      displayTitleKo: fieldValue(fields, 'display_title_ko'),
+      displayTitleEn: fieldValue(fields, 'display_title_en'),
+      primaryCourseCode: fieldValue(fields, 'primary_course_code'),
+      aliasCodes: fieldValue(fields, 'alias_course_codes').split('|').filter(Boolean),
+      participatingDepartments: fieldValue(fields, 'participating_departments').split('|').filter(Boolean),
+      tags: fieldValue(fields, 'tags').split('|').filter(Boolean),
+      creditHours: numberField(fields, 'credit_hours') ?? 0,
+      lectureHours: numberField(fields, 'lecture_hours') ?? 0,
+      labHours: numberField(fields, 'lab_hours') ?? 0,
+      departmentContext: fieldValue(fields, 'department_context'),
+      offered2025_1: booleanField(fields, 'offered_2025_1'),
+      offered2025_2: booleanField(fields, 'offered_2025_2'),
+      description: fieldValue(fields, 'description'),
+      offeredTerms,
+      sourcePageFirstSeen: numberField(fields, 'source_page_first_seen'),
+      rawTitleKo: fieldValue(fields, 'raw_title_ko'),
+      rawTitleEn: fieldValue(fields, 'raw_title_en'),
     };
 
     courses.push(course);
@@ -107,12 +155,21 @@ export function getCourseLevel(code: string): number {
  */
 export function getDepartmentDisplayName(dept: string): string {
   if (!dept) return '';
-  // "정보컴퓨팅대학 | 전기전자컴퓨터공학과" -> "전기전자컴퓨터공학과"
-  const parts = dept.split('|');
+  // "AI대학 | 전기전자컴퓨터공학과" -> "전기전자컴퓨터공학과"
+  const normalized = normalizeAcademicOrgName(dept);
+  const parts = normalized.split('|');
   if (parts.length > 1) {
     return parts[1].trim();
   }
   return parts[0].trim();
+}
+
+export function getVisibleDepartmentDisplayNames(departments: readonly string[]): string[] {
+  return Array.from(new Set(
+    departments
+      .map(getDepartmentDisplayName)
+      .filter((department) => /[가-힣]/.test(department)),
+  ));
 }
 
 /**
@@ -128,7 +185,8 @@ export function filterCourses(courses: CourseDB[], query: string): CourseDB[] {
       course.displayTitleEn.toLowerCase().includes(lowerQuery) ||
       course.primaryCourseCode.toLowerCase().includes(lowerQuery) ||
       course.aliasCodes.some((code) => code.toLowerCase().includes(lowerQuery)) ||
-      course.departmentContext.toLowerCase().includes(lowerQuery)
+      course.departmentContext.toLowerCase().includes(lowerQuery) ||
+      normalizeAcademicOrgName(course.departmentContext).toLowerCase().includes(lowerQuery)
     );
   });
 }

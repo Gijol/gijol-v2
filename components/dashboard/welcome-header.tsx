@@ -1,38 +1,39 @@
-import { useRouter } from 'next/router';
+import Link from 'next/link';
+import type { ReactNode } from 'react';
 import { Upload } from 'lucide-react';
 import { Button } from '@components/ui/button';
+import { PageHeader } from '@components/dashboard/page-shell';
 
 interface WelcomeHeaderProps {
   studentId: string | undefined;
   remainingCredits?: number;
   hasData: boolean;
+  actions?: ReactNode;
 }
 
-export function WelcomeHeader({ studentId, remainingCredits, hasData }: WelcomeHeaderProps) {
-  const router = useRouter();
-
+export function WelcomeHeader({ studentId, remainingCredits, hasData, actions }: WelcomeHeaderProps) {
   return (
-    <div className="mb-8">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="flex items-center gap-2 text-2xl font-bold text-gray-900 md:text-3xl">
-            {studentId ? `안녕하세요, ${studentId}님!` : '안녕하세요!'} 👋
-          </h1>
-          <p className="mt-1 text-gray-500">
-            {hasData ? `졸업까지 ${remainingCredits}학점 남았습니다. 화이팅!` : '먼저 성적표를 업로드해주세요.'}
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-            <Button
-            size="lg"
-            className="bg-[#0B62DA] text-white shadow-lg shadow-blue-500/25 hover:bg-[#0952B8]"
-            onClick={() => router.push('/dashboard/graduation/upload')}
-            >
-            <Upload className="mr-2 h-5 w-5" />
-            {hasData ? '성적표 업데이트' : '성적표 업로드하기'}
+    <PageHeader
+      eyebrow="학업 대시보드"
+      title={studentId ? `${studentId}님의 졸업 현황` : '졸업 현황'}
+      description={
+        hasData && remainingCredits !== undefined
+          ? `현재 이수 기록을 기준으로 졸업까지 ${remainingCredits.toLocaleString('ko-KR')}학점 남았습니다.`
+          : '성적표를 업로드하면 졸업요건과 수강 기록을 분석합니다.'
+      }
+      actions={
+        <>
+          {actions}
+          {hasData && (
+            <Button asChild variant="brand" className="h-10 px-4 font-semibold">
+              <Link href="/dashboard/graduation/upload">
+                <Upload aria-hidden="true" className="h-4 w-4" />
+                성적표 업데이트
+              </Link>
             </Button>
-        </div>
-      </div>
-    </div>
+          )}
+        </>
+      }
+    />
   );
 }

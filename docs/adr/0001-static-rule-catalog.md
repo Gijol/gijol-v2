@@ -1,0 +1,3 @@
+# Use a Static Graduation Rule Catalog
+
+We will not parse bachelor manual PDFs at runtime or introduce a separate database for graduation rules. Graduation evaluation, recommendations, and course services should read from a versioned static rule catalog committed to the repository, where each rule records its applicable entry-year range and bachelor-manual source year/page, because this keeps the service deployable without database operations while preserving traceability back to the original manuals. The initial implementation will use TypeScript `as const` data so the existing TypeScript codebase can validate and refactor the catalog without adding a separate schema toolchain.

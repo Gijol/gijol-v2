@@ -39,11 +39,6 @@ export const SEO = {
   additionalLinkTags: [
     {
       rel: 'icon',
-      href: '/favicon.svg',
-      type: 'image/svg+xml',
-    },
-    {
-      rel: 'icon',
       href: '/favicon-32x32.png',
       sizes: '32x32',
       type: 'image/png',

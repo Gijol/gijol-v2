@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { graduationLayout } from '@/components/layouts/graduation-runtime';
 import { NextSeo } from 'next-seo';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ChevronRight, ChevronLeft, Check, Menu } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check, Info, Menu } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 import { certificateFormSchema, CertificateFormValues } from '@/features/certificate/schema';
@@ -72,17 +73,18 @@ const SummaryView = dynamic(
 
 import { SidebarStepper } from '@/features/certificate/components/sidebar-stepper';
 import { SectionNotesCollapsible } from '@/features/certificate/components/section-notes-collapsible';
+import { DashboardPageShell, PageHeader } from '@/components/dashboard/page-shell';
 
 // Loading components
 const SectionLoader = () => (
-  <div className="flex h-48 items-center justify-center">
-    <div className="h-6 w-6 animate-spin rounded-full border-2 border-slate-300 border-t-blue-500" />
+  <div className="flex h-48 items-center justify-center" role="status" aria-label="입력 항목 불러오는 중">
+    <div className="h-6 w-6 animate-spin rounded-full border-2 border-slate-200 border-t-blue-600 motion-reduce:animate-none" />
   </div>
 );
 
 const PageLoader = () => (
-  <div className="flex min-h-screen items-center justify-center">
-    <div className="h-8 w-8 animate-spin rounded-full border-4 border-slate-300 border-t-blue-500" />
+  <div className="flex min-h-[60vh] items-center justify-center" role="status" aria-label="확인서 불러오는 중">
+    <div className="h-8 w-8 animate-spin rounded-full border-4 border-slate-200 border-t-blue-600 motion-reduce:animate-none" />
   </div>
 );
 
@@ -100,6 +102,7 @@ export default function CertificateBuilder() {
     reset,
   } = useCertificateStore();
   const [isGenerating, setIsGenerating] = useState(false);
+  const [mobileStepsOpen, setMobileStepsOpen] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<CertificateFormValues>({
@@ -184,14 +187,22 @@ export default function CertificateBuilder() {
     // Step 3: No Credit - check if any was entered
     const step3Complete = !!(nc.arts.total > 0 || nc.sports.total > 0 || nc.colloquium.total > 0);
 
-    // Step 4: Other Units - optional, always considered "complete" if visited
-    const step4Complete = true; // Optional section
+    // Step 4: optional, considered complete after the user moves past it or enters data
+    const hasOtherCredits = !!(
+      ou.summerSession.credits ||
+      ou.summerSession.university ||
+      ou.summerSession.semester ||
+      ou.studyAbroad.credits ||
+      ou.studyAbroad.university ||
+      ou.studyAbroad.semester
+    );
+    const step4Complete = currentStep > 4 || hasOtherCredits;
 
-    // Step 5: Review - complete when all previous are complete
-    const step5Complete = step0Complete && step1Complete && step2Complete && step3Complete;
+    // Step 5: complete only after final submission
+    const step5Complete = isSubmitted;
 
     return [step0Complete, step1Complete, step2Complete, step3Complete, step4Complete, step5Complete];
-  }, [values]);
+  }, [currentStep, isSubmitted, values]);
 
   const handleStart = () => {
     setViewMode('builder');
@@ -222,10 +233,10 @@ export default function CertificateBuilder() {
   };
 
   const handleSubmit = async () => {
-    const isValid = await form.trigger();
+    const isValid = await form.trigger(undefined, { shouldFocus: true });
     if (isValid) {
       submitForm(); // Updates state to submitted and viewMode to summary
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'auto' });
       toast({
         title: '작성 완료',
         description: '입력하신 내역을 확인해주세요.',
@@ -277,19 +288,27 @@ export default function CertificateBuilder() {
 
   // Render Logic
   if (viewMode === 'landing') {
-    return <LandingView onStart={handleStart} hasSavedData={hasSavedData} />;
+    return (
+      <>
+        <NextSeo title="확인서 생성기" description="졸업요건 확인서를 자동으로 생성하세요" noindex />
+        <LandingView onStart={handleStart} hasSavedData={hasSavedData} />
+      </>
+    );
   }
 
   if (viewMode === 'summary') {
     return (
-      <Form {...form}>
-        <SummaryView
-          onEdit={() => setViewMode('builder')}
-          onExport={handleExport}
-          onReset={handleReset}
-          isGenerating={isGenerating}
-        />
-      </Form>
+      <>
+        <NextSeo title="확인서 검토" description="작성한 졸업 이수요건 확인서를 검토하세요" noindex />
+        <Form {...form}>
+          <SummaryView
+            onEdit={() => setViewMode('builder')}
+            onExport={handleExport}
+            onReset={handleReset}
+            isGenerating={isGenerating}
+          />
+        </Form>
+      </>
     );
   }
 
@@ -300,78 +319,120 @@ export default function CertificateBuilder() {
   const isLaterThan2021 = studentNumber ? parseInt(studentNumber.substring(0, 4)) >= 2021 : true;
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
+    <DashboardPageShell>
       <NextSeo title="확인서 생성기" description="졸업요건 확인서를 자동으로 생성하세요" noindex />
       <Form {...form}>
-        <form className="flex min-h-screen">
-          {/* Desktop Sidebar (Hidden on Mobile) */}
-          <aside className="sticky top-0 hidden h-fit w-72 shrink-0 flex-col rounded-2xl border border-slate-300 bg-white p-4 shadow-md md:flex">
-            <div className="mb-6">
-              <h1 className="text-lg font-bold text-gray-900">졸업요건 확인서 생성기 🪄</h1>
-              <p className="mt-1 text-sm text-gray-500">단계별로 정보를 입력해주세요!</p>
-            </div>
+        <form className="mx-auto max-w-6xl" onSubmit={(event) => event.preventDefault()}>
+          <PageHeader
+            eyebrow="이수요건 확인서"
+            title="졸업 신청 정보를 입력하세요"
+            description="입력 내용은 이 브라우저에 자동 저장됩니다. 마지막 검토 후 제출용 Excel 파일을 내려받을 수 있습니다."
+          />
 
-            <div className="flex-1 overflow-y-auto">
+          <div className="grid items-start gap-8 lg:grid-cols-[17rem_minmax(0,1fr)]">
+            {/* Desktop Sidebar (Hidden on Mobile) */}
+            <aside className="sticky top-6 hidden rounded-xl border border-slate-200 bg-white p-4 lg:block">
+              <div className="mb-4 border-b border-slate-200 px-1 pb-4">
+                <div className="flex items-center justify-between gap-3">
+                  <h2 className="text-sm font-semibold text-slate-950">작성 진행률</h2>
+                  <span className="text-xs font-semibold text-blue-700 tabular-nums">
+                    {completedSteps.filter(Boolean).length}/{SECTION_TITLES.length}
+                  </span>
+                </div>
+                <div
+                  className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100"
+                  role="progressbar"
+                  aria-label="확인서 작성 진행률"
+                  aria-valuemin={0}
+                  aria-valuemax={SECTION_TITLES.length}
+                  aria-valuenow={completedSteps.filter(Boolean).length}
+                >
+                  <div
+                    className="h-full origin-left rounded-full bg-blue-600 transition-transform duration-200 ease-[var(--ease-ui-out)] motion-reduce:transition-none"
+                    style={{ transform: `scaleX(${completedSteps.filter(Boolean).length / SECTION_TITLES.length})` }}
+                  />
+                </div>
+              </div>
+
               <SidebarStepper
                 steps={SECTION_TITLES}
                 currentStep={currentStep}
                 completedSteps={completedSteps}
                 onStepClick={handleStepClick}
               />
-            </div>
-          </aside>
+            </aside>
 
-          {/* Mobile Floating Menu (Drawer Trigger) */}
-          <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="default" size="lg" className="rounded-full shadow-xl">
-                  <Menu className="mr-2 h-4 w-4" />
-                  메뉴 열기
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="bottom" className="h-[45vh] rounded-t-[20px]">
-                <SheetHeader className="mb-4 text-left">
-                  <SheetTitle>졸업요건 확인서 생성기 🪄</SheetTitle>
-                </SheetHeader>
-                <div className="h-full overflow-y-auto pb-8">
+            {/* Mobile Step Menu */}
+            <div className="lg:hidden">
+              <Sheet open={mobileStepsOpen} onOpenChange={setMobileStepsOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="h-auto w-full justify-between rounded-xl bg-white px-4 py-3 shadow-none"
+                  >
+                    <span className="flex min-w-0 items-center gap-3 text-left">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white tabular-nums">
+                        {currentStep + 1}
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-[11px] font-medium text-slate-500">
+                          단계 {currentStep + 1}/{SECTION_TITLES.length}
+                        </span>
+                        <span className="block truncate text-sm font-semibold text-slate-900">{currentSection}</span>
+                      </span>
+                    </span>
+                    <Menu aria-hidden="true" className="text-slate-500" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent
+                  side="bottom"
+                  className="max-h-[80dvh] overflow-y-auto overscroll-contain rounded-t-2xl pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
+                >
+                  <SheetHeader className="mb-4 text-left">
+                    <SheetTitle>작성 단계</SheetTitle>
+                  </SheetHeader>
                   <SidebarStepper
                     steps={SECTION_TITLES}
                     currentStep={currentStep}
                     completedSteps={completedSteps}
                     onStepClick={(index) => {
                       handleStepClick(index);
+                      setMobileStepsOpen(false);
                     }}
                   />
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+                </SheetContent>
+              </Sheet>
+            </div>
 
-          {/* Main Content */}
-          <main className="flex-1 overflow-y-auto p-4 md:p-8">
-            <div className="mx-auto max-w-4xl">
+            {/* Main Content */}
+            <section id="certificate-form-content" aria-labelledby="certificate-step-title" className="min-w-0">
               {/* Section Header */}
-              <div className="mb-8">
-                <span className="text-brand-primary text-sm font-medium">
-                  Step {currentStep + 1} / {SECTION_TITLES.length}
-                </span>
-                <h2 className="mt-1 text-2xl font-bold text-gray-900">{currentSection}</h2>
+              <div className="mt-7 mb-5 flex items-end justify-between gap-4 lg:mt-0">
+                <div>
+                  <span className="text-xs font-semibold text-blue-700 tabular-nums">
+                    단계 {currentStep + 1} / {SECTION_TITLES.length}
+                  </span>
+                  <h2
+                    id="certificate-step-title"
+                    className="mt-1 text-xl font-semibold tracking-tight text-balance text-slate-950 sm:text-2xl"
+                  >
+                    {currentSection}
+                  </h2>
+                </div>
+                <span className="hidden text-xs text-slate-500 sm:block">변경 내용 자동 저장</span>
               </div>
 
               {/* Global Notice Banner */}
-              <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
-                <p>
-                  <strong>📝 안내:</strong> 본 생성기는 기본 포맷을 작성합니다. 상세 내용은 다운로드 후 직접
-                  수정해주세요.
-                </p>
+              <div className="mb-4 flex items-start gap-2.5 rounded-lg border border-blue-100 bg-blue-50 px-4 py-3 text-sm leading-6 text-blue-900">
+                <Info aria-hidden="true" className="mt-1 shrink-0 text-blue-600" size={15} />
+                <p>기본 서식을 먼저 완성합니다. 세부 문구나 예외 사항은 Excel 다운로드 후 수정해 주세요.</p>
               </div>
 
               {/* Section Notes */}
               <SectionNotesCollapsible stepIndex={currentStep} />
 
               {/* Section Content */}
-              <div className="animate-in fade-in slide-in-from-right-4 duration-300">
+              <div>
                 {currentStep === 0 && <UserInfoSection />}
                 {currentStep === 1 && <BasicCreditsSection isLaterThan2021={isLaterThan2021} />}
                 {currentStep === 2 && <MajorCreditsSection />}
@@ -381,35 +442,32 @@ export default function CertificateBuilder() {
               </div>
 
               {/* Navigation Actions */}
-              <div className="mt-6 flex justify-between gap-3">
+              <div className="mt-6 flex items-center justify-between gap-3 border-t border-slate-200 pt-5">
                 {currentStep > 0 && (
-                  <Button type="button" variant="outline" onClick={prevStep}>
-                    <ChevronLeft className="mr-2 h-4 w-4" />
+                  <Button type="button" variant="outline" onClick={prevStep} className="shadow-none">
+                    <ChevronLeft aria-hidden="true" className="mr-2 h-4 w-4" />
                     이전 단계
                   </Button>
                 )}
 
                 {isLastStep ? (
-                  <Button
-                    type="button"
-                    size="lg"
-                    onClick={handleSubmit}
-                    className="bg-brand-primary hover:bg-brand-primary-hover ml-auto text-white"
-                  >
-                    <Check className="mr-2 h-4 w-4" />
+                  <Button type="button" size="lg" onClick={handleSubmit} className="ml-auto" variant="brand">
+                    <Check aria-hidden="true" className="mr-2 h-4 w-4" />
                     제출하기
                   </Button>
                 ) : (
                   <Button type="button" variant="brand" onClick={nextStep} className="ml-auto">
                     다음 단계
-                    <ChevronRight className="ml-2 h-4 w-4" />
+                    <ChevronRight aria-hidden="true" className="ml-2 h-4 w-4" />
                   </Button>
                 )}
               </div>
-            </div>
-          </main>
+            </section>
+          </div>
         </form>
       </Form>
-    </div>
+    </DashboardPageShell>
   );
 }
+
+CertificateBuilder.getLayout = graduationLayout;

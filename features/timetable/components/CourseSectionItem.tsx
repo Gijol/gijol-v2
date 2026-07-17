@@ -1,10 +1,10 @@
-import React from 'react';
-import { SectionOffering } from '@/lib/types/timetable';
+import React, { useEffect, useRef, useState } from 'react';
+import type { SectionOffering } from '@/lib/types/timetable';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Minus, AlertCircle } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Plus, Minus, AlertCircle, Check, Copy } from 'lucide-react';
+import { isGraduateSection } from '@/features/timetable/section-browsing';
 
 const DAY_TO_KOREAN: Record<string, string> = {
   MON: '월',
@@ -39,6 +39,16 @@ export function CourseSectionItem({
   compact = false,
   hideBorder = false,
 }: CourseSectionItemProps) {
+  const [isCopied, setIsCopied] = useState(false);
+  const copyFeedbackTimeoutRef = useRef<number>();
+
+  useEffect(
+    () => () => {
+      if (copyFeedbackTimeoutRef.current) window.clearTimeout(copyFeedbackTimeoutRef.current);
+    },
+    [],
+  );
+
   const handleAction = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (isAdded) {
@@ -48,182 +58,141 @@ export function CourseSectionItem({
     }
   };
 
+  const handleCopyCourseCode = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    await navigator.clipboard.writeText(section.course_code);
+    setIsCopied(true);
+    if (copyFeedbackTimeoutRef.current) window.clearTimeout(copyFeedbackTimeoutRef.current);
+    copyFeedbackTimeoutRef.current = window.setTimeout(() => setIsCopied(false), 1600);
+  };
+
   const instructors = section.instructors.map((i) => i.name).join(', ') || '미지정';
 
-  // Format meeting times as a compact string
   const meetingInfo = section.meetings
     .map((m) => {
       const day = DAY_TO_KOREAN[m.day] || m.day;
-      return `${day} ${m.start}-${m.end}`;
+      return `${day} ${m.start}–${m.end}`;
     })
     .join(' / ');
+  const isGraduate = isGraduateSection(section);
+  const isCapacityPending = section.capacity_status === 'pending' || section.capacity === 0;
 
-  // Compact mobile view
-  if (compact) {
-    return (
-      <div
-        className={cn(
-          'group relative flex w-full min-w-0 cursor-default flex-col overflow-hidden p-3 transition-all duration-200',
-          !hideBorder && 'border-b border-slate-200',
-          isAdded ? 'bg-blue-50/40' : 'hover:bg-slate-50',
-          isConflict && !isAdded && 'bg-red-50/30 opacity-80',
-        )}
-        onMouseEnter={() => onMouseEnter(section)}
-        onMouseLeave={onMouseLeave}
-      >
-        {isAdded && <div className="absolute top-0 bottom-0 left-0 w-1 bg-blue-500" />}
-
-        <div className="flex w-full min-w-0 items-center justify-between gap-2">
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2">
-              <span className="shrink-0 font-mono text-[10px] font-bold text-slate-400 uppercase">
-                {section.course_code}
-              </span>
-              <Badge
-                variant="outline"
-                className="h-4 shrink-0 border-slate-200 bg-white px-1.5 py-0 text-[9px] font-bold text-slate-500 uppercase"
-              >
-                {section.hours?.credits ?? 0}학점
-              </Badge>
-            </div>
-            <h4 className="mt-0.5 truncate text-[13px] leading-tight font-bold text-slate-900">{section.title}</h4>
-          </div>
-
-          <Button
-            size="sm"
-            variant={isAdded ? 'destructive' : isConflict ? 'secondary' : 'default'}
-            onClick={handleAction}
-            disabled={isConflict && !isAdded}
-            className={cn(
-              'h-7 shrink-0 px-2 text-[10px] font-bold uppercase transition-all',
-              !isAdded && !isConflict && 'bg-blue-600 hover:bg-blue-700',
-            )}
-          >
-            {isAdded ? (
-              <>
-                <Minus className="mr-1 h-3 w-3" /> 삭제
-              </>
-            ) : isConflict ? (
-              <>
-                <AlertCircle className="mr-1 h-3 w-3" /> 중복
-              </>
-            ) : (
-              <>
-                <Plus className="mr-1 h-3 w-3" /> 추가
-              </>
-            )}
-          </Button>
-        </div>
-
-        {/* Meeting info as text (table-like) */}
-        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[10px] text-slate-500">
-          <span className="font-medium">{instructors}</span>
-          {meetingInfo && (
-            <>
-              <span className="text-slate-300">|</span>
-              <span className="font-mono font-medium">{meetingInfo}</span>
-            </>
-          )}
-          {section.meetings.length === 0 && <span className="text-slate-400 italic">비대면/개별연구</span>}
-        </div>
-      </div>
-    );
-  }
-
-  // Desktop view (original)
   return (
-    <div
+    <article
       className={cn(
-        'group relative flex w-full min-w-0 cursor-default flex-col overflow-hidden p-5 transition-all duration-200',
-        !hideBorder && 'border-b border-slate-200',
-        isAdded ? 'bg-blue-50/40' : 'hover:bg-slate-50',
-        isConflict && !isAdded && 'bg-red-50/30 opacity-80',
+        'group relative flex w-full min-w-0 cursor-default items-center gap-3 overflow-hidden transition-[background-color,opacity] [contain-intrinsic-size:auto_84px] [content-visibility:auto] focus-within:bg-slate-50',
+        compact ? 'px-3 py-3' : 'px-4 py-4',
+        !hideBorder && 'border-b border-slate-100',
+        isAdded ? 'bg-blue-50/70 focus-within:bg-blue-50/90' : 'hover:bg-slate-50',
+        isConflict && !isAdded && 'bg-red-50/30 opacity-70',
       )}
       onMouseEnter={() => onMouseEnter(section)}
       onMouseLeave={onMouseLeave}
+      onFocus={() => onMouseEnter(section)}
+      onBlur={onMouseLeave}
     >
-      {isAdded && <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-blue-500" />}
+      {isAdded && <div className="absolute top-0 bottom-0 left-0 w-1 bg-blue-500" />}
 
-      <div className="flex w-full min-w-0 items-start justify-between gap-4">
-        <div className="min-w-0 flex-1">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <h4 className="block w-50 cursor-help truncate text-[15px] leading-snug font-extrabold tracking-tight text-slate-900 transition-colors group-hover:text-blue-600">
-                {section.title}
-              </h4>
-            </TooltipTrigger>
-            <TooltipContent side="top" align="start" className="max-w-[300px] font-bold">
-              {section.title}
-            </TooltipContent>
-          </Tooltip>
-
-          <div className="mt-1 flex min-w-0 items-center gap-2">
-            <span className="shrink-0 font-mono text-[11px] font-black tracking-tight text-slate-400 uppercase">
-              {section.course_code}-{section.section}
-            </span>
-            <Badge
-              variant="outline"
-              className="h-5 shrink-0 truncate border-slate-200 bg-white px-2 py-0 text-[10px] font-black text-slate-500 uppercase"
-            >
-              {section.category}
-            </Badge>
-          </div>
-        </div>
-
-        <Button
-          size="sm"
-          variant={isAdded ? 'destructive' : isConflict ? 'secondary' : 'default'}
-          onClick={handleAction}
-          disabled={isConflict && !isAdded}
-          className={cn(
-            'h-10 shrink-0 px-4 text-xs font-black tracking-wider uppercase transition-all',
-            !isAdded && !isConflict && 'bg-blue-600 shadow-sm hover:bg-blue-700',
-          )}
-        >
-          {isAdded ? (
-            <>
-              <Minus className="mr-1.5 h-4 w-4" /> 삭제
-            </>
-          ) : isConflict ? (
-            <>
-              <AlertCircle className="mr-1.5 h-4 w-4" /> 중복
-            </>
-          ) : (
-            <>
-              <Plus className="mr-1.5 h-4 w-4" /> 추가
-            </>
-          )}
-        </Button>
-      </div>
-
-      <div className="mt-4 grid w-full min-w-0 grid-cols-2 gap-x-3 gap-y-2 text-xs">
-        <div className="flex min-w-0 items-center gap-2 overflow-hidden text-slate-600">
-          <span className="font-bold">{instructors}</span>
-        </div>
-        <div className="flex min-w-0 shrink-0 items-center gap-2 text-slate-600">
-          <span className="shrink-0 font-bold">{section.hours?.credits ?? 0}학점</span>
-        </div>
-      </div>
-
-      <div className="mt-3 w-full min-w-0 space-y-1.5">
-        {section.meetings.map((m, idx) => (
-          <div
-            key={idx}
-            className="flex w-full min-w-0 items-center gap-2.5 overflow-hidden rounded-lg border border-slate-300 bg-slate-100/50 p-1.5 px-3 text-[11px] font-bold text-slate-500"
+      <div className="min-w-0 flex-1">
+        <div className="flex min-w-0 items-start gap-2">
+          <h3
+            className={cn(
+              'min-w-0 flex-1 truncate text-sm font-semibold tracking-[-0.015em] text-slate-900 transition-colors group-focus-within:text-blue-700 group-hover:text-blue-700',
+            )}
+            title={section.title}
           >
-            <span className="shrink-0 tracking-tight text-slate-800">{DAY_TO_KOREAN[m.day] || m.day}요일</span>
-            <span className="shrink-0 font-mono text-[10px] opacity-80">
-              {m.start} - {m.end}
+            {section.title}
+          </h3>
+          <Badge
+            variant="outline"
+            className={cn(
+              'h-5 shrink-0 px-1.5 py-0 text-[10px] font-semibold shadow-none',
+              isGraduate
+                ? 'border-violet-200 bg-violet-50 text-violet-700'
+                : 'border-blue-100 bg-blue-50 text-blue-700',
+            )}
+          >
+            {isGraduate ? '대학원' : '학부'}
+          </Badge>
+        </div>
+
+        <div className="mt-1.5 flex min-w-0 items-center gap-1.5 text-xs font-medium text-slate-400">
+          <span className="shrink-0 font-mono tracking-tight uppercase" translate="no">
+            {section.course_code}-{section.section}
+          </span>
+          <button
+            type="button"
+            onClick={handleCopyCourseCode}
+            className={cn(
+              'flex h-5 w-5 shrink-0 touch-manipulation items-center justify-center rounded transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none',
+              isCopied ? 'bg-emerald-50 text-emerald-600' : 'text-slate-400 hover:bg-slate-100 hover:text-slate-700',
+            )}
+            aria-label={`${section.course_code} 강의 코드 복사`}
+            title={isCopied ? '복사됨' : '강의 코드 복사'}
+          >
+            {isCopied ? <Check aria-hidden="true" size={12} /> : <Copy aria-hidden="true" size={12} />}
+          </button>
+          <span className="sr-only" role="status" aria-live="polite">
+            {isCopied ? `${section.course_code} 복사됨` : ''}
+          </span>
+          <span aria-hidden="true" className="text-slate-300">
+            ·
+          </span>
+          <span className="shrink-0 tabular-nums">{section.hours?.credits ?? 0}학점</span>
+          <span aria-hidden="true" className="text-slate-300">
+            ·
+          </span>
+          <span className="min-w-0 truncate" title={section.department}>
+            {section.department || '학과 미정'}
+          </span>
+        </div>
+
+        <div className={cn('mt-1.5 flex min-w-0 items-center gap-2 text-slate-500', 'text-xs')}>
+          <span className="max-w-[108px] shrink-0 truncate font-medium" title={instructors}>
+            {instructors}
+          </span>
+          <span aria-hidden="true" className="shrink-0 text-slate-300">
+            ·
+          </span>
+          <span className="min-w-0 flex-1 truncate font-medium tabular-nums" title={meetingInfo || '시간 미정'}>
+            {meetingInfo || '시간 미정'}
+          </span>
+          {isCapacityPending && (
+            <span
+              className="shrink-0 font-bold text-amber-600"
+              title="현재 정원 0명으로 게시되어 추후 변경될 수 있습니다."
+            >
+              정원 미정
             </span>
-            {m.room && <span className="ml-auto truncate text-slate-400">{m.room}</span>}
-          </div>
-        ))}
-        {section.meetings.length === 0 && (
-          <div className="w-full truncate py-1.5 text-[11px] font-bold tracking-tight text-slate-300 uppercase italic">
-            비대면 또는 개별 연구 과목
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+
+      <Button
+        size="sm"
+        variant={isAdded ? 'destructive' : isConflict ? 'secondary' : 'default'}
+        onClick={handleAction}
+        disabled={isConflict && !isAdded}
+        aria-label={`${section.title} ${isAdded ? '제거' : isConflict ? '시간 중복' : '추가'}`}
+        className={cn(
+          'h-9 min-w-[68px] shrink-0 touch-manipulation px-2 text-xs font-semibold tracking-tight',
+          !isAdded && !isConflict && 'bg-blue-600 shadow-sm hover:bg-blue-700',
+        )}
+      >
+        {isAdded ? (
+          <>
+            <Minus aria-hidden="true" className="h-3.5 w-3.5" /> 제거
+          </>
+        ) : isConflict ? (
+          <>
+            <AlertCircle aria-hidden="true" className="h-3.5 w-3.5" /> 중복
+          </>
+        ) : (
+          <>
+            <Plus aria-hidden="true" className="h-3.5 w-3.5" /> 추가
+          </>
+        )}
+      </Button>
+    </article>
   );
 }

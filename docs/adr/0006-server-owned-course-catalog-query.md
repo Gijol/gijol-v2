@@ -1,0 +1,3 @@
+# Keep the Course Catalog Behind a Server-Owned Query Seam
+
+Generated **Course Catalog** snapshots and indexes will be owned by one server-only query module, while browser-safe search, recommendation, roadmap, and legacy adapters receive data through their interfaces. Catalog-backed graduation recommendations are authoritative only after server evaluation and are returned with the graduation view model; browser callers project that result instead of rebuilding recommendations from the snapshot, because this removes the large static artifact from browser chunks, prevents server/client logic drift, and localizes a future OCI database adapter to one seam.

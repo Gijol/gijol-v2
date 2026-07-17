@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import { TimetableSpan } from '@/lib/types/timetable';
 import { timeToMinutes, DAY_TO_INT } from '@/features/timetable/transform';
 import { parseColor } from '@/features/timetable/selectors';
-import { X } from 'lucide-react';
+import { CalendarPlus, X } from 'lucide-react';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -21,6 +21,7 @@ interface AvailabilityWithPreviewProps {
   onRemoveSpan?: (sectionId: string) => void;
   onSpanClick?: (sectionId: string) => void;
   hideWeekends?: boolean; // For mobile view
+  showEmptyHint?: boolean;
 }
 
 const DEFAULT_START = '08:30';
@@ -50,6 +51,7 @@ export function AvailabilityWithPreview({
   onRemoveSpan,
   onSpanClick,
   hideWeekends = false,
+  showEmptyHint = false,
 }: AvailabilityWithPreviewProps) {
   // Filter out weekends on mobile if hideWeekends is true
   const displayDays = hideWeekends ? days.filter((day) => day !== '일' && day !== '토') : days;
@@ -58,9 +60,9 @@ export function AvailabilityWithPreview({
   const totalMinutes = endMin - startMin;
   const rowCount = Math.ceil(totalMinutes / timeIncrements);
 
-  const ROW_HEIGHT = hideWeekends ? 30 : 36; // Expanded row height for 9:00~18:30 range
-  const HEADER_HEIGHT = hideWeekends ? 36 : 48; // Smaller on mobile
-  const TIME_COL_WIDTH = hideWeekends ? 40 : 64; // Smaller on mobile
+  const ROW_HEIGHT = hideWeekends ? 34 : 38;
+  const HEADER_HEIGHT = hideWeekends ? 40 : 46;
+  const TIME_COL_WIDTH = hideWeekends ? 44 : 58;
 
   const getSpanStyle = (span: TimetableSpan) => {
     const spanStartMin = timeToMinutes(span.start_time);
@@ -92,18 +94,20 @@ export function AvailabilityWithPreview({
   return (
     <div
       className={cn(
-        'flex h-full flex-col overflow-hidden rounded-xl border border-slate-300 bg-white select-none',
+        'flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white select-none',
         className,
       )}
+      role="region"
+      aria-label="시간표 미리보기"
     >
       {/* Header */}
-      <div className="flex border-b border-slate-300" style={{ height: HEADER_HEIGHT }}>
-        <div className="shrink-0 border-r border-slate-300 bg-slate-50/50" style={{ width: TIME_COL_WIDTH }} />
+      <div className="flex border-b border-slate-200 bg-white" style={{ height: HEADER_HEIGHT }}>
+        <div className="shrink-0 border-r border-slate-200 bg-slate-50/80" style={{ width: TIME_COL_WIDTH }} />
         <div className="flex flex-1 overflow-hidden">
           {displayDays.map((day) => (
             <div
               key={day}
-              className="flex flex-1 items-center justify-center border-r border-slate-300 text-sm font-bold text-slate-900 last:border-r-0"
+              className="flex min-w-[52px] flex-1 items-center justify-center border-r border-slate-200 text-xs font-semibold text-slate-600 last:border-r-0"
             >
               {day}
             </div>
@@ -115,7 +119,7 @@ export function AvailabilityWithPreview({
       <div className="scrollbar-hide relative flex min-h-0 flex-1 overflow-auto">
         {/* Time Axis */}
         <div
-          className="relative z-10 shrink-0 border-r border-slate-300 bg-slate-50/50"
+          className="relative z-10 shrink-0 border-r border-slate-200 bg-slate-50/80"
           style={{ width: TIME_COL_WIDTH, height: rowCount * ROW_HEIGHT }}
         >
           {Array.from({ length: rowCount + 1 }).map((_, i) => {
@@ -127,8 +131,11 @@ export function AvailabilityWithPreview({
             return (
               <div
                 key={i}
-                className="absolute w-full -translate-y-1/2 transform px-4 text-right text-[11px] font-extrabold text-slate-400"
-                style={{ top: i * ROW_HEIGHT }}
+                className="absolute w-full px-2 text-right text-[10px] font-bold text-slate-400 tabular-nums"
+                style={{
+                  top: i === 0 ? 4 : i * ROW_HEIGHT,
+                  transform: i === 0 ? undefined : 'translateY(-50%)',
+                }}
               >
                 {`${h}:00`}
               </div>
@@ -167,7 +174,7 @@ export function AvailabilityWithPreview({
               const dayPreview = previewSpans.filter((s) => s.week_day === dayInt);
 
               return (
-                <div key={day} className="group relative flex-1 border-r border-slate-200 last:border-r-0">
+                <div key={day} className="group relative min-w-[52px] flex-1 border-r border-slate-100 last:border-r-0">
                   {isWeekend && (
                     <div
                       className="absolute inset-0 z-0 opacity-[0.03]"
@@ -190,7 +197,7 @@ export function AvailabilityWithPreview({
                     return (
                       <div
                         key={span.nanoid}
-                        className="group/span absolute inset-x-0.5 z-10 flex cursor-pointer flex-col overflow-hidden rounded-md border-2 p-1.5 shadow-sm transition-all hover:z-50 hover:scale-[1.02] hover:shadow-lg hover:ring-2 hover:ring-offset-1"
+                        className="group/span absolute inset-x-0.5 z-10 flex flex-col overflow-hidden rounded-md border p-1.5 shadow-sm transition-[box-shadow,transform] duration-150 ease-[var(--ease-ui-out)] hover:z-50 hover:-translate-y-px hover:shadow-lg hover:ring-2 hover:ring-offset-1 motion-reduce:transform-none"
                         style={{
                           ...style,
                           backgroundColor: colors.bg, // Use direct color from palette (already light)
@@ -200,36 +207,43 @@ export function AvailabilityWithPreview({
                           // Tailwind ring util defaults to blue-500. We can set the CSS var:
                           ['--tw-ring-color' as any]: colors.border,
                         }}
-                        onClick={() => onSpanClick?.(span.sectionId)}
                       >
+                        <button
+                          type="button"
+                          className="absolute inset-0 z-0 rounded-md focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1 focus-visible:outline-none"
+                          onClick={() => onSpanClick?.(span.sectionId)}
+                          aria-label={`${span.title || span.courseCode} 분반 상세 보기`}
+                        />
                         {/* Top: Course Code + Remove Button */}
-                        <div className="flex items-start justify-between">
-                          <span className="font-mono text-xs font-black text-slate-700 uppercase">
+                        <div className="pointer-events-none relative z-10 flex items-start justify-between">
+                          <span className="font-mono text-xs font-semibold text-slate-700 uppercase">
                             {span.courseCode}
                           </span>
                           <button
+                            type="button"
                             onClick={(e) => {
                               e.stopPropagation();
                               onRemoveSpan?.(span.sectionId);
                             }}
-                            className="rounded p-0.5 opacity-0 transition-opacity group-hover/span:opacity-100 hover:bg-black/10"
+                            className="pointer-events-auto rounded p-0.5 opacity-100 transition-[background-color,opacity,transform] duration-150 ease-[var(--ease-ui-out)] hover:bg-black/10 focus-visible:ring-2 focus-visible:ring-slate-700 focus-visible:outline-none active:scale-[0.95] motion-reduce:transform-none sm:opacity-0 sm:group-focus-within/span:opacity-100 sm:group-hover/span:opacity-100"
                             style={{ color: colors.border }}
+                            aria-label={`${span.title || span.courseCode} 시간표에서 삭제`}
                           >
-                            <X size={14} />
+                            <X aria-hidden="true" size={14} />
                           </button>
                         </div>
 
                         {/* Middle: Title */}
-                        <div className="flex min-h-0 flex-1 flex-col justify-center overflow-hidden">
-                          <div className="line-clamp-3 overflow-hidden text-sm leading-tight font-extrabold text-ellipsis text-slate-800">
+                        <div className="pointer-events-none relative z-10 flex min-h-0 flex-1 flex-col justify-center overflow-hidden">
+                          <div className="line-clamp-3 overflow-hidden text-xs leading-tight font-semibold text-ellipsis text-slate-800">
                             {span.title || span.courseCode}
                           </div>
                         </div>
 
                         {/* Bottom: Time */}
-                        <div className="mt-auto">
-                          <span className="text-[11px] font-bold text-slate-500">
-                            {span.start_time} ~ {span.end_time}
+                        <div className="pointer-events-none relative z-10 mt-auto">
+                          <span className="text-[10px] font-bold text-slate-500 tabular-nums">
+                            {span.start_time}–{span.end_time}
                           </span>
                         </div>
                       </div>
@@ -250,9 +264,9 @@ export function AvailabilityWithPreview({
                         )}
                         style={{ ...style }}
                       >
-                        <span className="text-lg font-black text-slate-700/60 uppercase">{span.courseCode}</span>
+                        <span className="text-lg font-bold text-slate-700/60 uppercase">{span.courseCode}</span>
                         {isConflict && (
-                          <span className="text-[10px] font-black tracking-tighter text-red-600 uppercase">
+                          <span className="text-[10px] font-semibold tracking-tight text-red-600 uppercase">
                             시간 중복
                           </span>
                         )}
@@ -263,6 +277,21 @@ export function AvailabilityWithPreview({
               );
             })}
           </div>
+
+          {showEmptyHint && scheduledSpans.length === 0 && previewSpans.length === 0 && (
+            <div
+              className="pointer-events-none absolute top-16 left-1/2 z-20 w-full max-w-sm -translate-x-1/2 p-8"
+              aria-hidden="true"
+            >
+              <div className="max-w-xs rounded-xl border border-slate-200 bg-white/95 px-5 py-4 text-center shadow-[0_10px_30px_rgba(15,23,42,0.08)] backdrop-blur-sm">
+                <CalendarPlus aria-hidden="true" className="mx-auto text-blue-600" size={20} />
+                <p className="mt-2 text-sm font-semibold text-slate-800">왼쪽에서 첫 강의를 찾아보세요</p>
+                <p className="mt-1.5 text-xs leading-5 text-slate-500">
+                  분반에 마우스를 올리면 시간표에서 위치를 미리 확인할 수 있습니다.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -282,7 +311,7 @@ export function AvailabilityWithPreview({
         return (
           <div className="shrink-0 border-t border-slate-200 bg-amber-50/50 px-4 py-2">
             <div className="flex items-center gap-2">
-              <span className="shrink-0 text-[10px] font-black tracking-wider text-amber-600 uppercase">
+              <span className="shrink-0 text-[10px] font-semibold tracking-wider text-amber-600 uppercase">
                 시간 외 과목
               </span>
               <div className="flex flex-1 flex-wrap items-center gap-1.5 overflow-hidden">
@@ -291,23 +320,31 @@ export function AvailabilityWithPreview({
                   return (
                     <div
                       key={span.nanoid}
-                      className="group flex cursor-pointer items-center gap-1 rounded-md border px-2 py-0.5 transition-all hover:shadow-sm"
+                      className="group flex items-center gap-1 rounded-md border px-2 py-0.5 transition-shadow duration-150 ease-[var(--ease-ui-out)] hover:shadow-sm"
                       style={{
                         backgroundColor: colors.bg,
                         borderColor: colors.border,
                       }}
-                      onClick={() => onSpanClick?.(span.sectionId)}
                     >
-                      <span className="text-[10px] font-bold text-slate-700">{span.courseCode}</span>
-                      <span className="max-w-[80px] truncate text-[10px] text-slate-500">{span.title}</span>
                       <button
+                        type="button"
+                        className="flex min-w-0 items-center gap-1 rounded-sm focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:outline-none"
+                        onClick={() => onSpanClick?.(span.sectionId)}
+                        aria-label={`${span.title || span.courseCode} 분반 상세 보기`}
+                      >
+                        <span className="text-[10px] font-bold text-slate-700">{span.courseCode}</span>
+                        <span className="max-w-[80px] truncate text-[10px] text-slate-500">{span.title}</span>
+                      </button>
+                      <button
+                        type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           onRemoveSpan?.(span.sectionId);
                         }}
-                        className="ml-0.5 rounded p-0.5 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/10"
+                        className="ml-0.5 rounded p-0.5 opacity-100 transition-[background-color,opacity] duration-150 hover:bg-black/10 sm:opacity-0 sm:group-focus-within:opacity-100 sm:group-hover:opacity-100"
+                        aria-label={`${span.title || span.courseCode} 시간표에서 삭제`}
                       >
-                        <X size={10} />
+                        <X aria-hidden="true" size={10} />
                       </button>
                     </div>
                   );
@@ -320,8 +357,8 @@ export function AvailabilityWithPreview({
 
       {/* Legend Footer */}
       <div className="shrink-0 border-t border-slate-200 bg-slate-50 p-2 px-4">
-        <p className="text-[10px] font-bold text-slate-400 italic">
-          * 빗금으로 표시된 영역은 비활성화된 시간이거나 이미 예약된 블록입니다.
+        <p className="text-[10px] font-bold text-slate-500">
+          색상 블록은 선택 분반, 점선 블록은 미리보기입니다. 시간표 밖 과목은 아래 별도 영역에 표시됩니다.
         </p>
       </div>
     </div>

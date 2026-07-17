@@ -1,0 +1,36 @@
+{
+  "label": "AI minor, declaration term missing",
+  "entryYear": 2021,
+  "userMajor": "EC",
+  "userMinors": ["AI"],
+  "minorDeclarationTerms": {},
+  "takenCourses": [
+    {
+      "year": 2021,
+      "semester": "1",
+      "courseType": "전공",
+      "courseName": "인공지능 프로그래밍",
+      "courseCode": "AI2004",
+      "credit": 3,
+      "grade": "A0"
+    },
+    {
+      "year": 2021,
+      "semester": "2",
+      "courseType": "전공",
+      "courseName": "AI 기초",
+      "courseCode": "AI2050",
+      "credit": 3,
+      "grade": "A0"
+    },
+    {
+      "year": 2022,
+      "semester": "1",
+      "courseType": "전공",
+      "courseName": "AI 실습",
+      "courseCode": "AI2051",
+      "credit": 3,
+      "grade": "A0"
+    }
+  ]
+}

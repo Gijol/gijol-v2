@@ -66,7 +66,7 @@ export function SavedTimetablesManager({ onLoadTimetable }: SavedTimetablesManag
         {savedTimetablesList.map((timetable) => (
           <div
             key={timetable.name}
-            className="group flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-all hover:border-blue-400 hover:shadow-md"
+            className="group flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-[border-color,box-shadow] duration-150 ease-[var(--ease-ui-out)] hover:border-blue-400 hover:shadow-md"
           >
             <div className="min-w-0 flex-1">
               <div className="truncate text-sm font-extrabold tracking-tight text-slate-900">{timetable.name}</div>

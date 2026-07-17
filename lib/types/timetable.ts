@@ -29,6 +29,7 @@ export interface SectionOffering {
   hours: Hours;
   meetings: Meeting[];
   capacity: number;
+  capacity_status?: 'confirmed' | 'pending';
   syllabus?: string;
   video?: string | null;
   language?: string | null;

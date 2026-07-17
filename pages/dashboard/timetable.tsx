@@ -1,48 +1,47 @@
 import React from 'react';
+import { timetableLayout } from '@/components/layouts/timetable-runtime';
 import { NextSeo } from 'next-seo';
-import path from 'path';
-import fs from 'fs/promises';
 import { GetStaticProps } from 'next';
-import { SectionOffering } from '@/lib/types/timetable';
-import { TimetableLayout } from '@/features/timetable/components/TimetableLayout';
+import { TimetableHome } from '@/features/timetable/components/TimetableHome';
+import {
+  getDefaultTimetableSource,
+  TIMETABLE_SOURCES,
+  type TimetableSourceManifestEntry,
+} from '@/features/course-catalog/timetable-sources';
 
 interface TimetablePageProps {
-  sections: SectionOffering[];
+  defaultTerm: string;
+  timetableSources: TimetableSourceManifestEntry[];
 }
 
-export default function TimetablePage({ sections }: TimetablePageProps) {
+export default function TimetablePage({ defaultTerm, timetableSources }: TimetablePageProps) {
   return (
     <>
-      <NextSeo title="시간표 생성기" description="드래그 앤 드롭으로 시간표를 만들어보세요" noindex />
-      <div className="fixed inset-0 top-[60px] flex flex-col overflow-hidden bg-slate-100 transition-all duration-300 xl:top-0 xl:left-[256px]">
-        <TimetableLayout sections={sections} />
-      </div>
+      <NextSeo title="시간표 홈" description="시간표 계획과 이전 시간표를 확인하세요" noindex />
+      <TimetableHome defaultTerm={defaultTerm} timetableSources={timetableSources} />
     </>
   );
 }
 
-// Support for collapsed sidebar alignment (using CSS classes mirroring Layout.tsx)
-// Actually, TimetableLayout already handles internal padding.
-// The "fixed inset-0" ensures no scrollbars from the main app scroll container.
-
 export const getStaticProps: GetStaticProps<TimetablePageProps> = async () => {
   try {
-    const jsonPath = path.join(process.cwd(), 'DB', 'timetable', '2026_spring_course_info.normalized.json');
-    const fileContent = await fs.readFile(jsonPath, 'utf-8');
-    const data = JSON.parse(fileContent);
-    const sections: SectionOffering[] = data.items || [];
+    const entries = [...TIMETABLE_SOURCES];
 
     return {
       props: {
-        sections,
+        defaultTerm: getDefaultTimetableSource().term,
+        timetableSources: entries,
       },
     };
   } catch (error) {
     console.error('Failed to load timetable data', error);
     return {
       props: {
-        sections: [],
+        defaultTerm: '',
+        timetableSources: [],
       },
     };
   }
 };
+
+TimetablePage.getLayout = timetableLayout;

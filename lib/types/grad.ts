@@ -1,3 +1,5 @@
+import type { GraduationCatalogSelectionSummary } from '@features/graduation/domain/types';
+
 export interface TakenCourseType {
   year: number;
   semester: string; // e.g. '봄', '가을', '여름학기' 등
@@ -5,6 +7,9 @@ export interface TakenCourseType {
   courseName: string;
   courseCode: string;
   credit: number;
+  grade?: string;
+  gradeStatus?: 'official' | 'in_progress' | 'provisional';
+  gradeStatusReason?: string;
 }
 
 export interface UserTakenCourseListType {
@@ -32,8 +37,19 @@ export interface GradCategoriesType {
 export interface GradStatusResponseType {
   graduationCategory: GradCategoriesType; // default는 2020년도
   totalCredits: number;
+  overallStatus: GraduationOverallStatus;
   totalSatisfied: boolean;
+  catalogSelection?: GraduationCatalogSelectionSummary;
 }
+
+export type GraduationOverallStatus = 'satisfied' | 'unsatisfied' | 'needs_review';
+
+export interface AcademicTerm {
+  year: number;
+  semester: string;
+}
+
+export type MinorDeclarationTerms = Record<string, AcademicTerm | undefined>;
 
 // 프론트에서 API로 보낼 때 쓸 Request Body
 export interface GradStatusRequestBody {
@@ -42,6 +58,7 @@ export interface GradStatusRequestBody {
   // TODO: 필요하면 여기 GPA, 재학학기 수, 전공/부전공 정보 등을 추가
   userMajor?: string; // 전공 prefix, e.g. 'EC', 'MC' 등
   userMinors?: string[]; // 부전공 prefix 리스트
+  minorDeclarationTerms?: MinorDeclarationTerms;
 }
 
 // extractOverallStatus에서 쓰는 타입

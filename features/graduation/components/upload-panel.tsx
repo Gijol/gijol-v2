@@ -20,8 +20,10 @@ import type { UserStatusType } from '@lib/types/index';
 import type { GradStatusRequestBody, GradStatusResponseType, TakenCourseType } from '@lib/types/grad';
 import { gradStatusFetchFn, inferEntryYear, toTakenCourses } from '@utils/graduation/grad-status-helper';
 import { useGraduationStore } from '@/lib/stores/useGraduationStore';
-import { PARSED_EDITABLE_STATE_KEY } from '@/lib/stores/storage-key';
+import { clearGraduationDraft, writeGraduationDraft } from '@/lib/stores/graduation-persistence';
 import { uploadGradeReportViaApi } from '@utils/graduation/upload-grade-report-via-api';
+import { resolveMajorForEvaluation } from '@features/graduation/domain';
+import { DashboardPageShell, PageHeader } from '@/components/dashboard/page-shell';
 
 type GradUploadPanelProps = {
   title?: string;
@@ -46,7 +48,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
     setIsHydrated(true);
   }, []);
 
-  const { parsed, gradStatus, setFromParsed, reset } = useGraduationStore();
+  const { parsed, gradStatus, commitTranscript, reset } = useGraduationStore();
 
   const onDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles?.length > 0) {
@@ -76,7 +78,9 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
 
       const tc: TakenCourseType[] = toTakenCourses(res);
       const entryYear = inferEntryYear(res);
-      const userMajor = (res as any).major || (res as any).department || undefined;
+      const parsedMajor = (res as any).major || (res as any).department || undefined;
+      const majorResolution = resolveMajorForEvaluation(parsedMajor, tc);
+      const userMajor = majorResolution.code ?? (parsedMajor ? String(parsedMajor) : undefined);
 
       if (!entryYear) {
         setError('학번(입학년도)을 파싱할 수 없습니다. studentId 또는 entryYear 정보를 확인해주세요.');
@@ -101,18 +105,14 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
         setIsFetchingGradStatus(false);
       }
 
-      setFromParsed({
+      commitTranscript({
         parsed: res,
-        takenCourses: tc,
-        gradStatus: grad ?? null,
-        userMajor: '',
+        outcome: grad ?? null,
+        userMajor: userMajor ?? '',
+        entryYear: entryYear ?? undefined,
       });
 
-      try {
-        localStorage.setItem(PARSED_EDITABLE_STATE_KEY, JSON.stringify(res));
-      } catch {
-        // ignore
-      }
+      writeGraduationDraft(res);
 
       if (redirectTo) {
         await router.push(redirectTo);
@@ -161,30 +161,20 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
     setError(null);
     setFile(null);
     reset();
-    try {
-      localStorage.removeItem(PARSED_EDITABLE_STATE_KEY);
-    } catch {
-      // ignore
-    }
+    clearGraduationDraft();
   };
 
   if (!isHydrated) return null;
 
   return (
-    <div className="min-h-screen w-full px-4 pt-6 pb-8 sm:px-6 lg:px-8">
-      {/* Header - Dashboard 스타일 */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 md:text-3xl dark:text-gray-100">📤 성적표 업로드</h1>
-        <p className="mt-1 text-gray-500 dark:text-gray-400">
-          GIST 제우스 성적표를 업로드하여 졸업요건을 분석해보세요.
-        </p>
-      </div>
+    <DashboardPageShell>
+      <PageHeader title="성적표 업로드" description="GIST 제우스 성적표를 업로드하여 졸업요건을 분석하세요." />
 
       {/* Upload Card */}
       <Card className="mb-6 p-0">
         <CardHeader className="border-b border-slate-300 p-4">
           <div className="flex items-center gap-2">
-            <Upload className="text-muted-foreground h-5 w-5" />
+            <Upload aria-hidden="true" className="text-muted-foreground h-5 w-5" />
             <span className="text-foreground font-semibold">파일 업로드</span>
           </div>
         </CardHeader>
@@ -204,9 +194,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                 <DialogContent className="max-h-[80vh] max-w-[90%] overflow-y-auto sm:max-w-[500px]">
                   <DialogHeader>
                     <DialogTitle>성적표 파일 업로드 가이드</DialogTitle>
-                    <DialogDescription>
-                      아래 순서에 따라 엑셀 파일을 다운로드하고 업로드해주세요.
-                    </DialogDescription>
+                    <DialogDescription>아래 순서에 따라 엑셀 파일을 다운로드하고 업로드해주세요.</DialogDescription>
                   </DialogHeader>
                   <div className="space-y-6 py-4">
                     {/* Step 1 */}
@@ -240,8 +228,8 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                         개인성적조회 페이지로 이동해주세요
                       </h3>
                       <p className="text-muted-foreground pl-8 text-sm">
-                        왼쪽 메뉴에서 <strong>[성적]</strong> 탭을 클릭한 후,{' '}
-                        <strong>[개인성적조회]</strong> 버튼을 눌러주세요.
+                        왼쪽 메뉴에서 <strong>[성적]</strong> 탭을 클릭한 후, <strong>[개인성적조회]</strong> 버튼을
+                        눌러주세요.
                       </p>
                       <div className="mt-2 pl-8">
                         <img
@@ -261,8 +249,8 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                         엑셀 파일로 저장해주세요
                       </h3>
                       <p className="text-muted-foreground pl-8 text-sm">
-                        화면 상단에 보이는 <strong>[Report card(KOR)]</strong> 버튼을 클릭하면
-                        엑셀 파일이 다운로드됩니다.
+                        화면 상단에 보이는 <strong>[Report card(KOR)]</strong> 버튼을 클릭하면 엑셀 파일이
+                        다운로드됩니다.
                       </p>
                       <div className="mt-2 pl-8">
                         <img
@@ -282,8 +270,8 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                         다운로드 받은 파일을 업로드해주세요
                       </h3>
                       <p className="text-muted-foreground pl-8 text-sm">
-                        다운로드 받은 <strong>Report card(KOR)</strong> 엑셀 파일을 이 페이지에
-                        드래그하거나 클릭하여 업로드해주세요.
+                        다운로드 받은 <strong>Report card(KOR)</strong> 엑셀 파일을 이 페이지에 드래그하거나 클릭하여
+                        업로드해주세요.
                       </p>
                     </div>
 
@@ -308,13 +296,10 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                           </svg>
                         </div>
                         <div className="text-sm">
-                          <h4 className="mb-1 font-semibold text-red-600 dark:text-red-400">
-                            주의사항
-                          </h4>
+                          <h4 className="mb-1 font-semibold text-red-600 dark:text-red-400">주의사항</h4>
                           <p className="text-red-600/90 dark:text-red-400/90">
-                            반드시 위 경로를 통해 다운로드 받은 엑셀 파일이어야 합니다. 다른 경로의
-                            파일이나 임의로 수정한 파일은 정상적으로 인식되지 않아 서비스 이용이
-                            불가능할 수 있어요. 꼭 확인 부탁드려요!
+                            반드시 위 경로를 통해 다운로드 받은 엑셀 파일이어야 합니다. 다른 경로의 파일이나 임의로
+                            수정한 파일은 정상적으로 인식되지 않아 서비스 이용이 불가능할 수 있어요. 꼭 확인 부탁드려요!
                           </p>
                         </div>
                       </div>
@@ -326,23 +311,30 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
 
             <div
               {...getRootProps()}
+              role="button"
+              tabIndex={0}
+              aria-label="성적표 엑셀 파일 선택"
               className={cn(
-                'flex h-[140px] cursor-pointer items-center justify-center rounded-lg border-2 border-dashed transition-colors',
+                'flex h-[140px] cursor-pointer items-center justify-center rounded-xl border-2 border-dashed transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none',
                 isDragActive
                   ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                   : 'border-gray-300 dark:border-gray-700',
                 'hover:bg-gray-50 dark:hover:bg-gray-800/50',
               )}
               onClick={open}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  open();
+                }
+              }}
             >
               <input {...getInputProps()} />
               <div className="px-4 text-center">
                 {!file ? (
                   <div className="flex flex-col items-center gap-2">
-                    <Upload className="text-muted-foreground h-8 w-8" />
-                    <p className="text-muted-foreground text-sm">
-                      여기에 엑셀 파일을 드롭하거나 클릭하여 업로드해주세요.
-                    </p>
+                    <Upload aria-hidden="true" className="text-muted-foreground h-8 w-8" />
+                    <p className="text-muted-foreground text-sm">여기에 엑셀 파일을 드롭하거나 선택해 주세요.</p>
                     <p className="text-muted-foreground text-xs">
                       제우스 → 성적 → 개인성적조회 → "Report card(KOR)" 엑셀 파일
                     </p>
@@ -359,27 +351,19 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
             {/* 버튼 그룹 - 주요 액션과 보조 액션 분리 */}
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               {/* 주요 액션: 분석하기 버튼 */}
-              <Button
-                onClick={handleParse}
-                disabled={!file || isParsing}
-                size="lg"
-                className={cn(
-                  'group relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25 transition-all duration-300 hover:from-blue-700 hover:to-indigo-700 hover:shadow-xl hover:shadow-blue-500/30',
-                  file && !isParsing && 'animate-pulse-subtle',
-                )}
-              >
-                <Sparkles className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
-                {isParsing ? '분석 중...' : '성적표 분석하기'}
+              <Button onClick={handleParse} disabled={!file || isParsing} size="lg" className="min-w-44 font-semibold">
+                <Sparkles aria-hidden="true" className="mr-2 h-4 w-4" />
+                {isParsing ? '분석 중…' : '성적표 분석하기'}
               </Button>
 
               {/* 보조 액션 그룹 */}
               <div className="flex flex-wrap gap-2">
                 <Button onClick={open} variant="outline" size="sm" className="gap-1.5">
-                  <FileSpreadsheet className="h-4 w-4" />
+                  <FileSpreadsheet aria-hidden="true" className="h-4 w-4" />
                   파일 선택
                 </Button>
                 <Button onClick={onDownload} disabled={!parsed} variant="outline" size="sm" className="gap-1.5">
-                  <Download className="h-4 w-4" />
+                  <Download aria-hidden="true" className="h-4 w-4" />
                   JSON 다운로드
                 </Button>
                 <Button
@@ -388,7 +372,7 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
                   size="sm"
                   className="gap-1.5 text-gray-500 hover:text-gray-700"
                 >
-                  <RotateCcw className="h-4 w-4" />
+                  <RotateCcw aria-hidden="true" className="h-4 w-4" />
                   리셋
                 </Button>
               </div>
@@ -399,16 +383,26 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
 
       {/* 파싱/계산 상태 표시 (간소화) */}
       {(isParsing || isFetchingGradStatus) && (
-        <div className="mt-4 flex items-center gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/20">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
+        <div
+          className="mt-4 flex items-center gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/20"
+          role="status"
+          aria-live="polite"
+        >
+          <div
+            aria-hidden="true"
+            className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent motion-reduce:animate-none"
+          />
           <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
-            {isParsing ? '성적표를 분석하고 있어요...' : '졸업요건을 계산하고 있어요...'}
+            {isParsing ? '성적표를 분석하고 있어요…' : '졸업요건을 계산하고 있어요…'}
           </span>
         </div>
       )}
 
       {error && (
-        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm whitespace-pre-line text-red-600 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400">
+        <div
+          role="alert"
+          className="mt-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm whitespace-pre-line text-red-600 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400"
+        >
           <span className="font-semibold">오류:</span> {error}
         </div>
       )}
@@ -416,6 +410,6 @@ export function GradUploadPanel({ title = '졸업요건 파서', redirectTo, chi
       {children && (
         <div className="mt-6">{children({ parsed, gradStatus, isParsing: isParsing || isFetchingGradStatus })}</div>
       )}
-    </div>
+    </DashboardPageShell>
   );
 }

@@ -1,5 +1,6 @@
 import { CourseWithGradeStatusType, SemesterStatusType, UserTakenCourseWithGradeType } from '@lib/types/score-status';
 import { UserTakenCourse } from '../../types';
+import { truncateGradeAverage } from '@utils/course/analytics';
 
 export type CourseListWithPeriod = {
   year: number;
@@ -73,7 +74,7 @@ export const getUserScoreFromTakenCourseList = (list: Array<UserTakenCourse>) =>
     }
   }
 
-  return Math.floor((totalGrade / totalCredit) * 100) / 100;
+  return truncateGradeAverage(totalGrade / totalCredit);
 };
 
 export const gradeToNumber = (grade: string) => {

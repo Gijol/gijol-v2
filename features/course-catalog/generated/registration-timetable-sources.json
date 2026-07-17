@@ -1,0 +1,87 @@
+[
+  {
+    "term": "2020-1",
+    "path": "DB/timetable/registration-system/2020_01_course_info.normalized.json",
+    "label": "2020 1학기",
+    "count": 341
+  },
+  {
+    "term": "2020-2",
+    "path": "DB/timetable/registration-system/2020_02_course_info.normalized.json",
+    "label": "2020 2학기",
+    "count": 316
+  },
+  {
+    "term": "2021-1",
+    "path": "DB/timetable/registration-system/2021_01_course_info.normalized.json",
+    "label": "2021 1학기",
+    "count": 328
+  },
+  {
+    "term": "2021-2",
+    "path": "DB/timetable/registration-system/2021_02_course_info.normalized.json",
+    "label": "2021 2학기",
+    "count": 344
+  },
+  {
+    "term": "2022-1",
+    "path": "DB/timetable/registration-system/2022_01_course_info.normalized.json",
+    "label": "2022 1학기",
+    "count": 401
+  },
+  {
+    "term": "2022-2",
+    "path": "DB/timetable/registration-system/2022_02_course_info.normalized.json",
+    "label": "2022 2학기",
+    "count": 365
+  },
+  {
+    "term": "2023-1",
+    "path": "DB/timetable/registration-system/2023_01_course_info.normalized.json",
+    "label": "2023 1학기",
+    "count": 392
+  },
+  {
+    "term": "2023-2",
+    "path": "DB/timetable/registration-system/2023_02_course_info.normalized.json",
+    "label": "2023 2학기",
+    "count": 383
+  },
+  {
+    "term": "2024-1",
+    "path": "DB/timetable/registration-system/2024_01_course_info.normalized.json",
+    "label": "2024 1학기",
+    "count": 434
+  },
+  {
+    "term": "2024-2",
+    "path": "DB/timetable/registration-system/2024_02_course_info.normalized.json",
+    "label": "2024 2학기",
+    "count": 388
+  },
+  {
+    "term": "2025-1",
+    "path": "DB/timetable/registration-system/2025_01_course_info.normalized.json",
+    "label": "2025 1학기",
+    "count": 423
+  },
+  {
+    "term": "2025-2",
+    "path": "DB/timetable/registration-system/2025_02_course_info.normalized.json",
+    "label": "2025 2학기",
+    "count": 392
+  },
+  {
+    "term": "2026-1",
+    "path": "DB/timetable/registration-system/2026_01_course_info.normalized.json",
+    "label": "2026 1학기",
+    "count": 434
+  },
+  {
+    "term": "2026-2",
+    "path": "DB/timetable/registration-system/2026_02_course_info.normalized.json",
+    "label": "2026 2학기",
+    "count": 507,
+    "defaultForTimetable": true
+  }
+]

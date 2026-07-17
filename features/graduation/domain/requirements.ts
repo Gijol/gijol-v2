@@ -11,13 +11,31 @@ import {
   PPE_SUFFIXES,
   GSC_SUFFIXES,
   getCourseSuffix,
-  MAJOR_MANDATORY_RULES,
-  MINOR_MANDATORY_RULES,
   PHYSICAL_EDUCATION_CODES,
   ARTS_EDUCATION_CODES,
 } from './constants';
 import { matchesMinor } from './classifier';
-import type { TakenCourseType, CategoryKey, YearRuleSet, FineGrainedRequirement, MatchedCourseInfo } from './types';
+import { getBasicRequirementCatalog } from './rule-catalog/basic-requirements';
+import {
+  getMajorCreditRequirement,
+  getMajorMandatoryRulesForContext,
+  getMinorCourseLimitRequirement,
+  getMinorCreditRequirement,
+  getMinorDeclarationTermRequirement,
+  getMinorMandatoryRulesForContext,
+  getThesisRequirements,
+  requiresMinorDeclarationTerm,
+} from './rule-catalog/major-minor-requirements';
+import type {
+  TakenCourseType,
+  CategoryKey,
+  YearRuleSet,
+  FineGrainedRequirement,
+  MatchedCourseInfo,
+  ExcludedCourseInfo,
+  AcademicTerm,
+  MinorDeclarationTerms,
+} from './types';
 
 // ===== Helper Functions =====
 
@@ -90,6 +108,13 @@ function toMatchedInfo(c: TakenCourseType): MatchedCourseInfo {
     credit: c.credit,
     year: c.year,
     semester: c.semester,
+  };
+}
+
+function toExcludedCourseInfo(c: TakenCourseType, reason: string): ExcludedCourseInfo {
+  return {
+    ...toMatchedInfo(c),
+    reason,
   };
 }
 
@@ -193,18 +218,9 @@ const SET_EXPLORATION = new Set(['UC0902']);
 const SET_COLLOQUIUM = new Set(['UC9331']);
 const SET_SCIENCE_ECONOMY = new Set(['GS1701', 'UC0901']); // 과학기술과 경제
 
-const RESEARCH_I_SUFFIX = '9102';
-const RESEARCH_II_SUFFIX = '9103';
-
 // 예체능 과목 prefix (legacy) - 새로운 코드 집합으로 대체됨
 // const CODE_ART_PREFIX = 'GS02';
 // const CODE_SPORT_PREFIX = 'GS01';
-
-const MAJOR_MANDATORY: Record<string, string[]> = {
-  EC: ['EC3101', 'EC3102'],
-  MA: ['MA2101', 'MA2102', 'MA2103', 'MA2104', 'MA3104', 'MA3105'],
-  MC: ['MC2100', 'MC2101', 'MC2102', 'MC2103', 'MC3106', 'MC3107'],
-};
 
 const SCIENCE_LAB_KEYWORDS = ['실험', 'lab', 'biology', 'physics', 'chemistry', '생물', '물리', '화학'];
 
@@ -237,9 +253,64 @@ function isScienceCreditCourse(c: TakenCourseType): boolean {
   return isScienceLab && scienceKeyword;
 }
 
-function normalizeMajorCode(major?: string): string {
-  if (!major) return '';
-  return normalizeCode(major).slice(0, 2) || '';
+const THESIS_COURSE_SUFFIXES = new Set(getThesisRequirements(2021).map((requirement) => requirement.suffix));
+
+function getMinorDeclarationTerm(minorCode: string, terms?: MinorDeclarationTerms): AcademicTerm | undefined {
+  if (!terms) return undefined;
+
+  const normalizedMinorCode = normalizeCode(minorCode);
+  const directMatch = terms[minorCode] ?? terms[normalizedMinorCode];
+  if (directMatch) return directMatch;
+
+  const matchingKey = Object.keys(terms).find((key) => normalizeCode(key) === normalizedMinorCode);
+  return matchingKey ? terms[matchingKey] : undefined;
+}
+
+function getSemesterOrder(semester: string): number {
+  const normalized = String(semester).trim().toLowerCase();
+  if (['1', '1학기', 'spring', '봄'].includes(normalized)) return 1;
+  if (['summer', '여름', '여름학기'].includes(normalized)) return 2;
+  if (['2', '2학기', 'fall', 'autumn', '가을'].includes(normalized)) return 3;
+  if (['winter', '겨울', '겨울학기'].includes(normalized)) return 4;
+  return 0;
+}
+
+function compareCourseTakenOrder(a: TakenCourseType, b: TakenCourseType): number {
+  if (a.year !== b.year) return a.year - b.year;
+
+  const semesterDiff = getSemesterOrder(a.semester) - getSemesterOrder(b.semester);
+  if (semesterDiff !== 0) return semesterDiff;
+
+  return normalizeCode(a.courseCode).localeCompare(normalizeCode(b.courseCode));
+}
+
+function isIrAiCodeCourse(c: TakenCourseType): boolean {
+  const code = normalizeCode(c.courseCode);
+  return /^AI[0-9]/.test(code) && !Array.from(THESIS_COURSE_SUFFIXES).some((suffix) => code.endsWith(suffix));
+}
+
+function applyIrAiCodeCourseLimit(
+  minorCode: string,
+  courses: TakenCourseType[],
+  entryYear: number,
+  declarationTerm?: AcademicTerm,
+): { accepted: TakenCourseType[]; excluded: TakenCourseType[]; reason?: string } {
+  const limitRequirement = getMinorCourseLimitRequirement(minorCode, { entryYear, declarationTerm });
+  if (!limitRequirement) {
+    return { accepted: courses, excluded: [] };
+  }
+
+  const acceptedAiCourses = new Set(
+    courses.filter(isIrAiCodeCourse).sort(compareCourseTakenOrder).slice(0, limitRequirement.limit.maxCourses),
+  );
+
+  return {
+    accepted: courses.filter((course) => !isIrAiCodeCourse(course) || acceptedAiCourses.has(course)),
+    excluded: courses
+      .filter((course) => isIrAiCodeCourse(course) && !acceptedAiCourses.has(course))
+      .sort(compareCourseTakenOrder),
+    reason: limitRequirement.reason,
+  };
 }
 
 // ===== Main Builder =====
@@ -250,22 +321,28 @@ export interface AnalyzeContext {
   ruleSet: YearRuleSet;
   entryYear: number;
   userMajor?: string;
+  unresolvedUserMajorInput?: string;
   userMinors?: string[];
+  minorDeclarationTerms?: MinorDeclarationTerms;
 }
 
 export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRequirement[] {
-  const { allCourses, grouped, ruleSet, entryYear, userMajor, userMinors } = ctx;
+  const { allCourses, grouped, entryYear, userMajor, unresolvedUserMajorInput, userMinors, minorDeclarationTerms } =
+    ctx;
+  const basicCatalog = getBasicRequirementCatalog(entryYear);
+  const basicSourceRefs = [basicCatalog.source];
   const reqs: FineGrainedRequirement[] = [];
 
   // ===== 0. Total Credits =====
   const totalCredits = sumCredits(allCourses);
-  const totalSatisfied = totalCredits >= ruleSet.minTotalCredits;
-  const totalMissing = Math.max(0, ruleSet.minTotalCredits - totalCredits);
+  const requiredTotalCredits = basicCatalog.totalCredits.requiredCredits;
+  const totalSatisfied = totalCredits >= requiredTotalCredits;
+  const totalMissing = Math.max(0, requiredTotalCredits - totalCredits);
   reqs.push({
-    id: 'total-credits',
+    id: basicCatalog.totalCredits.id,
     categoryKey: 'otherUncheckedClass',
-    label: creditBasedLabel('총 이수학점', ruleSet.minTotalCredits, totalCredits),
-    requiredCredits: ruleSet.minTotalCredits,
+    label: creditBasedLabel(basicCatalog.totalCredits.label, requiredTotalCredits, totalCredits),
+    requiredCredits: requiredTotalCredits,
     acquiredCredits: totalCredits,
     missingCredits: totalMissing,
     satisfied: totalSatisfied,
@@ -273,23 +350,24 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
     hint: totalSatisfied
       ? `축하합니다! 총 ${totalCredits}학점을 이수하여 요건을 충족했습니다.`
       : `졸업을 위해 ${totalMissing}학점을 더 이수해야 합니다.`,
+    sourceRefs: basicSourceRefs,
     matchedCourses: allCourses.map(toMatchedInfo),
   });
 
   // ===== 1. 언어의 기초 =====
-  
+
   // 영어 I 요건 확인
   // 2021학번 이후: GS1607 필수 (GS1601, GS1603 대체 가능)
   // 2018-2020학번: GS1601, GS1603, GS1607 중 택1
   const engICourses = findCoursesInSet(allCourses, SET_ENG_I_ALL);
   const engIMatched = engICourses.map(toMatchedInfo);
-  
+
   let tookEngI = false;
   if (entryYear >= 2021) {
     // 2021학번 이후: GS1607 또는 (GS1601 + GS1603) → GS1607이 둘을 대체
-    const hasGS1607 = engICourses.some(c => c.courseCode === 'GS1607');
-    const hasGS1601 = engICourses.some(c => c.courseCode === 'GS1601');
-    const hasGS1603 = engICourses.some(c => c.courseCode === 'GS1603');
+    const hasGS1607 = engICourses.some((c) => c.courseCode === 'GS1607');
+    const hasGS1601 = engICourses.some((c) => c.courseCode === 'GS1601');
+    const hasGS1603 = engICourses.some((c) => c.courseCode === 'GS1603');
     tookEngI = hasGS1607 || (hasGS1601 && hasGS1603);
   } else {
     // 2018-2020학번: 택1
@@ -306,7 +384,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   const advancedWritingCourses = findCoursesInSet(allCourses, SET_WRITING_ADVANCED);
   const allWritingCourses = [...basicWritingCourses, ...advancedWritingCourses];
   const writingMatched = allWritingCourses.map(toMatchedInfo);
-  
+
   const hasBasicWriting = basicWritingCourses.length > 0;
   const hasAdvancedWriting = advancedWritingCourses.length > 0;
   const tookWriting = hasBasicWriting || hasAdvancedWriting;
@@ -314,35 +392,47 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   // 영어 고급 수강 가능 여부 (영어I + 영어II 이수 후)
   const canTakeAdvancedEnglish = tookEngI && tookEngII;
   const advancedEnglishCourses = findCoursesInSet(allCourses, SET_ENG_ADVANCED);
+  const englishIRequirement = basicCatalog.language.englishI;
+  const englishIIRequirement = basicCatalog.language.englishII;
+  const writingRequirement = basicCatalog.language.writing;
 
   reqs.push(
     {
-      id: 'language-english-i',
+      id: englishIRequirement.id,
       categoryKey: 'languageBasic',
-      label: courseBasedLabel('영어 I (2학점)', engIMatched, tookEngI),
-      requiredCredits: 2,
-      acquiredCredits: tookEngI ? 2 : 0,
-      missingCredits: tookEngI ? 0 : 2,
+      label: courseBasedLabel(
+        `${englishIRequirement.label} (${englishIRequirement.requiredCredits}학점)`,
+        engIMatched,
+        tookEngI,
+      ),
+      requiredCredits: englishIRequirement.requiredCredits,
+      acquiredCredits: tookEngI ? englishIRequirement.requiredCredits : 0,
+      missingCredits: tookEngI ? 0 : englishIRequirement.requiredCredits,
       satisfied: tookEngI,
       importance: 'must',
       hint: courseBasedHint(
         engIMatched,
         tookEngI,
         '{year}년 {semester}에 {course}를 이수하여 요건을 충족했습니다.',
-        entryYear >= 2021 
+        entryYear >= 2021
           ? 'GS1607 학술영어를 이수해야 합니다. (GS1601+GS1603 동시 이수로 대체 가능)'
           : 'GS1601, GS1603, GS1607 중 1과목을 이수해야 합니다.',
       ),
+      sourceRefs: basicSourceRefs,
       matchedCourses: engIMatched,
       relatedCoursePatterns: { codePrefixes: Array.from(SET_ENG_I_ALL) },
     },
     {
-      id: 'language-english-ii',
+      id: englishIIRequirement.id,
       categoryKey: 'languageBasic',
-      label: courseBasedLabel('영어 II (2학점)', engIIMatched, tookEngII),
-      requiredCredits: 2,
-      acquiredCredits: tookEngII ? 2 : 0,
-      missingCredits: tookEngII ? 0 : 2,
+      label: courseBasedLabel(
+        `${englishIIRequirement.label} (${englishIIRequirement.requiredCredits}학점)`,
+        engIIMatched,
+        tookEngII,
+      ),
+      requiredCredits: englishIIRequirement.requiredCredits,
+      acquiredCredits: tookEngII ? englishIIRequirement.requiredCredits : 0,
+      missingCredits: tookEngII ? 0 : englishIIRequirement.requiredCredits,
       satisfied: tookEngII,
       importance: 'must',
       hint: courseBasedHint(
@@ -353,16 +443,21 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
           ? 'GS2652 이공계 글쓰기 입문을 이수해야 합니다.'
           : 'GS1602, GS1604, GS2652 중 1과목을 이수해야 합니다.',
       ),
+      sourceRefs: basicSourceRefs,
       matchedCourses: engIIMatched,
       relatedCoursePatterns: { codePrefixes: Array.from(SET_ENG_II_ALL) },
     },
     {
-      id: 'language-writing',
+      id: writingRequirement.id,
       categoryKey: 'languageBasic',
-      label: courseBasedLabel('글쓰기 (3학점)', writingMatched, tookWriting),
-      requiredCredits: 3,
-      acquiredCredits: tookWriting ? 3 : 0,
-      missingCredits: tookWriting ? 0 : 3,
+      label: courseBasedLabel(
+        `${writingRequirement.label} (${writingRequirement.requiredCredits}학점)`,
+        writingMatched,
+        tookWriting,
+      ),
+      requiredCredits: writingRequirement.requiredCredits,
+      acquiredCredits: tookWriting ? writingRequirement.requiredCredits : 0,
+      missingCredits: tookWriting ? 0 : writingRequirement.requiredCredits,
       satisfied: tookWriting,
       importance: 'must',
       hint: courseBasedHint(
@@ -373,6 +468,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
           ? '심화 글쓰기로 요건 충족. (기초 글쓰기 추가 수강 불가)'
           : '글쓰기의 기초(GS1511~1513) 또는 심화 글쓰기(GS1531~1535) 중 1과목을 이수해야 합니다.',
       ),
+      sourceRefs: basicSourceRefs,
       matchedCourses: writingMatched,
       relatedCoursePatterns: { codePrefixes: Array.from(SET_WRITING_ALL) },
     },
@@ -390,6 +486,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
       satisfied: false,
       importance: 'should',
       hint: 'GS2655, GS3651은 영어I + 영어II를 모두 이수한 후에만 수강 가능합니다.',
+      sourceRefs: basicSourceRefs,
       matchedCourses: advancedEnglishCourses.map(toMatchedInfo),
     });
   }
@@ -402,15 +499,17 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   const coreMathCourses = findCoursesInSet(allCourses, SET_CORE_MATH);
   const coreMathMatched = coreMathCourses.map(toMatchedInfo);
   const tookCoreMath = coreMathCourses.length > 0;
+  const calculusRequirement = basicCatalog.scienceBasic.calculus;
+  const coreMathRequirement = basicCatalog.scienceBasic.coreMath;
 
   reqs.push(
     {
-      id: 'science-calculus',
+      id: calculusRequirement.id,
       categoryKey: 'scienceBasic',
-      label: courseBasedLabel('미적분학', calculusMatched, tookCalculus),
-      requiredCredits: 1,
-      acquiredCredits: tookCalculus ? 1 : 0,
-      missingCredits: tookCalculus ? 0 : 1,
+      label: courseBasedLabel(calculusRequirement.label, calculusMatched, tookCalculus),
+      requiredCredits: calculusRequirement.requiredCredits,
+      acquiredCredits: tookCalculus ? calculusRequirement.requiredCredits : 0,
+      missingCredits: tookCalculus ? 0 : calculusRequirement.requiredCredits,
       satisfied: tookCalculus,
       importance: 'must',
       hint: courseBasedHint(
@@ -419,16 +518,17 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
         '{course}를 이수하여 미적분학 요건을 충족했습니다.',
         'GS1001 또는 GS1011 중 1과목을 이수해야 합니다.',
       ),
+      sourceRefs: basicSourceRefs,
       matchedCourses: calculusMatched,
       relatedCoursePatterns: { codePrefixes: Array.from(SET_CALCULUS) },
     },
     {
-      id: 'science-core-math',
+      id: coreMathRequirement.id,
       categoryKey: 'scienceBasic',
-      label: courseBasedLabel('수학 선택 필수', coreMathMatched, tookCoreMath),
-      requiredCredits: 1,
-      acquiredCredits: tookCoreMath ? 1 : 0,
-      missingCredits: tookCoreMath ? 0 : 1,
+      label: courseBasedLabel(coreMathRequirement.label, coreMathMatched, tookCoreMath),
+      requiredCredits: coreMathRequirement.requiredCredits,
+      acquiredCredits: tookCoreMath ? coreMathRequirement.requiredCredits : 0,
+      missingCredits: tookCoreMath ? 0 : coreMathRequirement.requiredCredits,
       satisfied: tookCoreMath,
       importance: 'must',
       hint: courseBasedHint(
@@ -437,6 +537,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
         '{course}를 이수하여 수학 선택 요건을 충족했습니다.',
         '해석학/선형대수 등 CORE MATH 과목 중 1과목을 이수해야 합니다.',
       ),
+      sourceRefs: basicSourceRefs,
       matchedCourses: coreMathMatched,
       relatedCoursePatterns: { codePrefixes: Array.from(SET_CORE_MATH) },
     },
@@ -447,13 +548,16 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   const tookCompProg = compProgCourses.length > 0;
   const scienceCourses = grouped.scienceBasic ?? [];
   const scienceCredits = sumCredits(scienceCourses);
-  const requiredScienceCredits = tookCompProg ? 17 : 18;
+  const scienceTotalRequirement = basicCatalog.scienceBasic.totalCredits;
+  const requiredScienceCredits = tookCompProg
+    ? scienceTotalRequirement.withComputerProgrammingCredits
+    : scienceTotalRequirement.defaultCredits;
   const scienceSatisfied = scienceCredits >= requiredScienceCredits;
 
   reqs.push({
-    id: 'science-total',
+    id: scienceTotalRequirement.id,
     categoryKey: 'scienceBasic',
-    label: creditBasedLabel('기초과학 학점', requiredScienceCredits, scienceCredits),
+    label: creditBasedLabel(`${scienceTotalRequirement.label} 학점`, requiredScienceCredits, scienceCredits),
     requiredCredits: requiredScienceCredits,
     acquiredCredits: scienceCredits,
     missingCredits: Math.max(0, requiredScienceCredits - scienceCredits),
@@ -462,6 +566,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
     hint: scienceSatisfied
       ? `기초과학 ${scienceCredits}학점을 이수하여 요건(${requiredScienceCredits}학점)을 충족했습니다.`
       : `기초과학 ${requiredScienceCredits - scienceCredits}학점이 더 필요합니다.`,
+    sourceRefs: basicSourceRefs,
     matchedCourses: scienceCourses.map(toMatchedInfo),
   });
 
@@ -469,14 +574,15 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   const swBasicCourses = findCoursesInSet(allCourses, SET_SW_BASIC);
   const swMatched = [...swBasicCourses, ...compProgCourses].map(toMatchedInfo);
   const swSatisfied = swBasicCourses.length > 0 || tookCompProg;
+  const softwareBasicRequirement = basicCatalog.scienceBasic.softwareBasic;
 
   reqs.push({
-    id: 'science-sw-basic',
+    id: softwareBasicRequirement.id,
     categoryKey: 'scienceBasic',
-    label: courseBasedLabel('SW 기초와 코딩', swMatched, swSatisfied),
-    requiredCredits: 1,
-    acquiredCredits: swSatisfied ? 1 : 0,
-    missingCredits: swSatisfied ? 0 : 1,
+    label: courseBasedLabel(softwareBasicRequirement.label, swMatched, swSatisfied),
+    requiredCredits: softwareBasicRequirement.requiredCredits,
+    acquiredCredits: swSatisfied ? softwareBasicRequirement.requiredCredits : 0,
+    missingCredits: swSatisfied ? 0 : softwareBasicRequirement.requiredCredits,
     satisfied: swSatisfied,
     importance: 'must',
     hint: swSatisfied
@@ -484,64 +590,76 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
         ? '컴퓨터 프로그래밍(GS1401) 이수로 면제되었습니다.'
         : 'SW 기초와 코딩(GS1490)을 이수하여 요건을 충족했습니다.'
       : 'GS1490을 이수하거나 GS1401로 면제받아야 합니다.',
+    sourceRefs: basicSourceRefs,
     matchedCourses: swMatched,
     relatedCoursePatterns: { codePrefixes: Array.from(SET_SW_BASIC) },
   });
 
   // ===== 5. 인문사회 =====
+  const husRequirement = basicCatalog.humanities.hus;
+  const ppeRequirement = basicCatalog.humanities.ppe;
+  const humanitiesTotalRequirement = basicCatalog.humanities.totalCredits;
+
   const husCourses = allCourses.filter((c) => isCourseType(c, 'HUS'));
   const husCredits = sumCredits(husCourses);
-  const husSatisfied = husCredits >= 6;
+  const husSatisfied = husCredits >= husRequirement.requiredCredits;
 
   const ppeCourses = allCourses.filter((c) => isCourseType(c, 'PPE'));
   const ppeCredits = sumCredits(ppeCourses);
-  const ppeSatisfied = ppeCredits >= 6;
+  const ppeSatisfied = ppeCredits >= ppeRequirement.requiredCredits;
 
   const humanitiesCourses = grouped.humanities ?? [];
   const humanitiesCredits = sumCredits(humanitiesCourses);
-  const humanitiesSatisfied = humanitiesCredits >= 24;
+  const humanitiesSatisfied = humanitiesCredits >= humanitiesTotalRequirement.requiredCredits;
 
   reqs.push(
     {
-      id: 'humanities-hus',
+      id: husRequirement.id,
       categoryKey: 'humanities',
-      label: creditBasedLabel('HUS 학점', 6, husCredits),
-      requiredCredits: 6,
+      label: creditBasedLabel(`${husRequirement.label} 학점`, husRequirement.requiredCredits, husCredits),
+      requiredCredits: husRequirement.requiredCredits,
       acquiredCredits: husCredits,
-      missingCredits: Math.max(0, 6 - husCredits),
+      missingCredits: Math.max(0, husRequirement.requiredCredits - husCredits),
       satisfied: husSatisfied,
       importance: 'must',
       hint: husSatisfied
         ? `HUS 과목 ${husCredits}학점을 이수하여 요건을 충족했습니다.`
-        : `HUS 이수구분 과목에서 ${6 - husCredits}학점이 더 필요합니다.`,
+        : `HUS 이수구분 과목에서 ${husRequirement.requiredCredits - husCredits}학점이 더 필요합니다.`,
+      sourceRefs: basicSourceRefs,
       matchedCourses: husCourses.map(toMatchedInfo),
     },
     {
-      id: 'humanities-ppe',
+      id: ppeRequirement.id,
       categoryKey: 'humanities',
-      label: creditBasedLabel('PPE 학점', 6, ppeCredits),
-      requiredCredits: 6,
+      label: creditBasedLabel(`${ppeRequirement.label} 학점`, ppeRequirement.requiredCredits, ppeCredits),
+      requiredCredits: ppeRequirement.requiredCredits,
       acquiredCredits: ppeCredits,
-      missingCredits: Math.max(0, 6 - ppeCredits),
+      missingCredits: Math.max(0, ppeRequirement.requiredCredits - ppeCredits),
       satisfied: ppeSatisfied,
       importance: 'must',
       hint: ppeSatisfied
         ? `PPE 과목 ${ppeCredits}학점을 이수하여 요건을 충족했습니다.`
-        : `PPE 이수구분 과목에서 ${6 - ppeCredits}학점이 더 필요합니다.`,
+        : `PPE 이수구분 과목에서 ${ppeRequirement.requiredCredits - ppeCredits}학점이 더 필요합니다.`,
+      sourceRefs: basicSourceRefs,
       matchedCourses: ppeCourses.map(toMatchedInfo),
     },
     {
-      id: 'humanities-total',
+      id: humanitiesTotalRequirement.id,
       categoryKey: 'humanities',
-      label: creditBasedLabel('인문사회 총 학점', 24, humanitiesCredits),
-      requiredCredits: 24,
+      label: creditBasedLabel(
+        `${humanitiesTotalRequirement.label} 총 학점`,
+        humanitiesTotalRequirement.requiredCredits,
+        humanitiesCredits,
+      ),
+      requiredCredits: humanitiesTotalRequirement.requiredCredits,
       acquiredCredits: humanitiesCredits,
-      missingCredits: Math.max(0, 24 - humanitiesCredits),
+      missingCredits: Math.max(0, humanitiesTotalRequirement.requiredCredits - humanitiesCredits),
       satisfied: humanitiesSatisfied,
       importance: 'must',
       hint: humanitiesSatisfied
         ? `인문사회 ${humanitiesCredits}학점을 이수하여 요건을 충족했습니다.`
-        : `인문사회 영역에서 ${24 - humanitiesCredits}학점이 더 필요합니다.`,
+        : `인문사회 영역에서 ${humanitiesTotalRequirement.requiredCredits - humanitiesCredits}학점이 더 필요합니다.`,
+      sourceRefs: basicSourceRefs,
       matchedCourses: humanitiesCourses.map(toMatchedInfo),
     },
   );
@@ -554,21 +672,24 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   const explorationCourses = findCoursesInSet(allCourses, SET_EXPLORATION);
   const explorationMatched = explorationCourses.map(toMatchedInfo);
   const explorationTaken = explorationCourses.length > 0;
+  const freshmanRequirement = basicCatalog.commonMandatory.freshman;
+  const majorExplorationRequirement = basicCatalog.commonMandatory.majorExploration;
+  const colloquiumRequirement = basicCatalog.commonMandatory.colloquium;
 
   const colloquiumCourses = allCourses.filter(
     (c) => codeInSet(c, SET_COLLOQUIUM) || normalizeName(c.courseName).includes('콜로퀴움'),
   );
   const colloquiumMatched = colloquiumCourses.map(toMatchedInfo);
   const colloquiumCount = colloquiumCourses.length;
-  const colloquiumSatisfied = colloquiumCount >= 2;
+  const colloquiumSatisfied = colloquiumCount >= colloquiumRequirement.requiredCount;
 
   reqs.push({
-    id: 'etc-freshman',
+    id: freshmanRequirement.id,
     categoryKey: 'etcMandatory',
-    label: courseBasedLabel('GIST 새내기', freshmanMatched, freshmanTaken),
-    requiredCredits: 1,
-    acquiredCredits: freshmanTaken ? 1 : 0,
-    missingCredits: freshmanTaken ? 0 : 1,
+    label: courseBasedLabel(freshmanRequirement.label, freshmanMatched, freshmanTaken),
+    requiredCredits: freshmanRequirement.requiredCredits,
+    acquiredCredits: freshmanTaken ? freshmanRequirement.requiredCredits : 0,
+    missingCredits: freshmanTaken ? 0 : freshmanRequirement.requiredCredits,
     satisfied: freshmanTaken,
     importance: 'must',
     hint: courseBasedHint(
@@ -577,18 +698,19 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
       '{year}년 {semester}에 {course}를 이수했습니다.',
       'GS1901 또는 GS9301을 이수해야 합니다.',
     ),
+    sourceRefs: basicSourceRefs,
     matchedCourses: freshmanMatched,
     relatedCoursePatterns: { codePrefixes: Array.from(SET_FRESHMAN) },
   });
 
-  if (entryYear >= 2021) {
+  if (majorExplorationRequirement) {
     reqs.push({
-      id: 'etc-major-exploration',
+      id: majorExplorationRequirement.id,
       categoryKey: 'etcMandatory',
-      label: courseBasedLabel('전공탐색', explorationMatched, explorationTaken),
-      requiredCredits: 1,
-      acquiredCredits: explorationTaken ? 1 : 0,
-      missingCredits: explorationTaken ? 0 : 1,
+      label: courseBasedLabel(majorExplorationRequirement.label, explorationMatched, explorationTaken),
+      requiredCredits: majorExplorationRequirement.requiredCredits,
+      acquiredCredits: explorationTaken ? majorExplorationRequirement.requiredCredits : 0,
+      missingCredits: explorationTaken ? 0 : majorExplorationRequirement.requiredCredits,
       satisfied: explorationTaken,
       importance: 'must',
       hint: courseBasedHint(
@@ -597,23 +719,25 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
         '{year}년 {semester}에 {course}를 이수했습니다.',
         '2021학번 이후는 UC0902 전공탐색을 필수로 이수해야 합니다.',
       ),
+      sourceRefs: basicSourceRefs,
       matchedCourses: explorationMatched,
       relatedCoursePatterns: { codePrefixes: Array.from(SET_EXPLORATION) },
     });
   }
 
   reqs.push({
-    id: 'etc-colloquium',
+    id: colloquiumRequirement.id,
     categoryKey: 'etcMandatory',
-    label: creditBasedLabel('GIST대학 콜로퀴움', 2, colloquiumCount, '회'),
-    requiredCredits: 2,
+    label: creditBasedLabel(colloquiumRequirement.label, colloquiumRequirement.requiredCount, colloquiumCount, '회'),
+    requiredCredits: colloquiumRequirement.requiredCount,
     acquiredCredits: colloquiumCount,
-    missingCredits: Math.max(0, 2 - colloquiumCount),
+    missingCredits: Math.max(0, colloquiumRequirement.requiredCount - colloquiumCount),
     satisfied: colloquiumSatisfied,
     importance: 'must',
     hint: colloquiumSatisfied
       ? `콜로퀴움을 ${colloquiumCount}회 이수하여 요건을 충족했습니다.`
-      : `콜로퀴움을 ${2 - colloquiumCount}회 더 이수해야 합니다.`,
+      : `콜로퀴움을 ${colloquiumRequirement.requiredCount - colloquiumCount}회 더 이수해야 합니다.`,
+    sourceRefs: basicSourceRefs,
     matchedCourses: colloquiumMatched,
     relatedCoursePatterns: { codePrefixes: Array.from(SET_COLLOQUIUM) },
   });
@@ -622,69 +746,74 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   const scienceEconomyCourses = findCoursesInSet(allCourses, SET_SCIENCE_ECONOMY);
   const scienceEconomyMatched = scienceEconomyCourses.map(toMatchedInfo);
   const scienceEconomyTaken = scienceEconomyCourses.length > 0;
+  const scienceEconomyRequirement = basicCatalog.commonMandatory.scienceEconomy;
 
   reqs.push({
-    id: 'etc-science-economy',
+    id: scienceEconomyRequirement.id,
     categoryKey: 'etcMandatory',
-    label: courseBasedLabel('과학기술과 경제', scienceEconomyMatched, scienceEconomyTaken),
-    requiredCredits: 1,
-    acquiredCredits: scienceEconomyTaken ? 1 : 0,
-    missingCredits: scienceEconomyTaken ? 0 : 1,
+    label: courseBasedLabel(scienceEconomyRequirement.label, scienceEconomyMatched, scienceEconomyTaken),
+    requiredCredits: scienceEconomyRequirement.requiredCredits,
+    acquiredCredits: scienceEconomyTaken ? scienceEconomyRequirement.requiredCredits : 0,
+    missingCredits: scienceEconomyTaken ? 0 : scienceEconomyRequirement.requiredCredits,
     satisfied: scienceEconomyTaken,
     importance: 'must',
     hint: courseBasedHint(
       scienceEconomyMatched,
       scienceEconomyTaken,
       '{year}년 {semester}에 {course}를 이수했습니다.',
-      'GS1701 과학기술과 경제(1학점)를 필수로 이수해야 합니다.',
+      `${scienceEconomyRequirement.acceptedCodes.join(', ')} 중 1과목을 이수해야 합니다.`,
     ),
+    sourceRefs: basicSourceRefs,
     matchedCourses: scienceEconomyMatched,
     relatedCoursePatterns: { codePrefixes: Array.from(SET_SCIENCE_ECONOMY) },
   });
 
   // ===== 7. 예체능 =====
-  const requiredArtSportCount = entryYear >= 2020 ? 2 : 4;
-  
+  const artsRequirement = basicCatalog.artsSports.arts;
+  const sportsRequirement = basicCatalog.artsSports.sports;
+
   // 예능 과목 (GS0201~GS0213)
   const artCourses = findCoursesInSet(allCourses, ARTS_EDUCATION_CODES);
   const artMatched = artCourses.map(toMatchedInfo);
   const artCount = artCourses.length;
-  const artSatisfied = artCount >= requiredArtSportCount;
+  const artSatisfied = artCount >= artsRequirement.requiredCount;
 
   // 체육 과목 (GS0101~GS0115)
   const sportCourses = findCoursesInSet(allCourses, PHYSICAL_EDUCATION_CODES);
   const sportMatched = sportCourses.map(toMatchedInfo);
   const sportCount = sportCourses.length;
-  const sportSatisfied = sportCount >= requiredArtSportCount;
+  const sportSatisfied = sportCount >= sportsRequirement.requiredCount;
 
   reqs.push(
     {
-      id: 'arts',
+      id: artsRequirement.id,
       categoryKey: 'otherUncheckedClass',
-      label: creditBasedLabel('예술 교양', requiredArtSportCount, artCount, '과목'),
-      requiredCredits: requiredArtSportCount,
+      label: creditBasedLabel(artsRequirement.label, artsRequirement.requiredCount, artCount, '과목'),
+      requiredCredits: artsRequirement.requiredCount,
       acquiredCredits: artCount,
-      missingCredits: Math.max(0, requiredArtSportCount - artCount),
+      missingCredits: Math.max(0, artsRequirement.requiredCount - artCount),
       satisfied: artSatisfied,
       importance: 'must',
       hint: artSatisfied
         ? `예술 교양 ${artCount}과목을 이수하여 요건을 충족했습니다.`
-        : `예술 교양 ${requiredArtSportCount - artCount}과목이 더 필요합니다.`,
+        : `예술 교양 ${artsRequirement.requiredCount - artCount}과목이 더 필요합니다.`,
+      sourceRefs: basicSourceRefs,
       matchedCourses: artMatched,
       relatedCoursePatterns: { codePrefixes: Array.from(ARTS_EDUCATION_CODES) },
     },
     {
-      id: 'sports',
+      id: sportsRequirement.id,
       categoryKey: 'otherUncheckedClass',
-      label: creditBasedLabel('체육', requiredArtSportCount, sportCount, '과목'),
-      requiredCredits: requiredArtSportCount,
+      label: creditBasedLabel(sportsRequirement.label, sportsRequirement.requiredCount, sportCount, '과목'),
+      requiredCredits: sportsRequirement.requiredCount,
       acquiredCredits: sportCount,
-      missingCredits: Math.max(0, requiredArtSportCount - sportCount),
+      missingCredits: Math.max(0, sportsRequirement.requiredCount - sportCount),
       satisfied: sportSatisfied,
       importance: 'must',
       hint: sportSatisfied
         ? `체육 ${sportCount}과목을 이수하여 요건을 충족했습니다.`
-        : `체육 ${requiredArtSportCount - sportCount}과목이 더 필요합니다.`,
+        : `체육 ${sportsRequirement.requiredCount - sportCount}과목이 더 필요합니다.`,
+      sourceRefs: basicSourceRefs,
       matchedCourses: sportMatched,
       relatedCoursePatterns: { codePrefixes: Array.from(PHYSICAL_EDUCATION_CODES) },
     },
@@ -693,83 +822,141 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   // ===== 7-1. 부전공 학점 (15학점) =====
   if (userMinors?.length) {
     userMinors.forEach((minorCode) => {
-      const minorCourses = (grouped.minor ?? []).filter((c) => matchesMinor(c.courseCode, minorCode));
+      const declarationTerm = getMinorDeclarationTerm(minorCode, minorDeclarationTerms);
+      if (requiresMinorDeclarationTerm(minorCode) && !declarationTerm) {
+        const declarationRequirement = getMinorDeclarationTermRequirement(minorCode);
+        reqs.push({
+          id: declarationRequirement?.missingTermRequirementId ?? `minor-declaration-term-${minorCode}`,
+          categoryKey: 'minor',
+          label: declarationRequirement?.missingTermLabel ?? `${minorCode} 부전공 선언 학기 확인 필요`,
+          requiredCredits: 0,
+          acquiredCredits: 0,
+          missingCredits: 0,
+          satisfied: false,
+          status: 'needs_review',
+          importance: 'must',
+          hint:
+            declarationRequirement?.missingTermHint ??
+            `${minorCode} 부전공은 선언 학기에 따라 필수과목 적용 여부가 달라져 선언 학기 정보가 필요합니다.`,
+          sourceRefs: declarationRequirement?.sourceRefs,
+          matchedCourses: [],
+        });
+      }
+
+      const minorCourseLimit = applyIrAiCodeCourseLimit(
+        minorCode,
+        (grouped.minor ?? []).filter((c) => matchesMinor(c.courseCode, minorCode)),
+        entryYear,
+        declarationTerm,
+      );
+      const minorCourses = minorCourseLimit.accepted;
       const minorMatched = minorCourses.map(toMatchedInfo);
+      const minorExcluded = minorCourseLimit.excluded.map((course) =>
+        toExcludedCourseInfo(course, minorCourseLimit.reason ?? '부전공 이수학점 인정 제한으로 제외되었습니다.'),
+      );
       const minorCredits = sumCredits(minorCourses);
-      const minorSatisfied = minorCredits >= 15;
+      const minorCreditRequirement = getMinorCreditRequirement(minorCode, entryYear);
+      const requiredMinorCredits = minorCreditRequirement.requiredCredits;
+      const minorSatisfied = minorCredits >= requiredMinorCredits;
 
       reqs.push({
         id: `minor-credits-${minorCode}`,
         categoryKey: 'minor',
-        label: creditBasedLabel(`${minorCode} 부전공`, 15, minorCredits),
-        requiredCredits: 15,
+        label: creditBasedLabel(`${minorCode} 부전공`, requiredMinorCredits, minorCredits),
+        requiredCredits: requiredMinorCredits,
         acquiredCredits: minorCredits,
-        missingCredits: Math.max(0, 15 - minorCredits),
+        missingCredits: Math.max(0, requiredMinorCredits - minorCredits),
         satisfied: minorSatisfied,
         importance: 'must',
         hint: minorSatisfied
           ? `${minorCode} 부전공 ${minorCredits}학점을 이수하여 요건을 충족했습니다.`
-          : `${minorCode} 부전공 ${Math.max(0, 15 - minorCredits)}학점이 더 필요합니다.`,
+          : `${minorCode} 부전공 ${Math.max(0, requiredMinorCredits - minorCredits)}학점이 더 필요합니다.`,
+        sourceRefs: minorCreditRequirement.sourceRefs,
         matchedCourses: minorMatched,
+        excludedCourses: minorExcluded.length > 0 ? minorExcluded : undefined,
       });
     });
   }
 
   // ===== 8. 전공 학점 및 필수 =====
-  const majorCode = normalizeMajorCode(userMajor);
-  const majorCourses = grouped.major ?? [];
-  const majorMatched = majorCourses.map(toMatchedInfo);
-  const majorCredits = sumCredits(majorCourses);
-  const majorSatisfied = majorCredits >= 36;
-
-  reqs.push({
-    id: 'major-credits',
-    categoryKey: 'major',
-    label: creditBasedLabel('전공 학점', 36, majorCredits),
-    requiredCredits: 36,
-    acquiredCredits: majorCredits,
-    missingCredits: Math.max(0, 36 - majorCredits),
-    satisfied: majorSatisfied,
-    importance: 'must',
-    hint: majorSatisfied
-      ? `전공 ${majorCredits}학점을 이수하여 요건을 충족했습니다.`
-      : `전공 ${36 - majorCredits}학점이 더 필요합니다.`,
-    matchedCourses: majorMatched,
-  });
-
-  // ===== 8-1. 전공 필수 (세부 과목 요건: 택1, 택3 등) =====
-  if (userMajor && MAJOR_MANDATORY_RULES[userMajor]) {
-    const rules = MAJOR_MANDATORY_RULES[userMajor];
-    rules.forEach((rule, idx) => {
-      // Find matching courses in allCourses (or majorCourses)
-      // Rule courses are usually major courses, but searching in allCourses is safer in case of cross-listing
-      const matched = findCoursesInSet(allCourses, new Set(rule.courses));
-      const matchedInfo = matched.map(toMatchedInfo);
-      const matchCount = matched.length; // Count of courses taken
-      const satisfied = matchCount >= rule.requiredCount;
-
-      reqs.push({
-        id: `major-mandatory-rule-${userMajor}-${idx}`,
-        categoryKey: 'major',
-        label: creditBasedLabel(rule.label, rule.requiredCount, matchCount, '과목'),
-        requiredCredits: rule.requiredCount, // Using count as required unit
-        acquiredCredits: matchCount,
-        missingCredits: Math.max(0, rule.requiredCount - matchCount),
-        satisfied: satisfied,
-        importance: 'must',
-        hint: satisfied
-          ? `${rule.label} 요건을 충족했습니다.`
-          : `${rule.label} 요건을 위해 ${Math.max(0, rule.requiredCount - matchCount)}과목을 더 이수해야 합니다.`,
-        matchedCourses: matchedInfo,
-        relatedCoursePatterns: { codePrefixes: rule.courses },
-      });
+  const majorCreditRequirement = getMajorCreditRequirement(entryYear);
+  if (!userMajor) {
+    reqs.push({
+      id: 'major-context',
+      categoryKey: 'major',
+      label: unresolvedUserMajorInput ? `전공 정보 확인 필요 (${unresolvedUserMajorInput})` : '전공 정보 확인 필요',
+      requiredCredits: 0,
+      acquiredCredits: 0,
+      missingCredits: 0,
+      satisfied: false,
+      status: 'needs_review',
+      importance: 'must',
+      hint: unresolvedUserMajorInput
+        ? `입력된 전공 "${unresolvedUserMajorInput}"을 지원 전공 코드로 해석할 수 없습니다. 전공 학점과 전공필수 요건을 판정하려면 전공 정보를 확인해야 합니다.`
+        : '전공 학점과 전공필수 요건을 판정하려면 학생의 전공 정보가 필요합니다.',
+      sourceRefs: majorCreditRequirement.sourceRefs,
+      matchedCourses: [],
     });
+  } else {
+    const majorCourses = grouped.major ?? [];
+    const majorMatched = majorCourses.map(toMatchedInfo);
+    const majorCredits = sumCredits(majorCourses);
+    const requiredMajorCredits = majorCreditRequirement.requiredCredits;
+    const majorSatisfied = majorCredits >= requiredMajorCredits;
+
+    reqs.push({
+      id: majorCreditRequirement.id,
+      categoryKey: 'major',
+      label: creditBasedLabel(majorCreditRequirement.label, requiredMajorCredits, majorCredits),
+      requiredCredits: requiredMajorCredits,
+      acquiredCredits: majorCredits,
+      missingCredits: Math.max(0, requiredMajorCredits - majorCredits),
+      satisfied: majorSatisfied,
+      importance: 'must',
+      hint: majorSatisfied
+        ? `전공 ${majorCredits}학점을 이수하여 요건을 충족했습니다.`
+        : `전공 ${requiredMajorCredits - majorCredits}학점이 더 필요합니다.`,
+      sourceRefs: majorCreditRequirement.sourceRefs,
+      matchedCourses: majorMatched,
+    });
+
+    // ===== 8-1. 전공 필수 (세부 과목 요건: 택1, 택3 등) =====
+    const majorMandatoryRules = getMajorMandatoryRulesForContext(userMajor, { entryYear });
+    if (majorMandatoryRules.length > 0) {
+      const rules = majorMandatoryRules;
+      rules.forEach((rule, idx) => {
+        // Find matching courses in allCourses (or majorCourses)
+        // Rule courses are usually major courses, but searching in allCourses is safer in case of cross-listing
+        const matched = findCoursesInSet(allCourses, new Set(rule.courses));
+        const matchedInfo = matched.map(toMatchedInfo);
+        const matchCount = matched.length; // Count of courses taken
+        const satisfied = matchCount >= rule.requiredCount;
+
+        reqs.push({
+          id: `major-mandatory-rule-${userMajor}-${idx}`,
+          categoryKey: 'major',
+          label: creditBasedLabel(rule.label, rule.requiredCount, matchCount, '과목'),
+          requiredCredits: rule.requiredCount, // Using count as required unit
+          acquiredCredits: matchCount,
+          missingCredits: Math.max(0, rule.requiredCount - matchCount),
+          satisfied: satisfied,
+          importance: 'must',
+          hint: satisfied
+            ? `${rule.label} 요건을 충족했습니다.`
+            : `${rule.label} 요건을 위해 ${Math.max(0, rule.requiredCount - matchCount)}과목을 더 이수해야 합니다.`,
+          sourceRefs: rule.sourceRefs,
+          matchedCourses: matchedInfo,
+          relatedCoursePatterns: { codePrefixes: [...rule.courses] },
+        });
+      });
+    }
   }
 
   // ===== 8-2. 부전공 필수 (있는 경우) =====
   if (userMinors?.length) {
     userMinors.forEach((minorCode) => {
-      const rules = MINOR_MANDATORY_RULES[minorCode];
+      const declarationTerm = getMinorDeclarationTerm(minorCode, minorDeclarationTerms);
+      const rules = getMinorMandatoryRulesForContext(minorCode, { entryYear, declarationTerm });
       if (rules) {
         rules.forEach((rule, idx) => {
           const matched = findCoursesInSet(allCourses, new Set(rule.courses));
@@ -789,8 +976,9 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
             hint: satisfied
               ? `${rule.label} 요건을 충족했습니다.`
               : `${rule.label} 요건을 위해 ${Math.max(0, rule.requiredCount - matchCount)}과목을 더 이수해야 합니다.`,
+            sourceRefs: rule.sourceRefs,
             matchedCourses: matchedInfo,
-            relatedCoursePatterns: { codePrefixes: rule.courses },
+            relatedCoursePatterns: { codePrefixes: [...rule.courses] },
           });
         });
       }
@@ -798,50 +986,30 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
   }
 
   // ===== 9. 학사논문연구 =====
-  const thesisICourses = findCoursesWithSuffix(allCourses, RESEARCH_I_SUFFIX);
-  const thesisIMatched = thesisICourses.map(toMatchedInfo);
-  const thesisI = thesisICourses.length > 0;
+  getThesisRequirements(entryYear).forEach((requirement) => {
+    const thesisCourses = findCoursesWithSuffix(allCourses, requirement.suffix);
+    const thesisMatched = thesisCourses.map(toMatchedInfo);
+    const thesisSatisfied = thesisCourses.length > 0;
 
-  const thesisIICourses = findCoursesWithSuffix(allCourses, RESEARCH_II_SUFFIX);
-  const thesisIIMatched = thesisIICourses.map(toMatchedInfo);
-  const thesisII = thesisIICourses.length > 0;
-
-  reqs.push(
-    {
-      id: 'thesis-i',
+    reqs.push({
+      id: requirement.id,
       categoryKey: 'etcMandatory',
-      label: courseBasedLabel('학사논문연구 I', thesisIMatched, thesisI),
-      requiredCredits: 1,
-      acquiredCredits: thesisI ? 1 : 0,
-      missingCredits: thesisI ? 0 : 1,
-      satisfied: thesisI,
+      label: courseBasedLabel(requirement.label, thesisMatched, thesisSatisfied),
+      requiredCredits: requirement.requiredCount,
+      acquiredCredits: thesisSatisfied ? requirement.requiredCount : 0,
+      missingCredits: thesisSatisfied ? 0 : requirement.requiredCount,
+      satisfied: thesisSatisfied,
       importance: 'must',
       hint: courseBasedHint(
-        thesisIMatched,
-        thesisI,
+        thesisMatched,
+        thesisSatisfied,
         '{year}년 {semester}에 {course}를 이수했습니다.',
-        '전공코드+9102 형태의 학사논문연구 I을 이수해야 합니다.',
+        `전공코드+${requirement.suffix} 형태의 ${requirement.label}을 이수해야 합니다.`,
       ),
-      matchedCourses: thesisIMatched,
-    },
-    {
-      id: 'thesis-ii',
-      categoryKey: 'etcMandatory',
-      label: courseBasedLabel('학사논문연구 II', thesisIIMatched, thesisII),
-      requiredCredits: 1,
-      acquiredCredits: thesisII ? 1 : 0,
-      missingCredits: thesisII ? 0 : 1,
-      satisfied: thesisII,
-      importance: 'must',
-      hint: courseBasedHint(
-        thesisIIMatched,
-        thesisII,
-        '{year}년 {semester}에 {course}를 이수했습니다.',
-        '전공코드+9103 형태의 학사논문연구 II을 이수해야 합니다.',
-      ),
-      matchedCourses: thesisIIMatched,
-    },
-  );
+      sourceRefs: requirement.sourceRefs,
+      matchedCourses: thesisMatched,
+    });
+  });
 
   return reqs;
 }

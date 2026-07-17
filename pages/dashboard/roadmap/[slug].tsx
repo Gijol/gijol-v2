@@ -1,5 +1,6 @@
 // pages/dashboard/roadmap/[slug].tsx
 import React, { useEffect, useState } from 'react';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -10,7 +11,6 @@ import { PresetsSidebar } from '@/features/roadmap/PresetsSidebar';
 import { RoadmapProvider } from '@/features/roadmap/RoadmapContext';
 
 import type { RoadmapData } from '@/features/roadmap/types';
-import type { CourseDB } from '@/lib/const/course-db';
 
 // Dynamic import for ReactFlow - loads only on client side
 const RoadmapFlowWithProvider = dynamic(() => import('@/features/roadmap/RoadmapFlowClient'), {
@@ -19,7 +19,7 @@ const RoadmapFlowWithProvider = dynamic(() => import('@/features/roadmap/Roadmap
     <div className="flex h-full w-full items-center justify-center bg-slate-50">
       <div className="flex flex-col items-center gap-4">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-slate-300 border-t-blue-500" />
-        <p className="text-sm text-gray-500">로드맵을 불러오는 중...</p>
+        <p className="text-sm text-slate-500">로드맵을 불러오는 중…</p>
       </div>
     </div>
   ),
@@ -30,7 +30,6 @@ export default function RoadmapPresetPage() {
   const { slug } = router.query;
 
   const [roadmapData, setRoadmapData] = useState<RoadmapData | null>(null);
-  const [courses, setCourses] = useState<CourseDB[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,10 +41,9 @@ export default function RoadmapPresetPage() {
     setLoading(true);
     setError(null);
 
-    Promise.all([getRoadmapData(slug), fetch('/api/courses').then((res) => res.json())])
-      .then(([data, coursesData]) => {
+    getRoadmapData(slug)
+      .then((data) => {
         setRoadmapData(data);
-        setCourses(coursesData);
         setLoading(false);
       })
       .catch((err) => {
@@ -54,19 +52,19 @@ export default function RoadmapPresetPage() {
       });
   }, [router.isReady, slug]);
 
+  let canvasContent: React.ReactNode;
+
   if (loading) {
-    return (
-      <div className="flex h-full w-full items-center justify-center bg-slate-50">
+    canvasContent = (
+      <div className="flex h-full w-full items-center justify-center bg-slate-50" role="status" aria-live="polite">
         <div className="flex flex-col items-center gap-4">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-slate-300 border-t-blue-500" />
-          <p className="text-sm text-gray-500">로드맵을 불러오는 중...</p>
+          <p className="text-sm text-slate-500">로드맵을 불러오는 중…</p>
         </div>
       </div>
     );
-  }
-
-  if (error) {
-    return (
+  } else if (error) {
+    canvasContent = (
       <div className="flex h-full w-full items-center justify-center bg-slate-50">
         <div className="flex flex-col items-center gap-4 text-center">
           <div className="rounded-full bg-red-100 p-4">
@@ -87,41 +85,37 @@ export default function RoadmapPresetPage() {
         </div>
       </div>
     );
-  }
-
-  if (!roadmapData) {
-    return null;
-  }
-
-  // BIOSCIENCE_RESEARCH -> Render static image
-  if (slug === 'BIOSCIENCE_RESEARCH') {
-    return (
-      <RoadmapProvider>
-        <div className="flex h-full w-full">
-          <PresetsSidebar />
-          <div className="relative flex-1 bg-slate-50">
-            <Image
-              src="/images/BIOSCIENCE_RESEARCH_DIAGRAM.png"
-              alt="연구분야별 이수체계"
-              fill
-              style={{ objectFit: 'contain' }}
-              priority
-            />
-          </div>
-        </div>
-      </RoadmapProvider>
+  } else if (!roadmapData) {
+    canvasContent = null;
+  } else if (slug === 'BIOSCIENCE_RESEARCH') {
+    canvasContent = (
+      <div className="relative h-full w-full bg-slate-50">
+        <Image
+          src="/images/BIOSCIENCE_RESEARCH_DIAGRAM.png"
+          alt="연구분야별 이수체계"
+          fill
+          style={{ objectFit: 'contain' }}
+          priority
+        />
+      </div>
     );
+  } else {
+    canvasContent = <RoadmapFlowWithProvider roadmapData={roadmapData} />;
   }
 
   return (
     <RoadmapProvider>
-      <NextSeo title={`${slug} 로드맵`} description="학과별 수강 로드맵을 확인하세요" noindex />
+      <NextSeo
+        title={`${typeof slug === 'string' ? slug : ''} 로드맵`}
+        description="학과별 수강 로드맵을 확인하세요"
+        noindex
+      />
       <div className="flex h-full w-full">
         <PresetsSidebar />
-        <div className="flex-1">
-          <RoadmapFlowWithProvider roadmapData={roadmapData} courses={courses} />
-        </div>
+        <div className="min-w-0 flex-1">{canvasContent}</div>
       </div>
     </RoadmapProvider>
   );
 }
+
+RoadmapPresetPage.getLayout = dashboardLayout;

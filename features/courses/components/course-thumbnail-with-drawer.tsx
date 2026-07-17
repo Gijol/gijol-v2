@@ -1,29 +1,12 @@
 import React, { useState } from 'react';
 import { useSingleCourse } from '@hooks/course';
 import { getCourseTagColor } from '@utils/course/tag-color';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-} from '@components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@components/ui/sheet';
 import { Badge } from '@components/ui/badge';
 import { Skeleton } from '@components/ui/skeleton';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@components/ui/table';
-import {
-  Card,
-  CardContent,
-  CardTitle,
-} from '@components/ui/card';
-import { cn } from "@/lib/utils";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
+import { Card, CardContent, CardTitle } from '@components/ui/card';
+import { cn } from '@/lib/utils';
 
 export default function CourseThumbnailWithDrawer({
   id,
@@ -60,11 +43,7 @@ export default function CourseThumbnailWithDrawer({
     // or just rely on 'variant="secondary"' for a clean look.
     // Using inline style for border color to mimic previous behavior if needed, or simplifed.
     return (
-      <Badge
-        key={tag}
-        variant="secondary"
-        className="font-medium"
-      >
+      <Badge key={tag} variant="secondary" className="font-medium">
         {tag}
       </Badge>
     );
@@ -86,15 +65,23 @@ export default function CourseThumbnailWithDrawer({
     <>
       <Card
         onClick={handleOpen}
-        className="w-full h-full cursor-pointer transition-colors hover:bg-gray-50 dark:hover:bg-slate-900 border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 bg-white dark:bg-slate-950"
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            handleOpen();
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        className="h-full w-full cursor-pointer border-slate-200 bg-white transition-[background-color,border-color] duration-150 hover:border-slate-300 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-slate-800 dark:bg-slate-950 dark:hover:border-slate-700 dark:hover:bg-slate-900"
       >
-        <CardContent className="flex flex-col justify-between h-full p-4">
+        <CardContent className="flex h-full flex-col justify-between p-4">
           <div>
-            <p className="text-sm text-gray-500 mb-2">{code}</p>
-            <CardTitle className="text-xl font-medium w-fit">{title}</CardTitle>
+            <p className="mb-2 text-sm text-gray-500">{code}</p>
+            <CardTitle className="w-fit text-xl font-medium">{title}</CardTitle>
           </div>
-          <div className="flex flex-wrap justify-between items-center gap-2 mt-6">
-            <div className="flex gap-2 flex-wrap">{tagContent}</div>
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-2">
+            <div className="flex flex-wrap gap-2">{tagContent}</div>
             <Badge variant="outline" className="border-blue-500 text-blue-600 dark:text-blue-400">
               {credit}학점
             </Badge>
@@ -103,51 +90,51 @@ export default function CourseThumbnailWithDrawer({
       </Card>
 
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent className="w-full sm:max-w-2xl overflow-y-auto">
+        <SheetContent className="w-full overflow-y-auto sm:max-w-2xl">
           <SheetHeader className="mb-6 space-y-4">
             <div className="space-y-1">
               <SheetDescription className="text-base">{code}</SheetDescription>
               <SheetTitle className="text-3xl font-bold">{title}</SheetTitle>
             </div>
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex flex-wrap gap-2">
               {tags?.map((t) => (
-                <Badge key={t} variant="secondary" className="text-sm px-3 py-1">
+                <Badge key={t} variant="secondary" className="px-3 py-1 text-sm">
                   {t}
                 </Badge>
               ))}
-              <Badge variant="outline" className="text-sm px-3 py-1">
+              <Badge variant="outline" className="px-3 py-1 text-sm">
                 {credit}학점
               </Badge>
             </div>
           </SheetHeader>
 
-          <div className="py-4 space-y-8">
+          <div className="space-y-8 py-4">
             <div>
-              <p className="text-sm font-medium mb-1">선 이수과목</p>
+              <p className="mb-1 text-sm font-medium">선 이수과목</p>
               {none.includes(prerequisites) ? (
                 <span className="text-gray-500">없습니다! 😆</span>
               ) : (
-                <code className="bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-2 py-1 rounded text-sm font-mono">
+                <code className="rounded bg-blue-50 px-2 py-1 font-mono text-sm text-blue-600 dark:bg-blue-900 dark:text-blue-300">
                   {prerequisites}
                 </code>
               )}
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-3">강의소개</h3>
-              <div className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg bg-gray-50 dark:bg-slate-900">
-                <div className={cn("relative overflow-hidden transition-all duration-300", isExpanded ? "max-h-full" : "max-h-[120px]")}>
-                  <p className="whitespace-pre-wrap text-gray-700 dark:text-gray-300 leading-relaxed">
-                    {description || "아직 데이터가 없습니다... 😓"}
+              <h3 className="mb-3 text-lg font-semibold">강의소개</h3>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-slate-900">
+                <div className={cn('relative overflow-hidden', isExpanded ? 'max-h-full' : 'max-h-[120px]')}>
+                  <p className="leading-relaxed whitespace-pre-wrap text-gray-700 dark:text-gray-300">
+                    {description || '아직 등록된 강의 소개가 없습니다.'}
                   </p>
                   {!isExpanded && description && (
-                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-gray-50 dark:from-slate-900 to-transparent" />
+                    <div className="absolute right-0 bottom-0 left-0 h-16 bg-linear-to-t from-gray-50 to-transparent dark:from-slate-900" />
                   )}
                 </div>
                 {description && (
                   <button
                     onClick={() => setIsExpanded(!isExpanded)}
-                    className="mt-2 text-sm text-blue-600 dark:text-blue-400 font-medium hover:underline focus:outline-none"
+                    className="mt-2 rounded-sm text-sm font-medium text-blue-700 hover:underline focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none dark:text-blue-400"
                   >
                     {isExpanded ? '접기' : '더보기'}
                   </button>
@@ -156,11 +143,11 @@ export default function CourseThumbnailWithDrawer({
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-3">강의 히스토리</h3>
+              <h3 className="mb-3 text-lg font-semibold">강의 히스토리</h3>
               {isCourseHistoryDataLoading ? (
                 <Skeleton className="h-[300px] w-full rounded-md" />
               ) : (
-                <div className="border border-gray-200 dark:border-gray-800 rounded-md overflow-hidden">
+                <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-800">
                   <Table>
                     <TableHeader>
                       <TableRow>

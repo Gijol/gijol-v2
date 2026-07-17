@@ -417,8 +417,10 @@ export const COURSE_CODE_SETS = {
       'CT4506',
     ],
 
-    // Existing: 지능로봇 부전공
+    // 2026 bachelor manual p.29: AI2601 and AI3601 are explicitly recognized as IR minor courses.
     '지능로봇 부전공': [
+      'AI2601',
+      'AI3601',
       'IR4201',
       'IR4202',
       'IR4203',
@@ -436,14 +438,16 @@ export const COURSE_CODE_SETS = {
       'IR4602',
     ],
 
-    // NEW: AI융합 부전공 (separate from AI major)
+    // 2026 bachelor manual p.27: AI convergence minor courses, including declaration-term transition courses.
     'AI융합 부전공': [
+      'EC4209',
       'AI4020',
       'AI4021',
       'AI4311', // 필수A
       'AI4003',
       'AI4028',
       'AI4501', // 필수B
+      'AI4001',
       'AI2004',
       'AI2050',
       'AI2051',
@@ -498,34 +502,35 @@ export const COURSE_CODE_SETS = {
       'LH3802',
     ],
 
-    // NEW: 인문사회-공공정책 부전공 (same courses as 문학과 역사)
+    // 2026 bachelor manual pp.49-50: 인문사회-공공정책(법정치사회) 부전공
     '인문사회과학-공공정책 부전공': [
       // 필수
-      'LH2507',
-      'LH2509',
-      'LH2521',
-      'LH2602',
-      // 선택 (same as above)
-      'LH2503',
-      'LH2506',
-      'LH2511',
-      'LH2512',
-      'LH2522',
-      'LH2525',
-      'LH2526',
-      'LH2612',
-      'LH2613',
-      'LH2614',
-      'LH2616',
-      'LH2618',
-      'LH2656',
-      'LH3501',
-      'LH3502',
-      'LH3504',
-      'LH3505',
-      'LH3602',
-      'LH3605',
-      'LH3802',
+      'PP2704',
+      'PP2763',
+      'PP2765',
+      // 선택
+      'PP2616',
+      'PP2701',
+      'PP2702',
+      'PP2703',
+      'PP2724',
+      'PP2734',
+      'PP2761',
+      'PP2787',
+      'PP2788',
+      'PP2812',
+      'PP3632',
+      'PP3721',
+      'PP3725',
+      'PP3735',
+      'PP3760',
+      'PP3765',
+      'PP3767',
+      'PP3785',
+      'PP3786',
+      'PP3831',
+      'PP3838',
+      'PP4762',
     ],
 
     // NEW: 인문사회-경제경영 부전공
@@ -806,7 +811,7 @@ export const COURSE_CODE_SETS = {
     // NEW: 생명과학 부전공
     '생명과학 부전공': [
       // 전공필수
-      'BS2101', // 유기화학 I (MINOR_RULES.md에서 제외로 명시되어 있음 - 참고용)
+      'BS2101', // 유기화학 I
       'BS2102', // 분자생물학
       'BS2103', // 생화학/분자생물학 실험
       'BS3111', // 분자생물학 실험 (BS2103 대체)
@@ -1007,23 +1012,21 @@ export enum MajorCode {
   MA = 'MA', // 신소재
   EV = 'EV', // 환경에너지
   BS = 'BS', // 생명과학
-  BE = 'FE', // 의생명 (Using FE as code base, usually Biomedical)
+  FE = 'FE', // 의생명
   PS = 'PS', // 물리광과학
   MM = 'MM', // 수리과학
   CH = 'CH', // 화학
   AI = 'AI', // AI융합
   SE = 'SE', // 반도체
   EC = 'EC', // 전기전자컴퓨터
-  IR = 'IR', // 지능로봇
 }
 
 export const MAJOR_CODE_TO_NAME: Record<MajorCode, string> = {
-  [MajorCode.IR]: '지능로봇 부전공', // Added for classifier support (even if it's a minor code conceptually)
   [MajorCode.MC]: '공과대학 기계로봇공학과',
   [MajorCode.MA]: '공과대학 신소재공학과',
   [MajorCode.EV]: '공과대학 환경·에너지공학과',
   [MajorCode.BS]: '생명·의과학융합대학 생명과학과',
-  [MajorCode.BE]: '생명·의과학융합대학 의생명공학과',
+  [MajorCode.FE]: '생명·의과학융합대학 의생명공학과',
   [MajorCode.PS]: '자연과학대학 물리·광과학과',
   [MajorCode.MM]: '자연과학대학 수리과학과',
   [MajorCode.CH]: '자연과학대학 화학과',
@@ -1056,6 +1059,7 @@ export enum MinorCode {
   PS = 'PS', // 물리·광과학
   CH = 'CH', // 화학
   MM = 'MM', // 수리과학
+  SE = 'SE', // 반도체공학
 }
 
 export const MINOR_CODE_TO_NAME: Record<MinorCode, string> = {
@@ -1082,4 +1086,5 @@ export const MINOR_CODE_TO_NAME: Record<MinorCode, string> = {
   [MinorCode.PS]: '물리·광과학 부전공',
   [MinorCode.CH]: '화학 부전공',
   [MinorCode.MM]: '수리과학 부전공',
+  [MinorCode.SE]: '반도체공학 부전공',
 };

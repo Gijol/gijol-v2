@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@components/ui/card';
 import { Button } from '@components/ui/button';
 import { Textarea } from '@components/ui/textarea';
@@ -7,6 +9,8 @@ import { Input } from '@components/ui/input';
 import { Label } from '@components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { MultiSelect } from '@components/ui/multi-select';
+import { Badge } from '@components/ui/badge';
+import { Separator } from '@components/ui/separator';
 
 // Direct imports from the new features module
 import {
@@ -15,11 +19,40 @@ import {
   normalizeTakenCourses,
 } from '@features/graduation/middlewares/validation';
 import { evaluateGraduationStatus } from '@features/graduation/domain/engine';
-import { refineGradStatusForUI } from '@features/graduation/middlewares/refine';
-import { mapDeficitToRecommendations, MockCourseRepository } from '@features/graduation/data';
+import { resolveMajorForEvaluation } from '@features/graduation/domain';
+import { useGraduationStore } from '@/lib/stores/useGraduationStore';
 
-import { UserTakenCourseListType } from '@lib/types/grad';
-import { MajorCode, MAJOR_CODE_TO_NAME, MinorCode, MINOR_CODE_TO_NAME } from '@features/graduation/domain/constants';
+import type {
+  GradeStatusTerm,
+  GraduationCatalogSelectionSummary,
+  MinorDeclarationTerms,
+  TakenCourseType,
+} from '@features/graduation/domain';
+import type { UserStatusType } from '@lib/types/index';
+import { MAJOR_OPTIONS, MINOR_OPTIONS } from '@const/major-minor-options';
+
+const MOCK_FILES = [
+  {
+    label: 'EC major, 2021 entry',
+    path: '/mocks/graduation/catalog-lab-ec-2021.json',
+  },
+  {
+    label: 'AI minor, declaration term missing',
+    path: '/mocks/graduation/catalog-lab-ai-minor-missing-term.json',
+  },
+  {
+    label: 'MM major, 2024 entry',
+    path: '/mocks/graduation/catalog-lab-mm-major-2024.json',
+  },
+  {
+    label: 'Uploaded transcript, C/S grades as-is',
+    path: '/mocks/graduation/catalog-lab-uploaded-transcript-2022-1-cs-official.json',
+  },
+  {
+    label: 'Uploaded transcript, blank in-progress grades',
+    path: '/mocks/graduation/catalog-lab-uploaded-transcript-2022-1-in-progress.json',
+  },
+] as const;
 
 // Initial Mock Data
 const MOCK_INPUT = JSON.stringify(
@@ -36,18 +69,150 @@ const MOCK_INPUT = JSON.stringify(
       { year: 2020, semester: '1', courseType: '전공', courseName: 'Calculus', courseCode: 'GS1001', credit: 3 },
       { year: 2020, semester: '1', courseType: '교양', courseName: 'English I', courseCode: 'GS1601', credit: 2 },
       { year: 2020, semester: '1', courseType: '교양', courseName: 'Writing', courseCode: 'GS1511', credit: 2 },
-      { year: 2021, semester: '1', courseType: '전공', courseName: 'Algorithm', courseCode: 'CS300', credit: 3 },
+      { year: 2021, semester: '1', courseType: '전공', courseName: 'Algorithm', courseCode: 'EC2206', credit: 3 },
     ],
   },
   null,
   2,
 );
 
+function applyInputMetadata(
+  raw: any,
+  setters: {
+    setEntryYear: (value: number) => void;
+    setUserMajor: (value: string) => void;
+    setUserMinors: (value: string[]) => void;
+    setMinorDeclarationTerms: (value: MinorDeclarationTerms) => void;
+    setGradeStatusTerms: (value: GradeStatusTerm[]) => void;
+  },
+): number | undefined {
+  let effectiveEntryYear: number | undefined;
+
+  if (typeof raw?.entryYear === 'number' && Number.isFinite(raw.entryYear)) {
+    effectiveEntryYear = raw.entryYear;
+    setters.setEntryYear(raw.entryYear);
+  } else if (raw?.studentId && typeof raw.studentId === 'string' && raw.studentId.length >= 4) {
+    const inferredYear = parseInt(raw.studentId.substring(0, 4), 10);
+    if (!Number.isNaN(inferredYear)) {
+      effectiveEntryYear = inferredYear;
+      setters.setEntryYear(inferredYear);
+    }
+  }
+
+  if (typeof raw?.userMajor === 'string' && raw.userMajor.trim()) {
+    setters.setUserMajor(raw.userMajor);
+  }
+
+  if (Array.isArray(raw?.userMinors)) {
+    setters.setUserMinors(raw.userMinors.filter((minor: unknown): minor is string => typeof minor === 'string'));
+  }
+
+  if (raw?.minorDeclarationTerms && typeof raw.minorDeclarationTerms === 'object') {
+    setters.setMinorDeclarationTerms(raw.minorDeclarationTerms);
+  }
+
+  setters.setGradeStatusTerms(readGradeStatusTerms(raw));
+
+  return effectiveEntryYear;
+}
+
+GraduationLabPage.getLayout = dashboardLayout;
+
+function readGradeStatusTerms(raw: any): GradeStatusTerm[] {
+  if (Array.isArray(raw?.gradeStatusTerms)) {
+    return raw.gradeStatusTerms.filter(
+      (term: unknown): term is GradeStatusTerm =>
+        Boolean(term) &&
+        typeof term === 'object' &&
+        typeof (term as GradeStatusTerm).year === 'number' &&
+        typeof (term as GradeStatusTerm).semester === 'string' &&
+        ((term as GradeStatusTerm).status === 'in_progress' || (term as GradeStatusTerm).status === 'provisional'),
+    );
+  }
+
+  if (Array.isArray(raw?.provisionalGradeTerms)) {
+    return raw.provisionalGradeTerms
+      .filter(
+        (term: unknown) =>
+          Boolean(term) &&
+          typeof term === 'object' &&
+          typeof (term as GradeStatusTerm).year === 'number' &&
+          typeof (term as GradeStatusTerm).semester === 'string',
+      )
+      .map((term: Omit<GradeStatusTerm, 'status'>) => ({ ...term, status: 'provisional' }));
+  }
+
+  if (!Array.isArray(raw?.takenCourses)) return [];
+
+  const grouped = new Map<string, GradeStatusTerm>();
+  raw.takenCourses.forEach((course: any) => {
+    const status = course?.gradeStatus ?? (course?.grade === '' ? 'in_progress' : undefined);
+    if (status !== 'in_progress' && status !== 'provisional') return;
+    if (typeof course.year !== 'number' || typeof course.semester !== 'string') return;
+
+    const key = `${course.year}-${course.semester}-${status}`;
+    const existing =
+      grouped.get(key) ??
+      ({
+        year: course.year,
+        semester: course.semester,
+        status,
+        courseCount: 0,
+        gradeValues: [],
+      } satisfies GradeStatusTerm);
+
+    existing.courseCount = (existing.courseCount ?? 0) + 1;
+    const gradeValues = new Set(existing.gradeValues ?? []);
+    gradeValues.add(course.grade ?? '');
+    existing.gradeValues = Array.from(gradeValues).sort();
+    grouped.set(key, existing);
+  });
+
+  return Array.from(grouped.values());
+}
+
+function buildDashboardParsedSnapshot(
+  raw: any,
+  normalizedCourses: TakenCourseType[],
+  fallbackEntryYear: number,
+): UserStatusType {
+  const rawCourses = Array.isArray(raw?.userTakenCourseList)
+    ? raw.userTakenCourseList
+    : Array.isArray(raw?.takenCourses)
+      ? raw.takenCourses
+      : normalizedCourses;
+
+  return {
+    studentId: typeof raw?.studentId === 'string' && raw.studentId.trim() ? raw.studentId : `${fallbackEntryYear}0000`,
+    userTakenCourseList: rawCourses.map((course: any) => ({
+      courseCode: String(course?.courseCode ?? ''),
+      courseName: String(course?.courseName ?? course?.course ?? ''),
+      courseType: String(course?.courseType ?? '기타'),
+      credit: Number(course?.credit) || 0,
+      grade: String(course?.grade ?? ''),
+      ...(course?.gradeStatus ? { gradeStatus: course.gradeStatus } : {}),
+      ...(course?.gradeStatusReason ? { gradeStatusReason: String(course.gradeStatusReason) } : {}),
+      semester: String(course?.semester ?? ''),
+      year: Number(course?.year) || fallbackEntryYear,
+    })),
+  };
+}
+
+function formatSourceRefs(sourceRefs: GraduationCatalogSelectionSummary['sourceRefs'] | undefined): string {
+  if (!sourceRefs || sourceRefs.length === 0) return 'no sourceRefs';
+  return sourceRefs.map((sourceRef) => `${sourceRef.manualYear} p.${sourceRef.page}`).join(', ');
+}
+
 export default function GraduationLabPage() {
+  const router = useRouter();
+  const { commitTranscript } = useGraduationStore();
   const [jsonInput, setJsonInput] = useState(MOCK_INPUT);
+  const [selectedMockPath, setSelectedMockPath] = useState<string>(MOCK_FILES[0].path);
   const [entryYear, setEntryYear] = useState<number>(2020);
-  const [userMajor, setUserMajor] = useState<string>('CS');
+  const [userMajor, setUserMajor] = useState<string>('EC');
   const [userMinors, setUserMinors] = useState<string[]>([]);
+  const [minorDeclarationTerms, setMinorDeclarationTerms] = useState<MinorDeclarationTerms>({});
+  const [gradeStatusTerms, setGradeStatusTerms] = useState<GradeStatusTerm[]>([]);
 
   // Pipeline Step Results
   const [step1Result, setStep1Result] = useState<any>(null); // Parse
@@ -57,6 +222,52 @@ export default function GraduationLabPage() {
   const [step5Result, setStep5Result] = useState<any>(null); // Refine
 
   const [error, setError] = useState<string | null>(null);
+  const catalogSelection = step5Result?.catalogSelection as GraduationCatalogSelectionSummary | undefined;
+  const selectedMockLabel = useMemo(
+    () => MOCK_FILES.find((mock) => mock.path === selectedMockPath)?.label ?? 'Custom mock',
+    [selectedMockPath],
+  );
+
+  const loadMock = async (path = selectedMockPath) => {
+    setError(null);
+    try {
+      const response = await fetch(path);
+      if (!response.ok) {
+        throw new Error(`Failed to load mock: ${response.status}`);
+      }
+      const text = await response.text();
+      const raw = JSON.parse(text);
+      setJsonInput(JSON.stringify(raw, null, 2));
+      applyInputMetadata(raw, {
+        setEntryYear,
+        setUserMajor,
+        setUserMinors,
+        setMinorDeclarationTerms,
+        setGradeStatusTerms,
+      });
+    } catch (err: any) {
+      setError(err.message || String(err));
+    }
+  };
+
+  const loadLocalJsonFile = async (file?: File) => {
+    if (!file) return;
+    setError(null);
+    try {
+      const text = await file.text();
+      const raw = JSON.parse(text);
+      setJsonInput(JSON.stringify(raw, null, 2));
+      applyInputMetadata(raw, {
+        setEntryYear,
+        setUserMajor,
+        setUserMinors,
+        setMinorDeclarationTerms,
+        setGradeStatusTerms,
+      });
+    } catch (err: any) {
+      setError(err.message || String(err));
+    }
+  };
 
   const runPipeline = async () => {
     setError(null);
@@ -76,14 +287,23 @@ export default function GraduationLabPage() {
       }
 
       // Metadata Inference (Lab Page Feature)
-      if (raw.studentId && typeof raw.studentId === 'string' && raw.studentId.length >= 4) {
-        const inferredYear = parseInt(raw.studentId.substring(0, 4));
-        if (!isNaN(inferredYear)) {
-          setEntryYear(inferredYear);
-        }
-      }
-      // Infer input major (if studentId exists and major logic was available, or if major field exists)
-      // For now, we trust the manual input or keeps existing state, but let's log it if present.
+      const inferredEntryYear = applyInputMetadata(raw, {
+        setEntryYear,
+        setUserMajor,
+        setUserMinors,
+        setMinorDeclarationTerms,
+        setGradeStatusTerms,
+      });
+      const effectiveEntryYear = inferredEntryYear ?? entryYear;
+      const effectiveInputMajor =
+        typeof raw?.userMajor === 'string' && raw.userMajor.trim() ? raw.userMajor : userMajor;
+      const effectiveUserMinors = Array.isArray(raw?.userMinors)
+        ? raw.userMinors.filter((minor: unknown): minor is string => typeof minor === 'string')
+        : userMinors;
+      const effectiveMinorDeclarationTerms =
+        raw?.minorDeclarationTerms && typeof raw.minorDeclarationTerms === 'object'
+          ? raw.minorDeclarationTerms
+          : minorDeclarationTerms;
 
       // Step 1: Parse
       const parsed = parseRawToTakenCourses(raw);
@@ -100,37 +320,66 @@ export default function GraduationLabPage() {
       // Step 3: Normalize
       const normalized = normalizeTakenCourses(validation.value!);
       setStep3Result(normalized);
+      const majorResolution = resolveMajorForEvaluation(effectiveInputMajor, normalized.takenCourses);
+      const effectiveUserMajor = majorResolution.code ?? (effectiveInputMajor ? effectiveInputMajor : undefined);
 
       // Step 4: Engine
       const engineResult = await evaluateGraduationStatus({
         takenCourses: normalized,
         ruleContext: {
-          entryYear,
-          userMajor,
-          userMinors,
+          entryYear: effectiveEntryYear,
+          userMajor: effectiveUserMajor,
+          userMinors: effectiveUserMinors,
+          minorDeclarationTerms: effectiveMinorDeclarationTerms,
         },
       });
       setStep4Result(engineResult);
 
-      // (Data Layer Check for Deficits)
-      let recommendations: any[] = [];
-      if (!engineResult.totalSatisfied) {
-        const deficits: Record<string, number> = {};
-        Object.entries(engineResult.graduationCategory).forEach(([key, category]) => {
-          if (!category.satisfied) {
-            deficits[key] = category.minConditionCredits - category.totalCredits;
-          }
-        });
-        const repo = new MockCourseRepository();
-        recommendations = await mapDeficitToRecommendations(deficits, repo);
+      // Step 5: the server owns catalog-backed recommendations and refinement.
+      const response = await fetch('/api/graduation/grad-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...raw,
+          entryYear: effectiveEntryYear,
+          userMajor: effectiveUserMajor,
+          userMinors: effectiveUserMinors,
+          minorDeclarationTerms: effectiveMinorDeclarationTerms,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(`Server refinement failed: ${response.status} ${await response.text()}`);
       }
-
-      // Step 5: Refine
-      const viewModel = refineGradStatusForUI(engineResult, { recommendations });
+      const viewModel = await response.json();
       setStep5Result(viewModel);
     } catch (err: any) {
       setError(err.message);
     }
+  };
+
+  const openCurrentResultInDashboard = async () => {
+    if (!step5Result || !step3Result?.takenCourses) return;
+
+    let raw: any = {};
+    try {
+      raw = JSON.parse(jsonInput);
+    } catch {
+      // The pipeline cannot produce step5Result from invalid JSON, but keep this defensive.
+    }
+
+    const normalizedCourses = step3Result.takenCourses as TakenCourseType[];
+    const parsedSnapshot = buildDashboardParsedSnapshot(raw, normalizedCourses, entryYear);
+
+    commitTranscript({
+      parsed: parsedSnapshot,
+      outcome: step5Result,
+      userMajor,
+      userMinors,
+      minorDeclarationTerms,
+      entryYear,
+    });
+
+    await router.push('/dashboard');
   };
 
   return (
@@ -138,9 +387,9 @@ export default function GraduationLabPage() {
       <NextSeo title="Graduation Logic Lab" description="졸업 로직 테스트 페이지" noindex />
 
       <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-bold">🧪 Graduation Architecture Lab</h1>
+        <h1 className="text-3xl font-bold">Graduation Architecture Lab</h1>
         <p className="text-gray-500">
-          Test the new <code>features/graduation</code> pipeline step-by-step.
+          Test the graduation pipeline and inspect catalog-backed rule selection without changing production pages.
         </p>
       </div>
 
@@ -148,9 +397,50 @@ export default function GraduationLabPage() {
       <Card>
         <CardHeader>
           <CardTitle>1. Input Data</CardTitle>
-          <CardDescription>Enter course data in JSON format.</CardDescription>
+          <CardDescription>Load a built-in mock, upload a local JSON file, or edit the JSON directly.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto]">
+            <div className="flex flex-col gap-2">
+              <Label>Built-in Mock</Label>
+              <Select
+                value={selectedMockPath}
+                onValueChange={(value) => {
+                  setSelectedMockPath(value);
+                  void loadMock(value);
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select mock JSON" />
+                </SelectTrigger>
+                <SelectContent>
+                  {MOCK_FILES.map((mock) => (
+                    <SelectItem key={mock.path} value={mock.path}>
+                      {mock.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-gray-500">Current: {selectedMockLabel}</p>
+            </div>
+            <div className="flex items-end">
+              <Button type="button" variant="outline" onClick={() => void loadMock()}>
+                Load Mock
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label>Local JSON File</Label>
+            <Input
+              type="file"
+              accept="application/json,.json"
+              onChange={(event) => void loadLocalJsonFile(event.target.files?.[0])}
+            />
+          </div>
+
+          <Separator />
+
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
               <Label>Entry Year</Label>
@@ -163,9 +453,9 @@ export default function GraduationLabPage() {
                   <SelectValue placeholder="Select Major" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(MAJOR_CODE_TO_NAME).map(([code, name]) => (
-                    <SelectItem key={code} value={code}>
-                      {code} ({name})
+                  {MAJOR_OPTIONS.filter((option) => option.value !== 'NONE').map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.value} ({option.label})
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -175,19 +465,27 @@ export default function GraduationLabPage() {
               <Label>Minors (Optional)</Label>
               <MultiSelect
                 options={[
-                  ...Object.entries(MAJOR_CODE_TO_NAME).map(([code, name]) => ({
-                    label: `${code} (${name})`,
-                    value: code,
-                  })),
-                  ...Object.entries(MINOR_CODE_TO_NAME).map(([code, name]) => ({
-                    label: `${code} (${name})`,
-                    value: code,
+                  ...MINOR_OPTIONS.map((option) => ({
+                    label: `${option.value} (${option.label})`,
+                    value: option.value,
                   })),
                 ]}
                 selected={userMinors}
                 onChange={setUserMinors}
                 placeholder="Select Minors (Majors can be Minors)"
               />
+            </div>
+            <div className="col-span-2 flex flex-col gap-2">
+              <Label>Minor Declaration Terms</Label>
+              <pre className="min-h-10 rounded-md border bg-gray-50 p-2 text-xs dark:bg-gray-900">
+                {JSON.stringify(minorDeclarationTerms, null, 2)}
+              </pre>
+              <p className="text-xs text-gray-500">
+                Edit minorDeclarationTerms in the JSON input to try different declaration-term scenarios.
+              </p>
+            </div>
+            <div className="col-span-2">
+              <GradeStatusTermsPanel terms={gradeStatusTerms} />
             </div>
           </div>
           <div className="flex flex-col gap-2">
@@ -222,8 +520,15 @@ export default function GraduationLabPage() {
       {step5Result && (
         <Card className="border-2 border-green-500">
           <CardHeader>
-            <CardTitle>🎯 Final Output (UI ViewModel)</CardTitle>
-            <CardDescription>{step5Result.displayMessage}</CardDescription>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <CardTitle>Final Output (UI ViewModel)</CardTitle>
+                <CardDescription>{step5Result.displayMessage}</CardDescription>
+              </div>
+              <Button type="button" variant="outline" onClick={() => void openCurrentResultInDashboard()}>
+                대시보드에서 보기
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -231,8 +536,15 @@ export default function GraduationLabPage() {
                 <h3 className="mb-2 font-bold">Fine-Grained Requirements</h3>
                 <ul className="space-y-1 text-sm">
                   {step5Result.fineGrainedRequirements?.map((req: any) => (
-                    <li key={req.id} className={req.satisfied ? 'text-green-600' : 'text-red-500'}>
-                      {req.satisfied ? '✅' : '❌'} {req.label}
+                    <li key={req.id} className="flex items-center gap-2">
+                      <Badge
+                        variant={
+                          req.satisfied ? 'secondary' : req.status === 'needs_review' ? 'outline' : 'destructive'
+                        }
+                      >
+                        {req.status ?? (req.satisfied ? 'satisfied' : 'unsatisfied')}
+                      </Badge>
+                      <span>{req.label}</span>
                     </li>
                   ))}
                 </ul>
@@ -248,6 +560,29 @@ export default function GraduationLabPage() {
                   ))}
                   {step5Result.recommendations?.length === 0 && <li>No recommendations generated.</li>}
                 </ul>
+                {step5Result.recommendationPolicy && (
+                  <p className="mt-3 text-xs text-gray-600">
+                    Policy: total {step5Result.recommendationPolicy.maxTotal}, category{' '}
+                    {step5Result.recommendationPolicy.maxPerCategory}, broad requirement{' '}
+                    {step5Result.recommendationPolicy.maxPerBroadRequirement}
+                  </p>
+                )}
+                {step5Result.recommendationSuppressions?.length > 0 && (
+                  <div className="mt-3 rounded-md border bg-white p-3">
+                    <h4 className="mb-2 text-xs font-semibold text-gray-500 uppercase">Hidden Candidates</h4>
+                    <ul className="space-y-1 text-xs text-gray-600">
+                      {step5Result.recommendationSuppressions.map((suppression: any, i: number) => (
+                        <li key={`${suppression.reason}-${suppression.requirementId ?? suppression.categoryKey}-${i}`}>
+                          <Badge variant="outline">{suppression.reason}</Badge>{' '}
+                          <code>{suppression.requirementId ?? suppression.categoryKey}</code>: {suppression.message}
+                          {typeof suppression.suppressedCount === 'number' && (
+                            <span> ({suppression.suppressedCount} hidden)</span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
 
               <details>
@@ -260,8 +595,172 @@ export default function GraduationLabPage() {
           </CardContent>
         </Card>
       )}
+
+      {catalogSelection && <CatalogSelectionPanel selection={catalogSelection} />}
     </div>
   );
+}
+
+function GradeStatusTermsPanel({ terms }: { terms: GradeStatusTerm[] }) {
+  return (
+    <div className="space-y-2">
+      <Label>Grade Status Terms</Label>
+      <div className="rounded-md border bg-amber-50 p-3 text-sm dark:bg-amber-950/20">
+        {terms.length === 0 ? (
+          <p className="text-gray-500">No non-official grade terms declared.</p>
+        ) : (
+          <ul className="space-y-2">
+            {terms.map((term) => (
+              <li key={`${term.year}-${term.semester}-${term.status}`} className="space-y-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge variant="outline">
+                    {term.year}-{term.semester}
+                  </Badge>
+                  <Badge variant="secondary">{term.status}</Badge>
+                  {typeof term.courseCount === 'number' && (
+                    <span className="text-xs text-gray-600">{term.courseCount} courses</span>
+                  )}
+                  {term.gradeValues && term.gradeValues.length > 0 && (
+                    <span className="text-xs text-gray-600">
+                      grade cells: {term.gradeValues.map((value) => value || 'blank').join(', ')}
+                    </span>
+                  )}
+                </div>
+                {term.reason && <p className="text-xs text-gray-600">{term.reason}</p>}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function CatalogSelectionPanel({ selection }: { selection: GraduationCatalogSelectionSummary }) {
+  const applicableRules = selection.applicableRules.slice(0, 40);
+  const needsContext = selection.needsContext.slice(0, 40);
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Catalog Selection</CardTitle>
+        <CardDescription>
+          The adapter output attached to the UI ViewModel. This is read-only and separate from production screens.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        <div className="grid gap-3 md:grid-cols-3">
+          <Metric label="Applicable rules" value={selection.applicableRules.length} />
+          <Metric label="Needs context" value={selection.needsContext.length} />
+          <Metric label="Source refs" value={selection.sourceRefs.length} />
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-2">
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold">Selection Context</h3>
+            <pre className="max-h-48 overflow-auto rounded-md bg-gray-900 p-3 text-xs text-white">
+              {JSON.stringify(selection.context, null, 2)}
+            </pre>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold">Aggregated Source Refs</h3>
+            <div className="max-h-48 overflow-auto rounded-md border p-3 text-sm">
+              {selection.sourceRefs.length === 0 ? (
+                <p className="text-gray-500">No sourceRefs</p>
+              ) : (
+                <ul className="space-y-1">
+                  {selection.sourceRefs.map((sourceRef) => (
+                    <li key={`${sourceRef.manualYear}-${sourceRef.page}-${sourceRef.note ?? ''}`}>
+                      <Badge variant="outline">
+                        {sourceRef.manualYear} p.{sourceRef.page}
+                      </Badge>
+                      <span className="ml-2 text-gray-600">{sourceRef.note ?? sourceRef.path}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-2">
+          <RuleList
+            title="Applicable Rules"
+            emptyText="No applicable catalog rules."
+            rules={applicableRules.map((rule) => ({
+              id: rule.id,
+              badge: rule.kind,
+              detail: `${formatScope(rule.scope)} | ${formatSourceRefs(rule.sourceRefs)}`,
+            }))}
+            truncated={selection.applicableRules.length - applicableRules.length}
+          />
+          <RuleList
+            title="Needs Context"
+            emptyText="No catalog rules need extra context."
+            rules={needsContext.map((item) => ({
+              id: item.rule.id,
+              badge: item.missingContext.join(', ') || 'context',
+              detail: `${formatScope(item.rule.scope)} | ${formatSourceRefs(item.rule.sourceRefs)}`,
+            }))}
+            truncated={selection.needsContext.length - needsContext.length}
+          />
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-md border bg-gray-50 p-3 dark:bg-gray-900">
+      <div className="text-xs font-medium text-gray-500 uppercase">{label}</div>
+      <div className="mt-1 text-2xl font-semibold">{value}</div>
+    </div>
+  );
+}
+
+function RuleList({
+  title,
+  emptyText,
+  rules,
+  truncated,
+}: {
+  title: string;
+  emptyText: string;
+  rules: { id: string; badge: string; detail: string }[];
+  truncated: number;
+}) {
+  return (
+    <div className="space-y-2">
+      <h3 className="text-sm font-semibold">{title}</h3>
+      <div className="max-h-80 overflow-auto rounded-md border">
+        {rules.length === 0 ? (
+          <p className="p-3 text-sm text-gray-500">{emptyText}</p>
+        ) : (
+          <ul className="divide-y">
+            {rules.map((rule) => (
+              <li key={rule.id} className="space-y-1 p-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs dark:bg-gray-800">{rule.id}</code>
+                  <Badge variant="secondary">{rule.badge}</Badge>
+                </div>
+                <p className="text-xs text-gray-500">{rule.detail}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      {truncated > 0 && <p className="text-xs text-gray-500">Showing first 40 rules, {truncated} hidden.</p>}
+    </div>
+  );
+}
+
+function formatScope(scope: GraduationCatalogSelectionSummary['applicableRules'][number]['scope']): string {
+  if (!scope) return 'missing scope';
+  if (scope.type === 'global') return 'global';
+  if (scope.type === 'program-kind') return `${scope.programKind}: all`;
+  return `${scope.programKind}: ${scope.programCodes.join(', ')}`;
 }
 
 function ResultCard({ title, data }: { title: string; data: any }) {
@@ -272,7 +771,7 @@ function ResultCard({ title, data }: { title: string; data: any }) {
           <CardTitle>{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-400">Waiting...</p>
+          <p className="text-sm text-gray-400">대기 중…</p>
         </CardContent>
       </Card>
     );

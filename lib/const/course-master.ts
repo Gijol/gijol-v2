@@ -58,7 +58,13 @@ export const LANGUAGE_BASIC_COURSES: CourseMaster[] = [
   { courseCode: 'GS2653', courseNameKo: '연구 윤리의 이해와 토론', credits: 2, level: 2000, isOffered: true },
   { courseCode: 'GS2654', courseNameKo: '창의적 영어 표현법', credits: 2, level: 2000, isOffered: true },
   // 영어 고급 (영어I + 영어II 이수 후에만 가능)
-  { courseCode: 'GS2655', courseNameKo: '디지털 시대의 저널리즘과 과학 기사 쓰기', credits: 2, level: 2000, isOffered: true },
+  {
+    courseCode: 'GS2655',
+    courseNameKo: '디지털 시대의 저널리즘과 과학 기사 쓰기',
+    credits: 2,
+    level: 2000,
+    isOffered: true,
+  },
   { courseCode: 'GS3651', courseNameKo: '영어 III: 이공계 논문쓰기', credits: 2, level: 3000, isOffered: true },
   // 글쓰기 기초 (3학점)
   { courseCode: 'GS1511', courseNameKo: '글쓰기의 기초: 논리적 글쓰기', credits: 3, level: 1000, isOffered: true },
@@ -68,7 +74,13 @@ export const LANGUAGE_BASIC_COURSES: CourseMaster[] = [
   { courseCode: 'GS1531', courseNameKo: '심화 글쓰기: 과학 글쓰기', credits: 3, level: 1000, isOffered: true },
   { courseCode: 'GS1532', courseNameKo: '심화 글쓰기: 고전 읽기와 글쓰기', credits: 3, level: 1000, isOffered: true },
   { courseCode: 'GS1533', courseNameKo: '심화 글쓰기: 비평적 글쓰기', credits: 3, level: 1000, isOffered: true },
-  { courseCode: 'GS1535', courseNameKo: '심화 글쓰기: AI 시대의 글쓰기와 나', credits: 3, level: 1000, isOffered: true },
+  {
+    courseCode: 'GS1535',
+    courseNameKo: '심화 글쓰기: AI 시대의 글쓰기와 나',
+    credits: 3,
+    level: 1000,
+    isOffered: true,
+  },
 ];
 
 // ============================================================
@@ -474,7 +486,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '시스템 프로그래밍',
     credits: 3,
     level: 2000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -482,7 +494,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '자료 구조',
     credits: 3,
     level: 2000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -490,7 +502,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '알고리즘 개론',
     credits: 3,
     level: 2000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -498,7 +510,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '오토마타 이론',
     credits: 3,
     level: 3000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -506,7 +518,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '운영체제',
     credits: 3,
     level: 3000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -514,7 +526,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '컴퓨터 비전',
     credits: 3,
     level: 4000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -522,7 +534,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '인공지능',
     credits: 3,
     level: 4000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -530,11 +542,20 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '기계학습 및 딥러닝',
     credits: 3,
     level: 4000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
-  { courseCode: 'AI4311', courseNameKo: '딥러닝', credits: 3, level: 4000, department: 'AI융합학과', isOffered: true },
+  { courseCode: 'AI4311', courseNameKo: '딥러닝', credits: 3, level: 4000, department: 'AI학과', isOffered: true },
 ];
+
+export const MAJOR_RECOMMENDATION_COURSES_BY_CODE: Record<string, CourseMaster[]> = {
+  AI: MAJOR_AI_COURSES,
+  BS: MAJOR_BS_COURSES,
+  EC: MAJOR_EC_COURSES,
+  EV: MAJOR_EV_COURSES,
+  MA: MAJOR_MA_COURSES,
+  MC: MAJOR_MC_COURSES,
+};
 
 // ============================================================
 // 헬퍼 함수
@@ -568,6 +589,12 @@ export function getAllCourses(): CourseMaster[] {
  */
 export function getOfferedCourses(courses: CourseMaster[]): CourseMaster[] {
   return courses.filter((c) => c.isOffered);
+}
+
+export function getMajorRecommendationCoursesByCode(majorCode?: string | null): CourseMaster[] {
+  if (!majorCode) return [];
+
+  return getOfferedCourses(MAJOR_RECOMMENDATION_COURSES_BY_CODE[majorCode] ?? []);
 }
 
 /**

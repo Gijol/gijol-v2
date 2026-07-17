@@ -2,16 +2,17 @@
  * Course Alias Mappings - Generated from course_db.csv
  *
  * Maps course codes to their aliases (same course with different codes).
- * Used for dual-credit course verification in graduation requirements.
+ * Used for cross-listed course matching in graduation requirements.
  *
  * 동일 과목이 여러 학수번호로 개설되는 경우의 매핑 데이터.
- * 예: 문화콘텐츠의 이해 → GS2544 = HS2544 (인문사회) = CT2544 (문화기술 부전공)
+ * 예: 문화콘텐츠의 이해 → GS2544 = HS2544 = CT2544
+ * Alias matching does not imply simultaneous category credit.
  */
 
 // Bidirectional alias mappings: code → [aliases]
 // Note: GS↔HS mappings with same suffix are auto-generated in getAliases()
 export const COURSE_ALIAS_MAP: Record<string, readonly string[]> = {
-  // 문화콘텐츠의 이해 - GS/HS/CT 모두 매핑
+  // 문화콘텐츠의 이해 - GS/HS/CT 동일 과목 코드 매핑
   GS2544: ['HS2544', 'CT2544'],
   CT2544: ['GS2544', 'HS2544'],
   HS2544: ['GS2544', 'CT2544'],
