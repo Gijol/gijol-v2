@@ -1,30 +1,33 @@
 import Link from 'next/link';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
-import { ArrowRight, BookOpen, CheckCircle2, FileSpreadsheet, ExternalLink, Scale, AlertTriangle } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ExternalLink, Scale, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { DashboardPageShell, PageHeader, SectionHeader } from '@/components/dashboard/page-shell';
+
+const COMPARISON_ROWS = [
+  { item: '전공탐색', before: '필수 아님', after: '1학년 2학기 필수 · UC0902', highlight: true },
+  { item: 'GIST새내기', before: '신입생 세미나', after: 'GIST 새내기 (명칭 변경)' },
+  { item: '예술/체육', before: '2018-19: 4과목 / 2020: 2과목', after: '2과목' },
+  { item: '예체능 무료 수강', before: '2020학번부터 4학기 무료', after: '4학기까지 무료' },
+];
 
 export default function RequirementsGuidePage() {
   return (
-    <div className="mx-auto max-w-4xl space-y-8 pb-12">
+    <DashboardPageShell width="reading" className="space-y-8">
       <NextSeo title="졸업요건 안내" description="학번별 졸업요건을 확인하세요" noindex />
-      {/* Hero Section */}
-      <div className="rounded-2xl bg-linear-to-r from-blue-600 to-indigo-600 p-8 text-white shadow-lg">
-        <div className="flex items-center gap-3">
-          <BookOpen className="h-8 w-8" />
-          <h1 className="text-3xl font-bold">졸업요건 안내</h1>
-        </div>
-        <p className="mt-3 text-lg text-blue-100">GIST 학부 졸업이수요건을 학번별로 정리했습니다.</p>
-        <p className="mt-2 text-sm text-blue-200">
-          ※ 학번에 따라 요건이 다르므로 본인의 학번에 맞는 요건을 확인하세요.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="학사 안내"
+        title="졸업요건 안내"
+        description="GIST 학부 졸업이수요건을 학번별로 정리했습니다. 학번에 따라 요건이 다르므로 본인에게 적용되는 기준을 확인하세요."
+      />
 
       {/* Quick Actions - 원문 규정 */}
-      <Card className="border-slate-300 bg-slate-50 transition-shadow">
+      <Card className="border-slate-200 bg-white">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-lg">
-            <Scale className="h-5 w-5" />
+            <Scale aria-hidden="true" className="h-5 w-5 text-blue-700" />
             원문 규정 보기
           </CardTitle>
           <CardDescription>GIST 공식 홈페이지에서 상세 규정을 확인하세요.</CardDescription>
@@ -32,25 +35,44 @@ export default function RequirementsGuidePage() {
         <CardContent className="flex flex-col gap-2 sm:flex-row">
           <Button asChild variant="outline" className="w-full cursor-pointer shadow-none">
             <a href="https://www.gist.ac.kr/kr/html/sub05/05021605.html" target="_blank" rel="noopener noreferrer">
-              2018~2020학번 요건 <ExternalLink className="ml-2 h-4 w-4" />
+              2018~2020학번 요건 <ExternalLink aria-hidden="true" className="ml-2 h-4 w-4" />
             </a>
           </Button>
           <Button asChild variant="outline" className="w-full cursor-pointer shadow-none">
             <a href="https://www.gist.ac.kr/kr/html/sub05/05021604.html" target="_blank" rel="noopener noreferrer">
-              2021학번 이후 요건 <ExternalLink className="ml-2 h-4 w-4" />
+              2021학번 이후 요건 <ExternalLink aria-hidden="true" className="ml-2 h-4 w-4" />
             </a>
           </Button>
           <Button asChild variant="outline" className="w-full cursor-pointer shadow-none">
             <a href="https://www.gist.ac.kr/kr/html/sub05/050211.html" target="_blank" rel="noopener noreferrer">
-              학사편람 <ExternalLink className="ml-2 h-4 w-4" />
+              학사편람 <ExternalLink aria-hidden="true" className="ml-2 h-4 w-4" />
             </a>
           </Button>
         </CardContent>
       </Card>
 
       {/* 학번별 차이점 */}
-      <Section title="📅 학번별 주요 차이점" subtitle="2018~2020 vs 2021학번 이후">
-        <div className="overflow-x-auto rounded-lg border bg-white">
+      <Section title="학번별 주요 차이점" subtitle="2018~2020학번과 2021학번 이후 기준을 비교합니다.">
+        <div className="space-y-3 sm:hidden">
+          {COMPARISON_ROWS.map((row) => (
+            <article key={row.item} className="rounded-xl border border-slate-200 bg-white p-4">
+              <h3 className="font-semibold text-slate-900">{row.item}</h3>
+              <dl className="mt-3 space-y-3 text-sm">
+                <div>
+                  <dt className="font-medium text-slate-500">2018~2020학번</dt>
+                  <dd className="mt-0.5 text-slate-700">{row.before}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-slate-500">2021학번 이후</dt>
+                  <dd className={`mt-0.5 ${row.highlight ? 'font-medium text-emerald-700' : 'text-slate-700'}`}>
+                    {row.after}
+                  </dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+        </div>
+        <div className="hidden overflow-hidden rounded-xl border border-slate-200 bg-white sm:block">
           <table className="w-full text-sm">
             <thead className="bg-slate-50">
               <tr>
@@ -59,35 +81,24 @@ export default function RequirementsGuidePage() {
                 <th className="px-4 py-3 text-left font-semibold">2021학번 이후</th>
               </tr>
             </thead>
-            <tbody className="divide-y">
-              <tr>
-                <td className="px-4 py-3 font-medium">전공탐색</td>
-                <td className="px-4 py-3 text-slate-500">필수 아님</td>
-                <td className="px-4 py-3 text-green-600">✅ 1학년 2학기 필수 (UC0902)</td>
-              </tr>
-              <tr>
-                <td className="px-4 py-3 font-medium">GIST새내기</td>
-                <td className="px-4 py-3 text-slate-600">신입생 세미나</td>
-                <td className="px-4 py-3 text-slate-600">GIST 새내기 (명칭 변경)</td>
-              </tr>
-              <tr>
-                <td className="px-4 py-3 font-medium">예술/체육</td>
-                <td className="px-4 py-3 text-slate-600">2018-19: 4과목 / 2020: 2과목</td>
-                <td className="px-4 py-3 text-slate-600">2과목</td>
-              </tr>
-              <tr>
-                <td className="px-4 py-3 font-medium">예체능 무료 수강</td>
-                <td className="px-4 py-3 text-slate-500">2020학번부터 4학기 무료</td>
-                <td className="px-4 py-3 text-slate-600">4학기까지 무료</td>
-              </tr>
+            <tbody className="divide-y divide-slate-200">
+              {COMPARISON_ROWS.map((row) => (
+                <tr key={row.item}>
+                  <td className="px-4 py-3 font-medium">{row.item}</td>
+                  <td className="px-4 py-3 text-slate-600">{row.before}</td>
+                  <td className={`px-4 py-3 ${row.highlight ? 'font-medium text-emerald-700' : 'text-slate-600'}`}>
+                    {row.after}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </Section>
 
       {/* 총 이수학점 */}
-      <Section title="📊 총 이수학점" subtitle="졸업을 위해 필요한 최소 학점">
-        <div className="rounded-lg border bg-white p-4">
+      <Section title="총 이수학점" subtitle="졸업을 위해 필요한 최소 학점">
+        <div className="rounded-xl border border-slate-200 bg-white p-5">
           <div className="flex items-center justify-between">
             <span className="text-lg font-medium">최소 졸업학점</span>
             <span className="text-2xl font-bold text-blue-600">130학점</span>
@@ -97,7 +108,7 @@ export default function RequirementsGuidePage() {
       </Section>
 
       {/* 기초교양 */}
-      <Section title="📚 기초교양" subtitle="필수 이수 영역">
+      <Section title="기초교양" subtitle="필수 이수 영역">
         <div className="space-y-4">
           <RequirementCard
             title="언어와 기초"
@@ -158,7 +169,7 @@ export default function RequirementsGuidePage() {
       </Section>
 
       {/* 전공 */}
-      <Section title="🎯 전공" subtitle="전공필수 + 전공선택">
+      <Section title="전공" subtitle="전공필수 + 전공선택">
         <div className="space-y-4">
           <div className="rounded-lg border bg-white p-4">
             <div className="flex items-center justify-between">
@@ -193,7 +204,7 @@ export default function RequirementsGuidePage() {
       </Section>
 
       {/* 부/복수/심화전공 */}
-      <Section title="🔀 부전공 / 복수전공 / 심화전공" subtitle="추가 전공 이수">
+      <Section title="부전공 / 복수전공 / 심화전공" subtitle="추가 전공 이수">
         <div className="space-y-3 rounded-lg border bg-white p-4">
           <div>
             <span className="font-medium">부전공 가능 분야 (15학점):</span>
@@ -212,25 +223,27 @@ export default function RequirementsGuidePage() {
       </Section>
 
       {/* 논문연구 */}
-      <Section title="📝 논문연구" subtitle="학사논문 요건 (6학점)">
+      <Section title="논문연구" subtitle="학사논문 요건 (6학점)">
         <div className="rounded-lg border bg-white p-4">
           <ul className="space-y-2 text-sm">
             <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-500" />
+              <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
               <span>학사논문연구 I (3학점) - 전공코드+9102</span>
             </li>
             <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-500" />
+              <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
               <span>학사논문연구 II (3학점) - 전공코드+9103</span>
             </li>
             <li className="flex items-start gap-2 text-amber-600">
-              <span className="mt-0.5 h-4 w-4 shrink-0">⚠️</span>
+              <AlertTriangle aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
               <span>
                 <strong>학사논문연구 II는 졸업예정학기에 의무 수강</strong>해야 합니다.
               </span>
             </li>
             <li className="flex items-start gap-2 text-slate-500">
-              <span className="mt-0.5 h-4 w-4 shrink-0">💡</span>
+              <span aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-center">
+                ·
+              </span>
               <span>물리학 연구의 현재와 미래(1)는 졸업이수학점에 불인정 (총취득학점에만 반영)</span>
             </li>
           </ul>
@@ -238,7 +251,7 @@ export default function RequirementsGuidePage() {
       </Section>
 
       {/* 기타 필수 */}
-      <Section title="💡 기타 필수 과목" subtitle="추가 필수 이수 항목">
+      <Section title="기타 필수 과목" subtitle="추가 필수 이수 항목">
         <div className="space-y-4">
           <div className="rounded-lg border bg-white p-4">
             <h4 className="font-semibold text-blue-700">과학기술과 경제 (1학점 필수)</h4>
@@ -262,28 +275,29 @@ export default function RequirementsGuidePage() {
       </Section>
 
       {/* 무학점 필수 */}
-      <Section title="🎨 무학점 필수" subtitle="학점 미부여 필수 과목">
+      <Section title="무학점 필수" subtitle="학점 미부여 필수 과목">
         <div className="grid gap-3 md:grid-cols-3">
           <div className="rounded-lg border bg-white p-4 text-center">
-            <span className="text-2xl">🎭</span>
-            <h4 className="mt-2 font-medium">예술</h4>
-            <p className="text-sm text-slate-500">2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기</p>
+            <h4 className="font-medium">예술</h4>
+            <p className="text-sm text-slate-500">
+              2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기
+            </p>
           </div>
           <div className="rounded-lg border bg-white p-4 text-center">
-            <span className="text-2xl">⚽</span>
-            <h4 className="mt-2 font-medium">체육</h4>
-            <p className="text-sm text-slate-500">2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기</p>
+            <h4 className="font-medium">체육</h4>
+            <p className="text-sm text-slate-500">
+              2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기
+            </p>
           </div>
           <div className="rounded-lg border bg-white p-4 text-center">
-            <span className="text-2xl">🎤</span>
-            <h4 className="mt-2 font-medium">콜로퀴움</h4>
+            <h4 className="font-medium">콜로퀴움</h4>
             <p className="text-sm text-slate-500">2회 이상 필수</p>
           </div>
         </div>
       </Section>
 
       {/* 해외파견 */}
-      <Section title="✈️ 해외대학 파견" subtitle="계절학기 SAP, 해외대학 파견 학점인정">
+      <Section title="해외대학 파견" subtitle="계절학기 SAP, 해외대학 파견 학점인정">
         <div className="rounded-lg border bg-white p-4">
           <p className="text-sm text-slate-600">
             계절학기 SAP, 해외대학 파견 등의 학점인정 이수요건 구분은
@@ -297,7 +311,7 @@ export default function RequirementsGuidePage() {
       <Card className="border-amber-300 bg-amber-50">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-lg text-amber-800">
-            <AlertTriangle className="h-5 w-5" />
+            <AlertTriangle aria-hidden="true" className="h-5 w-5" />
             시스템 안내사항
           </CardTitle>
         </CardHeader>
@@ -319,23 +333,22 @@ export default function RequirementsGuidePage() {
         </p>
         <Button asChild size="lg" className="mt-4">
           <Link href="/dashboard/graduation/certificate-builder">
-            확인서 생성기 사용하기 <ArrowRight className="ml-2 h-4 w-4" />
+            확인서 생성기 사용하기 <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
           </Link>
         </Button>
       </div>
-    </div>
+    </DashboardPageShell>
   );
 }
+
+RequirementsGuidePage.getLayout = dashboardLayout;
 
 // --- Helper Components ---
 
 function Section({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
   return (
     <section>
-      <div className="mb-4">
-        <h2 className="text-xl font-bold text-slate-900">{title}</h2>
-        <p className="text-sm text-slate-600">{subtitle}</p>
-      </div>
+      <SectionHeader title={title} description={subtitle} />
       {children}
     </section>
   );

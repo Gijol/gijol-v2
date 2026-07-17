@@ -75,7 +75,13 @@
     "term": "2026-1",
     "path": "DB/timetable/registration-system/2026_01_course_info.normalized.json",
     "label": "2026 1학기",
-    "count": 434,
+    "count": 434
+  },
+  {
+    "term": "2026-2",
+    "path": "DB/timetable/registration-system/2026_02_course_info.normalized.json",
+    "label": "2026 2학기",
+    "count": 507,
     "defaultForTimetable": true
   }
 ]

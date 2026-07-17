@@ -149,11 +149,7 @@ describe('RequirementsList recommendation policy notices', () => {
   it('opens an underlay panel with all recommendation candidates', async () => {
     const user = userEvent.setup({ pointerEventsCheck: PointerEventsCheckLevel.Never });
 
-    render(
-      <RequirementsList
-        requirements={[scienceRequirementWithRecommendations]}
-      />,
-    );
+    render(<RequirementsList requirements={[scienceRequirementWithRecommendations]} />);
 
     await user.click(screen.getByRole('button', { name: /기초과학/ }));
     await user.click(await screen.findByRole('button', { name: /전체 보기/ }));
@@ -225,19 +221,24 @@ describe('RequirementsList recommendation policy notices', () => {
             earned: 21,
             percentage: 64,
             satisfied: false,
-            messages: [],
+            messages: [
+              '미충족 — 최소 33학점 필요, 현재 21학점 (부족 12학점)',
+              '전공 공통 이수학점 (21/33학점, 12학점 부족)',
+              '졸업 직전 학기에는 학과 확인이 필요합니다.',
+            ],
             courses: [],
             appliedRequirements: [
               {
                 id: 'major-credits',
                 categoryKey: 'major',
-                label: '전공 공통 이수학점',
+                label: '전공 공통 이수학점 (21/33학점, 12학점 부족)',
                 requiredCredits: 33,
                 acquiredCredits: 21,
                 missingCredits: 12,
                 satisfied: false,
                 status: 'unsatisfied',
                 importance: 'must',
+                hint: '전공 12학점이 더 필요합니다.',
                 sourceRefs: [catalogSourceRef],
                 matchedCourses: [],
               },
@@ -254,6 +255,10 @@ describe('RequirementsList recommendation policy notices', () => {
     expect(screen.getByText('미충족')).toBeInTheDocument();
     expect(screen.getByText('21/33학점, 12학점 부족')).toBeInTheDocument();
     expect(screen.getByText('2026 p.33')).toBeInTheDocument();
+    expect(screen.getAllByText('전공 공통 이수학점')).toHaveLength(1);
+    expect(screen.queryByText('전공 12학점이 더 필요합니다.')).not.toBeInTheDocument();
+    expect(screen.queryByText('미충족 사항')).not.toBeInTheDocument();
+    expect(screen.getByText('졸업 직전 학기에는 학과 확인이 필요합니다.')).toBeInTheDocument();
   });
 
   it('does not show the evidence section when no source or context evidence exists', async () => {
@@ -356,7 +361,8 @@ describe('RequirementsList recommendation policy notices', () => {
         .filter((course: any) => course.gradeStatus === 'in_progress')
         .map((course: any) => course.courseCode),
     );
-    const allRecommendationCodes = result.data?.allRecommendations.map((recommendation) => recommendation.courseCode) ?? [];
+    const allRecommendationCodes =
+      result.data?.allRecommendations.map((recommendation) => recommendation.courseCode) ?? [];
 
     expect(result.success).toBe(true);
     expect(humanitiesStatus).toBeDefined();

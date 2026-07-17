@@ -7,6 +7,7 @@ import { Badge } from '@components/ui/badge';
 import { ScrollArea } from '@components/ui/scroll-area';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@components/ui/sheet';
 import { Button } from '@components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
 import { cn } from '@/lib/utils';
 import type { RecommendedCourse } from '@/lib/types/recommended-course';
 import type { CatalogNeedsContextSummary } from '@features/graduation/domain/types';
@@ -15,10 +16,7 @@ import type {
   RequirementEvaluationStatus,
   RequirementSource,
 } from '@lib/types/grad-requirements';
-import type {
-  RecommendationDisplayPolicy,
-  RecommendationSuppression,
-} from '@features/graduation/data';
+import type { RecommendationDisplayPolicy, RecommendationSuppression } from '@features/graduation/data';
 
 interface Requirement {
   domain: string;
@@ -125,109 +123,230 @@ function formatMissingContext(missingContext: readonly string[]): string {
   return missingContext.map((context) => labels[context] ?? `${context} 정보가 필요합니다.`).join(' ');
 }
 
+function normalizeRequirementMessage(message: string): string {
+  return message.trim().replace(/\s*-\s*확인 필요\s*$/, '');
+}
+
+function getRequirementDisplayLabel(requirement: FineGrainedRequirement): string {
+  return requirement.label.replace(
+    /\s*\(\s*\d+(?:\.\d+)?\s*\/\s*\d+(?:\.\d+)?학점(?:\s*,\s*\d+(?:\.\d+)?학점 부족)?\s*\)\s*$/,
+    '',
+  );
+}
+
+function getNonRedundantRequirementHint(requirement: FineGrainedRequirement): string | null {
+  const hint = requirement.hint?.trim();
+  if (!hint) return null;
+
+  const repeatsMissingCredits =
+    requirement.missingCredits > 0 &&
+    hint.includes(`${requirement.missingCredits}학점`) &&
+    /(부족|더 필요|필요합니다)/.test(hint);
+
+  return repeatsMissingCredits ? null : hint;
+}
+
+function getSupplementalRequirementMessages(
+  messages: readonly string[],
+  requirements: readonly FineGrainedRequirement[],
+  needsContext: readonly CatalogNeedsContextSummary[],
+): string[] {
+  const representedLabels = new Set(
+    [
+      ...requirements.map((requirement) => requirement.label),
+      ...needsContext.map((item) => item.rule.label ?? item.rule.id),
+    ].map(normalizeRequirementMessage),
+  );
+
+  return Array.from(
+    new Set(
+      messages
+        .map((message) => message.trim())
+        .filter(Boolean)
+        .filter(
+          (message) =>
+            !message.startsWith('미충족 —') &&
+            !message.startsWith('충족됨 —') &&
+            !message.includes('필수 이수학점이 없는'),
+        )
+        .filter((message) => !representedLabels.has(normalizeRequirementMessage(message))),
+    ),
+  );
+}
+
 function RequirementEvidenceSection({
   requirements,
   needsContext,
+  messages,
+  onResolveNeedsReview,
 }: {
   requirements?: FineGrainedRequirement[];
   needsContext?: CatalogNeedsContextSummary[];
+  messages?: string[];
+  onResolveNeedsReview?: () => void;
 }) {
-  const evidenceRequirements = (requirements ?? []).filter(
-    (requirement) => (requirement.sourceRefs?.length ?? 0) > 0 || getRequirementStatus(requirement) === 'needs_review',
+  const [expanded, setExpanded] = useState(false);
+  const requirementRows = (requirements ?? []).filter(
+    (requirement) => (requirement.sourceRefs?.length ?? 0) > 0 || getRequirementStatus(requirement) !== 'satisfied',
   );
   const contextRows = needsContext ?? [];
-  const hasEvidence = evidenceRequirements.length > 0 || contextRows.length > 0;
+  const supplementalMessages = getSupplementalRequirementMessages(messages ?? [], requirements ?? [], contextRows);
+  const hasEvidence = requirementRows.length > 0 || contextRows.length > 0 || supplementalMessages.length > 0;
 
   if (!hasEvidence) return null;
 
-  const visibleRequirements = evidenceRequirements.slice(0, MAX_EVIDENCE_ROWS);
-  const hiddenRequirementCount = Math.max(0, evidenceRequirements.length - visibleRequirements.length);
+  const visibleRequirements = expanded ? requirementRows : requirementRows.slice(0, MAX_EVIDENCE_ROWS);
+  const hiddenRequirementCount = Math.max(0, requirementRows.length - MAX_EVIDENCE_ROWS);
 
   return (
-    <div className="mb-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
-      <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-800">
-        <Library size={16} />
-        적용 근거
-      </h4>
+    <section className="mb-6 overflow-hidden rounded-lg border border-slate-200 bg-white">
+      <div className="border-b border-slate-200 bg-slate-50 px-4 py-3">
+        <h4 className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+          <Library size={16} />
+          요건 판정
+        </h4>
+        <p className="mt-1 text-xs text-slate-500">미충족 사항과 적용 근거를 한 표에서 확인할 수 있습니다.</p>
+      </div>
 
-      <div className="space-y-2">
-        {contextRows.map((item) => {
-          const sourceRefs = uniqueSourceRefs(item.rule.sourceRefs);
-          const label = item.rule.label ?? item.rule.id;
+      <div className="overflow-x-auto">
+        <Table aria-label="요건 판정 및 적용 근거" className="min-w-[620px] table-fixed">
+          <TableHeader className="bg-white">
+            <TableRow className="hover:bg-transparent">
+              <TableHead className="w-[92px] px-3">상태</TableHead>
+              <TableHead className="w-[230px] px-3">요건</TableHead>
+              <TableHead className="w-[130px] px-3">이수 현황</TableHead>
+              <TableHead className="px-3">적용 근거</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {contextRows.map((item) => {
+              const sourceRefs = uniqueSourceRefs(item.rule.sourceRefs);
+              const label = item.rule.label ?? item.rule.id;
 
-          return (
-            <div key={`needs-context-${item.rule.id}`} className="rounded-md border border-amber-200 bg-white p-3">
-              <div className="flex items-start gap-2">
-                <Badge variant="outline" className="shrink-0 border-amber-200 bg-amber-50 text-xs text-amber-800">
-                  검토 필요
-                </Badge>
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-slate-900">{label}</p>
-                  <p className="mt-1 text-xs leading-relaxed text-amber-800">
-                    {formatMissingContext(item.missingContext)}
-                  </p>
-                  {sourceRefs.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {sourceRefs.map((sourceRef) => (
-                        <Badge
-                          key={sourceRefKey(sourceRef)}
-                          variant="outline"
-                          title={sourceRef.note}
-                          className="border-slate-200 bg-slate-50 font-mono text-[11px] text-slate-600"
-                        >
-                          {formatSourceRef(sourceRef)}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+              return (
+                <TableRow key={`needs-context-${item.rule.id}`} className="bg-amber-50/40 align-top">
+                  <TableCell className="px-3 py-3">
+                    <Badge variant="outline" className="border-amber-200 bg-amber-50 text-xs text-amber-800">
+                      검토 필요
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="px-3 py-3">
+                    <p className="text-sm font-medium text-slate-900">{label}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-amber-800">
+                      {formatMissingContext(item.missingContext)}
+                    </p>
+                  </TableCell>
+                  <TableCell className="px-3 py-3 text-xs text-slate-600">정보 입력 필요</TableCell>
+                  <TableCell className="px-3 py-3">
+                    <SourceReferenceBadges sourceRefs={sourceRefs} />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
 
-        {visibleRequirements.map((requirement) => {
-          const status = getRequirementStatus(requirement);
-          const sourceRefs = uniqueSourceRefs(requirement.sourceRefs);
+            {visibleRequirements.map((requirement) => {
+              const status = getRequirementStatus(requirement);
+              const sourceRefs = uniqueSourceRefs(requirement.sourceRefs);
+              const displayLabel = getRequirementDisplayLabel(requirement);
+              const displayHint = getNonRedundantRequirementHint(requirement);
 
-          return (
-            <div key={requirement.id} className="rounded-md border border-slate-200 bg-white p-3">
-              <div className="flex items-start gap-2">
-                <Badge variant="outline" className={cn('shrink-0 text-xs', getEvidenceStatusClassName(status))}>
-                  {getEvidenceStatusLabel(status)}
-                </Badge>
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-slate-900">{requirement.label}</p>
-                  <p className="mt-1 text-xs text-slate-500">
-                    {requirement.acquiredCredits}/{requirement.requiredCredits}학점
-                    {requirement.missingCredits > 0 ? `, ${requirement.missingCredits}학점 부족` : ''}
-                  </p>
-                  {sourceRefs.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {sourceRefs.map((sourceRef) => (
-                        <Badge
-                          key={sourceRefKey(sourceRef)}
-                          variant="outline"
-                          title={sourceRef.note}
-                          className="border-slate-200 bg-slate-50 font-mono text-[11px] text-slate-600"
-                        >
-                          {formatSourceRef(sourceRef)}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+              return (
+                <TableRow key={requirement.id} className="align-top">
+                  <TableCell className="px-3 py-3">
+                    <Badge variant="outline" className={cn('text-xs', getEvidenceStatusClassName(status))}>
+                      {getEvidenceStatusLabel(status)}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="px-3 py-3">
+                    <p className="text-sm leading-snug font-medium text-slate-900">{displayLabel}</p>
+                    {displayHint && <p className="mt-1 text-xs leading-relaxed text-slate-500">{displayHint}</p>}
+                  </TableCell>
+                  <TableCell className="px-3 py-3 text-xs text-slate-600">
+                    <p className={cn('font-medium text-slate-800', requirement.missingCredits > 0 && 'text-amber-700')}>
+                      {requirement.acquiredCredits}/{requirement.requiredCredits}학점
+                      {requirement.missingCredits > 0 ? `, ${requirement.missingCredits}학점 부족` : ''}
+                    </p>
+                  </TableCell>
+                  <TableCell className="px-3 py-3">
+                    <SourceReferenceBadges sourceRefs={sourceRefs} />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+
+            {supplementalMessages.map((message) => (
+              <TableRow key={`supplemental-${message}`} className="bg-amber-50/40 align-top">
+                <TableCell className="px-3 py-3">
+                  <Badge variant="outline" className="border-amber-200 bg-amber-50 text-xs text-amber-800">
+                    안내
+                  </Badge>
+                </TableCell>
+                <TableCell className="px-3 py-3 text-sm font-medium text-slate-900">추가 확인 사항</TableCell>
+                <TableCell className="px-3 py-3 text-xs leading-relaxed text-amber-800" colSpan={2}>
+                  {message}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
 
       {hiddenRequirementCount > 0 && (
-        <p className="mt-3 text-xs text-slate-500">
-          세부 근거 {hiddenRequirementCount}개는 같은 영역의 추가 요건으로 접어두었습니다.
-        </p>
+        <div className="border-t border-slate-200 bg-slate-50 px-3 py-2">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="h-8 w-full text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            onClick={() => setExpanded((current) => !current)}
+          >
+            {expanded ? (
+              <>
+                <ChevronUp size={14} className="mr-1" />
+                세부 요건 접기
+              </>
+            ) : (
+              <>
+                <ChevronDown size={14} className="mr-1" />
+                세부 요건 {hiddenRequirementCount}개 더 보기
+              </>
+            )}
+          </Button>
+        </div>
       )}
+
+      {contextRows.length > 0 && onResolveNeedsReview && (
+        <div className="border-t border-amber-100 bg-amber-50 px-4 py-3">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="border-amber-200 bg-white text-amber-800 hover:bg-amber-100"
+            onClick={onResolveNeedsReview}
+          >
+            선언 학기 입력하기
+          </Button>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function SourceReferenceBadges({ sourceRefs }: { sourceRefs: readonly RequirementSource[] }) {
+  if (sourceRefs.length === 0) return <span className="text-xs text-slate-400">별도 근거 없음</span>;
+
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {sourceRefs.map((sourceRef) => (
+        <Badge
+          key={sourceRefKey(sourceRef)}
+          variant="outline"
+          title={sourceRef.note}
+          className="border-slate-200 bg-slate-50 font-mono text-[11px] text-slate-600"
+        >
+          {formatSourceRef(sourceRef)}
+        </Badge>
+      ))}
     </div>
   );
 }
@@ -330,7 +449,7 @@ function RecommendedCoursesSection({
               setAllPanelOpen(true);
             }}
           >
-            <PanelLeftOpen size={14} className="mr-1" />
+            <PanelLeftOpen aria-hidden="true" size={14} className="mr-1" />
             전체 보기
             <span className="ml-1 text-blue-500">{allRecommendationCourses.length}</span>
           </Button>
@@ -343,10 +462,10 @@ function RecommendedCoursesSection({
           data-testid="all-recommendations-panel"
           role="dialog"
           aria-labelledby="all-recommendations-panel-title"
-          className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto border-l border-slate-200 bg-white p-6 shadow-xl animate-in slide-in-from-right duration-300 overscroll-contain sm:max-w-xl lg:right-[32rem] lg:z-[-1] lg:w-[min(36rem,calc(100vw-32rem))] lg:max-w-none"
+          className="animate-in slide-in-from-right fixed inset-y-0 right-0 z-50 w-full overflow-y-auto overscroll-contain border-l border-slate-200 bg-white p-6 shadow-xl duration-200 motion-reduce:animate-none sm:max-w-xl lg:right-[32rem] lg:z-[-1] lg:w-[min(36rem,calc(100vw-32rem))] lg:max-w-none"
           onWheel={(event) => event.stopPropagation()}
         >
-          <div className="border-b border-gray-50 pb-4 pr-9">
+          <div className="border-b border-gray-50 pr-9 pb-4">
             <h3 id="all-recommendations-panel-title" className="text-xl font-semibold text-gray-900">
               전체 추천 과목
             </h3>
@@ -363,19 +482,25 @@ function RecommendedCoursesSection({
             className="absolute top-4 right-4 h-8 w-8 p-0 text-gray-500 hover:bg-slate-100 hover:text-gray-900"
             onClick={() => setAllPanelOpen(false)}
           >
-            <X size={16} />
+            <X aria-hidden="true" size={16} />
           </Button>
 
           {shouldShowSearch && (
             <div className="relative mt-4">
-              <Search size={15} className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-gray-400" />
+              <Search
+                aria-hidden="true"
+                size={15}
+                className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-gray-400"
+              />
               <input
                 type="search"
                 aria-label="전체 추천 과목 검색"
+                name="recommendation-search"
+                autoComplete="off"
                 value={allPanelQuery}
                 onChange={(event) => setAllPanelQuery(event.target.value)}
                 placeholder="과목명 또는 코드 검색"
-                className="h-9 w-full rounded-md border border-slate-200 bg-white pr-3 pl-9 text-sm text-gray-900 placeholder:text-gray-400 focus:border-blue-300 focus:ring-2 focus:ring-blue-100 focus:outline-none"
+                className="h-9 w-full rounded-md border border-slate-200 bg-white pr-3 pl-9 text-sm text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
               />
               <p className="mt-2 text-xs text-gray-500">
                 {normalizedQuery
@@ -397,13 +522,19 @@ function RecommendedCoursesSection({
                   </div>
                   <div className="space-y-1.5">
                     {group.courses.map((course) => (
-                      <div key={`${group.reason}-${course.courseCode}`} className="rounded-md border border-slate-200 bg-white px-3 py-2.5">
+                      <div
+                        key={`${group.reason}-${course.courseCode}`}
+                        className="rounded-md border border-slate-200 bg-white px-3 py-2.5"
+                      >
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0 flex-1">
                             <p className="truncate text-sm font-medium text-gray-900">{course.courseName}</p>
                             <p className="mt-0.5 font-mono text-xs text-gray-500">{course.courseCode}</p>
                           </div>
-                          <Badge variant="secondary" className="shrink-0 bg-blue-100 text-xs font-semibold text-blue-700">
+                          <Badge
+                            variant="secondary"
+                            className="shrink-0 bg-blue-100 text-xs font-semibold text-blue-700"
+                          >
                             {course.credit}학점
                           </Badge>
                         </div>
@@ -485,10 +616,15 @@ function RecommendedCoursesSection({
 
 export function RequirementsList({ requirements, className, onResolveNeedsReview }: RequirementsListProps) {
   return (
-    <>
-      <h2 className="mb-5 flex items-center gap-2 text-lg font-bold text-gray-900">
-        <span className="text-xl">📋</span> 영역별 이수 현황
-      </h2>
+    <section className={className} aria-labelledby="requirements-list-title">
+      <div className="mb-5">
+        <h2 id="requirements-list-title" className="text-lg font-semibold text-slate-950 dark:text-slate-50">
+          영역별 이수 현황
+        </h2>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          각 영역을 선택하면 인정 과목과 남은 요건을 확인할 수 있습니다.
+        </p>
+      </div>
 
       {/* Grid Card Layout */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -497,44 +633,58 @@ export function RequirementsList({ requirements, className, onResolveNeedsReview
             <Sheet key={req.domain}>
               <SheetTrigger asChild>
                 <button
+                  type="button"
+                  aria-label={`${req.domain}: ${req.earned}/${req.required}학점, ${req.percentage}%`}
                   className={cn(
-                    'group relative rounded-xl border p-4 text-left transition-all duration-200',
-                    'bg-white hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md',
-                    'focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none',
-                    'border-slate-300',
+                    'group relative min-w-0 touch-manipulation rounded-xl border border-slate-200 bg-white p-4 text-left',
+                    'transition-[transform,background-color,border-color] duration-150 ease-out hover:border-slate-300 hover:bg-slate-50 active:scale-[0.99]',
+                    'focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-colors motion-reduce:active:scale-100',
+                    'dark:border-slate-800 dark:bg-slate-950 dark:hover:border-slate-700 dark:hover:bg-slate-900',
                   )}
                 >
                   {/* Header */}
                   <div className="mb-3 flex items-start justify-between">
                     <div className="flex items-center gap-2">
                       {req.satisfied ? (
-                        <CircleCheck size={20} className="text-emerald-600" />
+                        <CircleCheck aria-hidden="true" size={20} className="text-emerald-600 dark:text-emerald-400" />
                       ) : (
-                        <AlertTriangle size={20} className="text-amber-500" />
+                        <AlertTriangle aria-hidden="true" size={20} className="text-amber-600 dark:text-amber-400" />
                       )}
-                      <span className="font-bold text-gray-900">{req.domain}</span>
+                      <span className="font-semibold text-slate-950 dark:text-slate-50">{req.domain}</span>
                     </div>
                     <Badge
                       variant="outline"
                       className={cn(
-                        'rounded-full border-none px-2 py-0.5 text-xs font-bold',
+                        'rounded-full border-none px-2 py-0.5 text-xs font-semibold',
                         req.satisfied
-                          ? 'bg-blue-100 text-blue-600 hover:bg-blue-200'
-                          : 'bg-red-100 text-red-600 hover:bg-red-200',
+                          ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-50 dark:bg-emerald-950 dark:text-emerald-300'
+                          : 'bg-amber-50 text-amber-800 hover:bg-amber-50 dark:bg-amber-950 dark:text-amber-300',
                       )}
                     >
-                      {req.percentage}%
+                      {req.satisfied ? '충족' : '확인 필요'}
                     </Badge>
                   </div>
 
-                  {/* Credit Stats (Replacing Progress Bar) */}
-                  <div className="flex items-end gap-1.5 py-2">
-                    <span className="text-3xl leading-none font-extrabold text-gray-900">{req.earned}</span>
-                    <span className="mb-0.5 text-sm font-medium text-gray-500">/ {req.required} 학점</span>
+                  <div className="flex items-end justify-between gap-3 py-2">
+                    <div className="flex items-end gap-1.5">
+                      <span className="text-3xl leading-none font-bold text-slate-950 tabular-nums dark:text-slate-50">
+                        {req.earned}
+                      </span>
+                      <span className="mb-0.5 text-sm font-medium text-slate-500 tabular-nums dark:text-slate-400">
+                        / {req.required} 학점
+                      </span>
+                    </div>
+                    <span className="text-sm font-semibold text-slate-600 tabular-nums dark:text-slate-300">
+                      {req.percentage}%
+                    </span>
                   </div>
+                  <Progress
+                    value={req.percentage}
+                    className="mt-3 h-1.5 bg-slate-100 dark:bg-slate-800 [&>div]:bg-blue-600 dark:[&>div]:bg-blue-500"
+                  />
                 </button>
               </SheetTrigger>
-              <SheetContent className="w-full sm:max-w-lg">
+              <SheetContent className="w-full sm:max-w-2xl">
                 <SheetHeader className="border-b border-gray-50 pb-4">
                   <div className="flex items-center gap-2">
                     {req.satisfied ? (
@@ -572,50 +722,11 @@ export function RequirementsList({ requirements, className, onResolveNeedsReview
                 </SheetHeader>
 
                 <ScrollArea className="-mx-6 mt-4 h-[calc(100vh-200px)] px-6">
-                  {/* Warning Messages - 중복 필터링 (미충족/충족됨 메시지 제외) */}
-                  {!req.satisfied &&
-                    req.messages.length > 0 &&
-                    (() => {
-                      // 중복되는 "미충족 —" 또는 "충족됨 —" 메시지 필터링
-                      const filteredMessages = req.messages.filter(
-                        (msg) =>
-                          !msg.startsWith('미충족 —') &&
-                          !msg.startsWith('충족됨 —') &&
-                          !msg.includes('필수 이수학점이 없는'),
-                      );
-                      if (filteredMessages.length === 0) return null;
-                      return (
-                        <div className="mb-6 rounded-lg border border-amber-100 bg-amber-50 p-4">
-                          <h4 className="mb-2 flex items-center gap-2 text-sm font-semibold text-amber-800">
-                            <AlertTriangle size={16} />
-                            미충족 사항
-                          </h4>
-                          <ul className="space-y-1.5">
-                            {filteredMessages.map((msg) => (
-                              <li key={msg} className="flex items-start gap-2 text-sm text-amber-700">
-                                <span className="mt-1 text-amber-400">•</span>
-                                {msg}
-                              </li>
-                            ))}
-                          </ul>
-                          {req.hasNeedsReview && onResolveNeedsReview ? (
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              className="mt-3 border-amber-200 bg-white text-amber-800 hover:bg-amber-100"
-                              onClick={onResolveNeedsReview}
-                            >
-                              선언 학기 입력하기
-                            </Button>
-                          ) : null}
-                        </div>
-                      );
-                    })()}
-
                   <RequirementEvidenceSection
                     requirements={req.appliedRequirements}
                     needsContext={req.catalogNeedsContext}
+                    messages={req.messages}
+                    onResolveNeedsReview={req.hasNeedsReview ? onResolveNeedsReview : undefined}
                   />
 
                   {/* Recommended Courses Section with Show More */}
@@ -658,7 +769,10 @@ export function RequirementsList({ requirements, className, onResolveNeedsReview
                                 </div>
                                 <p className="mt-2 text-xs leading-relaxed text-orange-800">{course.reason}</p>
                               </div>
-                              <Badge variant="outline" className="shrink-0 border-orange-200 bg-orange-100 text-orange-800">
+                              <Badge
+                                variant="outline"
+                                className="shrink-0 border-orange-200 bg-orange-100 text-orange-800"
+                              >
                                 제외
                               </Badge>
                             </div>
@@ -715,6 +829,6 @@ export function RequirementsList({ requirements, className, onResolveNeedsReview
           );
         })}
       </div>
-    </>
+    </section>
   );
 }

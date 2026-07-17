@@ -4,7 +4,15 @@ import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { Settings } from 'lucide-react';
 
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@components/ui/dialog';
 import { Button } from '@components/ui/button';
 import { Label } from '@components/ui/label';
 import { Input } from '@components/ui/input';
@@ -26,8 +34,14 @@ interface UserInfoEditDialogProps {
 
 export function UserInfoEditDialog({ open: controlledOpen, onOpenChange, trigger }: UserInfoEditDialogProps = {}) {
   const { toast } = useToast();
-  const { parsed, userMajor, userMinors, minorDeclarationTerms: storedMinorDeclarationTerms, entryYear, setFromParsed } =
-    useGraduationStore();
+  const {
+    parsed,
+    userMajor,
+    userMinors,
+    minorDeclarationTerms: storedMinorDeclarationTerms,
+    entryYear,
+    updateAcademicContext,
+  } = useGraduationStore();
   const [internalOpen, setInternalOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const open = controlledOpen ?? internalOpen;
@@ -83,9 +97,7 @@ export function UserInfoEditDialog({ open: controlledOpen, onOpenChange, trigger
 
       const grad = await gradStatusFetchFn(payload);
 
-      setFromParsed({
-        parsed, // Keep original parsed raw data
-        takenCourses,
+      updateAcademicContext({
         gradStatus: grad,
         userMajor: major,
         userMinors: minors,
@@ -117,20 +129,17 @@ export function UserInfoEditDialog({ open: controlledOpen, onOpenChange, trigger
         {trigger ?? (
           <Button
             variant="outline"
-            size="lg"
-            className="group gap-2 border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 hover:text-indigo-800"
+            className="h-10 touch-manipulation rounded-lg border-slate-300 bg-white px-4 font-semibold text-slate-700 shadow-none hover:border-slate-400 hover:bg-slate-50 hover:text-slate-950 focus-visible:ring-blue-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:bg-slate-900 dark:hover:text-white"
           >
-            <Settings className="h-4 w-4 transition-transform duration-500 group-hover:rotate-180" />
-            정보 수정 및 재계산
+            <Settings aria-hidden="true" className="h-4 w-4" />
+            학적 정보 수정
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[560px]">
         <DialogHeader>
           <DialogTitle>내 정보 수정</DialogTitle>
-          <DialogDescription>
-            입학년도, 전공, 부전공 정보를 수정하면 졸업 요건이 다시 계산됩니다.
-          </DialogDescription>
+          <DialogDescription>입학년도, 전공, 부전공 정보를 수정하면 졸업 요건이 다시 계산됩니다.</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
@@ -170,10 +179,15 @@ export function UserInfoEditDialog({ open: controlledOpen, onOpenChange, trigger
             </Label>
             <div className="col-span-3">
               <MultiSelect
+                id="minors"
                 options={MINOR_OPTIONS}
                 selected={minors}
                 onChange={handleChangeMinors}
-                placeholder="부전공 선택 (선택)"
+                placeholder="부전공 선택…"
+                searchPlaceholder="부전공명 검색…"
+                optionName="부전공"
+                ariaLabel="부전공 선택"
+                portalled={false}
               />
             </div>
           </div>
@@ -191,7 +205,7 @@ export function UserInfoEditDialog({ open: controlledOpen, onOpenChange, trigger
         </div>
         <DialogFooter>
           <Button type="submit" onClick={handleSave} disabled={saving}>
-             {saving ? '저장 중...' : '저장하기'}
+            {saving ? '저장 중…' : '저장하기'}
           </Button>
         </DialogFooter>
       </DialogContent>

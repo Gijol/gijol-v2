@@ -1,5 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { SectionOffering } from '@/lib/types/timetable';
+import React, { useState } from 'react';
 import { AvailabilityWithPreview } from './AvailabilityWithPreview';
 import { CourseSidebar } from './CourseSidebar';
 import { SelectedCoursesDialog } from './SelectedCoursesDialog';
@@ -11,13 +10,7 @@ import { formatCourseTerm } from '@/features/course-catalog/offering-view';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { CalendarDays, ListChecks, Menu, FolderOpen, RotateCcw } from 'lucide-react';
 
 interface TimetableLayoutProps {
@@ -25,10 +18,7 @@ interface TimetableLayoutProps {
   timetableSources: readonly TimetableSourceManifestEntry[];
 }
 
-export function TimetableLayout({
-  defaultTerm,
-  timetableSources,
-}: TimetableLayoutProps) {
+export function TimetableLayout({ defaultTerm, timetableSources }: TimetableLayoutProps) {
   const scheduledSpans = useTimetableStore((state) => state.scheduledSpans);
   const previewSpans = useTimetableStore((state) => state.previewSpans);
   const removeSection = useTimetableStore((state) => state.removeSection);
@@ -41,47 +31,9 @@ export function TimetableLayout({
   const [isCourseDetailDialogOpen, setIsCourseDetailDialogOpen] = useState(false);
   const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null);
   const [activeTerm, setActiveTerm] = useState(defaultTerm || timetableSources[0]?.term || '');
-  const [sectionsByTerm, setSectionsByTerm] = useState<Record<string, SectionOffering[]>>({});
-  const [loadingTerm, setLoadingTerm] = useState<string | null>(defaultTerm || timetableSources[0]?.term || null);
-  const [termLoadError, setTermLoadError] = useState<string | null>(null);
-
-  const sections = useMemo(() => sectionsByTerm[activeTerm] ?? [], [activeTerm, sectionsByTerm]);
   const activeSource = timetableSources.find((source) => source.term === activeTerm);
   const activeTermLabel = activeSource?.label ?? formatCourseTerm(activeTerm);
-  const activeSectionCount = sectionsByTerm[activeTerm]?.length ?? activeSource?.count ?? 0;
-  const isActiveTermLoading = loadingTerm === activeTerm && !sectionsByTerm[activeTerm];
-
-  const loadTermSections = async (term: string): Promise<boolean> => {
-    if (!term || sectionsByTerm[term]) return true;
-
-    setLoadingTerm(term);
-    setTermLoadError(null);
-
-    try {
-      const response = await fetch(`/api/timetable/${encodeURIComponent(term)}`);
-      if (!response.ok) {
-        throw new Error(`Failed to load ${term}: ${response.status}`);
-      }
-
-      const payload = await response.json() as { sections?: SectionOffering[] };
-      const nextSections = Array.isArray(payload.sections) ? payload.sections : [];
-      setSectionsByTerm((current) => ({
-        ...current,
-        [term]: nextSections,
-      }));
-      return true;
-    } catch (error) {
-      console.error('Failed to load timetable term', error);
-      setTermLoadError('시간표 데이터를 불러오지 못했습니다.');
-      return false;
-    } finally {
-      setLoadingTerm((current) => (current === term ? null : current));
-    }
-  };
-
-  useEffect(() => {
-    void loadTermSections(activeTerm);
-  }, [activeTerm]);
+  const activeSectionCount = activeSource?.count ?? 0;
 
   const handleNewTimetable = () => {
     if (selectedSections.length > 0) {
@@ -98,8 +50,6 @@ export function TimetableLayout({
       const confirmReset = window.confirm('학기를 변경하면 현재 선택된 강의들이 모두 초기화됩니다. 계속하시겠습니까?');
       if (!confirmReset) return;
     }
-    const loaded = await loadTermSections(nextTerm);
-    if (!loaded) return;
     if (selectedSections.length > 0) {
       reset();
     }
@@ -116,7 +66,7 @@ export function TimetableLayout({
   const termSelect = (className = '') => (
     <div className={`flex min-w-[160px] items-center gap-2 ${className}`}>
       <CalendarDays size={18} className="shrink-0 text-slate-500" />
-      <Select value={activeTerm} onValueChange={handleTermChange} disabled={loadingTerm !== null}>
+      <Select value={activeTerm} onValueChange={handleTermChange}>
         <SelectTrigger className="h-10 min-w-[132px] border-slate-300 bg-white font-bold text-slate-700 shadow-none">
           <SelectValue placeholder="학기 선택" />
         </SelectTrigger>
@@ -140,13 +90,12 @@ export function TimetableLayout({
           <div className="flex min-w-0 flex-1 flex-col">
             <div className="mb-4 flex shrink-0 flex-col gap-3 px-2 2xl:flex-row 2xl:items-center 2xl:justify-between">
               <div className="min-w-0">
-                <h1 className="flex items-center gap-2 whitespace-nowrap text-2xl font-black tracking-tight text-slate-900">
+                <h1 className="flex items-center gap-2 text-2xl font-black tracking-tight whitespace-nowrap text-slate-900">
                   ⏰ 시간표 빌더
                 </h1>
                 <p className="text-xs font-bold text-slate-500">
                   {activeTermLabel} · {activeSectionCount.toLocaleString()}개 분반
                 </p>
-                {termLoadError && <p className="mt-1 text-xs font-bold text-red-500">{termLoadError}</p>}
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 {termSelect()}
@@ -191,7 +140,7 @@ export function TimetableLayout({
 
           {/* Right: Sidebar Panel */}
           <div className="flex w-[400px] shrink-0 flex-col">
-            <CourseSidebar sections={sections} isLoading={isActiveTermLoading} />
+            <CourseSidebar term={activeTerm} />
           </div>
         </div>
 
@@ -207,7 +156,6 @@ export function TimetableLayout({
                 <p className="truncate text-xs font-bold text-slate-500">
                   {activeTermLabel} · {activeSectionCount.toLocaleString()}개 분반
                 </p>
-                {termLoadError && <p className="mt-1 truncate text-xs font-bold text-red-500">{termLoadError}</p>}
               </div>
               <div className="flex shrink-0 gap-1.5">
                 <Button
@@ -236,9 +184,7 @@ export function TimetableLayout({
                 </Button>
               </div>
             </div>
-            <div className="mt-3 w-full">
-              {termSelect('w-full [&>button]:w-full')}
-            </div>
+            <div className="mt-3 w-full">{termSelect('w-full [&>button]:w-full')}</div>
           </div>
 
           {/* Mobile Timetable Grid (Hide Weekends) */}
@@ -265,7 +211,7 @@ export function TimetableLayout({
             </SheetTrigger>
             <SheetContent side="bottom" className="h-[80vh] overflow-hidden p-0">
               <div className="flex h-full flex-col overflow-hidden px-4 pt-8 pb-4">
-                <CourseSidebar sections={sections} isMobile isLoading={isActiveTermLoading} />
+                <CourseSidebar term={activeTerm} isMobile />
               </div>
             </SheetContent>
           </Sheet>

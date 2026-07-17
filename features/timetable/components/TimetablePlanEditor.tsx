@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import type { SectionOffering } from '@/lib/types/timetable';
 import { useTimetablePlanStore } from '@/lib/stores/timetable-plan.store';
 import type { TimetableSourceManifestEntry } from '@/features/course-catalog/timetable-sources';
 import { formatCourseTerm } from '@/features/course-catalog/offering-view';
-import { useTimetableTermSections } from '@/features/timetable/hooks/useTimetableTermSections';
 import {
   getScheduledSpansFromPlan,
   getSelectedSectionKeysFromPlan,
@@ -14,13 +14,14 @@ import { checkConflict } from '@/features/timetable/conflict';
 import { sectionToSpans } from '@/features/timetable/selectors';
 import { AvailabilityWithPreview } from './AvailabilityWithPreview';
 import { PlanCourseSidebar } from './PlanCourseSidebar';
+import { ManualCourseDialog } from './ManualCourseDialog';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@/components/ui/sheet';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { ArrowLeft, CalendarDays, Menu, Search, Star, Trash2 } from 'lucide-react';
+import { ArrowLeft, CalendarDays, Menu, Search, Sparkles, Star, Trash2 } from 'lucide-react';
 
 interface TimetablePlanEditorProps {
   planId: string;
@@ -63,21 +64,9 @@ function minutesToTime(minutes: number): string {
   return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
 }
 
-function getTimetableRange(
-  sections: readonly SectionOffering[],
-  scheduledSpans: readonly { start_time: string; end_time: string }[],
-) {
+function getTimetableRange(scheduledSpans: readonly { start_time: string; end_time: string }[]) {
   const startTimes: number[] = [];
   const endTimes: number[] = [];
-
-  sections.forEach((section) => {
-    section.meetings.forEach((meeting) => {
-      const start = timeToMinutesValue(meeting.start);
-      const end = timeToMinutesValue(meeting.end);
-      if (start !== null) startTimes.push(start);
-      if (end !== null) endTimes.push(end);
-    });
-  });
 
   scheduledSpans.forEach((span) => {
     const start = timeToMinutesValue(span.start_time);
@@ -115,7 +104,6 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
 
   const sectionStatus = plan ? getSectionInfoStatus(plan.term, timetableSources) : 'unpublished';
   const sectionsAvailable = sectionStatus === 'available';
-  const { sections, isLoading, error } = useTimetableTermSections(sectionsAvailable && plan ? plan.term : '');
 
   useEffect(() => {
     if (plan) {
@@ -150,21 +138,18 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
   const selectedSectionCount = selectedSections.length;
   const isRepresentative = !!plan && termGroup?.representativePlanId === plan.id;
   const timetableRange = useMemo(
-    () => getTimetableRange(sections, [...scheduledSpans, ...previewSpans]),
-    [previewSpans, scheduledSpans, sections],
+    () => getTimetableRange([...scheduledSpans, ...previewSpans]),
+    [previewSpans, scheduledSpans],
   );
 
   if (!plan) {
     return (
-      <div className="flex h-full items-center justify-center bg-slate-100 p-6">
-        <div className="rounded-lg border border-slate-200 bg-white p-8 text-center shadow-sm">
-          <h1 className="text-xl font-black tracking-tight text-slate-950">시간표 계획을 찾을 수 없습니다</h1>
+      <div className="flex h-full items-center justify-center bg-[#f6f8fb] p-6">
+        <div className="max-w-md rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+          <h1 className="text-xl font-bold tracking-tight text-slate-950">시간표 계획을 찾을 수 없습니다</h1>
           <p className="mt-2 text-sm font-medium text-slate-500">삭제되었거나 다른 저장소의 계획일 수 있습니다.</p>
-          <Button
-            className="mt-5 bg-blue-600 font-bold hover:bg-blue-700"
-            onClick={() => router.push('/dashboard/timetable')}
-          >
-            시간표 홈으로
+          <Button className="mt-5 bg-blue-600 font-bold hover:bg-blue-700" asChild>
+            <Link href="/dashboard/timetable">시간표 홈으로</Link>
           </Button>
         </div>
       </div>
@@ -186,10 +171,9 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
   const courseSidebar = (
     <PlanCourseSidebar
       planId={plan.id}
-      sections={sections}
+      term={plan.term}
       scheduledSpans={scheduledSpans}
       selectedSectionKeys={selectedSectionKeys}
-      isLoading={isLoading}
       className="rounded-none border-0 shadow-none"
       onPreview={setPreviewSection}
     />
@@ -197,25 +181,32 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
 
   return (
     <TooltipProvider delayDuration={300}>
-      <div className="flex h-full w-full flex-col overflow-hidden bg-slate-100 p-3 sm:p-4 lg:p-5">
-        <div className="mb-3 flex shrink-0 flex-col gap-3 rounded-lg border border-slate-200 bg-white p-3 shadow-sm lg:mb-4 lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex h-full w-full flex-col overflow-hidden bg-[#f6f8fb] p-4 lg:p-5">
+        <header className="mb-4 flex shrink-0 flex-col gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)] lg:flex-row lg:items-center lg:justify-between">
           <div className="flex min-w-0 items-start gap-3">
             <Button
               variant="ghost"
               size="icon"
-              className="h-9 w-9 shrink-0"
-              onClick={() => router.push('/dashboard/timetable')}
+              className="h-9 w-9 shrink-0 text-slate-500 hover:bg-slate-100 hover:text-slate-900"
               aria-label="시간표 홈으로 돌아가기"
+              asChild
             >
-              <ArrowLeft size={18} />
+              <Link href="/dashboard/timetable">
+                <ArrowLeft aria-hidden="true" size={18} />
+              </Link>
             </Button>
             <div className="min-w-0">
               <div className="flex min-w-0 items-center gap-2">
+                <label htmlFor="timetable-plan-name" className="sr-only">
+                  시간표 계획 이름
+                </label>
                 <Input
+                  id="timetable-plan-name"
+                  name="timetable-plan-name"
+                  autoComplete="off"
                   value={plan.name}
                   onChange={(event) => renamePlan(plan.id, event.target.value)}
-                  className="h-9 w-full max-w-[340px] min-w-0 border-transparent bg-slate-50 text-lg font-black tracking-tight text-slate-950 shadow-none focus-visible:ring-blue-500"
-                  aria-label="시간표 계획 이름"
+                  className="h-9 w-full min-w-0 border-transparent bg-transparent px-1 text-lg font-bold tracking-[-0.025em] text-slate-950 shadow-none hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:ring-blue-500 sm:w-[260px]"
                 />
                 <Button
                   type="button"
@@ -230,51 +221,60 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
                   aria-pressed={isRepresentative}
                   title={isRepresentative ? '대표 시간표' : '대표 시간표로 지정'}
                 >
-                  <Star size={16} fill={isRepresentative ? 'currentColor' : 'none'} />
+                  <Star aria-hidden="true" size={16} fill={isRepresentative ? 'currentColor' : 'none'} />
                 </Button>
               </div>
-              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-bold text-slate-500">
-                <span className="inline-flex items-center gap-1">
-                  <CalendarDays size={13} />
+              <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs font-medium text-slate-500">
+                <span className="inline-flex items-center gap-1.5">
+                  <CalendarDays aria-hidden="true" size={13} />
                   {formatCourseTerm(plan.term)}
                 </span>
-                <span>선택 분반 {selectedSectionCount}개</span>
-                <span>{totalCredits}학점</span>
-                {error && <span className="text-red-500">{error}</span>}
+                <span aria-hidden="true" className="text-slate-300">
+                  ·
+                </span>
+                <span>{selectedSectionCount}개 분반</span>
+                <span aria-hidden="true" className="text-slate-300">
+                  ·
+                </span>
+                <span className="tabular-nums">{totalCredits}학점</span>
+                {isRepresentative && <span className="text-amber-700">대표 계획</span>}
               </div>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-2">
+            <ManualCourseDialog planId={plan.id} />
             {sectionsAvailable && (
               <Button
-                className="h-9 bg-blue-600 font-bold hover:bg-blue-700 lg:hidden"
+                className="h-9 bg-blue-600 font-semibold hover:bg-blue-700 lg:hidden"
                 onClick={() => setIsCourseSheetOpen(true)}
                 aria-label="강의 목록 열기"
               >
-                <Menu size={16} />
+                <Menu aria-hidden="true" size={16} />
                 강의 추가
               </Button>
             )}
             <Button
               variant="outline"
-              className="h-9 border-red-200 font-bold text-red-500 hover:border-red-400 hover:bg-red-50 hover:text-red-600"
+              className="h-9 border-red-200 font-semibold text-red-500 hover:border-red-400 hover:bg-red-50 hover:text-red-600"
               onClick={handleDeletePlan}
             >
-              <Trash2 size={16} className="mr-1.5" />
+              <Trash2 aria-hidden="true" size={16} />
               삭제
             </Button>
           </div>
-        </div>
+        </header>
 
-        <div className="hidden min-h-0 flex-1 gap-4 lg:grid lg:grid-cols-[380px_minmax(0,1fr)] xl:grid-cols-[400px_minmax(0,1fr)]">
-          <aside className="flex min-h-0 flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
-            <div className="shrink-0 border-b border-slate-200 px-4 py-3">
+        <div className="hidden min-h-0 flex-1 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)] lg:grid lg:grid-cols-[380px_minmax(0,1fr)] xl:grid-cols-[400px_minmax(0,1fr)]">
+          <aside className="flex min-h-0 flex-col overflow-hidden border-r border-slate-200 bg-white">
+            <div className="shrink-0 border-b border-slate-100 px-4 py-3.5">
               <div className="flex items-center gap-2">
-                <Search size={17} className="text-blue-500" />
-                <h2 className="text-sm font-black tracking-tight text-slate-950">강의 검색</h2>
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                  <Search aria-hidden="true" size={15} />
+                </span>
+                <h2 className="text-sm font-semibold tracking-tight text-slate-950">강의 찾아 담기</h2>
               </div>
-              <p className="mt-1 text-xs font-medium text-slate-500">
-                과목명, 코드, 교수로 찾고 오른쪽 시간표에 바로 배치합니다.
+              <p className="mt-1.5 pl-9 text-xs leading-5 text-slate-500">
+                과목명·코드·교수로 검색한 뒤 분반을 선택하세요.
               </p>
             </div>
             <div className="min-h-0 flex-1 overflow-hidden">
@@ -284,10 +284,10 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
                 <div className="flex h-full items-center justify-center p-6 text-center">
                   <div>
                     <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 text-amber-600">
-                      <CalendarDays size={20} />
+                      <CalendarDays aria-hidden="true" size={20} />
                     </div>
-                    <h3 className="text-sm font-black tracking-tight text-slate-950">분반 정보 미공개</h3>
-                    <p className="mt-2 text-xs font-medium text-slate-500">
+                    <h3 className="text-sm font-semibold tracking-tight text-slate-950">분반 정보 미공개</h3>
+                    <p className="mt-2 text-xs text-slate-500">
                       강의 검색과 분반 추가는 공식 분반 정보가 공개된 뒤 사용할 수 있습니다.
                     </p>
                   </div>
@@ -296,17 +296,27 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
             </div>
           </aside>
 
-          <AvailabilityWithPreview
-            scheduledSpans={scheduledSpans}
-            previewSpans={previewSpans}
-            startTime={timetableRange.startTime}
-            endTime={timetableRange.endTime}
-            timeIncrements={30}
-            days={['일', '월', '화', '수', '목', '금', '토']}
-            onRemoveSpan={clearSelectedSectionByKey.bind(null, plan.id)}
-            onSpanClick={setDetailSectionKey}
-            hideWeekends={false}
-          />
+          <section className="flex min-h-0 flex-col bg-slate-50/70 p-3" aria-labelledby="schedule-preview-title">
+            <div className="flex h-10 shrink-0 items-center gap-2 px-1">
+              <Sparkles aria-hidden="true" size={14} className="text-blue-600" />
+              <h2 id="schedule-preview-title" className="text-xs font-semibold text-slate-700">
+                실시간 시간표
+              </h2>
+            </div>
+            <AvailabilityWithPreview
+              scheduledSpans={scheduledSpans}
+              previewSpans={previewSpans}
+              startTime={timetableRange.startTime}
+              endTime={timetableRange.endTime}
+              timeIncrements={30}
+              days={['일', '월', '화', '수', '목', '금', '토']}
+              onRemoveSpan={clearSelectedSectionByKey.bind(null, plan.id)}
+              onSpanClick={setDetailSectionKey}
+              hideWeekends={false}
+              showEmptyHint
+              className="min-h-0 flex-1"
+            />
+          </section>
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto pb-4 lg:hidden">
@@ -326,10 +336,10 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
           {!sectionsAvailable && (
             <div className="rounded-lg border border-dashed border-slate-300 bg-white p-5 text-center">
               <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 text-amber-600">
-                <CalendarDays size={20} />
+                <CalendarDays aria-hidden="true" size={20} />
               </div>
-              <h2 className="text-base font-black tracking-tight text-slate-950">분반 정보가 아직 없습니다</h2>
-              <p className="mt-2 text-sm font-medium text-slate-500">
+              <h2 className="text-base font-semibold tracking-tight text-slate-950">분반 정보가 아직 없습니다</h2>
+              <p className="mt-2 text-sm text-slate-500">
                 현재는 저장된 시간표만 확인할 수 있습니다. 분반 정보가 공개되면 강의 검색과 추가가 열립니다.
               </p>
             </div>
@@ -340,20 +350,21 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
                 <div className="flex h-full flex-col overflow-hidden">
                   <div className="shrink-0 border-b border-slate-200 px-4 pt-5 pb-3">
                     <div className="flex items-center gap-2">
-                      <Search size={18} className="text-blue-500" />
-                      <SheetTitle className="text-base font-black tracking-tight text-slate-950">강의 검색</SheetTitle>
+                      <Search aria-hidden="true" size={18} className="text-blue-500" />
+                      <SheetTitle className="text-base font-semibold tracking-tight text-slate-950">
+                        강의 검색
+                      </SheetTitle>
                     </div>
-                    <SheetDescription className="mt-1 text-xs font-medium text-slate-500">
-                      {sections.length.toLocaleString()}개 분반에서 검색하고 시간표에 추가합니다.
+                    <SheetDescription className="mt-1.5 text-xs text-slate-500">
+                      과목명·코드·교수로 검색하고 학부·대학원 과정을 전환하세요.
                     </SheetDescription>
                   </div>
                   <div className="min-h-0 flex-1 px-4 pt-3 pb-4">
                     <PlanCourseSidebar
                       planId={plan.id}
-                      sections={sections}
+                      term={plan.term}
                       scheduledSpans={scheduledSpans}
                       selectedSectionKeys={selectedSectionKeys}
-                      isLoading={isLoading}
                       onPreview={setPreviewSection}
                       isMobile
                     />
@@ -369,7 +380,7 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
             {selectedDetail && (
               <>
                 <DialogHeader>
-                  <DialogTitle className="text-xl font-black tracking-tight">{selectedDetail.title}</DialogTitle>
+                  <DialogTitle className="text-xl font-bold tracking-tight">{selectedDetail.title}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-3 text-sm">
                   <div className="font-mono text-xs font-bold text-slate-400">

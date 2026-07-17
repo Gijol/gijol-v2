@@ -30,6 +30,7 @@ export function sectionToSnapshot(section: SectionOffering): TimetableSectionSna
     hours: section.hours,
     meetings: section.meetings,
     capacity: section.capacity,
+    capacity_status: section.capacity_status,
     syllabus: section.syllabus,
     video: section.video,
     language: section.language,
@@ -51,6 +52,7 @@ export function snapshotToSectionOffering(snapshot: TimetableSectionSnapshot): S
     hours: snapshot.hours,
     meetings: snapshot.meetings,
     capacity: snapshot.capacity,
+    capacity_status: snapshot.capacity_status,
     syllabus: snapshot.syllabus,
     video: snapshot.video,
     language: snapshot.language,
@@ -79,7 +81,7 @@ export function getScheduledSpansFromPlan(plan: TimetablePlanAlternative): Timet
 }
 
 export function getSelectedSectionKeysFromPlan(plan: TimetablePlanAlternative): Set<string> {
-  return new Set(plan.candidates.flatMap((candidate) => (
-    candidate.selectedSection ? [candidate.selectedSection.sectionKey] : []
-  )));
+  return new Set(
+    plan.candidates.flatMap((candidate) => (candidate.selectedSection ? [candidate.selectedSection.sectionKey] : [])),
+  );
 }

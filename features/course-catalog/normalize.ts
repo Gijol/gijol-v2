@@ -4,6 +4,73 @@ export function normalizeCourseCode(code: string | undefined | null): string {
   return String(code ?? '').trim().toUpperCase();
 }
 
+function uniqueInOrder(values: readonly string[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  values.forEach((value) => {
+    const normalized = normalizeCourseCode(value);
+    if (!normalized || seen.has(normalized)) return;
+    seen.add(normalized);
+    result.push(normalized);
+  });
+
+  return result;
+}
+
+function parseSimpleCourseCode(code: string): { prefix: string; suffix: string } | null {
+  const match = normalizeCourseCode(code).match(/^([A-Z]{2,4})(\d+[A-Z]?)$/);
+  if (!match) return null;
+  return { prefix: match[1], suffix: match[2] };
+}
+
+export function expandCourseCodeCandidates(code: string | undefined | null): string[] {
+  const normalized = normalizeCourseCode(code);
+  if (!normalized) return [];
+
+  const combinedMatch = normalized.match(/^([A-Z]{2,4})\(([A-Z]{2,4})\)(\d+[A-Z]?)$/);
+  if (!combinedMatch) return [normalized];
+
+  const [, primaryPrefix, equivalentPrefix, suffix] = combinedMatch;
+  return uniqueInOrder([
+    normalized,
+    `${primaryPrefix}${suffix}`,
+    `${equivalentPrefix}${suffix}`,
+  ]);
+}
+
+export function getCourseCodeSearchVariants(codes: readonly string[]): string[] {
+  const variants = new Set<string>();
+  const simpleBySuffix = new Map<string, string[]>();
+
+  codes.forEach((code) => {
+    expandCourseCodeCandidates(code).forEach((candidate) => {
+      variants.add(candidate);
+
+      const parsed = parseSimpleCourseCode(candidate);
+      if (!parsed) return;
+
+      const prefixes = simpleBySuffix.get(parsed.suffix) ?? [];
+      if (!prefixes.includes(parsed.prefix)) {
+        simpleBySuffix.set(parsed.suffix, [...prefixes, parsed.prefix]);
+      }
+    });
+  });
+
+  simpleBySuffix.forEach((prefixes, suffix) => {
+    if (prefixes.length < 2) return;
+
+    prefixes.forEach((prefix, index) => {
+      prefixes.forEach((otherPrefix, otherIndex) => {
+        if (index === otherIndex) return;
+        variants.add(`${prefix}(${otherPrefix})${suffix}`);
+      });
+    });
+  });
+
+  return uniqueStrings(Array.from(variants));
+}
+
 export function sourceRefKey(sourceRef: CourseCatalogSourceRef): string {
   return [
     sourceRef.kind,

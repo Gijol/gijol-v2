@@ -25,12 +25,12 @@ export const navLinks: NavLink[] = [
     icon: Calendar,
   },
   {
-    label: '로드맵 (Beta)',
+    label: '로드맵',
     href: '/dashboard/roadmap',
     icon: Route,
   },
   {
-    label: '이수요건 확인서 ✨',
+    label: '이수요건 확인서',
     href: '/dashboard/graduation/certificate-builder',
     icon: Award,
   },
@@ -38,7 +38,7 @@ export const navLinks: NavLink[] = [
 
 export const guideLinks: NavLink[] = [
   {
-    label: '졸업요건 안내 📖',
+    label: '졸업요건 안내',
     href: '/dashboard/graduation/requirements-guide',
     icon: BookOpen,
   },

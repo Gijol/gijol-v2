@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@components/ui/card';
@@ -18,8 +19,6 @@ import {
   normalizeTakenCourses,
 } from '@features/graduation/middlewares/validation';
 import { evaluateGraduationStatus } from '@features/graduation/domain/engine';
-import { refineGradStatusForUI } from '@features/graduation/middlewares/refine';
-import { buildGraduationRecommendationGroups } from '@features/graduation/data';
 import { resolveMajorForEvaluation } from '@features/graduation/domain';
 import { useGraduationStore } from '@/lib/stores/useGraduationStore';
 
@@ -117,6 +116,8 @@ function applyInputMetadata(
   return effectiveEntryYear;
 }
 
+GraduationLabPage.getLayout = dashboardLayout;
+
 function readGradeStatusTerms(raw: any): GradeStatusTerm[] {
   if (Array.isArray(raw?.gradeStatusTerms)) {
     return raw.gradeStatusTerms.filter(
@@ -170,7 +171,11 @@ function readGradeStatusTerms(raw: any): GradeStatusTerm[] {
   return Array.from(grouped.values());
 }
 
-function buildDashboardParsedSnapshot(raw: any, normalizedCourses: TakenCourseType[], fallbackEntryYear: number): UserStatusType {
+function buildDashboardParsedSnapshot(
+  raw: any,
+  normalizedCourses: TakenCourseType[],
+  fallbackEntryYear: number,
+): UserStatusType {
   const rawCourses = Array.isArray(raw?.userTakenCourseList)
     ? raw.userTakenCourseList
     : Array.isArray(raw?.takenCourses)
@@ -200,7 +205,7 @@ function formatSourceRefs(sourceRefs: GraduationCatalogSelectionSummary['sourceR
 
 export default function GraduationLabPage() {
   const router = useRouter();
-  const { setFromParsed } = useGraduationStore();
+  const { commitTranscript } = useGraduationStore();
   const [jsonInput, setJsonInput] = useState(MOCK_INPUT);
   const [selectedMockPath, setSelectedMockPath] = useState<string>(MOCK_FILES[0].path);
   const [entryYear, setEntryYear] = useState<number>(2020);
@@ -330,21 +335,22 @@ export default function GraduationLabPage() {
       });
       setStep4Result(engineResult);
 
-      // Step 5 data: source-backed recommendation adapter
-      const recommendationGroups = buildGraduationRecommendationGroups({
-        result: engineResult,
-        userMajor: effectiveUserMajor,
-        userMinors: effectiveUserMinors,
-        takenCourses: normalized.takenCourses,
+      // Step 5: the server owns catalog-backed recommendations and refinement.
+      const response = await fetch('/api/graduation/grad-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...raw,
+          entryYear: effectiveEntryYear,
+          userMajor: effectiveUserMajor,
+          userMinors: effectiveUserMinors,
+          minorDeclarationTerms: effectiveMinorDeclarationTerms,
+        }),
       });
-
-      // Step 5: Refine
-      const viewModel = refineGradStatusForUI(engineResult, {
-        recommendations: recommendationGroups.recommendations,
-        allRecommendations: recommendationGroups.allRecommendations,
-        recommendationSuppressions: recommendationGroups.suppressions,
-        recommendationPolicy: recommendationGroups.policy,
-      });
+      if (!response.ok) {
+        throw new Error(`Server refinement failed: ${response.status} ${await response.text()}`);
+      }
+      const viewModel = await response.json();
       setStep5Result(viewModel);
     } catch (err: any) {
       setError(err.message);
@@ -364,10 +370,9 @@ export default function GraduationLabPage() {
     const normalizedCourses = step3Result.takenCourses as TakenCourseType[];
     const parsedSnapshot = buildDashboardParsedSnapshot(raw, normalizedCourses, entryYear);
 
-    setFromParsed({
+    commitTranscript({
       parsed: parsedSnapshot,
-      takenCourses: normalizedCourses,
-      gradStatus: step5Result,
+      outcome: step5Result,
       userMajor,
       userMinors,
       minorDeclarationTerms,
@@ -532,7 +537,11 @@ export default function GraduationLabPage() {
                 <ul className="space-y-1 text-sm">
                   {step5Result.fineGrainedRequirements?.map((req: any) => (
                     <li key={req.id} className="flex items-center gap-2">
-                      <Badge variant={req.satisfied ? 'secondary' : req.status === 'needs_review' ? 'outline' : 'destructive'}>
+                      <Badge
+                        variant={
+                          req.satisfied ? 'secondary' : req.status === 'needs_review' ? 'outline' : 'destructive'
+                        }
+                      >
                         {req.status ?? (req.satisfied ? 'satisfied' : 'unsatisfied')}
                       </Badge>
                       <span>{req.label}</span>
@@ -560,7 +569,7 @@ export default function GraduationLabPage() {
                 )}
                 {step5Result.recommendationSuppressions?.length > 0 && (
                   <div className="mt-3 rounded-md border bg-white p-3">
-                    <h4 className="mb-2 text-xs font-semibold uppercase text-gray-500">Hidden Candidates</h4>
+                    <h4 className="mb-2 text-xs font-semibold text-gray-500 uppercase">Hidden Candidates</h4>
                     <ul className="space-y-1 text-xs text-gray-600">
                       {step5Result.recommendationSuppressions.map((suppression: any, i: number) => (
                         <li key={`${suppression.reason}-${suppression.requirementId ?? suppression.categoryKey}-${i}`}>
@@ -663,7 +672,9 @@ function CatalogSelectionPanel({ selection }: { selection: GraduationCatalogSele
                 <ul className="space-y-1">
                   {selection.sourceRefs.map((sourceRef) => (
                     <li key={`${sourceRef.manualYear}-${sourceRef.page}-${sourceRef.note ?? ''}`}>
-                      <Badge variant="outline">{sourceRef.manualYear} p.{sourceRef.page}</Badge>
+                      <Badge variant="outline">
+                        {sourceRef.manualYear} p.{sourceRef.page}
+                      </Badge>
                       <span className="ml-2 text-gray-600">{sourceRef.note ?? sourceRef.path}</span>
                     </li>
                   ))}
@@ -703,7 +714,7 @@ function CatalogSelectionPanel({ selection }: { selection: GraduationCatalogSele
 function Metric({ label, value }: { label: string; value: number }) {
   return (
     <div className="rounded-md border bg-gray-50 p-3 dark:bg-gray-900">
-      <div className="text-xs font-medium uppercase text-gray-500">{label}</div>
+      <div className="text-xs font-medium text-gray-500 uppercase">{label}</div>
       <div className="mt-1 text-2xl font-semibold">{value}</div>
     </div>
   );
@@ -760,7 +771,7 @@ function ResultCard({ title, data }: { title: string; data: any }) {
           <CardTitle>{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-400">Waiting...</p>
+          <p className="text-sm text-gray-400">대기 중…</p>
         </CardContent>
       </Card>
     );

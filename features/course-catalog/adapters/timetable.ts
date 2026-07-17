@@ -4,7 +4,7 @@ import { normalizeCourseCode, timetableSourceRef } from '../normalize';
 
 function normalizeProgram(program: string): CourseCatalogOffering['program'] {
   if (program === '학사') return 'undergraduate';
-  if (program === '대학원') return 'graduate';
+  if (program === '대학원' || /석사|박사|석박/.test(program)) return 'graduate';
   return 'unknown';
 }
 
@@ -36,6 +36,7 @@ export function timetableSectionToOffering(
     lectureHours: section.hours?.lecture_hours,
     labHours: section.hours?.lab_hours,
     capacity: section.capacity,
+    capacityStatus: section.capacity_status ?? (section.capacity === 0 ? 'pending' : 'confirmed'),
     language: section.language,
     meetings: meetings.map((meeting) => ({
       day: meeting.day,

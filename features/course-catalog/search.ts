@@ -1,4 +1,3 @@
-import { COURSE_CATALOG_SNAPSHOT } from './generated';
 import type {
   CourseCatalogCourse,
   CourseCatalogManualListing,
@@ -9,7 +8,14 @@ import type {
   CourseCatalogSourceRef,
 } from './types';
 import { buildCourseOfferingGroups, type CourseOfferingGroup } from './offering-view';
-import { normalizeCourseCode, uniqueSourceRefs, uniqueStrings } from './normalize';
+import {
+  expandCourseCodeCandidates,
+  getCourseCodeSearchVariants,
+  normalizeCourseCode,
+  uniqueSourceRefs,
+  uniqueStrings,
+} from './normalize';
+import { normalizeAcademicOrgName } from '@const/course-db';
 
 export interface CourseCatalogSearchItem {
   courseId: string;
@@ -34,6 +40,8 @@ export interface CourseCatalogSearchItem {
     department?: string;
     category?: string;
     program?: CourseCatalogOffering['program'];
+    capacity?: number;
+    capacityStatus?: CourseCatalogOffering['capacityStatus'];
     meetings: CourseCatalogOffering['meetings'];
     equivalentCourseCodes: readonly string[];
   }[];
@@ -100,20 +108,11 @@ function categoryMatches(item: CourseCatalogSearchItem, category: CourseCatalogS
 }
 
 function meetingKey(meeting: CourseCatalogOffering['meetings'][number]): string {
-  return [
-    meeting.day,
-    meeting.start,
-    meeting.end,
-    meeting.room ?? '',
-  ].join(':');
+  return [meeting.day, meeting.start, meeting.end, meeting.room ?? ''].join(':');
 }
 
 function offeringGroupKey(offering: CourseCatalogOffering): string {
-  return [
-    offering.term,
-    offering.section,
-    offering.meetings.map(meetingKey).sort().join('|'),
-  ].join('::');
+  return [offering.term, offering.section, offering.meetings.map(meetingKey).sort().join('|')].join('::');
 }
 
 function compactOfferingsBySchedule(offerings: readonly CourseCatalogOffering[]): CourseCatalogSearchItem['offerings'] {
@@ -122,10 +121,7 @@ function compactOfferingsBySchedule(offerings: readonly CourseCatalogOffering[])
   offerings.forEach((offering) => {
     const key = offeringGroupKey(offering);
     const existing = byKey.get(key);
-    const equivalentCourseCodes = uniqueStrings([
-      ...(existing?.equivalentCourseCodes ?? []),
-      offering.courseCode,
-    ]);
+    const equivalentCourseCodes = uniqueStrings([...(existing?.equivalentCourseCodes ?? []), offering.courseCode]);
 
     byKey.set(key, {
       offeringId: existing?.offeringId ?? offering.offeringId,
@@ -135,20 +131,39 @@ function compactOfferingsBySchedule(offerings: readonly CourseCatalogOffering[])
       department: existing?.department ?? offering.department,
       category: existing?.category ?? offering.category,
       program: existing?.program ?? offering.program,
+      capacity: existing?.capacity ?? offering.capacity,
+      capacityStatus: existing?.capacityStatus ?? offering.capacityStatus,
       meetings: offering.meetings,
       equivalentCourseCodes,
     });
   });
 
-  return Array.from(byKey.values()).sort((a, b) =>
-    a.term.localeCompare(b.term) ||
-    a.section.localeCompare(b.section) ||
-    a.equivalentCourseCodes.join(',').localeCompare(b.equivalentCourseCodes.join(',')));
+  return Array.from(byKey.values()).sort(
+    (a, b) =>
+      a.term.localeCompare(b.term) ||
+      a.section.localeCompare(b.section) ||
+      a.equivalentCourseCodes.join(',').localeCompare(b.equivalentCourseCodes.join(',')),
+  );
 }
 
-export function createCourseCatalogSearchItems(
-  snapshot: CourseCatalogSnapshot = COURSE_CATALOG_SNAPSHOT,
-): CourseCatalogSearchItem[] {
+function hasNonRoadmapEvidence(item: CourseCatalogSearchItem): boolean {
+  return item.sourceRefs.some((sourceRef) => sourceRef.kind !== 'roadmap-preset');
+}
+
+function shouldHideResolvableRoadmapOnlyItem(
+  item: CourseCatalogSearchItem,
+  nonRoadmapCodeVariants: ReadonlySet<string>,
+): boolean {
+  if (hasNonRoadmapEvidence(item)) return false;
+
+  const candidates = expandCourseCodeCandidates(item.primaryCourseCode).filter(
+    (candidate) => candidate !== item.primaryCourseCode,
+  );
+
+  return candidates.some((candidate) => nonRoadmapCodeVariants.has(candidate));
+}
+
+export function createCourseCatalogSearchItems(snapshot: CourseCatalogSnapshot): CourseCatalogSearchItem[] {
   const offeringsByCourseId = new Map<string, CourseCatalogOffering[]>();
   const manualListingsByCourseId = new Map<string, CourseCatalogManualListing[]>();
   const facetsByCourseId = new Map<string, CourseCatalogRequirementFacet[]>();
@@ -157,13 +172,16 @@ export function createCourseCatalogSearchItems(
     offeringsByCourseId.set(offering.courseId, [...(offeringsByCourseId.get(offering.courseId) ?? []), offering]);
   });
   snapshot.manualListings.forEach((listing) => {
-    manualListingsByCourseId.set(listing.courseId, [...(manualListingsByCourseId.get(listing.courseId) ?? []), listing]);
+    manualListingsByCourseId.set(listing.courseId, [
+      ...(manualListingsByCourseId.get(listing.courseId) ?? []),
+      listing,
+    ]);
   });
   snapshot.requirementFacets.forEach((facet) => {
     facetsByCourseId.set(facet.courseId, [...(facetsByCourseId.get(facet.courseId) ?? []), facet]);
   });
 
-  return snapshot.courses.map((course) => {
+  const items = snapshot.courses.map((course) => {
     const offerings = offeringsByCourseId.get(course.courseId) ?? [];
     const manualListings = manualListingsByCourseId.get(course.courseId) ?? [];
     const facets = facetsByCourseId.get(course.courseId) ?? [];
@@ -204,17 +222,25 @@ export function createCourseCatalogSearchItems(
       ...facets.map((facet) => facet.category),
       ...facets.map((facet) => facet.classification ?? ''),
     ]);
-    const matchText = normalizeSearchText([
-      course.primaryCode,
-      course.titleKo,
-      course.titleEn ?? '',
-      course.description ?? '',
-      ...aliasCodes,
-      ...departments,
-      ...tags,
-      ...manualListings.map((listing) => String(listing.academicYear)),
-      ...facets.map((facet) => facet.programCode ?? ''),
-    ].join(' '));
+    const codeSearchVariants = getCourseCodeSearchVariants([course.primaryCode, ...aliasCodes]);
+    const normalizedDepartments = departments.map(normalizeAcademicOrgName);
+    const normalizedTags = tags.map(normalizeAcademicOrgName);
+    const matchText = normalizeSearchText(
+      [
+        course.primaryCode,
+        ...codeSearchVariants,
+        course.titleKo,
+        course.titleEn ?? '',
+        course.description ?? '',
+        ...aliasCodes,
+        ...departments,
+        ...normalizedDepartments,
+        ...tags,
+        ...normalizedTags,
+        ...manualListings.map((listing) => String(listing.academicYear)),
+        ...facets.map((facet) => facet.programCode ?? ''),
+      ].join(' '),
+    );
 
     return {
       courseId: course.courseId,
@@ -237,7 +263,16 @@ export function createCourseCatalogSearchItems(
       facets: compactFacets,
       matchText,
     };
-  }).sort((a, b) => a.primaryCourseCode.localeCompare(b.primaryCourseCode));
+  });
+  const nonRoadmapCodeVariants = new Set(
+    items
+      .filter(hasNonRoadmapEvidence)
+      .flatMap((item) => getCourseCodeSearchVariants([item.primaryCourseCode, ...item.aliasCodes])),
+  );
+
+  return items
+    .filter((item) => !shouldHideResolvableRoadmapOnlyItem(item, nonRoadmapCodeVariants))
+    .sort((a, b) => a.primaryCourseCode.localeCompare(b.primaryCourseCode));
 }
 
 export function filterCourseCatalogSearchItems(
@@ -250,12 +285,12 @@ export function filterCourseCatalogSearchItems(
     if (!categoryMatches(item, filters.category)) return false;
     if (filters.departments?.length) {
       const matchesDepartment = item.departments.some((department) =>
-        filters.departments?.some((selected) => department.includes(selected)));
+        filters.departments?.some((selected) => department.includes(selected)),
+      );
       if (!matchesDepartment) return false;
     }
     if (filters.terms?.length) {
-      const matchesTerm = item.offeringGroups.some((offeringGroup) =>
-        filters.terms?.includes(offeringGroup.term));
+      const matchesTerm = item.offeringGroups.some((offeringGroup) => filters.terms?.includes(offeringGroup.term));
       if (!matchesTerm) return false;
     }
     if (filters.level && filters.level !== 'all') {

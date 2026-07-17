@@ -244,8 +244,9 @@ export function PlanCandidatePanel({ plan, sections, sectionsAvailable, classNam
                         size="icon"
                         className="h-7 w-7 shrink-0 text-slate-300 hover:bg-red-50 hover:text-red-500"
                         onClick={() => removeCandidate(plan.id, candidate.id)}
+                        aria-label={`${candidate.title ?? candidate.courseCode} 후보에서 제거`}
                       >
-                        <Trash2 size={14} />
+                        <Trash2 aria-hidden="true" size={14} />
                       </Button>
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1.5">

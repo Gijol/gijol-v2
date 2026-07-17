@@ -10,7 +10,6 @@ import { useGraduationStore } from '../stores/useGraduationStore';
 import { extractOverallStatus } from '@utils/graduation/grad-formatter';
 import {
   DEFAULT_RECOMMENDATION_DISPLAY_POLICY,
-  buildGraduationRecommendationGroups,
   type GraduationRecommendationGroups,
   type RecommendationItem,
 } from '@features/graduation/data';
@@ -44,7 +43,7 @@ function toRecommendedCourse(recommendation: RecommendationItem): RecommendedCou
 }
 
 export function useRecommendedCourses() {
-  const { gradStatus, userMajor, userMinors, takenCourses } = useGraduationStore();
+  const { gradStatus, takenCourses } = useGraduationStore();
   const overallProps = extractOverallStatus(gradStatus);
 
   const recommendationGroups = useMemo(() => {
@@ -60,13 +59,33 @@ export function useRecommendedCourses() {
       } satisfies GraduationRecommendationGroups;
     }
 
-    return buildGraduationRecommendationGroups({
-      result: gradStatus,
-      userMajor,
-      userMinors,
-      takenCourses,
-    });
-  }, [gradStatus, userMajor, userMinors, takenCourses]);
+    const recommendations = gradStatus.recommendations ?? [];
+    const allRecommendations = gradStatus.allRecommendations ?? recommendations;
+    const groupByCategoryKey = (items: RecommendationItem[]) =>
+      items.reduce<Record<string, RecommendationItem[]>>((groups, recommendation) => {
+        groups[recommendation.categoryKey] = groups[recommendation.categoryKey] ?? [];
+        groups[recommendation.categoryKey].push(recommendation);
+        return groups;
+      }, {});
+
+    return {
+      recommendations,
+      allRecommendations,
+      byCategoryKey: groupByCategoryKey(recommendations),
+      allByCategoryKey: groupByCategoryKey(allRecommendations),
+      takenCourseCodes: new Set(
+        takenCourses
+          .map((course) =>
+            String(course.courseCode ?? '')
+              .trim()
+              .toUpperCase(),
+          )
+          .filter(Boolean),
+      ),
+      suppressions: gradStatus.recommendationSuppressions ?? [],
+      policy: gradStatus.recommendationPolicy ?? DEFAULT_RECOMMENDATION_DISPLAY_POLICY,
+    } satisfies GraduationRecommendationGroups;
+  }, [gradStatus, takenCourses]);
 
   const getRecommendationsForDomain = (domain: string): RecommendedCourse[] => {
     const categoryKey = DOMAIN_TO_CATEGORY_KEY[domain] ?? domain;

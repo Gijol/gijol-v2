@@ -1,4 +1,4 @@
-import { FileDown, Pencil, RotateCcw, Loader2 } from 'lucide-react';
+import { CheckCircle2, FileDown, Loader2, Pencil, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ReviewSection } from '../sections/review-section';
 
@@ -11,44 +11,45 @@ interface SummaryViewProps {
 
 export function SummaryView({ onEdit, onExport, onReset, isGenerating }: SummaryViewProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50/50 pt-8 pb-8">
-      <div className="mx-auto w-full max-w-4xl flex-1 px-4">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">📜 졸업 이수요건 정보 미리보기</h1>
-          <p className="mt-1 text-sm text-gray-500">입력하신 데이터를 바탕으로 생성된 확인서입니다.</p>
+    <div className="mx-auto w-full max-w-5xl pb-6">
+      <header className="mb-7 flex flex-col gap-5 border-b border-slate-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="min-w-0">
+          <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+            <CheckCircle2 aria-hidden="true" size={20} />
+          </div>
+          <p className="text-xs font-semibold tracking-[0.12em] text-emerald-700 uppercase">입력 완료</p>
+          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-balance text-slate-950 sm:text-3xl">
+            확인서 내용을 검토하세요
+          </h1>
+          <p className="mt-2 text-sm leading-6 text-pretty text-slate-500">
+            다운로드 전에 신청자 정보와 이수학점을 한 번 더 확인해 주세요.
+          </p>
         </div>
+        <Button variant="outline" onClick={onEdit} className="self-start shadow-none sm:self-auto">
+          <Pencil aria-hidden="true" />
+          입력 내용 수정
+        </Button>
+      </header>
 
-        {/* Review Content */}
+      <ReviewSection />
 
-        <ReviewSection />
-      </div>
-
-      {/* Floating Action Bar */}
-      <div className="sticky bottom-8 z-50 mx-auto w-fit">
-        <div className="flex items-center gap-2 rounded-full border border-gray-400 bg-white/95 p-2 shadow-xl backdrop-blur-sm">
+      <div className="mt-6 border-t border-slate-200 pt-5 pb-[env(safe-area-inset-bottom)]">
+        <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-end">
           <Button
             variant="outline"
-            size="sm"
             onClick={onReset}
-            className="text-destructive hover:bg-destructive/5 hover:text-destructive rounded-full hover:cursor-pointer"
+            className="text-destructive hover:bg-destructive/5 hover:text-destructive shadow-none"
           >
-            <RotateCcw className="mr-2 h-4 w-4" />
+            <RotateCcw aria-hidden="true" />
             초기화
           </Button>
-          <Button variant="outline" size="sm" onClick={onEdit} className="rounded-full hover:cursor-pointer">
-            <Pencil className="mr-2 h-4 w-4" />
-            수정하기
-          </Button>
-          <Button
-            variant="success"
-            size="sm"
-            onClick={onExport}
-            disabled={isGenerating}
-            className="rounded-full hover:cursor-pointer"
-          >
-            {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FileDown className="mr-2 h-4 w-4" />}
-            {isGenerating ? '생성 중...' : 'Excel 다운로드'}
+          <Button variant="brand" onClick={onExport} disabled={isGenerating} aria-live="polite" className="sm:min-w-44">
+            {isGenerating ? (
+              <Loader2 aria-hidden="true" className="animate-spin motion-reduce:animate-none" />
+            ) : (
+              <FileDown aria-hidden="true" />
+            )}
+            {isGenerating ? 'Excel 생성 중…' : 'Excel 다운로드'}
           </Button>
         </div>
       </div>

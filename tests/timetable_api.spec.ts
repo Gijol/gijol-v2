@@ -35,7 +35,10 @@ describe('timetable term API', () => {
         term: '2024-2',
         label: '2024 2학기',
         count: 388,
-        sections: expect.arrayContaining([
+        page: 1,
+        pageSize: 30,
+        totalElements: expect.any(Number),
+        content: expect.arrayContaining([
           expect.objectContaining({
             course_code: expect.any(String),
             section: expect.any(String),
@@ -44,6 +47,60 @@ describe('timetable term API', () => {
         ]),
       }),
     );
+    expect(Buffer.byteLength(JSON.stringify(res.body), 'utf8')).toBeLessThan(64 * 1024);
+    const body = res.body as { content: Array<{ program: string }> };
+    body.content.forEach((section) => {
+      expect(section.program).toBe('학사');
+    });
+  });
+
+  it('returns graduate sections when the graduate level is selected', async () => {
+    const req = {
+      method: 'GET',
+      query: { term: '2026-2', level: 'graduate', page: '1' },
+    } as unknown as NextApiRequest;
+    const res = createMockResponse();
+
+    await timetableTermHandler(req, res);
+
+    expect(res.statusCode).toBe(200);
+    const body = res.body as {
+      totalElements: number;
+      undergraduateSectionCount: number;
+      graduateSectionCount: number;
+      content: Array<{ program: string }>;
+    };
+    expect(body.totalElements).toBe(176);
+    expect(body.undergraduateSectionCount).toBe(331);
+    expect(body.graduateSectionCount).toBe(176);
+    body.content.forEach((section) => {
+      expect(section.program).toMatch(/대학원|석사|박사|석박/);
+    });
+  });
+
+  it('searches and pages term sections on the server', async () => {
+    const req = {
+      method: 'GET',
+      query: { term: '2024-2', q: '물리', page: '1', pageSize: '5' },
+    } as unknown as NextApiRequest;
+    const res = createMockResponse();
+
+    await timetableTermHandler(req, res);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(
+      expect.objectContaining({
+        page: 1,
+        pageSize: 5,
+        departments: expect.any(Array),
+        content: expect.any(Array),
+      }),
+    );
+    const body = res.body as { content: Array<{ title: string; course_code: string }> };
+    expect(body.content.length).toBeLessThanOrEqual(5);
+    body.content.forEach((section) => {
+      expect(`${section.title} ${section.course_code}`).toMatch(/물리/i);
+    });
   });
 
   it('rejects terms that are not in the generated timetable manifest', async () => {

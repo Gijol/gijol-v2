@@ -9,7 +9,7 @@ const CourseNode = ({ data, selected }: NodeProps<CourseNodeData>) => {
   return (
     <div
       className={cn(
-        'bg-background w-[180px] rounded-md border-2 shadow-md transition-all',
+        'bg-background w-[180px] rounded-md border-2 shadow-md transition-[border-color,box-shadow] duration-150 ease-[var(--ease-ui-out)]',
         selected ? 'border-primary' : 'border-border',
       )}
     >

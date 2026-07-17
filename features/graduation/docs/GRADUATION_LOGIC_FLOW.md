@@ -104,7 +104,7 @@ uploadAndEvaluate(rawInput, options) → UploadEvaluateResult
 | 0 | Metadata Extraction | `studentId`에서 입학년도 추론 (예: "20205098" → 2020) |
 | 1 | `parseRawToTakenCourses()` | 원본 데이터를 `UserTakenCourseListType`으로 변환 |
 | 2 | `validateTakenCourses()` | 필수 필드 검증 (courseName, credit 등) |
-| 3 | `normalizeTakenCourses()` | 문자열 정리, F학점 제거, 재수강 처리 |
+| 3 | `normalizeTakenCourses()` | 문자열 정리, F/U 판정 제외, 재수강 처리 |
 | 3.5 | Major Inference | 과목 prefix 빈도로 전공 추론 |
 | 4 | `evaluateGraduationStatus()` | 핵심 엔진 호출 |
 | 5 | `buildGraduationRecommendations()` | 미충족 세부요건에 대한 source-backed 추천 과목 생성 |
@@ -128,10 +128,12 @@ uploadAndEvaluate(rawInput, options) → UploadEvaluateResult
 #### `normalizeTakenCourses(input)`
 ```
 1. 문자열 trim() 처리
-2. F학점 과목 필터링
+2. F/U 과목을 졸업요건 판정 입력에서 필터링
 3. 재수강 처리 (courseCode 기준 중복 제거, 높은 성적 우선)
 4. 반복 수강 가능 과목 예외 처리 (UC9331 콜로퀴움 등)
 ```
+
+F/U 과목은 원천 성적표와 수강 이력에는 그대로 보존한다. 다만 2025 학사편람 12쪽에 따라 F/U 필수과목은 학점 취득을 위해 재수강해야 하며, U는 S/U 이수표기 방식의 미통과 결과이므로 졸업 이수학점과 영역별 판정에는 반영하지 않는다. S/U 성적은 평균평점 산출에서도 제외한다.
 
 ---
 

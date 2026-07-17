@@ -1,16 +1,12 @@
 import type { CourseDB } from '@/lib/const/course-db';
 import { normalizeCourseCode, uniqueStrings } from './normalize';
-import { createCourseCatalogSearchItems, type CourseCatalogSearchItem } from './search';
+import type { CourseCatalogSearchItem } from './search';
 
 function buildLegacyRowLookup(rows: readonly CourseDB[]): Map<string, CourseDB> {
   const lookup = new Map<string, CourseDB>();
 
   rows.forEach((row) => {
-    [
-      row.courseUid,
-      row.primaryCourseCode,
-      ...row.aliasCodes,
-    ].forEach((code) => {
+    [row.courseUid, row.primaryCourseCode, ...row.aliasCodes].forEach((code) => {
       const normalized = normalizeCourseCode(code);
       if (normalized && !lookup.has(normalized)) lookup.set(normalized, row);
     });
@@ -20,20 +16,15 @@ function buildLegacyRowLookup(rows: readonly CourseDB[]): Map<string, CourseDB> 
 }
 
 function findLegacyRow(item: CourseCatalogSearchItem, lookup: Map<string, CourseDB>): CourseDB | undefined {
-  return lookup.get(normalizeCourseCode(item.courseId)) ??
+  return (
+    lookup.get(normalizeCourseCode(item.courseId)) ??
     lookup.get(normalizeCourseCode(item.primaryCourseCode)) ??
-    item.aliasCodes.map((code) => lookup.get(normalizeCourseCode(code))).find(Boolean);
+    item.aliasCodes.map((code) => lookup.get(normalizeCourseCode(code))).find(Boolean)
+  );
 }
 
-export function courseCatalogItemToLegacyCourseDb(
-  item: CourseCatalogSearchItem,
-  legacyRow?: CourseDB,
-): CourseDB {
-  const aliasCodes = uniqueStrings([
-    item.primaryCourseCode,
-    ...item.aliasCodes,
-    ...(legacyRow?.aliasCodes ?? []),
-  ]);
+export function courseCatalogItemToLegacyCourseDb(item: CourseCatalogSearchItem, legacyRow?: CourseDB): CourseDB {
+  const aliasCodes = uniqueStrings([item.primaryCourseCode, ...item.aliasCodes, ...(legacyRow?.aliasCodes ?? [])]);
 
   return {
     courseUid: item.courseId,
@@ -41,9 +32,8 @@ export function courseCatalogItemToLegacyCourseDb(
     displayTitleEn: item.displayTitleEn || legacyRow?.displayTitleEn || '',
     primaryCourseCode: item.primaryCourseCode,
     aliasCodes,
-    participatingDepartments: item.departments.length > 0
-      ? [...item.departments]
-      : [...(legacyRow?.participatingDepartments ?? [])],
+    participatingDepartments:
+      item.departments.length > 0 ? [...item.departments] : [...(legacyRow?.participatingDepartments ?? [])],
     tags: uniqueStrings([...item.tags, ...(legacyRow?.tags ?? [])]),
     creditHours: item.creditHours,
     lectureHours: item.lectureHours,
@@ -56,9 +46,9 @@ export function courseCatalogItemToLegacyCourseDb(
 }
 
 export function createLegacyCourseDbItemsFromCatalog(
+  items: readonly CourseCatalogSearchItem[],
   legacyRows: readonly CourseDB[] = [],
 ): CourseDB[] {
   const lookup = buildLegacyRowLookup(legacyRows);
-  return createCourseCatalogSearchItems().map((item) =>
-    courseCatalogItemToLegacyCourseDb(item, findLegacyRow(item, lookup)));
+  return items.map((item) => courseCatalogItemToLegacyCourseDb(item, findLegacyRow(item, lookup)));
 }

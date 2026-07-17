@@ -53,14 +53,23 @@ const PresetCourseNode = ({ id, data, selected }: NodeProps<CourseNodeData>) => 
       )}
       <div
         onClick={handleClick}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            handleClick();
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label={`${data.label} 과목 상세 보기`}
         className={cn(
-          'h-full min-w-[200px] rounded-lg border-2 bg-white shadow-md transition-all duration-200',
+          'h-full min-w-[200px] rounded-lg border-2 bg-white shadow-md transition-[border-color,box-shadow,opacity,filter] duration-150 ease-[var(--ease-ui-out)]',
           selected ? 'border-primary ring-primary/50 ring-2' : 'border-slate-200',
           statusStyle,
           isViewMode && 'cursor-pointer hover:border-blue-400 hover:shadow-lg',
           // Highlight styles for view mode hover
           isViewMode && hasActiveHighlight && !isHighlighted && 'opacity-30',
-          isViewMode && isHoveredNode && 'z-10 scale-[1.02] border-blue-500 shadow-lg ring-2 ring-blue-400',
+          isViewMode && isHoveredNode && 'z-10 border-blue-500 shadow-lg ring-2 ring-blue-400',
           isViewMode && isHighlighted && !isHoveredNode && 'border-amber-400 shadow-lg ring-2 ring-amber-300',
         )}
         style={{ width: '100%', height: '100%' }}

@@ -70,6 +70,7 @@ export interface CourseCatalogOffering {
   lectureHours?: number;
   labHours?: number;
   capacity?: number;
+  capacityStatus?: 'confirmed' | 'pending';
   language?: string | null;
   meetings: readonly CourseCatalogMeeting[];
   instructors: readonly CourseCatalogInstructor[];

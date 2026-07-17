@@ -1,24 +1,27 @@
 import React, { useState, useMemo } from 'react';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
+import { DashboardPageShell, PageHeader } from '@/components/dashboard/page-shell';
 import { Input } from '@components/ui/input';
 import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from '@components/ui/sheet';
 import { ScrollArea } from '@components/ui/scroll-area';
-import { Search, Book, Filter, Clock, FlaskConical, ChevronLeft, ChevronRight, X, SlidersHorizontal } from 'lucide-react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
+import { Search, Book, Clock, FlaskConical, ChevronLeft, ChevronRight, X, SlidersHorizontal } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
-import { getDepartmentDisplayName } from '@const/course-db';
+import { getDepartmentDisplayName, getVisibleDepartmentDisplayNames, normalizeAcademicOrgName } from '@const/course-db';
 import { MultiSelect, type Option } from '@components/ui/multi-select';
 import { Checkbox } from '@components/ui/checkbox';
 import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue';
-import {
-  filterCourseCatalogSearchItems,
-  getUniqueCatalogDepartments,
-  getUniqueCatalogOfferingTerms,
-  type CourseCatalogSearchItem,
-} from '@features/course-catalog/search';
+import type { CourseCatalogSearchItem } from '@features/course-catalog/search';
+import type {
+  CourseDiscoveryFacets,
+  CourseDiscoveryListItem,
+  CourseDiscoveryPage,
+} from '@features/course-catalog/discovery';
 import { formatCourseTerm } from '@features/course-catalog/offering-view';
-import { MeetingBadge, OfferingGroupCard } from '@features/course-catalog/components/OfferingGroupCard';
+import { MeetingBadge } from '@features/course-catalog/components/OfferingGroupCard';
 import type { CourseCatalogRequirementFacet, CourseCatalogSourceKind } from '@features/course-catalog/types';
 
 // 학과별 배지 색상
@@ -36,6 +39,8 @@ function getDepartmentBadgeColor(department?: string) {
   if (department.includes('화학')) return 'bg-rose-50 text-rose-700 hover:bg-rose-100';
   return 'bg-gray-100 text-gray-600 hover:bg-gray-200';
 }
+
+CourseSearchPage.getLayout = dashboardLayout;
 
 // 카테고리 필터 옵션
 const CATEGORY_OPTIONS = [
@@ -76,26 +81,76 @@ type ScheduleBadge = {
   title: string;
 };
 type ManualListing = CourseCatalogSearchItem['manualListings'][number];
+type OfferingGroup = CourseCatalogSearchItem['offeringGroups'][number];
 
-function getOfferingSummary(course: CourseCatalogSearchItem): {
+function getCurrentAcademicYear(): number {
+  return new Date().getFullYear();
+}
+
+function getTermYear(term: string): number | null {
+  const match = term.match(/^(\d{4})/);
+  if (!match) return null;
+
+  const year = Number(match[1]);
+  return Number.isFinite(year) ? year : null;
+}
+
+function getTermSortValue(term: string): number {
+  const numericSemesterMatch = term.match(/^(\d{4})-([12])$/);
+  if (numericSemesterMatch) {
+    return Number(numericSemesterMatch[1]) * 10 + Number(numericSemesterMatch[2]);
+  }
+
+  const namedSemesterMatch = term.match(/^(\d{4})-(spring|summer|fall|winter)$/);
+  if (namedSemesterMatch) {
+    const semesterOrder: Record<string, number> = {
+      spring: 1,
+      summer: 2,
+      fall: 3,
+      winter: 4,
+    };
+    return Number(namedSemesterMatch[1]) * 10 + semesterOrder[namedSemesterMatch[2]];
+  }
+
+  return getTermYear(term) ?? 0;
+}
+
+function sortOfferingGroupsNewest(groups: readonly OfferingGroup[]): OfferingGroup[] {
+  return [...groups].sort(
+    (a, b) =>
+      getTermSortValue(b.term) - getTermSortValue(a.term) ||
+      a.section.localeCompare(b.section) ||
+      a.courseCodes.join('/').localeCompare(b.courseCodes.join('/')),
+  );
+}
+
+function getCurrentYearOfferingTerms(course: CourseDiscoveryListItem): string[] {
+  const currentYear = getCurrentAcademicYear();
+  return course.offeringTerms.filter((term) => getTermYear(term) === currentYear);
+}
+
+function getOfferingSummary(course: CourseDiscoveryListItem): {
   label: string;
   detail?: string;
-  tone: 'offered' | 'active' | 'unknown';
+  tone: 'offered' | 'past' | 'active' | 'unknown';
 } {
-  if (course.offeringGroups.length > 0) {
-    const offeringGroups = course.offeringGroups;
-    const terms = Array.from(new Set(offeringGroups.map((offering) => offering.term))).sort();
-    const codes = Array.from(new Set(offeringGroups.flatMap((offering) => offering.courseCodes))).sort();
+  const currentYearOfferingTerms = getCurrentYearOfferingTerms(course);
+
+  if (currentYearOfferingTerms.length > 0) {
+    const terms = Array.from(new Set(currentYearOfferingTerms)).sort(
+      (a, b) => getTermSortValue(b) - getTermSortValue(a),
+    );
     const termLabel = terms.map(formatCourseTerm).join(', ');
-    const detail = codes.length > 1
-      ? `${codes.slice(0, 2).join(', ')}${codes.length > 2 ? ` 외 ${codes.length - 2}` : ''}`
-      : undefined;
 
     return {
-      label: `${termLabel} ${offeringGroups.length}개 시간표`,
-      detail,
+      label: `${termLabel} 개설`,
+      detail: `${currentYearOfferingTerms.length}개 학기`,
       tone: 'offered',
     };
+  }
+
+  if (course.offeringTerms.length > 0) {
+    return { label: '과거 개설', tone: 'past' };
   }
 
   if (course.lifecycleStatus === 'active') {
@@ -107,56 +162,42 @@ function getOfferingSummary(course: CourseCatalogSearchItem): {
 
 function offeringToneClass(tone: ReturnType<typeof getOfferingSummary>['tone']): string {
   if (tone === 'offered') return 'border-emerald-200 bg-emerald-50 text-emerald-700';
+  if (tone === 'past') return 'border-amber-200 bg-amber-50 text-amber-700';
   if (tone === 'active') return 'border-blue-200 bg-blue-50 text-blue-700';
   return 'border-slate-200 bg-slate-50 text-slate-500';
 }
 
 function getStudentVisibleTags(course: CourseCatalogSearchItem): string[] {
-  const hiddenTags = new Set([
-    'graduation-recommendation',
-    'MULTI_CODE',
-    'offered',
-    '학사',
-  ]);
+  const hiddenTags = new Set(['graduation-recommendation', 'MULTI_CODE', 'offered', '학사']);
 
   return Array.from(new Set(course.tags))
     .filter((tag) => !hiddenTags.has(tag))
-    .filter((tag) => !/^[a-z]+$/.test(tag));
+    .map(normalizeAcademicOrgName)
+    .filter((tag) => /[가-힣]/.test(tag));
 }
 
-function getStudentVisibleDepartments(course: CourseCatalogSearchItem): string[] {
-  return Array.from(new Set(course.departments))
-    .filter((department) => !/^[a-z]+$/.test(department))
-    .slice(0, 8);
+function getStudentVisibleDepartments(course: Pick<CourseCatalogSearchItem, 'departments'>): string[] {
+  return getVisibleDepartmentDisplayNames(course.departments).slice(0, 8);
 }
 
-function sortManualListings(
-  listings: readonly ManualListing[],
-): ManualListing[] {
-  return [...listings].sort((a, b) =>
-    b.academicYear - a.academicYear ||
-    a.courseCode.localeCompare(b.courseCode));
+function sortManualListings(listings: readonly ManualListing[]): ManualListing[] {
+  return [...listings].sort((a, b) => b.academicYear - a.academicYear || a.courseCode.localeCompare(b.courseCode));
 }
 
 function formatHours(listing: ManualListing): string {
-  if (
-    listing.lectureHours === undefined ||
-    listing.labHours === undefined ||
-    listing.credits === undefined
-  ) {
+  if (listing.lectureHours === undefined || listing.labHours === undefined || listing.credits === undefined) {
     return '-';
   }
 
   return `${listing.lectureHours}:${listing.labHours}:${listing.credits}`;
 }
 
-function getListingScheduleBadges(
-  course: CourseCatalogSearchItem,
-  listing: ManualListing,
-): ScheduleBadge[] {
-  const matchingOfferingGroups = course.offeringGroups.filter((offeringGroup) =>
-    offeringGroup.term.startsWith(String(listing.academicYear)) &&
-    offeringGroup.courseCodes.includes(listing.courseCode));
+function getListingScheduleBadges(course: CourseCatalogSearchItem, listing: ManualListing): ScheduleBadge[] {
+  const matchingOfferingGroups = course.offeringGroups.filter(
+    (offeringGroup) =>
+      offeringGroup.term.startsWith(String(listing.academicYear)) &&
+      offeringGroup.courseCodes.includes(listing.courseCode),
+  );
   const seenMeetings = new Set<string>();
   const badges: ScheduleBadge[] = [];
 
@@ -180,7 +221,10 @@ function getListingScheduleBadges(
 }
 
 function scheduleGroupKey(badges: readonly ScheduleBadge[]): string {
-  return badges.map((badge) => `${badge.label}:${badge.detail ?? ''}`).sort().join('|');
+  return badges
+    .map((badge) => `${badge.label}:${badge.detail ?? ''}`)
+    .sort()
+    .join('|');
 }
 
 function groupManualListings(
@@ -194,23 +238,22 @@ function groupManualListings(
   hoursLabel: string;
   scheduleBadges: ScheduleBadge[];
 }[] {
-  const byKey = new Map<string, {
-    key: string;
-    academicYear: number;
-    courseCodes: string[];
-    listings: ManualListing[];
-    hoursLabel: string;
-    scheduleBadges: ScheduleBadge[];
-  }>();
+  const byKey = new Map<
+    string,
+    {
+      key: string;
+      academicYear: number;
+      courseCodes: string[];
+      listings: ManualListing[];
+      hoursLabel: string;
+      scheduleBadges: ScheduleBadge[];
+    }
+  >();
 
   sortManualListings(listings).forEach((listing) => {
     const hoursLabel = formatHours(listing);
     const scheduleBadges = getListingScheduleBadges(course, listing);
-    const key = [
-      listing.academicYear,
-      hoursLabel,
-      scheduleGroupKey(scheduleBadges),
-    ].join('::');
+    const key = [listing.academicYear, hoursLabel, scheduleGroupKey(scheduleBadges)].join('::');
     const existing = byKey.get(key);
 
     if (existing) {
@@ -232,13 +275,16 @@ function groupManualListings(
     });
   });
 
-  return Array.from(byKey.values()).sort((a, b) =>
-    b.academicYear - a.academicYear ||
-    a.courseCodes.join('/').localeCompare(b.courseCodes.join('/')));
+  return Array.from(byKey.values()).sort(
+    (a, b) => b.academicYear - a.academicYear || a.courseCodes.join('/').localeCompare(b.courseCodes.join('/')),
+  );
 }
 
 export default function CourseSearchPage() {
-  const [courses, setCourses] = useState<CourseCatalogSearchItem[]>([]);
+  const [courses, setCourses] = useState<CourseDiscoveryListItem[]>([]);
+  const [facets, setFacets] = useState<CourseDiscoveryFacets>({ departments: [], terms: [] });
+  const [totalElements, setTotalElements] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
   // State for Filters
   const [searchQuery, setSearchQuery] = useState('');
@@ -248,6 +294,7 @@ export default function CourseSearchPage() {
   const [selectedCredit, setSelectedCredit] = useState('all');
   const [selectedFeature, setSelectedFeature] = useState<CourseCatalogRequirementFacet['feature'] | 'all'>('all');
   const [selectedSource, setSelectedSource] = useState<CourseCatalogSourceKind | 'all'>('all');
+  const [selectedProgram, setSelectedProgram] = useState<'all' | 'undergraduate' | 'graduate'>('all');
 
   // 새 필터 상태
   const [selectedParticipatingDepts, setSelectedParticipatingDepts] = useState<string[]>([]);
@@ -257,51 +304,56 @@ export default function CourseSearchPage() {
   // 디바운스된 검색어 (300ms)
   const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
 
+  const [selectedCourseSummary, setSelectedCourseSummary] = useState<CourseDiscoveryListItem | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<CourseCatalogSearchItem | null>(null);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [detailError, setDetailError] = useState<string | null>(null);
+  const detailRequestId = React.useRef(0);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   React.useEffect(() => {
-    fetch('/api/courses/search?limit=2000')
-      .then((res) => res.json())
+    const controller = new AbortController();
+    const params = new URLSearchParams({
+      page: String(currentPage),
+      pageSize: String(ITEMS_PER_PAGE),
+    });
+
+    if (debouncedSearchQuery) params.set('q', debouncedSearchQuery);
+    if (category !== 'all') params.set('category', category);
+    selectedTerms.forEach((term) => params.append('term', term));
+    selectedParticipatingDepts.forEach((department) => params.append('department', department));
+    if (selectedLevel !== 'all') params.set('level', selectedLevel === '5000' ? 'other' : selectedLevel);
+    if (selectedCredit !== 'all') params.set('credit', selectedCredit === '4' ? '4+' : selectedCredit);
+    if (selectedFeature !== 'all') params.set('feature', selectedFeature);
+    if (selectedSource !== 'all') params.set('sourceKind', selectedSource);
+    if (selectedProgram !== 'all') params.set('program', selectedProgram);
+    if (showMOOCOnly) params.set('moocOnly', 'true');
+    if (showLabOnly) params.set('labOnly', 'true');
+
+    setLoading(true);
+    fetch(`/api/courses/search?${params.toString()}`, { signal: controller.signal })
+      .then(async (res) => {
+        if (!res.ok) throw new Error(`Course search failed: ${res.status}`);
+        return (await res.json()) as CourseDiscoveryPage;
+      })
       .then((data) => {
-        setCourses(data.content ?? []);
+        setCourses(data.content);
+        setFacets(data.facets);
+        setTotalElements(data.totalElements);
+        setTotalPages(data.totalPages);
         setLoading(false);
       })
       .catch((err) => {
+        if (err instanceof DOMException && err.name === 'AbortError') return;
         console.error('Failed to load courses', err);
         setLoading(false);
       });
-  }, []);
 
-  // Derived Data
-  const participatingDeptOptions: Option[] = useMemo(() => {
-    const depts = getUniqueCatalogDepartments(courses);
-    return depts.map((dept) => ({ value: dept, label: dept }));
-  }, [courses]);
-  const availableTerms = useMemo(() => getUniqueCatalogOfferingTerms(courses), [courses]);
-
-  // 검색 및 필터링된 과목
-  const filteredCourses = useMemo(() => {
-    let result = courses;
-
-    result = filterCourseCatalogSearchItems(result, {
-      query: debouncedSearchQuery,
-      category: category as 'all' | 'mandatory' | 'humanities' | 'science' | 'major',
-      departments: selectedParticipatingDepts,
-      terms: selectedTerms,
-      level: selectedLevel === 'all' ? 'all' : selectedLevel === '5000' ? 'other' : parseInt(selectedLevel, 10),
-      credit: selectedCredit === 'all' ? 'all' : selectedCredit === '4' ? '4+' : parseInt(selectedCredit, 10),
-      labOnly: showLabOnly,
-      feature: selectedFeature,
-      sourceKind: selectedSource,
-    });
-
-    if (showMOOCOnly) result = result.filter((course) => course.tags.includes('MOOC'));
-    return result;
+    return () => controller.abort();
   }, [
-    courses,
+    currentPage,
     debouncedSearchQuery,
     category,
     selectedTerms,
@@ -312,14 +364,19 @@ export default function CourseSearchPage() {
     showLabOnly,
     selectedFeature,
     selectedSource,
+    selectedProgram,
   ]);
 
-  // 페이지네이션 계산
-  const totalPages = Math.ceil(filteredCourses.length / ITEMS_PER_PAGE);
-  const paginatedCourses = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredCourses.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  }, [filteredCourses, currentPage]);
+  // Derived Data
+  const participatingDeptOptions: Option[] = useMemo(() => {
+    return facets.departments
+      .filter((dept) => getVisibleDepartmentDisplayNames([dept]).length > 0)
+      .map((dept) => ({ value: dept, label: normalizeAcademicOrgName(dept) }));
+  }, [facets.departments]);
+  const offeringTermOptions: Option[] = useMemo(
+    () => facets.terms.map((term) => ({ value: term, label: formatCourseTerm(term) })),
+    [facets.terms],
+  );
 
   // 필터 조건 변경 시 첫 페이지로 리셋
   React.useEffect(() => {
@@ -335,11 +392,30 @@ export default function CourseSearchPage() {
     showLabOnly,
     selectedFeature,
     selectedSource,
+    selectedProgram,
   ]);
 
-  const handleCourseClick = (course: CourseCatalogSearchItem) => {
-    setSelectedCourse(course);
+  const handleCourseClick = async (course: CourseDiscoveryListItem) => {
+    const requestId = detailRequestId.current + 1;
+    detailRequestId.current = requestId;
+    setSelectedCourseSummary(course);
+    setSelectedCourse(null);
+    setDetailError(null);
+    setDetailLoading(true);
     setIsSheetOpen(true);
+
+    try {
+      const response = await fetch(`/api/courses/detail?courseId=${encodeURIComponent(course.courseId)}`);
+      if (!response.ok) throw new Error(`Course detail failed: ${response.status}`);
+      const detail = (await response.json()) as CourseCatalogSearchItem;
+      if (detailRequestId.current === requestId) setSelectedCourse(detail);
+    } catch (error) {
+      if (detailRequestId.current === requestId) {
+        setDetailError(error instanceof Error ? error.message : '강의 상세 정보를 불러오지 못했습니다.');
+      }
+    } finally {
+      if (detailRequestId.current === requestId) setDetailLoading(false);
+    }
   };
 
   // 활성 필터 목록 생성
@@ -353,8 +429,6 @@ export default function CourseSearchPage() {
         onRemove: () => setSelectedTerms((prev) => prev.filter((selectedTerm) => selectedTerm !== term)),
       });
     });
-
-
 
     if (selectedLevel !== 'all') {
       const levelLabels: Record<string, string> = {
@@ -409,10 +483,18 @@ export default function CourseSearchPage() {
       });
     }
 
+    if (selectedProgram !== 'all') {
+      filters.push({
+        key: 'program',
+        label: selectedProgram === 'graduate' ? '대학원 과정' : '학사 과정',
+        onRemove: () => setSelectedProgram('all'),
+      });
+    }
+
     selectedParticipatingDepts.forEach((dept) => {
       filters.push({
         key: `participatingDept-${dept}`,
-        label: dept,
+        label: normalizeAcademicOrgName(dept),
         onRemove: () => setSelectedParticipatingDepts((prev) => prev.filter((d) => d !== dept)),
       });
     });
@@ -444,6 +526,7 @@ export default function CourseSearchPage() {
     showLabOnly,
     selectedFeature,
     selectedSource,
+    selectedProgram,
   ]);
 
   // 필터 초기화 함수
@@ -452,230 +535,225 @@ export default function CourseSearchPage() {
     setSelectedTerms([]);
     setSelectedLevel('all');
     setSelectedCredit('all');
-    setSearchQuery('');
     setSelectedParticipatingDepts([]);
     setShowMOOCOnly(false);
     setShowLabOnly(false);
     setSelectedFeature('all');
     setSelectedSource('all');
+    setSelectedProgram('all');
   };
 
-  // 필터 UI 컴포넌트 (데스크톱 & 모바일 공용)
-  const FilterControls = ({ isMobile = false }: { isMobile?: boolean }) => (
-    <div className={isMobile ? 'flex flex-col gap-4' : 'flex flex-wrap items-center gap-2'}>
-      {/* 1. Offering Term Toggles */}
-      {availableTerms.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1 rounded-md border border-slate-200 bg-white p-1 shadow-none">
-          {availableTerms.map((term) => {
-            const selected = selectedTerms.includes(term);
-
-            return (
-              <button
-                key={term}
-                onClick={() => {
-                  const newValue = selected
-                    ? selectedTerms.filter((selectedTerm) => selectedTerm !== term)
-                    : [...selectedTerms, term];
-                  setSelectedTerms(newValue);
-                }}
-                className={`rounded px-3 py-1.5 text-sm font-medium transition-colors ${
-                  selected
-                    ? 'bg-emerald-100 text-emerald-700'
-                    : 'text-gray-600 hover:bg-gray-100'
-                }`}
-              >
-                {formatCourseTerm(term)} 개설
-              </button>
-            );
-          })}
+  const FilterControls = () => (
+    <div className="space-y-6">
+      {/* 1. 개설 학기 MultiSelect */}
+      {facets.terms.length > 0 && (
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">개설 학기</label>
+          <MultiSelect
+            options={offeringTermOptions}
+            selected={selectedTerms}
+            onChange={setSelectedTerms}
+            placeholder="개설 학기 선택…"
+            className="min-h-10 bg-white shadow-none"
+          />
         </div>
       )}
 
-      {/* 2. 개설 학과 MultiSelect (Moved & shadow-none) */}
-      <MultiSelect
-        options={participatingDeptOptions}
-        selected={selectedParticipatingDepts}
-        onChange={setSelectedParticipatingDepts}
-        placeholder="개설 학과 선택..."
-        className={`${isMobile ? 'w-full' : 'w-[200px]'} bg-white shadow-none`}
-      />
-
-      {/* 3. Level Select */}
-      <Select value={selectedLevel} onValueChange={setSelectedLevel}>
-        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[120px]'} bg-white shadow-none`}>
-          <SelectValue placeholder="학년" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">전체 학년</SelectItem>
-          <SelectItem value="1000">1학년 (1000)</SelectItem>
-          <SelectItem value="2000">2학년 (2000)</SelectItem>
-          <SelectItem value="3000">3학년 (3000)</SelectItem>
-          <SelectItem value="4000">4학년 (4000)</SelectItem>
-          <SelectItem value="5000">기타/연구</SelectItem>
-        </SelectContent>
-      </Select>
-
-      {/* 4. Credit Select */}
-      <Select value={selectedCredit} onValueChange={setSelectedCredit}>
-        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[110px]'} bg-white shadow-none`}>
-          <SelectValue placeholder="학점" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">전체 학점</SelectItem>
-          <SelectItem value="1">1학점</SelectItem>
-          <SelectItem value="2">2학점</SelectItem>
-          <SelectItem value="3">3학점</SelectItem>
-          <SelectItem value="4">4학점 이상</SelectItem>
-        </SelectContent>
-      </Select>
-
-      {/* 5. Category Select */}
-      <Select value={category} onValueChange={setCategory}>
-        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[140px]'} bg-white shadow-none`}>
-          <SelectValue placeholder="이수구분" />
-        </SelectTrigger>
-        <SelectContent>
-          {CATEGORY_OPTIONS.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
-              {opt.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {/* 6. Feature Select */}
-      <Select value={selectedFeature} onValueChange={(value) => setSelectedFeature(value as typeof selectedFeature)}>
-        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[130px]'} bg-white shadow-none`}>
-          <SelectValue placeholder="활용 범위" />
-        </SelectTrigger>
-        <SelectContent>
-          {FEATURE_OPTIONS.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
-              {opt.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {/* 7. Source Select */}
-      <Select value={selectedSource} onValueChange={(value) => setSelectedSource(value as typeof selectedSource)}>
-        <SelectTrigger className={`${isMobile ? 'w-full' : 'w-[130px]'} bg-white shadow-none`}>
-          <SelectValue placeholder="원천" />
-        </SelectTrigger>
-        <SelectContent>
-          {SOURCE_OPTIONS.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
-              {opt.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {/* 8. MOOC 토글 */}
-      <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2">
-        <Checkbox
-          id={isMobile ? 'mooc-filter-mobile' : 'mooc-filter'}
-          checked={showMOOCOnly}
-          onCheckedChange={(checked) => setShowMOOCOnly(checked === true)}
+      <div className="space-y-2">
+        <label className="text-sm font-semibold text-gray-900">개설 학과</label>
+        <MultiSelect
+          options={participatingDeptOptions}
+          selected={selectedParticipatingDepts}
+          onChange={setSelectedParticipatingDepts}
+          placeholder="개설 학과 선택…"
+          className="min-h-10 bg-white shadow-none"
         />
-        <label
-          htmlFor={isMobile ? 'mooc-filter-mobile' : 'mooc-filter'}
-          className="cursor-pointer text-sm font-medium text-gray-600"
-        >
-          MOOC
-        </label>
       </div>
 
-      {/* 9. 실습 과목 토글 */}
-      <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2">
-        <Checkbox
-          id={isMobile ? 'lab-filter-mobile' : 'lab-filter'}
-          checked={showLabOnly}
-          onCheckedChange={(checked) => setShowLabOnly(checked === true)}
-        />
-        <label
-          htmlFor={isMobile ? 'lab-filter-mobile' : 'lab-filter'}
-          className="cursor-pointer text-sm font-medium text-gray-600"
-        >
-          실습 과목
-        </label>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">과정</label>
+          <Select
+            value={selectedProgram}
+            onValueChange={(value) => setSelectedProgram(value as typeof selectedProgram)}
+          >
+            <SelectTrigger className="w-full bg-white shadow-none">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">전체 과정</SelectItem>
+              <SelectItem value="undergraduate">학사</SelectItem>
+              <SelectItem value="graduate">대학원</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">학년</label>
+          <Select value={selectedLevel} onValueChange={setSelectedLevel}>
+            <SelectTrigger className="w-full bg-white shadow-none">
+              <SelectValue placeholder="학년" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">전체 학년</SelectItem>
+              <SelectItem value="1000">1학년 (1000)</SelectItem>
+              <SelectItem value="2000">2학년 (2000)</SelectItem>
+              <SelectItem value="3000">3학년 (3000)</SelectItem>
+              <SelectItem value="4000">4학년 (4000)</SelectItem>
+              <SelectItem value="5000">기타/연구</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">학점</label>
+          <Select value={selectedCredit} onValueChange={setSelectedCredit}>
+            <SelectTrigger className="w-full bg-white shadow-none">
+              <SelectValue placeholder="학점" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">전체 학점</SelectItem>
+              <SelectItem value="1">1학점</SelectItem>
+              <SelectItem value="2">2학점</SelectItem>
+              <SelectItem value="3">3학점</SelectItem>
+              <SelectItem value="4">4학점 이상</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
-      {/* Reset Filters (Desktop only inline, Mobile at bottom) */}
-      {!isMobile && activeFilters.length > 0 && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={resetAllFilters}
-          className="ml-auto text-gray-500 hover:text-gray-900"
-        >
-          초기화
-        </Button>
-      )}
+      <div className="space-y-2">
+        <label className="text-sm font-semibold text-gray-900">이수구분</label>
+        <Select value={category} onValueChange={setCategory}>
+          <SelectTrigger className="w-full bg-white shadow-none">
+            <SelectValue placeholder="이수구분" />
+          </SelectTrigger>
+          <SelectContent>
+            {CATEGORY_OPTIONS.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">활용 범위</label>
+          <Select
+            value={selectedFeature}
+            onValueChange={(value) => setSelectedFeature(value as typeof selectedFeature)}
+          >
+            <SelectTrigger className="w-full bg-white shadow-none">
+              <SelectValue placeholder="활용 범위" />
+            </SelectTrigger>
+            <SelectContent>
+              {FEATURE_OPTIONS.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-900">데이터 원천</label>
+          <Select value={selectedSource} onValueChange={(value) => setSelectedSource(value as typeof selectedSource)}>
+            <SelectTrigger className="w-full bg-white shadow-none">
+              <SelectValue placeholder="원천" />
+            </SelectTrigger>
+            <SelectContent>
+              {SOURCE_OPTIONS.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-sm font-semibold text-gray-900">과목 특성</p>
+        <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2.5">
+          <Checkbox
+            id="mooc-filter"
+            checked={showMOOCOnly}
+            onCheckedChange={(checked) => setShowMOOCOnly(checked === true)}
+          />
+          <label htmlFor="mooc-filter" className="cursor-pointer text-sm font-medium text-gray-600">
+            MOOC
+          </label>
+        </div>
+        <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2.5">
+          <Checkbox
+            id="lab-filter"
+            checked={showLabOnly}
+            onCheckedChange={(checked) => setShowLabOnly(checked === true)}
+          />
+          <label htmlFor="lab-filter" className="cursor-pointer text-sm font-medium text-gray-600">
+            실습 과목
+          </label>
+        </div>
+      </div>
     </div>
   );
 
   return (
-    <div className="container mx-auto max-w-6xl px-4 pb-12">
+    <DashboardPageShell>
       <NextSeo title="강의 검색" description="GIST 개설 강의를 검색하세요" noindex />
-      {/* Header */}
-      <div className="mt-8 mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">강의 검색</h1>
-        <p className="mt-1 text-sm text-gray-500">
-          {loading ? '데이터를 불러오는 중...' : `공통 강의 원천 ${courses.length}개 중 검색`}
-        </p>
-      </div>
+      <PageHeader
+        title="강의 검색"
+        description={loading ? '데이터를 불러오는 중…' : `공통 강의 원천 ${courses.length}개 중 검색`}
+      />
 
       {/* Search & Filter Bar */}
       <div className="mb-6 space-y-4">
-        {/* Row 1: Search Input + Mobile Filter Button */}
+        {/* Search Input + Filter Button */}
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <Search aria-hidden="true" className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <Input
-              placeholder="과목명, 과목코드, 학과로 검색..."
+              aria-label="과목명, 과목코드 또는 학과 검색"
+              name="course-search"
+              autoComplete="off"
+              placeholder="과목명, 과목코드, 학과로 검색…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-white pl-10 shadow-none"
             />
           </div>
-          {/* Mobile Filter Button */}
-          <Sheet open={isMobileFilterOpen} onOpenChange={setIsMobileFilterOpen}>
+          <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-                <SlidersHorizontal className="h-4 w-4" />
+              <Button variant="outline" className="relative shrink-0 gap-2 bg-white shadow-none">
+                <SlidersHorizontal aria-hidden="true" className="h-4 w-4" />
+                <span>필터</span>
                 {activeFilters.length > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white">
+                  <span className="flex min-w-5 items-center justify-center rounded-full bg-blue-600 px-1.5 py-0.5 text-[10px] text-white">
                     {activeFilters.length}
                   </span>
                 )}
               </Button>
             </SheetTrigger>
-            <SheetContent side="bottom" className="h-[80vh]">
-              <SheetHeader>
+            <SheetContent side="right" className="flex w-full flex-col p-0 sm:max-w-md">
+              <SheetHeader className="border-b border-slate-200 px-6 py-5 pr-12">
                 <SheetTitle>필터</SheetTitle>
-                <SheetDescription>검색 조건을 설정하세요</SheetDescription>
+                <SheetDescription>조건을 선택하면 검색 결과에 바로 반영됩니다.</SheetDescription>
               </SheetHeader>
-              <ScrollArea className="mt-4 h-[calc(100%-120px)]">
-                <div className="pr-4">
-                  <FilterControls isMobile />
+              <ScrollArea className="min-h-0 flex-1">
+                <div className="px-6 py-5">
+                  <FilterControls />
                 </div>
               </ScrollArea>
-              <div className="mt-4 flex gap-2">
+              <div className="flex gap-2 border-t border-slate-200 bg-white px-6 py-4">
                 <Button variant="outline" className="flex-1" onClick={resetAllFilters}>
                   초기화
                 </Button>
-                <Button className="flex-1" onClick={() => setIsMobileFilterOpen(false)}>
-                  적용 ({filteredCourses.length}개)
+                <Button className="flex-1" onClick={() => setIsFilterOpen(false)}>
+                  결과 보기 ({totalElements}개)
                 </Button>
               </div>
             </SheetContent>
           </Sheet>
-        </div>
-
-        {/* Row 2: Desktop Filters (hidden on mobile) */}
-        <div className="hidden md:block">
-          <FilterControls />
         </div>
 
         {/* Row 3: Active Filter Badges */}
@@ -710,12 +788,12 @@ export default function CourseSearchPage() {
 
       {/* Results Count */}
       <div className="mb-4 text-sm text-gray-500">
-        검색 결과: <span className="font-medium text-gray-900">{filteredCourses.length}</span>개
+        검색 결과: <span className="font-medium text-gray-900">{totalElements}</span>개
       </div>
 
       {/* Course Grid - Card Style */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {paginatedCourses.map((course) => {
+        {courses.map((course) => {
           const offeringSummary = getOfferingSummary(course);
           const visibleAliasCodes = course.aliasCodes.filter((code) => code !== course.primaryCourseCode);
           const visibleDepartments = getStudentVisibleDepartments(course);
@@ -723,7 +801,7 @@ export default function CourseSearchPage() {
           return (
             <button
               key={course.courseId}
-              className="group relative rounded-lg border border-slate-300 bg-white p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none"
+              className="group relative rounded-xl border border-slate-200 bg-white p-5 text-left transition-[background-color,border-color,box-shadow] duration-150 ease-[var(--ease-ui-out)] hover:border-blue-200 hover:bg-slate-50/50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
               onClick={() => handleCourseClick(course)}
             >
               {/* Header: 과목코드 + 학점 */}
@@ -751,9 +829,7 @@ export default function CourseSearchPage() {
                   >
                     {offeringSummary.label}
                   </Badge>
-                  {offeringSummary.detail && (
-                    <p className="mt-1 text-xs text-gray-500">{offeringSummary.detail}</p>
-                  )}
+                  {offeringSummary.detail && <p className="mt-1 text-xs text-gray-500">{offeringSummary.detail}</p>}
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2">
@@ -801,8 +877,8 @@ export default function CourseSearchPage() {
             <span className="text-gray-400">/</span>
             <span className="text-gray-500">{totalPages}</span>
             <span className="ml-2 text-gray-400">
-              ({(currentPage - 1) * ITEMS_PER_PAGE + 1}-{Math.min(currentPage * ITEMS_PER_PAGE, filteredCourses.length)}{' '}
-              / {filteredCourses.length})
+              ({(currentPage - 1) * ITEMS_PER_PAGE + 1}-{Math.min(currentPage * ITEMS_PER_PAGE, totalElements)} /{' '}
+              {totalElements})
             </span>
           </div>
           <Button
@@ -818,7 +894,7 @@ export default function CourseSearchPage() {
       )}
 
       {/* Empty State */}
-      {!loading && filteredCourses.length === 0 && (
+      {!loading && totalElements === 0 && (
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <Book className="h-12 w-12 text-gray-300" />
           <h3 className="mt-4 text-lg font-medium text-gray-900">검색 결과가 없습니다</h3>
@@ -828,217 +904,306 @@ export default function CourseSearchPage() {
 
       {/* Course Detail Sheet */}
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent className="w-full sm:w-[min(92vw,760px)] sm:max-w-none">
-          {selectedCourse && (
+        <SheetContent className="flex h-full w-full flex-col overflow-hidden sm:w-[min(92vw,760px)] sm:max-w-none">
+          {selectedCourseSummary && (
             <>
-              <SheetHeader className="space-y-3">
+              <SheetHeader className="shrink-0 space-y-3">
                 <Badge variant="outline" className="w-fit rounded-full px-2.5 py-1 text-sm font-semibold">
-                  {selectedCourse.creditHours}학점
+                  {selectedCourseSummary.creditHours}학점
                 </Badge>
-                <SheetTitle className="text-xl leading-tight">{selectedCourse.displayTitleKo}</SheetTitle>
-                <SheetDescription className="text-sm">{selectedCourse.displayTitleEn}</SheetDescription>
+                <SheetTitle className="text-xl leading-tight">{selectedCourseSummary.displayTitleKo}</SheetTitle>
+                <SheetDescription className="text-sm">{selectedCourseSummary.displayTitleEn}</SheetDescription>
               </SheetHeader>
 
-              <ScrollArea className="mt-6 h-[calc(100vh-200px)]">
-                <div className="space-y-6 pr-4">
-                  {/* 기본 정보 */}
-                  <div className="space-y-3">
-                    <h4 className="text-sm font-semibold text-gray-900">기본 정보</h4>
-                    <div className="grid grid-cols-2 gap-3 text-sm">
-                      <div className="rounded-lg bg-gray-50 p-3">
-                        <p className="text-xs text-gray-500">과목 코드</p>
-                        <p className="mt-1 font-mono font-medium">{selectedCourse.primaryCourseCode}</p>
-                      </div>
-                      <div className="rounded-lg bg-gray-50 p-3">
-                        <p className="text-xs text-gray-500">학점</p>
-                        <p className="mt-1 font-medium">{selectedCourse.creditHours}학점</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 시수 정보 */}
-                  {(selectedCourse.lectureHours > 0 || selectedCourse.labHours > 0) && (
+              {detailLoading && (
+                <div className="mt-6 rounded-lg bg-slate-50 px-4 py-8 text-center text-sm text-slate-500">
+                  강의 상세 정보를 불러오는 중입니다.
+                </div>
+              )}
+              {detailError && (
+                <div className="mt-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {detailError}
+                </div>
+              )}
+              {selectedCourse && (
+                <ScrollArea
+                  className="mt-6 min-h-0 w-full max-w-full min-w-0 flex-1"
+                  viewportClassName="[&>div]:!block [&>div]:!w-full [&>div]:!min-w-0"
+                >
+                  <div className="w-full max-w-full min-w-0 space-y-6 overflow-hidden pr-4">
+                    {/* 기본 정보 */}
                     <div className="space-y-3">
-                      <h4 className="text-sm font-semibold text-gray-900">시수</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedCourse.lectureHours > 0 && (
-                          <div className="flex items-center gap-1.5 rounded-lg bg-blue-50 px-3 py-2 text-sm">
-                            <Clock className="h-4 w-4 text-blue-500" />
-                            <span className="text-blue-700">강의 {selectedCourse.lectureHours}시간</span>
-                          </div>
-                        )}
-                        {selectedCourse.labHours > 0 && (
-                          <div className="flex items-center gap-1.5 rounded-lg bg-green-50 px-3 py-2 text-sm">
-                            <FlaskConical className="h-4 w-4 text-green-500" />
-                            <span className="text-green-700">실험 {selectedCourse.labHours}시간</span>
-                          </div>
-                        )}
+                      <h4 className="text-sm font-semibold text-gray-900">기본 정보</h4>
+                      <div className="grid grid-cols-2 gap-3 text-sm">
+                        <div className="rounded-lg bg-gray-50 p-3">
+                          <p className="text-xs text-gray-500">과목 코드</p>
+                          <p className="mt-1 font-mono font-medium">{selectedCourse.primaryCourseCode}</p>
+                        </div>
+                        <div className="rounded-lg bg-gray-50 p-3">
+                          <p className="text-xs text-gray-500">학점</p>
+                          <p className="mt-1 font-medium">{selectedCourse.creditHours}학점</p>
+                        </div>
                       </div>
                     </div>
-                  )}
 
-                  {/* 개설 학과 */}
-                  <div className="space-y-3">
-                    <h4 className="text-sm font-semibold text-gray-900">개설 학과</h4>
-                    {getStudentVisibleDepartments(selectedCourse).length > 0 ? (
-                      <div className="flex flex-wrap gap-2">
-                        {getStudentVisibleDepartments(selectedCourse).map((dept, idx) => (
-                          <Badge
-                            key={idx}
-                            variant="secondary"
-                            className={`${PILL_BADGE_CLASS} border-0 ${getDepartmentBadgeColor(dept)}`}
-                          >
-                            {getDepartmentDisplayName(dept)}
-                          </Badge>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-sm text-gray-500">정보 없음</p>
-                    )}
-                  </div>
-
-                  {/* 개설 정보 */}
-                  <div className="space-y-3">
-                    <h4 className="text-sm font-semibold text-gray-900">개설 정보</h4>
-                    {selectedCourse.offeringGroups.length > 0 ? (
-                      <div className="space-y-2">
-                        {selectedCourse.offeringGroups.map((offeringGroup) => (
-                          <OfferingGroupCard
-                            key={offeringGroup.offeringGroupId}
-                            offeringGroup={offeringGroup}
-                            tone="emerald"
-                            showDepartment
-                            getDepartmentLabel={getDepartmentDisplayName}
-                            className="rounded-lg"
-                          />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="rounded-lg bg-gray-100 px-3 py-2 text-sm text-gray-600">
-                        {selectedCourse.lifecycleStatus === 'active'
-                          ? '강의 목록에는 등록되어 있지만, 현재 시간표 원천에서 확인된 분반은 없습니다.'
-                          : '현재 확인된 개설 분반 정보가 없습니다.'}
+                    {/* 시수 정보 */}
+                    {(selectedCourse.lectureHours > 0 || selectedCourse.labHours > 0) && (
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-semibold text-gray-900">시수</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedCourse.lectureHours > 0 && (
+                            <div className="flex items-center gap-1.5 rounded-lg bg-blue-50 px-3 py-2 text-sm">
+                              <Clock className="h-4 w-4 text-blue-500" />
+                              <span className="text-blue-700">강의 {selectedCourse.lectureHours}시간</span>
+                            </div>
+                          )}
+                          {selectedCourse.labHours > 0 && (
+                            <div className="flex items-center gap-1.5 rounded-lg bg-green-50 px-3 py-2 text-sm">
+                              <FlaskConical className="h-4 w-4 text-green-500" />
+                              <span className="text-green-700">실험 {selectedCourse.labHours}시간</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     )}
-                  </div>
 
-                  {/* 학사편람 수록 이력 */}
-                  {selectedCourse.manualListings.length > 0 && (
+                    {/* 개설 학과 */}
                     <div className="space-y-3">
-                      <div>
-                        <h4 className="text-sm font-semibold text-gray-900">학사편람 수록 이력</h4>
-                        <p className="mt-1 text-xs text-gray-500">
-                          연도별 학사편람 수록 정보입니다. 요일/시간은 확인된 시간표가 있는 경우에만 표시합니다.
-                        </p>
-                      </div>
-                      <div className="overflow-hidden rounded-lg border border-slate-200">
-                        <table className="w-full text-sm">
-                          <thead className="bg-slate-50 text-xs text-slate-500">
-                            <tr>
-                              <th className="px-3 py-2 text-left font-medium">연도</th>
-                              <th className="px-3 py-2 text-left font-medium">학수번호</th>
-                              <th className="px-3 py-2 text-left font-medium">강:실:학</th>
-                              <th className="px-3 py-2 text-left font-medium">시간표</th>
-                              <th className="px-3 py-2 text-left font-medium">쪽</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-slate-100">
-                            {groupManualListings(selectedCourse, selectedCourse.manualListings).map((group) => (
-                              <tr key={group.key}>
-                                <td className="px-3 py-2 text-slate-800">{group.academicYear}</td>
-                                <td className="px-3 py-2">
-                                  <div className="flex flex-wrap gap-1.5">
-                                    {group.courseCodes.map((courseCode) => (
-                                      <span
-                                        key={courseCode}
-                                        className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs text-slate-700"
-                                      >
-                                        {courseCode}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </td>
-                                <td className="px-3 py-2 text-slate-700">
-                                  {group.hoursLabel}
-                                </td>
-                                <td className="max-w-[360px] px-3 py-2 text-xs text-slate-600">
-                                  {group.scheduleBadges.length > 0 ? (
-                                    <div className="flex flex-wrap gap-1.5">
-                                      {group.scheduleBadges.map((schedule) => (
-                                        <MeetingBadge
-                                          key={schedule.key}
-                                          badge={schedule}
-                                          tone="sky"
-                                        />
-                                      ))}
-                                    </div>
-                                  ) : (
-                                    '-'
-                                  )}
-                                </td>
-                                <td className="px-3 py-2 text-xs text-slate-700">
-                                  <div className="flex flex-col gap-1">
-                                    {group.listings.map((listing) => (
-                                      <span key={listing.id}>
-                                        <span className="font-mono">{listing.courseCode}</span>
-                                        {listing.page ? ` p.${listing.page}` : ' -'}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 태그 */}
-                  {getStudentVisibleTags(selectedCourse).length > 0 && (
-                    <div className="space-y-3">
-                      <h4 className="text-sm font-semibold text-gray-900">분류 태그</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {getStudentVisibleTags(selectedCourse).map((tag, idx) => (
-                          <Badge key={idx} variant="outline" className={OUTLINE_PILL_BADGE_CLASS}>
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 별칭 코드 */}
-                  {selectedCourse.aliasCodes.filter((code) => code !== selectedCourse.primaryCourseCode).length > 0 && (
-                    <div className="space-y-3">
-                      <h4 className="text-sm font-semibold text-gray-900">별칭 과목코드</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedCourse.aliasCodes
-                          .filter((code) => code !== selectedCourse.primaryCourseCode)
-                          .map((code, idx) => (
-                            <Badge key={idx} variant="outline" className={MONO_PILL_BADGE_CLASS}>
-                              {code}
+                      <h4 className="text-sm font-semibold text-gray-900">개설 학과</h4>
+                      {getStudentVisibleDepartments(selectedCourse).length > 0 ? (
+                        <div className="flex flex-wrap gap-2">
+                          {getStudentVisibleDepartments(selectedCourse).map((dept, idx) => (
+                            <Badge
+                              key={idx}
+                              variant="secondary"
+                              className={`${PILL_BADGE_CLASS} border-0 ${getDepartmentBadgeColor(dept)}`}
+                            >
+                              {getDepartmentDisplayName(dept)}
                             </Badge>
                           ))}
-                      </div>
+                        </div>
+                      ) : (
+                        <p className="text-sm text-gray-500">정보 없음</p>
+                      )}
                     </div>
-                  )}
 
-                  {/* 강의 설명 */}
-                  {selectedCourse.description && (
+                    {/* 개설 정보 */}
                     <div className="space-y-3">
-                      <h4 className="text-sm font-semibold text-gray-900">강의 설명</h4>
-                      <p className="text-sm leading-relaxed whitespace-pre-wrap text-gray-600">
-                        {selectedCourse.description}
-                      </p>
+                      <h4 className="text-sm font-semibold text-gray-900">개설 정보</h4>
+                      {selectedCourse.offeringGroups.some((offeringGroup) => offeringGroup.program === 'graduate') && (
+                        <div className="rounded-lg border border-violet-100 bg-violet-50 px-3 py-2 text-xs leading-relaxed font-medium text-violet-700">
+                          대학원 교과목은 학사 졸업(수료)학점에 포함할 수 있지만 평균평점 산출에서는 제외됩니다. (2026
+                          학사편람 208쪽)
+                        </div>
+                      )}
+                      {selectedCourse.offeringGroups.length > 0 ? (
+                        <div className="w-full max-w-full min-w-0 overflow-x-auto overscroll-x-contain rounded-lg border border-slate-200">
+                          <Table className="min-w-[980px]">
+                            <TableHeader className="bg-slate-50 text-xs text-slate-500">
+                              <TableRow>
+                                <TableHead className="px-3">학기</TableHead>
+                                <TableHead className="px-3">분반</TableHead>
+                                <TableHead className="px-3">학수번호</TableHead>
+                                <TableHead className="px-3">개설 학과</TableHead>
+                                <TableHead className="px-3">과정</TableHead>
+                                <TableHead className="px-3">담당교수</TableHead>
+                                <TableHead className="px-3">정원</TableHead>
+                                <TableHead className="px-3">시간/장소</TableHead>
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              {sortOfferingGroupsNewest(selectedCourse.offeringGroups).map((offeringGroup) => (
+                                <TableRow key={offeringGroup.offeringGroupId}>
+                                  <TableCell className="px-3 font-medium text-slate-800">
+                                    {formatCourseTerm(offeringGroup.term)}
+                                  </TableCell>
+                                  <TableCell className="px-3 text-slate-700">{offeringGroup.section || '-'}</TableCell>
+                                  <TableCell className="px-3">
+                                    <div className="flex flex-wrap gap-1.5">
+                                      {offeringGroup.courseCodes.map((courseCode) => (
+                                        <span
+                                          key={courseCode}
+                                          className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs text-slate-700"
+                                        >
+                                          {courseCode}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </TableCell>
+                                  <TableCell className="px-3 text-xs text-slate-600">
+                                    {getVisibleDepartmentDisplayNames(offeringGroup.departments).length > 0
+                                      ? getVisibleDepartmentDisplayNames(offeringGroup.departments).join(', ')
+                                      : '-'}
+                                  </TableCell>
+                                  <TableCell className="px-3">
+                                    <Badge
+                                      variant="outline"
+                                      className={
+                                        offeringGroup.program === 'graduate'
+                                          ? 'border-violet-200 bg-violet-50 text-violet-700'
+                                          : 'border-slate-200 bg-white text-slate-600'
+                                      }
+                                    >
+                                      {offeringGroup.program === 'graduate'
+                                        ? '대학원'
+                                        : offeringGroup.program === 'undergraduate'
+                                          ? '학사'
+                                          : '미확인'}
+                                    </Badge>
+                                  </TableCell>
+                                  <TableCell className="px-3 text-xs text-slate-600">
+                                    {offeringGroup.instructors.join(', ') || '미정'}
+                                  </TableCell>
+                                  <TableCell className="px-3 text-xs font-bold">
+                                    {offeringGroup.capacityStatus === 'pending' || offeringGroup.capacity === 0 ? (
+                                      <span
+                                        className="text-amber-600"
+                                        title="현재 0명으로 게시되어 추후 변경될 수 있습니다."
+                                      >
+                                        미정
+                                      </span>
+                                    ) : (
+                                      <span className="text-slate-700">{offeringGroup.capacity ?? '-'}명</span>
+                                    )}
+                                  </TableCell>
+                                  <TableCell className="max-w-[360px] px-3">
+                                    {offeringGroup.meetingBadges.length > 0 ? (
+                                      <div className="flex flex-wrap gap-1.5">
+                                        {offeringGroup.meetingBadges.map((badge) => (
+                                          <MeetingBadge key={badge.key} badge={badge} tone="emerald" />
+                                        ))}
+                                      </div>
+                                    ) : (
+                                      <span className="text-xs text-slate-400">시간 미확인</span>
+                                    )}
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </div>
+                      ) : (
+                        <div className="rounded-lg bg-gray-100 px-3 py-2 text-sm text-gray-600">
+                          {selectedCourse.lifecycleStatus === 'active'
+                            ? '강의 목록에는 등록되어 있지만, 현재 시간표 원천에서 확인된 분반은 없습니다.'
+                            : '현재 확인된 개설 분반 정보가 없습니다.'}
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              </ScrollArea>
+
+                    {/* 학사편람 수록 이력 */}
+                    {selectedCourse.manualListings.length > 0 && (
+                      <div className="space-y-3">
+                        <div>
+                          <h4 className="text-sm font-semibold text-gray-900">학사편람 수록 이력</h4>
+                          <p className="mt-1 text-xs text-gray-500">
+                            연도별 학사편람 수록 정보입니다. 요일/시간은 확인된 시간표가 있는 경우에만 표시합니다.
+                          </p>
+                        </div>
+                        <div className="w-full max-w-full min-w-0 overflow-x-auto overscroll-x-contain rounded-lg border border-slate-200">
+                          <table className="min-w-[760px] text-sm">
+                            <thead className="bg-slate-50 text-xs text-slate-500">
+                              <tr>
+                                <th className="px-3 py-2 text-left font-medium">연도</th>
+                                <th className="px-3 py-2 text-left font-medium">학수번호</th>
+                                <th className="px-3 py-2 text-left font-medium">강:실:학</th>
+                                <th className="px-3 py-2 text-left font-medium">시간표</th>
+                                <th className="px-3 py-2 text-left font-medium">쪽</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-100">
+                              {groupManualListings(selectedCourse, selectedCourse.manualListings).map((group) => (
+                                <tr key={group.key}>
+                                  <td className="px-3 py-2 text-slate-800">{group.academicYear}</td>
+                                  <td className="px-3 py-2">
+                                    <div className="flex flex-wrap gap-1.5">
+                                      {group.courseCodes.map((courseCode) => (
+                                        <span
+                                          key={courseCode}
+                                          className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs text-slate-700"
+                                        >
+                                          {courseCode}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </td>
+                                  <td className="px-3 py-2 text-slate-700">{group.hoursLabel}</td>
+                                  <td className="max-w-[360px] px-3 py-2 text-xs text-slate-600">
+                                    {group.scheduleBadges.length > 0 ? (
+                                      <div className="flex flex-wrap gap-1.5">
+                                        {group.scheduleBadges.map((schedule) => (
+                                          <MeetingBadge key={schedule.key} badge={schedule} tone="sky" />
+                                        ))}
+                                      </div>
+                                    ) : (
+                                      '-'
+                                    )}
+                                  </td>
+                                  <td className="px-3 py-2 text-xs text-slate-700">
+                                    <div className="flex flex-col gap-1">
+                                      {group.listings.map((listing) => (
+                                        <span key={listing.id}>
+                                          <span className="font-mono">{listing.courseCode}</span>
+                                          {listing.page ? ` p.${listing.page}` : ' -'}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 태그 */}
+                    {getStudentVisibleTags(selectedCourse).length > 0 && (
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-semibold text-gray-900">분류 태그</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {getStudentVisibleTags(selectedCourse).map((tag, idx) => (
+                            <Badge key={idx} variant="outline" className={OUTLINE_PILL_BADGE_CLASS}>
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 별칭 코드 */}
+                    {selectedCourse.aliasCodes.filter((code) => code !== selectedCourse.primaryCourseCode).length >
+                      0 && (
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-semibold text-gray-900">별칭 과목코드</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedCourse.aliasCodes
+                            .filter((code) => code !== selectedCourse.primaryCourseCode)
+                            .map((code, idx) => (
+                              <Badge key={idx} variant="outline" className={MONO_PILL_BADGE_CLASS}>
+                                {code}
+                              </Badge>
+                            ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 강의 설명 */}
+                    {selectedCourse.description && (
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-semibold text-gray-900">강의 설명</h4>
+                        <p className="text-sm leading-relaxed whitespace-pre-wrap text-gray-600">
+                          {selectedCourse.description}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </ScrollArea>
+              )}
             </>
           )}
         </SheetContent>
       </Sheet>
-    </div>
+    </DashboardPageShell>
   );
 }

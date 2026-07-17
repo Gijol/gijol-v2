@@ -7,6 +7,9 @@ export interface TakenCourseType {
   courseName: string;
   courseCode: string;
   credit: number;
+  grade?: string;
+  gradeStatus?: 'official' | 'in_progress' | 'provisional';
+  gradeStatusReason?: string;
 }
 
 export interface UserTakenCourseListType {

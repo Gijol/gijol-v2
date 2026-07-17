@@ -1,27 +1,20 @@
-import { Upload } from 'lucide-react';
+import Link from 'next/link';
+import { FileUp } from 'lucide-react';
 import { Button } from '@components/ui/button';
-import { useRouter } from 'next/router';
 
 export function EmptyState() {
-  const router = useRouter();
-
   return (
-    <div className="rounded-xl border border-gray-100 bg-white p-8 text-center shadow-sm">
-      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
-        <Upload className="h-8 w-8 text-[#0B62DA]" />
+    <section className="rounded-xl border border-slate-200 bg-white px-6 py-12 text-center dark:border-slate-800 dark:bg-slate-950">
+      <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300">
+        <FileUp aria-hidden="true" size={19} />
       </div>
-      <h3 className="mb-2 text-lg font-semibold text-gray-900">성적표 업로드가 필요합니다</h3>
-      <p className="mb-6 text-sm text-gray-500">
-        성적표를 업로드하시면 졸업요건 충족 현황과 수강 내역을 확인할 수 있습니다.
+      <h2 className="mt-4 text-lg font-semibold text-slate-950 dark:text-slate-50">분석할 성적표가 없습니다.</h2>
+      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-pretty text-slate-500 dark:text-slate-400">
+        성적표를 업로드하면 전체 진행률, 영역별 이수 현황과 앞으로 들을 과목을 확인할 수 있습니다.
       </p>
-      <Button
-        size="lg"
-        className="bg-[#0B62DA] text-white shadow-lg shadow-blue-500/25 hover:bg-[#0952B8]"
-        onClick={() => router.push('/dashboard/graduation/upload')}
-      >
-        <Upload className="mr-2 h-5 w-5" />
-        성적표 업로드하기
+      <Button asChild variant="brand" className="mt-6 touch-manipulation shadow-none">
+        <Link href="/dashboard/graduation/upload">성적표 업로드</Link>
       </Button>
-    </div>
+    </section>
   );
 }

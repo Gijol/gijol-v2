@@ -486,7 +486,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '시스템 프로그래밍',
     credits: 3,
     level: 2000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -494,7 +494,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '자료 구조',
     credits: 3,
     level: 2000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -502,7 +502,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '알고리즘 개론',
     credits: 3,
     level: 2000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -510,7 +510,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '오토마타 이론',
     credits: 3,
     level: 3000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -518,7 +518,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '운영체제',
     credits: 3,
     level: 3000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -526,7 +526,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '컴퓨터 비전',
     credits: 3,
     level: 4000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -534,7 +534,7 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '인공지능',
     credits: 3,
     level: 4000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
   {
@@ -542,10 +542,10 @@ export const MAJOR_AI_COURSES: CourseMaster[] = [
     courseNameKo: '기계학습 및 딥러닝',
     credits: 3,
     level: 4000,
-    department: 'AI융합학과',
+    department: 'AI학과',
     isOffered: true,
   },
-  { courseCode: 'AI4311', courseNameKo: '딥러닝', credits: 3, level: 4000, department: 'AI융합학과', isOffered: true },
+  { courseCode: 'AI4311', courseNameKo: '딥러닝', credits: 3, level: 4000, department: 'AI학과', isOffered: true },
 ];
 
 export const MAJOR_RECOMMENDATION_COURSES_BY_CODE: Record<string, CourseMaster[]> = {
