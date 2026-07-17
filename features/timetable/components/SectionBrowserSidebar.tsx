@@ -10,13 +10,8 @@ import { CourseSectionItem } from './CourseSectionItem';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Check, ChevronDown, Filter, Loader2, Search, X } from 'lucide-react';
+import { MultiSelect, type Option } from '@/components/ui/multi-select';
+import { Loader2, Search, X } from 'lucide-react';
 
 const NUMBER_FORMAT = new Intl.NumberFormat('ko-KR');
 
@@ -27,17 +22,23 @@ interface SectionBrowserSidebarProps {
   className?: string;
 }
 
+function getDepartmentQuery(value: string | string[] | undefined): string[] {
+  if (Array.isArray(value)) return value.filter(Boolean);
+  return value ? [value] : [];
+}
+
+function equalSelections(left: readonly string[], right: readonly string[]): boolean {
+  return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+
 export function SectionBrowserSidebar({ term, interaction, isMobile = false, className }: SectionBrowserSidebarProps) {
   const router = useRouter();
   const [query, setQuery] = useState(() => (typeof router.query.q === 'string' ? router.query.q : ''));
   const [debouncedQuery, setDebouncedQuery] = useState(query.trim());
-  const [department, setDepartment] = useState(() =>
-    typeof router.query.department === 'string' ? router.query.department : '',
-  );
+  const [departments, setDepartments] = useState(() => getDepartmentQuery(router.query.department));
   const [programLevel, setProgramLevel] = useState<Exclude<SectionProgramLevel, 'all'>>(() =>
     router.query.level === 'graduate' ? 'graduate' : 'undergraduate',
   );
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -45,37 +46,45 @@ export function SectionBrowserSidebar({ term, interaction, isMobile = false, cla
     return () => window.clearTimeout(timeout);
   }, [query]);
 
-  const browser = useTimetableSectionBrowser(term, debouncedQuery, department, programLevel);
+  const browser = useTimetableSectionBrowser(term, debouncedQuery, departments, programLevel);
+  const departmentOptions: Option[] = useMemo(
+    () => browser.departments.map((department) => ({ label: department, value: department })),
+    [browser.departments],
+  );
 
   useEffect(() => {
     scrollContainerRef.current?.scrollTo({ top: 0 });
-  }, [debouncedQuery, department, programLevel]);
+  }, [debouncedQuery, departments, programLevel]);
 
   useEffect(() => {
     if (!router.isReady) return;
     const currentQuery = typeof router.query.q === 'string' ? router.query.q : '';
-    const currentDepartment = typeof router.query.department === 'string' ? router.query.department : '';
+    const currentDepartments = getDepartmentQuery(router.query.department);
     const currentLevel = router.query.level === 'graduate' ? 'graduate' : 'undergraduate';
-    if (currentQuery === debouncedQuery && currentDepartment === department && currentLevel === programLevel) {
+    if (
+      currentQuery === debouncedQuery &&
+      equalSelections(currentDepartments, departments) &&
+      currentLevel === programLevel
+    ) {
       return;
     }
 
     const nextQuery = { ...router.query };
     if (debouncedQuery) nextQuery.q = debouncedQuery;
     else delete nextQuery.q;
-    if (department) nextQuery.department = department;
+    if (departments.length > 0) nextQuery.department = departments;
     else delete nextQuery.department;
     if (programLevel === 'graduate') nextQuery.level = 'graduate';
     else delete nextQuery.level;
 
     void router.replace({ pathname: router.pathname, query: nextQuery }, undefined, { shallow: true, scroll: false });
-  }, [debouncedQuery, department, programLevel, router]);
+  }, [debouncedQuery, departments, programLevel, router]);
 
   useEffect(() => {
-    if (browser.hasLoadedDepartmentOptions && department && !browser.departments.includes(department)) {
-      setDepartment('');
-    }
-  }, [browser.departments, browser.hasLoadedDepartmentOptions, department]);
+    if (!browser.hasLoadedDepartmentOptions) return;
+    const validDepartments = departments.filter((department) => browser.departments.includes(department));
+    if (!equalSelections(validDepartments, departments)) setDepartments(validDepartments);
+  }, [browser.departments, browser.hasLoadedDepartmentOptions, departments]);
 
   const items = useMemo(
     () => projectSectionBrowsingItems(browser.sections, interaction),
@@ -110,48 +119,28 @@ export function SectionBrowserSidebar({ term, interaction, isMobile = false, cla
           />
         </div>
 
-        <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-          <DropdownMenuTrigger asChild>
-            <button
-              type="button"
-              className={`group flex h-10 shrink-0 cursor-pointer touch-manipulation items-center gap-1.5 truncate rounded-lg border border-slate-200 bg-white px-3 text-xs font-semibold tracking-tight transition-[background-color,border-color,box-shadow,color] hover:border-slate-300 hover:bg-slate-50 focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:outline-none data-[state=open]:border-blue-500 data-[state=open]:ring-2 data-[state=open]:ring-blue-500/20 motion-reduce:transition-none ${department ? 'border-blue-300 bg-blue-50 text-blue-700' : ''}`}
-              aria-label="학과 필터"
-            >
-              <Filter aria-hidden="true" size={14} className="shrink-0 text-slate-400" />
-              <span className="max-w-[80px] truncate">{department || '학과'}</span>
-              <ChevronDown
-                aria-hidden="true"
-                size={14}
-                className="shrink-0 text-slate-400 transition-transform duration-150 group-data-[state=open]:rotate-180 motion-reduce:transition-none"
-              />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="end"
-            className="max-h-[300px] w-[200px] overflow-y-auto overscroll-contain rounded-lg border-slate-200 bg-white p-1.5 shadow-lg shadow-slate-950/10"
-          >
-            {['', ...browser.departments].map((option) => (
-              <DropdownMenuItem
-                key={option || 'all'}
-                onClick={() => setDepartment(option)}
-                className={cn(
-                  'flex min-h-9 cursor-pointer items-center justify-between rounded-md px-2.5 text-xs font-semibold transition-[background-color,color] focus:bg-slate-100 focus:text-slate-950 motion-reduce:transition-none',
-                  department === option && 'bg-blue-50 text-blue-700 focus:bg-blue-100 focus:text-blue-800',
-                )}
-              >
-                <span className="truncate">{option || '모든 학과'}</span>
-                {department === option && <Check aria-hidden="true" size={14} className="shrink-0 text-blue-500" />}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="w-[132px] shrink-0 sm:w-[160px]">
+          <MultiSelect
+            options={departmentOptions}
+            selected={departments}
+            onChange={setDepartments}
+            placeholder="학과"
+            searchPlaceholder="학과 검색…"
+            optionName="학과"
+            ariaLabel="학과 필터"
+            className={cn(
+              'h-10 min-h-10 rounded-lg border-slate-200 bg-white px-3 text-xs font-semibold shadow-none',
+              departments.length > 0 && 'border-blue-300 bg-blue-50 text-blue-700',
+            )}
+          />
+        </div>
 
-        {(query || department) && (
+        {(query || departments.length > 0) && (
           <button
             type="button"
             onClick={() => {
               setQuery('');
-              setDepartment('');
+              setDepartments([]);
             }}
             className="flex h-10 w-10 shrink-0 cursor-pointer touch-manipulation items-center justify-center rounded-lg border border-slate-200 bg-slate-50/70 transition-[background-color,border-color,color,transform] hover:border-red-300 hover:bg-red-50 hover:text-red-600 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-1 focus-visible:outline-none active:scale-[0.96] motion-reduce:transform-none"
             title="필터 초기화"

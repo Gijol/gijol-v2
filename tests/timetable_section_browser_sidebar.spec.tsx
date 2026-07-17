@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { useRouter } from 'next/router';
 import { SectionBrowserSidebar } from '../features/timetable/components/SectionBrowserSidebar';
 import { useTimetableSectionBrowser } from '../features/timetable/hooks/useTimetableSectionBrowser';
@@ -49,8 +50,8 @@ describe('SectionBrowserSidebar department filter', () => {
       query: { department: 'AI대학' },
       replace: jest.fn().mockResolvedValue(true),
     } as unknown as ReturnType<typeof useRouter>);
-    mockUseTimetableSectionBrowser.mockImplementation((_term, _query, department) =>
-      department ? browserResult([], true) : browserResult(['AI대학', '기초교육학부']),
+    mockUseTimetableSectionBrowser.mockImplementation((_term, _query, departments) =>
+      departments.length > 0 ? browserResult([], true) : browserResult(['AI대학', '기초교육학부']),
     );
   });
 
@@ -58,8 +59,35 @@ describe('SectionBrowserSidebar department filter', () => {
     render(<SectionBrowserSidebar term="2026-2" interaction={interaction} />);
 
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: '학과 필터' })).toHaveTextContent('AI대학');
+      expect(screen.getByRole('combobox', { name: '학과 필터' })).toHaveTextContent('AI대학');
     });
-    expect(mockUseTimetableSectionBrowser).toHaveBeenCalledWith('2026-2', '', 'AI대학', 'undergraduate');
+    expect(mockUseTimetableSectionBrowser).toHaveBeenCalledWith('2026-2', '', ['AI대학'], 'undergraduate');
+  });
+
+  it('keeps multiple selected departments in one filter', async () => {
+    const user = userEvent.setup();
+    mockUseRouter.mockReturnValue({
+      isReady: true,
+      pathname: '/dashboard/timetable',
+      query: {},
+      replace: jest.fn().mockResolvedValue(true),
+    } as unknown as ReturnType<typeof useRouter>);
+    mockUseTimetableSectionBrowser.mockReturnValue(browserResult(['AI대학', '기초교육학부']));
+
+    render(<SectionBrowserSidebar term="2026-2" interaction={interaction} />);
+
+    await user.click(screen.getByRole('combobox', { name: '학과 필터' }));
+    await user.click(screen.getByRole('option', { name: 'AI대학' }));
+    await user.click(screen.getByRole('option', { name: '기초교육학부' }));
+
+    await waitFor(() => {
+      expect(mockUseTimetableSectionBrowser).toHaveBeenCalledWith(
+        '2026-2',
+        '',
+        ['AI대학', '기초교육학부'],
+        'undergraduate',
+      );
+    });
+    expect(screen.getByRole('combobox', { name: '학과 필터' })).toHaveTextContent('2');
   });
 });

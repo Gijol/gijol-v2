@@ -10,14 +10,14 @@ type TimetableSectionPageResponse = SectionBrowsingPage & {
 export async function fetchTimetableSectionPage(
   term: string,
   query: string,
-  department: string,
+  departments: readonly string[],
   programLevel: SectionProgramLevel,
   page: number,
   signal?: AbortSignal,
   courseCodes: readonly string[] = [],
 ): Promise<TimetableSectionPageResponse> {
   const params = new URLSearchParams({ q: query, page: String(page) });
-  if (department) params.set('department', department);
+  departments.forEach((department) => params.append('department', department));
   params.set('level', programLevel);
   courseCodes.forEach((courseCode) => params.append('courseCode', courseCode));
 
@@ -36,7 +36,7 @@ export async function fetchTimetableSectionsByCourseCodes(
   let totalPages = 1;
 
   do {
-    const response = await fetchTimetableSectionPage(term, '', '', 'all', page, signal, courseCodes);
+    const response = await fetchTimetableSectionPage(term, '', [], 'all', page, signal, courseCodes);
     sections.push(...response.content);
     totalPages = response.totalPages;
     page += 1;
@@ -48,13 +48,13 @@ export async function fetchTimetableSectionsByCourseCodes(
 export function useTimetableSectionBrowser(
   term: string,
   query: string,
-  department: string,
+  departments: readonly string[],
   programLevel: SectionProgramLevel,
 ) {
   const result = useInfiniteQuery({
-    queryKey: ['timetable-section-browser', term, query, department, programLevel],
+    queryKey: ['timetable-section-browser', term, query, departments, programLevel],
     queryFn: ({ pageParam = 1, signal }) =>
-      fetchTimetableSectionPage(term, query, department, programLevel, pageParam, signal),
+      fetchTimetableSectionPage(term, query, departments, programLevel, pageParam, signal),
     enabled: Boolean(term),
     staleTime: Infinity,
     getNextPageParam: (lastPage) => (lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined),

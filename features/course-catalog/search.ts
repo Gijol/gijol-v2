@@ -68,6 +68,7 @@ export interface CourseCatalogSearchItem {
 
 export interface CourseCatalogSearchFilters {
   query?: string;
+  courseCodes?: readonly string[];
   category?: 'all' | 'mandatory' | 'humanities' | 'science' | 'major' | 'offered';
   departments?: readonly string[];
   terms?: readonly string[];
@@ -280,8 +281,16 @@ export function filterCourseCatalogSearchItems(
   filters: CourseCatalogSearchFilters,
 ): CourseCatalogSearchItem[] {
   const query = normalizeSearchText(filters.query ?? '');
+  const requestedCourseCodes = new Set(getCourseCodeSearchVariants(filters.courseCodes ?? []));
+
   return items.filter((item) => {
     if (query && !item.matchText.includes(query)) return false;
+    if (requestedCourseCodes.size > 0) {
+      const matchesRequestedCourse = getCourseCodeSearchVariants([item.primaryCourseCode, ...item.aliasCodes]).some(
+        (courseCode) => requestedCourseCodes.has(courseCode),
+      );
+      if (!matchesRequestedCourse) return false;
+    }
     if (!categoryMatches(item, filters.category)) return false;
     if (filters.departments?.length) {
       const matchesDepartment = item.departments.some((department) =>

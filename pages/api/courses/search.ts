@@ -27,6 +27,7 @@ function parseQuery(req: NextApiRequest): CourseDiscoveryQuery {
 
   return {
     query: first(req.query.q) ?? first(req.query.courseSearchString) ?? '',
+    courseCodes: list(req.query.courseCode),
     category: first(req.query.category) as CourseDiscoveryQuery['category'],
     departments: list(req.query.department),
     terms: list(req.query.term),

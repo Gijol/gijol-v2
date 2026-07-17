@@ -49,7 +49,7 @@ export default async function handler(
   try {
     const page = await getServerTimetableSectionCatalog().browse(term, {
       query: first(req.query.q) ?? '',
-      department: first(req.query.department),
+      departments: list(req.query.department),
       programLevel: programLevel(first(req.query.level)),
       courseCodes: list(req.query.courseCode),
       page: integer(first(req.query.page)),

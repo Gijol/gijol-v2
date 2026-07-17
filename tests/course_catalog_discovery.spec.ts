@@ -55,4 +55,12 @@ describe('course discovery', () => {
       }),
     );
   });
+
+  it('filters an exact personalized recommendation code set including aliases', () => {
+    const page = discovery.search({ courseCodes: ['EC3216', 'HS4611'], pageSize: 100 });
+    const codes = page.content.map((course) => course.primaryCourseCode);
+
+    expect(codes).toEqual(expect.arrayContaining(['AI3001', 'HS4611']));
+    expect(page.totalElements).toBe(2);
+  });
 });

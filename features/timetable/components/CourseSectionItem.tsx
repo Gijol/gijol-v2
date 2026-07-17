@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { SectionOffering } from '@/lib/types/timetable';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Minus, AlertCircle } from 'lucide-react';
+import { Plus, Minus, AlertCircle, Check, Copy } from 'lucide-react';
 import { isGraduateSection } from '@/features/timetable/section-browsing';
 
 const DAY_TO_KOREAN: Record<string, string> = {
@@ -39,6 +39,16 @@ export function CourseSectionItem({
   compact = false,
   hideBorder = false,
 }: CourseSectionItemProps) {
+  const [isCopied, setIsCopied] = useState(false);
+  const copyFeedbackTimeoutRef = useRef<number>();
+
+  useEffect(
+    () => () => {
+      if (copyFeedbackTimeoutRef.current) window.clearTimeout(copyFeedbackTimeoutRef.current);
+    },
+    [],
+  );
+
   const handleAction = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (isAdded) {
@@ -46,6 +56,14 @@ export function CourseSectionItem({
     } else if (!isConflict) {
       onAdd(section);
     }
+  };
+
+  const handleCopyCourseCode = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    await navigator.clipboard.writeText(section.course_code);
+    setIsCopied(true);
+    if (copyFeedbackTimeoutRef.current) window.clearTimeout(copyFeedbackTimeoutRef.current);
+    copyFeedbackTimeoutRef.current = window.setTimeout(() => setIsCopied(false), 1600);
   };
 
   const instructors = section.instructors.map((i) => i.name).join(', ') || '미지정';
@@ -101,6 +119,21 @@ export function CourseSectionItem({
         <div className="mt-1.5 flex min-w-0 items-center gap-1.5 text-xs font-medium text-slate-400">
           <span className="shrink-0 font-mono tracking-tight uppercase" translate="no">
             {section.course_code}-{section.section}
+          </span>
+          <button
+            type="button"
+            onClick={handleCopyCourseCode}
+            className={cn(
+              'flex h-5 w-5 shrink-0 touch-manipulation items-center justify-center rounded transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none',
+              isCopied ? 'bg-emerald-50 text-emerald-600' : 'text-slate-400 hover:bg-slate-100 hover:text-slate-700',
+            )}
+            aria-label={`${section.course_code} 강의 코드 복사`}
+            title={isCopied ? '복사됨' : '강의 코드 복사'}
+          >
+            {isCopied ? <Check aria-hidden="true" size={12} /> : <Copy aria-hidden="true" size={12} />}
+          </button>
+          <span className="sr-only" role="status" aria-live="polite">
+            {isCopied ? `${section.course_code} 복사됨` : ''}
           </span>
           <span aria-hidden="true" className="text-slate-300">
             ·

@@ -40,7 +40,14 @@ describe('timetable section browsing module', () => {
     expect(browser.browse({ query: 'TEST0007' }).content[0].no).toBe(7);
     expect(browser.browse({ query: '김검색' }).content[0].no).toBe(7);
     expect(browser.browse({ courseCodes: [' test0007 '] }).content.map((item) => item.no)).toEqual([7]);
-    expect(browser.browse({ department: 'AI대학' }).content.every((item) => item.department === 'AI대학')).toBe(true);
+    expect(browser.browse({ departments: ['AI대학'] }).content.every((item) => item.department === 'AI대학')).toBe(
+      true,
+    );
+    expect(
+      browser
+        .browse({ departments: ['AI대학', '기초교육학부'], pageSize: 100 })
+        .content.every((item) => ['AI대학', '기초교육학부'].includes(item.department)),
+    ).toBe(true);
     expect(browser.browse().departments).toHaveLength(2);
     expect(browser.browse().departments).toEqual(expect.arrayContaining(['AI대학', '기초교육학부']));
     expect(browser.browse().departments).not.toContain('');
@@ -156,9 +163,13 @@ describe('timetable section browsing module', () => {
     global.fetch = fetchMock as unknown as typeof fetch;
     const controller = new AbortController();
 
-    await fetchTimetableSectionPage('2026-1', 'AI', '', 'undergraduate', 1, controller.signal);
+    await fetchTimetableSectionPage('2026-1', 'AI', ['AI대학', '기초교육학부'], 'undergraduate', 1, controller.signal);
     expect(fetchMock.mock.calls[0][1]?.signal).toBe(controller.signal);
     expect(String(fetchMock.mock.calls[0][0])).toContain('level=undergraduate');
+    expect(String(fetchMock.mock.calls[0][0])).toContain('department=AI%EB%8C%80%ED%95%99');
+    expect(String(fetchMock.mock.calls[0][0])).toContain(
+      'department=%EA%B8%B0%EC%B4%88%EA%B5%90%EC%9C%A1%ED%95%99%EB%B6%80',
+    );
     global.fetch = originalFetch;
   });
 });

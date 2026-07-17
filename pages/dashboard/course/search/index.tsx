@@ -8,12 +8,25 @@ import { Button } from '@components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from '@components/ui/sheet';
 import { ScrollArea } from '@components/ui/scroll-area';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
-import { Search, Book, Clock, FlaskConical, ChevronLeft, ChevronRight, X, SlidersHorizontal } from 'lucide-react';
+import {
+  Search,
+  BookOpen,
+  CalendarDays,
+  Clock,
+  FlaskConical,
+  GraduationCap,
+  Sparkles,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  SlidersHorizontal,
+} from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { getDepartmentDisplayName, getVisibleDepartmentDisplayNames, normalizeAcademicOrgName } from '@const/course-db';
 import { MultiSelect, type Option } from '@components/ui/multi-select';
 import { Checkbox } from '@components/ui/checkbox';
 import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue';
+import { useGraduationStore } from '@/lib/stores/useGraduationStore';
 import type { CourseCatalogSearchItem } from '@features/course-catalog/search';
 import type {
   CourseDiscoveryFacets,
@@ -53,7 +66,7 @@ const CATEGORY_OPTIONS = [
 
 const FEATURE_OPTIONS: { value: CourseCatalogRequirementFacet['feature'] | 'all'; label: string }[] = [
   { value: 'all', label: '전체 활용' },
-  { value: 'recommendation', label: '졸업 추천' },
+  { value: 'recommendation', label: '추천 후보 전체' },
   { value: 'minor', label: '부전공' },
   { value: 'roadmap', label: '로드맵' },
 ];
@@ -69,6 +82,7 @@ const SOURCE_OPTIONS: { value: CourseCatalogSourceKind | 'all'; label: string }[
 ];
 
 const ITEMS_PER_PAGE = 24;
+const NUMBER_FORMAT = new Intl.NumberFormat('ko-KR');
 const PILL_BADGE_CLASS = 'rounded-full px-2 py-0.5 text-xs font-medium';
 const OUTLINE_PILL_BADGE_CLASS = `${PILL_BADGE_CLASS} border-slate-200 bg-white text-slate-600`;
 const MONO_PILL_BADGE_CLASS = `${OUTLINE_PILL_BADGE_CLASS} font-mono`;
@@ -281,6 +295,8 @@ function groupManualListings(
 }
 
 export default function CourseSearchPage() {
+  const gradStatus = useGraduationStore((state) => state.gradStatus);
+  const isRegeneratingOutcome = useGraduationStore((state) => state.isRegeneratingOutcome);
   const [courses, setCourses] = useState<CourseDiscoveryListItem[]>([]);
   const [facets, setFacets] = useState<CourseDiscoveryFacets>({ departments: [], terms: [] });
   const [totalElements, setTotalElements] = useState(0);
@@ -300,6 +316,17 @@ export default function CourseSearchPage() {
   const [selectedParticipatingDepts, setSelectedParticipatingDepts] = useState<string[]>([]);
   const [showMOOCOnly, setShowMOOCOnly] = useState(false);
   const [showLabOnly, setShowLabOnly] = useState(false);
+  const [showMyRecommendationsOnly, setShowMyRecommendationsOnly] = useState(false);
+
+  const myRecommendationCourseCodes = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          (gradStatus?.allRecommendations ?? gradStatus?.recommendations ?? []).map(({ courseCode }) => courseCode),
+        ),
+      ),
+    [gradStatus],
+  );
 
   // 디바운스된 검색어 (300ms)
   const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
@@ -321,6 +348,11 @@ export default function CourseSearchPage() {
     });
 
     if (debouncedSearchQuery) params.set('q', debouncedSearchQuery);
+    if (showMyRecommendationsOnly) {
+      const courseCodes =
+        myRecommendationCourseCodes.length > 0 ? myRecommendationCourseCodes : ['__NO_PERSONAL_RECOMMENDATIONS__'];
+      courseCodes.forEach((courseCode) => params.append('courseCode', courseCode));
+    }
     if (category !== 'all') params.set('category', category);
     selectedTerms.forEach((term) => params.append('term', term));
     selectedParticipatingDepts.forEach((department) => params.append('department', department));
@@ -365,6 +397,8 @@ export default function CourseSearchPage() {
     selectedFeature,
     selectedSource,
     selectedProgram,
+    showMyRecommendationsOnly,
+    myRecommendationCourseCodes,
   ]);
 
   // Derived Data
@@ -393,6 +427,7 @@ export default function CourseSearchPage() {
     selectedFeature,
     selectedSource,
     selectedProgram,
+    showMyRecommendationsOnly,
   ]);
 
   const handleCourseClick = async (course: CourseDiscoveryListItem) => {
@@ -475,6 +510,14 @@ export default function CourseSearchPage() {
       });
     }
 
+    if (showMyRecommendationsOnly) {
+      filters.push({
+        key: 'myRecommendations',
+        label: '내 부족 영역 과목',
+        onRemove: () => setShowMyRecommendationsOnly(false),
+      });
+    }
+
     if (selectedSource !== 'all') {
       filters.push({
         key: 'source',
@@ -527,7 +570,14 @@ export default function CourseSearchPage() {
     selectedFeature,
     selectedSource,
     selectedProgram,
+    showMyRecommendationsOnly,
   ]);
+
+  const isInitialDiscovery = searchQuery.trim().length === 0 && activeFilters.length === 0;
+  const latestOfferingTerm = useMemo(
+    () => [...facets.terms].sort((a, b) => getTermSortValue(b) - getTermSortValue(a))[0],
+    [facets.terms],
+  );
 
   // 필터 초기화 함수
   const resetAllFilters = () => {
@@ -541,6 +591,7 @@ export default function CourseSearchPage() {
     setSelectedFeature('all');
     setSelectedSource('all');
     setSelectedProgram('all');
+    setShowMyRecommendationsOnly(false);
   };
 
   const FilterControls = () => (
@@ -703,7 +754,11 @@ export default function CourseSearchPage() {
       <NextSeo title="강의 검색" description="GIST 개설 강의를 검색하세요" noindex />
       <PageHeader
         title="강의 검색"
-        description={loading ? '데이터를 불러오는 중…' : `공통 강의 원천 ${courses.length}개 중 검색`}
+        description={
+          loading
+            ? '강의 데이터를 불러오는 중…'
+            : `${NUMBER_FORMAT.format(totalElements)}개 강의를 과목명, 코드와 학과로 탐색하세요.`
+        }
       />
 
       {/* Search & Filter Bar */}
@@ -786,79 +841,188 @@ export default function CourseSearchPage() {
         )}
       </div>
 
+      {isInitialDiscovery && (
+        <section
+          aria-labelledby="course-discovery-title"
+          className="mb-8 rounded-2xl border border-slate-200 bg-slate-50/70 p-5 sm:p-6"
+        >
+          <div className="max-w-2xl">
+            <p className="text-xs font-semibold tracking-wide text-blue-700">빠른 탐색</p>
+            <h2 id="course-discovery-title" className="mt-1 text-xl font-bold text-balance text-slate-950">
+              어떤 강의를 찾고 있나요?
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-pretty text-slate-600">
+              자주 찾는 조건으로 시작하거나 위 검색창에 과목명, 과목 코드 또는 학과를 입력하세요.
+            </p>
+          </div>
+
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <button
+              type="button"
+              onClick={() => {
+                if (latestOfferingTerm) setSelectedTerms([latestOfferingTerm]);
+                else setSelectedProgram('undergraduate');
+              }}
+              className="group min-w-0 touch-manipulation rounded-xl border border-slate-200 bg-white p-4 text-left transition-[background-color,border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50/40 hover:shadow-sm focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:transform-none motion-reduce:transition-none"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-700 group-hover:bg-blue-100">
+                <CalendarDays aria-hidden="true" size={17} />
+              </span>
+              <span className="mt-3 block truncate text-sm font-semibold text-slate-950">
+                {latestOfferingTerm ? `${formatCourseTerm(latestOfferingTerm)} 개설` : '학사 과정'}
+              </span>
+              <span className="mt-1 block text-xs leading-5 text-slate-500">
+                {latestOfferingTerm ? '최근 개설 강의만 확인' : '학사 과정 강의부터 확인'}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setCategory('major')}
+              className="group min-w-0 touch-manipulation rounded-xl border border-slate-200 bg-white p-4 text-left transition-[background-color,border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-violet-300 hover:bg-violet-50/40 hover:shadow-sm focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:transform-none motion-reduce:transition-none"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-50 text-violet-700 group-hover:bg-violet-100">
+                <GraduationCap aria-hidden="true" size={18} />
+              </span>
+              <span className="mt-3 block text-sm font-semibold text-slate-950">전공 강의</span>
+              <span className="mt-1 block text-xs leading-5 text-slate-500">전공 영역 강의만 탐색</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowLabOnly(true)}
+              className="group min-w-0 touch-manipulation rounded-xl border border-slate-200 bg-white p-4 text-left transition-[background-color,border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-emerald-50/40 hover:shadow-sm focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:transform-none motion-reduce:transition-none"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 group-hover:bg-emerald-100">
+                <FlaskConical aria-hidden="true" size={17} />
+              </span>
+              <span className="mt-3 block text-sm font-semibold text-slate-950">실습 과목</span>
+              <span className="mt-1 block text-xs leading-5 text-slate-500">실험·실습 시간이 있는 강의</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedFeature('all');
+                setShowMyRecommendationsOnly(true);
+              }}
+              disabled={isRegeneratingOutcome || !gradStatus || myRecommendationCourseCodes.length === 0}
+              className="group min-w-0 touch-manipulation rounded-xl border border-slate-200 bg-white p-4 text-left transition-[background-color,border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-amber-300 hover:bg-amber-50/40 hover:shadow-sm focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:border-slate-200 disabled:hover:bg-white disabled:hover:shadow-none motion-reduce:transform-none motion-reduce:transition-none"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-50 text-amber-700 group-hover:bg-amber-100">
+                <Sparkles aria-hidden="true" size={17} />
+              </span>
+              <span className="mt-3 block text-sm font-semibold text-slate-950">내 부족 영역 과목</span>
+              <span className="mt-1 block text-xs leading-5 text-slate-500">
+                {isRegeneratingOutcome
+                  ? '대시보드 추천을 계산하는 중'
+                  : !gradStatus
+                    ? '대시보드 분석 후 사용할 수 있어요'
+                    : myRecommendationCourseCodes.length === 0
+                      ? '현재 부족 영역 추천이 없어요'
+                      : `${NUMBER_FORMAT.format(myRecommendationCourseCodes.length)}개 맞춤 후보 확인`}
+              </span>
+            </button>
+          </div>
+        </section>
+      )}
+
       {/* Results Count */}
-      <div className="mb-4 text-sm text-gray-500">
-        검색 결과: <span className="font-medium text-gray-900">{totalElements}</span>개
+      <div className="mb-4 flex min-w-0 items-center justify-between gap-4" aria-live="polite">
+        <h2 className="text-base font-semibold text-slate-950">{isInitialDiscovery ? '전체 강의' : '검색 결과'}</h2>
+        <p className="shrink-0 text-sm text-gray-500 tabular-nums">
+          {loading ? '불러오는 중…' : `${NUMBER_FORMAT.format(totalElements)}개`}
+        </p>
       </div>
 
       {/* Course Grid - Card Style */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {courses.map((course) => {
-          const offeringSummary = getOfferingSummary(course);
-          const visibleAliasCodes = course.aliasCodes.filter((code) => code !== course.primaryCourseCode);
-          const visibleDepartments = getStudentVisibleDepartments(course);
-
-          return (
-            <button
-              key={course.courseId}
-              className="group relative rounded-xl border border-slate-200 bg-white p-5 text-left transition-[background-color,border-color,box-shadow] duration-150 ease-[var(--ease-ui-out)] hover:border-blue-200 hover:bg-slate-50/50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
-              onClick={() => handleCourseClick(course)}
+      {loading && courses.length === 0 ? (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" role="status" aria-live="polite">
+          <span className="sr-only">강의 목록을 불러오는 중…</span>
+          {Array.from({ length: 6 }, (_, index) => (
+            <div
+              key={index}
+              className="h-44 animate-pulse rounded-xl border border-slate-200 bg-white p-5 motion-reduce:animate-none"
             >
-              {/* Header: 과목코드 + 학점 */}
-              <div className="mb-4 flex items-start justify-between gap-3">
-                <div className="min-w-0 flex-1">
-                  <p className="font-mono text-sm font-bold text-gray-500">{course.primaryCourseCode}</p>
-                  <p className="mt-1 truncate text-lg font-bold text-gray-900">{course.displayTitleKo}</p>
-                  {course.displayTitleEn && (
-                    <p className="mt-0.5 truncate text-xs text-gray-500">{course.displayTitleEn}</p>
-                  )}
-                </div>
-                <Badge
-                  variant="outline"
-                  className="shrink-0 rounded-full border-slate-300 px-2.5 py-1 text-xs font-semibold"
-                >
-                  {course.creditHours}학점
-                </Badge>
+              <div className="h-3 w-20 rounded bg-slate-200" />
+              <div className="mt-3 h-5 w-2/3 rounded bg-slate-200" />
+              <div className="mt-8 h-6 w-28 rounded-full bg-slate-100" />
+              <div className="mt-4 flex gap-2">
+                <div className="h-5 w-20 rounded-full bg-slate-100" />
+                <div className="h-5 w-14 rounded-full bg-slate-100" />
               </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {courses.map((course) => {
+            const offeringSummary = getOfferingSummary(course);
+            const visibleAliasCodes = course.aliasCodes.filter((code) => code !== course.primaryCourseCode);
+            const visibleDepartments = getStudentVisibleDepartments(course);
 
-              <div className="space-y-3">
-                <div>
+            return (
+              <button
+                key={course.courseId}
+                className="group relative rounded-xl border border-slate-200 bg-white p-5 text-left transition-[background-color,border-color,box-shadow] duration-150 ease-[var(--ease-ui-out)] hover:border-blue-200 hover:bg-slate-50/50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
+                onClick={() => handleCourseClick(course)}
+              >
+                {/* Header: 과목코드 + 학점 */}
+                <div className="mb-4 flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-mono text-sm font-bold text-gray-500">{course.primaryCourseCode}</p>
+                    <p className="mt-1 truncate text-lg font-bold text-gray-900">{course.displayTitleKo}</p>
+                    {course.displayTitleEn && (
+                      <p className="mt-0.5 truncate text-xs text-gray-500">{course.displayTitleEn}</p>
+                    )}
+                  </div>
                   <Badge
                     variant="outline"
-                    className={`rounded-full px-2.5 py-1 text-xs font-semibold ${offeringToneClass(offeringSummary.tone)}`}
+                    className="shrink-0 rounded-full border-slate-300 px-2.5 py-1 text-xs font-semibold"
                   >
-                    {offeringSummary.label}
+                    {course.creditHours}학점
                   </Badge>
-                  {offeringSummary.detail && <p className="mt-1 text-xs text-gray-500">{offeringSummary.detail}</p>}
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2">
-                  {visibleDepartments[0] ? (
+                <div className="space-y-3">
+                  <div>
                     <Badge
-                      variant="secondary"
-                      className={`${PILL_BADGE_CLASS} border-0 ${getDepartmentBadgeColor(visibleDepartments[0])}`}
+                      variant="outline"
+                      className={`rounded-full px-2.5 py-1 text-xs font-semibold ${offeringToneClass(offeringSummary.tone)}`}
                     >
-                      {getDepartmentDisplayName(visibleDepartments[0])}
+                      {offeringSummary.label}
                     </Badge>
-                  ) : (
-                    <span className="text-xs text-gray-400">학과 정보 없음</span>
-                  )}
-                  {course.labHours > 0 && (
-                    <Badge variant="outline" className={OUTLINE_PILL_BADGE_CLASS}>
-                      실습 {course.labHours}h
-                    </Badge>
-                  )}
-                  {visibleAliasCodes.length > 0 && (
-                    <Badge variant="outline" className={OUTLINE_PILL_BADGE_CLASS}>
-                      별칭 {visibleAliasCodes.length}개
-                    </Badge>
-                  )}
+                    {offeringSummary.detail && <p className="mt-1 text-xs text-gray-500">{offeringSummary.detail}</p>}
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    {visibleDepartments[0] ? (
+                      <Badge
+                        variant="secondary"
+                        className={`${PILL_BADGE_CLASS} border-0 ${getDepartmentBadgeColor(visibleDepartments[0])}`}
+                      >
+                        {getDepartmentDisplayName(visibleDepartments[0])}
+                      </Badge>
+                    ) : (
+                      <span className="text-xs text-gray-400">학과 정보 없음</span>
+                    )}
+                    {course.labHours > 0 && (
+                      <Badge variant="outline" className={OUTLINE_PILL_BADGE_CLASS}>
+                        실습 {course.labHours}h
+                      </Badge>
+                    )}
+                    {visibleAliasCodes.length > 0 && (
+                      <Badge variant="outline" className={OUTLINE_PILL_BADGE_CLASS}>
+                        별칭 {visibleAliasCodes.length}개
+                      </Badge>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </button>
-          );
-        })}
-      </div>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* Pagination */}
       {totalPages > 1 && (
@@ -894,11 +1058,16 @@ export default function CourseSearchPage() {
       )}
 
       {/* Empty State */}
-      {!loading && totalElements === 0 && (
-        <div className="flex flex-col items-center justify-center py-16 text-center">
-          <Book className="h-12 w-12 text-gray-300" />
+      {!loading && totalElements === 0 && !isInitialDiscovery && (
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50/60 px-6 py-16 text-center">
+          <BookOpen aria-hidden="true" className="h-11 w-11 text-slate-300" />
           <h3 className="mt-4 text-lg font-medium text-gray-900">검색 결과가 없습니다</h3>
-          <p className="mt-1 text-sm text-gray-500">다른 검색어나 카테고리를 시도해보세요</p>
+          <p className="mt-1 max-w-sm text-sm leading-6 text-gray-500">
+            검색어를 줄이거나 적용한 필터를 초기화한 뒤 다시 확인해 보세요.
+          </p>
+          <Button variant="outline" className="mt-5 bg-white" onClick={resetAllFilters}>
+            필터 초기화
+          </Button>
         </div>
       )}
 

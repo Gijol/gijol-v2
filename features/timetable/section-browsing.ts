@@ -7,7 +7,7 @@ export type SectionProgramLevel = 'undergraduate' | 'graduate' | 'all';
 
 export interface SectionBrowsingQuery {
   query?: string;
-  department?: string;
+  departments?: readonly string[];
   programLevel?: SectionProgramLevel;
   courseCodes?: readonly string[];
   page?: number;
@@ -71,10 +71,11 @@ export function createSectionBrowser(sections: readonly SectionOffering[]): Sect
         SECTION_BROWSING_MAX_PAGE_SIZE,
       );
       const requestedCodes = new Set((query.courseCodes ?? []).map(normalizeCourseCode));
+      const requestedDepartments = new Set((query.departments ?? []).map((department) => department.trim()));
       const matchingSections = stableSections.filter(
         (section) =>
           matchesSearch(section, query.query ?? '') &&
-          (!query.department || section.department === query.department) &&
+          (requestedDepartments.size === 0 || requestedDepartments.has(section.department)) &&
           (requestedCodes.size === 0 || requestedCodes.has(normalizeCourseCode(section.course_code))),
       );
       const graduateSectionCount = matchingSections.filter(isGraduateSection).length;
