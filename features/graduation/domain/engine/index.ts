@@ -123,9 +123,11 @@ function checkFieldCompletion(
       const electives = courses.filter((c) => MATH_ELECTIVE.has(c.courseCode));
       const hasCalculus = calculus.length > 0;
       const hasElective = electives.length > 0;
+      result.requiredCourses = [calculus[0], electives[0]].filter((course): course is TakenCourseType =>
+        Boolean(course),
+      );
       result.isComplete = hasCalculus && hasElective;
       if (result.isComplete) {
-        result.requiredCourses = [calculus[0], electives[0]];
         result.completionIndex = Math.max(getTimeIndex(calculus[0]), getTimeIndex(electives[0]));
       }
       result.hasLab = true; // 수학은 실험 없음, 항상 true
@@ -211,10 +213,8 @@ function rebalanceScienceByTimeOrder(scienceCourses: TakenCourseType[]): Science
   const scienceBasic: TakenCourseType[] = [];
   const freeElective: TakenCourseType[] = [];
 
-  // 수학: 미적분학 + 선택 1과목만 기초과학
-  if (mathResult.isComplete) {
-    scienceBasic.push(...mathResult.requiredCourses);
-  }
+  // 수학: 이미 이수한 필수 구성요소는 전체 분야 완료 전에도 기초과학으로 유지
+  scienceBasic.push(...mathResult.requiredCourses);
   // 수학 분야 초과분은 자유선택
   const mathCourses = byField.get('math') || [];
   const mathExtra = mathCourses.filter((c) => !mathResult.requiredCourses.some((rc) => rc.courseCode === c.courseCode));

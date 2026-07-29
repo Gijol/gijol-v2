@@ -252,6 +252,27 @@ describe('course catalog search', () => {
     );
   });
 
+  it('passes academic context to representative course tags', () => {
+    const req = {
+      query: { q: 'AI2004', userMajor: 'AI', userMinor: 'EC', limit: '5' },
+    } as unknown as NextApiRequest;
+    const res = createMockResponse();
+
+    searchHandler(req, res);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(
+      expect.objectContaining({
+        content: [
+          expect.objectContaining({
+            primaryCourseCode: 'AI2004',
+            representativeTag: '전공',
+          }),
+        ],
+      }),
+    );
+  });
+
   it('matches combined course codes and renamed AI organization names', () => {
     const items = createCourseCatalogSearchItems(COURSE_CATALOG_SNAPSHOT);
     const mathCombinedCode = filterCourseCatalogSearchItems(items, { query: 'GS(MM)2001' });

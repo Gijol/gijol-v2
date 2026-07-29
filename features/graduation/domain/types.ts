@@ -133,6 +133,8 @@ export interface ExcludedCourseInfo extends MatchedCourseInfo {
   reason: string;
 }
 
+export type RequirementMeasureUnit = 'credits' | 'courses' | 'occurrences';
+
 export interface FineGrainedRequirement {
   id: string;
   categoryKey: CategoryKey;
@@ -140,6 +142,7 @@ export interface FineGrainedRequirement {
   requiredCredits: number;
   acquiredCredits: number;
   missingCredits: number;
+  unit?: RequirementMeasureUnit;
   satisfied: boolean;
   status?: RequirementEvaluationStatus;
   importance: RequirementImportance;

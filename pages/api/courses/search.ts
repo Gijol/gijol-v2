@@ -38,6 +38,8 @@ function parseQuery(req: NextApiRequest): CourseDiscoveryQuery {
     feature: first(req.query.feature) as CourseDiscoveryQuery['feature'],
     sourceKind: first(req.query.sourceKind) as CourseDiscoveryQuery['sourceKind'],
     program: first(req.query.program) as CourseDiscoveryQuery['program'],
+    userMajor: first(req.query.userMajor),
+    userMinors: list(req.query.userMinor),
     page: integer(first(req.query.page)),
     pageSize: integer(first(req.query.pageSize) ?? first(req.query.limit)),
   };

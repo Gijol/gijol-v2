@@ -6,6 +6,7 @@ import {
   type CourseCatalogSearchItem,
 } from './search';
 import type { CourseCatalogOffering } from './types';
+import { normalizeCourseCode } from './normalize';
 
 export const COURSE_DISCOVERY_DEFAULT_PAGE_SIZE = 24;
 export const COURSE_DISCOVERY_MAX_PAGE_SIZE = 100;
@@ -13,6 +14,8 @@ export const COURSE_DISCOVERY_MAX_PAGE_SIZE = 100;
 export interface CourseDiscoveryQuery extends CourseCatalogSearchFilters {
   moocOnly?: boolean;
   program?: CourseCatalogOffering['program'] | 'all';
+  userMajor?: string;
+  userMinors?: readonly string[];
   page?: number;
   pageSize?: number;
 }
@@ -24,6 +27,7 @@ export interface CourseDiscoveryListItem {
   displayTitleEn: string;
   aliasCodes: readonly string[];
   departments: readonly string[];
+  representativeTag?: string;
   creditHours: number;
   labHours: number;
   lifecycleStatus: CourseCatalogSearchItem['lifecycleStatus'];
@@ -55,7 +59,44 @@ function positiveInteger(value: number | undefined, fallback: number): number {
   return Math.max(1, Math.floor(value!));
 }
 
-function toListItem(item: CourseCatalogSearchItem): CourseDiscoveryListItem {
+function getRepresentativeAcademicTag(item: CourseCatalogSearchItem, query: CourseDiscoveryQuery): string | undefined {
+  const userMajor = normalizeCourseCode(query.userMajor);
+  const userMinors = new Set((query.userMinors ?? []).map(normalizeCourseCode).filter(Boolean));
+  const courseCodes = [item.primaryCourseCode, ...item.aliasCodes].map(normalizeCourseCode);
+  const matchesMajor =
+    Boolean(userMajor) &&
+    (courseCodes.some((courseCode) => courseCode.startsWith(userMajor)) ||
+      item.facets.some(
+        (facet) => facet.feature === 'recommendation' && normalizeCourseCode(facet.programCode) === userMajor,
+      ));
+
+  if (matchesMajor) return '전공';
+
+  const matchingMinorFacets = item.facets.filter(
+    (facet) => facet.feature === 'minor' && userMinors.has(normalizeCourseCode(facet.programCode)),
+  );
+  if (matchingMinorFacets.length > 0) {
+    const isMandatory = matchingMinorFacets.some(
+      (facet) => facet.category.includes('필수') || facet.classification?.toLowerCase().includes('mandatory'),
+    );
+    return isMandatory ? '부전공필수' : '부전공선택';
+  }
+
+  const requirementIds = item.facets.flatMap((facet) => (facet.requirementId ? [facet.requirementId] : []));
+  if (requirementIds.some((requirementId) => requirementId.startsWith('science-'))) return '기초과학';
+  if (requirementIds.some((requirementId) => requirementId.startsWith('language-'))) return '언어의 기초';
+  if (
+    requirementIds.some((requirementId) => requirementId.startsWith('humanities-')) ||
+    courseCodes.some((courseCode) => /^(HS|EB|LH|MB|PP|SS)/.test(courseCode))
+  ) {
+    return '인문사회';
+  }
+  if (requirementIds.some((requirementId) => requirementId.startsWith('etc-'))) return '공통필수';
+
+  return undefined;
+}
+
+function toListItem(item: CourseCatalogSearchItem, query: CourseDiscoveryQuery): CourseDiscoveryListItem {
   const offeringTerms = Array.from(new Set(item.offeringGroups.map((group) => group.term))).sort();
   const offeringPrograms = Array.from(
     new Set(
@@ -72,6 +113,7 @@ function toListItem(item: CourseCatalogSearchItem): CourseDiscoveryListItem {
     displayTitleEn: item.displayTitleEn,
     aliasCodes: item.aliasCodes,
     departments: item.departments,
+    representativeTag: getRepresentativeAcademicTag(item, query),
     creditHours: item.creditHours,
     labHours: item.labHours,
     lifecycleStatus: item.lifecycleStatus,
@@ -113,7 +155,7 @@ export function createCourseDiscovery(items: readonly CourseCatalogSearchItem[])
       const offset = (page - 1) * pageSize;
 
       return {
-        content: filtered.slice(offset, offset + pageSize).map(toListItem),
+        content: filtered.slice(offset, offset + pageSize).map((item) => toListItem(item, query)),
         page,
         pageSize,
         totalElements,

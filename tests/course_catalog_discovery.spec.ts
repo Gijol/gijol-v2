@@ -63,4 +63,43 @@ describe('course discovery', () => {
     expect(codes).toEqual(expect.arrayContaining(['AI3001', 'HS4611']));
     expect(page.totalElements).toBe(2);
   });
+
+  it('chooses a representative academic tag by major and minor priority instead of alphabetical order', () => {
+    const majorPage = discovery.search({
+      query: 'AI2004',
+      userMajor: 'AI',
+      userMinors: ['EC'],
+    });
+    const minorPage = discovery.search({
+      query: 'AI2004',
+      userMajor: 'BS',
+      userMinors: ['EC'],
+    });
+
+    expect(majorPage.content[0]).toMatchObject({
+      primaryCourseCode: 'AI2004',
+      representativeTag: '전공',
+    });
+    expect(minorPage.content[0]).toMatchObject({
+      primaryCourseCode: 'AI2004',
+      representativeTag: '부전공선택',
+    });
+  });
+
+  it.each([
+    { courseCode: 'GS1490', representativeTag: '기초과학' },
+    { courseCode: 'GS1607', representativeTag: '언어의 기초' },
+    { courseCode: 'HS2507', representativeTag: '인문사회' },
+    { courseCode: 'UC0901', representativeTag: '공통필수' },
+  ])(
+    'uses $representativeTag as the common completion-area tag for $courseCode',
+    ({ courseCode, representativeTag }) => {
+      const page = discovery.search({ query: courseCode });
+
+      expect(page.content[0]).toMatchObject({
+        primaryCourseCode: courseCode,
+        representativeTag,
+      });
+    },
+  );
 });

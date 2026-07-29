@@ -47,7 +47,10 @@ export function expectRequirement(
   result: GradStatusResponseV2,
   id: string,
   expected: Partial<
-    Pick<FineGrainedRequirement, 'satisfied' | 'status' | 'requiredCredits' | 'acquiredCredits' | 'missingCredits'>
+    Pick<
+      FineGrainedRequirement,
+      'satisfied' | 'status' | 'requiredCredits' | 'acquiredCredits' | 'missingCredits' | 'unit'
+    >
   >,
 ): FineGrainedRequirement {
   const requirement = findRequirement(result, id);
