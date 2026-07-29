@@ -11,18 +11,18 @@ describe('course catalog source diff report', () => {
 
     expect(report.totals).toEqual(
       expect.objectContaining({
-        offerings: 5448,
-        manualListings: 3590,
-        manualOnlyCourses: 134,
-        offeredOnlyCourses: 358,
+        offerings: 5548,
+        manualListings: 3591,
+        manualOnlyCourses: 131,
+        offeredOnlyCourses: 362,
       }),
     );
     expect(report.termCoverage).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           term: '2026-2',
-          sections: 507,
-          uniqueCourseCodes: 399,
+          sections: 607,
+          uniqueCourseCodes: 475,
         }),
       ]),
     );
@@ -51,13 +51,11 @@ describe('course catalog source diff report', () => {
 
   it('renders a readable markdown report', () => {
     const { snapshot } = buildCourseCatalogSnapshotFromWorkspace(process.cwd());
-    const markdown = renderCourseCatalogSourceDiffReportMarkdown(
-      buildCourseCatalogSourceDiffReport(snapshot),
-    );
+    const markdown = renderCourseCatalogSourceDiffReportMarkdown(buildCourseCatalogSourceDiffReport(snapshot));
 
     expect(markdown).toContain('# Course Catalog Source Diff Report');
-    expect(markdown).toContain('## Manual Listed Without Actual Offering (134)');
-    expect(markdown).toContain('## Actually Offered Without Manual Listing (358)');
-    expect(markdown).toContain('| 2026-2 | 2026 2학기 | 507 | 399 |');
+    expect(markdown).toContain('## Manual Listed Without Actual Offering (131)');
+    expect(markdown).toContain('## Actually Offered Without Manual Listing (362)');
+    expect(markdown).toContain('| 2026-2 | 2026 2학기 | 607 | 475 |');
   });
 });
