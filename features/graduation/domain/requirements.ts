@@ -510,6 +510,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
       requiredCredits: calculusRequirement.requiredCredits,
       acquiredCredits: tookCalculus ? calculusRequirement.requiredCredits : 0,
       missingCredits: tookCalculus ? 0 : calculusRequirement.requiredCredits,
+      unit: 'courses',
       satisfied: tookCalculus,
       importance: 'must',
       hint: courseBasedHint(
@@ -529,6 +530,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
       requiredCredits: coreMathRequirement.requiredCredits,
       acquiredCredits: tookCoreMath ? coreMathRequirement.requiredCredits : 0,
       missingCredits: tookCoreMath ? 0 : coreMathRequirement.requiredCredits,
+      unit: 'courses',
       satisfied: tookCoreMath,
       importance: 'must',
       hint: courseBasedHint(
@@ -583,6 +585,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
     requiredCredits: softwareBasicRequirement.requiredCredits,
     acquiredCredits: swSatisfied ? softwareBasicRequirement.requiredCredits : 0,
     missingCredits: swSatisfied ? 0 : softwareBasicRequirement.requiredCredits,
+    unit: 'courses',
     satisfied: swSatisfied,
     importance: 'must',
     hint: swSatisfied
@@ -732,6 +735,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
     requiredCredits: colloquiumRequirement.requiredCount,
     acquiredCredits: colloquiumCount,
     missingCredits: Math.max(0, colloquiumRequirement.requiredCount - colloquiumCount),
+    unit: 'occurrences',
     satisfied: colloquiumSatisfied,
     importance: 'must',
     hint: colloquiumSatisfied
@@ -792,6 +796,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
       requiredCredits: artsRequirement.requiredCount,
       acquiredCredits: artCount,
       missingCredits: Math.max(0, artsRequirement.requiredCount - artCount),
+      unit: 'courses',
       satisfied: artSatisfied,
       importance: 'must',
       hint: artSatisfied
@@ -808,6 +813,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
       requiredCredits: sportsRequirement.requiredCount,
       acquiredCredits: sportCount,
       missingCredits: Math.max(0, sportsRequirement.requiredCount - sportCount),
+      unit: 'courses',
       satisfied: sportSatisfied,
       importance: 'must',
       hint: sportSatisfied
@@ -939,6 +945,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
           requiredCredits: rule.requiredCount, // Using count as required unit
           acquiredCredits: matchCount,
           missingCredits: Math.max(0, rule.requiredCount - matchCount),
+          unit: 'courses',
           satisfied: satisfied,
           importance: 'must',
           hint: satisfied
@@ -971,6 +978,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
             requiredCredits: rule.requiredCount, // count based
             acquiredCredits: matchCount,
             missingCredits: Math.max(0, rule.requiredCount - matchCount),
+            unit: 'courses',
             satisfied: satisfied,
             importance: 'must',
             hint: satisfied
@@ -998,6 +1006,7 @@ export function buildFineGrainedRequirements(ctx: AnalyzeContext): FineGrainedRe
       requiredCredits: requirement.requiredCount,
       acquiredCredits: thesisSatisfied ? requirement.requiredCount : 0,
       missingCredits: thesisSatisfied ? 0 : requirement.requiredCount,
+      unit: 'courses',
       satisfied: thesisSatisfied,
       importance: 'must',
       hint: courseBasedHint(

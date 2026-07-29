@@ -15,7 +15,9 @@ import {
   ZERO_CREDIT_PE_PREFIX,
   COMMON_MAJOR_PREFIXES,
   ALL_HUMANITIES_COURSES,
+  ALL_HUMANITIES_SUFFIXES,
   GSC_COURSES,
+  getCourseSuffix,
 } from './constants';
 import { getAliases } from './constants/alias-mappings';
 import { resolveMajorCode } from './academic-context';
@@ -35,10 +37,20 @@ function normalizeName(name?: string): string {
 }
 
 const HUMANITIES_CODE_PREFIXES = new Set(['HS', 'GS', 'EB', 'LH', 'MB', 'PP', 'SS']);
+const HUMANITIES_TRANSCRIPT_PREFIXES = new Set(['HS', 'EB', 'LH', 'MB', 'PP', 'SS']);
 
 function isHumanitiesTranscriptCode(code: string): boolean {
   const prefix = code.match(/^[A-Z]+/)?.[0] || '';
   return HUMANITIES_CODE_PREFIXES.has(prefix);
+}
+
+function isRecognizedHumanitiesCourseCode(code: string): boolean {
+  const prefix = code.match(/^[A-Z]+/)?.[0] || '';
+  return (
+    HUMANITIES_TRANSCRIPT_PREFIXES.has(prefix) ||
+    ALL_HUMANITIES_COURSES.has(code) ||
+    ALL_HUMANITIES_SUFFIXES.has(getCourseSuffix(code))
+  );
 }
 
 function isIrAiCodeMinorCourse(code: string): boolean {
@@ -91,8 +103,11 @@ export function classifyCourse(course: TakenCourseType, userMajor?: string, user
     return 'minor';
   }
 
-  // 1.5) MOOC -> 자유학점
+  // 1.5) MOOC 지정은 HUS/PPE/GSC 이수영역을 덮어쓰지 않음
   if (name.includes('mooc')) {
+    if (isRecognizedHumanitiesCourseCode(code)) {
+      return 'humanities';
+    }
     return 'otherUncheckedClass';
   }
 
@@ -137,11 +152,7 @@ export function classifyCourse(course: TakenCourseType, userMajor?: string, user
   if (SCIENCE_KEYWORDS.some((kw) => name.includes(kw))) return 'scienceBasic';
 
   // 6) 인문사회
-  if (
-    /^(HS|EB|LH|MB|PP|SS)/.test(prefix) ||
-    HUMANITY_KEYWORDS.some((kw) => name.includes(kw)) ||
-    ALL_HUMANITIES_COURSES.has(code)
-  ) {
+  if (isRecognizedHumanitiesCourseCode(code) || HUMANITY_KEYWORDS.some((kw) => name.includes(kw))) {
     return 'humanities';
   }
 

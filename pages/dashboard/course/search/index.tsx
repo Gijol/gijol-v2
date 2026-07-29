@@ -297,6 +297,8 @@ function groupManualListings(
 export default function CourseSearchPage() {
   const gradStatus = useGraduationStore((state) => state.gradStatus);
   const isRegeneratingOutcome = useGraduationStore((state) => state.isRegeneratingOutcome);
+  const userMajor = useGraduationStore((state) => state.userMajor);
+  const userMinors = useGraduationStore((state) => state.userMinors);
   const [courses, setCourses] = useState<CourseDiscoveryListItem[]>([]);
   const [facets, setFacets] = useState<CourseDiscoveryFacets>({ departments: [], terms: [] });
   const [totalElements, setTotalElements] = useState(0);
@@ -363,6 +365,8 @@ export default function CourseSearchPage() {
     if (selectedProgram !== 'all') params.set('program', selectedProgram);
     if (showMOOCOnly) params.set('moocOnly', 'true');
     if (showLabOnly) params.set('labOnly', 'true');
+    if (userMajor) params.set('userMajor', userMajor);
+    userMinors.forEach((minorCode) => params.append('userMinor', minorCode));
 
     setLoading(true);
     fetch(`/api/courses/search?${params.toString()}`, { signal: controller.signal })
@@ -399,6 +403,8 @@ export default function CourseSearchPage() {
     selectedProgram,
     showMyRecommendationsOnly,
     myRecommendationCourseCodes,
+    userMajor,
+    userMinors,
   ]);
 
   // Derived Data
@@ -960,6 +966,7 @@ export default function CourseSearchPage() {
             const offeringSummary = getOfferingSummary(course);
             const visibleAliasCodes = course.aliasCodes.filter((code) => code !== course.primaryCourseCode);
             const visibleDepartments = getStudentVisibleDepartments(course);
+            const representativeTag = course.representativeTag ?? visibleDepartments[0];
 
             return (
               <button
@@ -996,12 +1003,12 @@ export default function CourseSearchPage() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2">
-                    {visibleDepartments[0] ? (
+                    {representativeTag ? (
                       <Badge
                         variant="secondary"
-                        className={`${PILL_BADGE_CLASS} border-0 ${getDepartmentBadgeColor(visibleDepartments[0])}`}
+                        className={`${PILL_BADGE_CLASS} border-0 ${getDepartmentBadgeColor(representativeTag)}`}
                       >
-                        {getDepartmentDisplayName(visibleDepartments[0])}
+                        {getDepartmentDisplayName(representativeTag)}
                       </Badge>
                     ) : (
                       <span className="text-xs text-gray-400">학과 정보 없음</span>

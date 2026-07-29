@@ -97,6 +97,15 @@ describe('manual-backed basic graduation requirements', () => {
   });
 
   describe('entry-year specific mandatory courses', () => {
+    it('preserves course and occurrence units in fine-grained requirement results', async () => {
+      const result = await evaluateFor(2021, []);
+
+      expectRequirement(result, 'science-calculus', { unit: 'courses' });
+      expectRequirement(result, 'science-core-math', { unit: 'courses' });
+      expectRequirement(result, 'science-sw-basic', { unit: 'courses' });
+      expectRequirement(result, 'etc-colloquium', { unit: 'occurrences' });
+    });
+
     it('requires GIST major exploration for 2021+ entry years', async () => {
       // 2026 bachelor manual p.33: GIST major exploration is mandatory from 2021 entry years.
       const result = await evaluateFor(2021, []);
@@ -193,6 +202,27 @@ describe('manual-backed basic graduation requirements', () => {
     });
   });
 
+  describe('science basics', () => {
+    it('keeps completed calculus in science basics before the full math field is complete', async () => {
+      const result = await evaluateFor(2021, [
+        course({
+          courseCode: 'GS1001',
+          courseName: '미적분학과 응용',
+        }),
+      ]);
+      const scienceCodes = result.graduationCategory.scienceBasic.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+      const freeElectiveCodes = result.graduationCategory.otherUncheckedClass.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+
+      expectRequirement(result, 'science-calculus', { satisfied: true });
+      expect(scienceCodes).toContain('GS1001');
+      expect(freeElectiveCodes).not.toContain('GS1001');
+    });
+  });
+
   describe('humanities credits', () => {
     it('requires HUS 6 credits, PPE 6 credits, and 24 total humanities credits', async () => {
       // 2026 bachelor manual pp.33-34: humanities requires 24 credits including HUS 6 and PPE 6.
@@ -226,6 +256,73 @@ describe('manual-backed basic graduation requirements', () => {
         missingCredits: 0,
       });
     });
+
+    it('keeps MOOC-designated HUS and PPE courses in the humanities completion area', async () => {
+      const result = await evaluateFor(2021, [
+        course({
+          courseCode: 'HS2507',
+          courseName: '(MOOC 지정) 시의 이해',
+        }),
+        course({
+          courseCode: 'PP3767',
+          courseName: '(MOOC 지정) 인공지능 로봇의 윤리',
+        }),
+      ]);
+      const humanitiesCodes = result.graduationCategory.humanities.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+      const freeElectiveCodes = result.graduationCategory.otherUncheckedClass.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+
+      expect(humanitiesCodes).toEqual(expect.arrayContaining(['HS2507', 'PP3767']));
+      expect(freeElectiveCodes).not.toEqual(expect.arrayContaining(['HS2507', 'PP3767']));
+      expectRequirement(result, 'humanities-hus', {
+        acquiredCredits: 3,
+        missingCredits: 3,
+      });
+      expectRequirement(result, 'humanities-ppe', {
+        acquiredCredits: 3,
+        missingCredits: 3,
+      });
+    });
+
+    it('classifies a cross-listed PPE alias in the same humanities completion area', async () => {
+      const result = await evaluateFor(2021, [
+        course({
+          courseCode: 'MM3767',
+          courseName: '인공지능 로봇의 윤리',
+        }),
+      ]);
+      const humanitiesCodes = result.graduationCategory.humanities.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+
+      expect(humanitiesCodes).toContain('MM3767');
+      expectRequirement(result, 'humanities-ppe', {
+        acquiredCredits: 3,
+        missingCredits: 3,
+      });
+    });
+
+    it('keeps a non-humanities MOOC course in free electives', async () => {
+      const result = await evaluateFor(2021, [
+        course({
+          courseCode: 'GS1499',
+          courseName: '(MOOC 지정) 파이썬 기초',
+          credit: 2,
+        }),
+      ]);
+      const humanitiesCodes = result.graduationCategory.humanities.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+      const freeElectiveCodes = result.graduationCategory.otherUncheckedClass.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+
+      expect(humanitiesCodes).not.toContain('GS1499');
+      expect(freeElectiveCodes).toContain('GS1499');
+    });
   });
 
   describe('zero-credit arts and sports', () => {
@@ -244,12 +341,14 @@ describe('manual-backed basic graduation requirements', () => {
           requiredCredits: requiredCourses,
           acquiredCredits: 0,
           missingCredits: requiredCourses,
+          unit: 'courses',
         });
         expectRequirement(result, 'sports', {
           satisfied: false,
           requiredCredits: requiredCourses,
           acquiredCredits: 0,
           missingCredits: requiredCourses,
+          unit: 'courses',
         });
       },
     );

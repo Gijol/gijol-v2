@@ -136,9 +136,15 @@ function getFineGrainedCourses(
   satisfiedRequirementIds: ReadonlySet<string>,
   courseCatalogIndex: CourseCatalogRecommendationIndex,
 ): CatalogRecommendationCourse[] {
+  const satisfiedScienceSubrequirements =
+    requirement.id === 'science-total'
+      ? ['science-calculus', 'science-core-math', 'science-sw-basic'].filter((requirementId) =>
+          satisfiedRequirementIds.has(requirementId),
+        )
+      : [];
+
   return courseCatalogIndex.getRecommendationCoursesForRequirement(requirement.id, {
-    excludeRequirementIds:
-      requirement.id === 'science-total' && satisfiedRequirementIds.has('science-calculus') ? ['science-calculus'] : [],
+    excludeRequirementIds: satisfiedScienceSubrequirements,
   });
 }
 

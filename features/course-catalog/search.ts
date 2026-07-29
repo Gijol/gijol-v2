@@ -62,6 +62,7 @@ export interface CourseCatalogSearchItem {
     category: string;
     classification?: string;
     programCode?: string;
+    requirementId?: string;
   }[];
   matchText: string;
 }
@@ -201,6 +202,7 @@ export function createCourseCatalogSearchItems(snapshot: CourseCatalogSnapshot):
       category: facet.category,
       classification: facet.classification,
       programCode: facet.programCode,
+      requirementId: facet.requirementId,
     }));
     const compactManualListings = manualListings.map((listing) => ({
       id: listing.id,

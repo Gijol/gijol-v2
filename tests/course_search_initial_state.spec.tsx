@@ -18,7 +18,13 @@ describe('course search initial discovery state', () => {
   afterEach(() => {
     cleanup();
     act(() => {
-      useGraduationStore.setState({ gradStatus: null, takenCourses: [], isRegeneratingOutcome: false });
+      useGraduationStore.setState({
+        gradStatus: null,
+        takenCourses: [],
+        userMajor: '',
+        userMinors: [],
+        isRegeneratingOutcome: false,
+      });
     });
     global.fetch = originalFetch;
   });
@@ -101,5 +107,25 @@ describe('course search initial discovery state', () => {
       ).toBe(true);
     });
     expect(screen.getByText('내 부족 영역 과목', { selector: '[class*="bg-blue-50"]' })).toBeInTheDocument();
+  });
+
+  it('sends the student major and minors for representative tag selection', async () => {
+    const fetchMock = jest.fn(async () => ({
+      ok: true,
+      json: async () => emptyDiscoveryPage,
+    }));
+    global.fetch = fetchMock as unknown as typeof fetch;
+    useGraduationStore.setState({
+      userMajor: 'AI',
+      userMinors: ['EC'],
+    });
+
+    render(<CourseSearchPage />);
+
+    await screen.findByText('2026 2학기 개설');
+    await waitFor(() => {
+      const requestedUrls = (fetchMock.mock.calls as unknown as Array<[RequestInfo | URL]>).map(([url]) => String(url));
+      expect(requestedUrls.some((url) => url.includes('userMajor=AI') && url.includes('userMinor=EC'))).toBe(true);
+    });
   });
 });
