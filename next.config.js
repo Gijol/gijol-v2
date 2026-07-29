@@ -16,6 +16,12 @@ module.exports = withBundleAnalyzer({
     ignoreDuringBuilds: true,
   },
 
+  experimental: {
+    outputFileTracingIncludes: {
+      '/api/timetable/**': ['./DB/timetable/registration-system/*.normalized.json'],
+    },
+  },
+
   async headers() {
     return [
       {
