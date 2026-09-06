@@ -30,7 +30,8 @@
     "prettier:write": "prettier --write \"**/*.{ts,tsx}\"",
     "test": "npm run prettier:check && npm run lint && npm run typecheck && npm run jest",
     "storybook": "start-storybook -p 7001",
-    "storybook:build": "build-storybook"
+    "storybook:build": "build-storybook",
+    "course-catalog:audit-handbooks": "ts-node -r tsconfig-paths/register scripts/course-catalog/audit-handbook-integrity.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
