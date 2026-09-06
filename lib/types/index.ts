@@ -1,5 +1,7 @@
+import type { CreditRecognition } from '@features/graduation/domain/credit-recognition';
 export interface UserTakenCourse {
   courseCode: string;
+  creditRecognition?: CreditRecognition;
   courseName: string;
   courseType: string | 'HUS' | 'PPE' | '필수';
   credit: number;

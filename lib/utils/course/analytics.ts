@@ -42,6 +42,7 @@ export function truncateGradeAverage(value: number): number {
 
 export function calcAverageGrade<T extends HasGradeAndCredit>(courses: T[]): number | null {
   const graded = courses.filter((c) => {
+    if (c.creditRecognition) return false; // Manual p.208: transferred grades are excluded from GPA.
     const g = String(c.grade ?? '').toUpperCase();
     return g && !Number.isNaN(GRADE_POINT_45[g]);
   });
@@ -122,6 +123,7 @@ export function buildCourseListWithPeriod(parsed: UserStatusType | null): Course
     courseCode: c.courseCode ?? c.code ?? '',
     courseName: c.courseName ?? c.course ?? '',
     courseType: c.courseType ?? c.type ?? '',
+    creditRecognition: c.creditRecognition,
   }));
 
   const byKey: Record<string, ParsedCourseRow[]> = {};

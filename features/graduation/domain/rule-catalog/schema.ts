@@ -93,15 +93,23 @@ export interface CourseCreditRuleParameters {
   legacyPairCodes?: readonly string[];
 }
 
+export interface LegacyCourseCountAlternative {
+  triggerCourseCode: string;
+  requiredCount: number;
+  courses: readonly string[];
+}
+
 export interface CourseCountRuleParameters {
+  legacyAlternative?: LegacyCourseCountAlternative;
   requiredCount: number;
   unit: 'courses';
   courses: readonly string[];
+  courseNames?: readonly string[];
 }
 
 export interface ActivityCountRuleParameters {
   requiredCount: number;
-  unit: 'courses' | 'occurrences';
+  unit: 'courses' | 'occurrences' | 'semesters';
 }
 
 export interface CourseLimitRuleParameters {
@@ -294,12 +302,7 @@ function validateSourceRefs(rule: RuleCatalogRule, issues: RuleCatalogValidation
 
   rule.sourceRefs.forEach((sourceRef, index) => {
     if (!isPositiveInteger(sourceRef.manualYear) || !isPositiveInteger(sourceRef.page) || !sourceRef.path) {
-      pushIssue(
-        issues,
-        rule.id,
-        'invalid-source-ref',
-        `sourceRefs[${index}] must include manualYear, page, and path.`,
-      );
+      pushIssue(issues, rule.id, 'invalid-source-ref', `sourceRefs[${index}] must include manualYear, page, and path.`);
     }
   });
 }
@@ -319,12 +322,7 @@ function validateScope(rule: RuleCatalogRule, issues: RuleCatalogValidationIssue
   if (rule.scope.type === 'global') return;
 
   if (!RULE_PROGRAM_KINDS.includes(rule.scope.programKind)) {
-    pushIssue(
-      issues,
-      rule.id,
-      'invalid-scope',
-      `programKind must be one of: ${RULE_PROGRAM_KINDS.join(', ')}.`,
-    );
+    pushIssue(issues, rule.id, 'invalid-scope', `programKind must be one of: ${RULE_PROGRAM_KINDS.join(', ')}.`);
   }
 
   if (rule.scope.type === 'program' && !hasNonEmptyStrings(rule.scope.programCodes)) {
@@ -360,16 +358,9 @@ function validateParameters(rule: RuleCatalogRule, issues: RuleCatalogValidation
     }
     if (
       variants.length === 0 ||
-      variants.some(
-        (variant) => !variant.conditionKey || !isPositiveInteger(variant.requiredCredits),
-      )
+      variants.some((variant) => !variant.conditionKey || !isPositiveInteger(variant.requiredCredits))
     ) {
-      pushIssue(
-        issues,
-        rule.id,
-        'invalid-parameters',
-        'conditional-credit-minimum parameters require valid variants.',
-      );
+      pushIssue(issues, rule.id, 'invalid-parameters', 'conditional-credit-minimum parameters require valid variants.');
     }
   }
 
@@ -406,13 +397,31 @@ function validateParameters(rule: RuleCatalogRule, issues: RuleCatalogValidation
     if (!hasNonEmptyStrings(parameters.courses)) {
       pushIssue(issues, rule.id, 'invalid-parameters', 'course-count parameters require courses.');
     }
+    if (parameters.legacyAlternative !== undefined) {
+      const alternative = parameters.legacyAlternative;
+      if (
+        !alternative ||
+        !isPositiveInteger(alternative.requiredCount) ||
+        !hasNonEmptyStrings(alternative.courses) ||
+        !alternative.triggerCourseCode ||
+        !alternative.courses.includes(alternative.triggerCourseCode) ||
+        alternative.requiredCount > alternative.courses.length
+      ) {
+        pushIssue(
+          issues,
+          rule.id,
+          'invalid-parameters',
+          'course-count legacyAlternative requires a trigger within its courses and a valid count.',
+        );
+      }
+    }
   }
 
   if (rule.kind === 'activity-count') {
     const parameters = rule.parameters as Partial<ActivityCountRuleParameters>;
     if (
       !isPositiveInteger(parameters.requiredCount) ||
-      !['courses', 'occurrences'].includes(String(parameters.unit))
+      !['courses', 'occurrences', 'semesters'].includes(String(parameters.unit))
     ) {
       pushIssue(issues, rule.id, 'invalid-parameters', 'activity-count parameters require count and unit.');
     }
@@ -525,12 +534,7 @@ function validateApplicability(
   }
 
   if (rule.appliesTo?.allCohorts === true && rule.appliesTo.entryYear) {
-    pushIssue(
-      issues,
-      rule.id,
-      'conflicting-applies-to',
-      'allCohorts cannot be combined with an entryYear range.',
-    );
+    pushIssue(issues, rule.id, 'conflicting-applies-to', 'allCohorts cannot be combined with an entryYear range.');
   }
 
   validateEntryYearRange(rule, rule.appliesTo?.entryYear, issues);

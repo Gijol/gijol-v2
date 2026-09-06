@@ -19,7 +19,7 @@ describe('graduation rule catalog compiler', () => {
 
     expect(compiled.byId.get('major-credits.2021-plus')).toMatchObject({
       kind: 'credit-minimum',
-      scope: { type: 'program-kind', programKind: 'major' },
+      scope: { type: 'program', programKind: 'major' },
       parameters: { requiredCredits: 36, unit: 'credits' },
       sourceRefs: [expect.objectContaining({ manualYear: 2026 })],
     });

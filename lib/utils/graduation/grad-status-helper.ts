@@ -29,6 +29,7 @@ export const toTakenCourses = (p: UserStatusType): TakenCourseType[] => {
     courseName: c.courseName || c.course || '',
     courseCode: c.courseCode || c.code || '',
     credit: Number(c.credit) || 0,
+    ...(c.creditRecognition ? { creditRecognition: c.creditRecognition } : {}),
     grade: typeof c.grade === 'string' ? c.grade.trim() : '',
     ...(c.gradeStatus ? { gradeStatus: c.gradeStatus } : {}),
     ...(c.gradeStatusReason ? { gradeStatusReason: c.gradeStatusReason } : {}),

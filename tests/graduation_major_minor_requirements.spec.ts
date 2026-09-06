@@ -45,12 +45,12 @@ describe('manual-backed major and minor requirement catalog', () => {
       expect(getMinorCreditRequirement('CH', 2021)).toMatchObject({
         id: 'minor-credits-ch-2018-plus',
         requiredCredits: 21,
-        sourceRefs: [expect.objectContaining({ manualYear: 2026, page: 28 })],
+        sourceRefs: expect.arrayContaining([expect.objectContaining({ manualYear: 2026, page: 28 })]),
       });
       expect(getMinorCreditRequirement('MM', 2021)).toMatchObject({
         id: 'minor-credits-mm-2021-plus',
         requiredCredits: 18,
-        sourceRefs: [expect.objectContaining({ manualYear: 2026, page: 28 })],
+        sourceRefs: expect.arrayContaining([expect.objectContaining({ manualYear: 2026, page: 28 })]),
       });
       expect(getMinorCreditRequirement('LH_LIT', 2021)).toMatchObject({
         id: 'minor-credits-lh-2021-plus',
@@ -60,12 +60,12 @@ describe('manual-backed major and minor requirement catalog', () => {
       expect(getMinorCreditRequirement('AI', 2021)).toMatchObject({
         id: 'minor-credits-ai',
         requiredCredits: 15,
-        sourceRefs: [expect.objectContaining({ manualYear: 2026, page: 27 })],
+        sourceRefs: expect.arrayContaining([expect.objectContaining({ manualYear: 2026, page: 27 })]),
       });
       expect(getMinorCreditRequirement('CH', 2017)).toMatchObject({
         id: 'minor-credits-ch-default',
         requiredCredits: 15,
-        sourceRefs: [expect.objectContaining({ manualYear: 2026, page: 27 })],
+        sourceRefs: expect.arrayContaining([expect.objectContaining({ manualYear: 2026, page: 27 })]),
       });
       expect(getMinorCreditRequirement('MD', 2025)).toMatchObject({
         id: 'minor-credits-md',
@@ -86,7 +86,7 @@ describe('manual-backed major and minor requirement catalog', () => {
       expect(mcRules[0]).toMatchObject({
         id: 'major.mc.mandatory.core',
         requiredCount: 3,
-        sourceRefs: [expect.objectContaining({ manualYear: 2026, page: 24 })],
+        sourceRefs: expect.arrayContaining([expect.objectContaining({ manualYear: 2026, page: 24 })]),
       });
       expect(mcRules[0].courses).toContain('MC3107');
 
@@ -151,7 +151,7 @@ describe('manual-backed major and minor requirement catalog', () => {
       expect(rules[0]).toMatchObject({
         id: 'minor.ai.mandatory.a',
         requiredCount: 1,
-        sourceRefs: [expect.objectContaining({ manualYear: 2026, page: 27 })],
+        sourceRefs: expect.arrayContaining([expect.objectContaining({ manualYear: 2026, page: 27 })]),
       });
       expect(rules[1].courses).toContain('AI4001');
       expect(rules[1].label).toContain('경과조치');
@@ -169,11 +169,11 @@ describe('manual-backed major and minor requirement catalog', () => {
 
       expect(getMinorMandatoryRulesForContext('EC', { entryYear: 2021 })[0]).toMatchObject({
         id: 'minor.ec.mandatory.experiment',
-        sourceRefs: [expect.objectContaining({ manualYear: 2026, page: 27 })],
+        sourceRefs: expect.arrayContaining([expect.objectContaining({ manualYear: 2026, page: 27 })]),
       });
       expect(getMinorMandatoryRulesForContext('CH', { entryYear: 2021 })[0]).toMatchObject({
         id: 'minor.ch.mandatory.core',
-        sourceRefs: [expect.objectContaining({ manualYear: 2026, page: 28 })],
+        sourceRefs: expect.arrayContaining([expect.objectContaining({ manualYear: 2026, page: 28 })]),
       });
       expect(getMinorMandatoryRulesForContext('CT', { entryYear: 2021 })[0]).toMatchObject({
         id: 'minor.ct.mandatory.core',
@@ -301,13 +301,9 @@ describe('manual-backed major and minor requirement catalog', () => {
     });
 
     it('applies source-backed chemistry major mandatory alternatives from page 23', async () => {
-      const result = await evaluateFor(
-        2021,
-        [
-          course({ courseCode: 'CH3104', courseName: '물리화학 II' }),
-        ],
-        { userMajor: 'CH' },
-      );
+      const result = await evaluateFor(2021, [course({ courseCode: 'CH3104', courseName: '물리화학 II' })], {
+        userMajor: 'CH',
+      });
 
       const requirement = expectRequirement(result, 'major-mandatory-rule-CH-1', {
         satisfied: true,

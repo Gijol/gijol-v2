@@ -189,6 +189,7 @@ export const SOFTWARE_COURSES: CourseMaster[] = [
 // 5. 기초과학 (17~18학점: 수학 6 + 물/화/생/전컴 9이상 + 실험)
 // ============================================================
 export const MATH_COURSES: CourseMaster[] = [
+  { courseCode: 'GS2008', courseNameKo: '확률과 통계', credits: 3, level: 2000, isOffered: true },
   { courseCode: 'GS1001', courseNameKo: '미적분학과 응용', credits: 3, level: 1000, isOffered: true },
   { courseCode: 'GS2001', courseNameKo: '다변수해석학과 응용', credits: 3, level: 2000, isOffered: true },
   { courseCode: 'GS2002', courseNameKo: '미분방정식과 응용', credits: 3, level: 2000, isOffered: true },
@@ -657,6 +658,7 @@ export const CALCULUS_COURSES: CourseMaster[] = [
 ];
 
 export const CORE_MATH_COURSES: CourseMaster[] = [
+  ...MATH_COURSES.filter((course) => course.courseCode === 'GS2008'),
   { courseCode: 'GS1002', courseNameKo: '선형대수학', credits: 3, level: 1000, isOffered: false },
   { courseCode: 'GS2001', courseNameKo: '다변수해석학과 응용', credits: 3, level: 2000, isOffered: true },
   { courseCode: 'MM2001', courseNameKo: '해석학 I', credits: 3, level: 2000, isOffered: true },

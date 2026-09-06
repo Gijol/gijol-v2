@@ -1,3 +1,4 @@
+import type { CreditRecognition } from '@features/graduation/domain/credit-recognition';
 import type { RuleApplicabilityMissingContext } from './rule-catalog/compiler';
 import type {
   RequirementCondition,
@@ -20,6 +21,7 @@ export interface TakenCourseType {
   courseType: string;
   courseName: string;
   courseCode: string;
+  creditRecognition?: CreditRecognition;
   credit: number;
   grade: string;
   gradeStatus?: CourseGradeStatus;
@@ -64,6 +66,7 @@ export interface GradCategoriesType {
 export interface GradStatusResponseType {
   graduationCategory: GradCategoriesType;
   totalCredits: number;
+  earnedCredits?: number;
   overallStatus: GraduationOverallStatus;
   totalSatisfied: boolean;
   catalogSelection?: GraduationCatalogSelectionSummary;
@@ -133,7 +136,7 @@ export interface ExcludedCourseInfo extends MatchedCourseInfo {
   reason: string;
 }
 
-export type RequirementMeasureUnit = 'credits' | 'courses' | 'occurrences';
+export type RequirementMeasureUnit = 'credits' | 'courses' | 'occurrences' | 'semesters';
 
 export interface FineGrainedRequirement {
   id: string;

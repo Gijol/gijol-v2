@@ -13,13 +13,11 @@ export function toEditableRows(parsed: UserStatusType | null): EditableCourseRow
     courseName: c.courseName || c.course || '',
     credit: Number(c.credit) || '',
     grade: c.grade ?? '',
+    ...(c.creditRecognition ? { creditRecognition: c.creditRecognition } : {}),
   }));
 }
 
-export function applyEditableRowsToUserStatus(
-  original: UserStatusType,
-  rows: EditableCourseRow[]
-): UserStatusType {
+export function applyEditableRowsToUserStatus(original: UserStatusType, rows: EditableCourseRow[]): UserStatusType {
   return {
     ...original,
     userTakenCourseList: rows.map((r) => ({
@@ -29,6 +27,7 @@ export function applyEditableRowsToUserStatus(
       courseCode: r.courseCode,
       courseName: r.courseName,
       credit: r.credit === '' ? 0 : Number(r.credit), // 임의로 0 처리
+      ...(r.creditRecognition ? { creditRecognition: r.creditRecognition } : {}),
       grade: r.grade ?? '', // 임의로 빈문장 처리
     })),
   };

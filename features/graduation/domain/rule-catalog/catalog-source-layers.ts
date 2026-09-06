@@ -35,6 +35,41 @@ export interface CatalogSourceLayerPublishSnapshot {
 
 export const CATALOG_SOURCE_LAYERS = defineCatalogSourceLayers([
   {
+    id: 'gist-bachelor-manual-2020',
+    label: 'GIST 학사편람 2020',
+    manualYear: 2020,
+    sourcePath: 'docs/bachelor_manual/2020_manual.pdf',
+    description: 'MC3212 기계공학실험 I의 과거 이수 인정',
+  },
+  {
+    id: 'gist-bachelor-manual-2023',
+    label: 'GIST 학사편람 2023',
+    manualYear: 2023,
+    sourcePath: 'docs/bachelor_manual/2023_manual.pdf',
+    description: 'BS3208(BS4205) 면역학의 명시적 코드 연결',
+  },
+  {
+    id: 'gist-bachelor-manual-2025',
+    label: 'GIST 학사편람 2025',
+    manualYear: 2025,
+    sourcePath: 'docs/bachelor_manual/2025_manual.pdf',
+    description: '인문사회 과목의 GS→HS 코드 개편 대조',
+  },
+  {
+    id: 'gist-bachelor-manual-2021',
+    label: 'GIST 학사편람 2021',
+    manualYear: 2021,
+    sourcePath: 'docs/bachelor_manual/2021_manual.pdf',
+    description: '영어 I 개편 전 이수 인정 근거: 인쇄 18쪽(PDF 19쪽)의 신입생 영어 또는 발표와 토론',
+  },
+  {
+    id: 'gist-bachelor-manual-2024',
+    label: 'GIST 학사편람 2024',
+    manualYear: 2024,
+    sourcePath: 'docs/bachelor_manual/2024_manual.pdf',
+    description: 'AI 부전공 개편 전 필수과목 확인: PDF 55쪽(인쇄 54쪽)',
+  },
+  {
     id: 'gist-bachelor-manual-2026',
     label: 'GIST 학사편람 2026',
     manualYear: 2026,
@@ -43,8 +78,7 @@ export const CATALOG_SOURCE_LAYERS = defineCatalogSourceLayers([
   },
 ] as const);
 
-export const CATALOG_SOURCE_LAYER_PUBLISH_SNAPSHOT =
-  createCatalogSourceLayerPublishSnapshot(CATALOG_SOURCE_LAYERS);
+export const CATALOG_SOURCE_LAYER_PUBLISH_SNAPSHOT = createCatalogSourceLayerPublishSnapshot(CATALOG_SOURCE_LAYERS);
 
 function pushIssue(
   issues: CatalogSourceLayerValidationIssue[],
@@ -59,7 +93,9 @@ function isPositiveInteger(value: unknown): value is number {
   return typeof value === 'number' && Number.isFinite(value) && Math.floor(value) === value && value > 0;
 }
 
-function sourceLayerKey(source: Pick<CatalogSourceLayer, 'manualYear'> & { sourcePath?: string; path?: string }): string {
+function sourceLayerKey(
+  source: Pick<CatalogSourceLayer, 'manualYear'> & { sourcePath?: string; path?: string },
+): string {
   return `${source.manualYear}:${source.sourcePath ?? source.path ?? ''}`;
 }
 
@@ -86,10 +122,7 @@ function validateUniqueLayerIds(
   });
 }
 
-function validateLayerShape(
-  layer: CatalogSourceLayer,
-  issues: CatalogSourceLayerValidationIssue[],
-): void {
+function validateLayerShape(layer: CatalogSourceLayer, issues: CatalogSourceLayerValidationIssue[]): void {
   if (!layer.id || !layer.label || !isPositiveInteger(layer.manualYear) || !layer.sourcePath) {
     pushIssue(
       issues,
