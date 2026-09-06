@@ -1,16 +1,11 @@
+import reviewedCorrections from './reviewed-manual-corrections.json';
+import { createHash } from 'crypto';
+import { extractManualCourseHeadings } from '../../features/course-catalog/manual-extraction';
 import { execFileSync } from 'child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
 import path from 'path';
 
 import type { ManualListingExtractionSnapshot } from '../../features/course-catalog/adapters/manual-listings';
-
-interface ExtractedEntry {
-  courseCode: string;
-  page: number;
-  credits?: number;
-  lectureHours?: number;
-  labHours?: number;
-}
 
 const MANUAL_SOURCES = [
   { academicYear: 2020, sourcePath: 'docs/bachelor_manual/2020_manual.pdf' },
@@ -22,8 +17,6 @@ const MANUAL_SOURCES = [
   { academicYear: 2026, sourcePath: 'docs/bachelor_manual/2026_manual.pdf' },
 ] as const;
 
-const CODE_PATTERN = /\b([A-Z]{2}\d{4})\b/g;
-const CREDIT_PATTERN = /\[\s*(\d+(?:\.\d+)?)\s*[:-]\s*(\d+(?:\.\d+)?)\s*[:-]\s*(\d+(?:\.\d+)?)\s*\]/;
 const MIN_TEXT_EXTRACTION_ENTRIES = 100;
 
 function readPdfTextPages(sourcePath: string): string[] {
@@ -35,12 +28,27 @@ function readPdfTextPages(sourcePath: string): string[] {
 }
 
 function renderOcrTextPages(rootDir: string, sourcePath: string, academicYear: number): string[] {
-  const cacheDir = path.join(rootDir, 'tmp', 'pdfs', 'manual-listings-ocr', String(academicYear));
+  const cacheFlag = process.argv.indexOf('--ocr-cache-root');
+  const cacheDir =
+    cacheFlag >= 0
+      ? path.join(process.argv[cacheFlag + 1], String(academicYear))
+      : path.join(rootDir, 'tmp', 'pdfs', 'manual-listings-ocr', String(academicYear));
   mkdirSync(cacheDir, { recursive: true });
 
+  const pdfHash = createHash('sha256').update(readFileSync(sourcePath)).digest('hex');
+  const pageCount = Number(execFileSync('pdfinfo', [sourcePath], { encoding: 'utf8' }).match(/^Pages:\s+(\d+)/m)?.[1]);
+  if (!pageCount) throw new Error(`Cannot read page count: ${sourcePath}`);
+  const manifestPath = path.join(cacheDir, 'manifest.json');
   const existingTextPages = readdirSync(cacheDir)
     .filter((filename) => filename.endsWith('.txt'))
     .sort();
+  if (existingTextPages.length > 0) {
+    if (!existsSync(manifestPath))
+      throw new Error(`OCR cache requires manifest.json with sourceSha256 and pageCount: ${cacheDir}`);
+    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    if (manifest.sourceSha256 !== pdfHash || manifest.pageCount !== pageCount)
+      throw new Error(`Stale OCR cache: ${cacheDir}`);
+  }
   if (existingTextPages.length === 0) {
     const imagePrefix = path.join(cacheDir, 'page');
     execFileSync('pdftoppm', ['-r', '140', '-png', sourcePath, imagePrefix], { stdio: 'inherit' });
@@ -50,71 +58,58 @@ function renderOcrTextPages(rootDir: string, sourcePath: string, academicYear: n
 
     images.forEach((image) => {
       const imagePath = path.join(cacheDir, image);
-      const text = execFileSync('tesseract', [imagePath, 'stdout', '--psm', '6', '-l', 'eng'], {
+      const text = execFileSync('tesseract', [imagePath, 'stdout', '--psm', '6', '-l', 'kor+eng'], {
         encoding: 'utf8',
         stdio: ['ignore', 'pipe', 'ignore'],
       });
       writeFileSync(path.join(cacheDir, image.replace(/\.png$/, '.txt')), text);
     });
+    writeFileSync(
+      manifestPath,
+      JSON.stringify({ sourceSha256: pdfHash, pageCount, engine: 'tesseract-kor+eng' }, null, 2),
+    );
+  }
+  const textFiles = readdirSync(cacheDir)
+    .filter((name) => /^page-\d+\.txt$/.test(name))
+    .sort();
+  if (textFiles.length !== pageCount || textFiles.some((name, index) => Number(name.match(/\d+/)?.[0]) !== index + 1)) {
+    throw new Error(`Incomplete OCR cache: ${cacheDir} (expected ${pageCount} consecutive pages)`);
   }
 
-  return readdirSync(cacheDir)
-    .filter((filename) => filename.endsWith('.txt'))
-    .sort()
-    .map((filename) => readFileSync(path.join(cacheDir, filename), 'utf8'));
+  return textFiles.map((filename) => readFileSync(path.join(cacheDir, filename), 'utf8'));
 }
 
-function extractEntriesFromPages(pages: readonly string[]): ExtractedEntry[] {
-  const firstByCode = new Map<string, ExtractedEntry>();
-
-  pages.forEach((page, pageIndex) => {
-    const lines = page.split(/\r?\n/);
-
-    lines.forEach((line, lineIndex) => {
-      const snippet = lines.slice(lineIndex, lineIndex + 3).join(' ');
-      const creditMatch = snippet.match(CREDIT_PATTERN);
-      if (!creditMatch) return;
-
-      CODE_PATTERN.lastIndex = 0;
-      let codeMatch = CODE_PATTERN.exec(line);
-      while (codeMatch) {
-        const courseCode = codeMatch[1];
-        if (firstByCode.has(courseCode)) {
-          codeMatch = CODE_PATTERN.exec(line);
-          continue;
-        }
-
-        firstByCode.set(courseCode, {
-          courseCode,
-          page: pageIndex + 1,
-          lectureHours: Number(creditMatch[1]),
-          labHours: Number(creditMatch[2]),
-          credits: Number(creditMatch[3]),
-        });
-        codeMatch = CODE_PATTERN.exec(line);
-      }
-    });
-  });
-
-  return Array.from(firstByCode.values()).sort((a, b) => a.courseCode.localeCompare(b.courseCode));
-}
-
-function extractSource(rootDir: string, source: typeof MANUAL_SOURCES[number]) {
+function extractSource(rootDir: string, source: (typeof MANUAL_SOURCES)[number]) {
   const absoluteSourcePath = path.join(rootDir, source.sourcePath);
   if (!existsSync(absoluteSourcePath)) {
     throw new Error(`Missing manual PDF: ${source.sourcePath}`);
   }
 
-  const textEntries = extractEntriesFromPages(readPdfTextPages(absoluteSourcePath));
+  const textEntries = extractManualCourseHeadings(readPdfTextPages(absoluteSourcePath), { includeTitles: true });
   const useOcr = textEntries.length < MIN_TEXT_EXTRACTION_ENTRIES;
-  const entries = useOcr
-    ? extractEntriesFromPages(renderOcrTextPages(rootDir, absoluteSourcePath, source.academicYear))
+  let entries = useOcr
+    ? extractManualCourseHeadings(renderOcrTextPages(rootDir, absoluteSourcePath, source.academicYear), {
+        includeTitles: true,
+      })
     : textEntries;
 
+  const sourceSha256 = createHash('sha256').update(readFileSync(absoluteSourcePath)).digest('hex');
+  for (const correction of reviewedCorrections.filter((item) => item.academicYear === source.academicYear)) {
+    if (correction.sourceSha256 !== sourceSha256)
+      throw new Error(`Reviewed corrections require revalidation: ${source.academicYear}`);
+    const byCode = new Map(
+      entries
+        .filter((entry) => !correction.removeCodes.includes(entry.courseCode))
+        .map((entry) => [entry.courseCode, entry]),
+    );
+    correction.entries.forEach((entry) => byCode.set(entry.courseCode, entry));
+    entries = Array.from(byCode.values()).sort((a, b) => a.courseCode.localeCompare(b.courseCode));
+  }
   return {
     academicYear: source.academicYear,
     sourcePath: source.sourcePath,
-    extractionMethod: useOcr ? 'ocr' as const : 'pdftotext' as const,
+    sourceSha256,
+    extractionMethod: useOcr ? ('ocr' as const) : ('pdftotext' as const),
     entries,
   };
 }
@@ -129,13 +124,7 @@ function main(): void {
     schemaVersion: 1,
     sources: MANUAL_SOURCES.map((source) => extractSource(rootDir, source)),
   };
-  const outputPath = path.join(
-    rootDir,
-    'features',
-    'course-catalog',
-    'generated',
-    'manual-listings.extracted.json',
-  );
+  const outputPath = path.join(rootDir, 'features', 'course-catalog', 'generated', 'manual-listings.extracted.json');
 
   writeFileSync(outputPath, stableJson(snapshot));
   snapshot.sources.forEach((source) => {
