@@ -25,10 +25,10 @@ const SemesterHeaderNode = ({ data }: NodeProps<SemesterHeaderData>) => {
   // Semester sub-header (e.g., "1학기", "2학기")
   return (
     <div
-      className="pointer-events-none flex items-center justify-center rounded-md border border-blue-200 bg-blue-50 px-3 py-1.5"
+      className="pointer-events-none flex items-center justify-center border-b-2 border-slate-300 px-3 py-3"
       style={{ width: data.width }}
     >
-      <span className="text-xs font-medium text-blue-700">{data.label}</span>
+      <span className="text-sm font-semibold text-slate-700">{data.label}</span>
     </div>
   );
 };
