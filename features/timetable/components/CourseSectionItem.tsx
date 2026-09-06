@@ -83,7 +83,7 @@ export function CourseSectionItem({
         'group relative flex w-full min-w-0 cursor-default items-center gap-3 overflow-hidden transition-[background-color,opacity] [contain-intrinsic-size:auto_84px] [content-visibility:auto] focus-within:bg-slate-50',
         compact ? 'px-3 py-3' : 'px-4 py-4',
         !hideBorder && 'border-b border-slate-100',
-        isAdded ? 'bg-blue-50/70 focus-within:bg-blue-50/90' : 'hover:bg-slate-50',
+        isAdded ? 'bg-emerald-50/50 focus-within:bg-emerald-50' : 'hover:bg-slate-50',
         isConflict && !isAdded && 'bg-red-50/30 opacity-70',
       )}
       onMouseEnter={() => onMouseEnter(section)}
@@ -91,13 +91,13 @@ export function CourseSectionItem({
       onFocus={() => onMouseEnter(section)}
       onBlur={onMouseLeave}
     >
-      {isAdded && <div className="absolute top-0 bottom-0 left-0 w-1 bg-blue-500" />}
+      {isAdded && <div className="absolute top-0 bottom-0 left-0 w-0.5 bg-emerald-500" />}
 
       <div className="min-w-0 flex-1">
         <div className="flex min-w-0 items-start gap-2">
           <h3
             className={cn(
-              'min-w-0 flex-1 truncate text-sm font-semibold tracking-[-0.015em] text-slate-900 transition-colors group-focus-within:text-blue-700 group-hover:text-blue-700',
+              'line-clamp-2 min-w-0 flex-1 text-sm font-semibold tracking-[-0.015em] text-slate-900 transition-colors group-focus-within:text-blue-700 group-hover:text-blue-700',
             )}
             title={section.title}
           >
@@ -170,13 +170,14 @@ export function CourseSectionItem({
 
       <Button
         size="sm"
-        variant={isAdded ? 'destructive' : isConflict ? 'secondary' : 'default'}
+        variant="outline"
         onClick={handleAction}
         disabled={isConflict && !isAdded}
         aria-label={`${section.title} ${isAdded ? '제거' : isConflict ? '시간 중복' : '추가'}`}
         className={cn(
           'h-9 min-w-[68px] shrink-0 touch-manipulation px-2 text-xs font-semibold tracking-tight',
-          !isAdded && !isConflict && 'bg-blue-600 shadow-sm hover:bg-blue-700',
+          !isAdded && !isConflict && 'border-blue-200 text-blue-700 hover:bg-blue-50',
+          isAdded && 'border-emerald-200 text-emerald-700 hover:border-red-200 hover:bg-red-50 hover:text-red-600',
         )}
       >
         {isAdded ? (

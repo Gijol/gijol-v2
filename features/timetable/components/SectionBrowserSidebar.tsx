@@ -101,8 +101,8 @@ export function SectionBrowserSidebar({ term, interaction, isMobile = false, cla
     <div
       className={`w-full shrink-0 overflow-hidden ${isMobile ? 'sticky top-0 z-20 bg-white pb-4' : 'border-b border-slate-100 bg-white p-4'}`}
     >
-      <div className="flex w-full min-w-0 items-center gap-2">
-        <div className="group relative min-w-0 flex-1">
+      <div className="flex w-full min-w-0 flex-wrap items-center gap-2">
+        <div className="group relative w-full min-w-0">
           <Search
             aria-hidden="true"
             className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-blue-500"
@@ -119,7 +119,7 @@ export function SectionBrowserSidebar({ term, interaction, isMobile = false, cla
           />
         </div>
 
-        <div className="w-[132px] shrink-0 sm:w-[160px]">
+        <div className="min-w-0 flex-1">
           <MultiSelect
             options={departmentOptions}
             selected={departments}

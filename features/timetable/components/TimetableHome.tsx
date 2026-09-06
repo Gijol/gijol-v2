@@ -24,10 +24,10 @@ import {
   CalendarDays,
   ChevronRight,
   CopyPlus,
-  FilePlus2,
   FolderClock,
   History,
   Loader2,
+  Monitor,
   Plus,
   Star,
   Trash2,
@@ -287,163 +287,173 @@ export function TimetableHome({ defaultTerm, timetableSources }: TimetableHomePr
   };
 
   return (
-    <DashboardPageShell className="flex min-h-full flex-col gap-6">
+    <DashboardPageShell className="flex min-h-full flex-col gap-10" width="reading">
       <PageHeader
-        eyebrow="시간표"
-        title="이번 학기, 더 좋은 시간표를 만드세요"
-        description="여러 계획을 비교하고 대표 시간표를 정해 두세요. 성적표가 있다면 지난 학기 시간표도 다시 만들 수 있습니다."
+        className="mb-0 border-0 pb-0"
+        eyebrow={formatCourseTerm(currentTerm)}
+        title="내 시간표"
+        description="수업을 담고, 나에게 맞는 한 주를 계획하세요."
         actions={
-          <Button onClick={createNewPlan} className="h-10 px-4 font-semibold">
-            <Plus aria-hidden="true" />새 시간표 만들기
+          <Button onClick={createNewPlan} disabled={!currentTerm} className="h-10 rounded-lg px-4 font-semibold">
+            <Plus aria-hidden="true" />새 시간표
           </Button>
         }
       />
 
-      <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
-        <div className="flex flex-col gap-3 border-b border-slate-100 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <div className="min-w-0">
-            <div className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
-                <CalendarDays aria-hidden="true" size={17} />
-              </span>
-              <h2 className="truncate text-lg font-bold tracking-[-0.02em] text-slate-950">
-                {formatCourseTerm(currentTerm)} 계획
-              </h2>
-            </div>
-            <p className="mt-2 pl-10 text-sm text-slate-500">
-              계획을 여러 개 만든 뒤 가장 마음에 드는 안을 대표로 지정하세요.
-            </p>
-          </div>
-          {currentStatus === 'unpublished' && (
-            <Badge className="w-fit bg-amber-50 text-amber-700 shadow-none hover:bg-amber-50">강의 정보 미공개</Badge>
-          )}
-        </div>
-
-        <div className="grid gap-4 p-5 sm:p-6 md:grid-cols-2 xl:grid-cols-3">
-          <button
-            type="button"
-            onClick={createNewPlan}
-            className="group flex min-h-[204px] flex-col justify-between rounded-xl border border-dashed border-blue-200 bg-blue-50/40 p-5 text-left transition-[background-color,border-color,transform] duration-150 ease-[var(--ease-ui-out)] hover:border-blue-400 hover:bg-blue-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.97] motion-reduce:transition-colors motion-reduce:active:scale-100"
-            aria-label={`${formatCourseTerm(currentTerm)} 새 시간표 만들기`}
-          >
-            <div>
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-blue-100 bg-white text-blue-600 shadow-sm transition-[border-color,transform] duration-150 ease-[var(--ease-ui-out)] group-hover:translate-x-0.5 group-hover:border-blue-200 motion-reduce:transform-none">
-                <FilePlus2 aria-hidden="true" size={20} />
-              </div>
-              <h3 className="mt-5 text-base font-semibold tracking-tight text-slate-950">새 계획 시작하기</h3>
-              <p className="mt-2 text-sm leading-5 text-slate-500">빈 시간표에서 강의를 검색하고 바로 배치합니다.</p>
-            </div>
-            <span className="inline-flex items-center text-xs font-semibold text-blue-600">
-              시간표 만들기
-              <ChevronRight aria-hidden="true" size={14} className="ml-1" />
+      <section aria-labelledby="current-plans-title">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <h2 id="current-plans-title" className="text-base font-semibold text-slate-900">
+              이번 학기 계획
+            </h2>
+            <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-500 tabular-nums">
+              {currentPlans.length}
             </span>
-          </button>
-
-          {currentPlans.map((plan) => {
-            const selectedCount = getSelectedSectionCount(plan);
-            const creditCount = getPlanCredits(plan);
-            const isRepresentativeCard = currentGroup?.representativePlanId === plan.id;
-
-            return (
-              <article
-                key={plan.id}
-                className="group relative flex min-h-[204px] min-w-0 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white p-5 transition-[border-color,box-shadow,transform] duration-150 ease-[var(--ease-ui-out)] hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_10px_30px_rgba(15,23,42,0.08)] motion-reduce:transform-none"
-              >
-                <div
-                  className={cn('absolute inset-x-0 top-0 h-0.5 bg-slate-200', isRepresentativeCard && 'bg-amber-400')}
-                />
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-600">
-                    <CalendarDays aria-hidden="true" size={20} />
-                  </div>
-                  {isRepresentativeCard && (
-                    <Badge className="shrink-0 gap-1 bg-blue-600">
-                      <Star aria-hidden="true" size={12} fill="currentColor" />
-                      대표
-                    </Badge>
-                  )}
-                </div>
-
-                <div className="mt-4 min-w-0">
-                  <h3 className="truncate text-base font-semibold tracking-tight text-slate-950" title={plan.name}>
-                    {plan.name}
-                  </h3>
-                  <p className="mt-1 truncate text-xs text-slate-400">{formatDate(plan.updatedAt)}</p>
-                </div>
-
-                <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-                  <div className="rounded-md bg-slate-50 px-3 py-2">
-                    <div className="font-semibold text-slate-950">{selectedCount}개</div>
-                    <div className="mt-0.5 font-medium text-slate-500">선택 분반</div>
-                  </div>
-                  <div className="rounded-md bg-slate-50 px-3 py-2">
-                    <div className="font-semibold text-slate-950">{creditCount}학점</div>
-                    <div className="mt-0.5 font-medium text-slate-500">계획 학점</div>
-                  </div>
-                </div>
-
-                <div className="mt-auto flex items-center gap-2 pt-4">
-                  <Button
-                    size="sm"
-                    className="h-9 flex-1 bg-blue-600 text-xs font-bold hover:bg-blue-700"
-                    onClick={() => openPlan(plan.id)}
-                  >
-                    열기
-                    <ChevronRight aria-hidden="true" size={14} className="ml-1" />
-                  </Button>
-                  {!isRepresentativeCard && (
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="h-9 w-9 shrink-0"
-                      onClick={() => setRepresentativePlan(currentTerm, plan.id)}
-                      aria-label={`${plan.name} 대표 시간표로 지정`}
-                    >
-                      <Star aria-hidden="true" size={15} />
-                    </Button>
-                  )}
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-9 w-9 shrink-0 text-slate-300 hover:bg-red-50 hover:text-red-500"
-                    onClick={() => confirmDeletePlan(plan)}
-                    aria-label={`${plan.name} 삭제`}
-                  >
-                    <Trash2 aria-hidden="true" size={15} />
-                  </Button>
-                </div>
-              </article>
-            );
-          })}
-
-          {currentPlans.length === 0 && (
-            <div className="flex min-h-[204px] items-center justify-center rounded-xl border border-slate-100 bg-slate-50/60 p-6 text-center md:col-span-1 xl:col-span-2">
-              <div className="max-w-xs">
-                <p className="text-sm font-semibold text-slate-700">아직 만든 계획이 없습니다</p>
-                <p className="mt-1 text-xs leading-5 font-medium text-slate-500">
-                  첫 계획을 만들면 이곳에서 학점과 선택 분반을 한눈에 비교할 수 있습니다.
-                </p>
-              </div>
-            </div>
-          )}
+          </div>
+          <p className="flex items-center gap-1.5 text-xs text-slate-500">
+            <Monitor aria-hidden="true" size={14} />이 브라우저에 자동 저장
+          </p>
         </div>
+        {currentStatus === 'unpublished' && (
+          <p className="mb-4 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800" role="status">
+            아직 강의 정보가 공개되지 않았습니다. 과목 후보를 먼저 담아 계획할 수 있습니다.
+          </p>
+        )}
+
+        {currentPlans.length === 0 ? (
+          <div className="flex flex-col items-center rounded-2xl bg-slate-50 px-6 py-12 text-center">
+            <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-blue-600 shadow-sm">
+              <CalendarDays aria-hidden="true" size={23} />
+            </span>
+            <h3 className="text-base font-semibold text-slate-900">첫 시간표를 만들어 보세요</h3>
+            <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500">
+              강의를 검색해 담으면 주간표에 바로 표시됩니다.
+              <br className="hidden sm:block" /> 여러 계획을 만들어 비교할 수도 있어요.
+            </p>
+            <Button
+              onClick={createNewPlan}
+              disabled={!currentTerm}
+              variant="outline"
+              className="mt-5 rounded-lg border-slate-200 bg-white"
+            >
+              <Plus aria-hidden="true" size={16} />첫 시간표 만들기
+            </Button>
+          </div>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2">
+            {currentPlans.map((plan) => {
+              const selectedCount = getSelectedSectionCount(plan);
+              const creditCount = getPlanCredits(plan);
+              const isRepresentativeCard = currentGroup?.representativePlanId === plan.id;
+
+              return (
+                <article
+                  key={plan.id}
+                  className={cn(
+                    'flex min-w-0 flex-col rounded-2xl border bg-white p-5 transition-colors',
+                    isRepresentativeCard ? 'border-blue-200 bg-blue-50/20' : 'border-slate-200/80',
+                  )}
+                >
+                  <div className="mb-4 flex items-center justify-between gap-3">
+                    <span className="text-xs text-slate-500">{formatCourseTerm(plan.term)}</span>
+                    {isRepresentativeCard && (
+                      <span className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700">
+                        <Star aria-hidden="true" size={12} fill="currentColor" />
+                        대표 시간표
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="truncate text-lg font-semibold tracking-tight text-slate-950" title={plan.name}>
+                    <Link
+                      href={`/dashboard/timetable/${plan.id}`}
+                      className="rounded-sm hover:text-blue-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600"
+                    >
+                      {plan.name}
+                    </Link>
+                  </h3>
+                  <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600">
+                    <span>
+                      <strong className="font-semibold text-slate-900">{selectedCount}</strong>개 분반 선택
+                    </span>
+                    <span className="text-slate-300" aria-hidden="true">
+                      ·
+                    </span>
+                    <span>
+                      <strong className="font-semibold text-slate-900">{creditCount}</strong>학점 계획
+                    </span>
+                  </p>
+                  <div className="mt-4 flex min-h-14 flex-wrap content-start gap-1.5">
+                    {plan.candidates.slice(0, 3).map((candidate) => (
+                      <span
+                        key={candidate.id}
+                        className="max-w-full truncate rounded-md bg-slate-100/80 px-2 py-1 text-xs text-slate-600"
+                      >
+                        {candidate.selectedSection?.snapshot.title || candidate.title || candidate.courseCode}
+                      </span>
+                    ))}
+                    {plan.candidates.length > 3 && (
+                      <span className="px-1 py-1 text-xs text-slate-500">+{plan.candidates.length - 3}과목</span>
+                    )}
+                    {plan.candidates.length === 0 && (
+                      <p className="text-sm text-slate-400">아직 담은 과목이 없습니다.</p>
+                    )}
+                  </div>
+                  <p className="mt-2 text-xs text-slate-500">{formatDate(plan.updatedAt)} 수정</p>
+                  <div className="mt-4 flex items-center gap-2">
+                    <Button
+                      asChild
+                      size="sm"
+                      variant={isRepresentativeCard ? 'default' : 'outline'}
+                      className="h-9 flex-1 rounded-lg border-slate-200 shadow-none"
+                    >
+                      <Link href={`/dashboard/timetable/${plan.id}`} passHref>
+                        이어서 편집
+                        <ChevronRight aria-hidden="true" size={14} />
+                      </Link>
+                    </Button>
+                    {!isRepresentativeCard && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-9 w-9 shrink-0 text-slate-500"
+                        onClick={() => setRepresentativePlan(currentTerm, plan.id)}
+                        aria-label={`${plan.name} 대표 시간표로 지정`}
+                      >
+                        <Star aria-hidden="true" size={16} />
+                      </Button>
+                    )}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-9 w-9 shrink-0 text-slate-400 hover:bg-red-50 hover:text-red-600"
+                      onClick={() => confirmDeletePlan(plan)}
+                      aria-label={`${plan.name} 삭제`}
+                    >
+                      <Trash2 aria-hidden="true" size={16} />
+                    </Button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-6">
+      <section className="rounded-2xl bg-slate-50/70 p-5 sm:p-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex min-w-0 items-start gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-slate-500">
               <History aria-hidden="true" size={19} />
             </div>
             <div className="min-w-0">
-              <h2 className="text-lg font-bold tracking-[-0.02em] text-slate-950">지난 학기 돌아보기</h2>
+              <h2 className="text-base font-semibold text-slate-950">지난 시간표</h2>
               <p className="mt-2 max-w-2xl text-sm leading-5 text-pretty text-slate-500">
-                성적표의 연도와 학기를 기준으로 당시 개설 분반을 찾아 과거 시간표를 생성합니다.
+                저장된 이전 계획을 열거나, 성적표 과목으로 지난 학기 계획을 시작하세요. 분반은 직접 확인해야 합니다.
               </p>
             </div>
           </div>
           <Button variant="outline" className="h-9 shrink-0 font-bold" asChild>
-            <Link href="/dashboard/graduation/upload">
+            <Link href="/dashboard/graduation/upload" passHref>
               <Upload aria-hidden="true" size={15} />
               성적표 업로드
             </Link>
@@ -491,9 +501,9 @@ export function TimetableHome({ defaultTerm, timetableSources }: TimetableHomePr
         <div className="mt-5">
           <h3 className="mb-3 text-xs font-semibold tracking-wider text-slate-500 uppercase">성적표에서 생성</h3>
           {completedTermSummaries.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-5 text-center">
+            <div className="rounded-xl bg-white/80 p-5">
               <p className="text-sm font-semibold text-slate-600">업로드된 성적표 과목이 없습니다.</p>
-              <p className="mt-1 text-xs font-bold text-slate-400">
+              <p className="mt-1 text-xs leading-5 text-slate-500">
                 성적표를 업로드하면 학기별 이전 시간표를 만들 수 있습니다.
               </p>
             </div>
@@ -560,7 +570,7 @@ export function TimetableHome({ defaultTerm, timetableSources }: TimetableHomePr
       </section>
 
       {legacyEntries.length > 0 && (
-        <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-6">
+        <section className="rounded-2xl bg-slate-50/70 p-5 sm:p-6">
           <div className="flex items-center gap-2">
             <FolderClock aria-hidden="true" size={18} className="text-amber-500" />
             <h2 className="text-lg font-bold tracking-tight text-slate-950">학기 미상 기존 계획</h2>
