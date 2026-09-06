@@ -20,6 +20,19 @@ function createMockResponse() {
 }
 
 describe('timetable term API', () => {
+  it('loads deployment data independently of the process working directory', async () => {
+    const cwd = jest.spyOn(process, 'cwd').mockReturnValue('/tmp/not-the-project');
+    try {
+      const res = createMockResponse();
+      await timetableTermHandler(
+        { method: 'GET', query: { term: '2025-2', q: '물리' } } as unknown as NextApiRequest,
+        res,
+      );
+      expect(res.statusCode).toBe(200);
+    } finally {
+      cwd.mockRestore();
+    }
+  });
   it.each([
     ['2026-1', 434, 434],
     ['2026-2', 607, 431],
