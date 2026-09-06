@@ -8,6 +8,7 @@ describe('minor declaration term helpers', () => {
   it('requires declaration terms only for declaration-sensitive minors', () => {
     expect(requiresMinorDeclarationTerm('AI')).toBe(true);
     expect(requiresMinorDeclarationTerm('ir')).toBe(true);
+    expect(requiresMinorDeclarationTerm('FE')).toBe(true);
     expect(requiresMinorDeclarationTerm('EC')).toBe(false);
   });
 
@@ -28,5 +29,11 @@ describe('minor declaration term helpers', () => {
     ).toEqual({
       AI: { year: 2025, semester: '2' },
     });
+  });
+});
+
+it('preserves an existing energy declaration across form submission', () => {
+  expect(pruneMinorDeclarationTerms({ FE: { year: 2024, semester: '2' } }, ['FE'])).toEqual({
+    FE: { year: 2024, semester: '2' },
   });
 });

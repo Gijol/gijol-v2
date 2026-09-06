@@ -145,6 +145,7 @@ function getRequirementDisplayLabel(requirement: FineGrainedRequirement): string
 }
 
 function getRequirementUnitLabel(requirement: FineGrainedRequirement): string {
+  if (requirement.unit === 'semesters') return '학기';
   if (requirement.unit === 'courses') return '과목';
   if (requirement.unit === 'occurrences') return '회';
   return '학점';
