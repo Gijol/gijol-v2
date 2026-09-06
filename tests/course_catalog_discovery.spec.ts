@@ -87,7 +87,7 @@ describe('course discovery', () => {
   });
 
   it.each([
-    { courseCode: 'GS1490', representativeTag: '기초과학' },
+    { courseCode: 'GS1490', representativeTag: '소프트웨어' },
     { courseCode: 'GS1607', representativeTag: '언어의 기초' },
     { courseCode: 'HS2507', representativeTag: '인문사회' },
     { courseCode: 'UC0901', representativeTag: '공통필수' },
@@ -102,4 +102,11 @@ describe('course discovery', () => {
       });
     },
   );
+});
+
+it('keeps historical code detail links working after reviewed identity merges', () => {
+  const discovery = createCourseDiscovery(createCourseCatalogSearchItems(COURSE_CATALOG_SNAPSHOT));
+  expect(discovery.getDetail('BS4205')).toBe(discovery.getDetail('BS3208'));
+  expect(discovery.getDetail('GS3767')).toBe(discovery.getDetail('HS3767'));
+  expect(discovery.getDetail('BS4205')).toBeDefined();
 });

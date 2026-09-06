@@ -18,7 +18,7 @@ export function minorCourseToRequirementFacet(
     category: course.category,
     classification: course.classification,
     programCode: minorCode,
-    sourceRefs: [minorCatalogSourceRef(minorCode)],
+    sourceRefs: course.sourceRefs?.length ? course.sourceRefs : [minorCatalogSourceRef(minorCode)],
   };
 }
 

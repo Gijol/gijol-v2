@@ -24,12 +24,12 @@ describe('course catalog inventory', () => {
 
     expect(validateCourseCatalogSnapshot(snapshot)).toEqual([]);
     expect(snapshot.schemaVersion).toBe(2);
-    expect(inspection.totals.courses).toBe(1218);
+    expect(inspection.totals.courses).toBe(1298);
     expect(inspection.totals.offerings).toBe(5548);
     expect(Object.keys(inspection.offeringsByTerm)).toEqual(TIMETABLE_SOURCES.map((source) => source.term));
     expect(inspection.totals.historicalOfferings).toBe(4297);
-    expect(inspection.totals.manualListings).toBe(3591);
-    expect(inspection.totals.relationships).toBe(11);
+    expect(inspection.totals.manualListings).toBe(4305);
+    expect(inspection.totals.relationships).toBe(15);
     expect(inspection.historicalOfferingsByAcademicYear).toEqual({
       2020: 484,
       2021: 514,
@@ -40,20 +40,20 @@ describe('course catalog inventory', () => {
       2026: 793,
     });
     expect(inspection.manualListingsByAcademicYear).toEqual({
-      2020: 446,
-      2021: 328,
-      2022: 303,
-      2023: 567,
-      2024: 591,
-      2025: 666,
-      2026: 690,
+      2020: 515,
+      2021: 557,
+      2022: 550,
+      2023: 607,
+      2024: 641,
+      2025: 704,
+      2026: 731,
     });
     expect(inspection.facetsByFeature).toEqual({
-      minor: 648,
-      recommendation: 211,
+      minor: 628,
+      recommendation: 213,
       roadmap: 774,
     });
-    expect(diagnostics.syntheticCourseCount).toBe(604);
+    expect(diagnostics.syntheticCourseCount).toBe(689);
     expect(diagnostics.roadmapMissingCourseCodeNodes).toHaveLength(324);
     expect(quality.totals).toEqual({
       offeringsWithoutMeetings: 427,
@@ -64,8 +64,8 @@ describe('course catalog inventory', () => {
       multiCodeOfferingGroups: 722,
       offeringGroupsWithMultipleDepartments: 719,
       offeringGroupsWithMultipleSections: 1,
-      manualListedCoursesWithoutOffering: 131,
-      offeredCoursesWithoutManualListing: 362,
+      manualListedCoursesWithoutOffering: 219,
+      offeredCoursesWithoutManualListing: 353,
     });
     expect(quality.byTerm['2026-1']).toEqual({
       offerings: 434,

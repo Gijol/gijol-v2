@@ -4,16 +4,10 @@ import type { MinorCourseInfo } from '@/lib/const/minor-courses';
 import type { RoadmapData } from '@/lib/types/roadmap';
 import type { SectionOffering } from '@/lib/types/timetable';
 import type { CourseEquivalency } from '@features/graduation/domain';
-import {
-  buildHistoricalOfferingsFromCourseDb,
-  buildHistoricalOfferingsFromTimetable,
-} from './adapters/course-history';
+import { buildHistoricalOfferingsFromCourseDb, buildHistoricalOfferingsFromTimetable } from './adapters/course-history';
 import { buildCoursesFromCourseDb } from './adapters/course-db';
 import { buildRelationshipsFromCourseEquivalencies } from './adapters/equivalencies';
-import {
-  buildManualListingsFromSources,
-  type CourseManualListingSource,
-} from './adapters/manual-listings';
+import { buildManualListingsFromSources, type CourseManualListingSource } from './adapters/manual-listings';
 import { buildRequirementFacetsFromMinorCourses } from './adapters/minor';
 import {
   buildRequirementFacetsFromRecommendationGroups,
@@ -24,6 +18,7 @@ import { buildOfferingsFromTimetable } from './adapters/timetable';
 import {
   expandCourseCodeCandidates,
   minorCatalogSourceRef,
+  manualListingSourceRef,
   normalizeCourseCode,
   recommendationSourceRef,
   roadmapPresetSourceRef,
@@ -45,6 +40,12 @@ import type {
 type CourseLifecycleStatus = NonNullable<CourseCatalogCourse['lifecycle']>['status'];
 
 export interface CourseCatalogBuildInput {
+  handbookMetadata?: Readonly<
+    Record<
+      string,
+      { credits: number; year: number; page: number; title?: string; lectureHours?: number; labHours?: number }
+    >
+  >;
   courseDbRows: readonly CourseDB[];
   timetableSources: readonly {
     sections: readonly SectionOffering[];
@@ -113,24 +114,29 @@ function canonicalizeAliases(
   aliases: CourseCatalogCourse['aliases'],
 ): CourseCatalogCourse['aliases'] {
   const normalizedPrimaryCode = normalizeCourseCode(primaryCode);
-  const hasPrimary = aliases.some((alias) =>
-    alias.relation === 'primary' && normalizeCourseCode(alias.code) === normalizedPrimaryCode);
+  const hasPrimary = aliases.some(
+    (alias) => alias.relation === 'primary' && normalizeCourseCode(alias.code) === normalizedPrimaryCode,
+  );
   const withPrimary = hasPrimary
     ? aliases
     : [{ code: normalizedPrimaryCode, relation: 'primary' as const }, ...aliases];
 
-  return mergeAliases([], withPrimary.map((alias) => {
-    const code = normalizeCourseCode(alias.code);
-    return {
-      ...alias,
-      code,
-      relation: code === normalizedPrimaryCode && alias.relation === 'primary'
-        ? 'primary'
-        : alias.relation === 'primary'
-          ? 'same_course'
-          : alias.relation,
-    };
-  }));
+  return mergeAliases(
+    [],
+    withPrimary.map((alias) => {
+      const code = normalizeCourseCode(alias.code);
+      return {
+        ...alias,
+        code,
+        relation:
+          code === normalizedPrimaryCode && alias.relation === 'primary'
+            ? 'primary'
+            : alias.relation === 'primary'
+              ? 'same_course'
+              : alias.relation,
+      };
+    }),
+  );
 }
 
 class CourseAccumulator {
@@ -147,7 +153,11 @@ class CourseAccumulator {
     const existing = this.coursesById.get(targetCourseId);
     const primaryCode = existing?.primaryCode ?? inputPrimaryCode;
     const aliases = canonicalizeAliases(primaryCode, [
-      { code: inputPrimaryCode, relation: inputPrimaryCode === primaryCode ? 'primary' : 'same_course', sourceRefs: course.sourceRefs },
+      {
+        code: inputPrimaryCode,
+        relation: inputPrimaryCode === primaryCode ? 'primary' : 'same_course',
+        sourceRefs: course.sourceRefs,
+      },
       ...course.aliases,
     ]);
     const normalizedCourse: CourseCatalogCourse = {
@@ -172,11 +182,12 @@ class CourseAccumulator {
           departments: uniqueStrings([...existing.departments, ...normalizedCourse.departments]),
           tags: uniqueStrings([...existing.tags, ...normalizedCourse.tags]),
           description: existing.description ?? normalizedCourse.description,
-          lifecycle: existing.lifecycle?.status === 'active'
-            ? existing.lifecycle
-            : normalizedCourse.lifecycle?.status === 'active'
-              ? normalizedCourse.lifecycle
-              : (existing.lifecycle ?? normalizedCourse.lifecycle),
+          lifecycle:
+            existing.lifecycle?.status === 'active'
+              ? existing.lifecycle
+              : normalizedCourse.lifecycle?.status === 'active'
+                ? normalizedCourse.lifecycle
+                : (existing.lifecycle ?? normalizedCourse.lifecycle),
           aliases: canonicalizeAliases(existing.primaryCode, mergeAliases(existing.aliases, normalizedCourse.aliases)),
           sourceRefs: uniqueSourceRefs([...existing.sourceRefs, ...normalizedCourse.sourceRefs]),
         }
@@ -231,11 +242,49 @@ class CourseAccumulator {
       .map((candidate) => this.codeToCourseId.get(candidate))
       .find((courseId): courseId is string => Boolean(courseId));
 
-    return existingCourseId ?? this.ensureObservedCourse({
-      code: normalizedCode,
-      sourceRefs: [{ kind: 'manual', sourceId: 'unresolved-observed-course' }],
-    });
+    return (
+      existingCourseId ??
+      this.ensureObservedCourse({
+        code: normalizedCode,
+        sourceRefs: [{ kind: 'manual', sourceId: 'unresolved-observed-course' }],
+      })
+    );
   };
+
+  hasCourseCode(code: string): boolean {
+    return expandCourseCodeCandidates(code).some((candidate) => this.codeToCourseId.has(candidate));
+  }
+
+  reconcileIdentities(equivalencies: readonly CourseEquivalency[]): void {
+    for (const relation of equivalencies) {
+      if (!['sameCourse', 'renumbered', 'crossListed'].includes(relation.relation)) continue;
+      const codes =
+        'courseCodes' in relation ? [...relation.courseCodes] : [relation.toCourseCode, relation.fromCourseCode];
+      const canonical = codes
+        .map((code) => Array.from(this.coursesById.values()).find((course) => course.primaryCode === code))
+        .find(Boolean);
+      if (!canonical) continue;
+      const sourceRefs = relation.sourceRefs.map((ref) => ({ ...ref, kind: 'manual' as const, sourceId: relation.id }));
+      for (const code of codes) {
+        const current = Array.from(this.coursesById.values()).find((course) => course.primaryCode === code);
+        if (current && current.courseId !== canonical.courseId) {
+          this.addCourse({ ...current, courseId: canonical.courseId });
+          this.coursesById.delete(current.courseId);
+          this.syntheticCourseIds.delete(current.courseId);
+          this.codeToCourseId.forEach((id, key) => {
+            if (id === current.courseId) this.codeToCourseId.set(key, canonical.courseId);
+          });
+        }
+      }
+      const updated = this.coursesById.get(canonical.courseId)!;
+      this.addCourse({
+        ...updated,
+        aliases: [...updated.aliases, ...codes.map((code) => ({ code, relation: 'same_course' as const, sourceRefs }))],
+        sourceRefs: [...updated.sourceRefs, ...sourceRefs],
+      });
+      codes.forEach((code) => this.codeToCourseId.set(code, canonical.courseId));
+    }
+  }
 
   getCourses(): CourseCatalogCourse[] {
     return Array.from(this.coursesById.values()).sort((a, b) => a.courseId.localeCompare(b.courseId));
@@ -307,10 +356,7 @@ function addRoadmapObservedCourses(
   });
 }
 
-function addRecommendationObservedCourses(
-  accumulator: CourseAccumulator,
-  courses: readonly CourseMaster[],
-): void {
+function addRecommendationObservedCourses(accumulator: CourseAccumulator, courses: readonly CourseMaster[]): void {
   courses.forEach((course) => {
     accumulator.ensureObservedCourse({
       code: course.courseCode,
@@ -342,11 +388,13 @@ function flattenRecommendationCourses(groups: readonly RecommendationCourseGroup
 
 function uniqueFacets(facets: readonly CourseCatalogRequirementFacet[]): CourseCatalogRequirementFacet[] {
   const byId = new Map<string, CourseCatalogRequirementFacet>();
-  facets.forEach((facet) => byId.set(facet.id, {
-    ...facet,
-    courseCode: normalizeCourseCode(facet.courseCode),
-    sourceRefs: uniqueSourceRefs(facet.sourceRefs),
-  }));
+  facets.forEach((facet) =>
+    byId.set(facet.id, {
+      ...facet,
+      courseCode: normalizeCourseCode(facet.courseCode),
+      sourceRefs: uniqueSourceRefs(facet.sourceRefs),
+    }),
+  );
   return Array.from(byId.values()).sort((a, b) => a.id.localeCompare(b.id));
 }
 
@@ -364,9 +412,10 @@ function uniqueHistoricalOfferings(
     const existing = byId.get(offering.id);
     byId.set(offering.id, {
       ...(existing ?? offering),
-      sourceLabel: existing && existing.sourceLabel !== offering.sourceLabel
-        ? `${existing.sourceLabel}; ${offering.sourceLabel}`
-        : offering.sourceLabel,
+      sourceLabel:
+        existing && existing.sourceLabel !== offering.sourceLabel
+          ? `${existing.sourceLabel}; ${offering.sourceLabel}`
+          : offering.sourceLabel,
       courseCode: normalizeCourseCode(offering.courseCode),
       sourceRefs: uniqueSourceRefs([...(existing?.sourceRefs ?? []), ...offering.sourceRefs]),
     });
@@ -376,12 +425,14 @@ function uniqueHistoricalOfferings(
 
 function uniqueManualListings(manualListings: readonly CourseCatalogManualListing[]): CourseCatalogManualListing[] {
   const byId = new Map<string, CourseCatalogManualListing>();
-  manualListings.forEach((listing) => byId.set(listing.id, {
-    ...listing,
-    courseCode: normalizeCourseCode(listing.courseCode),
-    departments: uniqueStrings(listing.departments),
-    sourceRefs: uniqueSourceRefs(listing.sourceRefs),
-  }));
+  manualListings.forEach((listing) =>
+    byId.set(listing.id, {
+      ...listing,
+      courseCode: normalizeCourseCode(listing.courseCode),
+      departments: uniqueStrings(listing.departments),
+      sourceRefs: uniqueSourceRefs(listing.sourceRefs),
+    }),
+  );
   return Array.from(byId.values()).sort((a, b) => a.id.localeCompare(b.id));
 }
 
@@ -389,12 +440,14 @@ function uniqueRelationships(
   relationships: readonly CourseCatalogCourseRelationship[],
 ): CourseCatalogCourseRelationship[] {
   const byId = new Map<string, CourseCatalogCourseRelationship>();
-  relationships.forEach((relationship) => byId.set(relationship.id, {
-    ...relationship,
-    courseCodes: uniqueStrings(relationship.courseCodes),
-    courseIds: uniqueStrings(relationship.courseIds),
-    sourceRefs: uniqueSourceRefs(relationship.sourceRefs),
-  }));
+  relationships.forEach((relationship) =>
+    byId.set(relationship.id, {
+      ...relationship,
+      courseCodes: uniqueStrings(relationship.courseCodes),
+      courseIds: uniqueStrings(relationship.courseIds),
+      sourceRefs: uniqueSourceRefs(relationship.sourceRefs),
+    }),
+  );
   return Array.from(byId.values()).sort((a, b) => a.id.localeCompare(b.id));
 }
 
@@ -402,8 +455,10 @@ export function buildCourseCatalogSnapshot(input: CourseCatalogBuildInput): Cour
   const accumulator = new CourseAccumulator();
 
   addCourseDbRows(accumulator, input.courseDbRows);
+  accumulator.reconcileIdentities(input.courseEquivalencies);
   input.timetableSources.forEach((source) =>
-    addTimetableObservedCourses(accumulator, source.sections, source.sourcePath));
+    addTimetableObservedCourses(accumulator, source.sections, source.sourcePath),
+  );
   addMinorObservedCourses(accumulator, input.minorCoursesByCode);
   addRoadmapObservedCourses(accumulator, input.roadmapPresets);
   addRecommendationObservedCourses(
@@ -423,16 +478,31 @@ export function buildCourseCatalogSnapshot(input: CourseCatalogBuildInput): Cour
         term: source.term,
         sourcePath: source.sourcePath,
         resolveCourseId: accumulator.resolveCourseId,
-      })),
+      }),
+    ),
   );
-  const historicalOfferings = uniqueHistoricalOfferings(
-    [
-      ...buildHistoricalOfferingsFromCourseDb(input.courseDbRows, accumulator.resolveCourseId),
-      ...buildHistoricalOfferingsFromTimetable(input.timetableSources, accumulator.resolveCourseId),
-    ],
-  );
-  const manualListingCatalogCourses = accumulator.getCourses();
+  const historicalOfferings = uniqueHistoricalOfferings([
+    ...buildHistoricalOfferingsFromCourseDb(input.courseDbRows, accumulator.resolveCourseId),
+    ...buildHistoricalOfferingsFromTimetable(input.timetableSources, accumulator.resolveCourseId),
+  ]);
   const manualListingSources = input.manualListingSources ?? [];
+  // Preserve handbook-only observations with unknown offering status. Newer evidence wins.
+  for (const source of [...manualListingSources].sort((a, b) => b.academicYear - a.academicYear)) {
+    for (const entry of source.entries) {
+      if (accumulator.hasCourseCode(entry.courseCode)) continue;
+      accumulator.ensureObservedCourse({
+        code: entry.courseCode,
+        titleKo: entry.titleKo,
+        credits: entry.credits,
+        lectureHours: entry.lectureHours,
+        labHours: entry.labHours,
+        sourceRefs: [
+          manualListingSourceRef({ academicYear: source.academicYear, path: source.sourcePath, page: entry.page }),
+        ],
+      });
+    }
+  }
+  const manualListingCatalogCourses = accumulator.getCourses();
   const manualListings = uniqueManualListings(
     buildManualListingsFromSources(manualListingSources, {
       catalogCourses: manualListingCatalogCourses,
@@ -442,7 +512,24 @@ export function buildCourseCatalogSnapshot(input: CourseCatalogBuildInput): Cour
   const relationships = uniqueRelationships(
     buildRelationshipsFromCourseEquivalencies(input.courseEquivalencies, accumulator.resolveCourseId),
   );
-  const catalogCourses = accumulator.getCourses();
+  const latestManualYear = Math.max(0, ...manualListingSources.map((source) => source.academicYear));
+  const catalogCourses = accumulator.getCourses().map((course) => {
+    const evidence = input.handbookMetadata?.[course.primaryCode];
+    // Current handbook controls the catalog display; historical listings/offerings remain intact.
+    if (!evidence || evidence.year !== latestManualYear) return course;
+    const source = manualListingSources.find((entry) => entry.academicYear === evidence.year)!;
+    return {
+      ...course,
+      credits: evidence.credits,
+      ...(evidence.title ? { titleKo: evidence.title } : {}),
+      ...(evidence.lectureHours !== undefined ? { lectureHours: evidence.lectureHours } : {}),
+      ...(evidence.labHours !== undefined ? { labHours: evidence.labHours } : {}),
+      sourceRefs: uniqueSourceRefs([
+        ...course.sourceRefs,
+        manualListingSourceRef({ academicYear: evidence.year, path: source.sourcePath, page: evidence.page }),
+      ]),
+    };
+  });
 
   return {
     snapshot: {
