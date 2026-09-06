@@ -1,408 +1,349 @@
+import { useState } from 'react';
 import Link from 'next/link';
-import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
 import { NextSeo } from 'next-seo';
-import { ArrowRight, CheckCircle2, ExternalLink, Scale, AlertTriangle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { DashboardPageShell, PageHeader, SectionHeader } from '@/components/dashboard/page-shell';
+import { BookOpen, ArrowUpRight } from 'lucide-react';
+import { dashboardLayout } from '@/components/layouts/dashboard-runtime';
+import { DashboardPageShell, PageHeader } from '@/components/dashboard/page-shell';
 
-const COMPARISON_ROWS = [
-  { item: '전공탐색', before: '필수 아님', after: '1학년 2학기 필수 · UC0902', highlight: true },
-  { item: 'GIST새내기', before: '신입생 세미나', after: 'GIST 새내기 (명칭 변경)' },
-  { item: '예술/체육', before: '2018-19: 4과목 / 2020: 2과목', after: '2과목' },
-  { item: '예체능 무료 수강', before: '2020학번부터 4학기 무료', after: '4학기까지 무료' },
-];
-
-export default function RequirementsGuidePage() {
+type ProgramGuide = {
+  code: string;
+  label: string;
+  credits: number;
+  rules: { label: string; count: number; codes: string[] }[];
+  page: number;
+};
+type YearGuide = {
+  year: number;
+  total: number;
+  gpa: number;
+  language: number;
+  humanities: number;
+  arts: number;
+  sports: number;
+  majors: ProgramGuide[];
+  minors: ProgramGuide[];
+};
+type Props = { years: YearGuide[] };
+const manual = '/academic-manual/2026.pdf';
+function Source({ page }: { page: number }) {
   return (
-    <DashboardPageShell width="reading" className="space-y-8">
-      <NextSeo title="졸업요건 안내" description="학번별 졸업요건을 확인하세요" noindex />
+    <a
+      href={`${manual}#page=${page}`}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex items-center gap-1 text-xs text-blue-700 underline-offset-4 hover:underline"
+    >
+      편람 {page}쪽<ArrowUpRight size={12} aria-hidden="true" />
+    </a>
+  );
+}
+
+export default function RequirementsGuidePage({ years }: Props) {
+  const [entryYear, setEntryYear] = useState(2026);
+  const current = years.find((y) => y.year === entryYear)!;
+  const [programCode, setProgramCode] = useState('EC');
+  const major = current.majors.find((p) => p.code === programCode)!;
+  return (
+    <DashboardPageShell width="reading" className="space-y-7 pb-12">
+      <NextSeo title="졸업요건 안내 · 2026 학사편람" noindex />
       <PageHeader
-        eyebrow="학사 안내"
-        title="졸업요건 안내"
-        description="GIST 학부 졸업이수요건을 학번별로 정리했습니다. 학번에 따라 요건이 다르므로 본인에게 적용되는 기준을 확인하세요."
+        eyebrow="2026 학사편람 기준"
+        title="내 학번의 졸업요건"
+        description="입학 연도에 맞는 기준과 전공·부전공의 세부 조건을 함께 확인하세요."
       />
-
-      {/* Quick Actions - 원문 규정 */}
-      <Card className="border-slate-200 bg-white">
-        <CardHeader className="pb-2">
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <Scale aria-hidden="true" className="h-5 w-5 text-blue-700" />
-            원문 규정 보기
-          </CardTitle>
-          <CardDescription>GIST 공식 홈페이지에서 상세 규정을 확인하세요.</CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-2 sm:flex-row">
-          <Button asChild variant="outline" className="w-full cursor-pointer shadow-none">
-            <a href="https://www.gist.ac.kr/kr/html/sub05/05021605.html" target="_blank" rel="noopener noreferrer">
-              2018~2020학번 요건 <ExternalLink aria-hidden="true" className="ml-2 h-4 w-4" />
-            </a>
-          </Button>
-          <Button asChild variant="outline" className="w-full cursor-pointer shadow-none">
-            <a href="https://www.gist.ac.kr/kr/html/sub05/05021604.html" target="_blank" rel="noopener noreferrer">
-              2021학번 이후 요건 <ExternalLink aria-hidden="true" className="ml-2 h-4 w-4" />
-            </a>
-          </Button>
-          <Button asChild variant="outline" className="w-full cursor-pointer shadow-none">
-            <a href="https://www.gist.ac.kr/kr/html/sub05/050211.html" target="_blank" rel="noopener noreferrer">
-              학사편람 <ExternalLink aria-hidden="true" className="ml-2 h-4 w-4" />
-            </a>
-          </Button>
-        </CardContent>
-      </Card>
-
-      {/* 학번별 차이점 */}
-      <Section title="학번별 주요 차이점" subtitle="2018~2020학번과 2021학번 이후 기준을 비교합니다.">
-        <div className="space-y-3 sm:hidden">
-          {COMPARISON_ROWS.map((row) => (
-            <article key={row.item} className="rounded-xl border border-slate-200 bg-white p-4">
-              <h3 className="font-semibold text-slate-900">{row.item}</h3>
-              <dl className="mt-3 space-y-3 text-sm">
-                <div>
-                  <dt className="font-medium text-slate-500">2018~2020학번</dt>
-                  <dd className="mt-0.5 text-slate-700">{row.before}</dd>
-                </div>
-                <div>
-                  <dt className="font-medium text-slate-500">2021학번 이후</dt>
-                  <dd className={`mt-0.5 ${row.highlight ? 'font-medium text-emerald-700' : 'text-slate-700'}`}>
-                    {row.after}
-                  </dd>
-                </div>
-              </dl>
-            </article>
-          ))}
-        </div>
-        <div className="hidden overflow-hidden rounded-xl border border-slate-200 bg-white sm:block">
-          <table className="w-full text-sm">
-            <thead className="bg-slate-50">
-              <tr>
-                <th className="px-4 py-3 text-left font-semibold">항목</th>
-                <th className="px-4 py-3 text-left font-semibold">2018~2020학번</th>
-                <th className="px-4 py-3 text-left font-semibold">2021학번 이후</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-200">
-              {COMPARISON_ROWS.map((row) => (
-                <tr key={row.item}>
-                  <td className="px-4 py-3 font-medium">{row.item}</td>
-                  <td className="px-4 py-3 text-slate-600">{row.before}</td>
-                  <td className={`px-4 py-3 ${row.highlight ? 'font-medium text-emerald-700' : 'text-slate-600'}`}>
-                    {row.after}
-                  </td>
-                </tr>
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white p-4">
+        <div className="flex flex-wrap items-center gap-3">
+          <label className="flex items-center gap-2 text-sm font-medium">
+            입학 연도
+            <select
+              aria-label="입학 연도"
+              value={entryYear}
+              onChange={(e) => setEntryYear(Number(e.target.value))}
+              className="rounded-md border bg-white px-3 py-2"
+            >
+              {years.map((y) => (
+                <option key={y.year} value={y.year}>
+                  {y.year}학번
+                </option>
               ))}
-            </tbody>
-          </table>
+            </select>
+          </label>
+          <label className="flex items-center gap-2 text-sm font-medium">
+            주전공
+            <select
+              aria-label="주전공"
+              value={programCode}
+              onChange={(e) => setProgramCode(e.target.value)}
+              className="max-w-[210px] rounded-md border bg-white px-3 py-2"
+            >
+              {current.majors.map((p) => (
+                <option key={p.code} value={p.code}>
+                  {p.label}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
-      </Section>
-
-      {/* 총 이수학점 */}
-      <Section title="총 이수학점" subtitle="졸업을 위해 필요한 최소 학점">
-        <div className="rounded-xl border border-slate-200 bg-white p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-lg font-medium">최소 졸업학점</span>
-            <span className="text-2xl font-bold text-blue-600">130학점</span>
-          </div>
-          <p className="mt-2 text-sm text-slate-600">기초교양 + 전공필수/선택 + 논문연구 + 자유선택 학점의 합</p>
-        </div>
-      </Section>
-
-      {/* 기초교양 */}
-      <Section title="기초교양" subtitle="필수 이수 영역">
-        <div className="space-y-4">
-          <RequirementCard
-            title="언어와 기초"
-            credits="7학점"
-            items={[
-              {
-                label: '영어 (4학점)',
-                details: ['영어 I: 신입생 영어(2) 또는 발표와 토론(2) 중 택1', '영어 II: 이공계 글쓰기 입문(2)'],
-              },
-              { label: '글쓰기 (3학점)', details: ['글쓰기 기초 3과목 중 택1 또는 심화 글쓰기 3과목 중 택1'] },
-            ]}
-            notes={['※ 기초와 심화는 동일 과목으로 간주, 역수강 불가']}
-          />
-
-          <RequirementCard
-            title="인문사회"
-            credits="24학점"
-            items={[
-              { label: 'HUS(인문학) 6학점 필수', details: [] },
-              { label: 'PPE(정치경제철학) 6학점 필수', details: [] },
-            ]}
-            notes={['※ 24학점 초과 시 최대 12학점까지 자유선택(인문사회)으로 인정']}
-          />
-
-          <RequirementCard
-            title="기초과학"
-            credits="17~18학점 (4분야 중 3분야 필수)"
-            items={[
-              { label: '수학 (6학점)', details: ['미적분학계열 1과목 + 다변수해석학/미분방정식/선형대수학계열 1과목'] },
-              { label: '물리 (4학점)', details: ['일반물리학 및 연습 I(3) + 일반물리학 실험 I(1)'] },
-              { label: '화학 (4학점)', details: ['일반화학 및 연습 I(3) + 일반화학 실험 I(1)'] },
-              { label: '생명 (4학점)', details: ['생물학계열 1과목(3) + 일반생물학 실험(1)'] },
-            ]}
-            notes={[
-              '※ 4분야 전부 이수 시 한 분야는 자유선택(기초과학선택)으로 인정',
-              '※ 실험과목은 강의과목 선이수 또는 동시수강 필수',
-            ]}
-          />
-
-          <RequirementCard
-            title="소프트웨어"
-            credits="2~3학점"
-            items={[
-              { label: 'SW 기초와 코딩 (2학점)', details: ['GS1490'] },
-              { label: '또는 컴퓨터 프로그래밍 (3학점)', details: ['GS1401 - 이수 시 SW 기초와 코딩 면제'] },
-            ]}
-          />
-
-          <RequirementCard
-            title="GIST새내기 / 전공탐색"
-            credits="1~2학점"
-            items={[
-              { label: 'GIST새내기 (1학점)', details: ['1학년 1학기 의무수강'] },
-              { label: '전공탐색 (1학점)', details: ['1학년 2학기 의무수강 (2021학번 이후 필수)'] },
-            ]}
-          />
-        </div>
-      </Section>
-
-      {/* 전공 */}
-      <Section title="전공" subtitle="전공필수 + 전공선택">
-        <div className="space-y-4">
-          <div className="rounded-lg border bg-white p-4">
-            <div className="flex items-center justify-between">
-              <h4 className="font-semibold">전공 학점</h4>
-              <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
-                최소 36학점 / 상한 42학점
-              </span>
-            </div>
-            <p className="mt-2 text-sm text-slate-600">전공필수 + 전공선택을 합쳐 최소 36학점 이수</p>
-            <p className="mt-1 text-xs text-amber-600">※ 졸업사정 시 42학점까지만 인정 (소재전공: 30~42학점)</p>
-          </div>
-
-          <div className="rounded-lg border bg-white p-4">
-            <h4 className="font-semibold">전공필수 (학부별 상이)</h4>
-            <div className="mt-3 grid gap-2 text-sm">
-              <MajorRow major="전기전자컴퓨터" courses="전자공학 실험(3) 또는 컴퓨터 시스템 이론 및 실험(4) 중 택1" />
-              <MajorRow
-                major="신소재"
-                courses="재료과학, 열역학, 유기재료화학, 고분자과학, 전자재료실험, 유기재료실험"
-              />
-              <MajorRow major="기계" courses="열역학, 고체역학, 유체역학, 동역학, 기계공학실험 I/II" />
-              <MajorRow major="지구환경" courses="환경공학, 환경분석실험 I/II, 지구시스템과학, 지구환경이동현상" />
-              <MajorRow major="생명과학" courses="유기화학 I, 분자생물학, 생화학 I/II, 세포생물학 등" />
-              <MajorRow major="물리" courses="고전역학, 전자기학 I/II, 양자물리 I/II, 열역학 및 통계물리 등" />
-              <MajorRow major="화학" courses="분석화학, 물리화학 A/B, 유기화학 I, 화학합성실험 등" />
-            </div>
-            <p className="mt-3 text-xs text-amber-600">
-              ※ 전공필수 과목이 변경된 경우 반드시 변경된 과목을 대체 이수해야 함
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      {/* 부/복수/심화전공 */}
-      <Section title="부전공 / 복수전공 / 심화전공" subtitle="추가 전공 이수">
-        <div className="space-y-3 rounded-lg border bg-white p-4">
-          <div>
-            <span className="font-medium">부전공 가능 분야 (15학점):</span>
-            <p className="mt-1 text-sm text-slate-600">
-              전컴, 소재, 기계, 환경, 생명, 물리, 화학, 수학, 의생명, 에너지, 문화기술, 지능로봇, 인문사회, AI융합
-            </p>
-          </div>
-          <div>
-            <span className="font-medium">복수/심화전공 가능 분야:</span>
-            <p className="mt-1 text-sm text-slate-600">전컴, 소재, 기계, 환경, 생명, 물리, 화학</p>
-          </div>
-          <p className="text-xs text-amber-600">
-            ※ 이수요건(학사편람) 확인 필수 / 미충족 시 미이수 처리 / 이수구분 모호 시 사전 문의 필수
-          </p>
-        </div>
-      </Section>
-
-      {/* 논문연구 */}
-      <Section title="논문연구" subtitle="학사논문 요건 (6학점)">
-        <div className="rounded-lg border bg-white p-4">
-          <ul className="space-y-2 text-sm">
-            <li className="flex items-start gap-2">
-              <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
-              <span>학사논문연구 I (3학점) - 전공코드+9102</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
-              <span>학사논문연구 II (3학점) - 전공코드+9103</span>
-            </li>
-            <li className="flex items-start gap-2 text-amber-600">
-              <AlertTriangle aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
-              <span>
-                <strong>학사논문연구 II는 졸업예정학기에 의무 수강</strong>해야 합니다.
-              </span>
-            </li>
-            <li className="flex items-start gap-2 text-slate-500">
-              <span aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-center">
-                ·
-              </span>
-              <span>물리학 연구의 현재와 미래(1)는 졸업이수학점에 불인정 (총취득학점에만 반영)</span>
-            </li>
-          </ul>
-        </div>
-      </Section>
-
-      {/* 기타 필수 */}
-      <Section title="기타 필수 과목" subtitle="추가 필수 이수 항목">
-        <div className="space-y-4">
-          <div className="rounded-lg border bg-white p-4">
-            <h4 className="font-semibold text-blue-700">과학기술과 경제 (1학점 필수)</h4>
-            <p className="mt-2 text-sm text-slate-600">
-              GS1701 과학기술과 경제는 <strong>모든 학번 필수 이수 과목</strong>입니다.
-            </p>
-          </div>
-
-          <div className="rounded-lg border bg-white p-4">
-            <h4 className="font-semibold">봉사활동 / 창의함양 학점 상한</h4>
-            <ul className="mt-2 space-y-1 text-sm text-slate-600">
-              <li>
-                • 사회봉사 + 해외봉사: 둘 다 이수해도 <strong>최대 1학점만 인정</strong>
-              </li>
-              <li>
-                • 창의함양: <strong>최대 1학점까지</strong> 인정
-              </li>
-            </ul>
-          </div>
-        </div>
-      </Section>
-
-      {/* 무학점 필수 */}
-      <Section title="무학점 필수" subtitle="학점 미부여 필수 과목">
-        <div className="grid gap-3 md:grid-cols-3">
-          <div className="rounded-lg border bg-white p-4 text-center">
-            <h4 className="font-medium">예술</h4>
-            <p className="text-sm text-slate-500">
-              2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기
-            </p>
-          </div>
-          <div className="rounded-lg border bg-white p-4 text-center">
-            <h4 className="font-medium">체육</h4>
-            <p className="text-sm text-slate-500">
-              2018~2019학번: 4학기 <br /> 2020학번 이후: 2학기
-            </p>
-          </div>
-          <div className="rounded-lg border bg-white p-4 text-center">
-            <h4 className="font-medium">콜로퀴움</h4>
-            <p className="text-sm text-slate-500">2회 이상 필수</p>
-          </div>
-        </div>
-      </Section>
-
-      {/* 해외파견 */}
-      <Section title="해외대학 파견" subtitle="계절학기 SAP, 해외대학 파견 학점인정">
-        <div className="rounded-lg border bg-white p-4">
-          <p className="text-sm text-slate-600">
-            계절학기 SAP, 해외대학 파견 등의 학점인정 이수요건 구분은
-            <strong className="text-slate-900"> 신청 당시의 수강신청 가이드라인</strong> 및
-            <strong className="text-slate-900"> 소속부서 사전 확인</strong>이 필요합니다.
-          </p>
-        </div>
-      </Section>
-
-      {/* 시스템 한계 안내 */}
-      <Card className="border-amber-300 bg-amber-50">
-        <CardHeader className="pb-2">
-          <CardTitle className="flex items-center gap-2 text-lg text-amber-800">
-            <AlertTriangle aria-hidden="true" className="h-5 w-5" />
-            시스템 안내사항
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="text-sm text-amber-700">
-          <p className="mb-2">본 시스템의 졸업요건 자동 검사에는 다음 한계가 있습니다:</p>
-          <ul className="list-inside list-disc space-y-1">
-            <li>봉사활동/창의함양 학점 상한은 수동 확인이 필요합니다.</li>
-            <li>전공 42학점 상한은 경고로만 표시됩니다.</li>
-            <li>일부 특수 과목의 이수구분은 학과 사무실에 문의해주세요.</li>
-          </ul>
-        </CardContent>
-      </Card>
-
-      {/* CTA */}
-      <div className="rounded-xl border-2 border-dashed border-blue-300 bg-blue-50/50 p-6 text-center">
-        <h3 className="text-lg font-semibold text-blue-800">이수요건 확인서가 필요하신가요?</h3>
-        <p className="mt-2 text-sm text-blue-600">
-          졸업 이수요건 확인서 생성기를 사용해 엑셀 파일을 자동으로 만들어보세요.
-        </p>
-        <Button asChild size="lg" className="mt-4">
-          <Link href="/dashboard/graduation/certificate-builder">
-            확인서 생성기 사용하기 <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
+        <a
+          href={manual}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 text-sm font-medium text-blue-700"
+        >
+          <BookOpen size={16} aria-hidden="true" />
+          학사편람 원문
+        </a>
       </div>
-    </DashboardPageShell>
-  );
-}
-
-RequirementsGuidePage.getLayout = dashboardLayout;
-
-// --- Helper Components ---
-
-function Section({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
-  return (
-    <section>
-      <SectionHeader title={title} description={subtitle} />
-      {children}
-    </section>
-  );
-}
-
-function RequirementCard({
-  title,
-  credits,
-  items,
-  notes,
-}: {
-  title: string;
-  credits: string;
-  items: { label: string; details: string[] }[];
-  notes?: string[];
-}) {
-  return (
-    <div className="rounded-lg border bg-white p-4">
-      <div className="flex items-center justify-between">
-        <h4 className="font-semibold">{title}</h4>
-        <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">{credits}</span>
-      </div>
-      <div className="mt-3 space-y-2">
-        {items.map((item, idx) => (
-          <div key={idx}>
-            <span className="text-sm font-medium text-slate-700">{item.label}</span>
-            {item.details.length > 0 && (
-              <ul className="mt-1 ml-4 list-disc text-sm text-slate-600">
-                {item.details.map((d, i) => (
-                  <li key={i}>{d}</li>
-                ))}
-              </ul>
-            )}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4" aria-live="polite">
+        {[
+          [`${current.total}학점`, '졸업 최소 학점'],
+          [`${current.gpa.toFixed(1)} / 4.5`, '평균 평점'],
+          [`${major.credits}학점`, '주전공 최소 학점'],
+          ['6학점', '학사논문연구 I·II'],
+        ].map(([value, label]) => (
+          <div key={label} className="rounded-xl border border-slate-200 bg-white p-5">
+            <p className="text-xs text-slate-500">{label}</p>
+            <p className="mt-2 text-xl font-semibold tracking-tight text-slate-900">{value}</p>
           </div>
         ))}
       </div>
-      {notes && notes.length > 0 && (
-        <div className="mt-3 space-y-1">
-          {notes.map((note, idx) => (
-            <p key={idx} className="text-xs text-amber-600">
-              {note}
-            </p>
+      <p className="text-sm leading-6 text-slate-600">
+        교과학점 124학점과 연구학점 6학점을 포함하여 총 130학점 이상이 필요합니다. 학사논문연구는 전공학점과 별도로
+        판정합니다. <Source page={entryYear >= 2021 ? 33 : 34} />
+      </p>
+      <section className="space-y-3" aria-labelledby="common-guide">
+        <h2 id="common-guide" className="text-lg font-semibold">
+          공통 이수요건
+        </h2>
+        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+          {[
+            [
+              '언어의 기초',
+              `${current.language}학점`,
+              '영어 I·II와 글쓰기. 글쓰기 선택 과목 중 1과목(3학점)을 이수합니다.',
+              18,
+            ],
+            [
+              '기초과학',
+              '17~18학점',
+              '미적분학 + 수학 선택 1과목 + 기초과학 3분야. 컴퓨터 프로그래밍을 포함하면 17학점, 포함하지 않으면 18학점입니다. 자연과학 실험은 해당 강의와 같은 학기 또는 이후에 이수합니다.',
+              19,
+            ],
+            [
+              '인문사회',
+              `${current.humanities}학점`,
+              'HUS와 PPE를 각각 6학점 이상 이수합니다. 졸업 총학점에는 인문사회 최대 36학점을 인정합니다.',
+              20,
+            ],
+            [
+              '예술·체육',
+              `예술 ${current.arts} / 체육 ${current.sports}학기`,
+              '예술과 체육의 이수 학기를 각각 셉니다. 같은 학기의 여러 수업을 여러 학기로 계산하지 않습니다.',
+              entryYear >= 2021 ? 33 : 34,
+            ],
+            [
+              '공통 필수',
+              '개별 요건 확인',
+              `GIST 새내기, 과학기술과 경제, GIST 대학 콜로퀴움 2학기. ${entryYear >= 2021 ? '전공탐색(UC0902)도 필수입니다. 반도체공학과는 전공탐색 면제 및 콜로퀴움 별도 조건이 적용됩니다.' : ''} SW기초와 코딩은 컴퓨터 프로그래밍 이수로 면제됩니다.`,
+              entryYear >= 2021 ? 33 : 34,
+            ],
+          ].map(([label, amount, description, page]) => (
+            <div
+              key={label}
+              className="grid gap-2 border-b border-slate-100 p-4 last:border-0 sm:grid-cols-[140px_1fr]"
+            >
+              <div>
+                <h3 className="text-sm font-semibold">{label}</h3>
+                <p className="mt-1 text-xs font-medium text-blue-700">{amount}</p>
+              </div>
+              <div>
+                <p className="text-sm leading-6 text-slate-600">{description}</p>
+                <Source page={Number(page)} />
+              </div>
+            </div>
           ))}
         </div>
-      )}
-    </div>
+        {entryYear >= 2026 && (
+          <p className="rounded-lg bg-blue-50 p-3 text-sm leading-6 text-blue-900">
+            2026학번부터 확률과 통계(GS2008/MM2701)가 기초과학 수학 선택 과목에 포함됩니다. 글쓰기 3학점 상한은
+            2026학년도부터 적용되며, 2025학년도까지 이수한 글쓰기 과목은 경과조치를 확인합니다. <Source page={19} />
+          </p>
+        )}
+      </section>
+      <section className="space-y-3" aria-labelledby="major-guide">
+        <h2 id="major-guide" className="text-lg font-semibold">
+          {major.label} 전공필수
+        </h2>
+        <div className="rounded-xl border border-slate-200 bg-white p-5">
+          <p className="mb-3 text-sm text-slate-600">
+            전공 {major.credits}학점 이상과 아래 필수 요건을 함께 충족해야 합니다. 일반 전공의 졸업 인정 상한은
+            42학점이며, 심화·복수전공은 별도 확인이 필요합니다.
+          </p>
+          {major.rules.length ? (
+            <ul className="space-y-2">
+              {major.rules.map((rule, i) => (
+                <li key={i} className="text-sm">
+                  <span className="font-medium">{rule.label}</span>
+                  <span className="ml-2 text-slate-500">
+                    {rule.count}과목 · {rule.codes.join(' / ')}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-slate-600">
+              {major.code === 'AI'
+                ? 'AI융합학과는 별도 전공필수 과목이 없습니다.'
+                : '이 전공의 세부 적용 요건은 담당부서 확인이 필요합니다.'}
+            </p>
+          )}
+          <div className="mt-3">
+            <Source page={major.page} />
+          </div>
+        </div>
+      </section>
+      <section className="space-y-3" aria-labelledby="minor-guide">
+        <h2 id="minor-guide" className="text-lg font-semibold">
+          부전공은 분야마다 다릅니다
+        </h2>
+        <p className="text-sm leading-6 text-slate-600">
+          선언 후 정규 1학기 이상 수학해야 합니다. 2천번대 과목은 분야별로 허용한 경우에만 인정됩니다. 최소 학점과
+          필수과목만으로 선언·경과조치까지 확정할 수는 없습니다. <Source page={27} />
+        </p>
+        <div className="divide-y rounded-xl border border-slate-200 bg-white">
+          {current.minors.map((p) => (
+            <details key={p.code} className="group p-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm focus-visible:outline-blue-600">
+                <span className="font-medium">
+                  {p.label}
+                  <span className="ml-2 text-slate-400 group-open:hidden">＋</span>
+                </span>
+                <span className="shrink-0 font-semibold text-blue-700">{p.credits}학점 이상</span>
+              </summary>
+              <div className="mt-3 space-y-2 text-sm leading-6 text-slate-600">
+                {p.rules.map((r, i) => (
+                  <p key={i}>
+                    {r.label} · {r.count}과목
+                    <br />
+                    <span className="text-xs text-slate-500">{r.codes.join(' / ')}</span>
+                  </p>
+                ))}
+                {p.code === 'EC' && (
+                  <p>
+                    EC 2천번대 6학점 + 3·4천번대 12학점. 2023학번부터 최소 이수학점은 성적부가 방식(A+~D0)만 인정합니다.
+                  </p>
+                )}
+                {p.code === 'MA' && (
+                  <p>전공필수 2과목과 MA 3·4천번대 3과목을 포함합니다. 2천번대는 전공필수만 인정합니다.</p>
+                )}
+                {p.code === 'MC' && <p>2천번대는 전공필수만 인정합니다.</p>}
+                {p.code === 'EV' && (
+                  <p>실험을 제외한 전공필수 3과목(환경·에너지공학 포함). 2천번대는 인정하지 않습니다.</p>
+                )}
+                {p.code === 'BS' && <p>강의 2과목 + 실험 1과목. 유기화학 I(BS2101)은 제외합니다.</p>}
+                {p.code === 'MM' && (
+                  <p>
+                    기초과학에 사용한 과목은 제외합니다.{' '}
+                    {entryYear >= 2026
+                      ? '필수 4과목(12학점) + MM 3·4천번대 선택 6학점.'
+                      : `필수 4과목(12학점) + 선택 ${entryYear >= 2021 ? 6 : 3}학점.`}
+                    {entryYear < 2026 && (
+                      <span className="mt-2 block">
+                        GS2003 기이수자는 기초교육 제외 필수 3과목(9학점)과 선택 {entryYear >= 2021 ? 9 : 6}학점을
+                        확인합니다. 결합 과목의 경과조치는 2024 편람 PDF 25쪽에 근거합니다.
+                      </span>
+                    )}
+                  </p>
+                )}
+                {p.code === 'AI' && (
+                  <p>
+                    2025-2 이후 선언자는 필수과목이 없습니다. 이전 선언자는 A·B 각 1과목이 필요하며, 2024-2 이전
+                    선언자는 2024년까지 이수한 종전 프로젝트·콜로퀴움의 경과조치를 적용합니다. AI4020은 EC4209와 동일한
+                    필수A 과목으로 인정합니다.
+                  </p>
+                )}
+                {p.code === 'IR' && (
+                  <p>
+                    2026-1부터 필수과목 없이 15학점. 지정 AI 과목은 최대 4과목, AI2601·AI3601 인정. 이전 선언자의 기이수
+                    과목 및 지정 목록은 담당부서 확인이 필요합니다.
+                  </p>
+                )}
+                {p.code === 'FE' && (
+                  <p>
+                    2025-1학기부터 신규 선언 없이 취소만 가능합니다. 기존 선언자의 이수요건을 안내합니다.{' '}
+                    <Source page={15} />
+                  </p>
+                )}
+                {['MD', 'FE'].includes(p.code) && <p>해당 교과과정에서 5과목 이상 이수합니다.</p>}
+                {p.code.startsWith('LH_') && (
+                  <p>
+                    {entryYear <= 2020
+                      ? '구 단일 15학점·연계 18학점 또는 개편 체계 18학점 중 선택해야 하므로 개별 확인이 필요합니다.'
+                      : '개편된 이수체계도에 따라 18학점 이상 이수합니다.'}{' '}
+                    인문사회 모 과목은 인문사회로 분류하고 해당 부전공 요건에도 반영합니다.
+                  </p>
+                )}
+                <Source page={p.page} />
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+      <section className="rounded-xl bg-slate-100 p-5 text-sm leading-6 text-slate-600">
+        <h2 className="mb-2 font-semibold text-slate-900">자동 판정에서 추가 확인하는 항목</h2>
+        <p>
+          타대학 학점인정의 승인 영역, 외국인 SW 대체과목, 심화·복수전공, 부전공 선언 후 수학 기간, 구 인문사회 체계 및
+          지능로봇 경과조치는 개인별 확인이 필요합니다. 위키와 프리셋의 과목 구분보다 학사편람과 승인 내역을 우선합니다.
+        </p>
+        <Link href="/dashboard/graduation/upload" className="mt-3 inline-flex font-medium text-blue-700">
+          성적표로 내 이수현황 확인 →
+        </Link>
+      </section>
+    </DashboardPageShell>
   );
 }
+RequirementsGuidePage.getLayout = dashboardLayout;
 
-function MajorRow({ major, courses }: { major: string; courses: string }) {
-  return (
-    <div className="flex gap-2 rounded bg-slate-50 p-2">
-      <span className="w-28 shrink-0 font-medium text-slate-700">{major}</span>
-      <span className="text-slate-600">{courses}</span>
-    </div>
-  );
+export async function getStaticProps() {
+  const { getBasicRequirementCatalog } = await import('@/features/graduation/domain/rule-catalog/basic-requirements');
+  const { MAJOR_PROGRAMS, MINOR_PROGRAMS } =
+    await import('@/features/graduation/domain/rule-catalog/academic-programs');
+  const {
+    getMajorCreditRequirement,
+    getMinorCreditRequirement,
+    getMajorMandatoryRulesForContext,
+    getMinorMandatoryRulesForContext,
+  } = await import('@/features/graduation/domain/rule-catalog/major-minor-requirements');
+  const years = Array.from({ length: 9 }, (_, i) => 2018 + i).map((year) => {
+    const basic = getBasicRequirementCatalog(year);
+    const project =
+      (minor: boolean) => (program: (typeof MAJOR_PROGRAMS)[number] | (typeof MINOR_PROGRAMS)[number]) => {
+        const credit = minor
+          ? getMinorCreditRequirement(program.canonicalCode, year)
+          : getMajorCreditRequirement(year, program.canonicalCode);
+        const rules = (minor ? getMinorMandatoryRulesForContext : getMajorMandatoryRulesForContext)(
+          program.canonicalCode,
+          { entryYear: year },
+        );
+        return {
+          code: program.canonicalCode,
+          label: program.label,
+          credits: credit.requiredCredits,
+          page: rules[0]?.sourceRefs[0]?.page ?? credit.sourceRefs[0]?.page ?? 27,
+          rules: rules.map((r) => ({ label: r.label, count: r.requiredCount, codes: [...r.courses] })),
+        };
+      };
+    return {
+      year,
+      total: basic.totalCredits.requiredCredits,
+      gpa: basic.minGpaForGraduation,
+      language: basic.language.totalCredits.requiredCredits,
+      humanities: basic.humanities.totalCredits.requiredCredits,
+      arts: basic.artsSports.arts.requiredCount,
+      sports: basic.artsSports.sports.requiredCount,
+      majors: MAJOR_PROGRAMS.filter((p) => !('selectable' in p) || p.selectable !== false).map(project(false)),
+      minors: MINOR_PROGRAMS.filter((p) => !('selectable' in p) || p.selectable !== false).map(project(true)),
+    };
+  });
+  return { props: { years } };
 }
