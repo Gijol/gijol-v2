@@ -44,18 +44,21 @@ describe('academic context resolution', () => {
     expect(getMajorOptions()).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ value: 'NONE', label: '전공 없음 (기초교육학부)' }),
-        expect.objectContaining({ value: 'EC', label: '전기전자컴퓨터공학부' }),
-        expect.objectContaining({ value: 'FE', label: '의생명공학과' }),
+        expect.objectContaining({ value: 'EC', label: '전기전자컴퓨터공학과' }),
       ]),
     );
     expect(getMajorOptions()).not.toEqual(expect.arrayContaining([expect.objectContaining({ value: 'CS' })]));
     expect(getMinorOptions()).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ value: 'FE', label: '에너지' }),
+        expect.objectContaining({ value: 'FE', label: '에너지 (기존 선언자)' }),
         expect.objectContaining({ value: 'MD', label: '의생명' }),
-        expect.objectContaining({ value: 'SE', label: '반도체공학' }),
       ]),
     );
+  });
+
+  it('excludes programs without verified bachelor handbook requirements from new selections', () => {
+    expect(getMajorOptions().some((p) => p.value === 'FE')).toBe(false);
+    expect(getMinorOptions().some((p) => p.value === 'SE')).toBe(false);
   });
 
   it('infers EC from the 20205098 fixture courses', () => {

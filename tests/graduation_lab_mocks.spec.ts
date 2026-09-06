@@ -189,8 +189,12 @@ describe('graduation lab mock files', () => {
 
     expect(result.success).toBe(true);
     expect(allRecommendations.length).toBeGreaterThan(recommendations.length);
-    expect(recommendations.filter((recommendation) => recommendation.requirementId === 'science-total').length).toBeLessThanOrEqual(3);
-    expect(recommendations.filter((recommendation) => recommendation.requirementId === 'humanities-total').length).toBeLessThanOrEqual(3);
+    expect(
+      recommendations.filter((recommendation) => recommendation.requirementId === 'science-total').length,
+    ).toBeLessThanOrEqual(3);
+    expect(
+      recommendations.filter((recommendation) => recommendation.requirementId === 'humanities-total').length,
+    ).toBeLessThanOrEqual(3);
     expect(result.data?.recommendationSuppressions).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
@@ -200,6 +204,36 @@ describe('graduation lab mock files', () => {
     );
     expect(recommendedCodes).not.toContain('GS1001');
     expect(recommendedCodes).not.toContain('CSE101');
+  });
+
+  it('does not recommend SW basics after computer programming satisfies the requirement', async () => {
+    const result = await uploadAndEvaluate(
+      {
+        takenCourses: [
+          {
+            year: 2025,
+            semester: '1',
+            courseType: '기초과학',
+            courseName: '컴퓨터 프로그래밍',
+            courseCode: 'GS1401',
+            credit: 3,
+            grade: 'A0',
+          },
+        ],
+      },
+      {
+        entryYear: 2021,
+        userMajor: 'AI',
+      },
+    );
+    const swRequirement = result.data?.fineGrainedRequirements.find(
+      (requirement) => requirement.id === 'science-sw-basic',
+    );
+    const allRecommendationCodes =
+      result.data?.allRecommendations.map((recommendation) => recommendation.courseCode) ?? [];
+
+    expect(swRequirement).toMatchObject({ satisfied: true, missingCredits: 0 });
+    expect(allRecommendationCodes).not.toContain('GS1490');
   });
 
   it('keeps common recommendations but suppresses major recommendations when no major context is available', async () => {
@@ -217,7 +251,9 @@ describe('graduation lab mock files', () => {
     expect(result.success).toBe(true);
     expect(recommendedCodes.length).toBeGreaterThan(0);
     expect(recommendedCodes.some((code) => code.startsWith('EC'))).toBe(false);
-    expect(recommendedCodes.some((code) => code.startsWith('GS') || code.startsWith('UC') || code.startsWith('HS'))).toBe(true);
+    expect(
+      recommendedCodes.some((code) => code.startsWith('GS') || code.startsWith('UC') || code.startsWith('HS')),
+    ).toBe(true);
     expect(result.data?.recommendationSuppressions).toEqual(
       expect.arrayContaining([
         expect.objectContaining({

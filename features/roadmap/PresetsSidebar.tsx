@@ -107,21 +107,25 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
   const [presets, setPresets] = useState<PresetInfo[]>([]);
   const [loading, setLoading] = useState(true);
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
-  const [isCollapsed, setIsCollapsed] = useState(() => {
-    // Load collapse state from localStorage
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('presets-sidebar-collapsed');
-      return saved === 'true';
-    }
-    return false;
-  });
-
-  // Save collapse state to localStorage
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [preferencesLoaded, setPreferencesLoaded] = useState(false);
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('presets-sidebar-collapsed', String(isCollapsed));
+    try {
+      const saved = localStorage.getItem('presets-sidebar-collapsed');
+      setIsCollapsed(saved === null ? true : saved === 'true');
+    } catch {
+      /* Storage is optional. */
     }
-  }, [isCollapsed]);
+    setPreferencesLoaded(true);
+  }, []);
+  useEffect(() => {
+    if (!preferencesLoaded) return;
+    try {
+      localStorage.setItem('presets-sidebar-collapsed', String(isCollapsed));
+    } catch {
+      /* Storage is optional. */
+    }
+  }, [isCollapsed, preferencesLoaded]);
 
   useEffect(() => {
     fetch('/api/roadmap/presets')
@@ -197,7 +201,12 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
   // Collapsed state UI
   if (isCollapsed) {
     return (
-      <div className={cn('flex h-full w-12 flex-col items-center gap-4 border-r bg-white py-4', className)}>
+      <div
+        className={cn(
+          'flex h-full w-12 flex-col items-center gap-4 border-r border-slate-200/60 bg-slate-50/50 py-4',
+          className,
+        )}
+      >
         <Button
           variant="ghost"
           size="icon"
@@ -220,10 +229,10 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
   return (
     <aside
       aria-label="로드맵 프리셋"
-      className={cn('flex h-full w-[280px] max-w-[80vw] flex-col border-r border-slate-200 bg-white', className)}
+      className={cn('flex h-full w-[240px] max-w-[80vw] flex-col border-r border-slate-200/60 bg-white', className)}
     >
       {/* Header */}
-      <div className="flex items-center justify-between border-b bg-slate-50/50 p-3">
+      <div className="flex items-center justify-between px-3 pt-4 pb-2">
         <div className="flex items-center gap-2">
           <Map aria-hidden="true" className="h-4 w-4 text-blue-600" />
           <p className="text-sm font-semibold text-slate-950">로드맵 프리셋</p>
@@ -240,13 +249,13 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
       </div>
 
       {/* Create Button */}
-      <div className="border-b p-2">
+      <div className="px-3 pt-2 pb-5">
         <Button
           asChild
-          variant="outline"
-          className="h-10 w-full border-dashed border-blue-200 bg-blue-50/50 text-blue-700 hover:border-blue-300 hover:bg-blue-100"
+          variant="ghost"
+          className="h-10 w-full justify-start rounded-lg bg-blue-50 text-blue-700 shadow-none hover:bg-blue-100"
         >
-          <Link href="/dashboard/roadmap/create">
+          <Link href="/dashboard/roadmap/create" passHref>
             <Plus aria-hidden="true" className="mr-2 h-4 w-4" />
             나만의 로드맵 만들기
           </Link>
@@ -261,7 +270,7 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
               <Loader2 aria-hidden="true" className="h-5 w-5 animate-spin text-slate-400 motion-reduce:animate-none" />
             </div>
           ) : (
-            <div className="p-2">
+            <div className="px-3 pb-3">
               {sortedGroups.map(({ major, presets: majorPresets }) => {
                 const isOpen = openSections[major] ?? false;
                 const hasActivePreset = majorPresets.some((p) => p.slug === currentSlug);
@@ -289,7 +298,7 @@ export function PresetsSidebar({ className }: PresetsSidebarProps) {
                       </div>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
-                      <div className="ml-2 space-y-0.5 border-l border-slate-200 pl-2">
+                      <div className="ml-2 space-y-0.5 pl-2">
                         {majorPresets.map((preset) => {
                           const isActive = currentSlug === preset.slug;
                           const displayName =

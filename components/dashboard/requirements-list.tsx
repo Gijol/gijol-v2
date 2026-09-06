@@ -139,21 +139,29 @@ function normalizeRequirementMessage(message: string): string {
 
 function getRequirementDisplayLabel(requirement: FineGrainedRequirement): string {
   return requirement.label.replace(
-    /\s*\(\s*\d+(?:\.\d+)?\s*\/\s*\d+(?:\.\d+)?학점(?:\s*,\s*\d+(?:\.\d+)?학점 부족)?\s*\)\s*$/,
+    /\s*\(\s*\d+(?:\.\d+)?\s*\/\s*\d+(?:\.\d+)?(?:학점|과목|회)(?:\s*,\s*\d+(?:\.\d+)?(?:학점|과목|회) 부족)?\s*\)\s*$/,
     '',
   );
+}
+
+function getRequirementUnitLabel(requirement: FineGrainedRequirement): string {
+  if (requirement.unit === 'semesters') return '학기';
+  if (requirement.unit === 'courses') return '과목';
+  if (requirement.unit === 'occurrences') return '회';
+  return '학점';
 }
 
 function getNonRedundantRequirementHint(requirement: FineGrainedRequirement): string | null {
   const hint = requirement.hint?.trim();
   if (!hint) return null;
 
-  const repeatsMissingCredits =
+  const unitLabel = getRequirementUnitLabel(requirement);
+  const repeatsMissingAmount =
     requirement.missingCredits > 0 &&
-    hint.includes(`${requirement.missingCredits}학점`) &&
+    hint.includes(`${requirement.missingCredits}${unitLabel}`) &&
     /(부족|더 필요|필요합니다)/.test(hint);
 
-  return repeatsMissingCredits ? null : hint;
+  return repeatsMissingAmount ? null : hint;
 }
 
 function getSupplementalRequirementMessages(
@@ -259,6 +267,7 @@ function RequirementEvidenceSection({
               const sourceRefs = uniqueSourceRefs(requirement.sourceRefs);
               const displayLabel = getRequirementDisplayLabel(requirement);
               const displayHint = getNonRedundantRequirementHint(requirement);
+              const unitLabel = getRequirementUnitLabel(requirement);
 
               return (
                 <TableRow key={requirement.id} className="align-top">
@@ -273,8 +282,9 @@ function RequirementEvidenceSection({
                   </TableCell>
                   <TableCell className="px-3 py-3 text-xs text-slate-600">
                     <p className={cn('font-medium text-slate-800', requirement.missingCredits > 0 && 'text-amber-700')}>
-                      {requirement.acquiredCredits}/{requirement.requiredCredits}학점
-                      {requirement.missingCredits > 0 ? `, ${requirement.missingCredits}학점 부족` : ''}
+                      {requirement.acquiredCredits}/{requirement.requiredCredits}
+                      {unitLabel}
+                      {requirement.missingCredits > 0 ? `, ${requirement.missingCredits}${unitLabel} 부족` : ''}
                     </p>
                   </TableCell>
                   <TableCell className="px-3 py-3">

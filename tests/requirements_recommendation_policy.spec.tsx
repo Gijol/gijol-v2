@@ -262,6 +262,47 @@ describe('RequirementsList recommendation policy notices', () => {
     expect(screen.getByText('졸업 직전 학기에는 학과 확인이 필요합니다.')).toBeInTheDocument();
   });
 
+  it('shows each fine-grained requirement with its own measurement unit', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <RequirementsList
+        requirements={[
+          {
+            domain: '기타필수',
+            required: 8,
+            earned: 0,
+            percentage: 0,
+            satisfied: false,
+            messages: [],
+            courses: [],
+            appliedRequirements: [
+              {
+                id: 'etc-colloquium',
+                categoryKey: 'etcMandatory',
+                label: 'GIST대학 콜로퀴움 (0/2회, 2회 부족)',
+                requiredCredits: 2,
+                acquiredCredits: 0,
+                missingCredits: 2,
+                unit: 'occurrences',
+                satisfied: false,
+                status: 'unsatisfied',
+                importance: 'must',
+                sourceRefs: [catalogSourceRef],
+                matchedCourses: [],
+              },
+            ],
+          },
+        ]}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: /기타필수/ }));
+
+    expect(await screen.findByText('0/2회, 2회 부족')).toBeInTheDocument();
+    expect(screen.queryByText('0/2학점, 2학점 부족')).not.toBeInTheDocument();
+  });
+
   it('does not show the evidence section when no source or context evidence exists', async () => {
     const user = userEvent.setup();
 

@@ -14,6 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@components/ui/dialog';
+import { CreditRecognitionSelect } from './credit-recognition-select';
 import { Label } from '@components/ui/label';
 
 type Props = {
@@ -162,7 +163,7 @@ export function ParsedCourseEditableTable({ rows, onChangeRow, onAddRow, onRemov
   const canAddDraftRow =
     draftRow.year !== '' &&
     draftRow.credit !== '' &&
-    draftRow.courseCode.trim().length > 0 &&
+    (draftRow.courseCode.trim().length > 0 || Boolean(draftRow.creditRecognition)) &&
     draftRow.courseName.trim().length > 0;
 
   const handleAddDialogOpenChange = (open: boolean) => {
@@ -217,6 +218,7 @@ export function ParsedCourseEditableTable({ rows, onChangeRow, onAddRow, onRemov
                 <TableHead className="h-9 min-w-[260px] px-2 text-xs font-semibold">과목명</TableHead>
                 <TableHead className="h-9 w-[74px] px-2 text-xs font-semibold">학점</TableHead>
                 <TableHead className="h-9 w-[74px] px-2 text-xs font-semibold">성적</TableHead>
+                <TableHead className="h-9 w-[170px] px-2 text-xs font-semibold">학점 인정</TableHead>
                 <TableHead className="h-9 w-[48px] px-2 text-center text-xs font-semibold">삭제</TableHead>
               </TableRow>
             </TableHeader>
@@ -224,7 +226,7 @@ export function ParsedCourseEditableTable({ rows, onChangeRow, onAddRow, onRemov
               {semesterGroups.map((group) => (
                 <React.Fragment key={group.key}>
                   <TableRow className="border-y border-slate-200 bg-slate-100/80 hover:bg-slate-100/80 dark:bg-slate-900/80 dark:hover:bg-slate-900/80">
-                    <TableCell colSpan={8} className="h-8 px-3 py-1.5">
+                    <TableCell colSpan={9} className="h-8 px-3 py-1.5">
                       <div className="flex items-center gap-2 text-xs">
                         <span className="font-semibold text-slate-700 dark:text-slate-200">{group.label}</span>
                         <span className="rounded-full bg-white px-2 py-0.5 font-medium text-slate-600 shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700">
@@ -321,6 +323,13 @@ export function ParsedCourseEditableTable({ rows, onChangeRow, onAddRow, onRemov
                         />
                       </TableCell>
                       <TableCell className="p-1.5">
+                        <CreditRecognitionSelect
+                          label={`${row.courseName || '수강 이력'} 학점 인정`}
+                          value={row.creditRecognition}
+                          onChange={(value) => onChangeRow(row.id, { creditRecognition: value })}
+                        />
+                      </TableCell>
+                      <TableCell className="p-1.5">
                         <div className="flex justify-center">
                           <Button
                             variant="ghost"
@@ -341,6 +350,10 @@ export function ParsedCourseEditableTable({ rows, onChangeRow, onAddRow, onRemov
           </table>
         </div>
 
+        <p className="px-4 py-2 text-xs text-slate-500">
+          타대 학점은 학교에서 승인한 인정영역을 선택하세요. 필수 과목으로 인정받은 경우 해당 GIST 과목코드를
+          입력하세요.
+        </p>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>수강 이력 추가</DialogTitle>
@@ -398,6 +411,14 @@ export function ParsedCourseEditableTable({ rows, onChangeRow, onAddRow, onRemov
                 id="new-course-code"
                 value={draftRow.courseCode}
                 onChange={(e) => updateDraftRow({ courseCode: e.currentTarget.value })}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label>학점 인정</Label>
+              <CreditRecognitionSelect
+                label="추가 과목 학점 인정"
+                value={draftRow.creditRecognition}
+                onChange={(value) => updateDraftRow({ creditRecognition: value })}
               />
             </div>
             <div className="flex flex-col gap-2 sm:col-span-2">

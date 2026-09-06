@@ -34,7 +34,7 @@ describe('publishable graduation rule catalog', () => {
     });
     expect(COMPILED_GRADUATION_RULE_CATALOG.byId.get('major-credits.2021-plus')).toMatchObject({
       kind: 'credit-minimum',
-      scope: { type: 'program-kind', programKind: 'major' },
+      scope: { type: 'program', programKind: 'major' },
     });
     expect(COMPILED_GRADUATION_RULE_CATALOG.byId.get('minor.ir.ai-code-course-limit')).toMatchObject({
       kind: 'course-limit',

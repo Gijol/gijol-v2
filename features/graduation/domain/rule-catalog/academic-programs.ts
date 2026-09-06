@@ -1,4 +1,4 @@
-import { COURSE_CODE_SETS } from '../constants/course-code-sets';
+import { MANUAL_PROGRAM_COURSES } from './manual-program-courses';
 
 export type AcademicProgramKind = 'major' | 'minor';
 export type CourseSetKind = 'majors' | 'minors';
@@ -72,6 +72,7 @@ export const MAJOR_PROGRAMS = [
   },
   {
     id: 'major.fe',
+    selectable: false,
     kind: 'major',
     canonicalCode: 'FE',
     label: '의생명공학과',
@@ -142,7 +143,7 @@ export const MAJOR_PROGRAMS = [
     id: 'major.ec',
     kind: 'major',
     canonicalCode: 'EC',
-    label: '전기전자컴퓨터공학부',
+    label: '전기전자컴퓨터공학과',
     fullName: '정보컴퓨팅대학 전기전자컴퓨터공학과',
     courseSetKind: 'majors',
     courseSetName: '정보컴퓨팅대학 전기전자컴퓨터공학과',
@@ -325,7 +326,8 @@ export const MINOR_PROGRAMS = [
     id: 'minor.fe',
     kind: 'minor',
     canonicalCode: 'FE',
-    label: '에너지',
+    label: '에너지 (기존 선언자)',
+    textAliases: ['에너지'],
     fullName: '에너지 부전공',
     courseSetKind: 'minors',
     courseSetName: '에너지 부전공',
@@ -343,6 +345,7 @@ export const MINOR_PROGRAMS = [
   },
   {
     id: 'minor.se',
+    selectable: false,
     kind: 'minor',
     canonicalCode: 'SE',
     label: '반도체공학',
@@ -421,8 +424,9 @@ export function getMinorProgramByCode(code?: string | null): AcademicProgramDefi
 }
 
 export function getCourseCodesForProgram(program: AcademicProgramDefinition): readonly string[] {
-  const sets = COURSE_CODE_SETS[program.courseSetKind] as Record<string, readonly string[]>;
-  return sets[program.courseSetName] ?? [];
+  if (program.kind === 'minor')
+    return (MANUAL_PROGRAM_COURSES[program.canonicalCode] ?? []).filter((code) => /^[A-Z]+[234]\d{3}$/.test(code));
+  return Array.from(new Set(program.coursePrefixes.flatMap((prefix) => MANUAL_PROGRAM_COURSES[prefix] ?? [])));
 }
 
 export function getMajorCourseCodes(code?: string | null): readonly string[] {

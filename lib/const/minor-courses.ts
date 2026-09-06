@@ -1,3 +1,7 @@
+import manualMetadata from '../../features/graduation/domain/rule-catalog/manual-course-metadata.json';
+import type { CourseCatalogSourceRef } from '../../features/course-catalog/types';
+import { MINOR_PROGRAMS, getMinorCourseCodes } from '../../features/graduation/domain/rule-catalog/academic-programs';
+import { getMinorMandatoryRulesForContext } from '../../features/graduation/domain/rule-catalog/major-minor-requirements';
 /**
  * 부전공 과목 데이터 및 유틸리티
  * - DB/minor/*.json 파일 데이터를 타입 안전하게 제공
@@ -9,6 +13,7 @@ import type { RecommendedCourse } from '../types/recommended-course';
 // ========== 타입 정의 ==========
 
 export interface MinorCourseInfo {
+  sourceRefs?: CourseCatalogSourceRef[];
   courseCode: string;
   courseName: string;
   credits: number;
@@ -112,34 +117,50 @@ export function getMinorCourseData(minorCode: string): MinorCourseData | null {
  */
 export function getMinorAllCourses(minorCode: string): MinorCourseInfo[] {
   const data = getMinorCourseData(minorCode);
-  if (!data) return [];
-
-  const allCourses: MinorCourseInfo[] = [];
-  if (data['Basic Mandatory']) allCourses.push(...data['Basic Mandatory']);
-  if (data['Major Mandatory']) allCourses.push(...data['Major Mandatory']);
-  if (data['Major Elective']) allCourses.push(...data['Major Elective']);
-  if (data['Basic Elective']) allCourses.push(...data['Basic Elective']);
-  // Planned는 제외 (아직 개설되지 않은 과목)
-
-  return allCourses;
+  const metadata = Object.values(data ?? {}).flat() as MinorCourseInfo[];
+  const mandatory = new Set(
+    getMinorMandatoryRulesForContext(minorCode, { entryYear: 2026 }).flatMap((r) => [...r.courses]),
+  );
+  return getMinorCourseCodes(minorCode)
+    .filter((code) => /^[A-Z]+[234]\d{3}$/.test(code))
+    .map((code) => {
+      const info = metadata.find((c) => c.courseCode === code);
+      const handbook = (
+        manualMetadata as Record<string, { credits: number; year: number; page: number; title?: string }>
+      )[code];
+      return {
+        courseCode: code,
+        courseName: handbook?.title ?? info?.courseName ?? code,
+        credits: handbook?.credits ?? info?.credits ?? 0,
+        category: info?.category ?? '부전공',
+        sourceRefs: handbook
+          ? [
+              {
+                kind: 'manual',
+                sourceId: `${handbook.year}:p${handbook.page}:${code}`,
+                manualYear: handbook.year,
+                page: handbook.page,
+                path: `docs/bachelor_manual/${handbook.year}_manual.pdf`,
+              },
+            ]
+          : [],
+        classification: mandatory.has(code) ? 'Major Mandatory' : 'Major Elective',
+      };
+    });
 }
 
 /**
  * 부전공의 필수 과목(Major Mandatory) 조회
  */
 export function getMinorMandatoryCourses(minorCode: string): MinorCourseInfo[] {
-  const data = getMinorCourseData(minorCode);
-  if (!data) return [];
-  return data['Major Mandatory'] || [];
+  return getMinorAllCourses(minorCode).filter((c) => c.classification === 'Major Mandatory');
 }
 
 /**
  * 부전공의 선택 과목(Major Elective) 조회
  */
 export function getMinorElectiveCourses(minorCode: string): MinorCourseInfo[] {
-  const data = getMinorCourseData(minorCode);
-  if (!data) return [];
-  return data['Major Elective'] || [];
+  return getMinorAllCourses(minorCode).filter((c) => c.classification === 'Major Elective');
 }
 
 /**
@@ -189,5 +210,7 @@ export function getMinorRecommendations(minorCode: string, takenCodes: Set<strin
  * 지원하는 부전공 코드 목록
  */
 export function getSupportedMinorCodes(): string[] {
-  return Object.keys(MINOR_CODE_TO_FILE);
+  return MINOR_PROGRAMS.filter((p) => !('selectable' in p) || p.selectable !== false).map(
+    (program) => program.canonicalCode,
+  );
 }

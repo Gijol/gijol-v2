@@ -21,7 +21,8 @@ describe('MultiSelect option discovery', () => {
     await user.click(screen.getByRole('combobox'));
 
     expect(await screen.findByText(`전체 ${MINOR_OPTIONS.length}개 부전공`)).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: /반도체공학/ })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: /의생명/ })).toBeInTheDocument();
+    expect(screen.queryByRole('option', { name: /반도체공학/ })).not.toBeInTheDocument();
 
     await user.type(screen.getByRole('textbox', { name: '부전공 검색' }), '마음');
 

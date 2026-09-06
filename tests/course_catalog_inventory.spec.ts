@@ -24,12 +24,12 @@ describe('course catalog inventory', () => {
 
     expect(validateCourseCatalogSnapshot(snapshot)).toEqual([]);
     expect(snapshot.schemaVersion).toBe(2);
-    expect(inspection.totals.courses).toBe(1213);
-    expect(inspection.totals.offerings).toBe(5448);
+    expect(inspection.totals.courses).toBe(1298);
+    expect(inspection.totals.offerings).toBe(5548);
     expect(Object.keys(inspection.offeringsByTerm)).toEqual(TIMETABLE_SOURCES.map((source) => source.term));
-    expect(inspection.totals.historicalOfferings).toBe(4221);
-    expect(inspection.totals.manualListings).toBe(3590);
-    expect(inspection.totals.relationships).toBe(11);
+    expect(inspection.totals.historicalOfferings).toBe(4297);
+    expect(inspection.totals.manualListings).toBe(4305);
+    expect(inspection.totals.relationships).toBe(15);
     expect(inspection.historicalOfferingsByAcademicYear).toEqual({
       2020: 484,
       2021: 514,
@@ -37,35 +37,35 @@ describe('course catalog inventory', () => {
       2023: 603,
       2024: 636,
       2025: 676,
-      2026: 717,
+      2026: 793,
     });
     expect(inspection.manualListingsByAcademicYear).toEqual({
-      2020: 446,
-      2021: 328,
-      2022: 303,
-      2023: 567,
-      2024: 591,
-      2025: 666,
-      2026: 689,
+      2020: 515,
+      2021: 557,
+      2022: 550,
+      2023: 607,
+      2024: 641,
+      2025: 704,
+      2026: 731,
     });
     expect(inspection.facetsByFeature).toEqual({
-      minor: 648,
-      recommendation: 211,
+      minor: 628,
+      recommendation: 213,
       roadmap: 774,
     });
-    expect(diagnostics.syntheticCourseCount).toBe(599);
+    expect(diagnostics.syntheticCourseCount).toBe(689);
     expect(diagnostics.roadmapMissingCourseCodeNodes).toHaveLength(324);
     expect(quality.totals).toEqual({
-      offeringsWithoutMeetings: 498,
-      meetingsWithoutRoom: 2889,
-      offeringsWithCapacityZero: 1531,
+      offeringsWithoutMeetings: 427,
+      meetingsWithoutRoom: 3095,
+      offeringsWithCapacityZero: 1552,
       instructorsWithoutStaffId: 0,
-      offeringGroups: 4636,
-      multiCodeOfferingGroups: 689,
-      offeringGroupsWithMultipleDepartments: 686,
-      offeringGroupsWithMultipleSections: 0,
-      manualListedCoursesWithoutOffering: 134,
-      offeredCoursesWithoutManualListing: 358,
+      offeringGroups: 4698,
+      multiCodeOfferingGroups: 722,
+      offeringGroupsWithMultipleDepartments: 719,
+      offeringGroupsWithMultipleSections: 1,
+      manualListedCoursesWithoutOffering: 219,
+      offeredCoursesWithoutManualListing: 353,
     });
     expect(quality.byTerm['2026-1']).toEqual({
       offerings: 434,
@@ -81,17 +81,17 @@ describe('course catalog inventory', () => {
       offeringGroupsWithMultipleSections: 0,
     });
     expect(quality.byTerm['2026-2']).toEqual({
-      offerings: 507,
-      offeringsWithoutMeetings: 209,
-      meetings: 466,
-      meetingsWithoutRoom: 378,
-      offeringsWithCapacityZero: 245,
-      instructors: 305,
+      offerings: 607,
+      offeringsWithoutMeetings: 138,
+      meetings: 816,
+      meetingsWithoutRoom: 584,
+      offeringsWithCapacityZero: 266,
+      instructors: 535,
       instructorsWithoutStaffId: 0,
-      offeringGroups: 450,
-      multiCodeOfferingGroups: 49,
-      offeringGroupsWithMultipleDepartments: 46,
-      offeringGroupsWithMultipleSections: 0,
+      offeringGroups: 512,
+      multiCodeOfferingGroups: 82,
+      offeringGroupsWithMultipleDepartments: 79,
+      offeringGroupsWithMultipleSections: 1,
     });
     expect(quality.samples.multiCodeOfferingGroups).toEqual(
       expect.arrayContaining([

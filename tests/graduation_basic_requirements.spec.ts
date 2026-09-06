@@ -45,17 +45,17 @@ describe('manual-backed basic graduation requirements', () => {
       const compiled = compileRuleCatalog(BASIC_REQUIREMENT_CATALOG_RULES);
       expect(compiled.byId.get('basic-2021-plus.etc-major-exploration')).toMatchObject({
         kind: 'course-credit',
-        scope: { type: 'global' },
+        scope: { type: 'program', programKind: 'major' },
         parameters: {
           requiredCredits: 1,
           unit: 'credits',
-          courses: ['UC0902'],
+          courses: ['UC0902', 'GS1900'],
         },
-        sourceRefs: [expect.objectContaining({ manualYear: 2026, page: 33 })],
+        sourceRefs: expect.arrayContaining([expect.objectContaining({ manualYear: 2026, page: 33 })]),
       });
       expect(compiled.byId.get('basic-2018-2019.arts')).toMatchObject({
         kind: 'activity-count',
-        parameters: { requiredCount: 4, unit: 'courses' },
+        parameters: { requiredCount: 4, unit: 'semesters' },
       });
       expect(compiled.byId.get('basic-2021-plus.science-total')).toMatchObject({
         kind: 'conditional-credit-minimum',
@@ -85,7 +85,7 @@ describe('manual-backed basic graduation requirements', () => {
     it('selects basic requirement primitive rules by entry year context', () => {
       const compiled = compileRuleCatalog(BASIC_REQUIREMENT_CATALOG_RULES);
       const selection2020 = selectRulesForContext(compiled, { entryYear: 2020 });
-      const selection2021 = selectRulesForContext(compiled, { entryYear: 2021 });
+      const selection2021 = selectRulesForContext(compiled, { entryYear: 2021, programCodes: { major: ['EC'] } });
       const selected2020Ids = selection2020.applicableRules.map((rule) => rule.id);
       const selected2021Ids = selection2021.applicableRules.map((rule) => rule.id);
 
@@ -97,6 +97,15 @@ describe('manual-backed basic graduation requirements', () => {
   });
 
   describe('entry-year specific mandatory courses', () => {
+    it('preserves course and occurrence units in fine-grained requirement results', async () => {
+      const result = await evaluateFor(2021, []);
+
+      expectRequirement(result, 'science-calculus', { unit: 'courses' });
+      expectRequirement(result, 'science-core-math', { unit: 'courses' });
+      expectRequirement(result, 'science-sw-basic', { unit: 'courses' });
+      expectRequirement(result, 'etc-colloquium', { unit: 'semesters' });
+    });
+
     it('requires GIST major exploration for 2021+ entry years', async () => {
       // 2026 bachelor manual p.33: GIST major exploration is mandatory from 2021 entry years.
       const result = await evaluateFor(2021, []);
@@ -153,21 +162,18 @@ describe('manual-backed basic graduation requirements', () => {
       });
     });
 
-    it('does not accept only one legacy English I course for 2021+ entry years', async () => {
+    it.each(['GS1601', 'GS1603'])('accepts %s alone from 2021 semester 2 for a 2021 entrant', async (courseCode) => {
       const result = await evaluateFor(2021, [
-        course({
-          courseCode: 'GS1601',
-          courseName: '영어 I',
-          credit: 2,
-        }),
+        course({ courseCode, courseName: '영어 Ⅰ: 발표와 토론', credit: 2, year: 2021, semester: '2' }),
       ]);
-
-      expectRequirement(result, 'language-english-i', {
-        satisfied: false,
+      const requirement = expectRequirement(result, 'language-english-i', {
+        satisfied: true,
         requiredCredits: 2,
-        acquiredCredits: 0,
-        missingCredits: 2,
+        acquiredCredits: 2,
+        missingCredits: 0,
       });
+      expect(requirement.hint).not.toContain('동시 이수');
+      expect(getBasicRequirementCatalog(2021).language.englishI.acceptedCodes).toContain(courseCode);
     });
 
     it('accepts the paired legacy English I courses for 2021+ entry years', async () => {
@@ -190,6 +196,27 @@ describe('manual-backed basic graduation requirements', () => {
         acquiredCredits: 2,
         missingCredits: 0,
       });
+    });
+  });
+
+  describe('science basics', () => {
+    it('keeps completed calculus in science basics before the full math field is complete', async () => {
+      const result = await evaluateFor(2021, [
+        course({
+          courseCode: 'GS1001',
+          courseName: '미적분학과 응용',
+        }),
+      ]);
+      const scienceCodes = result.graduationCategory.scienceBasic.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+      const freeElectiveCodes = result.graduationCategory.otherUncheckedClass.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+
+      expectRequirement(result, 'science-calculus', { satisfied: true });
+      expect(scienceCodes).toContain('GS1001');
+      expect(freeElectiveCodes).not.toContain('GS1001');
     });
   });
 
@@ -226,6 +253,74 @@ describe('manual-backed basic graduation requirements', () => {
         missingCredits: 0,
       });
     });
+
+    it('keeps MOOC-designated HUS and PPE courses in the humanities completion area', async () => {
+      const result = await evaluateFor(2021, [
+        course({
+          courseCode: 'HS2507',
+          courseName: '(MOOC 지정) 시의 이해',
+        }),
+        course({
+          courseCode: 'PP3767',
+          courseName: '(MOOC 지정) 인공지능 로봇의 윤리',
+        }),
+      ]);
+      const humanitiesCodes = result.graduationCategory.humanities.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+      const freeElectiveCodes = result.graduationCategory.otherUncheckedClass.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+
+      expect(humanitiesCodes).toEqual(expect.arrayContaining(['HS2507', 'PP3767']));
+      expect(freeElectiveCodes).not.toEqual(expect.arrayContaining(['HS2507', 'PP3767']));
+      expectRequirement(result, 'humanities-hus', {
+        acquiredCredits: 3,
+        missingCredits: 3,
+      });
+      expectRequirement(result, 'humanities-ppe', {
+        acquiredCredits: 3,
+        missingCredits: 3,
+      });
+    });
+
+    it('classifies a cross-listed PPE alias in the same humanities completion area', async () => {
+      const result = await evaluateFor(2021, [
+        course({
+          courseCode: 'MM3767',
+          courseName: '인공지능 로봇의 윤리',
+        }),
+      ]);
+      const humanitiesCodes = result.graduationCategory.humanities.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+
+      expect(humanitiesCodes).toContain('MM3767');
+      expectRequirement(result, 'humanities-ppe', {
+        acquiredCredits: 3,
+        missingCredits: 3,
+      });
+    });
+
+    it('keeps foreign-student software in its own area and asks for eligibility review', async () => {
+      const result = await evaluateFor(2021, [
+        course({
+          courseCode: 'GS1499',
+          courseName: '(MOOC 지정) 파이썬 기초',
+          credit: 2,
+        }),
+      ]);
+      const humanitiesCodes = result.graduationCategory.humanities.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+      const softwareCodes = result.graduationCategory.etcMandatory.userTakenCoursesList.takenCourses.map(
+        (takenCourse) => takenCourse.courseCode,
+      );
+
+      expect(humanitiesCodes).not.toContain('GS1499');
+      expect(softwareCodes).toContain('GS1499');
+      expectRequirement(result, 'science-sw-basic', { status: 'needs_review', satisfied: false });
+    });
   });
 
   describe('zero-credit arts and sports', () => {
@@ -244,12 +339,14 @@ describe('manual-backed basic graduation requirements', () => {
           requiredCredits: requiredCourses,
           acquiredCredits: 0,
           missingCredits: requiredCourses,
+          unit: 'semesters',
         });
         expectRequirement(result, 'sports', {
           satisfied: false,
           requiredCredits: requiredCourses,
           acquiredCredits: 0,
           missingCredits: requiredCourses,
+          unit: 'semesters',
         });
       },
     );

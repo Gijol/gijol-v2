@@ -7,10 +7,10 @@ import {
 describe('graduation catalog inspection', () => {
   it('summarizes publish bundle source layer coverage', () => {
     const inspection = inspectGraduationCatalogPublishBundle(GRADUATION_CATALOG_PUBLISH_BUNDLE);
-    const [sourceLayer] = inspection.sourceLayers;
+    const sourceLayer = inspection.sourceLayers.find((layer) => layer.id === 'gist-bachelor-manual-2026');
 
     expect(inspection.totals).toMatchObject({
-      sourceLayers: 1,
+      sourceLayers: 6,
       rules: GRADUATION_CATALOG_PUBLISH_BUNDLE.ruleCatalog.rules.length,
       courseEquivalencies: GRADUATION_CATALOG_PUBLISH_BUNDLE.courseEquivalencies.equivalencies.length,
       evaluatorBackedRules: 1,
@@ -20,18 +20,24 @@ describe('graduation catalog inspection', () => {
       manualYear: 2026,
       sourcePath: 'docs/bachelor_manual/2026_manual.pdf',
       ruleCount: GRADUATION_CATALOG_PUBLISH_BUNDLE.ruleCatalog.rules.length,
-      courseEquivalencyCount: GRADUATION_CATALOG_PUBLISH_BUNDLE.courseEquivalencies.equivalencies.length,
+      courseEquivalencyCount: GRADUATION_CATALOG_PUBLISH_BUNDLE.courseEquivalencies.equivalencies.filter((relation) =>
+        relation.sourceRefs.some((ref) => ref.manualYear === 2026),
+      ).length,
     });
-    expect(sourceLayer.pages.length).toBeGreaterThan(0);
+    expect(sourceLayer?.pages.length).toBeGreaterThan(0);
     expect(inspection.unreferencedSourceLayerIds).toEqual([]);
   });
 
   it('summarizes tracked source page audit statuses', () => {
     const inspection = inspectGraduationCatalogPublishBundle(GRADUATION_CATALOG_PUBLISH_BUNDLE);
-    const byPage = new Map(inspection.sourcePageAudits.map((audit) => [audit.page, audit]));
+    const byPage = new Map(
+      inspection.sourcePageAudits
+        .filter((audit) => audit.layerId === 'gist-bachelor-manual-2026')
+        .map((audit) => [audit.page, audit]),
+    );
 
     expect(inspection.sourcePageAuditByStatus).toMatchObject({
-      covered: 2,
+      covered: 12,
       partial: 10,
       deferred: 2,
       'out-of-scope': 1,
@@ -81,7 +87,7 @@ describe('graduation catalog inspection', () => {
     const output = formatGraduationCatalogInspection(inspection);
 
     expect(output).toContain('Graduation catalog inspect');
-    expect(output).toContain('- source layers: 1');
+    expect(output).toContain('- source layers: 6');
     expect(output).toContain('gist-bachelor-manual-2026');
     expect(output).toContain('- evaluator-backed rules: 1');
     expect(output).toContain('- source page audit:');

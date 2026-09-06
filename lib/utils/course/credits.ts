@@ -1,6 +1,7 @@
 export type HasGradeAndCredit = {
   credit: number;
   grade?: string | null;
+  creditRecognition?: { status: 'approved' | 'pending' };
 };
 
 const NON_EARNING_GRADES = new Set(['F', 'FAIL', 'U', 'UNSATISFACTORY', '불합격']);

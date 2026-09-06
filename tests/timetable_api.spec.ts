@@ -20,6 +20,41 @@ function createMockResponse() {
 }
 
 describe('timetable term API', () => {
+  it('loads deployment data independently of the process working directory', async () => {
+    const cwd = jest.spyOn(process, 'cwd').mockReturnValue('/tmp/not-the-project');
+    try {
+      const res = createMockResponse();
+      await timetableTermHandler(
+        { method: 'GET', query: { term: '2025-2', q: '물리' } } as unknown as NextApiRequest,
+        res,
+      );
+      expect(res.statusCode).toBe(200);
+    } finally {
+      cwd.mockRestore();
+    }
+  });
+  it.each([
+    ['2026-1', 434, 434],
+    ['2026-2', 607, 431],
+  ])('serves the published %s timetable data', async (term, count, undergraduateSectionCount) => {
+    const req = {
+      method: 'GET',
+      query: { term },
+    } as unknown as NextApiRequest;
+    const res = createMockResponse();
+
+    await timetableTermHandler(req, res);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(
+      expect.objectContaining({
+        term,
+        count,
+        undergraduateSectionCount,
+      }),
+    );
+  });
+
   it('serves normalized registration timetable sections by term', async () => {
     const req = {
       method: 'GET',
@@ -71,7 +106,7 @@ describe('timetable term API', () => {
       content: Array<{ program: string }>;
     };
     expect(body.totalElements).toBe(176);
-    expect(body.undergraduateSectionCount).toBe(331);
+    expect(body.undergraduateSectionCount).toBe(431);
     expect(body.graduateSectionCount).toBe(176);
     body.content.forEach((section) => {
       expect(section.program).toMatch(/대학원|석사|박사|석박/);

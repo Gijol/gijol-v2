@@ -1,3 +1,4 @@
+import handbookMetadata from '../graduation/domain/rule-catalog/manual-course-metadata.json';
 import { readdirSync, readFileSync } from 'fs';
 import path from 'path';
 import {
@@ -43,17 +44,12 @@ function loadRoadmapPresets(rootDir: string): Record<string, RoadmapData> {
     readdirSync(presetsDir)
       .filter((filename) => filename.endsWith('.json'))
       .sort()
-      .map((filename) => [
-        filename.replace(/\.json$/, ''),
-        readJsonFile<RoadmapData>(path.join(presetsDir, filename)),
-      ]),
+      .map((filename) => [filename.replace(/\.json$/, ''), readJsonFile<RoadmapData>(path.join(presetsDir, filename))]),
   );
 }
 
 function loadMinorCoursesByCode(): Record<string, MinorCourseInfo[]> {
-  return Object.fromEntries(
-    getSupportedMinorCodes().map((minorCode) => [minorCode, getMinorAllCourses(minorCode)]),
-  );
+  return Object.fromEntries(getSupportedMinorCodes().map((minorCode) => [minorCode, getMinorAllCourses(minorCode)]));
 }
 
 function loadTimetableSources(rootDir: string): {
@@ -82,13 +78,7 @@ function loadRecommendationCourseGroups(): RecommendationCourseGroup[] {
     { requirementId: 'science-sw-basic', courses: SOFTWARE_COURSES },
     {
       requirementId: 'science-total',
-      courses: [
-        ...MATH_COURSES,
-        ...PHYSICS_COURSES,
-        ...CHEMISTRY_COURSES,
-        ...BIOLOGY_COURSES,
-        ...SOFTWARE_COURSES,
-      ],
+      courses: [...MATH_COURSES, ...PHYSICS_COURSES, ...CHEMISTRY_COURSES, ...BIOLOGY_COURSES, ...SOFTWARE_COURSES],
     },
     { requirementId: 'humanities-hus', courses: HUS_COURSES },
     { requirementId: 'humanities-ppe', courses: PPE_COURSES },
@@ -110,15 +100,14 @@ function loadRecommendationCourseGroups(): RecommendationCourseGroup[] {
   return groups;
 }
 
-export function buildCourseCatalogSnapshotFromWorkspace(
-  rootDir = process.cwd(),
-): CourseCatalogBuildResult {
+export function buildCourseCatalogSnapshotFromWorkspace(rootDir = process.cwd()): CourseCatalogBuildResult {
   const courseDbRows = parseCoursesFromCSV(readFileSync(path.join(rootDir, 'DB', 'course_db.csv'), 'utf8'));
 
   return buildCourseCatalogSnapshot({
     courseDbRows,
     timetableSources: loadTimetableSources(rootDir),
     manualListingSources: MANUAL_LISTING_SOURCES,
+    handbookMetadata,
     minorCoursesByCode: loadMinorCoursesByCode(),
     roadmapPresets: loadRoadmapPresets(rootDir),
     recommendationCourses: getAllCourses(),

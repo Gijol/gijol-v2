@@ -15,8 +15,13 @@ import {
   ZERO_CREDIT_PE_PREFIX,
   COMMON_MAJOR_PREFIXES,
   ALL_HUMANITIES_COURSES,
+  ALL_HUMANITIES_SUFFIXES,
   GSC_COURSES,
+  getCourseSuffix,
 } from './constants';
+import { MANUAL_PROGRAM_COURSES } from './rule-catalog/manual-program-courses';
+import { isApprovedRecognition } from './credit-recognition';
+import { isBasicScienceCode, SOFTWARE_BASIC_CODES } from './rule-catalog/science-courses';
 import { getAliases } from './constants/alias-mappings';
 import { resolveMajorCode } from './academic-context';
 import { findMinorProgram, getCourseCodesForProgram, getMajorProgramByCode } from './rule-catalog/academic-programs';
@@ -35,14 +40,20 @@ function normalizeName(name?: string): string {
 }
 
 const HUMANITIES_CODE_PREFIXES = new Set(['HS', 'GS', 'EB', 'LH', 'MB', 'PP', 'SS']);
+const HUMANITIES_TRANSCRIPT_PREFIXES = new Set(['HS', 'EB', 'LH', 'MB', 'PP', 'SS']);
 
 function isHumanitiesTranscriptCode(code: string): boolean {
   const prefix = code.match(/^[A-Z]+/)?.[0] || '';
   return HUMANITIES_CODE_PREFIXES.has(prefix);
 }
 
-function isIrAiCodeMinorCourse(code: string): boolean {
-  return /^AI[0-9]/.test(code) && !THESIS_SUFFIXES.some((suffix) => code.endsWith(suffix));
+function isRecognizedHumanitiesCourseCode(code: string): boolean {
+  const prefix = code.match(/^[A-Z]+/)?.[0] || '';
+  return (
+    HUMANITIES_TRANSCRIPT_PREFIXES.has(prefix) ||
+    ALL_HUMANITIES_COURSES.has(code) ||
+    ALL_HUMANITIES_SUFFIXES.has(getCourseSuffix(code))
+  );
 }
 
 // Constants moved to ./constants/classifier-constants.ts
@@ -57,8 +68,9 @@ export function matchesMinor(courseCode: string, minorInput: string): boolean {
     return false;
   }
 
-  if (minorProgram.canonicalCode === 'CT' && isHumanitiesTranscriptCode(code)) {
-    return false;
+  const handbookCodes = MANUAL_PROGRAM_COURSES[minorProgram.canonicalCode];
+  if (minorProgram.canonicalCode.startsWith('LH_') && handbookCodes && isHumanitiesTranscriptCode(code)) {
+    return handbookCodes.some((candidate) => candidate.slice(-4) === code.slice(-4));
   }
 
   // Get all equivalent codes (including aliases) for cross-listed course matching.
@@ -70,29 +82,45 @@ export function matchesMinor(courseCode: string, minorInput: string): boolean {
     return true;
   }
 
-  // 2026 bachelor manual p.29: IR minor recognizes AI-code designated courses,
-  // capped later in the requirement evaluator. Thesis research suffixes stay out.
-  if (minorProgram.canonicalCode === 'IR') {
-    return allCodes.some(isIrAiCodeMinorCourse);
-  }
+  // Unknown codes need handbook evidence; a department prefix alone is not approval.
 
   return false;
 }
 
-export function classifyCourse(course: TakenCourseType, userMajor?: string, userMinors?: string[]): CategoryKey {
+export function classifyCourse(
+  course: TakenCourseType,
+  userMajor?: string,
+  userMinors?: string[],
+  entryYear = 2021,
+): CategoryKey {
   const code = normalizeCode(course.courseCode);
   const name = normalizeName(course.courseName);
   const alphaMatch = code.match(/^[A-Z]+/);
   const prefix = alphaMatch ? alphaMatch[0] : '';
   const credit = Number(course.credit) || 0;
 
+  if (course.creditRecognition?.status === 'pending') return 'otherUncheckedClass';
+  if (isApprovedRecognition(course) && course.creditRecognition?.category) return course.creditRecognition.category;
+
+  // Manual p.22: humanities mother courses keep their category. A declared
+  // humanities minor also evaluates them, without adding credits twice.
+  if (isRecognizedHumanitiesCourseCode(code)) return 'humanities';
+
   // 1) 부전공/복수전공 우선 (타 전공도 부전공으로 이수 가능)
   if (userMinors?.some((m) => matchesMinor(course.courseCode, m))) {
     return 'minor';
   }
 
-  // 1.5) MOOC -> 자유학점
+  if ((SOFTWARE_BASIC_CODES as readonly string[]).includes(code)) return 'etcMandatory';
+  // Explicit academic classifications take precedence over words such as English or physics.
+  if (isRecognizedHumanitiesCourseCode(code)) return 'humanities';
+  if (isBasicScienceCode(code, entryYear)) return 'scienceBasic';
+
+  // 1.5) MOOC 지정은 HUS/PPE/GSC 이수영역을 덮어쓰지 않음
   if (name.includes('mooc')) {
+    if (isRecognizedHumanitiesCourseCode(code)) {
+      return 'humanities';
+    }
     return 'otherUncheckedClass';
   }
 
@@ -137,11 +165,7 @@ export function classifyCourse(course: TakenCourseType, userMajor?: string, user
   if (SCIENCE_KEYWORDS.some((kw) => name.includes(kw))) return 'scienceBasic';
 
   // 6) 인문사회
-  if (
-    /^(HS|EB|LH|MB|PP|SS)/.test(prefix) ||
-    HUMANITY_KEYWORDS.some((kw) => name.includes(kw)) ||
-    ALL_HUMANITIES_COURSES.has(code)
-  ) {
+  if (isRecognizedHumanitiesCourseCode(code) || HUMANITY_KEYWORDS.some((kw) => name.includes(kw))) {
     return 'humanities';
   }
 

@@ -1,10 +1,12 @@
 // features/roadmap/PresetCourseNode.tsx
-// Custom React Flow node for preset roadmap data with view/edit mode support
+// Custom React Flow node for preset roadmap data for read-only course browsing
 import React, { memo } from 'react';
-import { Handle, Position, NodeProps, NodeResizer } from 'reactflow';
+import { Handle, Position, NodeProps, useReactFlow } from 'reactflow';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import type { CourseNodeData } from '@/lib/types/roadmap';
+import { useGraduationStore } from '@/lib/stores/useGraduationStore';
+import { isRoadmapCourseCompleted } from './completion';
 import { useRoadmapContext } from './RoadmapContext';
 
 const categoryColors: Record<string, string> = {
@@ -25,10 +27,26 @@ const statusColors: Record<string, string> = {
 };
 
 const PresetCourseNode = ({ id, data, selected }: NodeProps<CourseNodeData>) => {
-  const { isViewMode, setSelectedCourse, setSheetOpen, isNodeHighlighted, highlightState } = useRoadmapContext();
+  const { setSelectedCourse, setSheetOpen, isNodeHighlighted, highlightState, setHoveredNode } = useRoadmapContext();
+
+  const { getEdges } = useReactFlow();
+  const focusConnections = () => {
+    const edges = getEdges().filter((e) => e.source === id || e.target === id);
+    setHoveredNode(
+      id,
+      edges.map((e) => (e.source === id ? e.target : e.source)),
+      edges.map((e) => e.id),
+    );
+  };
 
   const categoryStyle = categoryColors[data.category] || 'bg-gray-100 border-gray-300 text-gray-800';
-  const statusStyle = data.status ? statusColors[data.status] : '';
+  const takenCourses = useGraduationStore((state) => state.takenCourses);
+  const completed = isRoadmapCourseCompleted(data, takenCourses);
+  const statusStyle = completed
+    ? statusColors.COMPLETED
+    : data.status === 'COMPLETED'
+      ? ''
+      : (statusColors[data.status] ?? '');
 
   // Check if this node is highlighted (hovered or connected to hovered node)
   const isHighlighted = isNodeHighlighted(id);
@@ -42,17 +60,10 @@ const PresetCourseNode = ({ id, data, selected }: NodeProps<CourseNodeData>) => 
 
   return (
     <>
-      {!isViewMode && (
-        <NodeResizer
-          minWidth={150}
-          minHeight={100}
-          isVisible={selected}
-          lineClassName="border-blue-400"
-          handleClassName="h-3 w-3 bg-blue-500 border-2 border-white rounded"
-        />
-      )}
       <div
         onClick={handleClick}
+        onFocus={focusConnections}
+        onBlur={() => setHoveredNode(null)}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
@@ -61,22 +72,27 @@ const PresetCourseNode = ({ id, data, selected }: NodeProps<CourseNodeData>) => 
         }}
         role="button"
         tabIndex={0}
-        aria-label={`${data.label} 과목 상세 보기`}
+        aria-label={`${data.label}${completed ? ' 이수 완료' : ''} 과목 상세 보기`}
         className={cn(
-          'h-full min-w-[200px] rounded-lg border-2 bg-white shadow-md transition-[border-color,box-shadow,opacity,filter] duration-150 ease-[var(--ease-ui-out)]',
+          'h-full min-w-[200px] rounded-xl border bg-white text-left shadow-sm transition-[border-color,opacity] duration-150 outline-none focus-visible:ring-2 focus-visible:ring-blue-600 motion-reduce:transition-none',
           selected ? 'border-primary ring-primary/50 ring-2' : 'border-slate-200',
           statusStyle,
-          isViewMode && 'cursor-pointer hover:border-blue-400 hover:shadow-lg',
+          'cursor-pointer hover:border-blue-400',
           // Highlight styles for view mode hover
-          isViewMode && hasActiveHighlight && !isHighlighted && 'opacity-30',
-          isViewMode && isHoveredNode && 'z-10 border-blue-500 shadow-lg ring-2 ring-blue-400',
-          isViewMode && isHighlighted && !isHoveredNode && 'border-amber-400 shadow-lg ring-2 ring-amber-300',
+          hasActiveHighlight && !isHighlighted && 'opacity-30',
+          isHoveredNode && 'z-10 border-blue-500 shadow-lg ring-2 ring-blue-400',
+          isHighlighted && !isHoveredNode && 'border-amber-400 shadow-lg ring-2 ring-amber-300',
         )}
         style={{ width: '100%', height: '100%' }}
       >
-        <Handle type="target" position={Position.Left} className="h-3! w-3! border-2! border-white! bg-slate-400!" />
+        <Handle
+          isConnectable={false}
+          type="target"
+          position={Position.Left}
+          className="h-3! w-3! border-2! border-white! bg-slate-400!"
+        />
 
-        <div className="flex h-full flex-col gap-1.5 p-3">
+        <div className="flex h-full flex-col gap-1 p-3">
           {/* Category Badge & Course Code */}
           <div className="flex items-center justify-between">
             <span className={cn('rounded px-1.5 py-0.5 text-[10px] font-medium', categoryStyle)}>{data.category}</span>
@@ -86,16 +102,23 @@ const PresetCourseNode = ({ id, data, selected }: NodeProps<CourseNodeData>) => 
           </div>
 
           {/* Course Code */}
-          <div className="font-mono text-[10px] text-gray-400">{data.courseCode}</div>
+          <div className="flex items-center justify-between text-[11px] text-slate-500">
+            <span className="font-mono">{data.courseCode || '과목군'}</span>
+            {completed && <span className="font-semibold text-green-700">✓ 이수 완료</span>}
+          </div>
 
           {/* Course Title */}
           <div className="line-clamp-2 text-sm leading-tight font-bold text-gray-800">{data.label}</div>
 
           {/* Semester */}
-          <div className="text-xs text-gray-500">{data.semester} 학기</div>
         </div>
 
-        <Handle type="source" position={Position.Right} className="h-3! w-3! border-2! border-white! bg-slate-400!" />
+        <Handle
+          isConnectable={false}
+          type="source"
+          position={Position.Right}
+          className="h-3! w-3! border-2! border-white! bg-slate-400!"
+        />
       </div>
     </>
   );

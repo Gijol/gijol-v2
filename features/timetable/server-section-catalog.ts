@@ -1,6 +1,4 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { getTimetableSourceByTerm } from '@/features/course-catalog/timetable-sources';
+import { loadBundledTimetable } from './server-bundled-data';
 import type { SectionOffering } from '@/lib/types/timetable';
 import {
   createSectionBrowser,
@@ -23,7 +21,13 @@ export function createTimetableSectionCatalog(source: TimetableSectionSource): T
   const loadBrowser = (term: string) => {
     let browser = browsersByTerm.get(term);
     if (!browser) {
-      browser = source.load(term).then((sections) => (sections ? createSectionBrowser(sections) : null));
+      browser = source
+        .load(term)
+        .then((sections) => (sections ? createSectionBrowser(sections) : null))
+        .catch((error) => {
+          browsersByTerm.delete(term);
+          throw error;
+        });
       browsersByTerm.set(term, browser);
     }
     return browser;
@@ -37,19 +41,11 @@ export function createTimetableSectionCatalog(source: TimetableSectionSource): T
   };
 }
 
-export const fileTimetableSectionSource: TimetableSectionSource = {
-  async load(term) {
-    const manifest = getTimetableSourceByTerm(term);
-    if (!manifest) return null;
-    const fileContent = await fs.readFile(path.join(process.cwd(), manifest.path), 'utf8');
-    const data = JSON.parse(fileContent) as { items?: SectionOffering[] };
-    return Array.isArray(data.items) ? data.items : [];
-  },
-};
+export const bundledTimetableSectionSource: TimetableSectionSource = { load: loadBundledTimetable };
 
 let serverCatalog: TimetableSectionCatalog | undefined;
 
 export function getServerTimetableSectionCatalog(): TimetableSectionCatalog {
-  serverCatalog ??= createTimetableSectionCatalog(fileTimetableSectionSource);
+  serverCatalog ??= createTimetableSectionCatalog(bundledTimetableSectionSource);
   return serverCatalog;
 }

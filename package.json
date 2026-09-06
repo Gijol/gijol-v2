@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "next-sitemap && npm run course-catalog:check-browser-bundle && npm run public-route:check-browser-bundle",
+    "postbuild": "npm run timetable:check-server-bundle && next-sitemap && npm run course-catalog:check-browser-bundle && npm run public-route:check-browser-bundle",
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
@@ -15,6 +15,7 @@
     "course-catalog:extract-manual-listings": "ts-node -r tsconfig-paths/register scripts/course-catalog/extract-manual-listings.ts",
     "course-catalog:report": "ts-node -r tsconfig-paths/register scripts/course-catalog/build-catalog-report.ts",
     "course-catalog:check-browser-bundle": "ts-node -r tsconfig-paths/register scripts/course-catalog/check-browser-bundle.ts",
+    "timetable:check-server-bundle": "ts-node scripts/check-timetable-server-bundle.ts",
     "public-route:check-browser-bundle": "ts-node scripts/check-public-route-bundle.ts",
     "graduation:catalog:check": "ts-node scripts/graduation/check-rule-catalog.ts",
     "graduation:catalog:export": "ts-node scripts/graduation/export-rule-catalog.ts",
@@ -29,7 +30,8 @@
     "prettier:write": "prettier --write \"**/*.{ts,tsx}\"",
     "test": "npm run prettier:check && npm run lint && npm run typecheck && npm run jest",
     "storybook": "start-storybook -p 7001",
-    "storybook:build": "build-storybook"
+    "storybook:build": "build-storybook",
+    "course-catalog:audit-handbooks": "ts-node -r tsconfig-paths/register scripts/course-catalog/audit-handbook-integrity.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

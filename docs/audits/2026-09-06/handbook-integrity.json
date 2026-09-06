@@ -1,0 +1,3527 @@
+{
+  "schemaVersion": 1,
+  "scope": "Local 2020–2026 handbooks, generated catalog and rule references. Structural checks do not verify OCR accuracy or every academic exception.",
+  "failures": [],
+  "snapshotSha256": "5c4ed1e09ce49d4efe24374e6b181bac6400957dd941799da17bd826e243e97f",
+  "years": [
+    {
+      "academicYear": 2020,
+      "sourcePath": "docs/bachelor_manual/2020_manual.pdf",
+      "sourceSha256": "f83ee189b029c27ebd0a5288a95d8b401a575e1c0dc6fe7b1db006816c751f59",
+      "pageCount": 115,
+      "extractionMethod": "pdftotext",
+      "extractedEntries": 515,
+      "publishedEntries": 515,
+      "missingCredits": [],
+      "unpublishedCodes": []
+    },
+    {
+      "academicYear": 2021,
+      "sourcePath": "docs/bachelor_manual/2021_manual.pdf",
+      "sourceSha256": "a9f24bf535bbfce090fa7559ba5807aed29943a3cd3658612f39174b31f7f830",
+      "pageCount": 225,
+      "extractionMethod": "ocr",
+      "extractedEntries": 557,
+      "publishedEntries": 557,
+      "missingCredits": [
+        "GS1496"
+      ],
+      "unpublishedCodes": []
+    },
+    {
+      "academicYear": 2022,
+      "sourcePath": "docs/bachelor_manual/2022_manual.pdf",
+      "sourceSha256": "e100af2051b3f682b790eb0f95bf722fd27466cb896b26b6384814f287ab2b17",
+      "pageCount": 116,
+      "extractionMethod": "ocr",
+      "extractedEntries": 550,
+      "publishedEntries": 550,
+      "missingCredits": [],
+      "unpublishedCodes": []
+    },
+    {
+      "academicYear": 2023,
+      "sourcePath": "docs/bachelor_manual/2023_manual.pdf",
+      "sourceSha256": "88ee85964f62fb99b61a02ec297ec31f7ea317401f9b360ebcc65f909e0801e2",
+      "pageCount": 111,
+      "extractionMethod": "pdftotext",
+      "extractedEntries": 607,
+      "publishedEntries": 607,
+      "missingCredits": [
+        "GS2836"
+      ],
+      "unpublishedCodes": []
+    },
+    {
+      "academicYear": 2024,
+      "sourcePath": "docs/bachelor_manual/2024_manual.pdf",
+      "sourceSha256": "66c1f49de27f0036e8d8f16209c6a70dabd1121404eb3330f44f2cc58c00b9b8",
+      "pageCount": 198,
+      "extractionMethod": "pdftotext",
+      "extractedEntries": 641,
+      "publishedEntries": 641,
+      "missingCredits": [],
+      "unpublishedCodes": []
+    },
+    {
+      "academicYear": 2025,
+      "sourcePath": "docs/bachelor_manual/2025_manual.pdf",
+      "sourceSha256": "9f7bbbc5f6af88935ac49a833f6c92d5c6382192cd43abdc2cf89ff6ce29292c",
+      "pageCount": 206,
+      "extractionMethod": "pdftotext",
+      "extractedEntries": 704,
+      "publishedEntries": 704,
+      "missingCredits": [
+        "AI3301",
+        "EB3722",
+        "GS2836",
+        "LH2507",
+        "MB3766",
+        "MB3767",
+        "PP3767",
+        "SS3767"
+      ],
+      "unpublishedCodes": []
+    },
+    {
+      "academicYear": 2026,
+      "sourcePath": "docs/bachelor_manual/2026_manual.pdf",
+      "sourceSha256": "2c7b04af8d6e88e5d191de02fff0a1e0c8382b7c0207c9423e4fdc3beb5e1a16",
+      "pageCount": 219,
+      "extractionMethod": "pdftotext",
+      "extractedEntries": 731,
+      "publishedEntries": 731,
+      "missingCredits": [
+        "EB3722",
+        "GS2836",
+        "LH2507",
+        "MB3766",
+        "MB3767",
+        "PP3767",
+        "SS3767"
+      ],
+      "unpublishedCodes": []
+    }
+  ],
+  "inventory": {
+    "schemaVersion": 2,
+    "totals": {
+      "courses": 1298,
+      "aliases": 1558,
+      "offerings": 5548,
+      "historicalOfferings": 4297,
+      "manualListings": 4305,
+      "requirementFacets": 1615,
+      "relationships": 15
+    },
+    "coursesBySourceKind": {
+      "course-db": 609,
+      "graduation-recommendation": 144,
+      "manual": 839,
+      "minor-catalog": 550,
+      "roadmap-preset": 420,
+      "timetable-offering": 1026
+    },
+    "offeringsByTerm": {
+      "2020-1": 341,
+      "2020-2": 316,
+      "2021-1": 328,
+      "2021-2": 344,
+      "2022-1": 401,
+      "2022-2": 365,
+      "2023-1": 392,
+      "2023-2": 383,
+      "2024-1": 434,
+      "2024-2": 388,
+      "2025-1": 423,
+      "2025-2": 392,
+      "2026-1": 434,
+      "2026-2": 607
+    },
+    "historicalOfferingsByAcademicYear": {
+      "2020": 484,
+      "2021": 514,
+      "2022": 591,
+      "2023": 603,
+      "2024": 636,
+      "2025": 676,
+      "2026": 793
+    },
+    "manualListingsByAcademicYear": {
+      "2020": 515,
+      "2021": 557,
+      "2022": 550,
+      "2023": 607,
+      "2024": 641,
+      "2025": 704,
+      "2026": 731
+    },
+    "facetsByFeature": {
+      "minor": 628,
+      "recommendation": 213,
+      "roadmap": 774
+    },
+    "relationshipsByRelation": {
+      "cross_listed": 5,
+      "renumbered": 4,
+      "same_course": 3,
+      "substitute": 3
+    }
+  },
+  "quality": {
+    "totals": {
+      "offeringsWithoutMeetings": 427,
+      "meetingsWithoutRoom": 3095,
+      "offeringsWithCapacityZero": 1552,
+      "instructorsWithoutStaffId": 0,
+      "offeringGroups": 4698,
+      "multiCodeOfferingGroups": 722,
+      "offeringGroupsWithMultipleDepartments": 719,
+      "offeringGroupsWithMultipleSections": 1,
+      "manualListedCoursesWithoutOffering": 219,
+      "offeredCoursesWithoutManualListing": 353
+    },
+    "byTerm": {
+      "2020-1": {
+        "offerings": 341,
+        "offeringsWithoutMeetings": 22,
+        "meetings": 566,
+        "meetingsWithoutRoom": 388,
+        "offeringsWithCapacityZero": 96,
+        "instructors": 393,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 320,
+        "multiCodeOfferingGroups": 20,
+        "offeringGroupsWithMultipleDepartments": 20,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2020-2": {
+        "offerings": 316,
+        "offeringsWithoutMeetings": 27,
+        "meetings": 533,
+        "meetingsWithoutRoom": 183,
+        "offeringsWithCapacityZero": 111,
+        "instructors": 371,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 289,
+        "multiCodeOfferingGroups": 25,
+        "offeringGroupsWithMultipleDepartments": 25,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2021-1": {
+        "offerings": 328,
+        "offeringsWithoutMeetings": 24,
+        "meetings": 563,
+        "meetingsWithoutRoom": 303,
+        "offeringsWithCapacityZero": 82,
+        "instructors": 378,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 309,
+        "multiCodeOfferingGroups": 18,
+        "offeringGroupsWithMultipleDepartments": 18,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2021-2": {
+        "offerings": 344,
+        "offeringsWithoutMeetings": 23,
+        "meetings": 614,
+        "meetingsWithoutRoom": 503,
+        "offeringsWithCapacityZero": 110,
+        "instructors": 402,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 281,
+        "multiCodeOfferingGroups": 53,
+        "offeringGroupsWithMultipleDepartments": 53,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2022-1": {
+        "offerings": 401,
+        "offeringsWithoutMeetings": 23,
+        "meetings": 707,
+        "meetingsWithoutRoom": 571,
+        "offeringsWithCapacityZero": 97,
+        "instructors": 463,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 336,
+        "multiCodeOfferingGroups": 55,
+        "offeringGroupsWithMultipleDepartments": 55,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2022-2": {
+        "offerings": 365,
+        "offeringsWithoutMeetings": 23,
+        "meetings": 649,
+        "meetingsWithoutRoom": 67,
+        "offeringsWithCapacityZero": 105,
+        "instructors": 448,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 296,
+        "multiCodeOfferingGroups": 59,
+        "offeringGroupsWithMultipleDepartments": 59,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2023-1": {
+        "offerings": 392,
+        "offeringsWithoutMeetings": 22,
+        "meetings": 691,
+        "meetingsWithoutRoom": 70,
+        "offeringsWithCapacityZero": 87,
+        "instructors": 456,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 332,
+        "multiCodeOfferingGroups": 50,
+        "offeringGroupsWithMultipleDepartments": 50,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2023-2": {
+        "offerings": 383,
+        "offeringsWithoutMeetings": 23,
+        "meetings": 673,
+        "meetingsWithoutRoom": 81,
+        "offeringsWithCapacityZero": 105,
+        "instructors": 458,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 312,
+        "multiCodeOfferingGroups": 59,
+        "offeringGroupsWithMultipleDepartments": 59,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2024-1": {
+        "offerings": 434,
+        "offeringsWithoutMeetings": 23,
+        "meetings": 754,
+        "meetingsWithoutRoom": 91,
+        "offeringsWithCapacityZero": 96,
+        "instructors": 522,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 363,
+        "multiCodeOfferingGroups": 59,
+        "offeringGroupsWithMultipleDepartments": 59,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2024-2": {
+        "offerings": 388,
+        "offeringsWithoutMeetings": 24,
+        "meetings": 680,
+        "meetingsWithoutRoom": 95,
+        "offeringsWithCapacityZero": 99,
+        "instructors": 465,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 314,
+        "multiCodeOfferingGroups": 62,
+        "offeringGroupsWithMultipleDepartments": 62,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2025-1": {
+        "offerings": 423,
+        "offeringsWithoutMeetings": 18,
+        "meetings": 742,
+        "meetingsWithoutRoom": 45,
+        "offeringsWithCapacityZero": 91,
+        "instructors": 513,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 356,
+        "multiCodeOfferingGroups": 54,
+        "offeringGroupsWithMultipleDepartments": 54,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2025-2": {
+        "offerings": 392,
+        "offeringsWithoutMeetings": 19,
+        "meetings": 697,
+        "meetingsWithoutRoom": 56,
+        "offeringsWithCapacityZero": 105,
+        "instructors": 496,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 312,
+        "multiCodeOfferingGroups": 70,
+        "offeringGroupsWithMultipleDepartments": 70,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2026-1": {
+        "offerings": 434,
+        "offeringsWithoutMeetings": 18,
+        "meetings": 762,
+        "meetingsWithoutRoom": 58,
+        "offeringsWithCapacityZero": 102,
+        "instructors": 496,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 366,
+        "multiCodeOfferingGroups": 56,
+        "offeringGroupsWithMultipleDepartments": 56,
+        "offeringGroupsWithMultipleSections": 0
+      },
+      "2026-2": {
+        "offerings": 607,
+        "offeringsWithoutMeetings": 138,
+        "meetings": 816,
+        "meetingsWithoutRoom": 584,
+        "offeringsWithCapacityZero": 266,
+        "instructors": 535,
+        "instructorsWithoutStaffId": 0,
+        "offeringGroups": 512,
+        "multiCodeOfferingGroups": 82,
+        "offeringGroupsWithMultipleDepartments": 79,
+        "offeringGroupsWithMultipleSections": 1
+      }
+    },
+    "samples": {
+      "offeringsWithoutMeetings": [
+        {
+          "offeringId": "2020-1:BS9102:01",
+          "courseCode": "BS9102",
+          "term": "2020-1",
+          "section": "01",
+          "title": "학사논문연구 I"
+        },
+        {
+          "offeringId": "2020-1:BS9103:01",
+          "courseCode": "BS9103",
+          "term": "2020-1",
+          "section": "01",
+          "title": "학사논문연구 II"
+        },
+        {
+          "offeringId": "2020-1:CH9101:01",
+          "courseCode": "CH9101",
+          "term": "2020-1",
+          "section": "01",
+          "title": "학사논문연구"
+        },
+        {
+          "offeringId": "2020-1:CH9102:01",
+          "courseCode": "CH9102",
+          "term": "2020-1",
+          "section": "01",
+          "title": "학사논문연구 I"
+        },
+        {
+          "offeringId": "2020-1:CH9103:01",
+          "courseCode": "CH9103",
+          "term": "2020-1",
+          "section": "01",
+          "title": "학사논문연구 II"
+        },
+        {
+          "offeringId": "2020-1:EC9101:01",
+          "courseCode": "EC9101",
+          "term": "2020-1",
+          "section": "01",
+          "title": "학사논문연구"
+        },
+        {
+          "offeringId": "2020-1:EC9102:01",
+          "courseCode": "EC9102",
+          "term": "2020-1",
+          "section": "01",
+          "title": "학사논문연구 I"
+        },
+        {
+          "offeringId": "2020-1:EC9103:01",
+          "courseCode": "EC9103",
+          "term": "2020-1",
+          "section": "01",
+          "title": "학사논문연구 II"
+        },
+        {
+          "offeringId": "2020-1:EV9102:01",
+          "courseCode": "EV9102",
+          "term": "2020-1",
+          "section": "01",
+          "title": "학사논문연구 I"
+        },
+        {
+          "offeringId": "2020-1:EV9103:01",
+          "courseCode": "EV9103",
+          "term": "2020-1",
+          "section": "01",
+          "title": "학사논문연구 II"
+        }
+      ],
+      "meetingsWithoutRoom": [
+        {
+          "offeringId": "2020-1:BS2101:01",
+          "courseCode": "BS2101",
+          "term": "2020-1",
+          "section": "01",
+          "title": "유기화학 Ⅰ",
+          "meeting": "화 10:30~12:00"
+        },
+        {
+          "offeringId": "2020-1:BS2101:01",
+          "courseCode": "BS2101",
+          "term": "2020-1",
+          "section": "01",
+          "title": "유기화학 Ⅰ",
+          "meeting": "목 10:30~12:00"
+        },
+        {
+          "offeringId": "2020-1:BS2101:02",
+          "courseCode": "BS2101",
+          "term": "2020-1",
+          "section": "02",
+          "title": "유기화학 Ⅰ",
+          "meeting": "화 14:30~16:00"
+        },
+        {
+          "offeringId": "2020-1:BS2101:02",
+          "courseCode": "BS2101",
+          "term": "2020-1",
+          "section": "02",
+          "title": "유기화학 Ⅰ",
+          "meeting": "목 14:30~16:00"
+        },
+        {
+          "offeringId": "2020-1:BS3112:01",
+          "courseCode": "BS3112",
+          "term": "2020-1",
+          "section": "01",
+          "title": "세포·발생생물학 실험",
+          "meeting": "화 13:00~18:00"
+        },
+        {
+          "offeringId": "2020-1:BS3112:02",
+          "courseCode": "BS3112",
+          "term": "2020-1",
+          "section": "02",
+          "title": "세포·발생생물학 실험",
+          "meeting": "금 13:00~18:00"
+        },
+        {
+          "offeringId": "2020-1:CH2101:01",
+          "courseCode": "CH2101",
+          "term": "2020-1",
+          "section": "01",
+          "title": "분석화학",
+          "meeting": "월 10:30~12:00"
+        },
+        {
+          "offeringId": "2020-1:CH2101:01",
+          "courseCode": "CH2101",
+          "term": "2020-1",
+          "section": "01",
+          "title": "분석화학",
+          "meeting": "수 10:30~12:00"
+        },
+        {
+          "offeringId": "2020-1:CH2102:01",
+          "courseCode": "CH2102",
+          "term": "2020-1",
+          "section": "01",
+          "title": "물리화학A",
+          "meeting": "화 09:00~10:30"
+        },
+        {
+          "offeringId": "2020-1:CH2102:01",
+          "courseCode": "CH2102",
+          "term": "2020-1",
+          "section": "01",
+          "title": "물리화학A",
+          "meeting": "수 17:30~18:30"
+        }
+      ],
+      "offeringsWithCapacityZero": [
+        {
+          "offeringId": "2020-1:BS2101:01",
+          "courseCode": "BS2101",
+          "term": "2020-1",
+          "section": "01",
+          "title": "유기화학 Ⅰ"
+        },
+        {
+          "offeringId": "2020-1:BS2101:02",
+          "courseCode": "BS2101",
+          "term": "2020-1",
+          "section": "02",
+          "title": "유기화학 Ⅰ"
+        },
+        {
+          "offeringId": "2020-1:BS2102:01",
+          "courseCode": "BS2102",
+          "term": "2020-1",
+          "section": "01",
+          "title": "분자생물학"
+        },
+        {
+          "offeringId": "2020-1:BS3105:01",
+          "courseCode": "BS3105",
+          "term": "2020-1",
+          "section": "01",
+          "title": "세포생물학"
+        },
+        {
+          "offeringId": "2020-1:BS3201:01",
+          "courseCode": "BS3201",
+          "term": "2020-1",
+          "section": "01",
+          "title": "미생물학"
+        },
+        {
+          "offeringId": "2020-1:BS3204:01",
+          "courseCode": "BS3204",
+          "term": "2020-1",
+          "section": "01",
+          "title": "생물물리 화학 입문"
+        },
+        {
+          "offeringId": "2020-1:BS4201:01",
+          "courseCode": "BS4201",
+          "term": "2020-1",
+          "section": "01",
+          "title": "발생생물학"
+        },
+        {
+          "offeringId": "2020-1:BS4207:01",
+          "courseCode": "BS4207",
+          "term": "2020-1",
+          "section": "01",
+          "title": "암생물학 개론"
+        },
+        {
+          "offeringId": "2020-1:BS4213:01",
+          "courseCode": "BS4213",
+          "term": "2020-1",
+          "section": "01",
+          "title": "의학 면역화학"
+        },
+        {
+          "offeringId": "2020-1:BS4216:01",
+          "courseCode": "BS4216",
+          "term": "2020-1",
+          "section": "01",
+          "title": "단백질과 생명과학"
+        }
+      ],
+      "instructorsWithoutStaffId": [],
+      "multiCodeOfferingGroups": [
+        {
+          "offeringGroupId": "group:2020-1:BS3201:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "BS3201",
+            "EV3217"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "생명과학전공",
+            "지구환경공학전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:CH2101:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "CH2101",
+            "EV2208"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "지구환경공학전공",
+            "화학전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:CT4201:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "CT4201",
+            "EC4215"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "문화기술 부전공",
+            "전기전자컴퓨터전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:CT4301:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "CT4301",
+            "IR4203"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "문화기술 부전공",
+            "지능로봇 부전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:EC3202:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "EC3202",
+            "MC3207"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "기계공학전공",
+            "전기전자컴퓨터전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:EC3207:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "EC3207",
+            "PS3202"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "물리전공",
+            "전기전자컴퓨터전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:EC4212:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "EC4212",
+            "GS4010",
+            "MM4010"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "기초교육학부",
+            "수학부전공",
+            "전기전자컴퓨터전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:EV3219:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "EV3219",
+            "PS3107"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "물리전공",
+            "지구환경공학전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:GS2001:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "GS2001",
+            "MM2001"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "기초교육학부",
+            "수학부전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:GS2002:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "GS2002",
+            "MM2002"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "기초교육학부",
+            "수학부전공"
+          ]
+        }
+      ],
+      "offeringGroupsWithMultipleDepartments": [
+        {
+          "offeringGroupId": "group:2020-1:BS3201:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "BS3201",
+            "EV3217"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "생명과학전공",
+            "지구환경공학전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:CH2101:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "CH2101",
+            "EV2208"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "지구환경공학전공",
+            "화학전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:CT4201:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "CT4201",
+            "EC4215"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "문화기술 부전공",
+            "전기전자컴퓨터전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:CT4301:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "CT4301",
+            "IR4203"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "문화기술 부전공",
+            "지능로봇 부전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:EC3202:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "EC3202",
+            "MC3207"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "기계공학전공",
+            "전기전자컴퓨터전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:EC3207:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "EC3207",
+            "PS3202"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "물리전공",
+            "전기전자컴퓨터전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:EC4212:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "EC4212",
+            "GS4010",
+            "MM4010"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "기초교육학부",
+            "수학부전공",
+            "전기전자컴퓨터전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:EV3219:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "EV3219",
+            "PS3107"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "물리전공",
+            "지구환경공학전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:GS2001:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "GS2001",
+            "MM2001"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "기초교육학부",
+            "수학부전공"
+          ]
+        },
+        {
+          "offeringGroupId": "group:2020-1:GS2002:01",
+          "term": "2020-1",
+          "courseCodes": [
+            "GS2002",
+            "MM2002"
+          ],
+          "sections": [
+            "01"
+          ],
+          "departments": [
+            "기초교육학부",
+            "수학부전공"
+          ]
+        }
+      ],
+      "offeringGroupsWithMultipleSections": [
+        {
+          "offeringGroupId": "group:2026-2:EC4218:01",
+          "term": "2026-2",
+          "courseCodes": [
+            "EC4218"
+          ],
+          "sections": [
+            "01",
+            "02"
+          ],
+          "departments": [
+            "전기전자컴퓨터공학과"
+          ]
+        }
+      ],
+      "manualListedCoursesWithoutOffering": [
+        {
+          "courseId": "COURSE:AI4310",
+          "primaryCode": "AI4310",
+          "titleKo": "AI4310"
+        },
+        {
+          "courseId": "AI4801",
+          "primaryCode": "AI4801",
+          "titleKo": "AI 융합 특론 I"
+        },
+        {
+          "courseId": "AI4802",
+          "primaryCode": "AI4802",
+          "titleKo": "AI 융합 특론 Ⅱ"
+        },
+        {
+          "courseId": "COURSE:BS3110",
+          "primaryCode": "BS3110",
+          "titleKo": "고급 생명과학실험 방법과 이론"
+        },
+        {
+          "courseId": "COURSE:BS3202",
+          "primaryCode": "BS3202",
+          "titleKo": "BS3202"
+        },
+        {
+          "courseId": "COURSE:BS4202",
+          "primaryCode": "BS4202",
+          "titleKo": "BS4202"
+        },
+        {
+          "courseId": "BS4204",
+          "primaryCode": "BS4204",
+          "titleKo": "신경생물학"
+        },
+        {
+          "courseId": "BS4211",
+          "primaryCode": "BS4211",
+          "titleKo": "합성생물학"
+        },
+        {
+          "courseId": "COURSE:CH2106",
+          "primaryCode": "CH2106",
+          "titleKo": "CH2106"
+        },
+        {
+          "courseId": "CH3210",
+          "primaryCode": "CH3210",
+          "titleKo": "현대 유기화학"
+        }
+      ],
+      "offeredCoursesWithoutManualListing": [
+        {
+          "courseId": "COURSE:AI3050",
+          "primaryCode": "AI3050",
+          "titleKo": "프로그래밍 언어 및 컴파일러"
+        },
+        {
+          "courseId": "COURSE:AI4450",
+          "primaryCode": "AI4450",
+          "titleKo": "지능형 모터 융합 프로젝트"
+        },
+        {
+          "courseId": "COURSE:AI5001",
+          "primaryCode": "AI5001",
+          "titleKo": "인공지능 콜로퀴움"
+        },
+        {
+          "courseId": "COURSE:AI5003",
+          "primaryCode": "AI5003",
+          "titleKo": "자율주행 융합 프로젝트"
+        },
+        {
+          "courseId": "COURSE:AI5013",
+          "primaryCode": "AI5013",
+          "titleKo": "기업가정신"
+        },
+        {
+          "courseId": "COURSE:AI5101",
+          "primaryCode": "AI5101",
+          "titleKo": "인공지능 원론"
+        },
+        {
+          "courseId": "COURSE:AI5102",
+          "primaryCode": "AI5102",
+          "titleKo": "범용 인공 지능"
+        },
+        {
+          "courseId": "COURSE:AI5306",
+          "primaryCode": "AI5306",
+          "titleKo": "헬스케어를 위한 인공지능"
+        },
+        {
+          "courseId": "COURSE:AI5350",
+          "primaryCode": "AI5350",
+          "titleKo": "웨어러블시스템을 위한 인체공학"
+        },
+        {
+          "courseId": "COURSE:AI5401",
+          "primaryCode": "AI5401",
+          "titleKo": "자율주행 콜로퀴움"
+        }
+      ]
+    }
+  },
+  "diagnostics": {
+    "roadmapMissingCourseCodeNodes": [
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_ECONOMICS",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_HEART",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_LAW_POLITICS",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_LITERATURE_HISTORY",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BASIC_SCIENCE_SOCIETY",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOMEDICAL_ENGINEERING",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOSCIENCE_EVEN_YEAR",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "BIOSCIENCE_ODD_YEAR",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_BIO",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_ORGANIC_INORGANIC",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CHEMISTRY_PHYSICAL_ANALYTICS",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_AI",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_CULTURE",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_ENERGY",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "CONVERGENCE_ROBOT",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EARTH_ENGINEERING",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_AI",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_CORE",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_NETWORK",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_SEMICONDUCTOR",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "EECS_SIGNAL_PROCESSING",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATERIAL_ELECTRONICS",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATERIAL_POLYMER",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MATH_MINOR",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "MECHANICAL_ENGINEERING_ADVANCED",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "year-header-1",
+        "label": "1학년"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "year-header-2",
+        "label": "2학년"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "year-header-3",
+        "label": "3학년"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "year-header-4",
+        "label": "4학년"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "semester-header-1-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "semester-header-1-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "semester-header-2-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "semester-header-2-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "semester-header-3-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "semester-header-3-2",
+        "label": "2학기"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "semester-header-4-1",
+        "label": "1학기"
+      },
+      {
+        "preset": "PHYSICAL_OPTICS",
+        "nodeId": "semester-header-4-2",
+        "label": "2학기"
+      }
+    ],
+    "syntheticCourseCount": 689
+  },
+  "rules": {
+    "count": 190,
+    "equivalencies": 15,
+    "sourcePageAudit": [
+      {
+        "layerId": "gist-bachelor-manual-2020",
+        "page": 69,
+        "title": "MC3212 기계공학실험 I",
+        "status": "covered",
+        "reason": "2020년까지 이수한 MC3212를 MC3106 실험 I로 연결한다. 이후 동일 코드의 I/II 충돌은 일괄 병합하지 않는다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2021",
+        "page": 135,
+        "title": "기계공학실험 I/II 과목 개요",
+        "status": "covered",
+        "reason": "MC3106 실험 I와 MC3107 실험 II의 실험 내용을 2020 편람과 대조했다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2023",
+        "page": 42,
+        "title": "면역학 이수체계도",
+        "status": "covered",
+        "reason": "BS3208(BS4205) 병기를 근거로 두 코드의 검색·개설·수록 identity를 통합했다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2024",
+        "page": 25,
+        "title": "GS2003 수학 부전공 특례",
+        "status": "covered",
+        "reason": "결합 과목 기이수자의 필수 조합과 추가 선택학점을 반영하며 기초교육과 부전공 학점을 중복하지 않는다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2024",
+        "page": 98,
+        "title": "GS3767 과목 개요",
+        "status": "covered",
+        "reason": "2025 HS3767과 과목명·영문명·설명을 대조하여 코드 변경을 연결했다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2025",
+        "page": 110,
+        "title": "HS3767 과목 개요",
+        "status": "covered",
+        "reason": "종전 GS3767의 과목명·영문명·설명 및 실제 개설 코드 변경을 대조했다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 15,
+        "title": "에너지 부전공 신규 선언 종료",
+        "status": "covered",
+        "reason": "2025-1부터 취소만 가능함을 선택지·안내·선언 학기 입력과 판정에 반영했다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2024",
+        "page": 55,
+        "title": "개편 전 AI 부전공 필수 교과목(인쇄 54쪽)",
+        "status": "covered",
+        "reason": "AI4020/EC4209의 과목 설명 및 2022~2025 실제 교차개설을 대조하여 필수A로 연결했다. AI2002/AI4001의 2024년까지 기이수 조건과 선언 학기를 함께 확인한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2021",
+        "page": 19,
+        "title": "영어 I 개편 전 이수요건(인쇄 18쪽)",
+        "status": "covered",
+        "reason": "신입생 영어 또는 발표와 토론 중 1과목 2학점 인정. GS1601과 GS1603을 모두 요구하던 오류를 수정했다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 167,
+        "title": "학술영어 GS1607의 개편 관계",
+        "status": "covered",
+        "reason": "Replaces both GS1601 and GS1603은 개편 과목 설명이며 기존 두 과목의 동시 이수 요건으로 해석하지 않는다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 22,
+        "title": "전기전자컴퓨터, AI융합, 반도체, 물리 전공필수 및 공유과목 제한",
+        "status": "partial",
+        "reason": "EC/SE/PS 전공필수를 반영하고 SE1102의 2024학번 예외를 분리했다. 인문사회 모 과목의 분류와 선언 부전공 요건 반영을 분리했으나 전체 공유과목의 모/자 관계 원장은 정밀화가 남아 있다.",
+        "nextAction": "교차코드의 모/자 관계를 과목별 원문과 연결한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 23,
+        "title": "화학, 수리과학 전공필수 및 대체/중복수강 제한",
+        "status": "partial",
+        "reason": "CH/MM 전공필수와 주요 대체/동일과목은 source-backed rule/equivalency로 분리됐지만, 2012~2017학번 화학과 과거 요건과 2025-2 복수전공 신청자 MM2701 대체 특례는 별도 컨텍스트가 필요하다.",
+        "nextAction": "복수전공 신청 학기 컨텍스트가 생기면 MM2701 대체 특례를 조건부 evaluator 또는 appliesTo 확장으로 모델링한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 24,
+        "title": "신소재, 기계로봇, 환경·에너지 전공필수",
+        "status": "partial",
+        "reason": "MA 전공필수 6과목과 MC의 2025학번 전후 필수 6/택3 조건을 반영했다. 2018 이전 학번은 별도 지원 범위로 남긴다.",
+        "nextAction": "2018 이전 학번 및 심화·복수전공 예외를 별도 컨텍스트로 모델링한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 25,
+        "title": "환경·에너지 continuation, 생명과학 전공필수, 콜로퀴움/과학기술과 경제 설명",
+        "status": "partial",
+        "reason": "BS/EV 전공필수와 주요 대체 조건은 source-backed rule/equivalency로 분리됐지만, 2010~2017학번 EV 과거 요건과 생명-화학 복수전공 중복인정 예외는 별도 컨텍스트가 필요하다.",
+        "nextAction": "복수전공/과거 학번 지원 범위를 확장할 때 EV 2010~2017 요건과 생명-화학 중복인정 예외를 별도 rule/evaluator로 분리한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 26,
+        "title": "학사논문연구 수강자격과 이수 절차",
+        "status": "deferred",
+        "reason": "현재 catalog는 학사논문연구 I/II 필수 이수만 표현하고, 90학점/GPA/계절학기/심사 절차는 evaluator scope가 따로 필요하다.",
+        "nextAction": "학사논문연구 자격 판정을 졸업판정에 포함할지 결정한 뒤 evaluatorId 계약을 설계한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 27,
+        "title": "부전공 일반, EC, AI융합, 물리 부전공",
+        "status": "partial",
+        "reason": "EC 최소 18학점, 2천번대 6학점/3·4천번대 12학점 및 2023 이후 성적부가 조건을 반영했다. 물리 필수 택3과 역학·전자기/양자 선택 조건을 바로잡았다. 선언 후 정규 1학기 수학 여부는 입력 컨텍스트가 부족하다.",
+        "nextAction": "선언 후 정규 1학기 수학 여부의 입력 컨텍스트를 추가한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 28,
+        "title": "화학, 수리과학, 신소재, 기계로봇, 환경·에너지 부전공",
+        "status": "partial",
+        "reason": "2026 수학 필수 2+1+1과목과 선택 6학점, 이전 GS2003 특례, 2018학번 이후 MA 필수2+상위3 조건을 반영했다. EV 대체 조건과 일부 부전공의 세부 분배는 정밀화가 남아 있다.",
+        "nextAction": "EV 대체 조건과 나머지 부전공 세부 분배를 source-backed rule 후보로 분리한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 29,
+        "title": "생명, 의생명, 에너지, 문화기술, 지능로봇, 인문사회 부전공",
+        "status": "partial",
+        "reason": "생명 강의2+실험1, 의생명/에너지 5과목, CT·인문사회 편람 과목표를 반영했다. IR 임의 AI 코드 인정은 제거하고 지정·기이수 경과조치는 needs_review로 표시한다.",
+        "nextAction": "IR 지정 AI 전체 목록과 2020 이전 인문사회 단일/연계/개편 선택 컨텍스트를 확인한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 30,
+        "title": "복수전공과 심화전공",
+        "status": "deferred",
+        "reason": "rule schema는 복수전공/심화전공 program kind와 program-kind별 선언 학기 컨텍스트를 표현할 수 있지만, p.30의 실제 판정 rule/evaluator는 아직 publish catalog에 넣지 않았다.",
+        "nextAction": "복수전공/심화전공을 런타임 판정에 포함할 때 p.30의 이수학점/신청 조건을 source-backed rule 또는 evaluator 계약으로 분리한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 31,
+        "title": "예체능 수업 운영과 편성 현황",
+        "status": "out-of-scope",
+        "reason": "동일 학기 수강 제한, 수강료, 개설 변동은 수강신청 운영 규칙이며 현재 졸업요건 evaluator는 이수 학기 수만 판정한다.",
+        "nextAction": "수강계획 추천에서 필요해질 때 schedule/advising rule로 분리한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 32,
+        "title": "졸업요건 장 시작, 총학점/GPA, 체육실기 목록",
+        "status": "partial",
+        "reason": "총학점과 GPA는 p.33~34 표를 주 근거로 두고 p.32를 보조 sourceRef로 추가했다. 체육실기 목록은 course set 운영 데이터로 분리되어 있다.",
+        "nextAction": "체육실기 과목 목록까지 publish catalog provenance로 관리할지 결정되면 별도 course set catalog로 분리한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 33,
+        "title": "2021학번 이후 졸업요건 표",
+        "status": "covered",
+        "reason": "2021학번 이후 기본요건, 전공학점, 학사논문연구, 무학점 필수 sourceRef의 주 근거로 사용한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 34,
+        "title": "2018~2020학번 졸업요건 표",
+        "status": "covered",
+        "reason": "2018~2020학번 기본요건, 전공학점, 학사논문연구, 예체능 이수 학기 sourceRef의 주 근거로 사용한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 49,
+        "title": "인문사회 문학과 역사/공공정책 부전공 과목표",
+        "status": "partial",
+        "reason": "LH_LIT/LH_PP 필수 course set은 참조됐지만 인문사회 전체 세부 분야 course set 정밀화는 계속 진행 중이다.",
+        "nextAction": "LH_SS/LH_MB와 선택과목 인정 범위를 별도 source-backed course set으로 정리한다."
+      },
+      {
+        "layerId": "gist-bachelor-manual-2026",
+        "page": 50,
+        "title": "인문사회 경제·경영 부전공 과목표",
+        "status": "partial",
+        "reason": "LH_EB 필수 course set은 참조됐지만 선택과목과 다른 인문사회 세부분야 정밀화는 계속 진행 중이다.",
+        "nextAction": "LH 계열 선택과목 범위를 course set catalog로 분리할지 결정한다."
+      }
+    ],
+    "rulesWithoutExactListing": [
+      {
+        "ruleId": "basic-2018-2019.language-english-ii",
+        "codes": [
+          "GS1602",
+          "GS1604"
+        ]
+      },
+      {
+        "ruleId": "basic-2018-2019.language-writing",
+        "codes": [
+          "GS1535"
+        ]
+      },
+      {
+        "ruleId": "basic-2018-2019.science-core-math",
+        "codes": [
+          "GS1002",
+          "GS1012",
+          "GS2003"
+        ]
+      },
+      {
+        "ruleId": "basic-2018-2019.etc-freshman",
+        "codes": [
+          "GS9301"
+        ]
+      },
+      {
+        "ruleId": "basic-2018-2019.etc-science-economy",
+        "codes": [
+          "GS1701"
+        ]
+      },
+      {
+        "ruleId": "basic-2020.language-english-ii",
+        "codes": [
+          "GS1602",
+          "GS1604"
+        ]
+      },
+      {
+        "ruleId": "basic-2020.language-writing",
+        "codes": [
+          "GS1535"
+        ]
+      },
+      {
+        "ruleId": "basic-2020.science-core-math",
+        "codes": [
+          "GS1002",
+          "GS1012",
+          "GS2003"
+        ]
+      },
+      {
+        "ruleId": "basic-2020.etc-freshman",
+        "codes": [
+          "GS9301"
+        ]
+      },
+      {
+        "ruleId": "basic-2020.etc-science-economy",
+        "codes": [
+          "GS1701"
+        ]
+      },
+      {
+        "ruleId": "basic-2021-plus.language-english-ii",
+        "codes": [
+          "GS1602",
+          "GS1604"
+        ]
+      },
+      {
+        "ruleId": "basic-2021-plus.language-writing",
+        "codes": [
+          "GS1535"
+        ]
+      },
+      {
+        "ruleId": "basic-2021-plus.science-core-math",
+        "codes": [
+          "GS1002",
+          "GS1012",
+          "GS2003"
+        ]
+      },
+      {
+        "ruleId": "basic-2021-plus.etc-freshman",
+        "codes": [
+          "GS9301"
+        ]
+      },
+      {
+        "ruleId": "basic-2021-plus.etc-science-economy",
+        "codes": [
+          "GS1701"
+        ]
+      },
+      {
+        "ruleId": "basic-2026-plus.language-english-ii",
+        "codes": [
+          "GS1602",
+          "GS1604"
+        ]
+      },
+      {
+        "ruleId": "basic-2026-plus.language-writing",
+        "codes": [
+          "GS1535"
+        ]
+      },
+      {
+        "ruleId": "basic-2026-plus.science-core-math",
+        "codes": [
+          "GS1002",
+          "GS1012"
+        ]
+      },
+      {
+        "ruleId": "basic-2026-plus.etc-freshman",
+        "codes": [
+          "GS9301"
+        ]
+      },
+      {
+        "ruleId": "basic-2026-plus.etc-science-economy",
+        "codes": [
+          "GS1701"
+        ]
+      },
+      {
+        "ruleId": "major.ev.mandatory.transport-or-substitute",
+        "codes": [
+          "EV3103"
+        ]
+      },
+      {
+        "ruleId": "minor.lh_lit.mandatory.all",
+        "codes": [
+          "LH2509",
+          "LH2521",
+          "LH2602"
+        ]
+      },
+      {
+        "ruleId": "minor.lh_pp.mandatory.all",
+        "codes": [
+          "PP2704",
+          "PP2763",
+          "PP2765"
+        ]
+      },
+      {
+        "ruleId": "minor.lh_eb.mandatory.all",
+        "codes": [
+          "EB2750",
+          "EB3737"
+        ]
+      },
+      {
+        "ruleId": "minor.mm.mandatory.calculus-algebra",
+        "codes": [
+          "GS2003"
+        ]
+      }
+    ]
+  },
+  "reviewQueues": {
+    "ambiguousCodeOwners": [],
+    "creditHistories": [
+      {
+        "code": "BS2201",
+        "history": [
+          {
+            "year": 2020,
+            "page": 62,
+            "credits": 3
+          },
+          {
+            "year": 2021,
+            "page": 146,
+            "credits": 3
+          },
+          {
+            "year": 2022,
+            "page": 78,
+            "credits": 3
+          },
+          {
+            "year": 2023,
+            "page": 83,
+            "credits": 2
+          },
+          {
+            "year": 2024,
+            "page": 143,
+            "credits": 2
+          },
+          {
+            "year": 2025,
+            "page": 182,
+            "credits": 2
+          },
+          {
+            "year": 2026,
+            "page": 148,
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "code": "CH2101",
+        "history": [
+          {
+            "year": 2020,
+            "page": 60,
+            "credits": 3
+          },
+          {
+            "year": 2021,
+            "page": 154,
+            "credits": 3
+          },
+          {
+            "year": 2022,
+            "page": 82,
+            "credits": 3
+          },
+          {
+            "year": 2023,
+            "page": 89,
+            "credits": 3
+          },
+          {
+            "year": 2024,
+            "page": 155,
+            "credits": 3
+          },
+          {
+            "year": 2025,
+            "page": 144,
+            "credits": 4
+          },
+          {
+            "year": 2026,
+            "page": 109,
+            "credits": 4
+          }
+        ]
+      },
+      {
+        "code": "GS1903",
+        "history": [
+          {
+            "year": 2021,
+            "page": 96,
+            "credits": 0
+          },
+          {
+            "year": 2022,
+            "page": 53,
+            "credits": 2
+          },
+          {
+            "year": 2023,
+            "page": 55,
+            "credits": 2
+          },
+          {
+            "year": 2024,
+            "page": 70,
+            "credits": 2
+          },
+          {
+            "year": 2025,
+            "page": 81,
+            "credits": 2
+          },
+          {
+            "year": 2026,
+            "page": 167,
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "code": "GS1905",
+        "history": [
+          {
+            "year": 2021,
+            "page": 97,
+            "credits": 0
+          },
+          {
+            "year": 2022,
+            "page": 53,
+            "credits": 2
+          },
+          {
+            "year": 2023,
+            "page": 55,
+            "credits": 2
+          },
+          {
+            "year": 2024,
+            "page": 70,
+            "credits": 2
+          },
+          {
+            "year": 2025,
+            "page": 81,
+            "credits": 2
+          },
+          {
+            "year": 2026,
+            "page": 167,
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "code": "GS2747",
+        "history": [
+          {
+            "year": 2020,
+            "page": 50,
+            "credits": 3
+          },
+          {
+            "year": 2021,
+            "page": 107,
+            "credits": 3
+          },
+          {
+            "year": 2022,
+            "page": 59,
+            "credits": 3
+          },
+          {
+            "year": 2023,
+            "page": 61,
+            "credits": 2
+          },
+          {
+            "year": 2024,
+            "page": 84,
+            "credits": 3
+          }
+        ]
+      },
+      {
+        "code": "GS2810",
+        "history": [
+          {
+            "year": 2020,
+            "page": 52,
+            "credits": 2
+          },
+          {
+            "year": 2021,
+            "page": 111,
+            "credits": 3
+          },
+          {
+            "year": 2022,
+            "page": 60,
+            "credits": 3
+          },
+          {
+            "year": 2023,
+            "page": 62,
+            "credits": 3
+          },
+          {
+            "year": 2024,
+            "page": 87,
+            "credits": 3
+          },
+          {
+            "year": 2025,
+            "page": 86,
+            "credits": 3
+          },
+          {
+            "year": 2026,
+            "page": 172,
+            "credits": 3
+          }
+        ]
+      },
+      {
+        "code": "HS3762",
+        "history": [
+          {
+            "year": 2025,
+            "page": 109,
+            "credits": 3
+          },
+          {
+            "year": 2026,
+            "page": 195,
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "code": "MD2101",
+        "history": [
+          {
+            "year": 2020,
+            "page": 81,
+            "credits": 2
+          },
+          {
+            "year": 2021,
+            "page": 160,
+            "credits": 2
+          },
+          {
+            "year": 2022,
+            "page": 85,
+            "credits": 2
+          },
+          {
+            "year": 2023,
+            "page": 93,
+            "credits": 3
+          },
+          {
+            "year": 2024,
+            "page": 164,
+            "credits": 3
+          },
+          {
+            "year": 2025,
+            "page": 187,
+            "credits": 3
+          },
+          {
+            "year": 2026,
+            "page": 153,
+            "credits": 3
+          }
+        ]
+      }
+    ],
+    "programInventoryGaps": [
+      {
+        "program": "EC",
+        "listedCodesWithoutExtractedHeading": [],
+        "extractedNativeCodesNotInProgram": []
+      },
+      {
+        "program": "AI",
+        "listedCodesWithoutExtractedHeading": [],
+        "extractedNativeCodesNotInProgram": []
+      },
+      {
+        "program": "PS",
+        "listedCodesWithoutExtractedHeading": [],
+        "extractedNativeCodesNotInProgram": []
+      },
+      {
+        "program": "CH",
+        "listedCodesWithoutExtractedHeading": [],
+        "extractedNativeCodesNotInProgram": []
+      },
+      {
+        "program": "MM",
+        "listedCodesWithoutExtractedHeading": [
+          "GS2003"
+        ],
+        "extractedNativeCodesNotInProgram": []
+      },
+      {
+        "program": "MA",
+        "listedCodesWithoutExtractedHeading": [],
+        "extractedNativeCodesNotInProgram": []
+      },
+      {
+        "program": "MC",
+        "listedCodesWithoutExtractedHeading": [],
+        "extractedNativeCodesNotInProgram": []
+      },
+      {
+        "program": "EV",
+        "listedCodesWithoutExtractedHeading": [],
+        "extractedNativeCodesNotInProgram": []
+      },
+      {
+        "program": "BS",
+        "listedCodesWithoutExtractedHeading": [],
+        "extractedNativeCodesNotInProgram": []
+      },
+      {
+        "program": "MD",
+        "listedCodesWithoutExtractedHeading": [],
+        "extractedNativeCodesNotInProgram": []
+      },
+      {
+        "program": "FE",
+        "listedCodesWithoutExtractedHeading": [],
+        "extractedNativeCodesNotInProgram": []
+      },
+      {
+        "program": "SE",
+        "listedCodesWithoutExtractedHeading": [],
+        "extractedNativeCodesNotInProgram": []
+      }
+    ],
+    "legacyMinorFiles": [
+      {
+        "path": "DB/minor/ai.json",
+        "entries": 20,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": []
+      },
+      {
+        "path": "DB/minor/biomedical.json",
+        "entries": 26,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "MD5031",
+          "MD5101",
+          "MD5304",
+          "MD5603",
+          "MD5601",
+          "MD5002",
+          "MD6403",
+          "MD6505",
+          "MD6310",
+          "MD6504",
+          "MD5051",
+          "MD5314",
+          "MD6305"
+        ]
+      },
+      {
+        "path": "DB/minor/bioscience.json",
+        "entries": 34,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "GS1301/1302",
+          "BS2103/BS3111",
+          "BS3208/BS4205",
+          "BS4204/BS3207",
+          "BS4240/LS5240",
+          "BS42415"
+        ]
+      },
+      {
+        "path": "DB/minor/chemistry.json",
+        "entries": 35,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "CH3108",
+          "CH4206"
+        ]
+      },
+      {
+        "path": "DB/minor/culture.json",
+        "entries": 19,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "과목코드 미정"
+        ]
+      },
+      {
+        "path": "DB/minor/economics.json",
+        "entries": 39,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "EB3751",
+          "편성예정"
+        ]
+      },
+      {
+        "path": "DB/minor/eecs.json",
+        "entries": 53,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "EC3213"
+        ]
+      },
+      {
+        "path": "DB/minor/energy.json",
+        "entries": 27,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "MS5142"
+        ]
+      },
+      {
+        "path": "DB/minor/environmental.json",
+        "entries": 37,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": []
+      },
+      {
+        "path": "DB/minor/law_politics.json",
+        "entries": 49,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "편성예정"
+        ]
+      },
+      {
+        "path": "DB/minor/literature_history.json",
+        "entries": 36,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "HS2501",
+          "LH2502",
+          "GS2504",
+          "LH2504",
+          "GS2606",
+          "LH2606",
+          "LH3601",
+          "GS3503",
+          "LH3503",
+          "편성예정"
+        ]
+      },
+      {
+        "path": "DB/minor/material.json",
+        "entries": 38,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": []
+      },
+      {
+        "path": "DB/minor/math.json",
+        "entries": 40,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "TBD_DIFFGEO",
+          "편성예정"
+        ]
+      },
+      {
+        "path": "DB/minor/mechanical.json",
+        "entries": 40,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": []
+      },
+      {
+        "path": "DB/minor/mind_behavior.json",
+        "entries": 36,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "MB3631",
+          "GS3832",
+          "MB3832",
+          "편성예정",
+          "편성예정",
+          "편성예정",
+          "편성예정"
+        ]
+      },
+      {
+        "path": "DB/minor/physical_optics.json",
+        "entries": 30,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": []
+      },
+      {
+        "path": "DB/minor/robot.json",
+        "entries": 13,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": []
+      },
+      {
+        "path": "DB/minor/science_society.json",
+        "entries": 45,
+        "creditDifferencesFromLatestHandbook": [],
+        "codesWithoutExtractedHeadingOrTable": [
+          "SS3631",
+          "편성예정"
+        ]
+      }
+    ]
+  }
+}

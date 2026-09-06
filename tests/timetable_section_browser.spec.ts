@@ -144,6 +144,14 @@ describe('timetable section browsing module', () => {
     expect(load).toHaveBeenCalledTimes(1);
   });
 
+  it('retries loading after a transient failure rather than caching a rejected promise', async () => {
+    const load = jest.fn().mockRejectedValueOnce(new Error('temporary failure')).mockResolvedValue(fixture);
+    const catalog = createTimetableSectionCatalog({ load });
+    await expect(catalog.browse('2026-2')).rejects.toThrow('temporary failure');
+    await expect(catalog.browse('2026-2')).resolves.toMatchObject({ totalElements: 65 });
+    expect(load).toHaveBeenCalledTimes(2);
+  });
+
   it('forwards AbortSignal to superseded browser requests', async () => {
     const originalFetch = global.fetch;
     const fetchMock = jest.fn(async (_input: RequestInfo | URL, init?: RequestInit) => ({

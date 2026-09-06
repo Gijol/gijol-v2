@@ -1,5 +1,7 @@
 # 시간표와 로드맵
 
+> 2026-09-06 재점검: 이 위키는 구현 설명이며 학사 규정의 원문이 아닙니다. 학사편람이 우선합니다. [2020–2026 편람·데이터 정합성 감사 및 남은 한계](../audits/2026-09-06-2020-2026-integrity-audit.md)를 먼저 확인하세요.
+
 ## 시간표 분반 탐색
 
 `GET /api/timetable/[term]`은 term manifest를 확인한 뒤 `TimetableSectionCatalog`에 질의를 전달합니다. file Adapter는 정규화된 term JSON을 읽고, 서버 Module은 term별 `SectionBrowser`를 한 번 생성해 cache합니다.

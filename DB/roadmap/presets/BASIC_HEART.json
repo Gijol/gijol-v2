@@ -577,7 +577,7 @@
       "dragging": false
     },
     {
-      "id": "GS(MM)3767",
+      "id": "GS(MB)3767",
       "type": "customCourseNode",
       "position": {
         "x": 1579.9999987981157,
@@ -588,7 +588,7 @@
         "credits": 3,
         "category": "전공필수",
         "semester": "4-1",
-        "courseCode": "GS(MM)3767"
+        "courseCode": "GS(MB)3767"
       },
       "selected": false,
       "width": 256,
