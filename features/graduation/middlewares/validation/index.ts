@@ -1,4 +1,5 @@
 import type { UserTakenCourseListType, TakenCourseType, CourseGradeStatus } from '../../domain/types';
+import { RECOGNITION_AREAS } from '../../domain/credit-recognition';
 import { isEarnedCreditCourse } from '@utils/course/credits';
 
 export interface ValidationResult {
@@ -55,8 +56,20 @@ export const validateTakenCourses = (input: UserTakenCourseListType): Validation
   }
 
   input.takenCourses.forEach((course, index) => {
+    if (course.creditRecognition) {
+      const r = course.creditRecognition;
+      if (r.matchedCourseCode !== undefined && typeof r.matchedCourseCode !== 'string')
+        errors.push(`Row ${index}: Invalid matched course code`);
+      if (r.institution !== undefined && typeof r.institution !== 'string')
+        errors.push(`Row ${index}: Invalid institution`);
+      if (
+        !['approved', 'pending'].includes(r.status) ||
+        (r.category && !RECOGNITION_AREAS.some((area) => area.value === r.category))
+      )
+        errors.push(`Row ${index}: Invalid credit recognition`);
+    }
     if (!course.courseName) errors.push(`Row ${index}: Missing course name`);
-    if (typeof course.credit !== 'number' || course.credit < 0) {
+    if (typeof course.credit !== 'number' || !Number.isFinite(course.credit) || course.credit < 0) {
       errors.push(`Row ${index}: Invalid credit value`);
     }
   });
@@ -83,8 +96,28 @@ export const normalizeTakenCourses = (input: UserTakenCourseListType): UserTaken
     return {
       ...c,
       courseName: c.courseName?.trim() || '',
-      courseCode: c.courseCode?.trim() || '',
-      semester: c.semester?.trim() || '',
+      courseCode:
+        c.courseCode
+          ?.trim()
+          .toUpperCase()
+          .replace(/[^A-Z0-9]/g, '') || '',
+      semester:
+        (
+          {
+            봄: '1',
+            spring: '1',
+            '1학기': '1',
+            가을: '2',
+            fall: '2',
+            '2학기': '2',
+            여름: '여름학기',
+            summer: '여름학기',
+            겨울: '겨울학기',
+            winter: '겨울학기',
+          } as Record<string, string>
+        )[c.semester?.trim()] ??
+        c.semester?.trim() ??
+        '',
       courseType: c.courseType?.trim() || '기타',
       grade,
       gradeStatus,
@@ -127,9 +160,12 @@ export const normalizeTakenCourses = (input: UserTakenCourseListType): UserTaken
 
   normalizedCourses.forEach((course) => {
     const code = course.courseCode;
-    if (!code) return; // Skip if no code
+    if (!code) {
+      repeatableCourses.push(course);
+      return;
+    } // Preserve uncoded recognition rows for review.
 
-    if (REPEATABLE_CODES.has(code)) {
+    if (REPEATABLE_CODES.has(code) || /^GS0[12]/.test(code) || /반도체\s*콜로퀴움/.test(course.courseName)) {
       repeatableCourses.push(course);
       return;
     }

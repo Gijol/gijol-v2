@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { read, WorkSheet } from 'xlsx';
+import { read, WorkSheet, utils } from 'xlsx';
 import { TakenCourse } from './TakenCourse';
 import { HUS_COURSES, PPE_COURSES, GSC_COURSES } from '@const/course-code-classification';
 
@@ -19,7 +19,8 @@ export class GradeReportParser {
     let [year, semester] = ['', ''];
     let userTakenCourseList: TakenCourse[] = [];
 
-    while (true) {
+    const lastRow = utils.decode_range(workSheet['!ref'] || 'A1').e.r + 1;
+    while (index < lastRow) {
       index += 1;
       if (this.isEndOfCode(workSheet, address(CODE_CELL_INDEX, index))) {
         break;
@@ -30,7 +31,9 @@ export class GradeReportParser {
       }
 
       if (this.notExistCodeRow(workSheet, address(CODE_CELL_INDEX, index))) {
-        continue;
+        const name = this.accessValueOfWorkSheet(workSheet, address(COURSE_NAME_CELL_INDEX, index));
+        const creditValue = this.accessValueOfWorkSheet(workSheet, address(CREDIT_CELL_INDEX, index));
+        if (!name || !creditValue || !Number.isFinite(Number(creditValue))) continue;
       }
 
       const rawType = this.accessValueOfWorkSheet(workSheet, address(TYPE_CELL_INDEX, index));

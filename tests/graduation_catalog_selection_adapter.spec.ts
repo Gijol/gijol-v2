@@ -1,8 +1,5 @@
 import { refineGradStatusForUI } from '../features/graduation/middlewares/refine';
-import {
-  buildGraduationCatalogSelectionSummary,
-  evaluateGraduationStatus,
-} from '../features/graduation/domain';
+import { buildGraduationCatalogSelectionSummary, evaluateGraduationStatus } from '../features/graduation/domain';
 import { course, evaluateFor } from './helpers/graduation-fixtures';
 
 function ids(values: readonly { id: string }[]): string[] {
@@ -43,13 +40,15 @@ describe('graduation catalog selection adapter', () => {
         entryYear: 2021,
       },
     });
-    const needsContext = result.catalogSelection.needsContext.find((item) => item.rule.id === 'major-credits.2021-plus');
+    const needsContext = result.catalogSelection.needsContext.find(
+      (item) => item.rule.id === 'major-credits.2021-plus',
+    );
 
     expect(result.overallStatus).toBe('needs_review');
     expect(needsContext).toMatchObject({
       missingContext: ['program'],
       rule: {
-        scope: { type: 'program-kind', programKind: 'major' },
+        scope: { type: 'program', programKind: 'major' },
         sourceRefs: [expect.objectContaining({ manualYear: 2026, page: 33 })],
       },
     });

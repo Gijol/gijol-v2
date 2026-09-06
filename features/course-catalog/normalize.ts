@@ -1,7 +1,9 @@
 import type { CourseCatalogSourceRef } from './types';
 
 export function normalizeCourseCode(code: string | undefined | null): string {
-  return String(code ?? '').trim().toUpperCase();
+  return String(code ?? '')
+    .trim()
+    .toUpperCase();
 }
 
 function uniqueInOrder(values: readonly string[]): string[] {
@@ -32,11 +34,7 @@ export function expandCourseCodeCandidates(code: string | undefined | null): str
   if (!combinedMatch) return [normalized];
 
   const [, primaryPrefix, equivalentPrefix, suffix] = combinedMatch;
-  return uniqueInOrder([
-    normalized,
-    `${primaryPrefix}${suffix}`,
-    `${equivalentPrefix}${suffix}`,
-  ]);
+  return uniqueInOrder([normalized, `${primaryPrefix}${suffix}`, `${equivalentPrefix}${suffix}`]);
 }
 
 export function getCourseCodeSearchVariants(codes: readonly string[]): string[] {
@@ -126,7 +124,10 @@ export function minorCatalogSourceRef(minorCode: string): CourseCatalogSourceRef
   return {
     kind: 'minor-catalog',
     sourceId: minorCode,
-    path: `DB/minor/${minorCode}.json`,
+    path: 'docs/bachelor_manual/2026_manual.pdf',
+    manualYear: 2026,
+    page: 27,
+    note: '분야별 부전공 규정. 과목별 원문은 해당 facet의 manual sourceRef 참조.',
   };
 }
 

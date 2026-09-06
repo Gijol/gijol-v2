@@ -7,9 +7,6 @@ import {
   FineGrainedRequirement,
   CategoryKey,
   YearRuleSet,
-  ScienceField,
-  FieldCompletionResult,
-  ScienceRebalanceResult,
   RequirementEvaluationStatus,
   GraduationOverallStatus,
   MinorDeclarationTerms,
@@ -21,17 +18,11 @@ import { buildFineGrainedRequirements } from '../requirements';
 import { resolveMajorCode } from '../academic-context';
 import { buildGraduationCatalogSelectionSummary } from '../rule-catalog/selection-adapter';
 import { isEarnedCreditCourse } from '@utils/course/credits';
-import {
-  MATH_CALCULUS,
-  MATH_ELECTIVE,
-  PHYSICS_LECTURE,
-  PHYSICS_LAB,
-  CHEMISTRY_LECTURE,
-  CHEMISTRY_LAB,
-  BIOLOGY_LECTURE,
-  BIOLOGY_LAB,
-  SW_COURSES,
-} from '../constants/classifier-constants';
+import { calculateRecognizedCredits } from '../recognized-credits';
+import { allocateScienceCourses, compareScienceCourseOrder } from '../science-allocation';
+import { getCoreMathCodes } from '../rule-catalog/science-courses';
+import { MATH_CALCULUS } from '../constants/classifier-constants';
+import { getMajorCreditRequirement } from '../rule-catalog/major-minor-requirements';
 
 export interface GradStatusResponseV2 extends GradStatusResponseType {
   fineGrainedRequirements: FineGrainedRequirement[];
@@ -53,197 +44,6 @@ function getRequirementStatus(req: FineGrainedRequirement): RequirementEvaluatio
   return req.status ?? (req.satisfied ? 'satisfied' : 'unsatisfied');
 }
 
-// ========== 시간순 3분야 선택 알고리즘 ==========
-
-// 학기 비교 함수: 양수면 a가 b보다 이후, 음수면 a가 b보다 이전, 0이면 동일
-function compareSemester(a: TakenCourseType, b: TakenCourseType): number {
-  if (a.year !== b.year) return a.year - b.year;
-  const semOrder: Record<string, number> = { '1': 1, 여름: 2, '2': 3, 겨울: 4 };
-  const aOrder = semOrder[a.semester] || 0;
-  const bOrder = semOrder[b.semester] || 0;
-  return aOrder - bOrder;
-}
-
-// 과목 코드로 분야 판별
-function getFieldByCode(code: string): ScienceField | null {
-  if (MATH_CALCULUS.has(code) || MATH_ELECTIVE.has(code)) return 'math';
-  if (PHYSICS_LECTURE.has(code) || PHYSICS_LAB.has(code)) return 'physics';
-  if (CHEMISTRY_LECTURE.has(code) || CHEMISTRY_LAB.has(code)) return 'chemistry';
-  if (BIOLOGY_LECTURE.has(code) || BIOLOGY_LAB.has(code)) return 'biology';
-  if (SW_COURSES.has(code)) return 'sw';
-  return null;
-}
-
-// 분야별 과목 그룹화
-function groupCoursesByField(courses: TakenCourseType[]): Map<ScienceField, TakenCourseType[]> {
-  const result = new Map<ScienceField, TakenCourseType[]>();
-  for (const course of courses) {
-    const field = getFieldByCode(course.courseCode);
-    if (field) {
-      if (!result.has(field)) result.set(field, []);
-      result.get(field)!.push(course);
-    }
-  }
-  return result;
-}
-
-// 실험-강의 선이수/동시수강 검증
-function verifyLabPrerequisite(lectures: TakenCourseType[], labs: TakenCourseType[]): boolean {
-  for (const lab of labs) {
-    const hasPrereq = lectures.some((lecture) => {
-      const cmp = compareSemester(lab, lecture);
-      return cmp >= 0; // 실험이 강의와 동일 학기이거나 이후 학기면 OK
-    });
-    if (!hasPrereq) return false;
-  }
-  return true;
-}
-
-// 분야 완료 여부 확인
-function checkFieldCompletion(
-  courses: TakenCourseType[],
-  field: ScienceField,
-  sortedAll: TakenCourseType[],
-): FieldCompletionResult {
-  const getTimeIndex = (c: TakenCourseType) =>
-    sortedAll.findIndex((sc) => sc.courseCode === c.courseCode && sc.year === c.year && sc.semester === c.semester);
-
-  const result: FieldCompletionResult = {
-    field,
-    isComplete: false,
-    completionIndex: -1,
-    requiredCourses: [],
-    hasLab: false,
-    labVerified: true,
-  };
-
-  switch (field) {
-    case 'math': {
-      const calculus = courses.filter((c) => MATH_CALCULUS.has(c.courseCode));
-      const electives = courses.filter((c) => MATH_ELECTIVE.has(c.courseCode));
-      const hasCalculus = calculus.length > 0;
-      const hasElective = electives.length > 0;
-      result.requiredCourses = [calculus[0], electives[0]].filter((course): course is TakenCourseType =>
-        Boolean(course),
-      );
-      result.isComplete = hasCalculus && hasElective;
-      if (result.isComplete) {
-        result.completionIndex = Math.max(getTimeIndex(calculus[0]), getTimeIndex(electives[0]));
-      }
-      result.hasLab = true; // 수학은 실험 없음, 항상 true
-      break;
-    }
-    case 'physics':
-    case 'chemistry':
-    case 'biology': {
-      const lectureSet =
-        field === 'physics' ? PHYSICS_LECTURE : field === 'chemistry' ? CHEMISTRY_LECTURE : BIOLOGY_LECTURE;
-      const labSet = field === 'physics' ? PHYSICS_LAB : field === 'chemistry' ? CHEMISTRY_LAB : BIOLOGY_LAB;
-      const lectures = courses.filter((c) => lectureSet.has(c.courseCode));
-      const labs = courses.filter((c) => labSet.has(c.courseCode));
-      const hasLecture = lectures.length > 0;
-      const hasLab = labs.length > 0;
-      result.hasLab = hasLab;
-      result.labVerified = hasLab ? verifyLabPrerequisite(lectures, labs) : true;
-
-      // 강의+실험 둘 다 있어야 완료
-      if (hasLecture && hasLab && result.labVerified) {
-        result.isComplete = true;
-        result.requiredCourses = [lectures[0], labs[0]];
-        result.completionIndex = Math.max(getTimeIndex(lectures[0]), getTimeIndex(labs[0]));
-      }
-      break;
-    }
-    case 'sw': {
-      const swCourses = courses.filter((c) => SW_COURSES.has(c.courseCode));
-      if (swCourses.length > 0) {
-        result.isComplete = true;
-        result.requiredCourses = [swCourses[0]];
-        result.completionIndex = getTimeIndex(swCourses[0]);
-        result.hasLab = true; // SW는 실험 없음, 항상 true
-      }
-      break;
-    }
-  }
-  return result;
-}
-
-// 시간순 3분야 선택 알고리즘
-function rebalanceScienceByTimeOrder(scienceCourses: TakenCourseType[]): ScienceRebalanceResult {
-  // 1. 시간순 정렬
-  const sorted = [...scienceCourses].sort(compareSemester);
-
-  // 2. 분야별 과목 그룹화
-  const byField = groupCoursesByField(sorted);
-
-  // 3. 각 분야 완료 여부 및 완료 시점 계산
-  const fieldResults = new Map<ScienceField, FieldCompletionResult>();
-  const allFields: ScienceField[] = ['math', 'physics', 'chemistry', 'biology', 'sw'];
-
-  for (const field of allFields) {
-    const courses = byField.get(field) || [];
-    fieldResults.set(field, checkFieldCompletion(courses, field, sorted));
-  }
-
-  // 4. 수학 분야 확인 (별도 필수)
-  const mathResult = fieldResults.get('math')!;
-
-  // 5. 물리/화학/생명/SW 중 완료된 분야들을 시간순 정렬
-  const scienceLabFields: ScienceField[] = ['physics', 'chemistry', 'biology', 'sw'];
-  const completedFields = scienceLabFields
-    .filter((f) => fieldResults.get(f)!.isComplete)
-    .sort((a, b) => fieldResults.get(a)!.completionIndex - fieldResults.get(b)!.completionIndex);
-
-  // 6. SW 이수 여부에 따른 3분야 선택
-  const hasSW = completedFields.includes('sw');
-  let selectedFields: ScienceField[];
-
-  if (hasSW) {
-    // SW 이수: SW + 물리/화학/생명 중 먼저 완료된 2분야
-    // 단, 선택된 2분야는 각각 실험 필수
-    const labFieldsWithLab = completedFields.filter((f) => f !== 'sw' && fieldResults.get(f)!.hasLab);
-    selectedFields = [...labFieldsWithLab.slice(0, 2), 'sw'];
-  } else {
-    // SW 미이수: 물리/화학/생명 3분야 (2분야만 실험 필수)
-    const labFields = completedFields.filter((f) => f !== 'sw');
-    selectedFields = labFields.slice(0, 3);
-  }
-
-  // 7. 결과 분류
-  const scienceBasic: TakenCourseType[] = [];
-  const freeElective: TakenCourseType[] = [];
-
-  // 수학: 이미 이수한 필수 구성요소는 전체 분야 완료 전에도 기초과학으로 유지
-  scienceBasic.push(...mathResult.requiredCourses);
-  // 수학 분야 초과분은 자유선택
-  const mathCourses = byField.get('math') || [];
-  const mathExtra = mathCourses.filter((c) => !mathResult.requiredCourses.some((rc) => rc.courseCode === c.courseCode));
-  freeElective.push(...mathExtra);
-
-  // 선택된 3분야: 분야 완료에 필요한 과목만 기초과학
-  for (const field of scienceLabFields) {
-    const fieldCourses = byField.get(field) || [];
-    const result = fieldResults.get(field)!;
-
-    if (selectedFields.includes(field)) {
-      // 선택된 분야: 필수 과목만 기초과학, 초과분은 자유선택
-      scienceBasic.push(...result.requiredCourses);
-      const extra = fieldCourses.filter((c) => !result.requiredCourses.some((rc) => rc.courseCode === c.courseCode));
-      freeElective.push(...extra);
-    } else {
-      // 미선택 분야: 전부 자유선택
-      freeElective.push(...fieldCourses);
-    }
-  }
-
-  return {
-    scienceBasic,
-    freeElective,
-    selectedFields,
-    fieldDetails: fieldResults,
-  };
-}
-
 // ========== 부전공 vs 기초과학 재분배 알고리즘 ==========
 // 기초과학 요건을 먼저 충족하고, 남은 과목만 부전공으로 분류
 
@@ -255,10 +55,11 @@ interface MinorScienceRebalanceResult {
 function rebalanceMinorVsScienceBasic(
   minorCourses: TakenCourseType[],
   scienceBasicCourses: TakenCourseType[],
+  entryYear: number,
 ): MinorScienceRebalanceResult {
   // 1. 현재 기초과학의 수학 요건 충족 여부 확인
   const existingMathCalc = scienceBasicCourses.filter((c) => MATH_CALCULUS.has(c.courseCode));
-  const existingMathElec = scienceBasicCourses.filter((c) => MATH_ELECTIVE.has(c.courseCode));
+  const existingMathElec = scienceBasicCourses.filter((c) => getCoreMathCodes(entryYear).includes(c.courseCode));
 
   const hasCalculus = existingMathCalc.length > 0;
   const hasElective = existingMathElec.length > 0;
@@ -270,7 +71,7 @@ function rebalanceMinorVsScienceBasic(
 
   // 2. minor에서 이동 가능한 수학 과목 찾기
   const minorMathCalc = minorCourses.filter((c) => MATH_CALCULUS.has(c.courseCode));
-  const minorMathElec = minorCourses.filter((c) => MATH_ELECTIVE.has(c.courseCode));
+  const minorMathElec = minorCourses.filter((c) => getCoreMathCodes(entryYear).includes(c.courseCode));
 
   const coursesToMove: TakenCourseType[] = [];
 
@@ -281,7 +82,7 @@ function rebalanceMinorVsScienceBasic(
 
   // 수학선택 이동 (필요시, 시간순 첫 번째)
   if (!hasElective && minorMathElec.length > 0) {
-    const sortedElectives = [...minorMathElec].sort(compareSemester);
+    const sortedElectives = [...minorMathElec].sort(compareScienceCourseOrder);
     coursesToMove.push(sortedElectives[0]);
   }
 
@@ -354,7 +155,7 @@ export const evaluateGraduationStatus = async (
   };
 
   takenCourses.forEach((course) => {
-    const key = classifyCourse(course, userMajor, userMinors);
+    const key = classifyCourse(course, userMajor, userMinors, entryYear);
     if (grouped[key]) {
       grouped[key].push(course);
     }
@@ -364,15 +165,19 @@ export const evaluateGraduationStatus = async (
   // 부전공과 기초과학에 중복되는 과목이 있을 경우, 기초과학 요건을 먼저 충족
   // 예: 수리과학 부전공 선언 시, 미적분학 + 수학선택1은 기초과학으로, 나머지는 부전공으로
   if (userMinors && userMinors.length > 0 && grouped.minor.length > 0) {
-    const minorScienceResult = rebalanceMinorVsScienceBasic(grouped.minor, grouped.scienceBasic);
+    const minorScienceResult = rebalanceMinorVsScienceBasic(grouped.minor, grouped.scienceBasic, entryYear);
     grouped.minor = minorScienceResult.minor;
     grouped.scienceBasic = minorScienceResult.scienceBasic;
   }
 
   // 2.4. Re-balance Science Basic -> Free Electives (시간순 3분야 선택 알고리즘)
   // 수학(별도 필수) + 물리/화학/생명/SW 중 시간순으로 먼저 완료된 3분야만 기초과학 인정
+  let scienceFieldsComplete = false;
   if (grouped.scienceBasic.length > 0) {
-    const rebalanceResult = rebalanceScienceByTimeOrder(grouped.scienceBasic);
+    const rebalanceResult = allocateScienceCourses(grouped.scienceBasic, entryYear);
+    scienceFieldsComplete = rebalanceResult.selectedFields.every(
+      (field) => rebalanceResult.fieldDetails.get(field)?.isComplete,
+    );
     grouped.scienceBasic = rebalanceResult.scienceBasic;
     grouped.otherUncheckedClass.push(...rebalanceResult.freeElective);
   }
@@ -433,7 +238,9 @@ export const evaluateGraduationStatus = async (
 
   // Initialize with rules
   ruleSet.categories.forEach((rule) => {
-    let minCredits = rule.minCredits;
+    let minCredits =
+      rule.key === 'major' ? getMajorCreditRequirement(entryYear, userMajor).requiredCredits : rule.minCredits;
+    if (rule.key === 'scienceBasic') minCredits = takenCourses.some((c) => c.courseCode === 'GS1401') ? 17 : 18;
 
     // Dynamically update Minor requirement if user has selected minors
     if (rule.key === 'minor' && userMinors && userMinors.length > 0) {
@@ -451,7 +258,8 @@ export const evaluateGraduationStatus = async (
   });
 
   // 4. Calculate Total Credits
-  const totalCredits = takenCourses.reduce((acc, c) => acc + (c.credit || 0), 0);
+  const recognizedCredits = calculateRecognizedCredits(takenCourses, entryYear, userMajor);
+  const totalCredits = recognizedCredits.total;
 
   // 5. Fine-grained Requirements
   const fineGrainedRequirements = buildFineGrainedRequirements({
@@ -461,6 +269,8 @@ export const evaluateGraduationStatus = async (
     entryYear,
     userMajor,
     unresolvedUserMajorInput,
+    scienceFieldsComplete,
+    recognizedCredits,
     userMinors: userMinors || [],
     minorDeclarationTerms,
   }).map((req) => ({
@@ -525,6 +335,7 @@ export const evaluateGraduationStatus = async (
   return {
     graduationCategory,
     totalCredits,
+    earnedCredits: recognizedCredits.earned,
     overallStatus,
     totalSatisfied,
     fineGrainedRequirements,

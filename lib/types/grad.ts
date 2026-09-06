@@ -1,3 +1,4 @@
+import type { CreditRecognition } from '@features/graduation/domain/credit-recognition';
 import type { GraduationCatalogSelectionSummary } from '@features/graduation/domain/types';
 
 export interface TakenCourseType {
@@ -6,6 +7,7 @@ export interface TakenCourseType {
   courseType: string; // 학교 엑셀에서 내려오는 '이수구분' 텍스트
   courseName: string;
   courseCode: string;
+  creditRecognition?: CreditRecognition;
   credit: number;
   grade?: string;
   gradeStatus?: 'official' | 'in_progress' | 'provisional';

@@ -10,8 +10,6 @@ interface HighlightState {
 }
 
 interface RoadmapContextType {
-  isViewMode: boolean;
-  setIsViewMode: (value: boolean) => void;
   selectedCourse: CourseNodeData | null;
   setSelectedCourse: (course: CourseNodeData | null) => void;
   sheetOpen: boolean;
@@ -26,7 +24,6 @@ interface RoadmapContextType {
 const RoadmapContext = createContext<RoadmapContextType | null>(null);
 
 export function RoadmapProvider({ children }: { children: ReactNode }) {
-  const [isViewMode, setIsViewMode] = useState(true); // Default to View Mode
   const [selectedCourse, setSelectedCourse] = useState<CourseNodeData | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -68,8 +65,6 @@ export function RoadmapProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo(
     () => ({
-      isViewMode,
-      setIsViewMode,
       selectedCourse,
       setSelectedCourse,
       sheetOpen,
@@ -79,7 +74,7 @@ export function RoadmapProvider({ children }: { children: ReactNode }) {
       isNodeHighlighted,
       isEdgeHighlighted,
     }),
-    [isViewMode, selectedCourse, sheetOpen, highlightState, setHoveredNode, isNodeHighlighted, isEdgeHighlighted],
+    [selectedCourse, sheetOpen, highlightState, setHoveredNode, isNodeHighlighted, isEdgeHighlighted],
   );
 
   return <RoadmapContext.Provider value={value}>{children}</RoadmapContext.Provider>;

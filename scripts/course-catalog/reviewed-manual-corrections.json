@@ -1,0 +1,46 @@
+[
+  {
+    "academicYear": 2022,
+    "sourceSha256": "e100af2051b3f682b790eb0f95bf722fd27466cb896b26b6384814f287ab2b17",
+    "reason": "PDF 이미지 확인: AI를 AJ/AV로 읽은 코드와 CH2104 닫는 괄호 오인식을 교정. 원본 해시가 바뀌면 재검수 필요.",
+    "removeCodes": [
+      "AJ4014",
+      "AV4004",
+      "AV4011"
+    ],
+    "entries": [
+      {
+        "courseCode": "AI4014",
+        "page": 92,
+        "lectureHours": 3,
+        "labHours": 0,
+        "credits": 3,
+        "titleKo": "랜덤프로세스 Random Process"
+      },
+      {
+        "courseCode": "AI4004",
+        "page": 90,
+        "lectureHours": 3,
+        "labHours": 0,
+        "credits": 3,
+        "titleKo": "컴퓨터비전 Computer Vision"
+      },
+      {
+        "courseCode": "AI4011",
+        "page": 91,
+        "lectureHours": 3,
+        "labHours": 0,
+        "credits": 3,
+        "titleKo": "오토마타 이론 Automata Theory"
+      },
+      {
+        "courseCode": "CH2104",
+        "page": 82,
+        "lectureHours": 3,
+        "labHours": 0,
+        "credits": 3,
+        "titleKo": "물리화학 B Physical Chemistry B"
+      }
+    ]
+  }
+]

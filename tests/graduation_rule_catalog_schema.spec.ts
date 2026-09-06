@@ -208,3 +208,20 @@ describe('graduation rule catalog schema validator', () => {
     expect(issueCodes).toContain('invalid-parameters');
   });
 });
+
+it('rejects malformed historical alternatives before publishing a course-count rule', () => {
+  const rule: RuleCatalogRule = {
+    id: 'legacy-count',
+    kind: 'course-count',
+    scope: { type: 'global' },
+    parameters: {
+      requiredCount: 3,
+      unit: 'courses',
+      courses: ['MM2001'],
+      legacyAlternative: { triggerCourseCode: 'GS2003', requiredCount: 0, courses: [] },
+    },
+    sourceRefs: [sourceRef],
+    appliesTo: { allCohorts: true },
+  };
+  expect(getIssueCodes([rule])).toContain('invalid-parameters');
+});

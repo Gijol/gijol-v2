@@ -80,3 +80,9 @@ PDF는 provenance이며 런타임에 파싱하지 않습니다. 각 rule은 `sou
 먼저 primary code와 alias를 통해 `courseId`를 결정하고, 아직 identity가 없는 관측 과목은 `COURSE:<code>` synthetic ID로 포함합니다. 이후 개설 이력, manual listing, requirement facet, relationship을 같은 `courseId`에 연결합니다.
 
 자세한 snapshot 구조와 갱신 명령은 [과목 카탈로그](course-catalog.md)를 참고합니다.
+
+## 편람 재추출의 검증 경계
+
+학사편람 추출은 과목 제목과 연결된 강·실·학 또는 연구학점 표기를 읽는다. 다른 과목의 값을 가져오지 않으며 값이 없으면 미상으로 남긴다. 2021/2022 스캔은 한국어·영어 OCR을 사용한다. PDF SHA-256, OCR 캐시의 전체 연속 페이지, 게시 수록 이력의 값 보존을 `course-catalog:audit-handbooks`로 검사한다.
+
+학사편람에서만 추출된 코드가 canonical identity와 연결되지 않으면 현재 게시 adapter에서 제외될 수 있다. 원시 추출에는 보존되며 감사 결과의 연도별 `unpublishedCodes`를 확인해야 한다. 수강신청/CSV 관측 과목의 synthetic 생성과 이 경로는 동일하지 않다. 이 누락을 0건이라고 가정하거나 미확인 OCR 코드를 자동으로 실제 과목에 병합하지 않는다.

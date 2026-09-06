@@ -1,7 +1,12 @@
+import {
+  ENERGY_DECLARATION_SOURCE,
+  HISTORICAL_MATH_SOURCE,
+  HISTORICAL_MECHANICAL_LAB_SOURCES,
+} from './historical-courses';
+import { getMajorCodes, getMinorCourseCodes } from './academic-programs';
 import type { RequirementSource } from '../types';
 import {
   appliesToRequirementCondition,
-  compareAcademicTerms,
   defineRuleCatalog,
   type CourseCountRuleParameters,
   type CourseLimitRuleParameters,
@@ -26,9 +31,11 @@ export interface CreditRequirement extends SourceBackedRule {
 }
 
 export interface MandatoryCourseRule extends SourceBackedRule {
+  legacyAlternative?: CourseCountRuleParameters['legacyAlternative'];
   label: string;
   requiredCount: number;
   courses: readonly string[];
+  courseNames?: readonly string[];
 }
 
 export interface ThesisRequirement extends SourceBackedRule {
@@ -79,6 +86,12 @@ const evMajorMandatorySource = source(25, '환경·에너지공학과 전공필�
 const bsMajorMandatorySource = source(25, '생명과학과 전공필수: 2023학번 이후 및 2018~2022학번 필수 교과목');
 const minorGeneralSource = source(27, '부전공 일반 이수요건: 분야별 15학점 이상 및 별도 요건 충족');
 const ecMinorSource = source(27, '전기전자컴퓨터 부전공: 전공필수 1과목, EC 2천번대 6학점, EC 3~4천번대 12학점');
+const aiMinorHistoricalSource: RequirementSource = {
+  manualYear: 2024,
+  page: 55,
+  path: 'docs/bachelor_manual/2024_manual.pdf',
+  note: '인쇄 54쪽: AI4020 인공지능, AI4001 프로젝트 2 및 AI2002 콜로퀴움 개편 전 필수 교과목',
+};
 const aiMinorSource = source(27, 'AI융합 부전공 이수요건: 선언 학기별 필수과목 적용');
 const psMinorSource = source(27, '물리·광과학 부전공: 학번별 전공필수 3과목 및 15학점 이상');
 const chMinorSource = source(28, '화학 부전공: 2018학번부터 21학점 및 전공필수 3과목');
@@ -124,6 +137,7 @@ export const MAJOR_CREDIT_REQUIREMENTS: readonly CreditRequirement[] = [
   {
     id: 'major-credits',
     label: '전공 학점',
+    programCodes: getMajorCodes().filter((code) => code !== 'MA'),
     requiredCredits: 36,
     appliesTo: { entryYear: { from: 2018, to: 2020 } },
     sourceRefs: [overallSource2018To2020],
@@ -131,7 +145,24 @@ export const MAJOR_CREDIT_REQUIREMENTS: readonly CreditRequirement[] = [
   {
     id: 'major-credits',
     label: '전공 학점',
+    programCodes: getMajorCodes().filter((code) => code !== 'MA'),
     requiredCredits: 36,
+    appliesTo: { entryYear: { from: 2021 } },
+    sourceRefs: [overallSource2021Plus],
+  },
+  {
+    id: 'major-credits-ma',
+    label: '소재전공 학점',
+    requiredCredits: 30,
+    programCodes: ['MA'],
+    appliesTo: { entryYear: { from: 2018, to: 2020 } },
+    sourceRefs: [overallSource2018To2020],
+  },
+  {
+    id: 'major-credits-ma',
+    label: '소재전공 학점',
+    requiredCredits: 30,
+    programCodes: ['MA'],
     appliesTo: { entryYear: { from: 2021 } },
     sourceRefs: [overallSource2021Plus],
   },
@@ -165,9 +196,9 @@ export const MINOR_CREDIT_REQUIREMENTS: readonly CreditRequirement[] = [
   {
     id: 'minor-credits-ec',
     label: '전기전자컴퓨터 부전공 학점',
-    requiredCredits: 15,
+    requiredCredits: 18,
     programCodes: ['EC'],
-    appliesTo: allCohorts,
+    appliesTo: { entryYear: { from: 2018 } },
     sourceRefs: [ecMinorSource],
   },
   {
@@ -208,7 +239,7 @@ export const MINOR_CREDIT_REQUIREMENTS: readonly CreditRequirement[] = [
     requiredCredits: 21,
     appliesTo: { entryYear: { from: 2018 } },
     programCodes: ['CH'],
-    sourceRefs: [chMinorSource],
+    sourceRefs: [chMinorSource, chMajorMandatorySource],
   },
   {
     id: 'minor-credits-mm-default',
@@ -240,7 +271,7 @@ export const MINOR_CREDIT_REQUIREMENTS: readonly CreditRequirement[] = [
     requiredCredits: 15,
     programCodes: ['MC'],
     appliesTo: allCohorts,
-    sourceRefs: [mcMinorSource],
+    sourceRefs: [mcMinorSource, ...HISTORICAL_MECHANICAL_LAB_SOURCES],
   },
   {
     id: 'minor-credits-ev',
@@ -301,6 +332,42 @@ export const MINOR_CREDIT_REQUIREMENTS: readonly CreditRequirement[] = [
 ];
 
 export const MAJOR_MANDATORY_RULES: Record<string, readonly MandatoryCourseRule[]> = {
+  SE: [
+    ...['SE1101', 'SE2101', 'SE2102', 'SE2201', 'SE2103', 'SE2104', 'SE2105', 'SE3101', 'SE3102', 'SE3103'].map(
+      (code) => ({
+        id: `major.se.mandatory.${code.toLowerCase()}`,
+        label: `반도체 전공필수 ${code}`,
+        requiredCount: 1,
+        courses: [code],
+        appliesTo: { entryYear: { from: 2024 } },
+        sourceRefs: [source(22, '반도체공학과 전공필수')],
+      }),
+    ),
+    {
+      id: 'major.se.mandatory.se1102',
+      label: '반도체공학개론 II',
+      requiredCount: 1,
+      courses: ['SE1102'],
+      appliesTo: { entryYear: { from: 2025 } },
+      sourceRefs: [source(22, '2024학번은 SE1102 제외')],
+    },
+  ],
+  PS: ['PS2101', 'PS2102', 'PS2103', 'PS3103', 'PS3104', 'PS3105', 'PS3106', 'PS3107'].map((code) => ({
+    id: `major.ps.mandatory.${code.toLowerCase()}`,
+    label: `물리 전공필수 ${code}`,
+    requiredCount: 1,
+    courses: [code],
+    appliesTo: { entryYear: { from: 2018 } },
+    sourceRefs: [source(22, '물리·광과학 전공필수 8과목')],
+  })),
+  MA: ['MA2101', 'MA2102', 'MA2103', 'MA2104', 'MA3104', 'MA3105'].map((code) => ({
+    id: `major.ma.mandatory.${code.toLowerCase()}`,
+    label: `신소재 전공필수 ${code}`,
+    requiredCount: 1,
+    courses: [code],
+    appliesTo: { entryYear: { from: 2018 } },
+    sourceRefs: [source(24, '신소재 전공필수 6과목')],
+  })),
   CH: [
     {
       id: 'major.ch.mandatory.analytical-chemistry',
@@ -437,12 +504,20 @@ export const MAJOR_MANDATORY_RULES: Record<string, readonly MandatoryCourseRule[
   ],
   MC: [
     {
+      id: 'major.mc.mandatory.pre2025',
+      label: '기계로봇 전공필수 6과목',
+      requiredCount: 6,
+      courses: ['MC2100', 'MC2101', 'MC2102', 'MC2103', 'MC3106', 'MC3107'],
+      appliesTo: { entryYear: { from: 2018, to: 2024 } },
+      sourceRefs: [mcMajorMandatorySource, ...HISTORICAL_MECHANICAL_LAB_SOURCES],
+    },
+    {
       id: 'major.mc.mandatory.core',
-      label: '전공필수 택3 (MC2100, MC2101, MC2102, MC2103, MC3106, MC3107)',
+      label: '기계로봇 전공필수 택3',
       requiredCount: 3,
       courses: ['MC2100', 'MC2101', 'MC2102', 'MC2103', 'MC3106', 'MC3107'],
-      appliesTo: allCohorts,
-      sourceRefs: [mcMajorMandatorySource],
+      appliesTo: { entryYear: { from: 2025 } },
+      sourceRefs: [mcMajorMandatorySource, ...HISTORICAL_MECHANICAL_LAB_SOURCES],
     },
   ],
   EV: [
@@ -572,8 +647,8 @@ export const MINOR_MANDATORY_RULES: Record<string, readonly MandatoryCourseRule[
       id: 'minor.ai.mandatory.a',
       label: '부전공 필수A 택1 (인공지능/기계학습/딥러닝)',
       requiredCount: 1,
-      courses: ['EC4209', 'AI4020', 'AI4021', 'AI4311'],
-      sourceRefs: [aiMinorSource],
+      courses: ['EC4209', 'AI4021', 'AI4311'],
+      sourceRefs: [aiMinorSource, aiMinorHistoricalSource],
       appliesTo: {
         allCohorts: true,
         declarationTerm: { to: { year: 2025, semester: '1' } },
@@ -582,14 +657,26 @@ export const MINOR_MANDATORY_RULES: Record<string, readonly MandatoryCourseRule[
     },
     {
       id: 'minor.ai.mandatory.b',
+      label: '부전공 필수B 택1 (프로젝트/경험랩, 개편 전 경과조치 포함)',
+      requiredCount: 1,
+      courses: ['AI4003', 'AI4028', 'AI4501', 'AI4001'],
+      sourceRefs: [aiMinorSource, aiMinorHistoricalSource],
+      appliesTo: {
+        allCohorts: true,
+        declarationTerm: { to: { year: 2024, semester: '2' } },
+        note: '2024-2 이전 선언자의 기이수 프로젝트 1·2 인정',
+      },
+    },
+    {
+      id: 'minor.ai.mandatory.b.2025-1',
       label: '부전공 필수B 택1 (프로젝트/경험랩)',
       requiredCount: 1,
       courses: ['AI4003', 'AI4028', 'AI4501'],
       sourceRefs: [aiMinorSource],
       appliesTo: {
         allCohorts: true,
-        declarationTerm: { to: { year: 2025, semester: '1' } },
-        note: '2021-2~2025-1 선언자는 필수B 1과목 필요',
+        declarationTerm: { from: { year: 2025, semester: '1' }, to: { year: 2025, semester: '1' } },
+        note: '2025-1 선언자는 개편 후 필수B 1과목 필요',
       },
     },
   ],
@@ -612,7 +699,7 @@ export const MINOR_MANDATORY_RULES: Record<string, readonly MandatoryCourseRule[
       label: '부전공 필수 (전체 이수)',
       requiredCount: 4,
       courses: ['LH2507', 'LH2509', 'LH2521', 'LH2602'],
-      appliesTo: allCohorts,
+      appliesTo: { entryYear: { from: 2021 } },
       sourceRefs: [lhLitCoursePlanSource],
     },
   ],
@@ -622,7 +709,7 @@ export const MINOR_MANDATORY_RULES: Record<string, readonly MandatoryCourseRule[
       label: '부전공 필수 (전체 이수)',
       requiredCount: 3,
       courses: ['PP2704', 'PP2763', 'PP2765'],
-      appliesTo: allCohorts,
+      appliesTo: { entryYear: { from: 2021 } },
       sourceRefs: [lhPpCoursePlanSource],
     },
   ],
@@ -632,7 +719,7 @@ export const MINOR_MANDATORY_RULES: Record<string, readonly MandatoryCourseRule[
       label: '부전공 필수 (전체 이수)',
       requiredCount: 3,
       courses: ['EB2750', 'GS2750', 'EB3722', 'GS3722', 'EB3737', 'GS3737'],
-      appliesTo: allCohorts,
+      appliesTo: { entryYear: { from: 2021 } },
       sourceRefs: [lhEbCoursePlanSource],
     },
   ],
@@ -663,7 +750,7 @@ export const MINOR_MANDATORY_RULES: Record<string, readonly MandatoryCourseRule[
       requiredCount: 3,
       courses: ['MC2100', 'MC2101', 'MC2102', 'MC2103', 'MC3106', 'MC3107'],
       appliesTo: allCohorts,
-      sourceRefs: [mcMinorSource],
+      sourceRefs: [mcMinorSource, ...HISTORICAL_MECHANICAL_LAB_SOURCES],
     },
   ],
   EV: [
@@ -686,37 +773,45 @@ export const MINOR_MANDATORY_RULES: Record<string, readonly MandatoryCourseRule[
   ],
   BS: [
     {
-      id: 'minor.bs.mandatory.core',
-      label: '부전공 전공필수 택3 (교과목2+실험1, 유기화학 제외)',
-      requiredCount: 3,
-      courses: ['BS2102', 'BS2104', 'BS3101', 'BS3105', 'BS2103', 'BS3111', 'BS3112'],
+      id: 'minor.bs.mandatory.lectures',
+      label: '생명 부전공 필수 강의 택2',
+      requiredCount: 2,
+      courses: ['BS2102', 'BS2104', 'BS3113', 'BS3101', 'BS3105'],
+      appliesTo: allCohorts,
+      sourceRefs: [bsMinorSource],
+    },
+    {
+      id: 'minor.bs.mandatory.lab',
+      label: '생명 부전공 필수 실험 택1',
+      requiredCount: 1,
+      courses: ['BS2103', 'BS3111', 'BS3112'],
       appliesTo: allCohorts,
       sourceRefs: [bsMinorSource],
     },
   ],
   PS: [
     {
-      id: 'minor.ps.mandatory.classical-mechanics',
-      label: '고전역학 택1 (PS2101/PS2202)',
-      requiredCount: 1,
-      courses: ['PS2101', 'PS2202'],
+      id: 'minor.ps.mandatory.core',
+      label: '물리 부전공 전공필수 택3',
+      requiredCount: 3,
+      courses: ['PS2101', 'PS2102', 'PS2103', 'PS3103', 'PS3104', 'PS3105', 'PS3106', 'PS3107'],
       appliesTo: allCohorts,
       sourceRefs: [psMinorSource],
     },
     {
-      id: 'minor.ps.mandatory.electromagnetics',
-      label: '전자기학 택1 (PS2102/PS2103)',
+      id: 'minor.ps.mandatory.classical-em',
+      label: '고전역학 I / 전자기학 I·II 택1',
       requiredCount: 1,
-      courses: ['PS2102', 'PS2103'],
-      appliesTo: allCohorts,
+      courses: ['PS2101', 'PS2102', 'PS2103'],
+      appliesTo: { entryYear: { from: 2021 } },
       sourceRefs: [psMinorSource],
     },
     {
       id: 'minor.ps.mandatory.quantum',
-      label: '양자물리 택1 (PS3103/PS3104)',
+      label: '양자물리 I·II 택1',
       requiredCount: 1,
       courses: ['PS3103', 'PS3104'],
-      appliesTo: allCohorts,
+      appliesTo: { entryYear: { from: 2021 } },
       sourceRefs: [psMinorSource],
     },
   ],
@@ -725,32 +820,70 @@ export const MINOR_MANDATORY_RULES: Record<string, readonly MandatoryCourseRule[
       id: 'minor.ch.mandatory.core',
       label: '부전공 전공필수 택3',
       requiredCount: 3,
-      courses: ['CH2101', 'CH2102', 'CH2103', 'CH2104', 'CH2105'],
+      courses: ['CH2101', 'CH2102', 'CH2103', 'CH3104', 'CH2104', 'CH2105', 'CH3106', 'CH3208', 'CH3107'],
       appliesTo: allCohorts,
-      sourceRefs: [chMinorSource],
+      sourceRefs: [chMinorSource, chMajorMandatorySource],
     },
   ],
   MM: [
     {
       id: 'minor.mm.mandatory.calculus-algebra',
+      legacyAlternative: {
+        triggerCourseCode: 'GS2003',
+        requiredCount: 2,
+        courses: ['GS2003', 'MM2001', 'GS2001', 'MM2011', 'MM3101'],
+      },
       label: '부전공 필수 택3 (다변수해석학, 미분방정식, 선형대수학 중 도전탐색 필수과목 제외)',
       requiredCount: 3,
       courses: ['MM2001', 'GS2001', 'MM2011', 'MM2002', 'GS2002', 'MM2004', 'GS2004', 'MM3101'],
-      appliesTo: allCohorts,
-      sourceRefs: [mmMinorSource],
+      appliesTo: { entryYear: { to: 2025 } },
+      sourceRefs: [mmMinorSource, HISTORICAL_MATH_SOURCE],
     },
     {
       id: 'minor.mm.mandatory.analysis',
       label: '부전공 필수 택1 (해석학/복소함수학)',
       requiredCount: 1,
       courses: ['MM3201', 'GS3001', 'MM3203', 'GS4002'],
-      appliesTo: allCohorts,
+      appliesTo: { entryYear: { to: 2025 } },
+      sourceRefs: [mmMinorSource],
+    },
+    {
+      id: 'minor.mm.mandatory.core-2026',
+      label: '부전공 필수 수학 택2',
+      requiredCount: 2,
+      courses: ['MM2001', 'GS2001', 'MM2011', 'MM2002', 'GS2002', 'MM2004', 'GS2004'],
+      appliesTo: { entryYear: { from: 2026 } },
+      sourceRefs: [mmMinorSource],
+    },
+    {
+      id: 'minor.mm.mandatory.analysis-2026',
+      label: '부전공 해석학/복소함수학 택1',
+      requiredCount: 1,
+      courses: ['MM3201', 'GS3001', 'MM3203', 'GS4002'],
+      appliesTo: { entryYear: { from: 2026 } },
+      sourceRefs: [mmMinorSource],
+    },
+    {
+      id: 'minor.mm.mandatory.algebra-2026',
+      label: '부전공 현대대수학1/선형대수학과 응용2 택1',
+      requiredCount: 1,
+      courses: ['MM3101'],
+      courseNames: ['선형대수학과 응용2'],
+      appliesTo: { entryYear: { from: 2026 } },
       sourceRefs: [mmMinorSource],
     },
   ],
 };
 
 export const MINOR_DECLARATION_TERM_REQUIREMENTS: Record<string, MinorDeclarationTermRequirement> = {
+  FE: {
+    minorCode: 'FE',
+    appliesTo: allCohorts,
+    sourceRefs: [ENERGY_DECLARATION_SOURCE],
+    missingTermRequirementId: 'minor-declaration-term-FE',
+    missingTermLabel: '에너지 부전공 기존 선언 확인 필요',
+    missingTermHint: '2025-1학기부터 에너지 부전공은 취소만 가능합니다. 기존에 선언한 학기를 입력해 주세요.',
+  },
   AI: {
     minorCode: 'AI',
     appliesTo: allCohorts,
@@ -839,6 +972,8 @@ function mandatoryCourseRuleParameters(rule: MandatoryCourseRule): CourseCountRu
     requiredCount: rule.requiredCount,
     unit: 'courses',
     courses: rule.courses,
+    ...(rule.courseNames ? { courseNames: rule.courseNames } : {}),
+    ...(rule.legacyAlternative ? { legacyAlternative: rule.legacyAlternative } : {}),
   };
 }
 
@@ -895,6 +1030,56 @@ const thesisRequirementCatalogRules: readonly RuleCatalogRule[] = [
 
 export const MAJOR_MINOR_REQUIREMENT_CATALOG_RULES = defineRuleCatalog(
   [
+    ...(['MD', 'FE'] as const).map((code) => ({
+      id: `minor.${code.toLowerCase()}.curriculum-course-count`,
+      kind: 'course-count' as const,
+      label: `${code} 부전공 5과목`,
+      scope: programScope('minor', [code]),
+      parameters: { requiredCount: 5, unit: 'courses' as const, courses: getMinorCourseCodes(code) },
+      appliesTo: allCohorts,
+      sourceRefs: [code === 'MD' ? mdMinorSource : feMinorSource],
+    })),
+    {
+      id: 'minor.ma.upper-level',
+      kind: 'course-count',
+      label: 'MA 3·4천번대 3과목',
+      scope: programScope('minor', ['MA']),
+      parameters: {
+        requiredCount: 3,
+        unit: 'courses',
+        courses: getMinorCourseCodes('MA').filter((code) => /^MA[34]/.test(code)),
+      },
+      appliesTo: { entryYear: { from: 2018 } },
+      sourceRefs: [maMinorSource],
+    },
+    ...(['2000', '3000-4000'] as const).map((level) => ({
+      id: `minor.ec.level-${level}`,
+      kind: 'credit-minimum' as const,
+      label: `EC ${level} 학점`,
+      scope: programScope('minor', ['EC']),
+      parameters: {
+        requiredCredits: level === '2000' ? 6 : 12,
+        unit: 'credits' as const,
+        codePrefixes: level === '2000' ? ['EC2'] : ['EC3', 'EC4'],
+      },
+      appliesTo: { entryYear: { from: 2018 } },
+      sourceRefs: [ecMinorSource],
+    })),
+    {
+      id: 'minor.mm.electives.2026-plus',
+      kind: 'credit-minimum',
+      label: '수리과학 부전공 선택',
+      scope: programScope('minor', ['MM']),
+      parameters: {
+        requiredCredits: 6,
+        unit: 'credits',
+        codePrefixes: ['MM3', 'MM4'],
+        excludeMandatory: true,
+        excludeScienceBasic: true,
+      },
+      appliesTo: { entryYear: { from: 2026 } },
+      sourceRefs: [mmMinorSource],
+    },
     ...MAJOR_CREDIT_REQUIREMENTS.map((requirement) =>
       toCatalogRule(
         'credit-minimum',
@@ -915,22 +1100,12 @@ export const MAJOR_MINOR_REQUIREMENT_CATALOG_RULES = defineRuleCatalog(
     ...thesisRequirementCatalogRules,
     ...Object.entries(MAJOR_MANDATORY_RULES).flatMap(([programCode, rules]) =>
       rules.map((rule) =>
-        toCatalogRule(
-          'course-count',
-          rule,
-          programScope('major', [programCode]),
-          mandatoryCourseRuleParameters(rule),
-        ),
+        toCatalogRule('course-count', rule, programScope('major', [programCode]), mandatoryCourseRuleParameters(rule)),
       ),
     ),
     ...Object.entries(MINOR_MANDATORY_RULES).flatMap(([programCode, rules]) =>
       rules.map((rule) =>
-        toCatalogRule(
-          'course-count',
-          rule,
-          programScope('minor', [programCode]),
-          mandatoryCourseRuleParameters(rule),
-        ),
+        toCatalogRule('course-count', rule, programScope('minor', [programCode]), mandatoryCourseRuleParameters(rule)),
       ),
     ),
     ...Object.values(MINOR_DECLARATION_TERM_REQUIREMENTS).map((requirement) => ({
@@ -952,13 +1127,14 @@ export const MAJOR_MINOR_REQUIREMENT_CATALOG_RULES = defineRuleCatalog(
   { publishable: true },
 );
 
-export function getMajorCreditRequirement(entryYear: number): CreditRequirement {
-  return (
-    MAJOR_CREDIT_REQUIREMENTS.find((requirement) =>
-      appliesToRequirementCondition(requirement.appliesTo, { entryYear }),
-    ) ??
-    MAJOR_CREDIT_REQUIREMENTS[MAJOR_CREDIT_REQUIREMENTS.length - 1]
-  );
+export function getMajorCreditRequirement(entryYear: number, majorCode?: string): CreditRequirement {
+  const match =
+    MAJOR_CREDIT_REQUIREMENTS.find(
+      (r) =>
+        appliesToRequirementCondition(r.appliesTo, { entryYear }) &&
+        (majorCode ? r.programCodes?.includes(majorCode) : r.id === 'major-credits'),
+    ) ?? MAJOR_CREDIT_REQUIREMENTS[1];
+  return { ...match, id: 'major-credits' };
 }
 
 export function getThesisRequirements(entryYear: number): readonly ThesisRequirement[] {
@@ -1004,6 +1180,7 @@ export function requiresMinorDeclarationTerm(minorCode?: string | null): boolean
 export function getMinorMandatoryRulesForContext(
   minorCode: string,
   context: RequirementContext,
+  completedCodes: readonly string[] = [],
 ): readonly MandatoryCourseRule[] {
   const normalizedMinorCode = normalizeCode(minorCode);
   const rules = (MINOR_MANDATORY_RULES[normalizedMinorCode] ?? []).filter((rule) =>
@@ -1014,21 +1191,17 @@ export function getMinorMandatoryRulesForContext(
     return [];
   }
 
-  if (normalizedMinorCode === 'AI') {
-    const isTransitionDeclarer =
-      !!context.declarationTerm && compareAcademicTerms(context.declarationTerm, { year: 2024, semester: '2' }) <= 0;
-    return rules.map((rule) =>
-      isTransitionDeclarer && rule.id === 'minor.ai.mandatory.b'
-        ? {
-            ...cloneMandatoryRule(rule),
-            label: `${rule.label} (2024-2 이전 선언 경과조치 포함)`,
-            courses: Array.from(new Set([...rule.courses, 'AI4001'])),
-          }
-        : cloneMandatoryRule(rule),
-    );
-  }
-
-  return rules.map(cloneMandatoryRule);
+  return rules.map((rule) => {
+    const alternative = rule.legacyAlternative;
+    return alternative && completedCodes.includes(alternative.triggerCourseCode)
+      ? {
+          ...cloneMandatoryRule(rule),
+          requiredCount: alternative.requiredCount,
+          courses: [...alternative.courses],
+          label: 'GS2003 기이수 수학 필수 택2 (기초교육 제외)',
+        }
+      : cloneMandatoryRule(rule);
+  });
 }
 
 export function getMinorCourseLimitRequirement(

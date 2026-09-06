@@ -54,15 +54,20 @@ export function AvailabilityWithPreview({
   showEmptyHint = false,
 }: AvailabilityWithPreviewProps) {
   // Filter out weekends on mobile if hideWeekends is true
-  const displayDays = hideWeekends ? days.filter((day) => day !== '일' && day !== '토') : days;
+  const displayDays = days.filter(
+    (day) =>
+      !hideWeekends ||
+      (day !== '일' && day !== '토') ||
+      [...scheduledSpans, ...previewSpans].some((span) => span.week_day === DAY_TO_INT[DAY_MAP_SHORT[day]]),
+  );
   const startMin = timeToMinutes(startTime);
   const endMin = timeToMinutes(endTime);
   const totalMinutes = endMin - startMin;
   const rowCount = Math.ceil(totalMinutes / timeIncrements);
 
-  const ROW_HEIGHT = hideWeekends ? 34 : 38;
+  const ROW_HEIGHT = 30;
   const HEADER_HEIGHT = hideWeekends ? 40 : 46;
-  const TIME_COL_WIDTH = hideWeekends ? 44 : 58;
+  const TIME_COL_WIDTH = 44;
 
   const getSpanStyle = (span: TimetableSpan) => {
     const spanStartMin = timeToMinutes(span.start_time);
@@ -107,7 +112,7 @@ export function AvailabilityWithPreview({
           {displayDays.map((day) => (
             <div
               key={day}
-              className="flex min-w-[52px] flex-1 items-center justify-center border-r border-slate-200 text-xs font-semibold text-slate-600 last:border-r-0"
+              className="flex min-w-0 flex-1 items-center justify-center border-r border-slate-200 text-xs font-semibold text-slate-600 last:border-r-0"
             >
               {day}
             </div>
@@ -174,7 +179,7 @@ export function AvailabilityWithPreview({
               const dayPreview = previewSpans.filter((s) => s.week_day === dayInt);
 
               return (
-                <div key={day} className="group relative min-w-[52px] flex-1 border-r border-slate-100 last:border-r-0">
+                <div key={day} className="group relative min-w-0 flex-1 border-r border-slate-100 last:border-r-0">
                   {isWeekend && (
                     <div
                       className="absolute inset-0 z-0 opacity-[0.03]"
@@ -197,7 +202,7 @@ export function AvailabilityWithPreview({
                     return (
                       <div
                         key={span.nanoid}
-                        className="group/span absolute inset-x-0.5 z-10 flex flex-col overflow-hidden rounded-md border p-1.5 shadow-sm transition-[box-shadow,transform] duration-150 ease-[var(--ease-ui-out)] hover:z-50 hover:-translate-y-px hover:shadow-lg hover:ring-2 hover:ring-offset-1 motion-reduce:transform-none"
+                        className="group/span absolute inset-x-0.5 z-10 flex flex-col overflow-hidden rounded-md border p-1 shadow-sm transition-[box-shadow,transform] duration-150 ease-[var(--ease-ui-out)] hover:z-50 hover:-translate-y-px hover:shadow-lg hover:ring-2 hover:ring-offset-1 motion-reduce:transform-none sm:p-1.5"
                         style={{
                           ...style,
                           backgroundColor: colors.bg, // Use direct color from palette (already light)
@@ -216,7 +221,7 @@ export function AvailabilityWithPreview({
                         />
                         {/* Top: Course Code + Remove Button */}
                         <div className="pointer-events-none relative z-10 flex items-start justify-between">
-                          <span className="font-mono text-xs font-semibold text-slate-700 uppercase">
+                          <span className="hidden font-mono text-xs font-semibold text-slate-700 uppercase sm:block">
                             {span.courseCode}
                           </span>
                           <button
@@ -225,7 +230,7 @@ export function AvailabilityWithPreview({
                               e.stopPropagation();
                               onRemoveSpan?.(span.sectionId);
                             }}
-                            className="pointer-events-auto rounded p-0.5 opacity-100 transition-[background-color,opacity,transform] duration-150 ease-[var(--ease-ui-out)] hover:bg-black/10 focus-visible:ring-2 focus-visible:ring-slate-700 focus-visible:outline-none active:scale-[0.95] motion-reduce:transform-none sm:opacity-0 sm:group-focus-within/span:opacity-100 sm:group-hover/span:opacity-100"
+                            className="pointer-events-auto hidden rounded p-0.5 opacity-100 transition-[background-color,opacity,transform] duration-150 ease-[var(--ease-ui-out)] hover:bg-black/10 focus-visible:ring-2 focus-visible:ring-slate-700 focus-visible:outline-none active:scale-[0.95] motion-reduce:transform-none sm:block sm:opacity-0 sm:group-focus-within/span:opacity-100 sm:group-hover/span:opacity-100"
                             style={{ color: colors.border }}
                             aria-label={`${span.title || span.courseCode} 시간표에서 삭제`}
                           >
@@ -235,7 +240,7 @@ export function AvailabilityWithPreview({
 
                         {/* Middle: Title */}
                         <div className="pointer-events-none relative z-10 flex min-h-0 flex-1 flex-col justify-center overflow-hidden">
-                          <div className="line-clamp-3 overflow-hidden text-xs leading-tight font-semibold text-ellipsis text-slate-800">
+                          <div className="line-clamp-4 overflow-hidden text-[10px] leading-tight font-semibold text-ellipsis text-slate-800 sm:text-xs">
                             {span.title || span.courseCode}
                           </div>
                         </div>
@@ -243,7 +248,8 @@ export function AvailabilityWithPreview({
                         {/* Bottom: Time */}
                         <div className="pointer-events-none relative z-10 mt-auto">
                           <span className="text-[10px] font-bold text-slate-500 tabular-nums">
-                            {span.start_time}–{span.end_time}
+                            {span.start_time}
+                            <span className="hidden sm:inline">–{span.end_time}</span>
                           </span>
                         </div>
                       </div>
@@ -285,7 +291,7 @@ export function AvailabilityWithPreview({
             >
               <div className="max-w-xs rounded-xl border border-slate-200 bg-white/95 px-5 py-4 text-center shadow-[0_10px_30px_rgba(15,23,42,0.08)] backdrop-blur-sm">
                 <CalendarPlus aria-hidden="true" className="mx-auto text-blue-600" size={20} />
-                <p className="mt-2 text-sm font-semibold text-slate-800">왼쪽에서 첫 강의를 찾아보세요</p>
+                <p className="mt-2 text-sm font-semibold text-slate-800">강의 검색에서 첫 수업을 담아보세요</p>
                 <p className="mt-1.5 text-xs leading-5 text-slate-500">
                   분반에 마우스를 올리면 시간표에서 위치를 미리 확인할 수 있습니다.
                 </p>

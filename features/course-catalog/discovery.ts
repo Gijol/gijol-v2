@@ -70,6 +70,7 @@ function getRepresentativeAcademicTag(item: CourseCatalogSearchItem, query: Cour
         (facet) => facet.feature === 'recommendation' && normalizeCourseCode(facet.programCode) === userMajor,
       ));
 
+  if (courseCodes.some((code) => ['GS1490', 'GS1499'].includes(code))) return '소프트웨어';
   if (matchesMajor) return '전공';
 
   const matchingMinorFacets = item.facets.filter(
@@ -165,7 +166,10 @@ export function createCourseDiscovery(items: readonly CourseCatalogSearchItem[])
     },
 
     getDetail(courseId) {
-      return itemsById.get(courseId);
+      return (
+        itemsById.get(courseId) ??
+        orderedItems.find((item) => item.primaryCourseCode === courseId || item.aliasCodes.includes(courseId))
+      );
     },
   };
 }

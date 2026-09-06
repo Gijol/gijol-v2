@@ -1,6 +1,6 @@
 import type { MinorDeclarationTerms } from '@lib/types/grad';
 
-export const DECLARATION_TERM_REQUIRED_MINOR_CODES = ['AI', 'IR'] as const;
+export const DECLARATION_TERM_REQUIRED_MINOR_CODES = ['AI', 'IR', 'FE'] as const;
 
 const DECLARATION_TERM_REQUIRED_MINOR_SET = new Set<string>(DECLARATION_TERM_REQUIRED_MINOR_CODES);
 

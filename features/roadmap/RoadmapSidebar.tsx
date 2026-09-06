@@ -98,7 +98,7 @@ export const RoadmapSidebar = ({ savedRoadmaps = [], onLoad, onDelete, onClearAl
   // If closed, return a thin strip
   if (!isOpen) {
     return (
-      <div className="z-20 flex h-full w-12 flex-col items-center gap-4 border-r bg-white py-4">
+      <div className="z-20 flex h-full w-12 flex-col items-center gap-4 border-r border-slate-200/60 bg-white py-4">
         <Button variant="ghost" size="icon" onClick={() => setIsOpen(true)} aria-label="강의 목록 펼치기">
           <PanelLeftOpen aria-hidden="true" className="h-5 w-5 text-slate-500" />
         </Button>
@@ -113,9 +113,9 @@ export const RoadmapSidebar = ({ savedRoadmaps = [], onLoad, onDelete, onClearAl
   }
 
   return (
-    <div className="z-20 flex h-full w-[280px] flex-col border-r bg-white">
+    <div className="z-20 flex h-full w-[280px] flex-col border-r border-slate-200/60 bg-white">
       {/* Header */}
-      <div className="flex items-center justify-between border-b bg-slate-50/50 p-3">
+      <div className="flex items-center justify-between px-3 pt-4 pb-2">
         <h2 className="flex items-center gap-2 text-sm font-semibold">
           <Palette aria-hidden="true" className="h-4 w-4 text-slate-500" />
           강의 목록
@@ -132,7 +132,7 @@ export const RoadmapSidebar = ({ savedRoadmaps = [], onLoad, onDelete, onClearAl
       </div>
 
       {/* Search */}
-      <div className="space-y-2 border-b p-3">
+      <div className="space-y-2 p-3">
         <div className="relative">
           <Search aria-hidden="true" className="absolute top-2.5 left-2 h-3.5 w-3.5 text-slate-400" />
           <Input

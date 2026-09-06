@@ -1,3 +1,6 @@
+import { HISTORICAL_MATH_SOURCE } from './historical-courses';
+import { CALCULUS_CODES, getCoreMathCodes, SCIENCE_SOURCE } from './science-courses';
+import { getMajorCodes } from './academic-programs';
 import type { CategoryRule, RequirementSource, YearRuleSet } from '../types';
 import {
   defineRuleCatalog,
@@ -12,6 +15,21 @@ import {
   type RuleCatalogRule,
   type RuleCatalogScope,
 } from './schema';
+
+export const ENGLISH_I_SOURCES: readonly RequirementSource[] = [
+  {
+    manualYear: 2021,
+    page: 19,
+    path: 'docs/bachelor_manual/2021_manual.pdf',
+    note: '인쇄 18쪽(PDF 19쪽): 영어 I 신입생 영어 또는 발표와 토론 중 1과목, 2학점',
+  },
+  {
+    manualYear: 2026,
+    page: 167,
+    path: 'docs/bachelor_manual/2026_manual.pdf',
+    note: 'GS1607은 GS1601과 GS1603을 대체하는 개편 과목. 기존 두 과목의 동시 이수 요건이 아님',
+  },
+];
 
 interface EntryYearRange {
   from: number;
@@ -51,9 +69,7 @@ export interface BasicRequirementCatalog {
   totalCredits: CreditRequirement;
   language: {
     totalCredits: CreditRequirement;
-    englishI: CourseRequirement & {
-      legacyPairCodesFor2021Plus?: readonly string[];
-    };
+    englishI: CourseRequirement;
     englishII: CourseRequirement;
     writing: CourseRequirement;
   };
@@ -126,13 +142,13 @@ const scienceBasicCommon = {
     id: 'science-calculus',
     label: '미적분학',
     requiredCredits: 1,
-    acceptedCodes: ['GS1001', 'GS1011'],
+    acceptedCodes: CALCULUS_CODES,
   },
   coreMath: {
     id: 'science-core-math',
     label: '수학 선택 필수',
     requiredCredits: 1,
-    acceptedCodes: ['GS1002', 'GS2001', 'MM2001', 'GS1012', 'GS2004', 'GS2013', 'MM2004', 'GS2002', 'MM2002'],
+    acceptedCodes: getCoreMathCodes(2020),
   },
   softwareBasic: {
     id: 'science-sw-basic',
@@ -192,7 +208,7 @@ function source(page: number, note: string): RequirementSource {
 
 const graduationOverviewSource = source(32, '졸업요건 장 시작: 총 이수학점 130학점 및 최소 GPA 2.0/4.5');
 
-export const BASIC_REQUIREMENT_CATALOG: readonly BasicRequirementCatalog[] = [
+const BASE_BASIC_REQUIREMENT_CATALOG: readonly BasicRequirementCatalog[] = [
   {
     id: 'basic-2018-2019',
     name: '2018~2019학번 기본요건',
@@ -285,8 +301,7 @@ export const BASIC_REQUIREMENT_CATALOG: readonly BasicRequirementCatalog[] = [
         id: 'language-english-i',
         label: '영어 I',
         requiredCredits: 2,
-        acceptedCodes: ['GS1607'],
-        legacyPairCodesFor2021Plus: ['GS1601', 'GS1603'],
+        acceptedCodes: ['GS1601', 'GS1603', 'GS1607'],
       },
     },
     scienceBasic: scienceBasicCommon,
@@ -297,7 +312,7 @@ export const BASIC_REQUIREMENT_CATALOG: readonly BasicRequirementCatalog[] = [
         id: 'etc-major-exploration',
         label: '전공탐색',
         requiredCredits: 1,
-        acceptedCodes: ['UC0902'],
+        acceptedCodes: ['UC0902', 'GS1900'],
       },
     },
     artsSports: {
@@ -315,6 +330,21 @@ export const BASIC_REQUIREMENT_CATALOG: readonly BasicRequirementCatalog[] = [
   },
 ];
 
+export const BASIC_REQUIREMENT_CATALOG: readonly BasicRequirementCatalog[] = [
+  ...BASE_BASIC_REQUIREMENT_CATALOG.slice(0, 2),
+  { ...BASE_BASIC_REQUIREMENT_CATALOG[2], entryYear: { from: 2021, to: 2025 } },
+  {
+    ...BASE_BASIC_REQUIREMENT_CATALOG[2],
+    id: 'basic-2026-plus',
+    name: '2026학번 이후 기본요건',
+    entryYear: { from: 2026 },
+    scienceBasic: {
+      ...scienceBasicCommon,
+      coreMath: { ...scienceBasicCommon.coreMath, acceptedCodes: getCoreMathCodes(2026) },
+    },
+  },
+];
+
 function catalogRuleId(catalog: BasicRequirementCatalog, requirementId: string): string {
   return `${catalog.id}.${requirementId}`;
 }
@@ -324,6 +354,13 @@ function catalogRuleSourceRefs(catalog: BasicRequirementCatalog, requirementId: 
     return [catalog.source, graduationOverviewSource];
   }
 
+  if (requirementId === 'science-sw-basic' || requirementId === 'etc-major-exploration')
+    return [catalog.source, source(19, 'SW 대체과목의 방향과 외국인 조건; 반도체공학과 전공탐색 면제')];
+  if (requirementId === 'science-core-math' && catalog.scienceBasic.coreMath.acceptedCodes.includes('GS2003'))
+    return [catalog.source, SCIENCE_SOURCE, HISTORICAL_MATH_SOURCE];
+  if (requirementId.startsWith('science-')) return [catalog.source, SCIENCE_SOURCE];
+  if (requirementId === 'etc-colloquium')
+    return [catalog.source, source(25, '2학기 이수; 반도체공학과는 GIST와 반도체 각 1학기')];
   return [catalog.source];
 }
 
@@ -345,20 +382,12 @@ function gpaMinimumParameters(minimumGpa: number): GpaMinimumRuleParameters {
   };
 }
 
-function courseCreditParameters(
-  requirement: CourseRequirement & { legacyPairCodesFor2021Plus?: readonly string[] },
-): CourseCreditRuleParameters {
-  const parameters: CourseCreditRuleParameters = {
+function courseCreditParameters(requirement: CourseRequirement): CourseCreditRuleParameters {
+  return {
     requiredCredits: requirement.requiredCredits,
     unit: 'credits',
     courses: requirement.acceptedCodes,
   };
-
-  if (requirement.legacyPairCodesFor2021Plus) {
-    parameters.legacyPairCodes = requirement.legacyPairCodesFor2021Plus;
-  }
-
-  return parameters;
 }
 
 function courseCountParameters(
@@ -374,7 +403,7 @@ function courseCountParameters(
 function activityCountParameters(requirement: CountRequirement): ActivityCountRuleParameters {
   return {
     requiredCount: requirement.requiredCount,
-    unit: 'courses',
+    unit: 'semesters',
   };
 }
 
@@ -401,9 +430,13 @@ function toCatalogRule(
     id: catalogRuleId(catalog, requirement.id),
     kind,
     label: requirement.label,
-    scope: globalScope,
+    scope:
+      requirement.id === 'etc-major-exploration'
+        ? { type: 'program', programKind: 'major', programCodes: getMajorCodes().filter((code) => code !== 'SE') }
+        : globalScope,
     parameters,
-    sourceRefs: catalogRuleSourceRefs(catalog, requirement.id),
+    sourceRefs:
+      requirement.id === 'language-english-i' ? ENGLISH_I_SOURCES : catalogRuleSourceRefs(catalog, requirement.id),
     appliesTo: catalogAppliesTo(catalog),
   };
 }
@@ -440,12 +473,7 @@ function buildBasicCatalogRules(catalog: BasicRequirementCatalog): readonly Rule
       catalog.language.englishII,
       courseCreditParameters(catalog.language.englishII),
     ),
-    toCatalogRule(
-      catalog,
-      'course-credit',
-      catalog.language.writing,
-      courseCreditParameters(catalog.language.writing),
-    ),
+    toCatalogRule(catalog, 'course-credit', catalog.language.writing, courseCreditParameters(catalog.language.writing)),
     toCatalogRule(
       catalog,
       'conditional-credit-minimum',
@@ -454,21 +482,21 @@ function buildBasicCatalogRules(catalog: BasicRequirementCatalog): readonly Rule
     ),
     toCatalogRule(
       catalog,
-      'course-credit',
+      'course-count',
       catalog.scienceBasic.calculus,
-      courseCreditParameters(catalog.scienceBasic.calculus),
+      courseCountParameters({ ...catalog.scienceBasic.calculus, requiredCount: 1 }),
     ),
     toCatalogRule(
       catalog,
-      'course-credit',
+      'course-count',
       catalog.scienceBasic.coreMath,
-      courseCreditParameters(catalog.scienceBasic.coreMath),
+      courseCountParameters({ ...catalog.scienceBasic.coreMath, requiredCount: 1 }),
     ),
     toCatalogRule(
       catalog,
-      'course-credit',
+      'course-count',
       catalog.scienceBasic.softwareBasic,
-      courseCreditParameters(catalog.scienceBasic.softwareBasic),
+      courseCountParameters({ ...catalog.scienceBasic.softwareBasic, requiredCount: 1 }),
     ),
     toCatalogRule(
       catalog,
@@ -500,18 +528,17 @@ function buildBasicCatalogRules(catalog: BasicRequirementCatalog): readonly Rule
       catalog.commonMandatory.scienceEconomy,
       courseCreditParameters(catalog.commonMandatory.scienceEconomy),
     ),
-    toCatalogRule(
-      catalog,
-      'course-count',
-      catalog.commonMandatory.colloquium,
-      courseCountParameters(catalog.commonMandatory.colloquium),
-    ),
-    toCatalogRule(
-      catalog,
-      'activity-count',
-      catalog.artsSports.arts,
-      activityCountParameters(catalog.artsSports.arts),
-    ),
+    toCatalogRule(catalog, 'activity-count', catalog.commonMandatory.colloquium, {
+      ...activityCountParameters(catalog.commonMandatory.colloquium),
+      courses: ['UC9331'],
+      semiconductorAlternative: {
+        programCode: 'SE',
+        gistSemesters: 1,
+        semiconductorSemesters: 1,
+        courseName: '반도체 콜로퀴움',
+      },
+    }),
+    toCatalogRule(catalog, 'activity-count', catalog.artsSports.arts, activityCountParameters(catalog.artsSports.arts)),
     toCatalogRule(
       catalog,
       'activity-count',

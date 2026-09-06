@@ -14,31 +14,23 @@ const sourceRef = {
   path: 'docs/bachelor_manual/2026_manual.pdf',
 };
 
-function issueCodes(
-  layers: readonly CatalogSourceLayer[],
-  rules: readonly RuleCatalogRule[] = [],
-): string[] {
+function issueCodes(layers: readonly CatalogSourceLayer[], rules: readonly RuleCatalogRule[] = []): string[] {
   return validateCatalogSourceLayers(layers, rules).issues.map((issue) => issue.code);
 }
 
 describe('graduation catalog source layers', () => {
-  it('registers the current 2026 bachelor manual source layer', () => {
+  it('registers current rules and verified historical exception sources', () => {
     expect(validateCatalogSourceLayers(CATALOG_SOURCE_LAYERS, GRADUATION_RULE_CATALOG)).toMatchObject({
       ok: true,
       issues: [],
     });
-    expect(CATALOG_SOURCE_LAYER_PUBLISH_SNAPSHOT).toEqual({
-      schemaVersion: 1,
-      layers: [
-        {
-          id: 'gist-bachelor-manual-2026',
-          label: 'GIST 학사편람 2026',
-          manualYear: 2026,
-          sourcePath: 'docs/bachelor_manual/2026_manual.pdf',
-          description: '2026 학사편람에서 추출한 졸업요건 source layer',
-        },
-      ],
-    });
+    expect(CATALOG_SOURCE_LAYER_PUBLISH_SNAPSHOT.schemaVersion).toBe(1);
+    expect(CATALOG_SOURCE_LAYER_PUBLISH_SNAPSHOT.layers.map((layer) => layer.manualYear).sort()).toEqual([
+      2020, 2021, 2023, 2024, 2025, 2026,
+    ]);
+    for (const layer of CATALOG_SOURCE_LAYER_PUBLISH_SNAPSHOT.layers) {
+      expect(layer.sourcePath).toBe(`docs/bachelor_manual/${layer.manualYear}_manual.pdf`);
+    }
   });
 
   it('rejects duplicate or invalid source layer metadata', () => {

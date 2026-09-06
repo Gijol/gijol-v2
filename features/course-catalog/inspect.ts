@@ -100,10 +100,7 @@ export interface CourseCatalogQualityInspection {
   };
 }
 
-function ensureTermQuality(
-  record: Record<string, CourseCatalogTermQuality>,
-  term: string,
-): CourseCatalogTermQuality {
+function ensureTermQuality(record: Record<string, CourseCatalogTermQuality>, term: string): CourseCatalogTermQuality {
   record[term] ??= {
     offerings: 0,
     offeringsWithoutMeetings: 0,
@@ -144,7 +141,9 @@ function sortedOfferings(offerings: readonly CourseCatalogOffering[]): CourseCat
 }
 
 function sortedCourses(courses: readonly CourseCatalogCourse[]): CourseCatalogCourse[] {
-  return [...courses].sort((a, b) => a.primaryCode.localeCompare(b.primaryCode) || a.courseId.localeCompare(b.courseId));
+  return [...courses].sort(
+    (a, b) => a.primaryCode.localeCompare(b.primaryCode) || a.courseId.localeCompare(b.courseId),
+  );
 }
 
 export function inspectCourseCatalogSnapshot(snapshot: CourseCatalogSnapshot): CourseCatalogInspection {
@@ -161,9 +160,9 @@ export function inspectCourseCatalogSnapshot(snapshot: CourseCatalogSnapshot): C
   });
   snapshot.offerings.forEach((offering) => increment(offeringsByTerm, offering.term));
   snapshot.historicalOfferings.forEach((offering) =>
-    increment(historicalOfferingsByAcademicYear, String(offering.academicYear)));
-  snapshot.manualListings.forEach((listing) =>
-    increment(manualListingsByAcademicYear, String(listing.academicYear)));
+    increment(historicalOfferingsByAcademicYear, String(offering.academicYear)),
+  );
+  snapshot.manualListings.forEach((listing) => increment(manualListingsByAcademicYear, String(listing.academicYear)));
   snapshot.requirementFacets.forEach((facet) => increment(facetsByFeature, facet.feature));
   snapshot.relationships.forEach((relationship) => increment(relationshipsByRelation, relationship.relation));
 
@@ -203,7 +202,9 @@ export function inspectCourseCatalogQuality(snapshot: CourseCatalogSnapshot): Co
     if (offering.capacity === 0) termQuality.offeringsWithCapacityZero += 1;
   });
 
-  const offeringGroups = Array.from(offeringsByTerm.values()).flatMap((offerings) => buildCourseOfferingGroups(offerings));
+  const offeringGroups = Array.from(offeringsByTerm.values()).flatMap((offerings) =>
+    buildCourseOfferingGroups(offerings),
+  );
 
   offeringGroups.forEach((offeringGroup) => {
     const termQuality = ensureTermQuality(byTerm, offeringGroup.term);
@@ -217,25 +218,27 @@ export function inspectCourseCatalogQuality(snapshot: CourseCatalogSnapshot): Co
   const offeringCourseIds = new Set(snapshot.offerings.map((offering) => offering.courseId));
   const manualListingCourseIds = new Set(snapshot.manualListings.map((listing) => listing.courseId));
   const manualListedCoursesWithoutOffering = sortedCourses(
-    snapshot.courses.filter((course) => manualListingCourseIds.has(course.courseId) && !offeringCourseIds.has(course.courseId)),
+    snapshot.courses.filter(
+      (course) => manualListingCourseIds.has(course.courseId) && !offeringCourseIds.has(course.courseId),
+    ),
   );
   const offeredCoursesWithoutManualListing = sortedCourses(
-    snapshot.courses.filter((course) => offeringCourseIds.has(course.courseId) && !manualListingCourseIds.has(course.courseId)),
+    snapshot.courses.filter(
+      (course) => offeringCourseIds.has(course.courseId) && !manualListingCourseIds.has(course.courseId),
+    ),
   );
   const offeringsWithoutMeetings = sortedOfferings(
     snapshot.offerings.filter((offering) => offering.meetings.length === 0),
   );
-  const meetingsWithoutRoom = sortedOfferings(snapshot.offerings)
-    .flatMap((offering) =>
-      offering.meetings
-        .filter((meeting) => !meeting.room)
-        .map((meeting) => ({
-          ...offeringSample(offering),
-          meeting: formatMeetingFull(meeting),
-        })));
-  const offeringsWithCapacityZero = sortedOfferings(
-    snapshot.offerings.filter((offering) => offering.capacity === 0),
+  const meetingsWithoutRoom = sortedOfferings(snapshot.offerings).flatMap((offering) =>
+    offering.meetings
+      .filter((meeting) => !meeting.room)
+      .map((meeting) => ({
+        ...offeringSample(offering),
+        meeting: formatMeetingFull(meeting),
+      })),
   );
+  const offeringsWithCapacityZero = sortedOfferings(snapshot.offerings.filter((offering) => offering.capacity === 0));
   const instructorsWithoutStaffId = sortedOfferings(
     snapshot.offerings.filter((offering) => offering.instructors.some((instructor) => !instructor.staffId)),
   );
@@ -243,7 +246,7 @@ export function inspectCourseCatalogQuality(snapshot: CourseCatalogSnapshot): Co
     (sum, offering) => sum + offering.instructors.filter((instructor) => !instructor.staffId).length,
     0,
   );
-  const groupSample = (group: typeof offeringGroups[number]): OfferingGroupQualitySample => ({
+  const groupSample = (group: (typeof offeringGroups)[number]): OfferingGroupQualitySample => ({
     offeringGroupId: group.offeringGroupId,
     term: group.term,
     courseCodes: group.courseCodes,
@@ -292,6 +295,7 @@ export function validateCourseCatalogSnapshot(snapshot: CourseCatalogSnapshot): 
   const issues: string[] = [];
   const courseIds = new Set<string>();
   const courseCodes = new Set<string>();
+  const codeOwners = new Map<string, string>();
   const offeringIds = new Set<string>();
   const historicalOfferingIds = new Set<string>();
   const manualListingIds = new Set<string>();
@@ -303,6 +307,12 @@ export function validateCourseCatalogSnapshot(snapshot: CourseCatalogSnapshot): 
     if (!course.primaryCode) issues.push(`${course.courseId}: primaryCode is required`);
     if (courseIds.has(course.courseId)) issues.push(`${course.courseId}: duplicate courseId`);
     courseIds.add(course.courseId);
+    for (const code of Array.from(new Set([course.primaryCode, ...course.aliases.map((alias) => alias.code)]))) {
+      const owner = codeOwners.get(code);
+      if (owner && owner !== course.courseId)
+        issues.push(`${code}: ambiguous course owners ${owner}, ${course.courseId}`);
+      codeOwners.set(code, course.courseId);
+    }
     course.aliases.forEach((alias) => {
       const key = alias.code;
       if (courseCodes.has(key) && alias.relation === 'primary') {
@@ -311,7 +321,8 @@ export function validateCourseCatalogSnapshot(snapshot: CourseCatalogSnapshot): 
       if (alias.relation === 'primary') courseCodes.add(key);
     });
     course.sourceRefs.forEach((sourceRef) => {
-      if (!sourceRef.kind || !sourceRef.sourceId) issues.push(`${course.courseId}: invalid sourceRef ${sourceRefKey(sourceRef)}`);
+      if (!sourceRef.kind || !sourceRef.sourceId)
+        issues.push(`${course.courseId}: invalid sourceRef ${sourceRefKey(sourceRef)}`);
     });
   });
 

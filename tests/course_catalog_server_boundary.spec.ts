@@ -8,6 +8,7 @@ const SERVER_QUERY_IMPORTERS = new Set([
   'pages/api/courses/index.ts',
   'pages/api/courses/search.ts',
   'pages/api/roadmap/[slug].ts',
+  'pages/api/roadmap/courses.ts',
 ]);
 
 function collectTypeScriptFiles(directory: string): string[] {

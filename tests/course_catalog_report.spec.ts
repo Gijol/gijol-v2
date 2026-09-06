@@ -12,9 +12,9 @@ describe('course catalog source diff report', () => {
     expect(report.totals).toEqual(
       expect.objectContaining({
         offerings: 5548,
-        manualListings: 3591,
-        manualOnlyCourses: 131,
-        offeredOnlyCourses: 362,
+        manualListings: 4305,
+        manualOnlyCourses: 219,
+        offeredOnlyCourses: 353,
       }),
     );
     expect(report.termCoverage).toEqual(
@@ -54,8 +54,8 @@ describe('course catalog source diff report', () => {
     const markdown = renderCourseCatalogSourceDiffReportMarkdown(buildCourseCatalogSourceDiffReport(snapshot));
 
     expect(markdown).toContain('# Course Catalog Source Diff Report');
-    expect(markdown).toContain('## Manual Listed Without Actual Offering (131)');
-    expect(markdown).toContain('## Actually Offered Without Manual Listing (362)');
+    expect(markdown).toContain('## Manual Listed Without Actual Offering (219)');
+    expect(markdown).toContain('## Actually Offered Without Manual Listing (353)');
     expect(markdown).toContain('| 2026-2 | 2026 2학기 | 607 | 475 |');
   });
 });

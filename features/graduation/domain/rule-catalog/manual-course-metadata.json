@@ -1,0 +1,8984 @@
+{
+  "BS2101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "유기화학 Ⅰ"
+  },
+  "BS2102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 147,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS2201": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "생명과학의 정량적 이해"
+  },
+  "BS3101": {
+    "credits": 3,
+    "year": 2026,
+    "page": 148,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS3105": {
+    "credits": 3,
+    "year": 2026,
+    "page": 148,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS3111": {
+    "credits": 3,
+    "year": 2020,
+    "page": 62,
+    "lectureHours": 1,
+    "labHours": 4
+  },
+  "BS3112": {
+    "credits": 3,
+    "year": 2026,
+    "page": 149,
+    "lectureHours": 1,
+    "labHours": 4
+  },
+  "BS3113": {
+    "credits": 3,
+    "year": 2020,
+    "page": 63,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS3201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "미생물학"
+  },
+  "BS3202": {
+    "credits": 3,
+    "year": 2020,
+    "page": 63,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS3204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "생물물리 화학 입문"
+  },
+  "BS3205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "환경생태학"
+  },
+  "BS4201": {
+    "credits": 3,
+    "year": 2020,
+    "page": 63,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS4202": {
+    "credits": 3,
+    "year": 2020,
+    "page": 63,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS4204": {
+    "credits": 3,
+    "year": 2020,
+    "page": 63,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS4205": {
+    "credits": 3,
+    "year": 2020,
+    "page": 63,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS4206": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "의약화학"
+  },
+  "BS4207": {
+    "credits": 3,
+    "year": 2020,
+    "page": 64,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS4211": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "합성생물학"
+  },
+  "BS4212": {
+    "credits": 3,
+    "year": 2020,
+    "page": 64,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS4213": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "의학 면역화학"
+  },
+  "BS4214": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "기초 구조생물학"
+  },
+  "BS4215": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "대사학"
+  },
+  "BS4216": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "단백질과 생명과학"
+  },
+  "BS4217": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "생리학 Ⅱ"
+  },
+  "BS4218": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "리보핵산생물학"
+  },
+  "BS9101": {
+    "credits": 3,
+    "year": 2024,
+    "page": 147
+  },
+  "BS9102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 152
+  },
+  "BS9103": {
+    "credits": 3,
+    "year": 2026,
+    "page": 152
+  },
+  "CH2101": {
+    "credits": 4,
+    "lectureHours": 2,
+    "labHours": 4,
+    "year": 2026,
+    "page": 58,
+    "title": "분석화학 및 실험"
+  },
+  "CH2102": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": ""
+  },
+  "CH2103": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "유기화학Ⅰ"
+  },
+  "CH2104": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": ""
+  },
+  "CH2105": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 58,
+    "title": "화학합성실험"
+  },
+  "CH2106": {
+    "credits": 3,
+    "year": 2023,
+    "page": 89,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "CH2201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "유기화학 II"
+  },
+  "CH3104": {
+    "credits": 3,
+    "year": 2025,
+    "page": 145,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "CH3106": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "생화학 Ⅰ"
+  },
+  "CH3107": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": ""
+  },
+  "CH3205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "물리유기화학"
+  },
+  "CH3207": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 58,
+    "title": "고급화학실험"
+  },
+  "CH4205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "생유기화학과 바이오의약품"
+  },
+  "CH4211": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "화학 통계역학"
+  },
+  "CH4212": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "양자화학"
+  },
+  "CH4213": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "기기분석"
+  },
+  "CH4216": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "유기합성화학"
+  },
+  "CH4219": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "생화학 II"
+  },
+  "CH4220": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "물리화학의 응용"
+  },
+  "CH4222": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "에너지 변환과 저장"
+  },
+  "CH4223": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "생분석화학"
+  },
+  "CH9101": {
+    "credits": 3,
+    "year": 2024,
+    "page": 159
+  },
+  "CH9102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 113
+  },
+  "CH9103": {
+    "credits": 3,
+    "year": 2026,
+    "page": 114
+  },
+  "CT2501": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "오타쿠 대중문화론"
+  },
+  "CT2502": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "현대 예술의 이해"
+  },
+  "CT2503": {
+    "credits": 3,
+    "year": 2021,
+    "page": 164,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "CT2504": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "유토피아 픽션과 테크놀로지"
+  },
+  "CT2505": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "과학기술과 사회: 두 문화의 이해"
+  },
+  "CT2506": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "신화와 원형상징"
+  },
+  "CT4101": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 55,
+    "title": "아이디어와 디지털 표현"
+  },
+  "CT4201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "컴퓨터 그래픽스"
+  },
+  "CT4301": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "인간-컴퓨터 상호작용"
+  },
+  "CT4302": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "문화기술을 위한 인공지능 설계"
+  },
+  "CT4303": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "게임 인공지능"
+  },
+  "CT4504": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "과학계산 프로그래밍"
+  },
+  "CT4506": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "몬테카를로 방법론과 응용"
+  },
+  "EC2105": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "공학전자기학 I"
+  },
+  "EC2201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "회로이론"
+  },
+  "EC2202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "자료 구조"
+  },
+  "EC2203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "디지털 설계"
+  },
+  "EC2204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "컴퓨터 구조"
+  },
+  "EC2205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "공학전자기학 II"
+  },
+  "EC2206": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "알고리즘 개론"
+  },
+  "EC3101": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 52,
+    "title": "전자공학실험"
+  },
+  "EC3102": {
+    "credits": 4,
+    "lectureHours": 2,
+    "labHours": 4,
+    "year": 2026,
+    "page": 52,
+    "title": "컴퓨터 시스템 이론 및 실험"
+  },
+  "EC3202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "신호 및 시스템"
+  },
+  "EC3204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "프로그래밍 언어 및 컴파일러"
+  },
+  "EC3206": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "반도체 재료 및 소자"
+  },
+  "EC3207": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "전자회로"
+  },
+  "EC3212": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "고급전자회로"
+  },
+  "EC3214": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 52,
+    "title": "마이크로프로세서 및 응용"
+  },
+  "EC3215": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 52,
+    "title": "시스템 프로그래밍"
+  },
+  "EC3216": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "오토마타 이론"
+  },
+  "EC3218": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "통신공학"
+  },
+  "EC4202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "디지털 집적회로"
+  },
+  "EC4203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "초고주파공학"
+  },
+  "EC4204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "데이터 베이스 시스템"
+  },
+  "EC4205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "운영체제"
+  },
+  "EC4206": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "컴퓨터 네트워킹"
+  },
+  "EC4207": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "그래프 이론"
+  },
+  "EC4208": {
+    "credits": 3,
+    "year": 2022,
+    "page": 68,
+    "lectureHours": 1,
+    "labHours": 4
+  },
+  "EC4209": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "인공 지능"
+  },
+  "EC4210": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "랜덤 프로세스"
+  },
+  "EC4211": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "디지털 신호처리"
+  },
+  "EC4212": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "이산수학"
+  },
+  "EC4213": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "기계학습 및 딥러닝"
+  },
+  "EC4214": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "광공학개론"
+  },
+  "EC4215": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "컴퓨터 그래픽스"
+  },
+  "EC4216": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "컴퓨터 비젼"
+  },
+  "EC4217": {
+    "credits": 3,
+    "year": 2020,
+    "page": 67,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EC4218": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "기초시각화"
+  },
+  "EC4301": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "기초전기전자컴퓨터 특론 I"
+  },
+  "EC4302": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 53,
+    "title": "기초전기전자컴퓨터 특론 II"
+  },
+  "EC9101": {
+    "credits": 3,
+    "year": 2024,
+    "page": 114
+  },
+  "EC9102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 86
+  },
+  "EC9103": {
+    "credits": 3,
+    "year": 2026,
+    "page": 86
+  },
+  "ET2101": {
+    "credits": 1,
+    "year": 2020,
+    "page": 83,
+    "lectureHours": 1,
+    "labHours": 0
+  },
+  "ET2301": {
+    "credits": 3,
+    "year": 2020,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "ET4102": {
+    "credits": 3,
+    "year": 2020,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "ET4201": {
+    "credits": 3,
+    "year": 2020,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "ET4302": {
+    "credits": 3,
+    "year": 2020,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "ET4303": {
+    "credits": 3,
+    "year": 2020,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "ET4304": {
+    "credits": 3,
+    "year": 2020,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "ET4306": {
+    "credits": 3,
+    "year": 2020,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "ET4501": {
+    "credits": 3,
+    "year": 2020,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV2208": {
+    "credits": 4,
+    "lectureHours": 2,
+    "labHours": 4,
+    "year": 2026,
+    "page": 63,
+    "title": "분석화학"
+  },
+  "EV2209": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "환경모니터링"
+  },
+  "EV2210": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "(MOOC 지정)유체역학 I"
+  },
+  "EV2211": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "(MOOC 지정) 기후변화의 이해"
+  },
+  "EV3101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "환경에너지공학"
+  },
+  "EV3106": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 63,
+    "title": "환경분석실험 I"
+  },
+  "EV3111": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "지구시스템과학"
+  },
+  "EV3205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "환경 생태학"
+  },
+  "EV3213": {
+    "credits": 3,
+    "year": 2020,
+    "page": 75,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV3214": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "생유기화학과 바이오의약품"
+  },
+  "EV3215": {
+    "credits": 3,
+    "year": 2020,
+    "page": 75,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV3216": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "생화학 II"
+  },
+  "EV3217": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "미생물학"
+  },
+  "EV3219": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "수리물리 I"
+  },
+  "EV3220": {
+    "credits": 3,
+    "year": 2026,
+    "page": 142,
+    "lectureHours": 2,
+    "labHours": 2
+  },
+  "EV4106": {
+    "credits": 3,
+    "year": 2026,
+    "page": 142,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV4107": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 63,
+    "title": "환경분석실험 II"
+  },
+  "EV4201": {
+    "credits": 3,
+    "year": 2026,
+    "page": 142,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV4202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "생지화학"
+  },
+  "EV4203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "해양물리"
+  },
+  "EV4204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "환경공정 단위조작"
+  },
+  "EV4205": {
+    "credits": 3,
+    "year": 2026,
+    "page": 143,
+    "lectureHours": 1,
+    "labHours": 4
+  },
+  "EV4209": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "전기화학"
+  },
+  "EV4211": {
+    "credits": 3,
+    "year": 2026,
+    "page": 143,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV4212": {
+    "credits": 3,
+    "year": 2026,
+    "page": 143,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV4213": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "환경 독성학 기초"
+  },
+  "EV4214": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "대기화학과 기후변화 Ⅰ"
+  },
+  "EV4215": {
+    "credits": 3,
+    "year": 2026,
+    "page": 143,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV4216": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "환경화학"
+  },
+  "EV4217": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "대기화학과 기후변화 Ⅱ"
+  },
+  "EV4218": {
+    "credits": 3,
+    "year": 2020,
+    "page": 76,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV4221": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 64,
+    "title": "대기오염물질 측정 및 실습"
+  },
+  "EV4222": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "대기질 연구 최신 동향"
+  },
+  "EV4223": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "기기분석"
+  },
+  "EV4224": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "대기질 자료 분석과 응용 I"
+  },
+  "EV9101": {
+    "credits": 3,
+    "year": 2024,
+    "page": 141
+  },
+  "EV9102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 146
+  },
+  "EV9103": {
+    "credits": 3,
+    "year": 2026,
+    "page": 146
+  },
+  "GS1001": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 42,
+    "title": "미적분학과 응용"
+  },
+  "GS1011": {
+    "credits": 3,
+    "year": 2024,
+    "page": 62,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "GS1101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 42,
+    "title": "일반물리학 및 연습 I"
+  },
+  "GS1102": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 43,
+    "title": "일반물리학 및 연습 Ⅱ"
+  },
+  "GS1103": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 42,
+    "title": "고급일반물리학 및 연습 I"
+  },
+  "GS1104": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 43,
+    "title": "고급일반물리학 및 연습 Ⅱ"
+  },
+  "GS1111": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 2,
+    "year": 2026,
+    "page": 42,
+    "title": "일반물리학 실험 I"
+  },
+  "GS1112": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 2,
+    "year": 2026,
+    "page": 43,
+    "title": "일반물리학 실험 Ⅱ"
+  },
+  "GS1201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 42,
+    "title": "일반화학 및 연습 I"
+  },
+  "GS1202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 43,
+    "title": "일반화학 및 연습 Ⅱ"
+  },
+  "GS1203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 42,
+    "title": "고급일반화학 및 연습 Ⅰ"
+  },
+  "GS1204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 43,
+    "title": "고급일반화학 및 연습 Ⅱ"
+  },
+  "GS1211": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 2,
+    "year": 2026,
+    "page": 42,
+    "title": "일반화학실험 Ⅰ"
+  },
+  "GS1212": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 2,
+    "year": 2026,
+    "page": 43,
+    "title": "일반화학실험 Ⅱ"
+  },
+  "GS1301": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "생물학"
+  },
+  "GS1302": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "인간 생물학"
+  },
+  "GS1303": {
+    "credits": 3,
+    "year": 2026,
+    "page": 162,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS1311": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 2,
+    "year": 2026,
+    "page": 42,
+    "title": "일반생물학 실험"
+  },
+  "GS1321": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "교양 생물학"
+  },
+  "GS1401": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 42,
+    "title": "컴퓨터 프로그래밍"
+  },
+  "GS1402": {
+    "credits": 3,
+    "year": 2022,
+    "page": 52,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "GS1431": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "현대기계공학"
+  },
+  "GS1471": {
+    "credits": 2,
+    "lectureHours": 0,
+    "labHours": 4,
+    "year": 2026,
+    "page": 43,
+    "title": "환경·에너지연구 현장실습"
+  },
+  "GS1490": {
+    "credits": 2,
+    "lectureHours": 1,
+    "labHours": 2,
+    "year": 2026,
+    "page": 42,
+    "title": "SW기초와 코딩"
+  },
+  "GS1491": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "AI모델과 코딩"
+  },
+  "GS1511": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "글쓰기의 기초: 논리적 글쓰기"
+  },
+  "GS1512": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "글쓰기의 기초: 학술적 글쓰기"
+  },
+  "GS1513": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "글쓰기의 기초: 창의적 글쓰기"
+  },
+  "GS1531": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "심화 글쓰기: 과학 글쓰기"
+  },
+  "GS1532": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "심화 글쓰기: 고전 읽기와 글쓰기"
+  },
+  "GS1533": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "심화 글쓰기: 비평적 글쓰기"
+  },
+  "GS1534": {
+    "credits": 3,
+    "year": 2022,
+    "page": 53,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS1601": {
+    "credits": 2,
+    "year": 2023,
+    "page": 55,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS1603": {
+    "credits": 2,
+    "year": 2023,
+    "page": 55,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS1605": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "실용적 대화법"
+  },
+  "GS1606": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "과학 기사 읽기"
+  },
+  "GS1901": {
+    "credits": 1,
+    "year": 2026,
+    "page": 167,
+    "lectureHours": 1.5,
+    "labHours": 0
+  },
+  "GS2001": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 42,
+    "title": "다변수해석학과 응용"
+  },
+  "GS2002": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 42,
+    "title": "미분방정식과 응용"
+  },
+  "GS2004": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 42,
+    "title": "선형대수학과 응용"
+  },
+  "GS2006": {
+    "credits": 3,
+    "year": 2024,
+    "page": 71,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2007": {
+    "credits": 3,
+    "year": 2024,
+    "page": 71,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2011": {
+    "credits": 3,
+    "year": 2024,
+    "page": 161,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "GS2104": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "물리학의 역사와 철학"
+  },
+  "GS2202": {
+    "credits": 3,
+    "year": 2024,
+    "page": 71,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2204": {
+    "credits": 1,
+    "year": 2020,
+    "page": 46,
+    "lectureHours": 1,
+    "labHours": 0
+  },
+  "GS2206": {
+    "credits": 2,
+    "lectureHours": 1,
+    "labHours": 3,
+    "year": 2026,
+    "page": 43,
+    "title": "목표지향적 화학 그룹스터디"
+  },
+  "GS2303": {
+    "credits": 1,
+    "year": 2020,
+    "page": 46,
+    "lectureHours": 1,
+    "labHours": 0
+  },
+  "GS2311": {
+    "credits": 3,
+    "year": 2023,
+    "page": 56,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "GS2407": {
+    "credits": 3,
+    "year": 2021,
+    "page": 98,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2408": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 43,
+    "title": "객체 지향 프로그래밍"
+  },
+  "GS2451": {
+    "credits": 1,
+    "year": 2020,
+    "page": 46,
+    "lectureHours": 1,
+    "labHours": 0
+  },
+  "GS2471": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "환경에너지과학"
+  },
+  "GS2472": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "기후변화: 대응 및 적응"
+  },
+  "GS2473": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "환경에너지공학개론"
+  },
+  "GS2474": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "지속가능한 발전의 시대"
+  },
+  "GS2501": {
+    "credits": 3,
+    "year": 2022,
+    "page": 55,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2503": {
+    "credits": 3,
+    "year": 2024,
+    "page": 73,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2505": {
+    "credits": 3,
+    "year": 2021,
+    "page": 99,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2506": {
+    "credits": 3,
+    "year": 2024,
+    "page": 73,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2507": {
+    "credits": 3,
+    "year": 2024,
+    "page": 73,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2509": {
+    "credits": 3,
+    "year": 2024,
+    "page": 73,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2510": {
+    "credits": 3,
+    "year": 2024,
+    "page": 74,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2511": {
+    "credits": 3,
+    "year": 2024,
+    "page": 74,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2512": {
+    "credits": 3,
+    "year": 2024,
+    "page": 74,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2522": {
+    "credits": 3,
+    "year": 2024,
+    "page": 74,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2523": {
+    "credits": 3,
+    "year": 2024,
+    "page": 74,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2524": {
+    "credits": 3,
+    "year": 2024,
+    "page": 74,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2526": {
+    "credits": 3,
+    "year": 2024,
+    "page": 75,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2541": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "서양음악의 이해"
+  },
+  "GS2542": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "오페라와 판소리"
+  },
+  "GS2543": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "현대 예술의 이해"
+  },
+  "GS2544": {
+    "credits": 3,
+    "year": 2024,
+    "page": 75,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2601": {
+    "credits": 3,
+    "year": 2024,
+    "page": 76,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2602": {
+    "credits": 3,
+    "year": 2024,
+    "page": 76,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2603": {
+    "credits": 3,
+    "year": 2024,
+    "page": 76,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2611": {
+    "credits": 3,
+    "year": 2024,
+    "page": 76,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2612": {
+    "credits": 3,
+    "year": 2024,
+    "page": 76,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2613": {
+    "credits": 3,
+    "year": 2024,
+    "page": 77,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2614": {
+    "credits": 3,
+    "year": 2024,
+    "page": 77,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2615": {
+    "credits": 3,
+    "year": 2024,
+    "page": 77,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2616": {
+    "credits": 3,
+    "year": 2024,
+    "page": 77,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2618": {
+    "credits": 3,
+    "year": 2024,
+    "page": 78,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2620": {
+    "credits": 3,
+    "year": 2024,
+    "page": 78,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2621": {
+    "credits": 3,
+    "year": 2024,
+    "page": 78,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2625": {
+    "credits": 3,
+    "year": 2024,
+    "page": 78,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2627": {
+    "credits": 3,
+    "year": 2024,
+    "page": 78,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2651": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "영어 토론과 논증"
+  },
+  "GS2652": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "영어 II : 이공계 글쓰기 입문"
+  },
+  "GS2653": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "연구 윤리의 이해와 토론"
+  },
+  "GS2654": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "창의적 영어 표현법"
+  },
+  "GS2655": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "디지털 시대의 저널리즘과 과학 기사 쓰기"
+  },
+  "GS2661": {
+    "credits": 3,
+    "year": 2024,
+    "page": 80,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2701": {
+    "credits": 3,
+    "year": 2024,
+    "page": 80,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2702": {
+    "credits": 3,
+    "year": 2024,
+    "page": 80,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2704": {
+    "credits": 3,
+    "year": 2024,
+    "page": 80,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2705": {
+    "credits": 3,
+    "year": 2024,
+    "page": 81,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2706": {
+    "credits": 3,
+    "year": 2024,
+    "page": 81,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2707": {
+    "credits": 3,
+    "year": 2024,
+    "page": 81,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2708": {
+    "credits": 3,
+    "year": 2024,
+    "page": 81,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2709": {
+    "credits": 3,
+    "year": 2024,
+    "page": 81,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2724": {
+    "credits": 3,
+    "year": 2024,
+    "page": 81,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2725": {
+    "credits": 3,
+    "year": 2020,
+    "page": 50,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2726": {
+    "credits": 3,
+    "year": 2024,
+    "page": 82,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2727": {
+    "credits": 3,
+    "year": 2024,
+    "page": 82,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2728": {
+    "credits": 3,
+    "year": 2020,
+    "page": 50,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2730": {
+    "credits": 3,
+    "year": 2024,
+    "page": 82,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2731": {
+    "credits": 3,
+    "year": 2021,
+    "page": 106,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2732": {
+    "credits": 3,
+    "year": 2024,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2733": {
+    "credits": 3,
+    "year": 2024,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2734": {
+    "credits": 3,
+    "year": 2024,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2735": {
+    "credits": 3,
+    "year": 2020,
+    "page": 50,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2736": {
+    "credits": 3,
+    "year": 2020,
+    "page": 50,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2742": {
+    "credits": 3,
+    "year": 2024,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2743": {
+    "credits": 3,
+    "year": 2024,
+    "page": 84,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2747": {
+    "credits": 3,
+    "year": 2024,
+    "page": 84,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2748": {
+    "credits": 3,
+    "year": 2024,
+    "page": 84,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2750": {
+    "credits": 3,
+    "year": 2024,
+    "page": 84,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2751": {
+    "credits": 3,
+    "year": 2024,
+    "page": 84,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2752": {
+    "credits": 3,
+    "year": 2024,
+    "page": 85,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2761": {
+    "credits": 3,
+    "year": 2021,
+    "page": 108,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2762": {
+    "credits": 3,
+    "year": 2024,
+    "page": 85,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2763": {
+    "credits": 3,
+    "year": 2024,
+    "page": 85,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2765": {
+    "credits": 3,
+    "year": 2024,
+    "page": 85,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2781": {
+    "credits": 3,
+    "year": 2021,
+    "page": 109,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2783": {
+    "credits": 3,
+    "year": 2021,
+    "page": 109,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2784": {
+    "credits": 3,
+    "year": 2021,
+    "page": 109,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2785": {
+    "credits": 3,
+    "year": 2020,
+    "page": 51,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2786": {
+    "credits": 3,
+    "year": 2020,
+    "page": 51,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2787": {
+    "credits": 3,
+    "year": 2024,
+    "page": 85,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2788": {
+    "credits": 3,
+    "year": 2024,
+    "page": 86,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2791": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "유라시아 깊이 읽기"
+  },
+  "GS2792": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "커뮤니케이션론 I"
+  },
+  "GS2793": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "커뮤니케이션론 II"
+  },
+  "GS2803": {
+    "credits": 3,
+    "year": 2024,
+    "page": 87,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2804": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "에너지와 인간"
+  },
+  "GS2806": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "우주와 생명"
+  },
+  "GS2809": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "아름다운 지구"
+  },
+  "GS2810": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "빅히스토리: 우주와 인간의 역사"
+  },
+  "GS2811": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "인간과 바다"
+  },
+  "GS2812": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "생명윤리와 법"
+  },
+  "GS2814": {
+    "credits": 3,
+    "year": 2024,
+    "page": 88,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2815": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "문화공학 I"
+  },
+  "GS2816": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "문화공학 II"
+  },
+  "GS2817": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "문화와 도시재생 연구"
+  },
+  "GS2818": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "융합사고론"
+  },
+  "GS2819": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "이미지론: 보는 법"
+  },
+  "GS2822": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "AI와 나"
+  },
+  "GS2832": {
+    "credits": 3,
+    "year": 2024,
+    "page": 89,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2833": {
+    "credits": 3,
+    "year": 2024,
+    "page": 89,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2834": {
+    "credits": 3,
+    "year": 2024,
+    "page": 90,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2835": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "인간과 식물"
+  },
+  "GS2836": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "(MOOC 지정) 기후변화와 미래기술"
+  },
+  "GS2837": {
+    "credits": 3,
+    "year": 2020,
+    "page": 53,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2931": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "독일어 1"
+  },
+  "GS2932": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "독일어 2"
+  },
+  "GS3001": {
+    "credits": 3,
+    "year": 2024,
+    "page": 90,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3012": {
+    "credits": 2,
+    "year": 2024,
+    "page": 91,
+    "lectureHours": 3,
+    "labHours": 3
+  },
+  "GS3015": {
+    "credits": 3,
+    "year": 2024,
+    "page": 91,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3301": {
+    "credits": 2,
+    "year": 2023,
+    "page": 63,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3311": {
+    "credits": 3,
+    "year": 2023,
+    "page": 63,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3501": {
+    "credits": 3,
+    "year": 2024,
+    "page": 91,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3502": {
+    "credits": 3,
+    "year": 2024,
+    "page": 91,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3504": {
+    "credits": 3,
+    "year": 2024,
+    "page": 91,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3506": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "서양연극사"
+  },
+  "GS3601": {
+    "credits": 3,
+    "year": 2024,
+    "page": 92,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3602": {
+    "credits": 3,
+    "year": 2024,
+    "page": 92,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3603": {
+    "credits": 3,
+    "year": 2024,
+    "page": 92,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3604": {
+    "credits": 3,
+    "year": 2024,
+    "page": 92,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3621": {
+    "credits": 3,
+    "year": 2024,
+    "page": 93,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3623": {
+    "credits": 3,
+    "year": 2024,
+    "page": 93,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3624": {
+    "credits": 3,
+    "year": 2024,
+    "page": 93,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3626": {
+    "credits": 3,
+    "year": 2024,
+    "page": 93,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3631": {
+    "credits": 3,
+    "year": 2024,
+    "page": 93,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3632": {
+    "credits": 3,
+    "year": 2024,
+    "page": 94,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3633": {
+    "credits": 3,
+    "year": 2024,
+    "page": 94,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3651": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "영어 III. 이공계 논문쓰기"
+  },
+  "GS3662": {
+    "credits": 3,
+    "year": 2024,
+    "page": 94,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3721": {
+    "credits": 3,
+    "year": 2024,
+    "page": 94,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3751": {
+    "credits": 3,
+    "year": 2024,
+    "page": 96,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3752": {
+    "credits": 3,
+    "year": 2024,
+    "page": 96,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3753": {
+    "credits": 3,
+    "year": 2024,
+    "page": 96,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3762": {
+    "credits": 3,
+    "year": 2024,
+    "page": 97,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3763": {
+    "credits": 3,
+    "year": 2024,
+    "page": 97,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3764": {
+    "credits": 3,
+    "year": 2024,
+    "page": 97,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3801": {
+    "credits": 3,
+    "year": 2024,
+    "page": 98,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3802": {
+    "credits": 3,
+    "year": 2024,
+    "page": 98,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3803": {
+    "credits": 3,
+    "year": 2024,
+    "page": 99,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3804": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 43,
+    "title": "현대고급기기분석"
+  },
+  "GS3861": {
+    "credits": 3,
+    "year": 2024,
+    "page": 100,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3901": {
+    "credits": 2,
+    "year": 2024,
+    "page": 100,
+    "lectureHours": 2,
+    "labHours": 0
+  },
+  "GS4002": {
+    "credits": 3,
+    "year": 2024,
+    "page": 100,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4003": {
+    "credits": 3,
+    "year": 2024,
+    "page": 100,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4004": {
+    "credits": 3,
+    "year": 2024,
+    "page": 100,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4005": {
+    "credits": 3,
+    "year": 2024,
+    "page": 100,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4006": {
+    "credits": 3,
+    "year": 2024,
+    "page": 100,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4007": {
+    "credits": 3,
+    "year": 2024,
+    "page": 100,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4008": {
+    "credits": 3,
+    "year": 2024,
+    "page": 101,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4009": {
+    "credits": 3,
+    "year": 2024,
+    "page": 101,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4010": {
+    "credits": 3,
+    "year": 2024,
+    "page": 101,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4015": {
+    "credits": 3,
+    "year": 2024,
+    "page": 101,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4016": {
+    "credits": 3,
+    "year": 2024,
+    "page": 101,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4017": {
+    "credits": 3,
+    "year": 2024,
+    "page": 101,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "GS4018": {
+    "credits": 3,
+    "year": 2024,
+    "page": 101,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "GS4019": {
+    "credits": 3,
+    "year": 2024,
+    "page": 102,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4301": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 2,
+    "year": 2026,
+    "page": 43,
+    "title": "진화생물학 및 실험"
+  },
+  "GS4471": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "인류세의 우리"
+  },
+  "GS4741": {
+    "credits": 3,
+    "year": 2024,
+    "page": 102,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4761": {
+    "credits": 3,
+    "year": 2024,
+    "page": 102,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4762": {
+    "credits": 3,
+    "year": 2024,
+    "page": 102,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "IR2201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "회로이론"
+  },
+  "IR2202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "동역학"
+  },
+  "IR2301": {
+    "credits": 4,
+    "year": 2020,
+    "page": 84,
+    "lectureHours": 1,
+    "labHours": 6
+  },
+  "IR3202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "시스템 모델링 및 제어"
+  },
+  "IR3203": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 55,
+    "title": "마이크로프로세서 및 응용"
+  },
+  "IR4201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "딥 러닝"
+  },
+  "IR4202": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 55,
+    "title": "메카트로닉스"
+  },
+  "IR4203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "인간-컴퓨터 상호작용"
+  },
+  "IR4204": {
+    "credits": 3,
+    "year": 2022,
+    "page": 89,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "IR4205": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 55,
+    "title": "로봇공학"
+  },
+  "IR4206": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 55,
+    "title": "인공지능 기반 창의적 로봇융합 시스템 설계"
+  },
+  "IR4207": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "자동제어"
+  },
+  "IR4208": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "로봇 운동학"
+  },
+  "IR4209": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "로봇제어"
+  },
+  "MA2101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "재료과학"
+  },
+  "MA2102": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "열역학"
+  },
+  "MA2103": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "유기재료화학"
+  },
+  "MA2104": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "고분자과학"
+  },
+  "MA2201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "재료물리화학"
+  },
+  "MA2202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "현대재료물리"
+  },
+  "MA3104": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 61,
+    "title": "전자재료실험"
+  },
+  "MA3105": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 61,
+    "title": "유기재료실험"
+  },
+  "MA3203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "재료의 결정구조"
+  },
+  "MA3204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "상변태"
+  },
+  "MA3207": {
+    "credits": 3,
+    "year": 2024,
+    "page": 118,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MA3208": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "생체재료"
+  },
+  "MA3209": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "재료역학입문"
+  },
+  "MA3210": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "고분자 화학"
+  },
+  "MA3211": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "기기분석"
+  },
+  "MA4202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "박막공학"
+  },
+  "MA4203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "반도체공학"
+  },
+  "MA4204": {
+    "credits": 3,
+    "year": 2022,
+    "page": 70,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MA4205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "고분자 합성"
+  },
+  "MA4207": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "의료용 고분자"
+  },
+  "MA4208": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "재료의 전기적 성질"
+  },
+  "MA4209": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "나노바이오재료"
+  },
+  "MA4211": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "플라스틱 전자재료"
+  },
+  "MA4212": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "전산재료과학의 기초"
+  },
+  "MA4213": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "기초양자역학"
+  },
+  "MA4214": {
+    "credits": 3,
+    "year": 2024,
+    "page": 120,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MA4215": {
+    "credits": 3,
+    "year": 2020,
+    "page": 73,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MA4217": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "에너지 소재"
+  },
+  "MA4218": {
+    "credits": 3,
+    "year": 2024,
+    "page": 120,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MA4219": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "프린터블 일렉트로닉스"
+  },
+  "MA4220": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "고분자 구조 및 특성"
+  },
+  "MA4221": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "통계열역학"
+  },
+  "MA9101": {
+    "credits": 3,
+    "year": 2024,
+    "page": 122
+  },
+  "MA9102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 127
+  },
+  "MA9103": {
+    "credits": 3,
+    "year": 2026,
+    "page": 127
+  },
+  "MC2100": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "열역학 I"
+  },
+  "MC2101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "고체역학 I"
+  },
+  "MC2102": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "(MOOC 지정)유체역학 I"
+  },
+  "MC2103": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "동역학"
+  },
+  "MC3201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "열전달"
+  },
+  "MC3202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "진동학"
+  },
+  "MC3203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "시스템 모델링 및 제어"
+  },
+  "MC3204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "공학해석"
+  },
+  "MC3205": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 62,
+    "title": "마이크로프로세서 및 응용"
+  },
+  "MC3206": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "재료과학"
+  },
+  "MC3207": {
+    "credits": 3,
+    "year": 2020,
+    "page": 69,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MC3208": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 3,
+    "year": 2026,
+    "page": 62,
+    "title": "공학설계"
+  },
+  "MC3209": {
+    "credits": 3,
+    "year": 2023,
+    "page": 77,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MC3211": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "컴퓨터이용 설계 및 생산"
+  },
+  "MC3212": {
+    "credits": 3,
+    "year": 2020,
+    "page": 69,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MC4202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "유한요소해석"
+  },
+  "MC4204": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 62,
+    "title": "로봇공학"
+  },
+  "MC4205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "정밀설계원리"
+  },
+  "MC4206": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "MEMS/NEMS 원리"
+  },
+  "MC4208": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 62,
+    "title": "그래피컬 시스템 디자인 프로그래밍"
+  },
+  "MC4209": {
+    "credits": 3,
+    "year": 2020,
+    "page": 69,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "MC4211": {
+    "credits": 3,
+    "year": 2020,
+    "page": 69,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MC4212": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "최적설계"
+  },
+  "MC4213": {
+    "credits": 3,
+    "year": 2020,
+    "page": 70,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MC4215": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "기계공학도를 위한 전자회로해석 및 신호처리"
+  },
+  "MC4216": {
+    "credits": 3,
+    "year": 2022,
+    "page": 74,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "MC4219": {
+    "credits": 3,
+    "year": 2020,
+    "page": 70,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MC4221": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "기계인공지능"
+  },
+  "MC9101": {
+    "credits": 3,
+    "year": 2024,
+    "page": 131
+  },
+  "MC9102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 137
+  },
+  "MC9103": {
+    "credits": 3,
+    "year": 2026,
+    "page": 137
+  },
+  "MC9104": {
+    "credits": 3,
+    "year": 2020,
+    "page": 70,
+    "lectureHours": 1,
+    "labHours": 6
+  },
+  "MD2101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "의공학 개론"
+  },
+  "MD4101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "신경과학기술"
+  },
+  "MD4102": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "임상 신경 과학"
+  },
+  "MD4301": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "의생명 신호처리론"
+  },
+  "MD4302": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "의료영상"
+  },
+  "MD4303": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "의생명 광학"
+  },
+  "MD4401": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "분자생물학의 실질적 이해 I"
+  },
+  "MD4402": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "분자생물학의 실질적 이해 II"
+  },
+  "MD4501": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "신경과학"
+  },
+  "MD4502": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "인간유전학"
+  },
+  "MD4503": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "의학 행동 과학"
+  },
+  "MD4601": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "의학용어"
+  },
+  "MM2001": {
+    "credits": 3,
+    "year": 2026,
+    "page": 115,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "MM2002": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 59,
+    "title": "미분방정식과 응용"
+  },
+  "MM2004": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 59,
+    "title": "선형대수학과 응용 1"
+  },
+  "MM2006": {
+    "credits": 3,
+    "year": 2024,
+    "page": 160,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM2007": {
+    "credits": 3,
+    "year": 2024,
+    "page": 161,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM2011": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 59,
+    "title": "고급다변수해석학과 응용"
+  },
+  "MM3001": {
+    "credits": 3,
+    "year": 2024,
+    "page": 161,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM3012": {
+    "credits": 2,
+    "year": 2024,
+    "page": 161,
+    "lectureHours": 3,
+    "labHours": 3
+  },
+  "MM3015": {
+    "credits": 3,
+    "year": 2024,
+    "page": 161,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4002": {
+    "credits": 3,
+    "year": 2024,
+    "page": 161,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4003": {
+    "credits": 3,
+    "year": 2024,
+    "page": 162,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4004": {
+    "credits": 3,
+    "year": 2024,
+    "page": 162,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4005": {
+    "credits": 3,
+    "year": 2024,
+    "page": 162,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4006": {
+    "credits": 3,
+    "year": 2024,
+    "page": 162,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4007": {
+    "credits": 3,
+    "year": 2024,
+    "page": 162,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4008": {
+    "credits": 3,
+    "year": 2024,
+    "page": 162,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4009": {
+    "credits": 3,
+    "year": 2024,
+    "page": 162,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4010": {
+    "credits": 3,
+    "year": 2024,
+    "page": 162,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4015": {
+    "credits": 3,
+    "year": 2024,
+    "page": 163,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4016": {
+    "credits": 3,
+    "year": 2024,
+    "page": 163,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM4017": {
+    "credits": 3,
+    "year": 2024,
+    "page": 163,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "MM4018": {
+    "credits": 3,
+    "year": 2024,
+    "page": 163,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "MM4019": {
+    "credits": 3,
+    "year": 2024,
+    "page": 163,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "PS2101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 57,
+    "title": "고전역학 및 연습Ⅰ"
+  },
+  "PS2102": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 57,
+    "title": "전자기학 및 연습 Ⅰ"
+  },
+  "PS2103": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 57,
+    "title": "전자기학 및 연습Ⅱ"
+  },
+  "PS2201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "현대물리 개론"
+  },
+  "PS2202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 57,
+    "title": "고전역학 및 연습Ⅱ"
+  },
+  "PS3103": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 57,
+    "title": "양자물리 및 연습 I"
+  },
+  "PS3104": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 57,
+    "title": "양자물리 및 연습 II"
+  },
+  "PS3106": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 57,
+    "title": "물리실험 I"
+  },
+  "PS3107": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "수리물리 I"
+  },
+  "PS3202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "전자회로"
+  },
+  "PS3203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "AI시대의 전산물리학"
+  },
+  "PS3205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "광학개론"
+  },
+  "PS3206": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "수리물리Ⅱ"
+  },
+  "PS4202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "반도체 물리"
+  },
+  "PS4203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "생물물리 개론"
+  },
+  "PS4204": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 57,
+    "title": "물리실험 II"
+  },
+  "PS4205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "나노물리"
+  },
+  "PS4206": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "핵 및 입자물리"
+  },
+  "PS4207": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "고체물리"
+  },
+  "PS4208": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "천체물리 개론"
+  },
+  "PS4209": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "일반 상대론 개론"
+  },
+  "PS4211": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "고급역학"
+  },
+  "PS4212": {
+    "credits": 3,
+    "year": 2025,
+    "page": 142,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "PS4213": {
+    "credits": 3,
+    "year": 2025,
+    "page": 142,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "PS4214": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "고급 양자 물리"
+  },
+  "PS4215": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "플라즈마물리 개론"
+  },
+  "PS4216": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "고체물리학 특론"
+  },
+  "PS9101": {
+    "credits": 3,
+    "year": 2024,
+    "page": 153
+  },
+  "PS9102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 108
+  },
+  "PS9103": {
+    "credits": 3,
+    "year": 2026,
+    "page": 108
+  },
+  "UC0201": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 2,
+    "year": 2026,
+    "page": 41,
+    "title": "사회봉사"
+  },
+  "UC0202": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 2,
+    "year": 2026,
+    "page": 41,
+    "title": "창의함양"
+  },
+  "UC0203": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 2,
+    "year": 2026,
+    "page": 41,
+    "title": "해외봉사"
+  },
+  "UC0301": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 41,
+    "title": "정신건강 관리"
+  },
+  "UC0901": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 41,
+    "title": ""
+  },
+  "UC9331": {
+    "credits": 0,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 41,
+    "title": ""
+  },
+  "BS2103": {
+    "credits": 3,
+    "year": 2026,
+    "page": 147,
+    "lectureHours": 1,
+    "labHours": 4
+  },
+  "BS2104": {
+    "credits": 3,
+    "year": 2026,
+    "page": 147,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS2202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "유전학"
+  },
+  "BS2203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "발생생물학"
+  },
+  "BS2205": {
+    "credits": 3,
+    "year": 2025,
+    "page": 182,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS3206": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "유전체학 개론 및 실습"
+  },
+  "BS3207": {
+    "credits": 3,
+    "year": 2021,
+    "page": 147,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS3208": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "면역학"
+  },
+  "BS3209": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "생리학 I"
+  },
+  "BS3210": {
+    "credits": 3,
+    "year": 2023,
+    "page": 84,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS3211": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "약물 개발을 위한 실험 모델"
+  },
+  "BS4219": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "암생물학"
+  },
+  "BS4223": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "바이러스학"
+  },
+  "CH4221": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "계산화학"
+  },
+  "CT4102": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "정보 시각화 방법과 디자인 사고"
+  },
+  "CT4202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "영상 커뮤니케이션"
+  },
+  "CT4203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "아트앤테크놀로지"
+  },
+  "CT4304": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "피지컬 컴퓨팅 스튜디오"
+  },
+  "CT4305": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "서비스러닝 프로젝트"
+  },
+  "EC4219": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "소프트웨어공학"
+  },
+  "EC4220": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 53,
+    "title": "통신회로실험"
+  },
+  "EV2212": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "유전학"
+  },
+  "EV3221": {
+    "credits": 3,
+    "year": 2026,
+    "page": 142,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV4226": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "상하수도 공학"
+  },
+  "EV4227": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "화학반응공학"
+  },
+  "FE2101": {
+    "credits": 3,
+    "year": 2026,
+    "page": 156,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "FE2301": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "회로이론"
+  },
+  "FE3101": {
+    "credits": 3,
+    "year": 2026,
+    "page": 156,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "FE4102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 156,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "FE4201": {
+    "credits": 3,
+    "year": 2026,
+    "page": 156,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "FE4302": {
+    "credits": 3,
+    "year": 2026,
+    "page": 156,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "FE4304": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "전력전자공학"
+  },
+  "FE4306": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "전력시스템공학"
+  },
+  "FE4307": {
+    "credits": 3,
+    "year": 2026,
+    "page": 157,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "FE4501": {
+    "credits": 3,
+    "year": 2026,
+    "page": 158,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS1205": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "현대화학의 이해"
+  },
+  "GS1304": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "현대 생명과학의 이해"
+  },
+  "GS1492": {
+    "credits": 1,
+    "year": 2026,
+    "page": 163,
+    "lectureHours": 1,
+    "labHours": 0
+  },
+  "GS1497": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "(MOOC 지정)기계학습을 위한 수학: PCA"
+  },
+  "GS1498": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": ""
+  },
+  "GS1902": {
+    "credits": 0,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "기초 한국어"
+  },
+  "GS1903": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "초급 한국어 1"
+  },
+  "GS1905": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "중급 한국어"
+  },
+  "GS1906": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "한국어 어휘 연습"
+  },
+  "GS2013": {
+    "credits": 3,
+    "year": 2024,
+    "page": 71,
+    "lectureHours": 3,
+    "labHours": 1
+  },
+  "GS2420": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "(MOOC 지정) 알고리즘 기반 논리적 사고 - 기초"
+  },
+  "GS2421": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "(MOOC 지정) 알고리즘 기반 논리적 사고 - 심화"
+  },
+  "GS2475": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "환경오염"
+  },
+  "GS2502": {
+    "credits": 3,
+    "year": 2021,
+    "page": 99,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2521": {
+    "credits": 3,
+    "year": 2024,
+    "page": 74,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2525": {
+    "credits": 3,
+    "year": 2024,
+    "page": 75,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2581": {
+    "credits": 3,
+    "year": 2024,
+    "page": 76,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2617": {
+    "credits": 3,
+    "year": 2024,
+    "page": 77,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2656": {
+    "credits": 3,
+    "year": 2024,
+    "page": 79,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2703": {
+    "credits": 3,
+    "year": 2024,
+    "page": 80,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2753": {
+    "credits": 3,
+    "year": 2024,
+    "page": 85,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2782": {
+    "credits": 3,
+    "year": 2021,
+    "page": 109,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2801": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "연구윤리"
+  },
+  "GS2807": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "현대과학 고전 논문 강독"
+  },
+  "GS2821": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "대중강연:융합시대의 리더 육성 프로젝트"
+  },
+  "GS2823": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "수학의 위대한 순간들 - AI"
+  },
+  "GS2922": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "중급스페인어"
+  },
+  "GS2933": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "일본어 문법"
+  },
+  "GS3401": {
+    "credits": 2,
+    "lectureHours": 4,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "(MOOC 지정) 프론트엔드 웹 개발"
+  },
+  "GS3505": {
+    "credits": 3,
+    "year": 2024,
+    "page": 92,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3663": {
+    "credits": 3,
+    "year": 2024,
+    "page": 94,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3725": {
+    "credits": 3,
+    "year": 2024,
+    "page": 95,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3728": {
+    "credits": 3,
+    "year": 2024,
+    "page": 95,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3735": {
+    "credits": 3,
+    "year": 2024,
+    "page": 95,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3736": {
+    "credits": 3,
+    "year": 2024,
+    "page": 95,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3765": {
+    "credits": 3,
+    "year": 2024,
+    "page": 97,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3785": {
+    "credits": 3,
+    "year": 2024,
+    "page": 98,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3786": {
+    "credits": 3,
+    "year": 2024,
+    "page": 98,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3831": {
+    "credits": 3,
+    "year": 2024,
+    "page": 99,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3838": {
+    "credits": 3,
+    "year": 2024,
+    "page": 99,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS4837": {
+    "credits": 3,
+    "year": 2024,
+    "page": 102,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MA4222": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "고분자 분석"
+  },
+  "MC2201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "공업수학 I"
+  },
+  "MC2202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "공업수학 II"
+  },
+  "MC2203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "공학 프로그래밍 입문"
+  },
+  "MC3106": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 62,
+    "title": "기계공학실험Ⅰ"
+  },
+  "MC3107": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 62,
+    "title": "기계공학실험Ⅱ"
+  },
+  "MC3213": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "기계요소설계"
+  },
+  "MC3215": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "기계 신호 및 시스템"
+  },
+  "MC4210": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "전산유체역학"
+  },
+  "MC4214": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "유체역학 특론 A - 유동 안정성과 난류 천이"
+  },
+  "MC4220": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "터빈 엔진 공기열역학"
+  },
+  "MC4222": {
+    "credits": 3,
+    "year": 2023,
+    "page": 78,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MC4223": {
+    "credits": 3,
+    "year": 2023,
+    "page": 78,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MC4224": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "미세유체역학"
+  },
+  "MC4225": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "동역학 특론 A- 비행 동역학"
+  },
+  "MC4226": {
+    "credits": 3,
+    "year": 2021,
+    "page": 139,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MC4227": {
+    "credits": 3,
+    "year": 2021,
+    "page": 139,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MC4228": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "기계공학 특론 A - 융합적 사고 기반 시스템 설계"
+  },
+  "MC4229": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 63,
+    "title": "이동로봇"
+  },
+  "MD4106": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "감염학"
+  },
+  "PS4217": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "양자광학 및 원자물리학 입문"
+  },
+  "AI4004": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "컴퓨터 비전"
+  },
+  "AI4011": {
+    "credits": 3,
+    "year": 2024,
+    "page": 179,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "AI4014": {
+    "credits": 3,
+    "year": 2024,
+    "page": 179,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS2204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "기초 해부조직학"
+  },
+  "BS4224": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "신경생물학"
+  },
+  "CH3111": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "유기금속화학"
+  },
+  "CH4201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "유기분광학"
+  },
+  "CT4310": {
+    "credits": 3,
+    "year": 2025,
+    "page": 133,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EC4304": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "전력전자공학"
+  },
+  "EC4306": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "전력시스템공학"
+  },
+  "EC4307": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "배전시스템 공학"
+  },
+  "FE4303": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "전력경제와 경영과학"
+  },
+  "FE4310": {
+    "credits": 3,
+    "year": 2026,
+    "page": 157,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS1496": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": ""
+  },
+  "GS1904": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "초급 한국어 2"
+  },
+  "GS2582": {
+    "credits": 3,
+    "year": 2024,
+    "page": 76,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2739": {
+    "credits": 3,
+    "year": 2024,
+    "page": 83,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2794": {
+    "credits": 3,
+    "year": 2024,
+    "page": 86,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2795": {
+    "credits": 3,
+    "year": 2024,
+    "page": 86,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2796": {
+    "credits": 3,
+    "year": 2024,
+    "page": 86,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2797": {
+    "credits": 3,
+    "year": 2024,
+    "page": 86,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2824": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "문명과 수학"
+  },
+  "GS3507": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "콘텐츠 기획과 제작"
+  },
+  "GS3722": {
+    "credits": 3,
+    "year": 2024,
+    "page": 95,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3766": {
+    "credits": 3,
+    "year": 2024,
+    "page": 97,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3839": {
+    "credits": 3,
+    "year": 2024,
+    "page": 99,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MA3212": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "나노과학개론"
+  },
+  "MC2204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "열역학 II"
+  },
+  "MC2205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "고체역학 II"
+  },
+  "MC3214": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "유체역학 II"
+  },
+  "MC4230": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "생체모방공학 개론"
+  },
+  "MC4232": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "기계공학 특론 B"
+  },
+  "PS4218": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "양자정보물리학 입문"
+  },
+  "PS4219": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "물리학자를 위한 데이터 분석법과 정보과학"
+  },
+  "AI2002": {
+    "credits": 1,
+    "year": 2024,
+    "page": 178,
+    "lectureHours": 1,
+    "labHours": 0
+  },
+  "AI4001": {
+    "credits": 3,
+    "year": 2024,
+    "page": 178,
+    "lectureHours": 1,
+    "labHours": 4
+  },
+  "AI4003": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 54,
+    "title": "인공지능 경험랩"
+  },
+  "AI4012": {
+    "credits": 3,
+    "year": 2024,
+    "page": 179,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "AI4020": {
+    "credits": 3,
+    "year": 2024,
+    "page": 179,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "AI4021": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "기계학습 및 딥러닝"
+  },
+  "AI4028": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 54,
+    "title": "AI 산업 전략과 실전 프로젝트"
+  },
+  "AI4030": {
+    "credits": 3,
+    "year": 2024,
+    "page": 180,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "AI4310": {
+    "credits": 3,
+    "year": 2024,
+    "page": 183,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "AI4311": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "딥러닝"
+  },
+  "AI4312": {
+    "credits": 3,
+    "year": 2024,
+    "page": 180,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS4240": {
+    "credits": 3,
+    "year": 2025,
+    "page": 186,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "CH2301": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "화학수학"
+  },
+  "CH3208": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": ""
+  },
+  "CH4208": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "무기화학 II"
+  },
+  "CH4224": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "무기나노화학"
+  },
+  "EC3219": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "시스템 모델링 및 제어"
+  },
+  "EC3220": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "산업용 회로의 이해"
+  },
+  "EC4308": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 53,
+    "title": "반도체 공정 기초"
+  },
+  "EC4309": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "집적회로 설계 기초"
+  },
+  "EC4310": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "정보이론"
+  },
+  "FE3301": {
+    "credits": 3,
+    "year": 2026,
+    "page": 156,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "FE4308": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "전력변환시스템의 기초"
+  },
+  "GS1451": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "소재와 미래과학기술"
+  },
+  "GS1499": {
+    "credits": 2,
+    "lectureHours": 1,
+    "labHours": 2,
+    "year": 2026,
+    "page": 42,
+    "title": ""
+  },
+  "GS2839": {
+    "credits": 3,
+    "year": 2024,
+    "page": 90,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS2934": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "환경모니터링"
+  },
+  "GS3402": {
+    "credits": 1,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "(MOOC 지정) 알고리즘 응용 및 실습"
+  },
+  "GS3737": {
+    "credits": 3,
+    "year": 2024,
+    "page": 96,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "GS3767": {
+    "credits": 3,
+    "year": 2024,
+    "page": 98,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "LS5240": {
+    "credits": 3,
+    "year": 2025,
+    "page": 186,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MA4223": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "생화학 특론"
+  },
+  "MC3216": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "자동제어"
+  },
+  "MC4231": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "유체역학 특론A - 압축성 유동"
+  },
+  "MC4233": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "기계공학 특론 A-공학최적화의 최신동향"
+  },
+  "MC4234": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "응용열전달"
+  },
+  "MD4505": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "내분비학개론"
+  },
+  "PS4220": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "유체 물리"
+  },
+  "PS9104": {
+    "credits": 1,
+    "year": 2025,
+    "page": 143,
+    "lectureHours": 1,
+    "labHours": 0
+  },
+  "UC0902": {
+    "credits": 1,
+    "year": 2025,
+    "page": 72,
+    "lectureHours": 1,
+    "labHours": 0
+  },
+  "AI3202": {
+    "credits": 3,
+    "year": 2024,
+    "page": 178,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "AI4005": {
+    "credits": 3,
+    "year": 2024,
+    "page": 178,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "AI4031": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "인공지능 거버넌스와 법"
+  },
+  "AI4050": {
+    "credits": 3,
+    "year": 2024,
+    "page": 180,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "AI4301": {
+    "credits": 3,
+    "year": 2024,
+    "page": 180,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "AI4701": {
+    "credits": 3,
+    "year": 2024,
+    "page": 181,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "BS2206": {
+    "credits": 2,
+    "year": 2025,
+    "page": 182,
+    "lectureHours": 2,
+    "labHours": 0
+  },
+  "CH2401": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 3,
+    "year": 2026,
+    "page": 58,
+    "title": "화학전공연구 I"
+  },
+  "CH3209": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "우리의 미래와 화학"
+  },
+  "CH3210": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "현대 유기화학"
+  },
+  "CH3401": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 3,
+    "year": 2026,
+    "page": 58,
+    "title": "화학전공연구 Ⅱ"
+  },
+  "CH3402": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 3,
+    "year": 2026,
+    "page": 58,
+    "title": "화학전공연구 Ⅲ"
+  },
+  "EC3221": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "물리전자 개론"
+  },
+  "EC4311": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "(MOOC 지정) 미래 반도체"
+  },
+  "EV2213": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "유기화학Ⅰ"
+  },
+  "EV2214": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 3,
+    "year": 2026,
+    "page": 63,
+    "title": "환경에너지공학전공연구 I"
+  },
+  "EV3222": {
+    "credits": 3,
+    "year": 2026,
+    "page": 141,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV3223": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "생화학 Ⅰ"
+  },
+  "EV4228": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "환경열역학"
+  },
+  "EV4230": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "멤브레인 과학과 기술"
+  },
+  "EV4231": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "해수담수화 공학"
+  },
+  "EV4232": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "물리화학적 처리공정"
+  },
+  "EV4233": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "환경분리기술"
+  },
+  "EV4234": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "지구물질과학"
+  },
+  "EV4235": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "나노공학의 환경영향"
+  },
+  "EV4236": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "과학적 사고와 표현"
+  },
+  "EV4237": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "휘발성 대기 오염물"
+  },
+  "EV4238": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "환경 데이터 분석을 위한 기계 학습"
+  },
+  "EV4239": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "통계 추론 및 환경 빅데이터 분석"
+  },
+  "GS1432": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 43,
+    "title": "기계로봇공학개론"
+  },
+  "GS1607": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "학술영어"
+  },
+  "GS2422": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "(MOOC지정) 기계학습: 예측 및 분류"
+  },
+  "MA4224": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "생분자공학"
+  },
+  "MA4225": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "생접합화학 개론"
+  },
+  "MA4226": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "초분자 재료"
+  },
+  "MC4235": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "회전익 공기역학"
+  },
+  "MC4236": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "웨어러블시스템을 위한 인체공학"
+  },
+  "MC4237": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "로봇공학 및 비전"
+  },
+  "MD4403": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "노화생물학"
+  },
+  "MD4504": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "일주기 생체 리듬"
+  },
+  "SE1101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "반도체공학개론Ⅰ"
+  },
+  "SE2101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "물리전자 개론"
+  },
+  "AI2003": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "인공지능을 위한 수학"
+  },
+  "AI2004": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 54,
+    "title": "시스템 프로그래밍"
+  },
+  "AI2050": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "자료 구조"
+  },
+  "AI2051": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "알고리즘 개론"
+  },
+  "AI2601": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "AI로봇개론"
+  },
+  "AI3001": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "오토마타 이론"
+  },
+  "AI3003": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "데이터 베이스 시스템"
+  },
+  "AI3004": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "운영체제"
+  },
+  "AI3501": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "컴퓨터 그래픽스"
+  },
+  "AI3601": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 54,
+    "title": "핸즈온 AI로봇제작"
+  },
+  "AI4501": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "게임 인공지능"
+  },
+  "AI4601": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "인간-컴퓨터 상호작용"
+  },
+  "AI4801": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "AI 융합 특론 I"
+  },
+  "AI4802": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "AI 융합 특론 Ⅱ"
+  },
+  "AI9102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 92
+  },
+  "AI9103": {
+    "credits": 3,
+    "year": 2026,
+    "page": 92
+  },
+  "EC2107": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "기초공학수학 Ⅰ"
+  },
+  "EC2207": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 52,
+    "title": "기초공학수학 II"
+  },
+  "EC4221": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 53,
+    "title": "지능형 모터 융합 프로젝트"
+  },
+  "EC4222": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "양자정보기술개론"
+  },
+  "EC4312": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "첨단 반도체 소자"
+  },
+  "EC4313": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "집적회로 소자"
+  },
+  "EC4314": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "스마트그리드와 전력전자 응용"
+  },
+  "EC4315": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "전력경제와 경영과학"
+  },
+  "EC4316": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "전력변환시스템의 기초"
+  },
+  "EC4317": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "무선전력전송"
+  },
+  "EC5203": {
+    "credits": 3,
+    "year": 2026,
+    "page": 119,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EC5207": {
+    "credits": 3,
+    "year": 2026,
+    "page": 121,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EN5423": {
+    "credits": 3,
+    "year": 2026,
+    "page": 121,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "EV2215": {
+    "credits": 1,
+    "lectureHours": 0,
+    "labHours": 3,
+    "year": 2026,
+    "page": 63,
+    "title": "환경에너지공학전공연구 II"
+  },
+  "EV2216": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "수화학 기초"
+  },
+  "EV3112": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "환경・에너지과학통계"
+  },
+  "EV4229": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 64,
+    "title": "에너지화학"
+  },
+  "EV4241": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "에너지재료개론"
+  },
+  "EV4243": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "열물질전달"
+  },
+  "GS2008": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "확률과 통계"
+  },
+  "GS2409": {
+    "credits": 2,
+    "lectureHours": 4,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "(MOOC 지정)풀스택 자바스크립트"
+  },
+  "GS2545": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "예술과 과학"
+  },
+  "GS2935": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "환경문해력"
+  },
+  "GS4472": {
+    "credits": 3,
+    "lectureHours": 0,
+    "labHours": 3,
+    "year": 2026,
+    "page": 43,
+    "title": "지구 시스템 분석"
+  },
+  "HS2502": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "한국문학사의 쟁점"
+  },
+  "HS2503": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "한국현대소설의 이해"
+  },
+  "HS2505": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "고전시가의 이해"
+  },
+  "HS2506": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "한국현대시인론"
+  },
+  "HS2507": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "(MOOC 지정)시의 이해"
+  },
+  "HS2509": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "한국현대소설의 사회적 성찰"
+  },
+  "HS2510": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "한국고전문학과 사상"
+  },
+  "HS2511": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "현대시 읽기"
+  },
+  "HS2512": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "한국소설 속의 여성들"
+  },
+  "HS2521": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "영웅과 반영웅 : 서구근대문학의 이해Ⅰ"
+  },
+  "HS2522": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "개성과 정체성: 성장소설의 이해"
+  },
+  "HS2523": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "영어단편소설읽기"
+  },
+  "HS2524": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "희극의 발견"
+  },
+  "HS2525": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "근대의 모험: 서구근대문학의 이해 Ⅱ"
+  },
+  "HS2526": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "문학과 연인들"
+  },
+  "HS2544": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "문화콘텐츠의 이해"
+  },
+  "HS2581": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": ""
+  },
+  "HS2582": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": ""
+  },
+  "HS2601": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "동아시아의 전통과 현대"
+  },
+  "HS2602": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "한국사의 이해"
+  },
+  "HS2603": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "동아시아의 근대화"
+  },
+  "HS2605": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "한국의 문화유산"
+  },
+  "HS2611": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "국제관계의 역사"
+  },
+  "HS2612": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "서양 고대와 중세 문명"
+  },
+  "HS2613": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "현대서양의 형성과 전개"
+  },
+  "HS2614": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "초기 근대의 서양"
+  },
+  "HS2615": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "사회주의: 이론과 역사"
+  },
+  "HS2616": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "장기 19세기 서양 역사"
+  },
+  "HS2617": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "서양 문명의 이해"
+  },
+  "HS2618": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "중동부 유럽 및 러시아의 역사"
+  },
+  "HS2620": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "철학의 근본 문제들"
+  },
+  "HS2621": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "비교종교학입문"
+  },
+  "HS2625": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "동양철학입문"
+  },
+  "HS2627": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "신화와 원형상징"
+  },
+  "HS2656": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "상품의 역사"
+  },
+  "HS2661": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "논리학 입문"
+  },
+  "HS2701": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "한국사회의 이해"
+  },
+  "HS2702": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "미국사회의 이해"
+  },
+  "HS2703": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "세계화와 발전 : 세계의 정치, 경제, 문화 지형"
+  },
+  "HS2704": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "기업과 사회 Ⅰ"
+  },
+  "HS2705": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "정보사회론: 기술, 미디어, 대중문화"
+  },
+  "HS2706": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "세계정치의 변환"
+  },
+  "HS2707": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "오타쿠 대중문화론"
+  },
+  "HS2708": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "기업과 사회 Ⅱ"
+  },
+  "HS2709": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "한국 현대정치사"
+  },
+  "HS2722": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "한국경제의 이해"
+  },
+  "HS2723": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "사회주의 경제의 시장경제전환론"
+  },
+  "HS2724": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "거시경제학원론"
+  },
+  "HS2726": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "글로벌 경제의 이해"
+  },
+  "HS2727": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "동아시아 경제론"
+  },
+  "HS2730": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "해외경제론"
+  },
+  "HS2732": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "행동경제학 1"
+  },
+  "HS2733": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "행동경제학 2"
+  },
+  "HS2734": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "행복의 조건"
+  },
+  "HS2739": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "미시경제학원론"
+  },
+  "HS2742": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "인간의 마음과 행동 1"
+  },
+  "HS2743": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "인간의 마음과 행동 2"
+  },
+  "HS2747": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "인간관계의 심리학"
+  },
+  "HS2748": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "언어와 마음: 언어심리학적 접근"
+  },
+  "HS2749": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "심리학과 삶"
+  },
+  "HS2750": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "경영학원론"
+  },
+  "HS2751": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "전략경영 I"
+  },
+  "HS2752": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "기술혁신전략"
+  },
+  "HS2753": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "기술벤처창업론"
+  },
+  "HS2754": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "소셜네트워크 이론과 분석"
+  },
+  "HS2761": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "인권법: 현대사회의 인권 문제들"
+  },
+  "HS2762": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "법과 정의: 이념과 현실"
+  },
+  "HS2763": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "현대법학의 이해"
+  },
+  "HS2765": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "헌법과 국가"
+  },
+  "HS2767": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "범죄와 형벌"
+  },
+  "HS2781": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "국제관계론 Ⅰ: 근대 국제정치체제의 상승과 쇠퇴"
+  },
+  "HS2782": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": ""
+  },
+  "HS2783": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "과학기술과 전쟁"
+  },
+  "HS2784": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "고전 정치사상의 이해"
+  },
+  "HS2787": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "한국정치론"
+  },
+  "HS2788": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "민주주의론"
+  },
+  "HS2789": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "안보와 무기체계"
+  },
+  "HS2794": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "현대사회사상의 흐름"
+  },
+  "HS2795": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "문명으로 보는 21세기"
+  },
+  "HS2796": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "키워드로 보는 현대한국"
+  },
+  "HS2797": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "꿈의 사회학"
+  },
+  "HS2803": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "과학기술과 사회"
+  },
+  "HS2814": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "유토피아 픽션과 테크놀로지"
+  },
+  "HS2832": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "기술과 문화"
+  },
+  "HS2833": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "비판적 디자인"
+  },
+  "HS2834": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "역사 속의 과학"
+  },
+  "HS2839": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "인간의 미래"
+  },
+  "HS3501": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "이상(李箱)문학과 과학"
+  },
+  "HS3502": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "시창작 특강"
+  },
+  "HS3504": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "한국근현대작가론"
+  },
+  "HS3505": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "20세기 한국여성작가론"
+  },
+  "HS3601": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "강대국의 흥망"
+  },
+  "HS3602": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "역사학특강"
+  },
+  "HS3603": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "서양사 자료의 비판과 해석"
+  },
+  "HS3604": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "서양사 특강"
+  },
+  "HS3621": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "현대철학 세미나"
+  },
+  "HS3623": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "한문으로 읽는 동양고전"
+  },
+  "HS3624": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "동양철학세미나"
+  },
+  "HS3625": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "<노자> 사상의 이해"
+  },
+  "HS3626": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "현대중국과 동아시아 지정학"
+  },
+  "HS3631": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "인공지능의 철학"
+  },
+  "HS3632": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "합리적 판단과 선택"
+  },
+  "HS3633": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "과학철학 특강"
+  },
+  "HS3662": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "동양사의 이해"
+  },
+  "HS3663": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "종교와 과학"
+  },
+  "HS3721": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "교육의 경제학"
+  },
+  "HS3722": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "(MOOC 지정)미시경제론"
+  },
+  "HS3725": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "사회복지와 재정"
+  },
+  "HS3728": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "세계화 시대의 경제정책"
+  },
+  "HS3735": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "한국의 경제발전"
+  },
+  "HS3736": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "통일독일과 남북통일"
+  },
+  "HS3737": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "거시경제론"
+  },
+  "HS3752": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "전략경영 II"
+  },
+  "HS3753": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "기업집단의 이해"
+  },
+  "HS3762": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "현대법사상 강독"
+  },
+  "HS3763": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "현대 법철학의 주제들"
+  },
+  "HS3764": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "뇌와 인지"
+  },
+  "HS3765": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "재정학"
+  },
+  "HS3766": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "(MOOC 지정) 인지심리학 및 실험"
+  },
+  "HS3767": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "(MOOC 지정) 인공지능 로봇의 윤리"
+  },
+  "HS3785": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "국가와 시민사회론"
+  },
+  "HS3786": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "정치경제론"
+  },
+  "HS3801": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "과학기술과 젠더"
+  },
+  "HS3802": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "과학자 문학"
+  },
+  "HS3803": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "포스트휴먼 셰익스피어"
+  },
+  "HS3831": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리"
+  },
+  "HS3838": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "과학기술정책의 이해"
+  },
+  "HS3839": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "질병과 사회"
+  },
+  "HS3861": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "신경과학과 법"
+  },
+  "HS3901": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "일본문화론"
+  },
+  "HS4610": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "AI-Human 윤리학 기초론"
+  },
+  "HS4611": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "인생의 의미 찾기 : 동서양철학의 대답들"
+  },
+  "HS4710": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "복잡계분석과 AI정책전략"
+  },
+  "HS4741": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "기술정보사회의 심리학"
+  },
+  "HS4762": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "인공지능 로봇의 법"
+  },
+  "HS4837": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "과학기술과 사회 연구 세미나"
+  },
+  "IR4310": {
+    "credits": 3,
+    "year": 2025,
+    "page": 135,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MC3218": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "기계로봇을 위한 시스템 모델링 및 제어"
+  },
+  "MC3219": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "기계로봇 자동제어"
+  },
+  "MD4404": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "항상성 신경과학"
+  },
+  "ME5116": {
+    "credits": 3,
+    "year": 2026,
+    "page": 120,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "ME5136": {
+    "credits": 3,
+    "year": 2026,
+    "page": 120,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "MM2701": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "확률과 통계"
+  },
+  "MM3101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "현대대수학 1"
+  },
+  "MM3201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "해석학"
+  },
+  "MM3202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "푸리에 해석학"
+  },
+  "MM3203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "복소함수학 및 응용"
+  },
+  "MM3204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "편미분방정식과 응용"
+  },
+  "MM3301": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "위상수학 1"
+  },
+  "MM3450": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "오토마타 이론"
+  },
+  "MM3451": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "이산수학"
+  },
+  "MM3601": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "과학계산 프로그래밍"
+  },
+  "MM3602": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "매스매티카와 기호계산"
+  },
+  "MM3603": {
+    "credits": 2,
+    "lectureHours": 3,
+    "labHours": 3,
+    "year": 2026,
+    "page": 59,
+    "title": "수학적 모델링"
+  },
+  "MM3604": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "수치해석"
+  },
+  "MM3650": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "수리물리 Ⅱ"
+  },
+  "MM3750": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "열역학 및 통계물리"
+  },
+  "MM4101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "현대대수학 2"
+  },
+  "MM4201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "확률론"
+  },
+  "MM4301": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "위상수학 2"
+  },
+  "MM4302": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "기하학 Ⅰ"
+  },
+  "MM4401": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "조합수학"
+  },
+  "MM4402": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "그래프 이론"
+  },
+  "MM4403": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "위상적 조합수학 및 응용"
+  },
+  "MM4404": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "조합적 최적화 개론"
+  },
+  "MM4450": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "정보이론"
+  },
+  "MM4501": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "정수론과 응용"
+  },
+  "MM4502": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "해석적 정수론"
+  },
+  "MM4601": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 59,
+    "title": "수리과학 주제를 위한 매스매티카"
+  },
+  "MM4602": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "과학계산"
+  },
+  "MM4603": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "문테카를로 방법론과 응용"
+  },
+  "MM4604": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "딥러닝 이론"
+  },
+  "MM4605": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "편미분수치해석"
+  },
+  "MM4650": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "전산유체역학"
+  },
+  "MM4651": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "최적설계"
+  },
+  "MM4652": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "유한요소해석"
+  },
+  "MM4653": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "고급 양자 물리"
+  },
+  "MM4654": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 60,
+    "title": "양자정보물리학 입문"
+  },
+  "MM4750": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 60,
+    "title": "랜덤 프로세스"
+  },
+  "MM4752": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 60,
+    "title": "통계 추론 및 환경 빅데이터 분석"
+  },
+  "MM4901": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "수학 콜로퀴움"
+  },
+  "MM4902": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 60,
+    "title": "수리과학 특론"
+  },
+  "PH5107": {
+    "credits": 3,
+    "year": 2026,
+    "page": 119,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "PH5113": {
+    "credits": 3,
+    "year": 2026,
+    "page": 121,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "PS3105": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "열역학 및 통계물리"
+  },
+  "SE2102": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "기초공학수학Ⅰ"
+  },
+  "SE2103": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "공학전자기학Ⅰ"
+  },
+  "SE2104": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "회로이론"
+  },
+  "SE2105": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "반도체 재료 및 소자"
+  },
+  "SE2201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "반도체 공정 기초 이론"
+  },
+  "SE2202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "기초공학수학 II"
+  },
+  "SE2203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "공학전자기학 II"
+  },
+  "SE2204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "재료과학"
+  },
+  "SE2205": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "현대재료물리"
+  },
+  "SE2206": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "디지털 설계"
+  },
+  "SE3101": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "집적회로 소자"
+  },
+  "UC0038": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 41,
+    "title": ""
+  },
+  "UC0039": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 41,
+    "title": "기업가 리더십과 기업 문화"
+  },
+  "UC0613": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 41,
+    "title": "기업가정신"
+  },
+  "UC0623": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 6,
+    "year": 2026,
+    "page": 41,
+    "title": "융합캡스톤디자인"
+  },
+  "UC0624": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 41,
+    "title": "4차 산업혁명 트렌드 분석"
+  },
+  "AI2000": {
+    "credits": 4,
+    "lectureHours": 3,
+    "labHours": 2,
+    "year": 2026,
+    "page": 54,
+    "title": "자료구조와 알고리즘"
+  },
+  "AI2001": {
+    "credits": 4,
+    "lectureHours": 1,
+    "labHours": 6,
+    "year": 2026,
+    "page": 54,
+    "title": "문제해결기법"
+  },
+  "AI4100": {
+    "credits": 4,
+    "lectureHours": 4,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "기계학습"
+  },
+  "AI4101": {
+    "credits": 4,
+    "lectureHours": 4,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "인공지능 원론"
+  },
+  "AI4600": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 54,
+    "title": "로봇공학 및 비전"
+  },
+  "BS3110": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 65,
+    "title": "고급 생명과학실험 방법과 이론"
+  },
+  "CH4801": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "에너지 공학"
+  },
+  "CH4803": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "태양전지의 이해"
+  },
+  "CH4804": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 58,
+    "title": "에너지 저장 소재 및 소자"
+  },
+  "CT2521": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "영웅과 반영웅 : 서구근대문학의 이해Ⅰ"
+  },
+  "CT2544": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "문화콘텐츠의 이해"
+  },
+  "CT2661": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "논리학 입문"
+  },
+  "CT2824": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "문명과 수학"
+  },
+  "CT2832": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "기술과 문화"
+  },
+  "EC2208": {
+    "credits": 4,
+    "lectureHours": 3,
+    "labHours": 2,
+    "year": 2026,
+    "page": 52,
+    "title": "자료구조 및 알고리즘"
+  },
+  "EC4223": {
+    "credits": 4,
+    "lectureHours": 4,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "인공지능 원론"
+  },
+  "EC4224": {
+    "credits": 4,
+    "lectureHours": 4,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "기계학습"
+  },
+  "EC4318": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "메모리 소자"
+  },
+  "EC4319": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 53,
+    "title": "AI 반도체 기초"
+  },
+  "FE4309": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 66,
+    "title": "무선전력전송"
+  },
+  "GS1900": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": ""
+  },
+  "HS3760": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "지식재산권법의 이해"
+  },
+  "IR3205": {
+    "credits": 3,
+    "year": 2026,
+    "page": 97,
+    "lectureHours": 3,
+    "labHours": 0
+  },
+  "IR4307": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "웨어러블시스템을 위한 인체공학"
+  },
+  "MC3220": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 62,
+    "title": "공기역학"
+  },
+  "MC4240": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "풍력발전기 시스템 개론"
+  },
+  "MM4303": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "미분다양체개론"
+  },
+  "MM4405": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 59,
+    "title": "대수적 부호이론"
+  },
+  "MM9102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 121
+  },
+  "MM9103": {
+    "credits": 3,
+    "year": 2026,
+    "page": 121
+  },
+  "PS4222": {
+    "credits": 3,
+    "lectureHours": 1,
+    "labHours": 4,
+    "year": 2026,
+    "page": 57,
+    "title": "기초 전자회로 실험"
+  },
+  "PS9301": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "물리학 연구의 현재와 미래"
+  },
+  "SE1102": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "반도체공학개론 II"
+  },
+  "SE3102": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "메모리 소자"
+  },
+  "SE3103": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 56,
+    "title": "반도체 단위 공정 실습"
+  },
+  "SE3201": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 56,
+    "title": "전자회로"
+  },
+  "SE3202": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 1,
+    "year": 2026,
+    "page": 56,
+    "title": "양자물리 및 연습Ⅰ"
+  },
+  "SE9102": {
+    "credits": 3,
+    "year": 2026,
+    "page": 103
+  },
+  "SE9103": {
+    "credits": 3,
+    "year": 2026,
+    "page": 103
+  },
+  "UC0204": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 41,
+    "title": "과학기술 리더십"
+  },
+  "UC0615": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 41,
+    "title": "기술사업화"
+  },
+  "UC0629": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 41,
+    "title": "청년 지도자의 길"
+  },
+  "GS1213": {
+    "credits": 2,
+    "lectureHours": 0,
+    "labHours": 4,
+    "year": 2026,
+    "page": 42,
+    "title": "고급 일반화학 실험"
+  },
+  "GS1535": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 42,
+    "title": "심화 글쓰기: AI 시대의 글쓰기와 나"
+  },
+  "GS2476": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "탄소중립과 에너지기술개론"
+  },
+  "GS1322": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 43,
+    "title": "생명과학속 이야기들"
+  },
+  "GS1421": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "인공지능 입문"
+  },
+  "HS2531": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "AI 픽션"
+  },
+  "HS2600": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 44,
+    "title": "미술사의 이해"
+  },
+  "HS2619": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "예술과 철학: 미학적 상상력"
+  },
+  "HS2624": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "서양철학사의 이해"
+  },
+  "HS3605": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "조선시대 의례사"
+  },
+  "HS3611": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "과학기술과 현대세계"
+  },
+  "HS2721": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 45,
+    "title": "기초경제학"
+  },
+  "HS2840": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 46,
+    "title": "신기술 거버넌스"
+  },
+  "HS3754": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "사회물리학: 네트워크적 접근"
+  },
+  "HS3832": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "과학기술학 입문"
+  },
+  "HS4690": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "인문학 심화탐구1"
+  },
+  "HS4691": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "인문학 심화탐구2"
+  },
+  "HS4711": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "복잡계분석 및 AI정책전략Ⅱ"
+  },
+  "HS4790": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "사회과학 심화탐구1"
+  },
+  "HS4791": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "사회과학 심화탐구2"
+  },
+  "GS1541": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "기초음악이론"
+  },
+  "GS1750": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "AI 와 블록체인, 투자와 금융"
+  },
+  "GS2802": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 47,
+    "title": "과학기술정책론"
+  },
+  "GS2825": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "연구자 되기"
+  },
+  "GS2840": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "신기술 거버넌스"
+  },
+  "GS2911": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "중국어 1"
+  },
+  "GS2912": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "중국어 2"
+  },
+  "GS2913": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "한자와 한문의 기초"
+  },
+  "GS2921": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "스페인의 문화와 언어"
+  },
+  "GS3510": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 48,
+    "title": "현대음악과 과학기술의 이해"
+  },
+  "LH2507": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "(MOOC 지정)시의 이해"
+  },
+  "LH2509": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "한국현대소설의 사회적 성찰"
+  },
+  "LH2521": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "영웅과 반영웅 : 서구근대문학의 이해 I"
+  },
+  "LH2602": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "한국사의 이해"
+  },
+  "LH2601": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "동아시아의 전통과 현대"
+  },
+  "LH2503": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "한국현대소설의 이해"
+  },
+  "LH2506": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "한국현대시인론"
+  },
+  "LH2511": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "현대시 읽기"
+  },
+  "LH2512": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "한국소설 속의 여성들"
+  },
+  "LH2522": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "개성과 정체성: 성장소설의 이해"
+  },
+  "LH2525": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "근대의 모험: 서구근대문학의 이해 Ⅱ"
+  },
+  "LH2526": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "문학과 연인들"
+  },
+  "LH2531": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "AI 픽션"
+  },
+  "LH2612": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "서양 고대와 중세 문명"
+  },
+  "LH2613": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "현대서양의 형성과 전개"
+  },
+  "LH2614": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "초기 근대의 서양"
+  },
+  "LH2616": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "장기 19세기 서양 역사"
+  },
+  "LH2618": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "중동부 유럽 및 러시아의 역사"
+  },
+  "LH2656": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "상품의 역사"
+  },
+  "LH3501": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "이상(李箱)문학과 과학"
+  },
+  "LH3502": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "시창작 특강"
+  },
+  "LH3504": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "한국근현대작가론"
+  },
+  "LH3505": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "20세기 한국여성작가론"
+  },
+  "LH3602": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "역사학특강"
+  },
+  "LH3605": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "조선시대 의례사"
+  },
+  "LH3611": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "과학기술과 현대 세계"
+  },
+  "LH3802": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "과학자 문학"
+  },
+  "PP2704": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "기업과 사회 Ⅰ"
+  },
+  "PP2763": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "현대법학의 이해"
+  },
+  "PP2765": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "헌법과 국가"
+  },
+  "PP2616": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "장기 19세기 서양 역사"
+  },
+  "PP2701": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "한국사회의 이해"
+  },
+  "PP2702": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "미국사회의 이해"
+  },
+  "PP2703": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "세계화와 발전 : 세계의 정치, 경제, 문화 지형"
+  },
+  "PP2724": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "거시경제학원론"
+  },
+  "PP2734": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "행복의 조건"
+  },
+  "PP2761": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "인권법: 현대사회의 인권 문제들"
+  },
+  "PP2787": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "한국정치론"
+  },
+  "PP2788": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "민주주의론"
+  },
+  "PP2812": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "생명윤리와 법"
+  },
+  "PP3632": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 49,
+    "title": "합리적 판단과 선택"
+  },
+  "PP3721": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "교육의 경제학"
+  },
+  "PP3725": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "사회복지와 재정"
+  },
+  "PP3735": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "한국의 경제발전"
+  },
+  "PP3760": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "지식재산권법의 이해"
+  },
+  "PP3765": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "재정학"
+  },
+  "PP3767": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "(MOOC 지정) 인공지능 로봇의 윤리"
+  },
+  "PP3785": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "국가와 시민사회론"
+  },
+  "PP3786": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "정치경제론"
+  },
+  "PP3831": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리"
+  },
+  "PP3838": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "과학기술정책의 이해"
+  },
+  "PP4762": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "인공지능 로봇의 법"
+  },
+  "EB2750": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "경영학원론"
+  },
+  "EB3722": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "(MOOC 지정)미시경제론"
+  },
+  "EB3737": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "거시경제론"
+  },
+  "EB2724": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "거시경제학원론"
+  },
+  "EB2726": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "글로벌 경제의 이해"
+  },
+  "EB2730": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "해외경제론"
+  },
+  "EB2732": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "행동경제학 1"
+  },
+  "EB2733": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "행동경제학 2"
+  },
+  "EB2739": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "미시경제학원론"
+  },
+  "EB2751": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "전략경영 I"
+  },
+  "EB2752": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "기술혁신전략"
+  },
+  "EB2753": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "기술벤처창업론"
+  },
+  "EB2754": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "소셜네트워크 이론과 분석"
+  },
+  "EB3721": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "교육의 경제학"
+  },
+  "EB3725": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "사회복지와 재정"
+  },
+  "EB3735": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "한국의 경제발전"
+  },
+  "EB3736": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "통일독일과 남북통일"
+  },
+  "EB3752": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "전략경영 II"
+  },
+  "EB3753": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "기업집단의 이해"
+  },
+  "EB3754": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "사회물리학: 네트워크적 접근"
+  },
+  "EB3760": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "지식재산권법의 이해"
+  },
+  "EB3765": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 50,
+    "title": "재정학"
+  },
+  "SS2531": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "AI 픽션"
+  },
+  "SS2752": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "기술혁신전략"
+  },
+  "SS2803": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "과학기술과 사회"
+  },
+  "SS2812": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "생명윤리와 법"
+  },
+  "SS2814": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "유토피아 픽션과 테크놀로지"
+  },
+  "SS2822": {
+    "credits": 2,
+    "lectureHours": 2,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "AI와 나"
+  },
+  "SS2832": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "기술과 문화"
+  },
+  "SS2833": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "비판적 디자인(캡스톤 디자인)"
+  },
+  "SS2834": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "역사 속의 과학"
+  },
+  "SS2839": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "인간의 미래"
+  },
+  "SS2840": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "신기술 거버넌스"
+  },
+  "SS3501": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "이상문학과 과학"
+  },
+  "SS3633": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "과학철학 특강"
+  },
+  "SS3663": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "종교와 과학"
+  },
+  "SS3767": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "(MOOC 지정) 인공지능 로봇의 윤리"
+  },
+  "SS3801": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "과학기술과 젠더"
+  },
+  "SS3802": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "과학자 문학"
+  },
+  "SS3831": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "과학기술학의 이해: 과학사회논쟁의 쟁점과 윤리"
+  },
+  "SS3838": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "과학기술정책의 이해"
+  },
+  "SS3839": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "질병과 사회"
+  },
+  "SS4471": {
+    "credits": 1,
+    "lectureHours": 1,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "인류세의 우리"
+  },
+  "SS4741": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "기술정보사회의 심리학"
+  },
+  "SS4762": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "인공지능 로봇의 법"
+  },
+  "SS4837": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "과학기술과 사회 연구 세미나"
+  },
+  "MB2627": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "신화와 원형상징"
+  },
+  "MB2661": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "논리학 입문"
+  },
+  "MB2732": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "행동경제학 1"
+  },
+  "MB2733": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "행동경제학 2"
+  },
+  "MB2742": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "인간의 마음과 행동 1"
+  },
+  "MB2743": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "인간의 마음과 행동 2"
+  },
+  "MB2748": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "언어와 마음: 언어심리학적 접근"
+  },
+  "MB2749": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "심리학과 삶"
+  },
+  "MB3632": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "합리적 판단과 선택"
+  },
+  "MB3633": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "과학철학 특강"
+  },
+  "MB3663": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "종교와 과학"
+  },
+  "MB3764": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "뇌와 인지"
+  },
+  "MB3766": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "(MOOC 지정) 인지심리학 및 실험"
+  },
+  "MB3767": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "(MOOC 지정) 인공지능 로봇의 윤리"
+  },
+  "MB3861": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "신경과학과 법"
+  },
+  "MB4741": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 51,
+    "title": "기술정보사회의 심리학"
+  },
+  "IR4602": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 55,
+    "title": "소프트로보틱스"
+  },
+  "PS4221": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 57,
+    "title": "나노 및 초전도 물리 개론"
+  },
+  "MA2203": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "생화학 I"
+  },
+  "MA2204": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "물리전자 개론"
+  },
+  "MA3213": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "반도체 재료 및 소자"
+  },
+  "MA4227": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "핵산 하이브리드 소재"
+  },
+  "MA4228": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 61,
+    "title": "딥 러닝"
+  },
+  "MC3217": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 62,
+    "title": "로봇을 위한 마이크로컨트롤러"
+  },
+  "MC4238": {
+    "credits": 3,
+    "lectureHours": 2,
+    "labHours": 2,
+    "year": 2026,
+    "page": 63,
+    "title": "지능형 모터 융합 프로젝트"
+  },
+  "MC4239": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "대류열전달"
+  },
+  "EV2217": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 63,
+    "title": "물리화학 B"
+  },
+  "EV4240": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "딥러닝 환경 빅데이터 적용"
+  },
+  "EV4242": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 64,
+    "title": "환경에너지촉매"
+  },
+  "BS3212": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "유전자발현과 분석"
+  },
+  "BS3213": {
+    "credits": 3,
+    "lectureHours": 3,
+    "labHours": 0,
+    "year": 2026,
+    "page": 65,
+    "title": "바이오이미징 개론"
+  }
+}

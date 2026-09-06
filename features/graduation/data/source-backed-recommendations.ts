@@ -1,14 +1,21 @@
+import { historicalRequirementCode } from '../domain/rule-catalog/historical-courses';
 import {
   type CatalogRecommendationCourse,
   type CourseCatalogRecommendationIndex,
 } from '@features/course-catalog/recommendations';
+import type { CreditRecognition } from '../domain/credit-recognition';
+import { isBasicScienceCode, getCoreMathCodes } from '../domain/rule-catalog/science-courses';
 import { resolveMajorCode } from '../domain/academic-context';
 
 interface CourseCodeLike {
+  year?: number;
+  courseName?: string;
+  creditRecognition?: CreditRecognition;
   courseCode?: string | null;
 }
 
 interface RequirementLike {
+  relatedCoursePatterns?: { codePrefixes?: readonly string[] };
   id: string;
   categoryKey: string;
   label?: string;
@@ -25,6 +32,7 @@ interface GraduationCategoryLike {
 }
 
 interface GraduationResultLike {
+  catalogSelection?: { context: { entryYear: number } };
   graduationCategory?: object;
   fineGrainedRequirements?: readonly RequirementLike[];
 }
@@ -105,16 +113,18 @@ function collectTakenCourseCodes(input: BuildGraduationRecommendationsInput): Se
   const codes = new Set<string>();
   const categories = input.result.graduationCategory as Record<string, GraduationCategoryLike | undefined> | undefined;
 
-  input.takenCourses?.forEach((course) => {
-    const code = normalizeCourseCode(course.courseCode);
-    if (code) codes.add(code);
-  });
-
+  const addCompletedCourse = (course: CourseCodeLike) => {
+    if (course.creditRecognition?.status === 'pending') return;
+    const approvedMatch = course.creditRecognition?.status === 'approved' && course.creditRecognition.matchedCourseCode;
+    const code = normalizeCourseCode(approvedMatch || course.courseCode);
+    if (code) {
+      codes.add(code);
+      codes.add(approvedMatch ? code : historicalRequirementCode(code, course));
+    }
+  };
+  input.takenCourses?.forEach(addCompletedCourse);
   Object.values(categories ?? {}).forEach((category) => {
-    category?.userTakenCoursesList?.takenCourses?.forEach((course) => {
-      const code = normalizeCourseCode(course.courseCode);
-      if (code) codes.add(code);
-    });
+    category?.userTakenCoursesList?.takenCourses?.forEach(addCompletedCourse);
   });
 
   return codes;
@@ -135,20 +145,33 @@ function getFineGrainedCourses(
   requirement: RequirementLike,
   satisfiedRequirementIds: ReadonlySet<string>,
   courseCatalogIndex: CourseCatalogRecommendationIndex,
+  entryYear: number,
 ): CatalogRecommendationCourse[] {
   const satisfiedScienceSubrequirements =
     requirement.id === 'science-total'
-      ? ['science-calculus', 'science-core-math', 'science-sw-basic'].filter((requirementId) =>
-          satisfiedRequirementIds.has(requirementId),
-        )
+      ? ['science-calculus', 'science-core-math'].filter((requirementId) => satisfiedRequirementIds.has(requirementId))
       : [];
 
-  return courseCatalogIndex.getRecommendationCoursesForRequirement(requirement.id, {
-    excludeRequirementIds: satisfiedScienceSubrequirements,
-  });
+  return courseCatalogIndex
+    .getRecommendationCoursesForRequirement(requirement.id, {
+      excludeRequirementIds: satisfiedScienceSubrequirements,
+    })
+    .filter((course) => {
+      if (course.courseCode === 'GS1499') return false; // Eligibility requires foreign-student context.
+      if (requirement.id === 'science-total') return isBasicScienceCode(course.courseCode, entryYear);
+      if (requirement.id === 'science-core-math')
+        return getCoreMathCodes(entryYear).some(
+          (code) => code === course.courseCode || course.aliasCodes.includes(code),
+        );
+      return true;
+    });
 }
 
 function getMinorCodeFromRequirement(requirementId: string): string | undefined {
+  if (requirementId.startsWith('minor-ec-level-')) return 'EC';
+  if (requirementId === 'minor-ma-upper-level') return 'MA';
+  const courseCount = requirementId.match(/^minor-course-count-([A-Z_]+)$/);
+  if (courseCount) return courseCount[1];
   const minorCredits = requirementId.match(/^minor-credits-([A-Z0-9_]+)$/i);
   if (minorCredits) return minorCredits[1].toUpperCase();
 
@@ -171,10 +194,25 @@ function getCoursesForRequirement(
     const minorCode = getMinorCodeFromRequirement(requirement.id);
     const minorCodes = minorCode ? [minorCode] : [...(input.userMinors ?? [])];
 
-    return minorCodes.flatMap((code) => courseCatalogIndex.getMinorRecommendationCourses(code));
+    return minorCodes
+      .flatMap((code) => courseCatalogIndex.getMinorRecommendationCourses(code))
+      .filter((course) => {
+        const codes = requirement.relatedCoursePatterns?.codePrefixes;
+        return (
+          !codes ||
+          codes.some(
+            (code) => course.courseCode.startsWith(code) || course.aliasCodes.some((alias) => alias.startsWith(code)),
+          )
+        );
+      });
   }
 
-  return getFineGrainedCourses(requirement, satisfiedRequirementIds, courseCatalogIndex);
+  return getFineGrainedCourses(
+    requirement,
+    satisfiedRequirementIds,
+    courseCatalogIndex,
+    input.result.catalogSelection?.context.entryYear ?? 2021,
+  );
 }
 
 function isRecommendationEligible(requirement: RequirementLike): boolean {
@@ -375,6 +413,26 @@ export function buildGraduationRecommendationGroups(
       const recommendation = toRecommendationItem(course, requirement);
       const code = normalizeCourseCode(recommendation.courseCode);
       const seenKey = course.courseId || code;
+      // p.19: programming waives SW basics; the reverse still permits programming.
+      if (code === 'GS1490' && satisfiedRequirementIds.has('science-sw-basic')) return;
+      // Recommendation suppression only: matching GS/HS title and number do not establish graduation equivalence.
+      const takenRows = [
+        ...(input.takenCourses ?? []),
+        ...Object.values(input.result.graduationCategory ?? {}).flatMap(
+          (category: GraduationCategoryLike) => category.userTakenCoursesList?.takenCourses ?? [],
+        ),
+      ];
+      const matchingLegacyHumanities =
+        /^(GS|HS)\d{4}$/.test(code) &&
+        takenRows.some(
+          (taken) =>
+            taken.creditRecognition?.status !== 'pending' &&
+            /^(GS|HS)\d{4}$/.test(normalizeCourseCode(taken.courseCode)) &&
+            normalizeCourseCode(taken.courseCode).slice(2) === code.slice(2) &&
+            (taken.courseName ?? '').replace(/\s/g, '').toLowerCase() ===
+              course.courseName.replace(/\s/g, '').toLowerCase(),
+        );
+      if (matchingLegacyHumanities) return;
       if (!code || courseCatalogIndex.isCourseTaken(course, takenCourseCodes) || seen.has(seenKey)) return;
 
       seen.add(seenKey);

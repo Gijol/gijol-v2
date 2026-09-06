@@ -106,6 +106,63 @@ const bioscienceMajorSource = source(25, '생명과학과 전공필수 변경 �
 
 export const COURSE_EQUIVALENCY_CATALOG = defineCourseEquivalencyCatalog([
   {
+    id: 'hs-ai-ethics-cross-listed',
+    relation: 'crossListed',
+    courseCodes: ['HS3767', 'PP3767', 'SS3767', 'MB3767'],
+    sourceRefs: [
+      source(50, '공공정책 PP3767 인공지능 로봇의 윤리'),
+      source(51, '동일 인문사회 모 과목의 과학기술학 SS3767 및 마음과 행동 MB3767. 기존 CSV의 MM3767은 MB3767 오기'),
+    ],
+  },
+  {
+    id: 'bs-immunology-renumbered',
+    relation: 'renumbered',
+    fromCourseCode: 'BS4205',
+    toCourseCode: 'BS3208',
+    sourceRefs: [
+      {
+        manualYear: 2023,
+        page: 42,
+        path: 'docs/bachelor_manual/2023_manual.pdf',
+        note: '이수체계도에 BS3208(BS4205) 면역학 병기',
+      },
+    ],
+  },
+  {
+    id: 'hs-ai-ethics-renumbered',
+    relation: 'renumbered',
+    fromCourseCode: 'GS3767',
+    toCourseCode: 'HS3767',
+    sourceRefs: [
+      {
+        manualYear: 2024,
+        page: 98,
+        path: 'docs/bachelor_manual/2024_manual.pdf',
+        note: 'GS3767 인공지능 로봇의 윤리 과목 개요',
+      },
+      {
+        manualYear: 2025,
+        page: 110,
+        path: 'docs/bachelor_manual/2025_manual.pdf',
+        note: 'HS3767 동일 과목명·영문명·과목 개요. 2024/2025 실제 개설 코드 변경도 대조',
+      },
+    ],
+  },
+  {
+    id: 'ai-artificial-intelligence-cross-listed',
+    relation: 'crossListed',
+    courseCodes: ['EC4209', 'AI4020'],
+    sourceRefs: [
+      {
+        manualYear: 2024,
+        page: 55,
+        path: 'docs/bachelor_manual/2024_manual.pdf',
+        note: 'AI4020 인공지능 필수. 2022~2025-1 수강신청 원본의 EC4209/AI4020 동일 교수·분반·강의시간·강의실 교차개설 대조',
+      },
+      source(27, 'EC4209 인공지능을 AI 필수A로 인정'),
+    ],
+  },
+  {
     id: 'ch-physical-chemistry-a-same-course',
     relation: 'sameCourse',
     courseCodes: ['CH2102', 'CH3104'],
@@ -184,8 +241,7 @@ export const COURSE_EQUIVALENCY_CATALOG = defineCourseEquivalencyCatalog([
   },
 ] as const);
 
-export const COURSE_EQUIVALENCY_PUBLISH_SNAPSHOT =
-  createCourseEquivalencyPublishSnapshot(COURSE_EQUIVALENCY_CATALOG);
+export const COURSE_EQUIVALENCY_PUBLISH_SNAPSHOT = createCourseEquivalencyPublishSnapshot(COURSE_EQUIVALENCY_CATALOG);
 
 function pushIssue(
   issues: CourseEquivalencyValidationIssue[],
@@ -242,10 +298,7 @@ function validateUniqueIds(
   });
 }
 
-function validateSourceRefs(
-  equivalency: CourseEquivalency,
-  issues: CourseEquivalencyValidationIssue[],
-): void {
+function validateSourceRefs(equivalency: CourseEquivalency, issues: CourseEquivalencyValidationIssue[]): void {
   if (!equivalency.sourceRefs || equivalency.sourceRefs.length === 0) {
     pushIssue(issues, equivalency.id, 'missing-source-ref', 'Course equivalencies must include sourceRefs.');
     return;
@@ -304,10 +357,7 @@ function validateCourseCodePair(
   }
 }
 
-function validateRelationShape(
-  equivalency: CourseEquivalency,
-  issues: CourseEquivalencyValidationIssue[],
-): void {
+function validateRelationShape(equivalency: CourseEquivalency, issues: CourseEquivalencyValidationIssue[]): void {
   if (!isKnownRelation(equivalency.relation)) {
     pushIssue(issues, equivalency.id, 'invalid-relation', `Unknown relation: ${String(equivalency.relation)}.`);
     return;

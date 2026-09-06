@@ -46,7 +46,7 @@ export function MinorDeclarationTermFields({
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
           <p className="text-sm font-semibold text-amber-950">부전공 선언 학기</p>
-          <p className="mt-0.5 text-xs text-amber-800">AI융합/지능로봇 부전공 판정에 필요합니다.</p>
+          <p className="mt-0.5 text-xs text-amber-800">선택한 부전공의 적용 기준과 기존 선언 여부를 확인합니다.</p>
         </div>
         <Badge variant="outline" className="shrink-0 border-amber-300 bg-white text-amber-800">
           확인 필요
@@ -65,6 +65,11 @@ export function MinorDeclarationTermFields({
                   {minorCode}
                 </Badge>
               </div>
+              {minorCode === 'FE' && (
+                <p className="mb-3 text-xs text-amber-800">
+                  에너지 부전공은 2025-1학기부터 취소만 가능합니다. 기존 선언 학기를 입력해 주세요.
+                </p>
+              )}
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1.5">
                   <Label htmlFor={`minor-declaration-year-${minorCode}`} className="text-xs text-slate-600">

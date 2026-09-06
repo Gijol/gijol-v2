@@ -76,7 +76,7 @@ function getTimetableRange(scheduledSpans: readonly { start_time: string; end_ti
   });
 
   const fallbackStart = 9 * 60;
-  const fallbackEnd = 22 * 60 + 30;
+  const fallbackEnd = 19 * 60;
   const earliest = Math.min(fallbackStart, ...startTimes);
   const latest = Math.max(fallbackEnd, ...endTimes);
   const roundedStart = Math.floor(earliest / 30) * 30;
@@ -98,6 +98,7 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
   const setRepresentativePlan = useTimetablePlanStore((state) => state.setRepresentativePlan);
   const clearSelectedSectionByKey = useTimetablePlanStore((state) => state.clearSelectedSectionByKey);
 
+  const [showWeekends, setShowWeekends] = useState(false);
   const [previewSection, setPreviewSection] = useState<SectionOffering | null>(null);
   const [isCourseSheetOpen, setIsCourseSheetOpen] = useState(false);
   const [detailSectionKey, setDetailSectionKey] = useState<string | null>(null);
@@ -232,12 +233,13 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
                 <span aria-hidden="true" className="text-slate-300">
                   ·
                 </span>
-                <span>{selectedSectionCount}개 분반</span>
+                <span aria-live="polite">{selectedSectionCount}개 수업</span>
                 <span aria-hidden="true" className="text-slate-300">
                   ·
                 </span>
                 <span className="tabular-nums">{totalCredits}학점</span>
                 {isRepresentative && <span className="text-amber-700">대표 계획</span>}
+                <span className="text-slate-400">이 기기에 자동 저장</span>
               </div>
             </div>
           </div>
@@ -255,17 +257,18 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
             )}
             <Button
               variant="outline"
-              className="h-9 border-red-200 font-semibold text-red-500 hover:border-red-400 hover:bg-red-50 hover:text-red-600"
+              aria-label="시간표 계획 삭제"
+              className="h-9 w-9 border-slate-200 px-0 text-slate-500 hover:bg-red-50 hover:text-red-600 sm:w-auto sm:px-3"
               onClick={handleDeletePlan}
             >
               <Trash2 aria-hidden="true" size={16} />
-              삭제
+              <span className="hidden sm:inline">삭제</span>
             </Button>
           </div>
         </header>
 
-        <div className="hidden min-h-0 flex-1 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)] lg:grid lg:grid-cols-[380px_minmax(0,1fr)] xl:grid-cols-[400px_minmax(0,1fr)]">
-          <aside className="flex min-h-0 flex-col overflow-hidden border-r border-slate-200 bg-white">
+        <div className="hidden min-h-0 flex-1 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)] lg:grid lg:grid-cols-[minmax(0,1fr)_320px] xl:grid-cols-[minmax(0,1fr)_360px]">
+          <aside className="order-2 flex min-h-0 flex-col overflow-hidden border-l border-slate-200 bg-white">
             <div className="shrink-0 border-b border-slate-100 px-4 py-3.5">
               <div className="flex items-center gap-2">
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
@@ -296,12 +299,20 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
             </div>
           </aside>
 
-          <section className="flex min-h-0 flex-col bg-slate-50/70 p-3" aria-labelledby="schedule-preview-title">
-            <div className="flex h-10 shrink-0 items-center gap-2 px-1">
-              <Sparkles aria-hidden="true" size={14} className="text-blue-600" />
+          <section className="order-1 flex min-h-0 flex-col bg-white p-3" aria-labelledby="schedule-preview-title">
+            <div className="flex h-10 shrink-0 items-center justify-between gap-2 px-1">
               <h2 id="schedule-preview-title" className="text-xs font-semibold text-slate-700">
-                실시간 시간표
+                이번 주 수업
               </h2>
+              <label className="flex items-center gap-2 text-xs text-slate-500">
+                <input
+                  type="checkbox"
+                  checked={showWeekends}
+                  onChange={(event) => setShowWeekends(event.target.checked)}
+                  className="accent-blue-600"
+                />
+                빈 주말 표시
+              </label>
             </div>
             <AvailabilityWithPreview
               scheduledSpans={scheduledSpans}
@@ -309,10 +320,10 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
               startTime={timetableRange.startTime}
               endTime={timetableRange.endTime}
               timeIncrements={30}
-              days={['일', '월', '화', '수', '목', '금', '토']}
+              days={['월', '화', '수', '목', '금', '토', '일']}
               onRemoveSpan={clearSelectedSectionByKey.bind(null, plan.id)}
               onSpanClick={setDetailSectionKey}
-              hideWeekends={false}
+              hideWeekends={!showWeekends}
               showEmptyHint
               className="min-h-0 flex-1"
             />
@@ -327,7 +338,7 @@ export function TimetablePlanEditor({ planId, timetableSources }: TimetablePlanE
               startTime={timetableRange.startTime}
               endTime={timetableRange.endTime}
               timeIncrements={30}
-              days={['일', '월', '화', '수', '목', '금', '토']}
+              days={['월', '화', '수', '목', '금', '토', '일']}
               onRemoveSpan={clearSelectedSectionByKey.bind(null, plan.id)}
               onSpanClick={setDetailSectionKey}
               hideWeekends
